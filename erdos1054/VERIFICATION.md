@@ -181,11 +181,18 @@ Both workflows now add `/tmp/lean4export/.lake/build/bin` to `$GITHUB_PATH`. Thi
 repository's erdos1054 workflow originally passed only `-E COMPARATOR_LEAN4EXPORT`, which
 the middle row shows would have failed identically; it was corrected before any dispatch.
 
-Note the ordering of (b), (c) and (d): the hang in (c) occurs before the export step, so
-the first erdos123 dispatch never reached (d), and (d) blocks the export step, so no run
-has yet reached (b). Each fix uncovers the next. (b) is therefore still *unconfirmed on
-CI* — it is confirmed only in the local mirror of §6, where the corrected pin produced a
-passing run.
+These three faults were sequential — each hidden behind the previous one — and all three
+are now fixed and **confirmed on CI**, by the sibling erdos123 project which shares this
+repository's Comparator arrangement and Lean version:
+[run 29775840287](https://github.com/antoshashakov/Principia-Math-Solutions/actions/runs/29775840287)
+is green, with real `landrun` (the deny-probe passed), reporting
+`Lean default kernel accepts the solution` / `Your solution is okay!` after 12min 22s.
+
+That run exercised (b), (c) and (d) end-to-end against a real Mathlib-scale project. It
+does **not** certify anything about erdos1054 — see §5 — but it removes the remaining
+doubt about the *toolchain*: the pins and the invocation in
+`.github/workflows/erdos1054-comparator.yml` are now known-good in CI rather than inferred
+from a local mirror.
 
 ## 8. Correspondence between the Lean and the paper
 
