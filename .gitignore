@@ -1,0 +1,7 @@
+/.lake/
+*.olean
+*.ilean
+*.trace
+/_tmp*
+/_negcontrol.lean
+comparator.log
