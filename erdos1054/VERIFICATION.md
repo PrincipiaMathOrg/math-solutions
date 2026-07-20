@@ -160,9 +160,32 @@ future hang is reported as a failure rather than running to the job cap. Credit 
 diagnosing this goes to the erdos123 run; the fix is carried over here unchanged, and the
 `RestrictAddressFamilies` guard is kept verbatim.
 
-Note the ordering: because (c) hangs *before* the export step, the erdos123 dispatch never
-reached (b). Fixing the hang alone would have surfaced the "incompatible header" failure
-on the next run.
+**(d) lean4export must be on `PATH`, not merely named by `COMPARATOR_LEAN4EXPORT`.**
+Comparator invokes lean4export *by name* inside the landrun sandbox, and `systemd-run`
+does not inherit the caller's environment — only what is passed with `-E`. The erdos123
+run therefore failed with:
+
+```
+[landrun:error] Failed to find binary: exec: "lean4export": executable file not found in $PATH
+```
+
+Three configurations were tested directly:
+
+| lean4export on `PATH` | `COMPARATOR_LEAN4EXPORT` set | result |
+| --- | --- | --- |
+| no  | no  | `Failed to find binary` |
+| no  | yes | `Failed to find binary` — the env var is **not** sufficient |
+| yes | no  | `Your solution is okay!` |
+
+Both workflows now add `/tmp/lean4export/.lake/build/bin` to `$GITHUB_PATH`. This
+repository's erdos1054 workflow originally passed only `-E COMPARATOR_LEAN4EXPORT`, which
+the middle row shows would have failed identically; it was corrected before any dispatch.
+
+Note the ordering of (b), (c) and (d): the hang in (c) occurs before the export step, so
+the first erdos123 dispatch never reached (d), and (d) blocks the export step, so no run
+has yet reached (b). Each fix uncovers the next. (b) is therefore still *unconfirmed on
+CI* — it is confirmed only in the local mirror of §6, where the corrected pin produced a
+passing run.
 
 ## 8. Correspondence between the Lean and the paper
 

@@ -81,6 +81,11 @@ jobs:
           cd /tmp/lean4export && git checkout "$LEAN4EXPORT_SHA"
           lake build
           echo "COMPARATOR_LEAN4EXPORT=/tmp/lean4export/.lake/build/bin/lean4export" >> "$GITHUB_ENV"
+          # Comparator invokes lean4export *by name* inside the landrun sandbox, so it must
+          # be on PATH. COMPARATOR_LEAN4EXPORT alone is NOT sufficient at this comparator
+          # revision — verified: with the env var set but the binary off PATH, landrun still
+          # fails with `Failed to find binary: exec: "lean4export" ... not found in $PATH`.
+          echo "/tmp/lean4export/.lake/build/bin" >> "$GITHUB_PATH"
 
       - name: Build comparator
         run: |
