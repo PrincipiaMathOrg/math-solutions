@@ -1,0 +1,14 @@
+{
+  "challenge_module": "Challenge",
+  "solution_module": "Solution",
+  "theorem_names": [
+    "Erdos1054Challenge.almost_all_binary_goldbach"
+  ],
+  "definition_names": [
+    "Erdos1054Challenge.countUpTo",
+    "Erdos1054Challenge.DensityZero",
+    "Erdos1054Challenge.notSumOfTwoPrimes"
+  ],
+  "permitted_axioms": ["propext", "Quot.sound", "Classical.choice"],
+  "enable_nanoda": false
+}

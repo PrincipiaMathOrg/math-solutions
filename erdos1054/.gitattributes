@@ -1,0 +1,13 @@
+# Verification artifacts must be stored and checked out byte-for-byte so the
+# hashes in masters/SHA256SUMS stay valid on every platform (the masters were
+# hashed with their original line endings). Disable all EOL conversion here.
+masters/** -text
+Erdos1054Conditional.lean -text
+paper/erdos1054.tex -text
+paper/erdos1054.pdf binary
+comparator/Challenge.lean -text
+
+# Executable / CI files must be LF so they run on the Linux GitHub Actions runner.
+*.sh text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf

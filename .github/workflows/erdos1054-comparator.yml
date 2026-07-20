@@ -1,0 +1,124 @@
+name: erdos1054-comparator
+
+# Runs Comparator (https://github.com/leanprover/comparator) to verify mechanically that
+# each master proves exactly the statements in comparator/Challenge.lean, using no axioms
+# beyond propext, Quot.sound, Classical.choice.
+#
+# Manual trigger only: each run rebuilds PrimeNumberTheoremAnd (~1-2 h with the Mathlib
+# cache) plus one 36k-line master (~1 h), so this is far too heavy for push/PR.
+#
+# As in erdos123-comparator.yml, this job deliberately does NOT pre-build Challenge or
+# Solution outside the sandbox: Comparator's threat model assumes the solution has not
+# been compiled beforehand, and building it here would void that assumption.
+
+on:
+  workflow_dispatch:
+    inputs:
+      master:
+        description: "Which master to certify"
+        type: choice
+        default: "3rdMoment"
+        options: ["3rdMoment", "2ndMoment", "goldbach"]
+
+defaults:
+  run:
+    working-directory: erdos1054
+
+env:
+  # Pinned by commit SHA, not tag — a moving tag would silently change what is trusted.
+  COMPARATOR_SHA: 71b52ec29e06d4b7d882726553b1ceb99a2499e0
+  # lean4export must be built against the SAME Lean version as the project it exports.
+  # This project is on leanprover/lean4:v4.31.0, so lean4export must be at the commit
+  # whose lean-toolchain is v4.31.0. The lean-eval pin (3de59f1, v4.32.0-rc1) fails with
+  # "failed to read file 'Challenge.olean', incompatible header" — verified locally.
+  LEAN4EXPORT_SHA: 8554815c2dc6b7abe99ec1f08849c9759ba77947
+  LANDRUN_SHA: 5ed4a3db3a4ad930d577215c6b9abaa19df7f99f
+  PNT_REV: d963a6e694a05cd82e5f9b9ae7f4d94123e85393
+
+jobs:
+  comparator:
+    runs-on: ubuntu-latest
+    timeout-minutes: 350   # under GitHub's 6 h job ceiling
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install elan
+        run: |
+          curl -sSfL https://github.com/leanprover/elan/releases/download/v3.1.1/elan-x86_64-unknown-linux-gnu.tar.gz \
+            | tar xz
+          ./elan-init -y --default-toolchain none
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+
+      - uses: actions/setup-go@v5
+        with:
+          go-version: '1.23'
+
+      - name: Build landrun
+        run: |
+          git clone https://github.com/Zouuup/landrun.git /tmp/landrun
+          cd /tmp/landrun && git checkout "$LANDRUN_SHA"
+          go build -o /usr/local/bin/landrun ./cmd/landrun
+          landrun --help >/dev/null
+
+      - name: Probe that landrun actually denies out-of-policy writes
+        run: |
+          # If the sandbox silently no-ops, a Comparator pass means nothing.
+          # This pin requires Landlock ABI v5 (Linux >= 6.10); on older kernels it
+          # aborts with "missing kernel Landlock support" and this probe catches it.
+          set +e
+          landrun --rox / -- /bin/sh -c 'echo x > /tmp/_landrun_probe' 2>/dev/null
+          rc=$?
+          set -e
+          if [ -f /tmp/_landrun_probe ]; then
+            echo "::error::landrun did NOT deny an out-of-policy write; refusing to trust Comparator"
+            exit 1
+          fi
+          echo "landrun denies out-of-policy writes (rc=$rc)"
+
+      - name: Build lean4export
+        run: |
+          git clone https://github.com/leanprover/lean4export.git /tmp/lean4export
+          cd /tmp/lean4export && git checkout "$LEAN4EXPORT_SHA"
+          lake build
+          echo "COMPARATOR_LEAN4EXPORT=/tmp/lean4export/.lake/build/bin/lean4export" >> "$GITHUB_ENV"
+
+      - name: Build comparator
+        run: |
+          git clone https://github.com/leanprover/comparator.git /tmp/comparator
+          cd /tmp/comparator && git checkout "$COMPARATOR_SHA"
+          lake build
+
+      - name: Assemble the workspace for the selected master
+        run: bash scripts/assemble-workspace.sh "${{ inputs.master }}"
+
+      - name: Fetch Mathlib oleans and build the heavy dependency
+        working-directory: erdos1054/_workspace
+        run: |
+          lake exe cache get
+          lake build PrimeNumberTheoremAnd.MediumPNT PrimeNumberTheoremAnd.PerronFormula
+          lake build Master
+
+      # NOTE: `--pipe --wait --collect`, NOT the `--pty` given in Comparator's README.
+      # `--pty` allocates a terminal and waits on it, which never resolves on a CI runner
+      # — the erdos123 run hung for 2h19m after printing "Press ^] three times ... to
+      # disconnect TTY". `--pipe` wires stdout/stderr through and `--wait` propagates the
+      # unit's exit status. The `RestrictAddressFamilies` property is the part that
+      # matters for safety and is kept verbatim.
+      - name: Run comparator
+        working-directory: erdos1054/_workspace
+        timeout-minutes: 120
+        run: |
+          set -o pipefail
+          systemd-run --property=RestrictAddressFamilies=~AF_UNIX --user --pipe --wait --collect -E PATH="$PATH" -E COMPARATOR_LEAN4EXPORT="$COMPARATOR_LEAN4EXPORT" --working-directory "$(pwd)" -- bash -c 'lake env /tmp/comparator/.lake/build/bin/comparator ../comparator/config/${{ inputs.master }}.json' 2>&1 | tee comparator.log
+
+      - name: Require the success string
+        working-directory: erdos1054/_workspace
+        run: |
+          grep -q "Your solution is okay!" comparator.log
+          echo "comparator accepted ${{ inputs.master }}"
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: comparator-log-${{ inputs.master }}
+          path: erdos1054/_workspace/comparator.log

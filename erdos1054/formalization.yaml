@@ -1,0 +1,125 @@
+# formalization.yaml — machine-readable manifest for this formalization project.
+#
+# Follows the emerging convention for AI-authored Lean formalizations discussed
+# on the Lean Zulip (#AI-authored-projects) and recommended by T. Tao for this
+# project. If the community schema differs in field names, adjust here — the
+# content below is the source of truth for what is proven and how to verify it.
+
+problem:
+  name: "Erdős Problem 1054"
+  url: "https://www.erdosproblems.com/1054"
+  statement: >
+    Let f(n) be the least m such that n is the sum of some of the divisors of m
+    (equivalently, a prefix sum of the divisors of some m). Three questions:
+    (i) f(n) is finite for almost all n; (ii) f(n) is not o(n); and
+    (iii) f(n)/n is unbounded. This project resolves the limsup part (iii)
+    — f(n)/n is unbounded, in the strong sense that the represented n with
+    f(n) > A·n have positive lower density for every A — and provides an
+    unconditional formalization by also formalizing the almost-all binary
+    Goldbach theorem it rested on.
+
+paper:
+  title: "Unbounded ratios in Erdős Problem 1054"
+  path: "paper/erdos1054.tex"
+  pdf: "paper/erdos1054.pdf"
+
+authors:
+  - "Principia Math (autonomous research harness): limsup / positive-density result and full Lean formalization"
+credits:
+  - "T. Tao — original idea disproving the f(n)=o(1) part; write-up suggestions; comparator/formalization.yaml guidance"
+  - "V. Kovač, L. Price, T. Bloom — quantitative moment bounds"
+  - "erdosproblems.com user 'jif' — f well-defined except at 2 and 5"
+
+toolchain:
+  lean: "leanprover/lean4:v4.31.0"
+  builds_inside:
+    project: "PrimeNumberTheoremAnd"
+    repo: "https://github.com/AlexKontorovich/PrimeNumberTheoremAnd"
+    rev: "d963a6e694a05cd82e5f9b9ae7f4d94123e85393"
+    provides: ["MediumPNT", "PerronFormula"]
+  mathlib_rev: "db127794c79fdeb86f6b0cf6ff2c804026fbaff1"
+
+permitted_axioms: ["propext", "Quot.sound", "Classical.choice"]
+
+# Each master is a single self-contained .lean file compiled inside a PNT+
+# checkout via `lake env lean <file>`; its *.gate.log ends with the #print
+# axioms verdict shown below (exactly the three permitted axioms).
+results:
+  - name: "Erdos1054.erdos1054_third_moment_full_proof"
+    kind: theorem
+    file: "masters/Erdos1054_3rdMomentProof.lean"
+    log: "masters/Erdos1054_3rdMomentProof.gate.log"
+    lines: 36697
+    status: proved
+    conditional_on: []
+    axioms: ["propext", "Classical.choice", "Quot.sound"]
+    statement: >
+      For every A ≥ 1, { N : Represented N ∧ A·N < f N } has positive lower
+      density. (Third-moment route via the moment T3; the route written up in
+      paper §6. Note the Lean quantifies over A : Nat while the paper's Theorem 1
+      quantifies over real A ≥ 1 — equivalent in strength, since a real A is
+      handled by applying the Nat version to ⌈A⌉.)
+
+  - name: "Erdos1054.erdos1054_second_moment_full_proof"
+    kind: theorem
+    file: "masters/Erdos1054_2ndMomentProof.lean"
+    log: "masters/Erdos1054_2ndMomentProof.gate.log"
+    lines: 36748
+    status: proved
+    conditional_on: []
+    axioms: ["propext", "Classical.choice", "Quot.sound"]
+    statement: >
+      Same conclusion as the third-moment theorem, via an independent pure
+      second-moment large-cofactor argument (A³ strength). NOTE: this route is
+      NOT written up in the current paper draft — paper §6 presents the
+      third-moment estimate only. It is an independent second Lean proof of the
+      same headline statement, not a formalization of a paper section.
+
+  - name: "GoldbachChain.GoldbachReduction.almost_all_binary_goldbach_proven"
+    kind: theorem
+    file: "masters/GoldbachChainMaster.lean"
+    log: "masters/GoldbachChainMaster.gate.log"
+    lines: 31716
+    status: proved
+    conditional_on: []
+    axioms: ["propext", "Classical.choice", "Quot.sound"]
+    statement: >
+      DensityZero notSumOfTwoPrimes — almost every even number is a sum of two
+      primes (exceptional set has density zero). Circle method: Siegel (Goldfeld
+      route), uniform zero-free region, Siegel–Walfisz, Vinogradov minor arcs via
+      Vaughan's identity, variance assembly. The only heavy analytic input to the
+      unconditional Erdős result; discharged inside the Erdős masters.
+
+  - name: "Represented.main"
+    kind: theorem
+    file: "Erdos1054Conditional.lean"
+    lines: 4136
+    status: proved
+    conditional_on: ["Represented.DeepInputs (bundles almost-all Goldbach + Mertens A2 + Dirichlet A1)"]
+    axioms: ["propext", "Classical.choice", "Quot.sound"]
+    statement: >
+      The light, conditional formalization of the limsup result (the version
+      linked from live.lean-lang.org in the correspondence): positive density of
+      { N : A·N < f N } assuming the DeepInputs hypotheses. Made unconditional in
+      the masters by discharging DeepInputs against the proven theorems above.
+
+# Logical dependency (Tao's split): (B) almost-all Goldbach is the heavy input;
+# the conditional route (C, Erdos1054Conditional.lean) assumes it; the masters
+# discharge (B) internally so the main result (A) is unconditional.
+dependency_map:
+  A_main_unconditional: "Erdos1054.erdos1054_third_moment_full_proof / _second_moment_full_proof"
+  B_heavy_input: "GoldbachChain.GoldbachReduction.almost_all_binary_goldbach_proven"
+  C_conditional_route: "Represented.main (assumes DeepInputs ⊇ B)"
+  relation: "A is proven with B discharged internally; C + B ⇒ A"
+
+verification:
+  reproduce_compile: |
+    git clone https://github.com/AlexKontorovich/PrimeNumberTheoremAnd
+    cd PrimeNumberTheoremAnd
+    git checkout d963a6e694a05cd82e5f9b9ae7f4d94123e85393
+    # copy a master .lean file in, then:
+    lake exe cache get
+    lake build PrimeNumberTheoremAnd.MediumPNT PrimeNumberTheoremAnd.PerronFormula
+    lake env lean Erdos1054_3rdMomentProof.lean   # prints the axiom verdict
+  integrity: "cd masters && sha256sum -c SHA256SUMS"
+  comparator: "see comparator/README.md and .github/workflows/comparator.yml"

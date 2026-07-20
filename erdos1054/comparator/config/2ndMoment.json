@@ -1,0 +1,21 @@
+{
+  "challenge_module": "Challenge",
+  "solution_module": "Solution",
+  "theorem_names": [
+    "Erdos1054Challenge.erdos1054_main",
+    "Erdos1054Challenge.erdos1054_ratio_unbounded",
+    "Erdos1054Challenge.almost_all_binary_goldbach"
+  ],
+  "definition_names": [
+    "Erdos1054Challenge.F",
+    "Erdos1054Challenge.IsRep",
+    "Erdos1054Challenge.Represented",
+    "Erdos1054Challenge.f",
+    "Erdos1054Challenge.countUpTo",
+    "Erdos1054Challenge.PositiveLowerDensity",
+    "Erdos1054Challenge.DensityZero",
+    "Erdos1054Challenge.notSumOfTwoPrimes"
+  ],
+  "permitted_axioms": ["propext", "Quot.sound", "Classical.choice"],
+  "enable_nanoda": false
+}

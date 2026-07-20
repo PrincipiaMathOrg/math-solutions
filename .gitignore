@@ -5,3 +5,7 @@
 /_tmp*
 /_negcontrol.lean
 comparator.log
+
+# erdos1054 comparator scratch (created by scripts/assemble-workspace.sh / run-comparator.sh)
+erdos1054/_workspace/
+erdos1054/_tools/

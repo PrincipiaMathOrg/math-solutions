@@ -1,0 +1,809 @@
+\documentclass[11pt]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage[a4paper,margin=1.05in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{mathrsfs}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+\usepackage{url}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\newcommand{\N}{\mathbb N}
+\newcommand{\Rset}{\mathscr R}
+\newcommand{\Eset}{\mathscr E}
+\newcommand{\Pset}{\mathscr P}
+\newcommand{\rad}{\operatorname{rad}}
+\newcommand{\dd}{\,\mathrm d}
+\newcommand{\indic}{\mathbf 1}
+\newcommand{\lowerdens}{\underline d}
+\newcommand{\upperdens}{\overline d}
+
+\title{Unbounded ratios in Erd\H{o}s Problem 1054}
+\author{Principia Math}
+\date{June 21, 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Let $f(N)$ be the least positive integer $m$ for which $N$ is the sum of an initial segment of the positive divisors of $m$, arranged in increasing order.  We prove that, for every fixed $A\geq 1$, a positive proportion of integers $N$ satisfy both $f(N)<\infty$ and $f(N)>AN$.  In particular,
+\[
+\limsup_{\substack{N\to\infty\\ f(N)<\infty}}\frac{f(N)}{N}=\infty.
+\]
+The proof has two complementary parts.  Prefix representations with a bounded cofactor are eliminated on a sifted set of positive density, while a third-moment estimate shows that representations with a large cofactor and $m\leq AN$ occupy a smaller set.  The classical theorem that almost every even integer is a sum of two primes is used only to ensure that a density-one subset of the surviving odd integers is represented at all.
+\end{abstract}
+
+\section{Statement, conventions, and prior work}
+
+For $m\geq 1$, list its positive divisors as
+\[
+1=d_1(m)<d_2(m)<\cdots<d_{\tau(m)}(m)=m.
+\]
+An integer $N\geq 1$ is called \emph{represented} if
+\[
+N=d_1(m)+\cdots+d_k(m)
+\]
+for some $m\geq 1$ and some $1\leq k\leq \tau(m)$.  Let $\Rset$ be the set of represented integers and define
+\[
+f(N):=\min\bigl\{m\geq 1:N=d_1(m)+\cdots+d_k(m)
+\text{ for some }k\bigr\}
+\]
+for $N\in\Rset$.  When convenient, we extend the definition by setting $f(N)=\infty$ for $N\notin\Rset$.
+
+The question was attributed to Erd\H{o}s and recorded as Problem B2 in Guy's collection \cite{Guy}; the equivalent formulation in which the divisor $1$ is omitted appears in Erd\H{o}s and Graham \cite[p.~93]{ErdosGraham}.  The two functions differ only by a shift of the argument.  The problem is catalogued online as Erd\H{o}s Problem 1054, with the shifted version as Problem 468 \cite{Bloom1054,Bloom468}, and its computed values form OEIS sequence A167485 \cite{OEIS}.
+The OEIS entry also records the elementary observation $f(\sigma(n))\leq n$, which implies $\liminf_{N\to\infty}f(N)/N=0$ along represented integers because $\sigma(n)/n$ is unbounded \cite{OEIS}.
+
+The previously known results concern the opposite, small-ratio tail.  Tao proved in an online comment that
+\[
+\#\{N\leq X:f(N)\leq \delta N\}\ll \delta^2X
+\]
+uniformly in $X$ \cite{TaoComment}.  This disproved both the pointwise and density-one forms of $f(N)=o(N)$.  Subsequent online work gave higher-moment variants: Price posted links to AI-generated arguments giving arbitrarily high fixed polynomial decay \cite{PriceComment}.  Kova\v{c} then gave a self-contained argument, incorporating an optimization suggested by Bloom, proving that for some $c>0$ and all sufficiently small $\delta>0$,
+\[
+\sup_{X\geq1}\frac{1}{X}\#\{N\leq X:f(N)\leq\delta N\}
+\ll \exp\!\left(-e^{(1/\delta)^c}\right).
+\]
+See \cite{Kovac,BloomComment}.
+These estimates do not imply that $f(N)/N$ is unbounded.  Kova\v{c} explicitly identified the limsup question as a separate remaining problem \cite{KovacForum}.
+
+The possible nonexistence of $f(N)$ was also discussed in the same forum.  jif supplied a computer-assisted argument, together with a verifier, that the represented integers are exactly $\N\setminus\{2,5\}$ \cite{jif,jifRepo}.  The proof below does not depend on that computation: it proves directly that almost every odd integer is represented, which is enough for the limsup statement.
+
+Our main result is the following stronger form of the desired conclusion.
+
+\begin{theorem}\label{thm:main}
+For every fixed real number $A\geq1$, there exists a constant $c_A>0$ such that
+\[
+\liminf_{X\to\infty}\frac1X
+\#\bigl\{N\leq X:N\in\Rset,\ f(N)>AN\bigr\}
+\geq c_A.
+\]
+Consequently,
+\[
+\limsup_{\substack{N\to\infty\\N\in\Rset}}
+\frac{f(N)}{N}=\infty.
+\]
+\end{theorem}
+
+\section{Three standard analytic inputs}
+
+We use the following classical facts.
+
+\begin{enumerate}[label=\textup{(A\arabic*)},leftmargin=2.7em]
+\item\label{A:AP}
+For every prime $q$,
+\[
+\sum_{\substack{p\ \mathrm{prime}\\p\equiv-1\pmod q}}\frac1p=\infty.
+\]
+This is the reciprocal-prime form of Dirichlet's theorem, or equivalently a weak form of Mertens' theorem in arithmetic progressions.
+
+\item\label{A:Mertens}
+There is an absolute constant $c_0>0$ such that, for all $y\geq2$,
+\[
+\prod_{p\leq y}\left(1-\frac1p\right)\geq \frac{c_0}{\log(2y)}.
+\]
+
+\item\label{A:Goldbach}
+Let
+\[
+E_{\mathrm G}(X):=
+\#\{n\leq X:n\text{ is even and is not a sum of two primes}\}.
+\]
+Then $E_{\mathrm G}(X)=o(X)$.
+\end{enumerate}
+
+Facts \ref{A:AP} and \ref{A:Mertens} are standard consequences of the prime number theorem for arithmetic progressions and Mertens' theorem.  Fact \ref{A:Goldbach} is the classical ``almost all'' binary Goldbach theorem.  Montgomery and Vaughan prove the stronger estimate $E_{\mathrm G}(X)\ll X^{1-\delta}$ for some effectively computable constant $\delta>0$, which suffices here \cite[Theorem~1]{MVGoldbach}.  We shall also use the elementary consequence $\pi(X)=o(X)$.
+
+\section{Exact parametrization of divisor prefixes}
+
+The change of variables below is the fixed-cofactor form of the
+divisor-reflection device used in Tao's comment and in Kova\v{c}'s
+higher-moment treatment \cite{TaoComment,Kovac}.  We record the exact
+form needed for the present prefix convention.
+
+For integers $e,d\geq1$, define
+\[
+F_e(d):=\sum_{\substack{q\mid ed\\q\leq d}}q.
+\]
+Thus $F_e(d)$ is the divisor-prefix sum of $ed$ whose final divisor is $d$.  Also define
+\[
+g_e(n):=\sum_{\substack{r\mid n\\r\geq e}}\frac1r.
+\]
+
+\begin{lemma}[Reflection identity]\label{lem:reflection}
+For all $e,d\geq1$,
+\[
+F_e(d)=ed\,g_e(ed).
+\]
+Every divisor-prefix representation of an integer $N$ is of the form
+\[
+N=F_e(d),\qquad m=ed,
+\]
+for some $e,d\geq1$; conversely every such pair gives a divisor-prefix representation.
+\end{lemma}
+
+\begin{proof}
+Under divisor reflection $r\mapsto ed/r$, the condition $r\geq e$ is equivalent to $ed/r\leq d$.  Hence
+\[
+ed\,g_e(ed)
+=\sum_{\substack{r\mid ed\\r\geq e}}\frac{ed}{r}
+=\sum_{\substack{q\mid ed\\q\leq d}}q
+=F_e(d).
+\]
+If a prefix of the divisors of $m$ ends at the divisor $d\mid m$, then $e=m/d$ and its sum is $F_e(d)$.  The converse is immediate because $d\mid ed$.
+\end{proof}
+
+The parameter $e=m/d$ will be called the \emph{cofactor} of the prefix endpoint.
+
+\section{A density-zero lemma for the sum-of-divisors function}
+
+The principal result in this section is classical.  Alaoglu and
+Erd\H{o}s observed that, for every fixed prime $q$, one has
+$q\mid\sigma(n)$ for a density-one set of integers $n$
+\cite[p.~882]{AlaogluErdos}.  See also
+\cite[Theorem~2]{Pomerance1977}, \cite[Lemma~5]{PollackPomerance},
+and the modern discussion in \cite[\S1]{LebowitzPollackSinghaRoy}.
+We include the short sieve proof because the precise formulation is
+used in the bounded-cofactor argument.
+
+Write $p\parallel n$ when $p\mid n$ but $p^2\nmid n$.
+
+\begin{lemma}\label{lem:sigma-avoid}
+For every prime $q$, the set
+\[
+\mathcal B_q:=\{n\geq1:q\nmid\sigma(n)\}
+\]
+has natural density zero.  Equivalently, if
+\[
+B_q(Y):=\#\{n\leq Y:q\nmid\sigma(n)\},
+\]
+then $B_q(Y)=o(Y)$.
+\end{lemma}
+
+\begin{proof}
+Let
+\[
+\Pset_q:=\{p\text{ prime}:p\equiv-1\pmod q\}.
+\]
+By \ref{A:AP}, $\sum_{p\in\Pset_q}1/p$ diverges.  If $p\in\Pset_q$ and $p\parallel n$, then multiplicativity of $\sigma$ gives
+\[
+q\mid p+1=\sigma(p)\mid\sigma(n).
+\]
+Therefore $n\in\mathcal B_q$ only if $p\nparallel n$ for every $p\in\Pset_q$.
+
+Let $\Pset'\subset\Pset_q$ be finite.  By the Chinese remainder theorem, the natural density of the integers for which $p\nparallel n$ for every $p\in\Pset'$ is
+\[
+\prod_{p\in\Pset'}
+\left(1-\frac1p+\frac1{p^2}\right),
+\]
+because the density of $p\parallel n$ is $1/p-1/p^2$.  Consequently,
+\[
+\upperdens(\mathcal B_q)
+\leq
+\prod_{p\in\Pset'}
+\left(1-\frac1p+\frac1{p^2}\right).
+\]
+Since
+\[
+\sum_{p\in\Pset_q}\left(\frac1p-\frac1{p^2}\right)=\infty,
+\]
+the products on the right tend to zero as $\Pset'$ increases through finite subsets of $\Pset_q$.  Thus $\upperdens(\mathcal B_q)=0$, and hence $\mathcal B_q$ has natural density zero.
+\end{proof}
+
+We will repeatedly use the following elementary summation principle.
+
+\begin{lemma}[Summation over a thin multiplicative set]\label{lem:transfer}
+Let $B(Y)$ be a nonnegative counting function satisfying $B(Y)=o(Y)$ and $B(Y)\leq Y$.  Let $\mathcal A\subset\N$ satisfy
+\[
+\sum_{a\in\mathcal A}\frac1a<\infty.
+\]
+Then
+\[
+\sum_{\substack{a\in\mathcal A\\a\leq X}}B(X/a)=o(X).
+\]
+\end{lemma}
+
+\begin{proof}
+Fix $T\geq1$.  Dividing by $X$ gives
+\[
+\frac1X\sum_{\substack{a\in\mathcal A\\a\leq X}}B(X/a)
+\leq
+\sum_{\substack{a\in\mathcal A\\a\leq T}}
+\frac1a\frac{B(X/a)}{X/a}
++
+\sum_{\substack{a\in\mathcal A\\a>T}}\frac1a.
+\]
+For fixed $T$, the first sum tends to zero as $X\to\infty$.  The second sum can be made arbitrarily small by taking $T$ large.  This proves the claim.
+\end{proof}
+
+\section{Bounded cofactors miss a positive-density sifted set}
+
+Fix an integer $e\geq2$.  Every $d\geq1$ has a unique factorization
+\[
+d=ab,
+\qquad
+ a:=\prod_{p\leq e}p^{v_p(d)},
+\]
+where every prime factor of $a$ is at most $e$, every prime factor of $b$ is greater than $e$, and $(b,ea)=1$.
+
+\begin{lemma}[Smooth--rough identity]\label{lem:smooth-rough}
+With the preceding factorization,
+\[
+F_e(ab)=bF_e(a)+\sigma(ea)\bigl(\sigma(b)-b\bigr).
+\]
+Equivalently, if
+\[
+H_e(a):=\sigma(ea)-F_e(a),
+\]
+then
+\[
+F_e(ab)=\sigma(ea)\sigma(b)-H_e(a)b. \tag{5.1}\label{eq:smooth-rough}
+\]
+\end{lemma}
+
+\begin{proof}
+Because $(ea,b)=1$, every divisor of $eab$ has a unique form $xy$ with $x\mid ea$ and $y\mid b$.
+
+If $y=b$, then $xy\leq ab$ if and only if $x\leq a$, and these terms contribute $bF_e(a)$.
+
+If $y<b$, put $c=b/y$.  Then $c>1$ and every prime factor of $c$ is greater than $e$, so $c>e$.  For every $x\mid ea$,
+\[
+xy=x\frac bc\leq ea\frac bc<ab.
+\]
+Thus all divisors $x\mid ea$ occur, and the terms with $y<b$ contribute
+\[
+\sigma(ea)\sum_{\substack{y\mid b\\y<b}}y
+=\sigma(ea)\bigl(\sigma(b)-b\bigr).
+\]
+This proves the first identity, and the second is a rearrangement.
+\end{proof}
+
+For an $e$-smooth integer $a$, define its active set
+\[
+\mathcal R_e(a):=\{r:1\leq r<e,\ r\mid ea\}.
+\]
+There are only finitely many possible active sets for a fixed $e$.
+
+\begin{lemma}[A forced prime divisor]\label{lem:forced-prime}
+For every $e\geq2$ and every $e$-smooth $a$,
+\[
+\frac{H_e(a)}a
+=e\sum_{r\in\mathcal R_e(a)}\frac1r. \tag{5.2}\label{eq:H-rational}
+\]
+For every possible active set $\mathcal R$, write the rational number on the right in lowest terms as
+\[
+e\sum_{r\in\mathcal R}\frac1r=\frac{A_{e,\mathcal R}}{B_{e,\mathcal R}},
+\qquad (A_{e,\mathcal R},B_{e,\mathcal R})=1.
+\]
+Then $A_{e,\mathcal R}\geq2$.  If $q_{e,\mathcal R}$ is any prime divisor of $A_{e,\mathcal R}$ and $\mathcal R_e(a)=\mathcal R$, then
+\[
+q_{e,\mathcal R}\mid H_e(a).
+\]
+\end{lemma}
+
+\begin{proof}
+The quantity $H_e(a)$ is the sum of those divisors $x\mid ea$ that exceed $a$.  Reflecting $x$ to $r=ea/x$ gives
+\[
+H_e(a)
+=\sum_{\substack{x\mid ea\\x>a}}x
+=ea\sum_{\substack{r\mid ea\\r<e}}\frac1r,
+\]
+which proves \eqref{eq:H-rational}.  Since $1\in\mathcal R_e(a)$, the rational number in \eqref{eq:H-rational} is at least $e\geq2$, so its reduced numerator is at least $2$.
+
+If $\mathcal R_e(a)=\mathcal R$, then
+\[
+H_e(a)=a\frac{A_{e,\mathcal R}}{B_{e,\mathcal R}}.
+\]
+The left side is an integer.  Since the numerator and denominator are coprime, $B_{e,\mathcal R}\mid a$, and therefore
+\[
+H_e(a)=A_{e,\mathcal R}\frac{a}{B_{e,\mathcal R}}.
+\]
+Every prime divisor of $A_{e,\mathcal R}$ consequently divides $H_e(a)$.
+\end{proof}
+
+For each pair $(e,\mathcal R)$, choose once and for all one such prime $q_{e,\mathcal R}$.  For an integer $E\geq2$, let
+\[
+S_E:=\{2\}\cup
+\{q_{e,\mathcal R}:2\leq e\leq E,\ \mathcal R
+\text{ is a possible active set for }e\}
+\]
+and define the squarefree integer
+\[
+Q_E:=\prod_{q\in S_E}q,
+\qquad
+\delta_E:=\frac{\varphi(Q_E)}{Q_E}.
+\]
+
+\begin{proposition}[Bounded-cofactor exclusion]\label{prop:small-e}
+For every fixed $E\geq2$,
+\[
+\#\left\{N\leq X:
+(N,Q_E)=1,\quad
+N=F_e(d)\text{ for some }1\leq e\leq E
+\right\}=o_E(X).
+\]
+\end{proposition}
+
+\begin{proof}
+First let $2\leq e\leq E$ be fixed.  Write $d=ab$ as above and put $\mathcal R=\mathcal R_e(a)$ and $q=q_{e,\mathcal R}$.  If
+\[
+N=F_e(ab),\qquad (N,Q_E)=1,
+\]
+then $q\nmid N$.  By Lemma~\ref{lem:forced-prime}, $q\mid H_e(a)$.  Reducing \eqref{eq:smooth-rough} modulo $q$, we see that $q\mid\sigma(b)$ would force $q\mid N$.  Therefore
+\[
+q\nmid\sigma(b). \tag{5.3}\label{eq:sigma-b-avoid}
+\]
+Also $F_e(d)\geq d$, because $d$ itself occurs in the defining sum.  Hence $N\leq X$ implies $d=ab\leq X$.
+
+For a fixed active set $\mathcal R$, the number of possible $d$ is therefore at most
+\[
+\sum_{\substack{a\leq X\\p\mid a\Rightarrow p\leq e}}
+B_q(X/a).
+\]
+The set of $e$-smooth integers has convergent reciprocal sum:
+\[
+\sum_{\substack{a\geq1\\p\mid a\Rightarrow p\leq e}}\frac1a
+=\prod_{p\leq e}\left(1-\frac1p\right)^{-1}<\infty.
+\]
+Lemma~\ref{lem:sigma-avoid} and Lemma~\ref{lem:transfer} show that the displayed count is $o_e(X)$.  There are only finitely many active sets, so the same conclusion holds for this fixed $e$.
+
+It remains to treat $e=1$.  Here
+\[
+F_1(d)=\sigma(d).
+\]
+Since $2\mid Q_E$, the condition $(F_1(d),Q_E)=1$ implies that $\sigma(d)$ is odd.  The well-known parity criterion for $\sigma$ says that this occurs if and only if $d$ is a square or twice a square: for every odd prime $p$, the factor $1+p+\cdots+p^{v_p(d)}$ is odd exactly when $v_p(d)$ is even, while the factor contributed by $p=2$ is always odd.  Thus there are $O(\sqrt X)$ possible $d\leq X$.
+
+Finally, sum over the finitely many $e\leq E$.
+\end{proof}
+
+We next show that the sifted set $(N,Q_E)=1$ is not too sparse.
+
+\begin{lemma}[Density of the sifted set]\label{lem:sift-density}
+There is an absolute constant $c_1>0$ such that, for every $E\geq2$,
+\[
+\delta_E\geq \frac{c_1}{E\log(2E)}.
+\]
+Moreover,
+\[
+\#\{N\leq X:(N,Q_E)=1\}=\delta_E X+O_E(1).
+\]
+\end{lemma}
+
+\begin{proof}
+Put
+\[
+L_{e-1}:=\operatorname{lcm}(1,2,\ldots,e-1).
+\]
+For a possible active set $\mathcal R$,
+\[
+e\sum_{r\in\mathcal R}\frac1r
+=\frac e{L_{e-1}}
+\sum_{r\in\mathcal R}\frac{L_{e-1}}r.
+\]
+The unreduced numerator is at most
+\[
+e(e-1)L_{e-1}.
+\]
+Hence
+\[
+q_{e,\mathcal R}\leq A_{e,\mathcal R}
+\leq e(e-1)L_{e-1}
+\leq E^2L_{E-1}=:Y_E.
+\]
+The additional prime $2$ also satisfies $2\leq Y_E$.  Thus $S_E$ is a subset of the primes not exceeding $Y_E$, and
+\[
+\delta_E
+=\prod_{q\in S_E}\left(1-\frac1q\right)
+\geq
+\prod_{p\leq Y_E}\left(1-\frac1p\right).
+\]
+By \ref{A:Mertens}, the last product is $\gg1/\log(2Y_E)$.  Since
+\[
+L_{E-1}\leq(E-1)!\leq E^{E-1},
+\]
+we have $Y_E\leq E^{E+1}$ and therefore
+\[
+\log(2Y_E)\ll E\log(2E).
+\]
+This proves the lower bound for $\delta_E$.
+
+The counting formula follows from periodicity modulo the fixed integer $Q_E$: in each complete residue block of length $Q_E$, exactly $\varphi(Q_E)$ integers are coprime to $Q_E$.
+\end{proof}
+
+\section{A third-moment estimate for large cofactors}
+
+The expansion in Lemma~\ref{lem:third-moment} is the fixed-threshold,
+third-moment form of the divisor-reflection and least-common-multiple
+method used by Tao and Kova\v{c} \cite{TaoComment,Kovac}.  Multiple
+reciprocal sums involving greatest common divisors and least common
+multiples have also been studied systematically in
+\cite{HilberdinkLucaToth,KimLCM}.  Those works do not directly supply
+the one-sided threshold estimate in Lemma~\ref{lem:T3-tail}, for which
+we give a separate elementary proof.
+
+For $e\geq1$, define
+\[
+T_3(e):=\sum_{r,s,t\geq e}
+\frac1{rst\,[r,s,t]},
+\]
+where $[r,s,t]$ denotes the least common multiple.
+
+\begin{lemma}[Third moment]\label{lem:third-moment}
+For every $Z\geq1$ and $e\geq1$,
+\[
+\sum_{n\leq Z}g_e(n)^3\leq ZT_3(e).
+\]
+\end{lemma}
+
+\begin{proof}
+Expanding the cube and counting common multiples gives
+\begin{align*}
+\sum_{n\leq Z}g_e(n)^3
+&=
+\sum_{r,s,t\geq e}\frac1{rst}
+\#\{n\leq Z:r\mid n,\ s\mid n,\ t\mid n\}\\
+&=
+\sum_{r,s,t\geq e}\frac1{rst}
+\left\lfloor\frac{Z}{[r,s,t]}\right\rfloor\\
+&\leq ZT_3(e).
+\end{align*}
+\end{proof}
+
+\begin{lemma}[Power-saving tail]\label{lem:T3-tail}
+There is an absolute constant $C_3>0$ such that
+\[
+T_3(e)\leq C_3e^{-5/2}
+\qquad(e\geq1).
+\]
+Consequently, for another absolute constant $C_4>0$,
+\[
+\sum_{e>E}T_3(e)\leq C_4E^{-3/2}
+\qquad(E\geq1).
+\]
+\end{lemma}
+
+\begin{proof}
+We use a prime-by-prime decomposition of a triple $(r,s,t)$.  For every prime $p$, let the three valuations $v_p(r),v_p(s),v_p(t)$ have minimum $\lambda_0$, median $\lambda_1$, and maximum $\lambda_2$.  Put $p^{\lambda_0}$ into a variable $h$.  Put $p^{\lambda_1-\lambda_0}$ into one of $u,v,w$ according as the two variables whose valuations are at least $\lambda_1$ are $(r,s)$, $(r,t)$, or $(s,t)$.  Finally, put $p^{\lambda_2-\lambda_1}$ into one of $R,S,T$ according as the variable with largest valuation is $r,s,t$, respectively.  If an exponent difference is zero, the corresponding choice is immaterial.
+
+This gives positive integers $h,u,v,w,R,S,T$ such that
+\[
+r=huvR,
+\qquad
+s=huwS,
+\qquad
+t=hvwT,
+\]
+and, by construction,
+\[
+rst=h^3u^2v^2w^2RST,
+\qquad
+[r,s,t]=huvwRST. \tag{6.1}\label{eq:sevenvar}
+\]
+Every triple $(r,s,t)$ determines such a seven-tuple.  We shall bound the sum over the resulting canonical tuples by the larger sum over all positive seven-tuples.
+
+Since $r,s,t\geq e$, we have $rst\geq e^3$, and hence
+\[
+\frac1{rst[r,s,t]}
+\leq
+e^{-5/2}\frac{(rst)^{5/6}}{rst[r,s,t]}.
+\]
+Using \eqref{eq:sevenvar}, the factor after $e^{-5/2}$ is
+\[
+\frac1{h^{3/2}(uvw)^{4/3}(RST)^{7/6}}.
+\]
+Therefore
+\begin{align*}
+T_3(e)
+&\leq e^{-5/2}
+\sum_{h,u,v,w,R,S,T\geq1}
+\frac1{h^{3/2}(uvw)^{4/3}(RST)^{7/6}}\\
+&=e^{-5/2}
+\zeta(3/2)\zeta(4/3)^3\zeta(7/6)^3.
+\end{align*}
+This proves the first assertion.  The second follows from
+\[
+\sum_{e>E}e^{-5/2}\leq\int_E^\infty x^{-5/2}\,\dd x
+=\frac23E^{-3/2}.
+\]
+\end{proof}
+
+For fixed $A\geq1$ and $E\geq1$, let $\mathcal H_{A,E}(X)$ be the set of integers $N\leq X$ for which there exist $e>E$ and $d\geq1$ such that
+\[
+N=F_e(d)
+\qquad\text{and}\qquad
+ed\leq AN.
+\]
+
+\begin{proposition}[Large-cofactor bound]\label{prop:large-e}
+There is an absolute constant $C_5>0$ such that
+\[
+\#\mathcal H_{A,E}(X)
+\leq C_5A^4E^{-3/2}X
+\]
+for all $A\geq1$, $E\geq1$, and $X\geq1$.
+\end{proposition}
+
+\begin{proof}
+If $N\in\mathcal H_{A,E}(X)$, choose one witnessing pair $(e,d)$ and put $m=ed$.  Lemma~\ref{lem:reflection} gives
+\[
+N=mg_e(m).
+\]
+The inequality $m\leq AN$ implies $g_e(m)\geq1/A$, and $N\leq X$ implies $m\leq AX$.  Therefore, after dropping the condition $e\mid m$ and counting pairs rather than distinct values of $N$,
+\begin{align*}
+\#\mathcal H_{A,E}(X)
+&\leq
+\sum_{m\leq AX}\sum_{e>E}
+\indic_{\{g_e(m)\geq1/A\}}\\
+&\leq
+A^3\sum_{m\leq AX}\sum_{e>E}g_e(m)^3\\
+&\leq
+A^3(AX)\sum_{e>E}T_3(e)\\
+&\leq C_5A^4E^{-3/2}X,
+\end{align*}
+by Lemmas~\ref{lem:third-moment} and \ref{lem:T3-tail}.
+\end{proof}
+
+\section{Almost every odd integer is represented}
+
+The construction below is the two-prime instance of the prime-product
+divisor-prefix gadget recorded in the OEIS entry and used in
+jif's representability argument
+\cite{OEIS,jif,jifRepo}.  Only the density-one binary
+Goldbach theorem is required here.
+
+\begin{lemma}\label{lem:goldbach-represented}
+All but $o(X)$ odd integers $N\leq X$ belong to $\Rset$.
+\end{lemma}
+
+\begin{proof}
+By \ref{A:Goldbach}, all but $o(X)$ even integers $M\leq X$ are sums of two primes.  The even integers of the form $2p$ with $p$ prime are $o(X)$ in number because $\pi(X)=o(X)$.  Therefore all but $o(X)$ even integers $M\leq X$ can be written
+\[
+M=p+q
+\]
+with distinct primes $p<q$.
+
+For every such $M$, put $N=M+1$ and $m=pq$.  The divisors of $m$ begin
+\[
+1,p,q,pq,
+\]
+so
+\[
+N=1+p+q
+\]
+is a divisor-prefix sum of $m$.  Translating from $M$ to $N=M+1$ proves the claim.
+\end{proof}
+
+\section{Proof of the main theorem}
+
+\begin{proof}[Proof of Theorem~\ref{thm:main}]
+Fix $A\geq1$.  Let $C_5$ be the constant in Proposition~\ref{prop:large-e}.  By Lemma~\ref{lem:sift-density},
+\[
+\delta_E\geq\frac{c_1}{E\log(2E)}.
+\]
+Hence
+\[
+\frac{C_5A^4E^{-3/2}}{\delta_E}
+\leq
+\frac{C_5}{c_1}A^4\frac{\log(2E)}{\sqrt E}
+\longrightarrow0
+\qquad(E\to\infty).
+\]
+Choose and fix an integer $E=E(A)\geq2$ sufficiently large that
+\[
+C_5A^4E^{-3/2}\leq\frac14\delta_E. \tag{8.1}\label{eq:chooseE}
+\]
+
+Let
+\[
+\mathcal S_E(X):=\{N\leq X:(N,Q_E)=1\}.
+\]
+By Lemma~\ref{lem:sift-density},
+\[
+\#\mathcal S_E(X)=\delta_EX+O_E(1). \tag{8.2}\label{eq:siftcount}
+\]
+Let $\mathcal L_E(X)$ be the subset of $\mathcal S_E(X)$ consisting of integers having a representation $N=F_e(d)$ with $e\leq E$.  Proposition~\ref{prop:small-e} gives
+\[
+\#\mathcal L_E(X)=o_E(X). \tag{8.3}\label{eq:smallcount}
+\]
+By Proposition~\ref{prop:large-e} and \eqref{eq:chooseE},
+\[
+\#\mathcal H_{A,E}(X)\leq\frac14\delta_EX. \tag{8.4}\label{eq:largecount}
+\]
+Finally, because $2\mid Q_E$, every integer in $\mathcal S_E(X)$ is odd.  By Lemma~\ref{lem:goldbach-represented}, the number of integers in $\mathcal S_E(X)$ that are not known from that lemma to be represented is $o(X)$.
+
+Combining \eqref{eq:siftcount}--\eqref{eq:largecount}, we find that, for all sufficiently large $X$, at least
+\[
+\frac12\delta_EX
+\]
+integers $N\leq X$ satisfy all of the following:
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item $(N,Q_E)=1$;
+\item $N\in\Rset$;
+\item $N$ has no representation with cofactor $e\leq E$;
+\item $N$ has no representation $N=F_e(d)$ with $e>E$ and $ed\leq AN$.
+\end{enumerate}
+For any such $N$, suppose for contradiction that $f(N)\leq AN$.  Choose the endpoint $d$ of a prefix representation attaining $m=f(N)$ and put $e=m/d$.  By Lemma~\ref{lem:reflection}, $N=F_e(d)$.  If $e\leq E$, this contradicts (iii); if $e>E$, then $ed=m\leq AN$, contradicting (iv).  Therefore $f(N)>AN$.
+
+It follows that
+\[
+\liminf_{X\to\infty}\frac1X
+\#\{N\leq X:N\in\Rset,\ f(N)>AN\}
+\geq\frac12\delta_E>0.
+\]
+This proves the first assertion with $c_A=\delta_{E(A)}/2$.
+
+Since the conclusion holds for every positive integer $A$, for each $A$ there are infinitely many represented $N$ with $f(N)/N>A$.  Hence the limsup over represented $N$ is infinite.
+\end{proof}
+
+\begin{corollary}[Shifted Erd\H{o}s--Graham convention]
+Let $f_0(N)$ be the least $m$ for which $N$ is a sum of an initial segment of the divisors of $m$ that are greater than $1$.  Then
+\[
+\limsup_{\substack{N\to\infty\\f_0(N)<\infty}}\frac{f_0(N)}N=\infty.
+\]
+\end{corollary}
+
+\begin{proof}
+For $N\geq2$, including the divisor $1$ adds exactly $1$ to every nonempty prefix sum, so
+\[
+f(N)=f_0(N-1)
+\]
+whenever either side is finite.  The result follows from Theorem~\ref{thm:main}, since replacing $N$ by $N-1$ does not affect unboundedness of the ratio.
+\end{proof}
+
+\begin{remark}
+The proof establishes more than the formal statement $\limsup f(N)/N=\infty$: for every fixed $A$, the set of represented integers satisfying $f(N)>AN$ has positive lower density.  It also avoids interpreting $f(N)=\infty$ at unrepresented integers; the surviving integers are represented by an explicit Goldbach construction.
+\end{remark}
+
+\begin{thebibliography}{99}
+
+\bibitem{AlaogluErdos}
+L. Alaoglu and P. Erd\H{o}s,
+\emph{A conjecture in elementary number theory},
+Bull. Amer. Math. Soc. \textbf{50} (1944), 881--882.
+
+\bibitem{Bloom1054}
+T. F. Bloom,
+\emph{Erd\H{o}s Problem \#1054},
+Erd\H{o}s Problems,
+\url{https://www.erdosproblems.com/1054},
+accessed June 21, 2026.
+
+\bibitem{Bloom468}
+T. F. Bloom,
+\emph{Erd\H{o}s Problem \#468},
+Erd\H{o}s Problems,
+\url{https://www.erdosproblems.com/468},
+accessed June 21, 2026.
+
+\bibitem{BloomComment}
+T. F. Bloom,
+comment under Erd\H{o}s Problem \#1054,
+May 11, 2026,
+\url{https://www.erdosproblems.com/forum/thread/1054}.
+
+\bibitem{ErdosGraham}
+P. Erd\H{o}s and R. L. Graham,
+\emph{Old and New Problems and Results in Combinatorial Number Theory},
+Monographies de L'Enseignement Math\'{e}matique, vol.~28,
+Universit\'{e} de Gen\`eve, Geneva, 1980.
+
+\bibitem{Guy}
+R. K. Guy,
+\emph{Unsolved Problems in Number Theory},
+3rd ed., Problem Books in Mathematics,
+Springer, New York, 2004,
+Problem B2,
+\url{https://doi.org/10.1007/978-0-387-26677-0}.
+
+\bibitem{HilberdinkLucaToth}
+T. Hilberdink, F. Luca, and L. T\'oth,
+\emph{On certain sums concerning the gcd's and lcm's of $k$ positive integers},
+Int. J. Number Theory \textbf{16} (2020), no.~1, 77--90,
+\url{https://doi.org/10.1142/S1793042120500049}.
+
+\bibitem{KimLCM}
+S. Kim,
+\emph{On the distribution of lcm of $k$-tuples and related problems},
+arXiv:2102.05480, 2022,
+\url{https://arxiv.org/abs/2102.05480}.
+
+\bibitem{Kovac}
+V. Kova\v{c},
+\emph{An improved bound in Erd\H{o}s Problem \#1054},
+May 17, 2026,
+\url{https://web.math.pmf.unizg.hr/~vjekovac/files/Erdos_problem_1054.pdf}.
+
+\bibitem{KovacForum}
+V. Kova\v{c},
+comments under Erd\H{o}s Problem \#1054,
+May 10--17, 2026,
+\url{https://www.erdosproblems.com/forum/thread/1054}.
+
+\bibitem{LebowitzPollackSinghaRoy}
+N. Lebowitz-Lockard, P. Pollack, and A. Singha Roy,
+\emph{Distribution mod $p$ of Euler's totient and the sum of proper divisors},
+arXiv:2105.12850, 2021,
+\url{https://arxiv.org/abs/2105.12850}.
+
+\bibitem{MVGoldbach}
+H. L. Montgomery and R. C. Vaughan,
+\emph{The exceptional set in Goldbach's problem},
+Acta Arith. \textbf{27} (1975), 353--370,
+\url{https://matwbn.icm.edu.pl/ksiazki/aa/aa27/aa27126.pdf}.
+
+\bibitem{OEIS}
+F. T. Adams-Watters and The OEIS Foundation,
+\emph{Sequence A167485: smallest integer whose divisor-prefix sums contain $n$},
+The On-Line Encyclopedia of Integer Sequences,
+\url{https://oeis.org/A167485},
+accessed June 21, 2026.
+
+\bibitem{PollackPomerance}
+P. Pollack and C. Pomerance,
+\emph{Paul Erd\H{o}s and the rise of statistical thinking in elementary number theory},
+in \emph{Erd\H{o}s Centennial}, Bolyai Soc. Math. Stud., vol.~25,
+Springer, Heidelberg, 2013, 515--533.
+
+\bibitem{Pomerance1977}
+C. Pomerance,
+\emph{On the distribution of amicable numbers},
+J. Reine Angew. Math. \textbf{293/294} (1977), 217--222.
+
+\bibitem{PriceComment}
+L. Price,
+comments under Erd\H{o}s Problem \#1054,
+May 10, 2026,
+\url{https://www.erdosproblems.com/forum/thread/1054#post-6368}.
+
+\bibitem{jif}
+jif,
+comment under Erd\H{o}s Problem \#1054 on representability,
+April 16, 2026,
+\url{https://www.erdosproblems.com/forum/thread/1054}.
+
+\bibitem{jifRepo}
+jif,
+\emph{Erd\H{o}s Problem 1054 verifier},
+GitHub repository,
+\url{https://github.com/jif-perso/erdos_1054},
+accessed June 21, 2026.
+
+\bibitem{TaoComment}
+T. Tao,
+comment under Erd\H{o}s Problem \#1054,
+November 1, 2025,
+\url{https://www.erdosproblems.com/forum/thread/1054#post-1636}.
+
+\end{thebibliography}
+
+\end{document}

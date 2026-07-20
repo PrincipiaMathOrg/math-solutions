@@ -1,0 +1,822 @@
+Erdos1054_3rdMomentProof.lean:242:29: warning: Variable name `hzero` is not explicitly referenced.
+
+The binding can be removed (if unused) or named `_` (if used implicitly).
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+Erdos1054_3rdMomentProof.lean:250:42: warning: This simp argument is unused:
+  Complex.mul_im
+
+Hint: Omit it from the simp argument list.
+  simp [Complex.add_re, Complex.mul_re,̵ ̵C̵o̵m̵p̵l̵e̵x̵.̵m̵u̵l̵_̵i̵m̵]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Erdos1054_3rdMomentProof.lean:502:14: warning: This simp argument is unused:
+  ZMod.natCast_self
+
+Hint: Omit it from the simp argument list.
+  simp ̵[̵Z̵M̵o̵d̵.̵n̵a̵t̵C̵a̵s̵t̵_̵s̵e̵l̵f̵]̵
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Erdos1054_3rdMomentProof.lean:514:10: warning: This simp argument is unused:
+  ZMod.natCast_self
+
+Hint: Omit it from the simp argument list.
+  simp ̵[̵Z̵M̵o̵d̵.̵n̵a̵t̵C̵a̵s̵t̵_̵s̵e̵l̵f̵]̵
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Erdos1054_3rdMomentProof.lean:1131:5: warning: Variable name `hχ` is not explicitly referenced.
+
+The binding can be removed (if unused) or named `_` (if used implicitly).
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+Erdos1054_3rdMomentProof.lean:1225:36: warning: Variable name `hz` is not explicitly referenced.
+
+The binding can be removed (if unused) or named `_` (if used implicitly).
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+Erdos1054_3rdMomentProof.lean:1278:12: warning: This simp argument is unused:
+  deriv_const_mul_field
+
+Hint: Omit it from the simp argument list.
+  simp ̵[̵d̵e̵r̵i̵v̵_̵c̵o̵n̵s̵t̵_̵m̵u̵l̵_̵f̵i̵e̵l̵d̵]̵
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Erdos1054_3rdMomentProof.lean:1290:5: warning: Variable name `hχ` is not explicitly referenced.
+
+The binding can be removed (if unused) or named `_` (if used implicitly).
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+Erdos1054_3rdMomentProof.lean:1357:2: warning: `push_neg` has been deprecated. Prefer using `push Not` instead.
+If you'd rather continue using `push_neg` in your project, you can implement it as follows:
+```
+open Lean.Parser.Tactic in
+macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
+  `(tactic| push $cfg:optConfig Not $[$loc]?)
+```
+Erdos1054_3rdMomentProof.lean:1482:21: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+Erdos1054_3rdMomentProof.lean:1482:21: warning: 'linarith' tactic does nothing
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+Erdos1054_3rdMomentProof.lean:1764:35: warning: `Set.mem_diff` has been deprecated: Use `Set.mem_sdiff` instead
+Erdos1054_3rdMomentProof.lean:1781:17: warning: `Set.Finite.diff` has been deprecated: Use `Set.Finite.sdiff` instead
+Erdos1054_3rdMomentProof.lean:1787:19: warning: `Set.mem_diff` has been deprecated: Use `Set.mem_sdiff` instead
+Erdos1054_3rdMomentProof.lean:1711:4: warning: Try this: intro z hz hz0
+Erdos1054_3rdMomentProof.lean:1918:35: warning: `Set.mem_diff` has been deprecated: Use `Set.mem_sdiff` instead
+Erdos1054_3rdMomentProof.lean:1935:17: warning: `Set.Finite.diff` has been deprecated: Use `Set.Finite.sdiff` instead
+Erdos1054_3rdMomentProof.lean:1941:19: warning: `Set.mem_diff` has been deprecated: Use `Set.mem_sdiff` instead
+Erdos1054_3rdMomentProof.lean:1865:4: warning: Try this: intro z hz hz0
+Erdos1054_3rdMomentProof.lean:2516:4: warning: `push_neg` has been deprecated. Prefer using `push Not` instead.
+If you'd rather continue using `push_neg` in your project, you can implement it as follows:
+```
+open Lean.Parser.Tactic in
+macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
+  `(tactic| push $cfg:optConfig Not $[$loc]?)
+```
+Erdos1054_3rdMomentProof.lean:2598:4: warning: `push_neg` has been deprecated. Prefer using `push Not` instead.
+If you'd rather continue using `push_neg` in your project, you can implement it as follows:
+```
+open Lean.Parser.Tactic in
+macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
+  `(tactic| push $cfg:optConfig Not $[$loc]?)
+```
+Erdos1054_3rdMomentProof.lean:2654:45: warning: This simp argument is unused:
+  Complex.ofReal_re
+
+Hint: Omit it from the simp argument list.
+  simp only [Complex.add_re, Complex.mul_re, C̵o̵m̵p̵l̵e̵x̵.̵o̵f̵R̵e̵a̵l̵_̵r̵e̵,̵ ̵Complex.re_ofNat, Complex.im_ofNat, Complex.ofReal_im,
+  ̲  ̲ ̲ ̲h2]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Erdos1054_3rdMomentProof.lean:2655:22: warning: This simp argument is unused:
+  Complex.ofReal_im
+
+Hint: Omit it from the simp argument list.
+  simp only [Complex.add_re, Complex.mul_re, Complex.ofReal_re, Complex.re_ofNat, Complex.im_ofNat,
+  ̲  ̲ ̲ ̲C̵o̵m̵p̵l̵e̵x̵.̵o̵f̵R̵e̵a̵l̵_̵i̵m̵,̵ ̵h2]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Erdos1054_3rdMomentProof.lean:2680:24: warning: This simp argument is unused:
+  Complex.mul_im
+
+Hint: Omit it from the simp argument list.
+  simp [Complex.mul_re,̵ ̵C̵o̵m̵p̵l̵e̵x̵.̵m̵u̵l̵_̵i̵m̵]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Erdos1054_3rdMomentProof.lean:2818:4: warning: `push_neg` has been deprecated. Prefer using `push Not` instead.
+If you'd rather continue using `push_neg` in your project, you can implement it as follows:
+```
+open Lean.Parser.Tactic in
+macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
+  `(tactic| push $cfg:optConfig Not $[$loc]?)
+```
+Erdos1054_3rdMomentProof.lean:3134:4: warning: `push_neg` has been deprecated. Prefer using `push Not` instead.
+If you'd rather continue using `push_neg` in your project, you can implement it as follows:
+```
+open Lean.Parser.Tactic in
+macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
+  `(tactic| push $cfg:optConfig Not $[$loc]?)
+```
+Erdos1054_3rdMomentProof.lean:3328:4: warning: `push_neg` has been deprecated. Prefer using `push Not` instead.
+If you'd rather continue using `push_neg` in your project, you can implement it as follows:
+```
+open Lean.Parser.Tactic in
+macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
+  `(tactic| push $cfg:optConfig Not $[$loc]?)
+```
+Erdos1054_3rdMomentProof.lean:3338:2: warning: `push_neg` has been deprecated. Prefer using `push Not` instead.
+If you'd rather continue using `push_neg` in your project, you can implement it as follows:
+```
+open Lean.Parser.Tactic in
+macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
+  `(tactic| push $cfg:optConfig Not $[$loc]?)
+```
+Erdos1054_3rdMomentProof.lean:3449:6: warning: `push_neg` has been deprecated. Prefer using `push Not` instead.
+If you'd rather continue using `push_neg` in your project, you can implement it as follows:
+```
+open Lean.Parser.Tactic in
+macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
+  `(tactic| push $cfg:optConfig Not $[$loc]?)
+```
+Erdos1054_3rdMomentProof.lean:3973:8: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+Erdos1054_3rdMomentProof.lean:3974:8: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+Erdos1054_3rdMomentProof.lean:3973:8: warning: 'congr 1' tactic does nothing
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+Erdos1054_3rdMomentProof.lean:3974:8: warning: '(
+  congr 1
+  funext k
+  split_ifs with h
+  · exact absurd h (by omega)
+  · rfl)' tactic does nothing
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+Erdos1054_3rdMomentProof.lean:4213:6: warning: `push_neg` has been deprecated. Prefer using `push Not` instead.
+If you'd rather continue using `push_neg` in your project, you can implement it as follows:
+```
+open Lean.Parser.Tactic in
+macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
+  `(tactic| push $cfg:optConfig Not $[$loc]?)
+```
+Erdos1054_3rdMomentProof.lean:4368:4: warning: `push_neg` has been deprecated. Prefer using `push Not` instead.
+If you'd rather continue using `push_neg` in your project, you can implement it as follows:
+```
+open Lean.Parser.Tactic in
+macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
+  `(tactic| push $cfg:optConfig Not $[$loc]?)
+```
+Erdos1054_3rdMomentProof.lean:4407:4: warning: `push_neg` has been deprecated. Prefer using `push Not` instead.
+If you'd rather continue using `push_neg` in your project, you can implement it as follows:
+```
+open Lean.Parser.Tactic in
+macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
+  `(tactic| push $cfg:optConfig Not $[$loc]?)
+```
+Erdos1054_3rdMomentProof.lean:4512:4: warning: `push_neg` has been deprecated. Prefer using `push Not` instead.
+If you'd rather continue using `push_neg` in your project, you can implement it as follows:
+```
+open Lean.Parser.Tactic in
+macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
+  `(tactic| push $cfg:optConfig Not $[$loc]?)
+```
+Erdos1054_3rdMomentProof.lean:4634:4: warning: `push_neg` has been deprecated. Prefer using `push Not` instead.
+If you'd rather continue using `push_neg` in your project, you can implement it as follows:
+```
+open Lean.Parser.Tactic in
+macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
+  `(tactic| push $cfg:optConfig Not $[$loc]?)
+```
+Erdos1054_3rdMomentProof.lean:5106:6: warning: `push_neg` has been deprecated. Prefer using `push Not` instead.
+If you'd rather continue using `push_neg` in your project, you can implement it as follows:
+```
+open Lean.Parser.Tactic in
+macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
+  `(tactic| push $cfg:optConfig Not $[$loc]?)
+```
+Erdos1054_3rdMomentProof.lean:5114:34: warning: Variable name `hz` is not explicitly referenced.
+
+The binding can be removed (if unused) or named `_` (if used implicitly).
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+Erdos1054_3rdMomentProof.lean:5127:4: warning: 'push_cast' tactic does nothing
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+Erdos1054_3rdMomentProof.lean:5566:10: warning: 'push_cast' tactic does nothing
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+Erdos1054_3rdMomentProof.lean:5579:8: warning: 'push_cast' tactic does nothing
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+Erdos1054_3rdMomentProof.lean:5643:6: warning: 'push_cast' tactic does nothing
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+Erdos1054_3rdMomentProof.lean:6131:6: warning: 'push_cast' tactic does nothing
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+Erdos1054_3rdMomentProof.lean:6142:12: warning: 'push_cast' tactic does nothing
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+Erdos1054_3rdMomentProof.lean:6205:8: warning: 'push_cast' tactic does nothing
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+Erdos1054_3rdMomentProof.lean:6928:4: warning: `push_neg` has been deprecated. Prefer using `push Not` instead.
+If you'd rather continue using `push_neg` in your project, you can implement it as follows:
+```
+open Lean.Parser.Tactic in
+macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
+  `(tactic| push $cfg:optConfig Not $[$loc]?)
+```
+Erdos1054_3rdMomentProof.lean:7034:19: warning: This simp argument is unused:
+  if_pos rfl
+
+Hint: Omit it from the simp argument list.
+  simp only ̵[̵i̵f̵_̵p̵o̵s̵ ̵r̵f̵l̵]̵
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Erdos1054_3rdMomentProof.lean:7431:49: warning: Variable name `h1` is not explicitly referenced.
+
+The binding can be removed (if unused) or named `_` (if used implicitly).
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+Erdos1054_3rdMomentProof.lean:7532:4: warning: 'push_cast' tactic does nothing
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+Erdos1054_3rdMomentProof.lean:8023:17: warning: This simp argument is unused:
+  Set.mem_setOf_eq
+
+Hint: Omit it from the simp argument list.
+  simp only [S̵e̵t̵.̵m̵e̵m̵_̵s̵e̵t̵O̵f̵_̵e̵q̵,̵ ̵Complex.zero_re] at hw
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Erdos1054_3rdMomentProof.lean:9063:6: warning: `push_neg` has been deprecated. Prefer using `push Not` instead.
+If you'd rather continue using `push_neg` in your project, you can implement it as follows:
+```
+open Lean.Parser.Tactic in
+macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
+  `(tactic| push $cfg:optConfig Not $[$loc]?)
+```
+Erdos1054_3rdMomentProof.lean:9114:16: warning: `push_neg` has been deprecated. Prefer using `push Not` instead.
+If you'd rather continue using `push_neg` in your project, you can implement it as follows:
+```
+open Lean.Parser.Tactic in
+macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
+  `(tactic| push $cfg:optConfig Not $[$loc]?)
+```
+Erdos1054_3rdMomentProof.lean:9346:2: warning: `push_neg` has been deprecated. Prefer using `push Not` instead.
+If you'd rather continue using `push_neg` in your project, you can implement it as follows:
+```
+open Lean.Parser.Tactic in
+macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
+  `(tactic| push $cfg:optConfig Not $[$loc]?)
+```
+Erdos1054_3rdMomentProof.lean:9831:12: warning: 'push_cast' tactic does nothing
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+Erdos1054_3rdMomentProof.lean:9837:12: warning: 'push_cast' tactic does nothing
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+Erdos1054_3rdMomentProof.lean:9926:6: warning: `continuous_finset_sum` has been deprecated: Use `continuous_finsetSum` instead
+Erdos1054_3rdMomentProof.lean:10228:45: warning: Variable name `hχ₁1` is not explicitly referenced.
+
+The binding can be removed (if unused) or named `_` (if used implicitly).
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+Erdos1054_3rdMomentProof.lean:10452:6: warning: `continuous_finset_sum` has been deprecated: Use `continuous_finsetSum` instead
+Erdos1054_3rdMomentProof.lean:10583:8: warning: 'push_cast at h1' tactic does nothing
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+Erdos1054_3rdMomentProof.lean:11559:4: warning: `push_neg` has been deprecated. Prefer using `push Not` instead.
+If you'd rather continue using `push_neg` in your project, you can implement it as follows:
+```
+open Lean.Parser.Tactic in
+macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
+  `(tactic| push $cfg:optConfig Not $[$loc]?)
+```
+Erdos1054_3rdMomentProof.lean:11635:25: warning: Variable name `hχ₂2` is not explicitly referenced.
+
+The binding can be removed (if unused) or named `_` (if used implicitly).
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+Erdos1054_3rdMomentProof.lean:11635:45: warning: Variable name `hχ₁1` is not explicitly referenced.
+
+The binding can be removed (if unused) or named `_` (if used implicitly).
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+Erdos1054_3rdMomentProof.lean:11635:61: warning: Variable name `hχ₂1` is not explicitly referenced.
+
+The binding can be removed (if unused) or named `_` (if used implicitly).
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+Erdos1054_3rdMomentProof.lean:11961:4: warning: `push_neg` has been deprecated. Prefer using `push Not` instead.
+If you'd rather continue using `push_neg` in your project, you can implement it as follows:
+```
+open Lean.Parser.Tactic in
+macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
+  `(tactic| push $cfg:optConfig Not $[$loc]?)
+```
+Erdos1054_3rdMomentProof.lean:12033:4: warning: `push_neg` has been deprecated. Prefer using `push Not` instead.
+If you'd rather continue using `push_neg` in your project, you can implement it as follows:
+```
+open Lean.Parser.Tactic in
+macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
+  `(tactic| push $cfg:optConfig Not $[$loc]?)
+```
+Erdos1054_3rdMomentProof.lean:12038:6: warning: `push_neg` has been deprecated. Prefer using `push Not` instead.
+If you'd rather continue using `push_neg` in your project, you can implement it as follows:
+```
+open Lean.Parser.Tactic in
+macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
+  `(tactic| push $cfg:optConfig Not $[$loc]?)
+```
+Erdos1054_3rdMomentProof.lean:12073:8: warning: `push_neg` has been deprecated. Prefer using `push Not` instead.
+If you'd rather continue using `push_neg` in your project, you can implement it as follows:
+```
+open Lean.Parser.Tactic in
+macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
+  `(tactic| push $cfg:optConfig Not $[$loc]?)
+```
+Erdos1054_3rdMomentProof.lean:12078:8: warning: `push_neg` has been deprecated. Prefer using `push Not` instead.
+If you'd rather continue using `push_neg` in your project, you can implement it as follows:
+```
+open Lean.Parser.Tactic in
+macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
+  `(tactic| push $cfg:optConfig Not $[$loc]?)
+```
+Erdos1054_3rdMomentProof.lean:12083:10: warning: `push_neg` has been deprecated. Prefer using `push Not` instead.
+If you'd rather continue using `push_neg` in your project, you can implement it as follows:
+```
+open Lean.Parser.Tactic in
+macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
+  `(tactic| push $cfg:optConfig Not $[$loc]?)
+```
+Erdos1054_3rdMomentProof.lean:12302:10: warning: `push_neg` has been deprecated. Prefer using `push Not` instead.
+If you'd rather continue using `push_neg` in your project, you can implement it as follows:
+```
+open Lean.Parser.Tactic in
+macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
+  `(tactic| push $cfg:optConfig Not $[$loc]?)
+```
+Erdos1054_3rdMomentProof.lean:12317:8: warning: `push_neg` has been deprecated. Prefer using `push Not` instead.
+If you'd rather continue using `push_neg` in your project, you can implement it as follows:
+```
+open Lean.Parser.Tactic in
+macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
+  `(tactic| push $cfg:optConfig Not $[$loc]?)
+```
+Erdos1054_3rdMomentProof.lean:13196:10: warning: This simp argument is unused:
+  Complex.ofReal_ne_zero
+
+Hint: Omit it from the simp argument list.
+  simp [̵C̵o̵m̵p̵l̵e̵x̵.̵o̵f̵R̵e̵a̵l̵_̵n̵e̵_̵z̵e̵r̵o̵,̵ ̵R̵e̵a̵l̵.̵p̵i̵_̵n̵e̵_̵z̵e̵r̵o̵]̵[̲R̲e̲a̲l̲.̲p̲i̲_̲n̲e̲_̲z̲e̲r̲o̲]̲
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Erdos1054_3rdMomentProof.lean:13646:66: warning: Variable name `hR` is not explicitly referenced.
+
+The binding can be removed (if unused) or named `_` (if used implicitly).
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+Erdos1054_3rdMomentProof.lean:13703:4: warning: `push_neg` has been deprecated. Prefer using `push Not` instead.
+If you'd rather continue using `push_neg` in your project, you can implement it as follows:
+```
+open Lean.Parser.Tactic in
+macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
+  `(tactic| push $cfg:optConfig Not $[$loc]?)
+```
+Try this:
+  [apply] ring_nf
+  
+  The `ring` tactic failed to close the goal. Use `ring_nf` to obtain a normal form.
+    
+  Note that `ring` works primarily in *commutative* rings. If you have a noncommutative ring, abelian group or module, consider using `noncomm_ring`, `abel` or `module` instead.
+Erdos1054_3rdMomentProof.lean:13996:53: warning: Variable name `hM` is not explicitly referenced.
+
+The binding can be removed (if unused) or named `_` (if used implicitly).
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+Erdos1054_3rdMomentProof.lean:17943:2: warning: `push_neg` has been deprecated. Prefer using `push Not` instead.
+If you'd rather continue using `push_neg` in your project, you can implement it as follows:
+```
+open Lean.Parser.Tactic in
+macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
+  `(tactic| push $cfg:optConfig Not $[$loc]?)
+```
+Erdos1054_3rdMomentProof.lean:17938:16: warning: Variable name `hh'0` is not explicitly referenced.
+
+The binding can be removed (if unused) or named `_` (if used implicitly).
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+Erdos1054_3rdMomentProof.lean:17984:4: warning: `push_neg` has been deprecated. Prefer using `push Not` instead.
+If you'd rather continue using `push_neg` in your project, you can implement it as follows:
+```
+open Lean.Parser.Tactic in
+macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
+  `(tactic| push $cfg:optConfig Not $[$loc]?)
+```
+Erdos1054_3rdMomentProof.lean:18110:10: warning: `push_neg` has been deprecated. Prefer using `push Not` instead.
+If you'd rather continue using `push_neg` in your project, you can implement it as follows:
+```
+open Lean.Parser.Tactic in
+macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
+  `(tactic| push $cfg:optConfig Not $[$loc]?)
+```
+Erdos1054_3rdMomentProof.lean:18202:6: warning: `push_neg` has been deprecated. Prefer using `push Not` instead.
+If you'd rather continue using `push_neg` in your project, you can implement it as follows:
+```
+open Lean.Parser.Tactic in
+macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
+  `(tactic| push $cfg:optConfig Not $[$loc]?)
+```
+Erdos1054_3rdMomentProof.lean:18279:4: warning: 'push_cast' tactic does nothing
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+Erdos1054_3rdMomentProof.lean:18426:8: warning: 'push_cast' tactic does nothing
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+Erdos1054_3rdMomentProof.lean:18624:19: warning: This simp argument is unused:
+  Real.sqrt_zero
+
+Hint: Omit it from the simp argument list.
+  simp only [̵R̵e̵a̵l̵.̵s̵q̵r̵t̵_̵z̵e̵r̵o̵,̵ ̵m̵u̵l̵_̵z̵e̵r̵o̵,̵[̲m̲u̲l̲_̲z̲e̲r̲o̲,̲ add_zero, zero_pow, ne_eq, OfNat.ofNat_ne_zero, not_false_eq_true]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Erdos1054_3rdMomentProof.lean:18798:61: warning: Variable name `hy0` is not explicitly referenced.
+
+The binding can be removed (if unused) or named `_` (if used implicitly).
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+Erdos1054_3rdMomentProof.lean:19316:10: warning: `push_neg` has been deprecated. Prefer using `push Not` instead.
+If you'd rather continue using `push_neg` in your project, you can implement it as follows:
+```
+open Lean.Parser.Tactic in
+macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
+  `(tactic| push $cfg:optConfig Not $[$loc]?)
+```
+Erdos1054_3rdMomentProof.lean:19409:12: warning: `push_neg` has been deprecated. Prefer using `push Not` instead.
+If you'd rather continue using `push_neg` in your project, you can implement it as follows:
+```
+open Lean.Parser.Tactic in
+macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
+  `(tactic| push $cfg:optConfig Not $[$loc]?)
+```
+Erdos1054_3rdMomentProof.lean:19570:6: warning: `push_neg` has been deprecated. Prefer using `push Not` instead.
+If you'd rather continue using `push_neg` in your project, you can implement it as follows:
+```
+open Lean.Parser.Tactic in
+macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
+  `(tactic| push $cfg:optConfig Not $[$loc]?)
+```
+Erdos1054_3rdMomentProof.lean:19615:4: warning: 'push_cast' tactic does nothing
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+Erdos1054_3rdMomentProof.lean:19762:8: warning: 'push_cast' tactic does nothing
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+Erdos1054_3rdMomentProof.lean:20495:38: warning: `Set.diff_subset` has been deprecated: Use `Set.sdiff_subset` instead
+Erdos1054_3rdMomentProof.lean:20496:4: warning: `Set.union_diff_cancel` has been deprecated: Use `Set.union_sdiff_cancel` instead
+Erdos1054_3rdMomentProof.lean:20654:16: warning: `MeasureTheory.integral_finset_sum` has been deprecated: Use `MeasureTheory.integral_finsetSum` instead
+Erdos1054_3rdMomentProof.lean:20751:38: warning: `Set.diff_subset` has been deprecated: Use `Set.sdiff_subset` instead
+Erdos1054_3rdMomentProof.lean:20752:4: warning: `Set.union_diff_cancel` has been deprecated: Use `Set.union_sdiff_cancel` instead
+Try this:
+  [apply] ring_nf
+  
+  The `ring` tactic failed to close the goal. Use `ring_nf` to obtain a normal form.
+    
+  Note that `ring` works primarily in *commutative* rings. If you have a noncommutative ring, abelian group or module, consider using `noncomm_ring`, `abel` or `module` instead.
+Erdos1054_3rdMomentProof.lean:21035:4: warning: `push_neg` has been deprecated. Prefer using `push Not` instead.
+If you'd rather continue using `push_neg` in your project, you can implement it as follows:
+```
+open Lean.Parser.Tactic in
+macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
+  `(tactic| push $cfg:optConfig Not $[$loc]?)
+```
+Erdos1054_3rdMomentProof.lean:21503:39: warning: `Set.union_diff_self` has been deprecated: Use `Set.union_sdiff_self` instead
+Erdos1054_3rdMomentProof.lean:21509:40: warning: `Set.diff_subset` has been deprecated: Use `Set.sdiff_subset` instead
+Erdos1054_3rdMomentProof.lean:21514:48: warning: `Set.diff_subset` has been deprecated: Use `Set.sdiff_subset` instead
+Erdos1054_3rdMomentProof.lean:21532:12: warning: This simp argument is unused:
+  Set.biUnion_insert
+
+Hint: Omit it from the simp argument list.
+  simp ̵[̵S̵e̵t̵.̵b̵i̵U̵n̵i̵o̵n̵_̵i̵n̵s̵e̵r̵t̵]̵
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Erdos1054_3rdMomentProof.lean:22503:6: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+Erdos1054_3rdMomentProof.lean:22503:6: warning: 'first
+| exact hk
+| exact hPqR
+| exact hqQR
+| exact hqRle
+| exact Real.sqrt_nonneg _
+| exact Real.sqrt_pos.mpr hPR
+| positivity
+| linarith [hlogmono]
+| linarith [hlog2q0]' tactic does nothing
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+Erdos1054_3rdMomentProof.lean:22535:59: warning: `Set.diff_subset` has been deprecated: Use `Set.sdiff_subset` instead
+Erdos1054_3rdMomentProof.lean:22552:59: warning: `Set.diff_subset` has been deprecated: Use `Set.sdiff_subset` instead
+Erdos1054_3rdMomentProof.lean:22595:59: warning: `Set.diff_subset` has been deprecated: Use `Set.sdiff_subset` instead
+Erdos1054_3rdMomentProof.lean:22871:44: warning: Variable name `hP` is not explicitly referenced.
+
+The binding can be removed (if unused) or named `_` (if used implicitly).
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+Erdos1054_3rdMomentProof.lean:22925:42: warning: Variable name `hP` is not explicitly referenced.
+
+The binding can be removed (if unused) or named `_` (if used implicitly).
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+Erdos1054_3rdMomentProof.lean:23136:4: warning: `push_neg` has been deprecated. Prefer using `push Not` instead.
+If you'd rather continue using `push_neg` in your project, you can implement it as follows:
+```
+open Lean.Parser.Tactic in
+macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
+  `(tactic| push $cfg:optConfig Not $[$loc]?)
+```
+Erdos1054_3rdMomentProof.lean:23293:6: warning: `push_neg` has been deprecated. Prefer using `push Not` instead.
+If you'd rather continue using `push_neg` in your project, you can implement it as follows:
+```
+open Lean.Parser.Tactic in
+macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
+  `(tactic| push $cfg:optConfig Not $[$loc]?)
+```
+Erdos1054_3rdMomentProof.lean:23517:6: warning: `push_neg` has been deprecated. Prefer using `push Not` instead.
+If you'd rather continue using `push_neg` in your project, you can implement it as follows:
+```
+open Lean.Parser.Tactic in
+macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
+  `(tactic| push $cfg:optConfig Not $[$loc]?)
+```
+Erdos1054_3rdMomentProof.lean:23699:4: warning: `push_neg` has been deprecated. Prefer using `push Not` instead.
+If you'd rather continue using `push_neg` in your project, you can implement it as follows:
+```
+open Lean.Parser.Tactic in
+macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
+  `(tactic| push $cfg:optConfig Not $[$loc]?)
+```
+Erdos1054_3rdMomentProof.lean:25029:59: warning: `Set.diff_subset` has been deprecated: Use `Set.sdiff_subset` instead
+Erdos1054_3rdMomentProof.lean:25036:8: warning: `Set.diff_diff_right` has been deprecated: Use `Set.sdiff_sdiff_right` instead
+Erdos1054_3rdMomentProof.lean:25036:29: warning: `Set.diff_self` has been deprecated: Use `Set.sdiff_self` instead
+Erdos1054_3rdMomentProof.lean:25214:40: warning: This simp argument is unused:
+  if_pos rfl
+
+Hint: Omit it from the simp argument list.
+  simp only [Int.cast_zero, zero_mul, i̵f̵_̵p̵o̵s̵ ̵r̵f̵l̵,̵ ̵e]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Erdos1054_3rdMomentProof.lean:25261:11: warning: `intervalIntegral.integral_finset_sum` has been deprecated: Use `intervalIntegral.integral_finsetSum` instead
+Erdos1054_3rdMomentProof.lean:25541:4: warning: `push_neg` has been deprecated. Prefer using `push Not` instead.
+If you'd rather continue using `push_neg` in your project, you can implement it as follows:
+```
+open Lean.Parser.Tactic in
+macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
+  `(tactic| push $cfg:optConfig Not $[$loc]?)
+```
+Erdos1054_3rdMomentProof.lean:26080:50: warning: Variable name `hn` is not explicitly referenced.
+
+The binding can be removed (if unused) or named `_` (if used implicitly).
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+Erdos1054_3rdMomentProof.lean:26627:2: warning: 'push_cast' tactic does nothing
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+Erdos1054_3rdMomentProof.lean:27187:41: warning: Variable name `hq` is not explicitly referenced.
+
+The binding can be removed (if unused) or named `_` (if used implicitly).
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+Erdos1054_3rdMomentProof.lean:27477:76: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+Erdos1054_3rdMomentProof.lean:27477:76: warning: 'rfl' tactic does nothing
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+Erdos1054_3rdMomentProof.lean:27705:4: warning: 'push_cast' tactic does nothing
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+Erdos1054_3rdMomentProof.lean:27739:13: warning: `Int.emod_add_ediv` has been deprecated: Use `Int.emod_add_mul_ediv` instead
+Erdos1054_3rdMomentProof.lean:27922:68: warning: 'push_cast' tactic does nothing
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+Erdos1054_3rdMomentProof.lean:27929:72: warning: 'push_cast' tactic does nothing
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+Erdos1054_3rdMomentProof.lean:27951:2: warning: `push_neg` has been deprecated. Prefer using `push Not` instead.
+If you'd rather continue using `push_neg` in your project, you can implement it as follows:
+```
+open Lean.Parser.Tactic in
+macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
+  `(tactic| push $cfg:optConfig Not $[$loc]?)
+```
+Erdos1054_3rdMomentProof.lean:27971:4: warning: `push_neg` has been deprecated. Prefer using `push Not` instead.
+If you'd rather continue using `push_neg` in your project, you can implement it as follows:
+```
+open Lean.Parser.Tactic in
+macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
+  `(tactic| push $cfg:optConfig Not $[$loc]?)
+```
+Erdos1054_3rdMomentProof.lean:27979:4: warning: `push_neg` has been deprecated. Prefer using `push Not` instead.
+If you'd rather continue using `push_neg` in your project, you can implement it as follows:
+```
+open Lean.Parser.Tactic in
+macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
+  `(tactic| push $cfg:optConfig Not $[$loc]?)
+```
+Erdos1054_3rdMomentProof.lean:28290:4: warning: `push_neg` has been deprecated. Prefer using `push Not` instead.
+If you'd rather continue using `push_neg` in your project, you can implement it as follows:
+```
+open Lean.Parser.Tactic in
+macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
+  `(tactic| push $cfg:optConfig Not $[$loc]?)
+```
+Erdos1054_3rdMomentProof.lean:28280:38: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+Erdos1054_3rdMomentProof.lean:28280:38: warning: 'norm_num' tactic does nothing
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+Erdos1054_3rdMomentProof.lean:29105:8: warning: `continuous_finset_sum` has been deprecated: Use `continuous_finsetSum` instead
+Erdos1054_3rdMomentProof.lean:29116:2: warning: `Set.diff_subset` has been deprecated: Use `Set.sdiff_subset` instead
+Erdos1054_3rdMomentProof.lean:29149:10: warning: `MeasureTheory.integrable_finset_sum` has been deprecated: Use `MeasureTheory.integrable_finsetSum` instead
+Erdos1054_3rdMomentProof.lean:29151:10: warning: `MeasureTheory.integrable_finset_sum` has been deprecated: Use `MeasureTheory.integrable_finsetSum` instead
+Erdos1054_3rdMomentProof.lean:29159:10: warning: `continuous_finset_sum` has been deprecated: Use `continuous_finsetSum` instead
+Erdos1054_3rdMomentProof.lean:29179:10: warning: `continuous_finset_sum` has been deprecated: Use `continuous_finsetSum` instead
+Erdos1054_3rdMomentProof.lean:29182:10: warning: `continuous_finset_sum` has been deprecated: Use `continuous_finsetSum` instead
+Erdos1054_3rdMomentProof.lean:29185:10: warning: `continuous_finset_sum` has been deprecated: Use `continuous_finsetSum` instead
+Erdos1054_3rdMomentProof.lean:29207:6: warning: `MeasureTheory.integral_finset_sum` has been deprecated: Use `MeasureTheory.integral_finsetSum` instead
+Erdos1054_3rdMomentProof.lean:29207:40: warning: `MeasureTheory.integrable_finset_sum` has been deprecated: Use `MeasureTheory.integrable_finsetSum` instead
+Erdos1054_3rdMomentProof.lean:29209:6: warning: `MeasureTheory.integral_finset_sum` has been deprecated: Use `MeasureTheory.integral_finsetSum` instead
+Erdos1054_3rdMomentProof.lean:29260:63: warning: This simp argument is unused:
+  Nat.smul_one_eq_cast
+
+Hint: Omit it from the simp argument list.
+  simp ̵[̵N̵a̵t̵.̵s̵m̵u̵l̵_̵o̵n̵e̵_̵e̵q̵_̵c̵a̵s̵t̵]̵
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Erdos1054_3rdMomentProof.lean:29668:10: warning: `continuous_finset_sum` has been deprecated: Use `continuous_finsetSum` instead
+Erdos1054_3rdMomentProof.lean:29722:16: warning: `MeasureTheory.integral_finset_sum` has been deprecated: Use `MeasureTheory.integral_finsetSum` instead
+Erdos1054_3rdMomentProof.lean:29957:36: warning: `Set.union_diff_cancel` has been deprecated: Use `Set.union_sdiff_cancel` instead
+Erdos1054_3rdMomentProof.lean:29961:41: warning: `Set.diff_subset` has been deprecated: Use `Set.sdiff_subset` instead
+Erdos1054_3rdMomentProof.lean:30017:54: warning: `Set.diff_subset` has been deprecated: Use `Set.sdiff_subset` instead
+Erdos1054_3rdMomentProof.lean:30182:8: warning: `MeasureTheory.integral_finset_sum` has been deprecated: Use `MeasureTheory.integral_finsetSum` instead
+Erdos1054_3rdMomentProof.lean:30192:6: warning: `MeasureTheory.integral_finset_sum` has been deprecated: Use `MeasureTheory.integral_finsetSum` instead
+Erdos1054_3rdMomentProof.lean:30258:53: warning: `MeasureTheory.integral_finset_sum` has been deprecated: Use `MeasureTheory.integral_finsetSum` instead
+Erdos1054_3rdMomentProof.lean:30277:8: warning: `MeasureTheory.integrable_finset_sum` has been deprecated: Use `MeasureTheory.integrable_finsetSum` instead
+Erdos1054_3rdMomentProof.lean:30491:16: warning: This simp argument is unused:
+  Finset.mem_filter
+
+Hint: Omit it from the simp argument list.
+  simp_all [F̵i̵n̵s̵e̵t̵.̵m̵e̵m̵_̵f̵i̵l̵t̵e̵r̵,̵ ̵Nat.Coprime, Nat.gcd_comm]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Erdos1054_3rdMomentProof.lean:30634:10: warning: `tendsto_finset_sum` has been deprecated: Use `tendsto_finsetSum` instead
+Erdos1054_3rdMomentProof.lean:31210:19: warning: 'push_cast at hIH' tactic does nothing
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+Erdos1054_3rdMomentProof.lean:31868:42: warning: Variable name `hm` is not explicitly referenced.
+
+The binding can be removed (if unused) or named `_` (if used implicitly).
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+Erdos1054_3rdMomentProof.lean:32262:20: warning: This simp argument is unused:
+  hrc
+
+Hint: Omit it from the simp argument list.
+  simp [hp, hr,̵ ̵h̵r̵c̵]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Erdos1054_3rdMomentProof.lean:32429:45: warning: Variable name `hq` is not explicitly referenced.
+
+The binding can be removed (if unused) or named `_` (if used implicitly).
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+Erdos1054_3rdMomentProof.lean:32467:39: warning: Variable name `hq2` is not explicitly referenced.
+
+The binding can be removed (if unused) or named `_` (if used implicitly).
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+Erdos1054_3rdMomentProof.lean:32507:4: warning: `push_neg` has been deprecated. Prefer using `push Not` instead.
+If you'd rather continue using `push_neg` in your project, you can implement it as follows:
+```
+open Lean.Parser.Tactic in
+macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
+  `(tactic| push $cfg:optConfig Not $[$loc]?)
+```
+Erdos1054_3rdMomentProof.lean:32629:10: warning: `push_neg` has been deprecated. Prefer using `push Not` instead.
+If you'd rather continue using `push_neg` in your project, you can implement it as follows:
+```
+open Lean.Parser.Tactic in
+macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
+  `(tactic| push $cfg:optConfig Not $[$loc]?)
+```
+Erdos1054_3rdMomentProof.lean:33428:46: warning: Try `simp at hn` instead of `simpa using hn`
+
+Note: This linter can be disabled with `set_option linter.unnecessarySimpa false`
+Erdos1054_3rdMomentProof.lean:33505:8: warning: This simp argument is unused:
+  Nat.lt_succ_iff
+
+Hint: Omit it from the simp argument list.
+  simp ̵[̵N̵a̵t̵.̵l̵t̵_̵s̵u̵c̵c̵_̵i̵f̵f̵]̵
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Erdos1054_3rdMomentProof.lean:33787:35: warning: Variable name `hE` is not explicitly referenced.
+
+The binding can be removed (if unused) or named `_` (if used implicitly).
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+Erdos1054_3rdMomentProof.lean:33984:28: warning: `zero_le'` has been deprecated: Use `zero_le` instead
+Erdos1054_3rdMomentProof.lean:34046:12: warning: 'push_cast' tactic does nothing
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+Erdos1054_3rdMomentProof.lean:35054:4: warning: `push_neg` has been deprecated. Prefer using `push Not` instead.
+If you'd rather continue using `push_neg` in your project, you can implement it as follows:
+```
+open Lean.Parser.Tactic in
+macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
+  `(tactic| push $cfg:optConfig Not $[$loc]?)
+```
+Erdos1054_3rdMomentProof.lean:35199:5: warning: Variable name `hA1` is not explicitly referenced.
+
+The binding can be removed (if unused) or named `_` (if used implicitly).
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+Erdos1054_3rdMomentProof.lean:35231:6: warning: 'push_cast at this' tactic does nothing
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+Erdos1054_3rdMomentProof.lean:35325:38: warning: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+Erdos1054_3rdMomentProof.lean:35346:12: warning: Variable name `ha` is not explicitly referenced.
+
+The binding can be removed (if unused) or named `_` (if used implicitly).
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+Erdos1054_3rdMomentProof.lean:35365:14: warning: Variable name `ha` is not explicitly referenced.
+
+The binding can be removed (if unused) or named `_` (if used implicitly).
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+Erdos1054_3rdMomentProof.lean:35412:0: warning: automatically included section variable(s) unused in theorem `A1proof.Vmono`:
+  [NeZero q]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NeZero q] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+Erdos1054_3rdMomentProof.lean:35412:15: warning: Variable name `ha` is not explicitly referenced.
+
+The binding can be removed (if unused) or named `_` (if used implicitly).
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+Erdos1054_3rdMomentProof.lean:35428:0: warning: automatically included section variable(s) unused in theorem `A1proof.bridge`:
+  [NeZero q]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NeZero q] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+Erdos1054_3rdMomentProof.lean:35491:14: warning: Variable name `ha` is not explicitly referenced.
+
+The binding can be removed (if unused) or named `_` (if used implicitly).
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+Erdos1054_3rdMomentProof.lean:35536:70: warning: This simp argument is unused:
+  ZMod.natCast_self
+
+Hint: Omit it from the simp argument list.
+  simp ̵[̵Z̵M̵o̵d̵.̵n̵a̵t̵C̵a̵s̵t̵_̵s̵e̵l̵f̵]̵
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Erdos1054_3rdMomentProof.lean:35971:12: warning: `Nat.factorization_prod_pow_eq_self` has been deprecated: Use `Nat.prod_factorization_pow_eq_self` instead
+Erdos1054_3rdMomentProof.lean:36072:25: warning: `Nat.factorization_prod_pow_eq_self` has been deprecated: Use `Nat.prod_factorization_pow_eq_self` instead
+Erdos1054_3rdMomentProof.lean:36399:71: warning: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+Erdos1054_3rdMomentProof.lean:36633:17: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+Erdos1054_3rdMomentProof.lean:36633:31: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+Erdos1054_3rdMomentProof.lean:36631:33: warning: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+Erdos1054_3rdMomentProof.lean:36631:47: warning: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+Erdos1054_3rdMomentProof.lean:36633:17: warning: 'push_cast' tactic does nothing
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+Erdos1054_3rdMomentProof.lean:36633:31: warning: 'ring' tactic does nothing
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+'GoldbachChain.GoldbachReduction.almost_all_binary_goldbach_proven' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'Erdos1054.almost_all_binary_goldbach' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Erdos1054.erdos1054_third_moment_full_proof' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Represented.main' depends on axioms: [propext, Classical.choice, Quot.sound]
