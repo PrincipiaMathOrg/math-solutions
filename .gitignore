@@ -14,3 +14,8 @@ erdos1054/_tools/
 # sendov9-11 local standalone build log (CI is the record of truth)
 sendov9-11/standalone.build.log
 sendov9-11/_negcontrol.lean
+
+# Local logs of the degrees-10/11 corpus build driven by build1011.sh. Multi-MB of lake
+# progress and linter noise; the durable record is the table in VERIFICATION.md §18.
+/sendov1011-build.log
+/sendov1011-cache.log
