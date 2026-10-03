@@ -15,6 +15,20 @@ three foundations**:
 
     [propext, Classical.choice, Quot.sound]
 
+## EP1054: the collaboration paper (`ep1054/`)
+
+[`ep1054/`](ep1054/) is a separate, self-contained Lake project formalizing the later
+collaboration manuscript *On the first occurrence of an integer as a prefix sum of divisors*
+(Chae, Fraiture, Hou, Kovač, Kudeba, Shakov, Vidal; 2026-09-25, committed in
+[`ep1054/paper/`](ep1054/paper/)). Of its 37 numbered results, **33 are Lean-verified**
+unconditionally (footprint `[propext, Classical.choice, Quot.sound]`, Comparator configs shipped)
+and **4 are conditional**: `lem:fraiture-balanced-goldbach`, `prop:fraiture-tail`,
+`thm:fraiture-representability` and `eq:exact-representability` rest on Helfgott's weighted
+ternary Goldbach theorem, and are proved from named hypotheses only (see
+[`ep1054/Conditional.lean`](ep1054/Conditional.lean)). Details:
+[`ep1054/README.md`](ep1054/README.md), [`ep1054/VERIFICATION.md`](ep1054/VERIFICATION.md).
+The masters below are unchanged by it.
+
 ## The masters (the full ~36k-line verification)
 
 Each file in [`masters/`](masters/) is a single self-contained Lean file, kernel-checked,

@@ -1,0 +1,3243 @@
+\documentclass[11pt,letterpaper,reqno]{amsart}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{refcheck}
+
+\addtolength{\hoffset}{-1.5cm}\addtolength{\textwidth}{3cm}
+\addtolength{\voffset}{-1.5cm}\addtolength{\textheight}{3cm}
+
+\numberwithin{equation}{section}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Rcal}{\mathcal{R}}
+\newcommand{\eps}{\varepsilon}
+\newcommand{\1}{\mathbf 1}
+\newcommand{\lowerdens}{\underline{\textup{d}}}
+\newcommand{\upperdens}{\overline{\textup{d}}}
+
+\DeclareMathOperator{\lcm}{lcm}
+\DeclareMathOperator{\supp}{supp}
+\DeclareMathOperator{\rad}{rad}
+
+\renewcommand{\leq}{\leqslant}
+\renewcommand{\geq}{\geqslant}
+\renewcommand{\le}{\leqslant}
+\renewcommand{\ge}{\geqslant}
+
+\allowdisplaybreaks[1]
+
+\setlist[enumerate]{label=\textup{(\roman*)},leftmargin=*}
+
+\title{On the first occurrence of an integer as a prefix sum of divisors}
+
+\author[Chae]{Hyunsik Chae}
+\address{Hyunsik Chae, Department of Mathematics, UCLA}
+\email{hsch@math.ucla.edu}
+
+\author[Fraiture]{Jimmy Fraiture}
+\address{Jimmy Fraiture, London}
+\email{jimmy.fraiture@gmail.com}
+
+\author[Hou]{Eric Hou\textsuperscript{*}}
+\address{Eric Hou, Los Gatos}
+\email{eric.x.hou@gmail.com}
+
+\author[Kova\v{c}]{Vjekoslav Kova\v{c}}
+\address{Vjekoslav Kova\v{c}, University of Zagreb Faculty of Science, Department of Mathematics, Bijeni\v{c}ka cesta 30, 10000 Zagreb, Croatia}
+\email{vjekovac@math.hr}
+
+\author[Kudeba]{Christian Kudeba\textsuperscript{*}}
+\thanks{\textsuperscript{*}Authors marked with an asterisk carried out this work while employed by Principia Math Inc.}
+\address{Christian Kudeba, Ottawa, Canada}
+\email{christian@principia-math.com}
+
+
+\author[Shakov]{Anton Shakov\textsuperscript{*}}
+\address{Anton Shakov, Ottawa, Canada}
+\email{anton@principia-math.com}
+
+\author[Vidal]{Danny Vidal\textsuperscript{*}}
+\address{Danny Vidal, Ottawa}
+\email{danieljjvidal@gmail.com}
+
+\date{\today}
+
+\begin{document}
+
+\begin{abstract}
+For a positive integer $N$, let $f(N)$ be the least positive integer whose increasing list of divisors has an initial segment with sum $N$, when such an integer exists. We prove that $f$ is well-defined for all positive integers $N\neq2,5$. Next, answering a question of Erd\H{o}s, we show that $f(N)=o(N)$ fails in a strong sense, whereas $\limsup_{N\to\infty}f(N)/N=\infty$. Arbitrarily small and arbitrarily large ratios $f(N)/N$ each occur on sets of positive lower density. Moreover, we obtain a doubly exponential upper bound for the lower tail and quantitative lower bounds for the upper tail.
+\end{abstract}
+
+\maketitle
+\tableofcontents
+
+\section{Introduction}\label{sec:introduction}
+
+Write the positive divisors of an integer $n\geq1$ as
+\[
+ 1=d_1(n)<d_2(n)<\cdots<d_{\tau(n)}(n)=n.
+\]
+Here $\tau(n)$ is the number of positive divisors of $n$, and
+$\sigma(n):=\sum_{d\mid n}d$ denotes their sum.
+A positive integer $N$ is \emph{represented by a prefix of divisors} (or simply \emph{represented}) if
+\[
+ N=d_1(n)+\cdots+d_k(n)
+ \quad\text{for some }n\in\N\text{ and } 1\leq k\leq\tau(n).
+\]
+Let $\Rcal$ be the set of represented positive integers, and define $f\colon\Rcal\to\N$ by
+\[
+ f(N):=\min\{n\in\N : N=d_1(n)+\cdots+d_k(n)
+ \text{ for some }1\leq k\leq\tau(n)\}
+\]
+for every $N\in\Rcal$.
+
+The obvious inequality $f(\sigma(n))\leq n$, together with the
+well-known unboundedness of $\sigma(n)/n$, gives
+$\liminf_{N\to\infty,\,N\in\Rcal}f(N)/N=0$; see a comment under \cite{OEIS1054}.
+Erd\H{o}s asked whether $f(N)=o(N)$ holds as $N\to\infty$, whether this might at least hold for
+almost all $N$ (in an unspecified sense), and whether $\limsup f(N)/N=\infty$.
+This problem appears in Guy's collection of open problems in number theory \cite[Problem B2]{Guy} and is
+catalogued as Problem~1054 on Bloom's website \emph{Erd\H{o}s problems} \cite{Bloom1054}. Its variant is also mentioned in
+Erd\H{o}s and Graham's problem book \cite[p.~93]{ErdosGraham}; the convention there omits the divisor $1$, which only results in an immaterial shift of the function $f$.
+The computed values of $f$ are recorded in OEIS sequence A167485 \cite{OEIS1054}, where it is also asked whether
+\begin{equation}\label{eq:exact-representability}
+ \Rcal=\N\setminus\{2,5\}.
+\end{equation}
+
+These questions are not easy to answer because the prefix sums of divisors $d_1(n)+\cdots+d_k(n)$ behave quite erratically.
+Nevertheless, we successfully rigorously address all of them by providing nontrivial information on the limiting distribution of the ratios $f(N)/N$.
+Moreover, we give a computer-assisted proof of the property \eqref{eq:exact-representability}.
+
+
+\subsection{Quantitative estimates for tails}
+
+Let $\#S$ denote the cardinality of a finite set $S$.
+For $S\subseteq\N$, write
+\[
+ \lowerdens(S):=\liminf_{X\to\infty}\frac{\#(S\cap[1,X])}{X},
+ \quad
+ \upperdens(S):=\limsup_{X\to\infty}\frac{\#(S\cap[1,X])}{X}
+\]
+respectively for \emph{lower} and \emph{upper densities} of $S$.
+When these densities agree, their common value is denoted by $\textup{d}(S)$.
+Throughout, $\log$ denotes the natural logarithm, and logarithmic
+expressions are used only where they are defined.
+
+The first result bounds the frequency
+of small ratios $f(N)/N$ uniformly in the cutoff.
+
+\begin{theorem}
+\label{thm:small-upper}
+There is an absolute constant $c>0$ such that, for all sufficiently small
+$\delta>0$ and every $X\geq1$,
+\[
+ \#\{N\leq X:N\in\Rcal,\ f(N)\leq\delta N\}
+ \ll X\exp\{-\exp((1/\delta)^c)\}.
+\]
+In particular, for every fixed $M>0$ this counting function is
+$O_M(\delta^MX)$, uniformly in $X$.
+\end{theorem}
+
+An immediate asymptotic consequence of Theorem \ref{thm:small-upper} is
+\[ \upperdens\big(\{N\in\Rcal : f(N)\leq\delta N\}\big) \ll \exp\{-\exp((1/\delta)^c)\} \]
+for all sufficiently small $\delta>0$.
+This fact already strongly refutes Erd\H{o}s's intuition that $f(N)$ is typically much smaller than $N$.
+
+Next, arbitrarily small ratios occur on sets of positive lower density.
+
+\begin{theorem}
+\label{thm:small-values}
+For every $\delta>0$ there is $c_\delta>0$ such that
+\[
+ \#\{N\leq X:N\in\Rcal,\ f(N)\leq\delta N\}
+ \geq c_\delta X
+\]
+for all sufficiently large $X$.
+\end{theorem}
+
+This time, the asymptotic variant of Theorem \ref{thm:small-values} reads
+\[ \upperdens\big(\{N\in\Rcal : f(N)\leq\delta N\}\big) > 0 \]
+for every $\delta>0$.
+
+Regarding large ratios $f(N)/N$, our estimate decays more slowly than every
+negative power of the threshold.
+
+\begin{theorem}
+\label{thm:almost-log-tail}
+As $T\to\infty$,
+\begin{equation}\label{eq:almost-log-tail}
+ \lowerdens(\{N\in\Rcal:N\text{ squarefree},\ f(N)>TN\})
+ \geq\left(\frac{e^{-\gamma}}2-o(1)\right)
+ \frac{\log\log\log T}{(\log T)(\log\log T)}.
+\end{equation}
+Consequently, $\{N\in\Rcal:f(N)>TN\}$ has positive lower density
+for every fixed $T>0$, and
+\[
+ \limsup_{\substack{N\to\infty\\N\in\Rcal}}\frac{f(N)}N=\infty.
+\]
+\end{theorem}
+
+Theorem \ref{thm:almost-log-tail} also settles the last part of Erd\H{o}s's question in the affirmative.
+For every fixed $T>0$ the set $\{N\in\Rcal:f(N)>TN\}$ has positive lower density, so which is in an even sharper contrast with Erd\H{o}s's conjecture $f(N)=o(N)$. It remains possible that the density of $\{N:f(N)>TN\}$ tends to zero as $T\to\infty$; Section \ref{sec:tightness} shows that this is equivalent to a certain coverage statement for bounded cofactors, and leaves it open.
+
+The final theorem of this type allows the threshold to grow alongside with $N$, as opposed to fixing $\delta$ or $T$ as before.
+
+\begin{theorem}
+\label{thm:subexp-growth}
+For every fixed $\eta>0$ there is $c_\eta>0$ such that, for all
+sufficiently large $X$,
+\begin{equation}\label{eq:subexp-growth}
+\begin{aligned}
+ \#\biggl\{ & \frac X2<N\leq X:N\in\Rcal,\ N\text{ squarefree},\\
+ & \frac{f(N)}N>
+ \exp\biggl[\left(\frac1{\sqrt2}-\eta\right)
+ \sqrt{(\log\log\log N)(\log\log\log\log N)}\biggr]\biggr\}
+ \geq c_\eta\frac X{\log\log\log X}.
+\end{aligned}
+\end{equation}
+For every fixed $s>0$ and $\eta>0$, we have
+\begin{equation}\label{eq:positive-moment-growth}
+ \frac1X\sum_{\substack{N\leq X\\N\in\Rcal}}
+ \left(\frac{f(N)}N\right)^s
+ \geq\exp\biggl[\left(\frac{s}{\sqrt2}-\eta\right)
+ \sqrt{(\log\log\log X)(\log\log\log\log X)}\biggr]
+\end{equation}
+for all sufficiently large $X$.
+\end{theorem}
+
+\subsection{Hypothetical limiting distribution}
+
+The tail estimates from Theorems \ref{thm:small-upper}--\ref{thm:almost-log-tail} suggest studying the empirical probability measures
+\begin{equation}\label{eq:empirical-measures}
+ \nu_X:=\frac1{R(X)}
+ \sum_{\substack{N\leq X\\N\in\Rcal}}\delta_{f(N)/N},
+ \quad R(X):=\#(\Rcal\cap[1,X]),\quad X\geq1,
+\end{equation}
+where $\delta_x$ is unit mass at $x\in(0,\infty)$.
+Since we will see that $R(X)=\lfloor X\rfloor-2$ for $X\geq5$,
+the normalization by $R(X)$ is asymptotically equivalent to the one by $X$.
+Investigation of weak convergence of the measures \eqref{eq:empirical-measures} can be motivated by the classical analogous results for the sequences $\varphi(N)/N$, see \cite{Schoenberg}, or $\sigma(N)/N$, see \cite{Davenport}.
+We find it plausible that the limiting distribution also exists in the case of the sequence $f(N)/N$, but this might be out of reach of the currently available techniques. Still, the present paper attempts to provide some partial results and supporting evidence.
+
+For a factor $d$ of a number $n=ed$, the
+integer $e$ is called its \emph{cofactor}. Define
+\[
+ F_e(d):=\sum_{\substack{r\mid ed\\r\leq d}}r,
+ \quad G_E:=\bigcup_{1\leq e\leq E}F_e(\N).
+\]
+We prove that the family of probability measures $\{\nu_X:X\geq1\}$ is tight on $[0,\infty)$ if and
+only if
+\[
+ \lim_{E\to\infty}\lowerdens(G_E)=1,
+\]
+but this ``coverage assertion'' remains a conjecture.
+
+The distributional conclusions go substantially beyond tail bounds.
+There is one fixed $\sigma$-compact Lebesgue-null set
+$\mathcal{Z}\subset(0,\infty)$ carrying the finite part of every
+compactified subsequential law. Every such law has no finite atoms,
+has $0$ in its support, and has infinite positive moments and infinite
+logarithmic mean. In particular, any subsequential probability limit on
+$[0,\infty)$ is singular continuous. These conclusions follow from an
+explicit limiting measure for all representation witnesses and the
+singularity of the distribution of $\sigma(n)/n$.
+
+We also identify the remaining difficulty for the problem of weak convergence of \eqref{eq:empirical-measures}. For $t>0$,
+let $r_t^*(N)$ count representations $N=F_e(d)$ with $e\geq2$ and
+$ed\leq tN$. Its normalized first moment has a continuous limit
+$W^*(t)$, and
+\[
+ \nu_X([0,t])=W^*(t)-\frac1X\sum_{N\leq X}(r_t^*(N)-1)_++o(1).
+\]
+Thus, existence of the threshold density is equivalent to convergence of
+the displayed surplus term. This surplus has lower limit strictly
+larger than $1/9$ for every $t\geq2$. It cannot be discarded and it causes complications.
+
+\subsection{Proof strategies}
+
+For small ratios $f(N)/N$, the main inspiration for the proofs is Tao's unpublished comment under \cite{Bloom1054}. It implies a weaker variant of Theorem \ref{thm:small-upper}, with $\delta^2 X$ on the right-hand side, and it already disproves $f(N)=o(N)$. Following his suggestion, we prove an
+estimate for high moments of all prefix sums, which eventually gives Theorem \ref{thm:small-upper}. To obtain
+positive density, we use sums of proper divisors of a prescribed abundant
+family. The proof adapts the regularity decomposition and collision sieve
+of Luca and Pomerance \cite{LucaPomerance}, with Pollack's control of
+successive aliquot ratios \cite{Pollack}. The fixed abundant factor makes
+the represented ratio arbitrarily small, while the second moment estimate
+ensures that a positive proportion of the images are distinct.
+
+For large ratios, the cofactor separates the problem into a moment bound
+for large $e$ and an arithmetic obstruction for bounded $e$. Typically
+$\sigma(n)$ is divisible by a prescribed fixed modulus. If the target is
+rough, the complementary divisor sum therefore has to be rough as well.
+Its exact forced modulus makes a large divisor of a finite least common
+multiple unavoidable. A Rankin estimate for the resulting divisor tail
+yields Theorem \ref{thm:almost-log-tail}, while a uniform divisor-sum normality
+estimate and a different choice of parameters give
+Theorem \ref{thm:subexp-growth}. We use a single cofactor parametrization
+for the large value estimates and the witness measure approach.
+
+For the limiting measures, fix a cofactor and a residue class modulo
+$\lcm(1,\ldots,e)$. The reciprocal prefix sum is then
+$\sigma(n)/n$ minus a fixed rational number. Davenport's theorem in
+arithmetic progressions \cite{PollackPalindromes} and the large-cofactor
+moment bound give a convergent witness measure. On $(0,\infty)$, every subsequential ratio law is dominated by that witness measure. Erd\H{o}s's singularity
+theorem \cite{ErdosDistribution} consequently transfers to every finite
+subsequential law. This argument determines regularity of possible laws
+without assuming either tightness or uniqueness.
+
+
+\subsection{Notation}
+
+We use $s(n):=\sigma(n)-n$ for the sum of the proper divisors,
+$\varphi$ for Euler's totient function, $\zeta$ for the Riemann zeta
+function, and $\gamma$ for Euler's constant. For integers
+$a_1,\ldots,a_k$, we write $\lcm(a_1,\ldots,a_k)$ for their least
+common multiple and $\gcd(a,b)$ for the greatest common divisor of $a$ and $b$.
+We write $v_p(n)$ for the exponent of a prime $p$ in $n$, and
+$p^a\Vert n$ for exact divisibility. The largest and least prime factors of $n$
+are $P^+(n)$ and $P^-(n)$, with $P^+(1)=1$ and $P^-(1)=\infty$.
+An integer is \emph{$y$-smooth} if $P^+(n)\leq y$, and \emph{$y$-rough} if
+$P^-(n)>y$. For real $y\geq1$, we use the \emph{primorial} notation
+\[
+ y\#:=\prod_{\substack{p\leq y\\p\text{ prime}}}p,
+\]
+where each prime not exceeding $y$ occurs exactly once. The empty product
+is $1$; in particular, $y\#=1$ for $1\leq y<2$. For real $y,u\geq1$, set
+\[
+ \Delta(y):=\frac{\varphi(y\#)}{y\#}
+ =\prod_{\substack{p\leq y\\p\text{ prime}}}\left(1-\frac1p\right),
+ \qquad
+ \Lambda(u):=\lcm(1,\ldots,\lfloor u\rfloor).
+\]
+Thus $\Delta(y)$ is the natural density of integers coprime to $y\#$,
+and $\Lambda(u)$ is the least common multiple of all positive integers
+not exceeding $u$.
+The symbols $\pi(x)$ and $\pi(x;q,a)$ count primes and primes in a
+reduced residue class, respectively, and
+$\psi(x):=\sum_{p^a\leq x}\log p$.
+We use $u_+:=\max\{u,0\}$ for the positive part of a real number.
+All implied constants are absolute unless their dependence is indicated.
+The limits involving a fixed threshold always take $X\to\infty$ first.
+Finally, for $j\geq0$ we write
+\[
+ \sigma_j(n):=
+ \begin{cases}
+ d_1(n)+\cdots+d_{\tau(n)-j}(n),&0\leq j<\tau(n),\\
+ 0,&j\geq\tau(n)
+ \end{cases}
+\]
+for the \emph{prefix sum} of all but $j$ largest divisors of $n$. We interpret $\sigma_0$ as $\sigma$.
+
+
+\section{Arithmetic preliminaries}
+\label{sec:arithmetic-preliminaries}
+
+We use the cofactor functions and prime-product notation introduced in
+Section \ref{sec:introduction}. Define the complementary reciprocal sum
+\[
+ g_e(n)=\sum_{\substack{r\mid n\\r\geq e}}\frac1r.
+\]
+Since the final divisor occurs in its own prefix,
+\[
+ F_e(d)\geq d,\quad F_e(d)\leq X\ \Longrightarrow\ ed\leq eX.
+\]
+Mertens' theorem and Chebyshev's estimates give
+\[
+ \Delta(y)\sim\frac{e^{-\gamma}}{\log y},
+ \quad \log(y\#)\ll y,
+ \quad \log\Lambda(u)=\psi(u)\leq C_\Lambda u;
+\]
+see, for example, \cite{Tenenbaum}.
+
+Reflecting the divisor list expresses each prefix sum in terms of the complementary reciprocal sum.
+
+\begin{lemma}
+For every $e,d\geq1$,
+\begin{equation}\label{eq:reflection}
+ F_e(d)=ed\,g_e(ed).
+\end{equation}
+\end{lemma}
+\begin{proof}
+The involution $r\mapsto ed/r$ exchanges the divisors $r\geq e$ of $ed$
+with its divisors at most $d$.
+\end{proof}
+
+The omitted divisors force a congruence whose modulus depends on only
+finitely much divisibility information. Fix $e\geq2$ and $d\geq1$, put $n=ed$, and let
+\[
+ D=\{j:1\leq j<e,\ j\mid n\}
+\]
+be the set of divisors of $n$ below $e$. Put
+\[
+ M=\lcm(D),\quad C=\sum_{j\in D}\frac Mj,\quad g=\gcd(e,M),\quad
+ K_{e,d}=\frac eg\,C .
+\]
+Since $1\in D$, these are positive integers. In fact $K_{e,d}\geq2$: if $e/g>1$ this is immediate, while $e/g=1$ implies $C\geq M\geq e\geq2$. For $1\leq j<e$ write
+$h=\gcd(j,e)$. Then
+\[
+ j\mid ed\quad\Longleftrightarrow\quad \frac jh\mid\frac eh\,d
+ \quad\Longleftrightarrow\quad \frac jh\mid d,
+\]
+because $j/h$ and $e/h$ are coprime. Thus $D$ depends only on the residue
+of $d$ modulo
+\[
+ \lcm\bigl(\{j/\gcd(j,e):1\leq j<e\}\bigr).
+\]
+In particular, for fixed $e$ the integer $K_{e,d}$ takes only finitely many
+values.
+\begin{lemma}\label{lem:fm-modulus}
+With the notation above,
+\begin{equation}\label{eq:fm-reflection}
+ F_e(d)=\sigma(n)-\frac nM\,C ,
+\end{equation}
+the integer $M/g$ divides $d$, and
+\begin{equation}\label{eq:fm-congruence}
+ F_e(d)\equiv\sigma(n)\pmod{K_{e,d}} .
+\end{equation}
+Moreover $K_{e,d}$ is the largest modulus for which
+\eqref{eq:fm-congruence} holds for every $d$ with the same set $D$.
+\end{lemma}
+\begin{proof}
+The map $r\mapsto n/r$ is an involution of the divisors of $n$, and $r>d$
+exactly when $n/r<e$. Hence
+\[
+ \sigma(n)-F_e(d)=\sum_{\substack{r\mid n\\ r>d}}r
+ =\sum_{j\in D}\frac nj=\frac nM\sum_{j\in D}\frac Mj=\frac nM\,C .
+\]
+Every $j\in D$ divides $n$, so $M\mid n$ and $n/M$ is an integer. This
+proves \eqref{eq:fm-reflection}.
+Since $g=\gcd(e,M)$, the integers $M/g$ and $e/g$ are coprime. From
+$M\mid ed$ we get $(M/g)\mid(e/g)d$, hence $(M/g)\mid d$. Therefore
+\[
+ \frac nM=\frac{ed}M=\frac eg\cdot\frac d{M/g}
+\]
+is $e/g$ times an integer, and by \eqref{eq:fm-reflection} the difference
+$\sigma(n)-F_e(d)$ is a multiple of $(e/g)C=K_{e,d}$.
+For the last assertion take $d_0=M/g$, so that $ed_0=\lcm(e,M)$. Every
+$j\in D$ divides $M$, hence $ed_0$. Conversely $ed_0$ divides $ed$, so
+every divisor of $ed_0$ below $e$ lies in $D$. Thus $d_0$ has the same set
+$D$, and at $d_0$ the difference $(ed_0/M)C$ equals $(e/g)C$ exactly. Any
+modulus valid for every $d$ with this set $D$ divides that difference,
+hence divides $K_{e,d}$.
+\end{proof}
+If $P^-(d)\geq e$, then $D$ is the set of divisors of $e$ below $e$.
+Indeed, for $j<e$ the integer $j/\gcd(j,e)$ is below $e\leq P^-(d)$, so it
+divides $d$ only if it equals $1$, that is, only if $j\mid e$. In this
+case $M\mid e$, $g=M$, and
+\[
+ K_{e,d}=\sum_{\substack{j\mid e\\ j<e}}\frac ej=\sigma(e)-1 .
+\]
+So on $e$-rough inputs, $F_e(d)\equiv\sigma(ed)\pmod{\sigma(e)-1}$.
+
+The sum of divisors is divisible by any fixed positive integer for almost all inputs.
+
+\begin{lemma}
+\label{lem:fixed-modulus-normality}
+For every fixed positive integer $V$,
+\[
+ \#\{n\leq Y:V\nmid\sigma(n)\}=o_V(Y)
+ \quad(Y\to\infty).
+\]
+\end{lemma}
+
+\begin{proof}
+It suffices to prove the assertion when $V=q$ is a prime power. For every
+prime $r\equiv-1\pmod q$, the condition $r\Vert n$ implies
+\[
+ q\mid r+1=\sigma(r)\mid\sigma(n).
+\]
+Therefore, if $q\nmid\sigma(n)$, none of these primes divides $n$ exactly
+once. For any finite set $\mathcal{P}$ of such primes, the Chinese remainder
+theorem gives
+\[
+ \limsup_{Y\to\infty}\frac1Y
+ \#\{n\leq Y:q\nmid\sigma(n)\}
+ \leq\prod_{r\in\mathcal{P}}
+ \left(1-\frac1r+\frac1{r^2}\right).
+\]
+The reciprocal sum of the primes in the reduced residue class
+$-1\pmod q$ diverges. Letting $\mathcal{P}$ increase through this class makes
+the displayed product tend to zero. Factoring a general fixed $V$ into its
+prime-power divisors and applying the union bound completes the proof.
+\end{proof}
+
+This divisibility property forces the range of the full divisor sum to have density zero.
+
+\begin{lemma}
+\label{lem:sigma-range-zero}
+The set $\sigma(\N)=\{\sigma(n):n\geq1\}$ has asymptotic density zero.
+\end{lemma}
+
+\begin{proof}
+If $N=\sigma(n)\leq X$, then $n\leq X$. For every fixed integer $q\geq2$,
+the values divisible by $q$ number at most $X/q$, while all remaining values
+arise from $o_q(X)$ exceptional sources by
+Lemma \ref{lem:fixed-modulus-normality}. Hence
+\[
+ \upperdens(\sigma(\N))\leq\frac1q.
+\]
+Letting $q\to\infty$ proves the claim.
+\end{proof}
+
+For a prime $q$ and a real number $y\geq1$, define
+\[
+ B_q(y)=\#\{n\leq y:q\nmid\sigma(n)\}.
+\]
+The following
+estimate follows from a mean-value theorem for nonnegative multiplicative
+functions and the Siegel--Walfisz theorem.
+
+\begin{lemma}\label{lem:sigma-rate}
+There are absolute constants $c_0,c_1>0$ such that, for all sufficiently
+large $y$ and every prime
+\[
+ 3\leq q\leq c_0\frac{\log\log y}{\log\log\log y},
+\]
+one has
+\[
+ B_q(y)\ll y\exp\!\left(-c_1\frac{\log\log y}q\right).
+\]
+Also $B_2(y)\ll\sqrt y$.
+\end{lemma}
+
+\begin{proof}
+For prime powers define the multiplicative function $h_q$ by
+\[
+ h_q(p^\nu):=
+ \begin{cases}
+ 0,& p\equiv-1\pmod q\text{ and }\nu=1,\\
+ 1,& \text{otherwise}.
+ \end{cases}
+\]
+If $p\equiv-1\pmod q$ and $v_p(n)=1$, then
+$q\mid\sigma(p)\mid\sigma(n)$. Hence
+$\1_{q\nmid\sigma(n)}\leq h_q(n)$. Since $0\leq h_q(p^\nu)\leq1$,
+the Halberstam--Richert mean-value bound, in the form
+\cite[Lemma~2.4]{Pollack}, applies with $\lambda_1=\lambda_2=1$.
+It gives, with an absolute implied constant,
+\begin{align*}
+ B_q(y)
+ &\leq\sum_{n\leq y}h_q(n)\\
+ &\ll y\exp\bigg(\sum_{p\leq y}\frac{h_q(p)-1}{p}\bigg)\\
+ &=y\exp\bigg(-\sum_{\substack{p\leq y\\p\equiv-1\ (q)}}\frac1p\bigg).
+\end{align*}
+
+Choose $z=\exp(Cq^2)$ with $C$ sufficiently large. After decreasing
+$c_0$ if necessary, the stated range for $q$ ensures that $z\leq y$ for
+all sufficiently large $y$. By the Siegel--Walfisz theorem \cite{Tenenbaum}, uniformly for
+$t\geq z$,
+\[
+ \pi(2t;q,-1)-\pi(t;q,-1)\gg\frac{t}{q\log t}.
+\]
+Summing over dyadic intervals from $z$ to $y$ therefore gives
+\[
+ \sum_{\substack{z<p\leq y\\p\equiv-1\ (q)}}\frac1p
+ \gg \frac1q\log\frac{\log y}{\log z}
+ =\frac1q\bigl(\log\log y-2\log q+O(1)\bigr).
+\]
+In the stated range the last parenthesis is at least
+$\tfrac12\log\log y$ for large $y$, proving the first assertion.
+Finally, $\sigma(n)$ is odd exactly when $n$ is a square or twice a square,
+so $B_2(y)\ll\sqrt y$.
+\end{proof}
+
+The next moment estimate extends the argument of Tao \cite{Bloom1054}, which can be viewed as the first moment approach.
+Keeping the condition $e\mid n$ in the moment expansion gives the decay $E^{1-k}$ needed below.
+
+\begin{lemma}\label{lem:moment}
+For every integer $k\geq2$ there is a constant $C_k$ satisfying
+\begin{equation}\label{eq:Ck-growth}
+ \log C_k\leq 2^{k+1}\log(2k+2)
+\end{equation}
+such that, for all $E,Z\geq1$,
+\begin{equation}\label{eq:moment}
+ \sum_{n\leq Z}\ \sum_{\substack{e\mid n\\e>E}}g_e(n)^k
+ \leq C_kZE^{1-k}.
+\end{equation}
+Consequently, for all real $A,X\geq1$, the number of integers $N\leq X$
+for which there are $e,d\in\N$ satisfying $N=F_e(d)$, $e>E$, and
+$ed\leq AN$ is at most
+\begin{equation}\label{eq:large-count}
+ C_kA^{k+1}E^{1-k}X.
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+Expanding the $k$th power and counting common multiples gives
+\begin{align*}
+ &\sum_{n\leq Z}\ \sum_{\substack{e\mid n\\e>E}}g_e(n)^k\\
+ &\quad=\sum_{e>E}\ \sum_{r_1,\ldots,r_k\geq e}
+ \frac1{r_1\cdots r_k}
+ \left\lfloor\frac{Z}{\lcm(e,r_1,\ldots,r_k)}\right\rfloor\\
+ &\quad\leq Z\sum_{e>E}\ \sum_{r_1,\ldots,r_k\geq e}
+ \frac1{r_1\cdots r_k\,\lcm(e,r_1,\ldots,r_k)}.
+\end{align*}
+Set $x_0=e$, $x_i=r_i$, and $R=x_0\cdots x_k$. Since
+$r_1\cdots r_k\geq e^k$ and $e>E$,
+\[
+ \frac{R^{1/(k+1)}}{r_1\cdots r_k}
+ \leq e^{1-k}\leq E^{1-k}.
+\]
+Consequently,
+\[
+ \frac1{r_1\cdots r_k\,\lcm(e,r_1,\ldots,r_k)}
+ \leq E^{1-k}\frac{R^{-1/(k+1)}}{\lcm(x_0,\ldots,x_k)}.
+\]
+For a prime $p$ and $t\geq1$, let
+$S_{p,t}=\{i:v_p(x_i)\geq t\}$, and for every nonempty
+$S\subseteq\{0,\ldots,k\}$ put
+\[
+ y_S:=\prod_p p^{\#\{t\geq1:S_{p,t}=S\}}.
+\]
+Then
+\[
+ R=\prod_S y_S^{|S|},\quad \lcm(x_0,\ldots,x_k)=\prod_S y_S.
+\]
+Dropping the nesting restrictions on the sets $S_{p,t}$ only enlarges the
+sum, and hence
+\begin{align*}
+ \sum_{x_0,\ldots,x_k\geq1}
+ \frac{R^{-1/(k+1)}}{\lcm(x_0,\ldots,x_k)}
+ &\leq\prod_{\varnothing\ne S\subseteq\{0,\ldots,k\}}
+ \sum_{y\geq1}y^{-1-|S|/(k+1)}\\
+ &=\prod_{j=1}^{k+1}
+ \zeta\!\left(1+\frac{j}{k+1}\right)^{\binom{k+1}{j}}
+ =:C_k.
+\end{align*}
+This proves \eqref{eq:moment}. Since
+$\zeta(1+u)\leq1+u^{-1}$ for $u>0$, summing the binomial exponents gives
+\eqref{eq:Ck-growth}.
+
+For \eqref{eq:large-count}, put $n=ed$. By \eqref{eq:reflection},
+$N=ng_e(n)$. Such a pair therefore satisfies
+$n\leq AX$ and $g_e(n)=N/n\geq1/A$. The number of distinct values $N$ is
+at most the number of such pairs $(n,e)$, which by Markov's inequality and
+\eqref{eq:moment} is at most
+\[
+ A^k\sum_{n\leq AX}\ \sum_{\substack{e\mid n\\e>E}}g_e(n)^k
+ \leq C_kA^{k+1}E^{1-k}X.
+\qedhere \]
+\end{proof}
+
+
+\section{Representability}
+
+We first separate the analytic representability input from the finite
+computations needed for the exact classification. This distinction is useful
+because the large-value estimates require only the former.
+
+The analytic input shows that almost every odd integer is represented, with a quantitative bound for the exceptional set.
+
+\begin{lemma}
+\label{lem:analytic-odd-representability}
+There is an absolute $c>0$ such that, for $X\geq3$,
+\[
+ \#\{n\leq X:n\text{ odd},\ n\notin\Rcal\}
+ \ll X^{1-c}+\frac{X}{\log X}.
+\]
+In particular, this exceptional set has size
+$o(X/\log\log\log X)$ as $X\to\infty$.
+\end{lemma}
+
+\begin{proof}
+The theorem of Montgomery and Vaughan \cite{MVGoldbach}
+asserts that at most $O(X^{1-c})$ even integers at most $X$ fail to
+be sums of two primes. Discard also integers of the form $2p$, of
+which there are $O(X/\log X)$. Each remaining even integer has a
+representation $p+q$ with distinct primes $p<q$. The divisors of
+$pq$ are $1,p,q,pq$, so $1+p+q$ is a divisor-prefix sum. Translating
+by $1$ proves the assertion.
+\end{proof}
+
+We now prove the exact representability theorem by combining elementary
+constructions, finite verification, and analytic estimates. We identify the
+finite checks precisely and use a short rational estimate to extend the
+verified range.
+
+\begin{theorem}
+\label{thm:fraiture-representability}
+The represented positive integers are precisely
+\[
+ \Rcal=\N\setminus\{2,5\}.
+\]
+In particular, $f(N)$ is defined for every $N\geq6$.
+\end{theorem}
+
+\subsection{Computational verification for finitely many integers}
+
+Subset sums of primes in a suitable interval become divisor-prefix sums after adding $1$.
+
+\begin{lemma}
+\label{lem:fraiture-prime-window}
+Let $M>1$, and suppose that
+$M<p_1<\cdots<p_t\leq Y<M^2$ are distinct primes. If
+$J\subseteq\{1,\ldots,t\}$ is nonempty, then
+\[
+ 1+\sum_{j\in J}p_j\in\Rcal.
+\]
+\end{lemma}
+
+\begin{proof}
+Put $n=\prod_{j\in J}p_j$. Every composite divisor of $n$ is larger than
+$M^2$, whereas every prime divisor of $n$ is at most $Y<M^2$.
+Consequently, the positive divisors of $n$ begin with $1$, followed by the
+primes $p_j$, $j\in J$, in increasing order. Their initial sum is the
+displayed integer.
+\end{proof}
+
+Adjoining a prime extends an interval of subset sums when its translate meets or adjoins the original interval.
+
+\begin{lemma}
+\label{lem:fraiture-extension}
+Let $C\leq U$ be integers. Suppose that the subset sums of a finite set
+of distinct primes contain every integer in $[C,U]$, and let $p$ be a new prime satisfying
+$p\leq U-C+1$. After adjoining $p$, the subset sums contain every integer
+in $[C,U+p]$.
+\end{lemma}
+
+\begin{proof}
+The old subset sums cover $[C,U]$, and the subset sums using $p$ cover
+$[C+p,U+p]$. The hypothesis gives $C+p\leq U+1$, so these two integer
+intervals overlap or are consecutive.
+\end{proof}
+
+The finite checks and interval-extension argument cover the following three overlapping ranges.
+
+\begin{proposition}
+\label{prop:fraiture-finite}
+Every positive integer in each of the following intervals is represented:
+\begin{align}
+ &[6,10\,000\,000],
+ \label{eq:fraiture-small}\\
+ &[469\,616,273\,803\,744\,799\,154],
+ \label{eq:fraiture-first-window}\\
+ &[105\,000\,001,10^{27}+10^8].
+ \label{eq:fraiture-large-window}
+\end{align}
+\end{proposition}
+
+\begin{proof}
+The three finite integer checks used in this proof are implemented in
+our verifier \texttt{verify.rs} at \cite{FraitureVerifier}. Its committed \texttt{output.json} records a successful
+run, together with interval endpoints and sample witnesses. The verifier
+constructs the witnesses as it runs; the JSON file does not contain all
+$51\,000\,001$ large-seed witnesses.
+
+For \eqref{eq:fraiture-small}, take $1\leq B\leq1000$ and a prime $q>B$.
+The divisors of $Bq$ consist first of the divisors of $B$ and then of $q$
+times those divisors, in the same order. Thus every integer of the form
+\[
+ \sigma(B)+q\sum_{i=1}^j d_i(B),
+ \quad 1\leq j\leq\tau(B),
+\]
+is represented. A sieve through $10\,000\,000$ marks every integer in
+\eqref{eq:fraiture-small} except $7$, which has the separate
+representation $7=1+2+4$ from $n=4$.
+
+For \eqref{eq:fraiture-first-window}, take $M=10\,000$ and
+$Y=99\,000\,000<M^2$. The first $94$ primes in $(M,Y]$, lying between
+$10\,007$ and $10\,883$, have subset sums covering
+$[469\,615,480\,503]$. This is checked by the exact recurrence
+$S_0=\{0\}$, $S_j=S_{j-1}\cup(S_{j-1}+p_j)$ for $1\leq j\leq94$.
+The verifier checks the hypothesis of
+Lemma \ref{lem:fraiture-extension} for each successive prime through
+$98\,999\,987$. The resulting subset-sum interval is
+\[
+ [469\,615,273\,803\,744\,799\,153].
+\]
+Lemma \ref{lem:fraiture-prime-window} then gives
+\eqref{eq:fraiture-first-window} after adding $1$.
+
+For \eqref{eq:fraiture-large-window}, let $M=20\,000\,000$.
+For every one of the $51\,000\,001$ integers in
+\[
+ [105\,000\,000,156\,000\,000],
+\]
+the verifier constructs and checks a sum of four or five distinct primes
+in $(M,2M)$. For completeness, the witness search is deterministic.
+For an odd target, first remove the fixed prime $20\,000\,003$;
+for an even target, remove nothing. Split the resulting even number into
+even summands $e_1+e_2$, beginning with the largest even $e_1$ not exceeding
+half that number and decreasing $e_1$ by $2$, subject to
+$42\,000\,000\leq e_i\leq78\,000\,000$.
+For each $e_i$, search in increasing order for a prime $p$ such that
+$p<e_i-p$, both $p$ and $e_i-p$ lie in $(M,2M)$, and neither has already
+been used. The verifier checks that this search succeeds for every target,
+and then checks each completed witness directly.
+The next prime after $2M$ is $40\,000\,003$, which is at
+most the inclusive width $51\,000\,001$ of the certified interval. Thus
+Lemma \ref{lem:fraiture-extension} starts the interval-extension
+induction. After a prime $p$ has been adjoined, the new interval width is
+at least $2p$, while Bertrand's postulate supplies the next prime below
+$2p$; the induction therefore continues for every subsequent prime.
+
+Set $Y=399\,000\,000\,000\,000<M^2$. It remains to show that
+\[
+ \sum_{2M<p\leq Y}p>10^{27}+10^8.
+\]
+A single block suffices. Put $a=Y/2=199\,500\,000\,000\,000$.
+Dusart's explicit estimates \cite[Theorem~6.9]{Dusart2010} give
+\[
+ \frac{x}{\log x}<\pi(x)
+ \leq\frac{x}{\log x}\left(1+\frac{1.2762}{\log x}\right)
+ <1.05\frac{x}{\log x}
+ \quad(x\geq a),
+\]
+because $\log a>32$. Since $\log Y<34$ and $2M<a$, it follows that
+\begin{align*}
+ \sum_{2M<p\leq Y}p
+ &\geq a\bigl(\pi(Y)-\pi(a)\bigr)\\
+ &>a\left(\frac{Y}{34}-\frac{1.05a}{32}\right)\\
+ &=\frac{17\,599\,173\,046\,875\,000\,000\,000\,000\,000}{17}
+ >1.03\cdot10^{27}>10^{27}+10^8.
+\end{align*}
+The coarse logarithm inequalities require only
+$2.71<e<2.72$ and the rational comparisons
+$2.72^{32}<a$ and $Y<2.71^{34}$.
+The final bound is an inequality between rational numbers, so this bridge
+does not depend on floating-point logarithms or on a rounding convention
+in the verifier.
+The extended subset-sum interval therefore reaches past $10^{27}+10^8$;
+adding $1$ and applying Lemma \ref{lem:fraiture-prime-window} proves
+\eqref{eq:fraiture-large-window}.
+\end{proof}
+
+For reproducibility, we record the commands and expected output of our finite verifier.
+Use the following verifier \cite{FraitureVerifier}.
+Run
+\begin{quote}
+\texttt{rustc -O -C overflow-checks=on verify.rs -o /tmp/v}\par
+\texttt{/tmp/v all}
+\end{quote}
+The final JSON object should have \texttt{"check": "all"} and
+\texttt{"ok": true}. The integer checks use a sieve and a subset-sum recurrence to verify
+interval overlap and the primality, distinctness, location, and sum of
+every large-seed witness. Specifically, the first
+check marks $9\,999\,994$ of the $9\,999\,995$ integers in
+$[6,10^7]$, with $7$ handled separately; the first prime window contains
+$5\,705\,894$ primes; and the large-seed check examines
+$51\,000\,001$ targets. The verifier's optional numerical bridge and
+tail checks are not needed for the rational and analytic proofs given here.
+
+\subsection{An explicit balanced ternary Goldbach problem}
+
+\begin{lemma}\label{lem:fraiture-balanced-goldbach}
+Every odd integer $H\geq10^{27}$ is the sum of three distinct odd primes
+$p,q,r$ satisfying
+\[
+ p,q,r>\frac{H}{30\,000\log H}.
+\]
+\end{lemma}
+
+\begin{proof}
+Helfgott's explicit argument
+\cite[\S7.4, equations (7.49)--(7.50)]{Helfgott} gives a real
+weighted sum
+\[
+ \sum_{\substack{p+q+r=H\\p,q,r\ \mathrm{odd\ primes}}}
+ (\log p)(\log q)(\log r)
+ \eta_+(p/x)\eta_+(q/x)\eta_*(r/x)
+ \geq0.000422H^2,
+\]
+where $x=H/(2+9/(196\sqrt{2\pi}))$, for every odd $H\geq10^{27}$.
+Here $\eta_+$ and $\eta_*$ are the real smoothing functions used in
+that proof. Their individual smoothing
+factors satisfy
+\[
+ \lVert\eta_+\rVert_\infty\leq1.079955,
+ \quad
+ \lVert\eta_*\rVert_\infty\leq1.414;
+\]
+see \cite[equations (7.3) and (7.19)]{Helfgott}. Put
+\[
+ W=(1.079955)^2\cdot1.414,
+ \quad z=\frac{H}{30\,000\log H}.
+\]
+The explicit estimate
+$\psi(t)\leq1.03883t$ of
+\cite{RosserSchoenfeld} bounds the total absolute weight of triples with
+at least one coordinate at most $z$ by
+\begin{align*}
+ 3W\psi(z)\psi(H)\log H
+ &\leq\frac{3W(1.03883)^2}{30\,000}H^2\\
+ &<0.000178H^2.
+\end{align*}
+Triples with repeated coordinates have total absolute weight at most
+\[
+ 3WH(\log H)^3<10^{-20}H^2
+ \quad(H\geq10^{27}).
+\]
+For the last inequality, $(\log H)^3/H$ decreases on this range, and
+$\log(10^{27})<63$. Since
+$0.000422>0.000178+10^{-20}$, some odd-prime triple remains after both
+exceptional classes have been discarded.
+\end{proof}
+
+The balanced prime representation now proves representability throughout the remaining infinite range.
+
+\begin{proposition}
+\label{prop:fraiture-tail}
+Every integer
+\[
+ n\geq10^{27}+10^8
+\]
+belongs to $\Rcal$.
+\end{proposition}
+
+\begin{proof}
+First let $n$ be even and put $H=n-1$. Apply
+Lemma \ref{lem:fraiture-balanced-goldbach}, and order its primes as
+$p<q<r$. Since $H/(\log H)^2$ increases for $H>e^2$ and
+\[
+ \frac{10^{27}}{(30\,000\log(10^{27}))^2}>1,
+\]
+we have
+\[
+ pq>\left(\frac{H}{30\,000\log H}\right)^2>H>r.
+\]
+Hence the divisors of $pqr$ begin with $1,p,q,r$, and their sum is
+$1+p+q+r=n$.
+
+Now let $n$ be odd. By Bertrand's postulate, choose an odd prime $\ell$
+such that
+\[
+ 60\,000\log n<\ell<120\,000\log n,
+\]
+and put $H=n-1-\ell$. Set $T=10^{27}+10^8$. The function
+\[
+ h(t)=t-1-120\,000\log t-10^{27}
+\]
+has positive derivative for $t\geq T$, and $h(T)>0$ because
+$\log T<64$. Therefore $H\geq10^{27}$; in the same way,
+$H>n/2$. Apply Lemma \ref{lem:fraiture-balanced-goldbach} and order
+the resulting primes as $p<q<r$. Since $\log H<\log n$,
+\[
+ p>\frac{H}{30\,000\log H}
+ >\frac{n}{60\,000\log n}
+ >120\,000\log n>\ell.
+\]
+For the penultimate inequality, observe that
+$n/(\log n)^2$ increases for $n>e^2$ and already exceeds
+$7.2\cdot10^9$ at $n=T$. Finally,
+\[
+ \ell p>
+ 60\,000\log n\cdot\frac{H}{30\,000\log H}
+ >2H>r.
+\]
+Thus the divisors of $\ell pqr$ begin with $1,\ell,p,q,r$, whose sum is
+$1+\ell+p+q+r=n$.
+\end{proof}
+
+\begin{proof}[Proof of Theorem \ref{thm:fraiture-representability}]
+The three intervals of Proposition \ref{prop:fraiture-finite} overlap,
+and the last one overlaps the infinite interval of
+Proposition \ref{prop:fraiture-tail} at $10^{27}+10^8$.
+Hence every $n\geq6$ is represented. The integers $1,3,4$ are represented
+by $m=1,2,3$, respectively. No prefix can equal $2$: its first term is
+$1$, and every longer prefix has sum at least $1+2=3$. Similarly, a
+two-term prefix equal to $5$ would have to be $1+4$, but $4\mid m$
+implies $2\mid m$, contradicting that $4$ is the second-smallest divisor.
+Every prefix of length at least three has sum at least $1+2+3=6$.
+Therefore neither $2$ nor $5$ is represented.
+\end{proof}
+
+
+The computational dependencies of the representability argument are as follows.
+
+\begin{remark}
+The exact exceptional set in Theorem \ref{thm:fraiture-representability}
+uses the three finite integer checks in
+Proposition \ref{prop:fraiture-finite}. The infinite-tail
+Proposition \ref{prop:fraiture-tail} and the analytic
+Lemma \ref{lem:analytic-odd-representability} use none of these checks. In particular,
+the analytic proofs of the large-value estimates may use the latter
+lemma whenever representedness of odd targets is needed.
+\end{remark}
+
+
+\section{Small values of the least representing integer}
+
+\subsection{Upper bounds for the lower tail}
+
+We extend the first-moment argument from Tao's comment on \cite{Bloom1054} to obtain the following higher-moment estimate.
+
+\begin{lemma}\label{lem:kovac-moment}
+There is an absolute constant $C>0$ such that, for every integer $q\geq3$
+and every real $x\geq1$,
+\[
+ \sum_{n\leq x}\sum_{j\geq0}
+ \left(\frac{\sigma_j(n)}n\right)^q
+ \ll \exp(Cq\log\log q)x.
+\]
+The implicit constant is absolute.
+\end{lemma}
+
+\begin{proof}
+Let
+\[
+ 1=r_1<r_2<\cdots<r_{\tau(n)}=n
+\]
+be the divisors of $n$. Divisor reflection gives
+\[
+ \frac{\sigma_j(n)}n=\sum_{i>j}\frac1{r_i}.
+\]
+After expanding the $q$th power and summing over $j$, a fixed tuple
+$a_1,\ldots,a_q$ of divisors is counted once for each divisor threshold not
+exceeding $\min_i a_i$. Hence
+\[
+ \sum_{j\geq0}\left(\frac{\sigma_j(n)}n\right)^q
+ =
+ \sum_{\substack{r,a_1,\ldots,a_q\mid n\\
+ r\leq\min(a_1,\ldots,a_q)}}
+ \frac1{a_1\cdots a_q}.
+\]
+Summing over $n\leq x$ and bounding the number of multiples of
+$\lcm(r,a_1,\ldots,a_q)$ by\linebreak
+$x/\lcm(r,a_1,\ldots,a_q)$, it is enough to prove
+\begin{equation}\label{eq:k-S}
+ S:=\sum_{\substack{r,a_1,\ldots,a_q\geq1\\r\leq\min_i a_i}}
+ \frac1{a_1\cdots a_q\lcm(r,a_1,\ldots,a_q)}
+ \ll\exp(Cq\log\log q).
+\end{equation}
+For each $i$, put
+\[
+ b_i=\frac r{\gcd(r,a_i)},\quad c_i=\frac{a_i}{\gcd(r,a_i)}.
+\]
+Then $b_i\mid r$, $\gcd(b_i,c_i)=1$, $a_i=rc_i/b_i$, and
+\[
+ \lcm(r,a_1,\ldots,a_q)=r\lcm(c_1,\ldots,c_q).
+\]
+The condition $r\leq a_i$ becomes $b_i\leq c_i$. Dropping the coprimality
+conditions and taking $\beta=(q-1)/q$, the inequality
+\[
+ \frac1{c_i}\leq\frac1{b_i^{1-\beta}c_i^\beta}
+ \quad(c_i\geq b_i)
+\]
+applies term by term. Replacing each divisor $b_i\mid r$ by $r/d_i$
+and using $\beta q=q-1$ leaves the power $r^{-2}$. Thus
+$S\leq S'S''$, where
+\[
+ S'=\sum_{r\geq1}\frac1{r^2}
+ \left(\sum_{d\mid r}\frac1{d^{(q-1)/q}}\right)^q
+\]
+and
+\[
+ S''=\sum_{c_1,\ldots,c_q\geq1}
+ \frac1{c_1^{(q-1)/q}\cdots c_q^{(q-1)/q}\lcm(c_1,\ldots,c_q)}.
+\]
+Both sums have Euler products.
+
+For $S'$, write $S'=\prod_pL_p$, where
+\[
+ L_p=\sum_{\ell\geq0}p^{-2\ell}
+ \left(\sum_{0\leq\gamma\leq\ell}
+ p^{-((q-1)/q)\gamma}\right)^q.
+\]
+For $p\leq q$,
+\[
+ L_p\leq(1-p^{-2})^{-1}(1-p^{-(q-1)/q})^{-q}.
+\]
+Since
+\[
+ \sum_{p\leq q}p^{-(q-1)/q}
+ \leq q^{1/q}\sum_{p\leq q}\frac1p
+ \ll\log\log q,
+\]
+one obtains
+\[
+ \prod_{p\leq q}L_p\ll\exp(Cq\log\log q).
+\]
+For $p>q$, one has $qp^{-(q-1)/q}\ll1$, and the terms with $\ell\geq1$
+give $L_p=1+O(p^{-2})$. Thus
+\begin{equation}\label{eq:k-Sprime}
+ S'\ll\exp(Cq\log\log q).
+\end{equation}
+
+For $S''$, write $S''=\prod_pM_p$, where
+\[
+ M_p=\sum_{\gamma_1,\ldots,\gamma_q\geq0}
+ p^{-((q-1)/q)(\gamma_1+\cdots+\gamma_q)-\max_i\gamma_i}.
+\]
+Put
+\[
+ A_h=\sum_{0\leq\gamma\leq h}p^{-((q-1)/q)\gamma}.
+\]
+Grouping by $h=\max_i\gamma_i$ gives
+\[
+ M_p=\sum_{h\geq0}p^{-h}(A_h^q-A_{h-1}^q),\quad A_{-1}=0.
+\]
+For $p\leq q$,
+\[
+ M_p\leq(1-p^{-1})^{-1}(1-p^{-(q-1)/q})^{-q},
+\]
+so the product over these primes is $\ll\exp(Cq\log\log q)$. For $p>q$,
+the mean-value theorem and $qp^{-(q-1)/q}\ll1$ give
+\[
+ A_h^q-A_{h-1}^q\ll q p^{-h(q-1)/q}.
+\]
+Consequently,
+\[
+ M_p-1\ll q p^{-2+1/q},
+\quad
+ \sum_{p>q}(M_p-1)\ll q\sum_{n>q}n^{-2+1/q}\ll1.
+\]
+Hence
+\begin{equation}\label{eq:k-Ssecond}
+ S''\ll\exp(Cq\log\log q).
+\end{equation}
+Combining \eqref{eq:k-Sprime} and \eqref{eq:k-Ssecond} proves
+\eqref{eq:k-S} and the lemma.
+\end{proof}
+
+\begin{proof}[Proof of Theorem \ref{thm:small-upper}]
+Let
+\[
+ \mathcal{E}_\delta(X)=
+ \{N\leq X:N\in\Rcal,\ f(N)\leq\delta N\}.
+\]
+If $\delta X<1$, then $\mathcal{E}_\delta(X)$ is empty, so assume
+$\delta X\geq1$. If $N\in\mathcal{E}_\delta(X)$ and $n=f(N)$, then
+$n\leq\delta X$ and $N=\sigma_j(n)$ for some $j\geq0$ with
+$\sigma_j(n)/n\geq1/\delta$. Therefore, for every integer $q\geq3$,
+\begin{align*}
+ \#\mathcal{E}_\delta(X)
+ &\leq\delta^q\sum_{n\leq\delta X}\sum_{j\geq0}
+ \left(\frac{\sigma_j(n)}n\right)^q\\
+ &\ll\delta^{q+1}\exp(Cq\log\log q)X.
+\end{align*}
+Choose a sufficiently small absolute $c>0$ and put
+\[
+ q=\left\lfloor\exp((1/\delta)^c)\right\rfloor.
+\]
+For all sufficiently small $\delta$, one has
+$C\log\log q\leq\tfrac12\log(1/\delta)$, and hence
+\[
+ \delta^{q+1}\exp(Cq\log\log q)
+ \leq\exp\!\left(-\frac q2\log\frac1\delta\right)
+ \leq\exp\!\left(-\exp((1/\delta)^{c/2})\right).
+\]
+Renaming $c/2$ as $c$ proves the first assertion. The fixed-power bound
+follows because this double-exponential expression is $O_M(\delta^M)$ for
+every fixed $M>0$.
+\end{proof}
+
+\subsection{Where are the small ratios?}
+
+The positive-density assertion for every fixed small ratio is compatible
+with the absence of such ratios at any practical search range. The
+following bound makes this distinction quantitative.
+
+\begin{proposition}
+If $n\in\Rcal$ and $f(n)\leq n/10$, then $n>10^{120}$.
+\end{proposition}
+
+\begin{proof}
+Put $m=f(n)$. Every divisor-prefix sum of $m$ is at most $\sigma(m)$,
+so $f(n)\leq n/10$ implies
+\[
+ \frac{\sigma(m)}m\geq\frac nm\geq10.
+\]
+If $m\leq5040$, then
+\[
+ \frac{\sigma(m)}m=\sum_{d\mid m}\frac1d
+ \leq\sum_{d=1}^{5040}\frac1d
+ \leq1+\log5040<10,
+\]
+a contradiction. If $n\leq10^{120}$, then $m\leq10^{119}$; hence
+Axler's unconditional refinement of Robin's inequality
+\cite[Corollary~2]{AxlerRobin} gives
+\[
+ \frac{\sigma(m)}m
+ <(1+3.15367\cdot10^{-7})e^\gamma\log\log m
+ \leq9.99745<10,
+\]
+again a contradiction.
+\end{proof}
+
+The obstruction is not vacuous. For
+$m=\lcm(1,\ldots,289)$, direct evaluation of the finite Euler product for
+$\sigma(m)/m$ gives
+\[
+ \frac{\sigma(m)}m=10.004735741\ldots>10.
+\]
+Thus $n=\sigma(m)$ satisfies
+\[
+ n=3.078152209\ldots\cdot10^{128},
+ \quad
+ \frac{f(n)}n\leq\frac m{\sigma(m)}
+ =0.099952665\ldots<\frac1{10}.
+\]
+
+
+\subsection{A positive-density family of abundant witnesses}
+
+We now prove Theorem \ref{thm:small-values} by adapting the positive-density
+range argument of Luca and Pomerance \cite{LucaPomerance}. The main
+additional requirement is that the witnesses have arbitrarily large
+abundancy. We enforce it by a fixed divisor $D$. A theorem of Pollack
+\cite{Pollack} then bounds the abundancy of the intermediate aliquot sums;
+this replaces the deficiency condition used in \cite{LucaPomerance}.
+After selecting a regular family, we partition it by its small-prime part
+and bound the number of pairs with the same aliquot sum. Cauchy--Schwarz
+will convert this collision bound into a positive-density image.
+
+If $n\geq2$, then $s(n)$ is the sum of all proper divisors of $n$, so
+$s(n)\in\Rcal$ and
+\begin{equation}\label{eq:sv-basic}
+ f(s(n))\leq n \quad(n\geq2).
+\end{equation}
+
+
+We will construct $\mathcal{A}(X)\subset[1,X]$ such that
+\[
+ n/\delta<s(n)\leq C_\delta X\quad(n\in\mathcal{A}(X)),
+ \quad \#s(\mathcal{A}(X))\gg_\delta X.
+\]
+By \eqref{eq:sv-basic}, rescaling $X$ then proves the theorem.
+
+It is enough to prove the theorem for $0<\delta\leq1$. Put
+$\lambda=1/\delta$, and choose a fixed squarefree integer $D$ such that
+\begin{equation}\label{eq:sv-D}
+ \frac{\sigma(D)}D>1+\lambda.
+\end{equation}
+Such a $D$ exists because $\prod_{p\leq z}(1+1/p)$ is unbounded.
+
+For large $X$, let $\mathcal{A}_0(X)$ consist of the integers
+\begin{equation}\label{eq:sv-factorization}
+ M=pqrk
+\end{equation}
+for which $p,q,r$ are prime,
+\begin{align*}
+ &X^{1/120}<k=Dj\leq X^{1/60},
+ \quad \frac{\sigma(j)}j\leq4\zeta(2),\\
+ &X^{1/15}<r\leq X^{1/12},\\
+ &X^{7/20}<q\leq X^{11/30},\\
+ &\frac{X}{2qrk}<p\leq\frac{X}{qrk}.
+\end{align*}
+Set $\ell=rk$ and $n=q\ell$.
+
+\begin{lemma}
+There is a constant $C_\delta>0$ such that, for all sufficiently large
+$X$,
+\[
+ \#\mathcal{A}_0(X)\gg_\delta X,
+\]
+every $M\in\mathcal{A}_0(X)$ has a unique factorization
+\eqref{eq:sv-factorization}, and
+\begin{equation}\label{eq:sv-two-sided}
+ \lambda<\frac{s(t)}t<C_\delta
+ \quad(t\in\{k,\ell,n,M\}).
+\end{equation}
+Moreover, $q>n^{7/9}$.
+\end{lemma}
+
+\begin{proof}
+For $J\geq1$,
+\[
+ \sum_{j\leq J}\frac{\sigma(j)}{j^2}
+ =\sum_{d\leq J}\frac1{d^2}\sum_{a\leq J/d}\frac1a
+ \leq\zeta(2)\sum_{a\leq J}\frac1a.
+\]
+Consequently, with $J_1=X^{1/120}/D$ and $J_2=X^{1/60}/D$,
+\begin{align*}
+ \sum_{\substack{J_1<j\leq J_2\\ \sigma(j)/j\leq4\zeta(2)}}\frac1j
+ &\geq \sum_{J_1<j\leq J_2}\frac1j
+ -\frac1{4\zeta(2)}\sum_{j\leq J_2}\frac{\sigma(j)}{j^2}\\
+ &\geq \left(\frac1{240}+o(1)\right)\log X.
+\end{align*}
+For fixed $q,r,k$, the interval for $p$ is $(T/2,T]$, where
+$T=X/(qrk)\geq X^{8/15}$. The prime number theorem, followed by Mertens'
+theorem for primes, therefore gives
+\[
+ \#\mathcal{A}_0(X)
+ \gg \frac{X}{\log X}
+ \sum_k\frac1k
+ \sum_{X^{1/15}<r\leq X^{1/12}}\frac1r
+ \sum_{X^{7/20}<q\leq X^{11/30}}\frac1q
+ \gg_\delta X.
+\]
+The factorization is unique because $p>X^{1/2}$, the prime $q$ lies above
+$X^{7/20}$, the prime $r$ lies between $X^{1/15}$ and $X^{1/12}$, and
+every prime factor of $k$ is at most $X^{1/60}$.
+
+The function $n\mapsto\sigma(n)/n$ is nondecreasing under divisibility.
+Since $D\mid t$ for $t\in\{k,\ell,n,M\}$, \eqref{eq:sv-D} therefore
+gives the lower bound in \eqref{eq:sv-two-sided}. The inequality
+$\sigma(ab)/(ab)\leq(\sigma(a)/a)(\sigma(b)/b)$ also gives
+\[
+ \frac{\sigma(k)}k\leq
+ \frac{\sigma(D)}D\frac{\sigma(j)}j
+ \leq4\zeta(2)\frac{\sigma(D)}D,
+\]
+and adjoining each of $p,q,r$ multiplies $\sigma(t)/t$ by less than $2$.
+This gives the upper bound in \eqref{eq:sv-two-sided}. Finally,
+$\ell\leq X^{1/10}$ and $q^2>X^{7/10}\geq\ell^7$, whence
+$q^9>q^7\ell^7=n^7$.
+\end{proof}
+
+\subsection{Arithmetic regularity and smooth-part classes}
+
+For $u$ sufficiently large, put
+\[
+ y(u)=\frac{\log\log u}{\log\log\log u},
+ \quad Y=y(X^{1/120}).
+\]
+An integer is called \emph{$Y$-smooth} if all of its prime factors are at most
+$Y$.
+
+We collect the almost-everywhere regularity properties of divisor sums established by Luca and Pomerance.
+
+\begin{lemma}\label{lem:LP-inputs}
+Put $y(n)=\log\log n/\log\log\log n$. Outside a set of integers of asymptotic density
+zero, the following hold:
+\begin{enumerate}
+\item $v_p(\sigma(n))>v_p(n)$ for every prime $p\leq y(n)$;
+\item $P^+(\gcd(n,\sigma(n)))\leq y(n)$;
+\item $\sigma(n)/\gcd(n,\sigma(n))$ is divisible by every prime
+ $p\leq y(n)$;
+\item every prime factor of $s(n)/\gcd(n,\sigma(n))$ exceeds $y(n)$.
+\end{enumerate}
+If in addition $P^+(n)>n^{7/9}$, then, outside another density-zero set,
+\[
+ y(n)<q_0\leq n^{10/27},\quad q_0\text{ prime}
+ \quad\Longrightarrow\quad q_0^2\nmid s(n).
+\]
+Finally, outside a set of asymptotic density zero,
+\[
+ \sum_{\substack{a\mid\sigma(n)\\a>(\log\log n)^2}}\frac1a\leq1.
+\]
+\end{lemma}
+
+\begin{proof}
+The first four properties are the conclusions of
+\cite[Lemma~2.1]{LucaPomerance}, with the valuation inequality in \textup{(i)}
+stated explicitly in the proof of its part~(4). The square-divisibility
+assertion is the consequence of \cite[Lemma~2.2]{LucaPomerance} needed here;
+we use it only in the displayed range. The reciprocal-divisor estimate
+is \cite[Lemma~2.5]{LucaPomerance}.
+\end{proof}
+
+We next count integers with a prescribed smooth part and bound the proportion whose smooth part is large.
+
+\begin{lemma}\label{lem:smooth-part-input}
+Suppose that $Y=Y(X)\to\infty$ and $Y=o(\log X)$. For every fixed
+$c>0$, uniformly for $Y$-smooth
+$d\leq Y^c$,
+\[
+ \#\{n\leq X:d\text{ is the largest $Y$-smooth divisor of }n\}
+ \asymp \frac{X}{d\log Y}.
+\]
+Moreover, given $\eta>0$, $c$ may be chosen sufficiently large that the
+integers $n\leq X$ whose largest $Y$-smooth divisor exceeds $Y^c$ account
+for at most $\eta X$ integers for all sufficiently large $X$.
+\end{lemma}
+
+\begin{proof}
+Write $D_Y(n)$ for the largest $Y$-smooth divisor of $n$. For a
+$Y$-smooth integer $d$,
+$D_Y(n)=d$ if and only if $n=du$ with $\gcd(u,Y\#)=1$. Counting complete
+periods modulo $Y\#$ gives
+\[
+ \#\{n\leq X:D_Y(n)=d\}
+ =\frac Xd\Delta(Y)+O(Y\#).
+\]
+Chebyshev's estimate gives $Y\#=\exp(O(Y))=X^{o(1)}$, while Mertens'
+theorem gives $\Delta(Y)\asymp1/\log Y$. This proves the required
+uniform estimate. It is the small-$Y$ form of the counting argument
+in \cite[(3.1)]{LucaPomerance}.
+
+For the tail, sum the logarithm of the smooth part:
+\[
+ \sum_{n\leq X}\log D_Y(n)
+ =\sum_{p\leq Y}\log p\sum_{a\geq1}
+ \left\lfloor\frac X{p^a}\right\rfloor
+ \leq X\sum_{p\leq Y}\frac{\log p}{p-1}
+ \ll X\log Y.
+\]
+The last estimate follows by partial summation from Chebyshev's bound.
+Markov's inequality now gives
+\[
+ \#\{n\leq X:D_Y(n)>Y^c\}\ll X/c.
+\]
+Choosing $c$ sufficiently large in terms of $\eta$ proves the assertion.
+\end{proof}
+
+The following lemma selects a large subfamily with the regularity properties
+needed in the collision estimate.
+
+\begin{lemma}\label{lem:sv-regular}
+There is a subfamily $\mathcal{A}(X)\subseteq\mathcal{A}_0(X)$ with
+$\#\mathcal{A}(X)\gg_\delta X$ having the following properties. For
+$M=pqrk\in\mathcal{A}(X)$, let $d$ be the largest $Y$-smooth divisor of
+$M$. Then, for every $t\in\{k,\ell,n,M\}$,
+\begin{enumerate}
+\item $d=\gcd(t,\sigma(t))$, and $d$ is the largest $Y$-smooth divisor of
+ both $t$ and $s(t)$;
+\item $\sigma(t)/d$ is divisible by every prime at most $Y$, while every
+ prime factor of $s(t)/d$ exceeds $y(t)$.
+\end{enumerate}
+In addition,
+\[
+ y(n)<q_0\leq n^{10/27},\quad q_0\text{ prime}
+ \quad\Longrightarrow\quad q_0^2\nmid s(n),
+\]
+and
+\begin{equation}\label{eq:sv-LP25}
+ \sum_{\substack{a\mid\sigma(n)\\a>(\log\log X)^2}}\frac1a\leq1.
+\end{equation}
+There is also a constant $B_\delta>0$ such that
+\begin{equation}\label{eq:sv-image-abundancy}
+ \frac{\sigma(s(n))}{s(n)}\leq B_\delta.
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+First discard the integers for which $k$ has a prime factor in
+$(Y,y(X)]$. Uniformly for $X^{1/120}<k\leq X^{1/60}$,
+\[
+ y(k)=y(X)+O\!\left(\frac1{\log\log\log X}\right),
+\]
+so
+\[
+ \sum_{Y<p\leq y(X)}\frac1p=o(1).
+\]
+Indeed,
+\[
+ \sum_{\substack{k\leq X^{1/60}\\
+ p\mid k\text{ for some }Y<p\leq y(X)}}\frac1k
+ \ll \log X\sum_{Y<p\leq y(X)}\frac1p=o(\log X).
+\]
+The discarded $k$ therefore account for $o(X)$ members of
+$\mathcal{A}_0(X)$.
+
+Apply Lemma \ref{lem:LP-inputs} to each of $k,\ell,n,M$, with its
+large-prime square-divisibility conclusion applied to $n$.
+
+Each excluded set has asymptotic density zero. These exclusions remove only
+$o(X)$ members of $\mathcal{A}_0(X)$. To justify this assertion, let
+$\mathcal{E}\subseteq\N$ satisfy
+$\#(\mathcal{E}\cap[1,T])=o(T)$. Partial summation gives
+\begin{equation}\label{eq:sv-harmonic-density-zero}
+ \sum_{\substack{n\leq T\\n\in\mathcal{E}}}\frac1n=o(\log T).
+\end{equation}
+The separated factor ranges make the decompositions
+$\ell=rk$, $n=q\ell$ and $M=pn$ unique. An upper-bound estimate for the
+prime $p$ then shows that the members for which one of $k,\ell,n$ lies in
+$\mathcal{E}$ are
+\[
+ \ll\frac{X}{\log X}
+ \sum_{\substack{t\leq X^{O(1)}\\t\in\mathcal{E}}}\frac1t=o(X),
+\]
+up to bounded reciprocal prime sums; the deletion at the level $M$ is
+directly $o(X)$.
+
+For every retained $t$, Lemma \ref{lem:LP-inputs} and its first four
+properties identify $\gcd(t,\sigma(t))$ with the largest $y(t)$-smooth
+divisor of $t$ and give the corresponding divisibility properties of
+$\sigma(t)$ and $s(t)$. Since $Y\leq y(t)\leq y(X)$, the exclusion made in
+the first paragraph and the fact that $p,q,r>y(X)$ show that the same integer
+$d$ occurs at all four levels and prove \textup{(i)--(ii)}. The hypothesis
+$q>n^{7/9}$ gives the displayed square-divisibility exclusion for $s(n)$,
+and the final assertion of Lemma \ref{lem:LP-inputs} gives
+\eqref{eq:sv-LP25}.
+
+By \cite[Theorem~1.4]{Pollack}, the fixed exceptional set of integers $n$
+for which $s(s(n))/s(n)>s(n)/n+1$ has asymptotic density zero.
+One further exclusion at the level $n$, justified by
+\eqref{eq:sv-harmonic-density-zero}, therefore ensures that
+\[
+ \frac{s(s(n))}{s(n)}
+ \leq \frac{s(n)}n+1.
+\]
+Together with \eqref{eq:sv-two-sided}, this yields
+\eqref{eq:sv-image-abundancy} with $B_\delta=C_\delta+2$.
+\end{proof}
+
+Partition $\mathcal{A}(X)$ according to the integer $d$ in
+Lemma \ref{lem:sv-regular}. The image sets belonging to distinct classes
+are disjoint, because $d$ is also the largest $Y$-smooth divisor of $s(M)$.
+
+\begin{lemma}\label{lem:sv-classes}
+There are positive constants $c,c_1,c_2$, depending at most on $\delta$, and a set $\mathcal{D}_X$ of $Y$-smooth
+integers $d\leq Y^c$ such that, writing
+\[
+ \mathcal{A}_d(X)=\{M\in\mathcal{A}(X):d
+ \text{ is the largest $Y$-smooth divisor of }M\},
+\]
+one has, uniformly for $d\in\mathcal{D}_X$,
+\begin{equation}\label{eq:sv-class-size}
+ c_1\frac{X}{d\log Y}
+ \leq\#\mathcal{A}_d(X)
+ \leq c_2\frac{X}{d\log Y},
+ \quad
+ \sum_{d\in\mathcal{D}_X}\frac1d\gg_\delta\log Y.
+\end{equation}
+The sets $s(\mathcal{A}_d(X))$, $d\in\mathcal{D}_X$, are pairwise disjoint.
+\end{lemma}
+
+\begin{proof}
+Fix $\eta=\eta(\delta)>0$ with $\#\mathcal{A}(X)\geq\eta X$.
+Apply Lemma \ref{lem:smooth-part-input}, choosing $c$ so large that the
+classes with $d>Y^c$ contain at most $\eta X/3$ integers. Since
+\[
+ \sum_{P^+(d)\leq Y}\frac1d
+ =\prod_{p\leq Y}\left(1-\frac1p\right)^{-1}
+ \asymp\log Y,
+\]
+we may choose a sufficiently small $a=a(\delta)>0$ and let $\mathcal{D}_X$
+consist of those $d\leq Y^c$ for which
+\[
+ \#\mathcal{A}_d(X)\geq a\frac{X}{d\log Y}.
+\]
+The classes outside $\mathcal{D}_X$ then contain at most $\eta X/3$ integers.
+Thus the classes in $\mathcal{D}_X$ contain $\gg_\delta X$ integers. The
+uniform upper estimate above now gives
+\[
+ \frac{X}{\log Y}\sum_{d\in\mathcal{D}_X}\frac1d
+ \gg_\delta X,
+\]
+which proves \eqref{eq:sv-class-size}. The disjointness assertion follows
+from Lemma \ref{lem:sv-regular}.
+\end{proof}
+
+\subsection{The collision estimate}
+
+\begin{proposition}\label{prop:sv-second-moment}
+For $d\in\mathcal{D}_X$, put
+\[
+ R_d(u)=\#\{M\in\mathcal{A}_d(X):s(M)=u\}.
+\]
+Then, uniformly for $d\in\mathcal{D}_X$,
+\begin{equation}\label{eq:sv-second-moment}
+ \sum_uR_d(u)^2\ll_\delta\frac{X}{d\log Y}.
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+We prove the collision estimate directly, following the organization of
+\cite[(3.4), \S\S3.1--3.2]{LucaPomerance}. All estimates needed for the
+present family are recorded below. We first note two reciprocal estimates. Since $d$ is the largest $Y$-smooth divisor of every
+member of $\mathcal{A}_d(X)$, the corresponding factor $k$ is $d$ times an
+integer with no prime factor at most $Y$. The complete-period count in
+Lemma \ref{lem:smooth-part-input}, applied uniformly throughout the fixed
+power interval for $k$, and partial summation give
+\begin{equation}\label{eq:sv-k-reciprocal}
+ \sum_{k}\frac1k\ll\frac{\log X}{d\log Y}.
+\end{equation}
+Here and below a sum over a factor of a member of $\mathcal{A}_d(X)$ is
+restricted to the ranges in \eqref{eq:sv-factorization}. The reciprocal
+prime sums over the fixed power intervals for $q$ and $r$ are bounded, so
+\begin{equation}\label{eq:sv-m-reciprocal}
+ \sum_n\frac1n\ll\frac{\log X}{d\log Y}.
+\end{equation}
+
+The diagonal contribution to $\sum_uR_d(u)^2$ is
+$\#\mathcal{A}_d(X)$ and is bounded by \eqref{eq:sv-class-size}. Consider
+an off-diagonal collision, written as $M=pn$, $M'=p'n'$, with $n\ne n'$.
+Then
+\begin{equation}\label{eq:sv-collision}
+ p\,s(n)+\sigma(n)=p'\,s(n')+\sigma(n').
+\end{equation}
+By Lemma \ref{lem:sv-regular},
+$\gcd(n,\sigma(n))=\gcd(n',\sigma(n'))=d$. Put
+\[
+ \gcd(s(n),s(n'))=dh.
+\]
+Every prime factor of $h$ exceeds both $y(n)$ and $y(n')$. Equation
+\eqref{eq:sv-collision} shows that $dh$ divides
+$\sigma(n)-\sigma(n')$. This difference is nonzero. Indeed, equality
+would give $p s(n)=p's(n')$; for all sufficiently large $X$,
+\[
+ \min(p,p')>\tfrac12X^{8/15}>C_\delta X^{7/15}
+ \geq\max\{s(n),s(n')\},
+\]
+which forces $p=p'$, then $s(n)=s(n')$, and finally $n=n'$. Thus
+\[
+ A_1=\frac{s(n)}{dh},\quad
+ A_2=\frac{s(n')}{dh},\quad
+ A_3=\frac{|\sigma(n)-\sigma(n')|}{dh}
+\]
+are positive integers, with $\gcd(A_1,A_2)=1$.
+
+For fixed $n,n'$, elementary linear Diophantine theory shows that there
+are fixed integers $p_0,p'_0$ for which every integral solution has the form
+\[
+ p=p_0+A_2t,\quad p'=p'_0+A_1t \quad(t\in\Z).
+\]
+All relevant values of $t$ lie in an interval of length at most
+\[
+ T:=\frac{Xdh}{n s(n')}.
+\]
+The bounds
+\[
+ \lambda n'\leq s(n')\leq C_\delta n',
+ \quad nn'\leq X^{14/15},
+\]
+give $T\gg_\delta X^{1/15}$ and
+$T\ll_\delta Xdh/(nn')$, so $\log T\asymp\log X$. The affine forms are
+primitive whenever a prime pair exists. For example, a common divisor of
+$p_0$ and $A_2$ would divide every value of $p=p_0+A_2t$, whereas
+$p>A_2$ for all sufficiently large $X$; the second form is identical.
+For odd primes the two primitive forms exclude at most two residue classes,
+and the prime $2$ either leaves an allowed parity class or there are no
+solutions. The standard two-dimensional upper-bound sieve, in the form used in
+\cite[(3.7)]{LucaPomerance}, therefore gives
+\[
+ \ll_\delta
+ \frac{Xdh}{nn'(\log X)^2}
+ \frac{A_1}{\varphi(A_1)}
+ \frac{A_2}{\varphi(A_2)}
+ \frac{A_3}{\varphi(A_3)}
+\]
+possible prime pairs.
+
+If $v\mid s(t)$, then
+\begin{equation}\label{eq:sv-totient}
+ \frac v{\varphi(v)}
+ \leq\zeta(2)\frac{\sigma(v)}v
+ \leq\zeta(2)\frac{\sigma(s(t))}{s(t)}
+ \leq\zeta(2)B_\delta
+ \quad(t\in\{n,n'\}).
+\end{equation}
+This bounds the factors belonging to $A_1,A_2$, and also gives
+$\varphi(h)\gg_\delta h$.
+
+We now reduce the factor belonging to $A_3$. Let $A_{3,1}$ contain its
+prime factors at most $(\log\log X)^2$, let $A_{3,2}$ contain those in
+$((\log\log X)^2,\log X]$, and let $A_{3,3}$ contain those exceeding
+$\log X$. Since $A_3\ll_\delta X^{7/15}$,
+\[
+ \frac{A_{3,1}}{\varphi(A_{3,1})}\ll\log Y,
+ \quad
+ \frac{A_{3,3}}{\varphi(A_{3,3})}\ll1.
+\]
+Let $A'_{3,2}$ be the largest divisor of $A_{3,2}$ coprime to
+$\sigma(n)$. The primes removed from $A_{3,2}$ divide $\sigma(n)$ and
+exceed $(\log\log X)^2$, so \eqref{eq:sv-LP25} gives
+\[
+ \frac{A_{3,2}}{\varphi(A_{3,2})}
+ \ll\frac{A'_{3,2}}{\varphi(A'_{3,2})}.
+\]
+Consequently, it remains to prove
+\begin{equation}\label{eq:sv-reduced-collision-sum}
+ \frac{X\log Y}{(\log X)^2}
+ \sum_{n\ne n'}
+ \frac{dh}{nn'}
+ \frac{A'_{3,2}}{\varphi(A'_{3,2})}
+ \ll_\delta\frac{X}{d\log Y},
+\end{equation}
+where the sum is restricted to pairs $n,n'$ admitting an off-diagonal
+collision in \eqref{eq:sv-collision}, and $dh=\gcd(s(n),s(n'))$.
+In particular, $dh\mid\sigma(n)-\sigma(n')$.
+Notice also that $A_3$ is divisible by every
+prime at most $Y$. Indeed, both $\sigma(n)/d$ and $\sigma(n')/d$ have this
+property by Lemma \ref{lem:sv-regular}, while every prime factor of $h$
+exceeds $Y$.
+
+Suppose first that $h>X^{10/33}$. Write $n=q\ell$ and $n'=q'\ell'$. We claim that
+$\gcd(h,s(\ell)\sigma(\ell))=1$. If a prime $q_0$ divided both $h$
+and $\sigma(\ell)$, then the identity
+$s(n)=q s(\ell)+\sigma(\ell)$ would imply either $q_0=q$ or
+$q_0\mid s(\ell)$. In the first case,
+$q_0\mid\gcd(n,\sigma(n))=d$; in the second case,
+$q_0\mid\ell$ and $q_0\mid\sigma(\ell)$, so again $q_0\mid d$.
+Both conclusions contradict the fact that every prime factor of $h$ exceeds
+$Y$, whereas $d$ is $Y$-smooth. If instead $q_0\mid h$ and
+$q_0\mid s(\ell)$, then the same identity gives
+$q_0\mid\sigma(\ell)$, which has just been excluded. Thus both
+$s(\ell)$ and $\sigma(\ell)$ are units modulo $h$. It follows that
+$q$ is fixed in a reduced residue class modulo $h$, and the same holds for
+$q'$. Moreover,
+\[
+ n\equiv\sigma(n)\equiv\sigma(n')\equiv n'\pmod h.
+\]
+Eliminating $q,q'$ gives
+\begin{equation}\label{eq:sv-large-h-congruence}
+ s(\ell')\ell\sigma(\ell)-s(\ell)\ell'\sigma(\ell')
+ \equiv0\pmod h.
+\end{equation}
+The absolute value of the left side is at most
+\[
+ 2C_\delta(C_\delta+1)\max(\ell,\ell')^3
+ \ll_\delta X^{3/10}=o(X^{10/33}),
+\]
+so it vanishes. For every prime power $q_0^a\Vert d$,
+Lemma \ref{lem:sv-regular} gives
+$q_0^a\Vert s(\ell)$ and $q_0^{a+1}\mid\sigma(\ell)$; it also excludes
+primes exceeding $Y$ from $\gcd(\ell,s(\ell))$. Hence
+\[
+ \gcd(\ell^2,s(\ell))=d,
+ \quad
+ \gcd((\ell')^2,s(\ell'))=d.
+\]
+The equality in \eqref{eq:sv-large-h-congruence} can be written as
+\[
+ \frac{\ell^2}{s(\ell)}+\ell
+ =\frac{(\ell')^2}{s(\ell')}+\ell'.
+\]
+The reduced denominators of the two fractions are $s(\ell)/d$ and
+$s(\ell')/d$. Since their difference is an integer, these denominators
+are equal. Thus $s(\ell)=s(\ell')$, and the displayed
+equality, viewed as a strictly increasing quadratic in $\ell$, gives
+$\ell=\ell'$.
+
+In this range Mertens' theorem gives
+$A'_{3,2}/\varphi(A'_{3,2})\ll\log\log X/\log Y$. Summing the left side of
+\eqref{eq:sv-reduced-collision-sum} and using $\ell=\ell'$ gives
+\[
+ \ll\frac{Xd\log\log X}{(\log X)^2}
+ \sum_{q,q',\ell,h}\frac{h}{qq'\ell^2}.
+\]
+We may assume $q>q'$ by symmetry. Because $\ell=\ell'$, the two primes
+belong to the same residue class modulo $h$. Thus $q=q'+jh$ with $j\geq1$,
+and
+\[
+ \sum_q\frac1q\leq\sum_{1\leq j\leq X}\frac1{jh}
+ \ll\frac{\log X}{h},
+\]
+even if primality is discarded. Summing next
+over $h\mid s(q'\ell)$ is bounded by
+$\tau(s(q'\ell))=X^{o(1)}$. The reciprocal sum over $q'$ is bounded and
+$\sum_\ell\ell^{-2}\ll X^{-1/15}$. The contribution is therefore
+\[
+ dX^{14/15+o(1)}=o\!\left(\frac{X}{d\log Y}\right),
+\]
+uniformly for $d\leq Y^c$.
+
+It remains to treat $h\leq X^{10/33}$. Let $A''_{3,2}$ be the largest
+divisor of $A'_{3,2}$ coprime to $s(n')$. Equation
+\eqref{eq:sv-totient} gives
+\[
+ \frac{A'_{3,2}}{\varphi(A'_{3,2})}
+ \ll_\delta\frac{A''_{3,2}}{\varphi(A''_{3,2})}.
+\]
+We first note that $h$ is squarefree in this range. Indeed, if
+$q_0^2\mid h$, then $q_0^2\mid s(n)$ and $q_0>y(n)$. By
+Lemma \ref{lem:LP-inputs}, this forces $q_0>n^{10/27}$. Since
+$n>X^{17/40}$,
+\[
+ q_0^2>n^{20/27}>X^{17/54}>X^{10/33}\geq h,
+\]
+a contradiction.
+
+Fix $n',h,k$. The congruences
+\[
+ qrk\equiv(q+1)(r+1)\sigma(k)\equiv n'\pmod h
+\]
+may therefore be solved for the required symmetric functions. Indeed, any prime
+dividing both $h$ and either $n$ or $\sigma(n)$ would divide
+$\gcd(n,\sigma(n))=d$, which is impossible because every prime factor of
+$h$ exceeds $Y$. Thus $k$ and $\sigma(k)$ are units modulo $h$. The two
+congruences therefore
+determine $qr$ and $q+r$ modulo $h$. Since $h$ is squarefree, there are at
+most $\tau(h)$ possible ordered residue pairs
+\[
+ q\equiv a\pmod h,\quad r\equiv b\pmod h.
+\]
+For one such pair put
+\[
+ \mathfrak{f}(qr)=
+ \sum_{\substack{(\log\log X)^2<q_0\leq\log X\\
+ q_0\mid\sigma(kqr)-\sigma(n')\\
+ q_0\nmid h\sigma(kqr)}}\frac1{q_0},
+\]
+where $q_0$ is prime. Mertens' theorem gives
+\begin{equation}\label{eq:sv-intermediate-totient}
+ \frac{A''_{3,2}}{\varphi(A''_{3,2})}
+ \ll_\delta 1+\frac{\log\log X}{\log Y}\mathfrak{f}(qr).
+\end{equation}
+Indeed, when $\mathfrak{f}(qr)\leq1$, the logarithm of the left side is
+$O(\mathfrak{f}(qr))$. When $\mathfrak{f}(qr)>1$, Mertens' theorem bounds
+the contribution of the full prime range by
+$O(\log\log X/\log Y)$.
+
+For fixed $n',h,k,r$ and a prime $q_0$ occurring in
+$\mathfrak{f}(qr)$, the congruence
+\[
+ (q+1)\sigma(kr)\equiv\sigma(n')\pmod{q_0}
+\]
+fixes $q$ modulo $q_0$. The condition
+$q_0\nmid\sigma(kqr)$ ensures that $\sigma(kr)$ is invertible modulo
+$q_0$. Since $q_0\nmid h$, this congruence combines with
+$q\equiv a\pmod h$. Brun--Titchmarsh and partial summation, followed by
+\eqref{eq:sv-totient}, give
+\begin{equation}\label{eq:sv-f-sum}
+ \sum_{q,r}\frac{\mathfrak{f}(qr)}{qr}
+ \ll_\delta
+ \begin{cases}
+ \dfrac{\log X}{hX^{1/20}},&X^{1/20}<h\leq X^{10/33},\\[6pt]
+ \dfrac{1}{h^2(\log\log X)^2},&h\leq X^{1/20}.
+ \end{cases}
+\end{equation}
+Here the sums are over the fixed residue pair. To see
+\eqref{eq:sv-f-sum}, first note that a nonreduced residue class modulo
+$q_0$ contains no admissible $q$, because $q>X^{7/20}>\log X\geq q_0$.
+Otherwise the combined class modulo $q_0 h$ is reduced. Uniformly in
+the present ranges,
+$q_0 h\leq X^{10/33}\log X<X^{7/20-\epsilon_0}$ for a fixed
+$\epsilon_0>0$, so Brun--Titchmarsh and partial summation bound its
+reciprocal prime sum by
+$O(1/\varphi(q_0 h))\ll_\delta1/(q_0 h)$. Summing the extra weight
+$1/q_0$ gives $O(1/(h(\log\log X)^2))$. The reciprocal sum over $r$ in its
+class is
+\[
+ \ll_\delta
+ \begin{cases}
+ (\log X)X^{-1/20},&h>X^{1/20},\\
+ h^{-1},&h\leq X^{1/20},
+ \end{cases}
+\]
+which proves the estimate. The same progression bounds without
+$\mathfrak{f}$ and \eqref{eq:sv-intermediate-totient} yield
+\begin{equation}\label{eq:sv-qr-sum}
+ \sum_{q,r}\left(\frac1{qr}
+ +\frac{\log\log X}{\log Y}\frac{\mathfrak{f}(qr)}{qr}\right)
+ \ll_\delta
+ \begin{cases}
+ \dfrac{(\log X)(\log\log X)}{hX^{1/20}\log Y},
+ &X^{1/20}<h\leq X^{10/33},\\[6pt]
+ h^{-2},&h\leq X^{1/20}.
+ \end{cases}
+\end{equation}
+
+Using \eqref{eq:sv-k-reciprocal}, the contribution for fixed $n',h$ to
+\eqref{eq:sv-reduced-collision-sum} is at most
+\[
+ \frac{X\log Y}{(\log X)^2}\frac{dh}{n'}
+ \frac{\log X}{d\log Y}\tau(h)
+ \times\text{the applicable bound in \eqref{eq:sv-qr-sum}}.
+\]
+For $X^{1/20}<h\leq X^{10/33}$ this is
+\[
+ \ll_\delta
+ \frac{X^{19/20}\log\log X}{\log Y}\frac{\tau(h)}{n'}.
+\]
+Now $\sum_{h\mid s(n')}\tau(h)\leq\tau(s(n'))^2=X^{o(1)}$, and
+\eqref{eq:sv-m-reciprocal} shows that the total is
+\[
+ \frac{X^{19/20+o(1)}}d
+ =o\!\left(\frac{X}{d\log Y}\right).
+\]
+For $h\leq X^{1/20}$ the fixed-$n',h$ contribution is
+\[
+ \ll_\delta\frac{X}{\log X}\frac{\tau(h)}{hn'}.
+\]
+Finally,
+\[
+ \sum_{h\mid s(n')}\frac{\tau(h)}h
+ \leq\left(\frac{\sigma(s(n'))}{s(n')}\right)^2
+ \leq B_\delta^2.
+\]
+Summing over $h$ and then using \eqref{eq:sv-m-reciprocal} gives
+$O_\delta(X/(d\log Y))$. Together with the large-$h$ and diagonal
+contributions, this proves \eqref{eq:sv-second-moment}.
+\end{proof}
+
+\begin{proof}[Proof of Theorem \ref{thm:small-values}]
+For each $d\in\mathcal{D}_X$, Cauchy--Schwarz,
+Lemma \ref{lem:sv-classes}, and Proposition \ref{prop:sv-second-moment} give
+\[
+ \#s(\mathcal{A}_d(X))
+ \geq\frac{\#\mathcal{A}_d(X)^2}{\sum_uR_d(u)^2}
+ \gg_\delta\frac{X}{d\log Y}.
+\]
+The image sets are disjoint, and hence
+\[
+ \#s(\mathcal{A}(X))
+ \gg_\delta\frac{X}{\log Y}
+ \sum_{d\in\mathcal{D}_X}\frac1d
+ \gg_\delta X.
+\]
+If $N=s(M)$ with $M\in\mathcal{A}(X)$, then
+\eqref{eq:sv-basic} and \eqref{eq:sv-two-sided} give
+\[
+ f(N)\leq M<\delta N.
+\]
+Moreover, $N=s(M)<C_\delta M\leq C_\delta X$. Replacing $X$ by $X/C_\delta$ proves the theorem
+for $0<\delta\leq1$, and the case $\delta>1$ follows from $\delta=1$.
+\end{proof}
+
+
+\section{Upper tails}
+
+The moment bound handles representations with large cofactors. For small
+cofactors, we use targets that are coprime to all small primes. Divisibility
+of $\sigma(n)$ then forces the omitted-divisor kernel to be unusually large.
+The following estimate quantifies the scarcity of those kernels.
+
+\subsection{Divisor tails of a least common multiple}
+
+\begin{lemma}
+\label{lem:kernel-tails}
+For $y,H\geq2$, put
+\[
+ S(y,H):=\sum_{\substack{L\mid \Lambda(y)\\L>H}}\frac{\tau(L)}L.
+\]
+If $E\to\infty$ and
+\[
+ P:=\left\lfloor
+ E^{\,1+(2+(\log\log\log E)^{-1/2})\log\log E/\log\log\log E}
+ \right\rfloor,
+\]
+then
+\begin{equation}\label{eq:fixed-kernel-tail}
+ \log S(E,P/E)
+ \leq-\frac{\log\log E}{\sqrt{\log\log\log E}}
+ +O\left(\frac{\log\log E}{\log\log\log E}\right).
+\end{equation}
+If instead $J\to\infty$,
+\[
+ W=\sqrt{\frac{J\log J}{2}},
+ \quad F=\lfloor e^W\rfloor,
+\]
+then, for every fixed $C>0$,
+\begin{equation}\label{eq:moving-kernel-tail}
+ S\left(F,\frac{e^J}{CW}\right)
+ \leq\exp\{-W+o(W)\}.
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+For $0<\alpha\leq1/4$, Rankin's inequality and the Euler product for the
+divisor function give
+\begin{align}
+ S(y,H)
+ &\leq H^{-\alpha}
+ \prod_{p\leq y}\sum_{a\geq0}
+ \frac{a+1}{p^{a(1-\alpha)}}
+ =H^{-\alpha}
+ \prod_{p\leq y}(1-p^{-1+\alpha})^{-2}.
+ \label{eq:rankin-kernel}
+\end{align}
+Mertens' estimate for $\sum_{p\leq y}1/p$, Chebyshev's bound, and partial
+summation show that, when $z=\alpha\log y\to\infty$,
+\begin{align}
+ \sum_{p\leq y}p^{-1+\alpha}
+ &=\log\log y+
+ O\left(\int_0^z\frac{e^u-1}{u}\,du\right)
+ =\log\log y+O\left(\frac{e^z}{z}\right).
+ \label{eq:sharp-prime-sum}
+\end{align}
+The higher terms in the logarithm of the Euler product in
+\eqref{eq:rankin-kernel} are $O(1)$ uniformly for $\alpha\leq1/4$.
+
+For \eqref{eq:fixed-kernel-tail}, take
+$\alpha=\log\log\log E/\log E$. Then
+\[
+ \alpha\log(P/E)
+ =\left(2+\frac1{\sqrt{\log\log\log E}}\right)\log\log E+o(1),
+\]
+whereas \eqref{eq:sharp-prime-sum} gives
+\[
+ 2\sum_{p\leq E}p^{-1+\alpha}
+ =2\log\log E+O\left(\frac{\log\log E}{\log\log\log E}\right).
+\]
+Substitution in \eqref{eq:rankin-kernel} proves the first assertion.
+
+For \eqref{eq:moving-kernel-tail}, take $\alpha=W/J$. Since
+\[
+ \alpha\log F=\frac12\log J+o(1),
+ \quad
+ \alpha\log\left(\frac{e^J}{CW}\right)=W+o(W),
+\]
+equation \eqref{eq:sharp-prime-sum} gives
+\[
+ \sum_{p\leq F}p^{-1+\alpha}
+ \ll\log W+\frac{\sqrt J}{\log J}=o(W).
+\]
+The second assertion follows once more from \eqref{eq:rankin-kernel}.
+\end{proof}
+
+\subsection{Periodic obstructions for bounded cofactors}
+
+For sufficiently large $A$, abbreviate the upper-tail scale by
+\[
+ L(A):=\frac{\log\log\log A}{(\log A)(\log\log A)}.
+\]
+The forced moduli identify a periodic set that almost completely avoids
+the bounded-cofactor range. Its density estimate will also be useful for
+the coverage questions in Section \ref{sec:tightness}.
+
+For $A\geq2$ let $\mathcal{K}_A$ be the set of moduli $K_{e,d}$ with
+$2\leq e\leq A$ and $d\geq1$; it is finite by
+Section \ref{sec:arithmetic-preliminaries}. Put
+\[
+ V_A=\{N\in\N:k\nmid N\ \text{for every }k\in\mathcal{K}_A\} .
+\]
+This is a union of residue classes modulo $W_A=\lcm(\mathcal{K}_A)$, so it has
+a natural density, and $\textup{d}(V_A)\geq\varphi(W_A)/W_A>0$. By inclusion and
+exclusion the density is the rational number
+\[
+ \textup{d}(V_A)=1-\sum_{\varnothing\neq I\subseteq\mathcal{K}_A}
+ \frac{(-1)^{|I|+1}}{\lcm(I)} .
+\]
+\begin{proposition}\label{prop:fm-envelope}
+Fix $A\geq2$. All but $o_A(X)$ of the integers $N\leq X$ in $G_A$ are
+divisible by some $k\in\mathcal{K}_A$. Consequently
+\[
+ 1-\lowerdens(G_A)\geq \textup{d}(V_A) .
+\]
+\end{proposition}
+\begin{proof}
+Let $N\leq X$ lie in $G_A\cap V_A$. If $N$ is a value of $F_1$ only, then
+$N=\sigma(d)$ lies in $\sigma(\N)$, which has density zero by
+Lemma \ref{lem:sigma-range-zero}. Otherwise $N=F_e(d)$ with
+$2\leq e\leq A$. Put $n=ed\leq AX$ and $k=K_{e,d}\in\mathcal{K}_A$. By
+\eqref{eq:fm-congruence}, $N\equiv\sigma(n)\pmod k$, and $k\nmid N$ forces
+$k\nmid\sigma(n)$, hence $W_A\nmid\sigma(n)$. The pair $(e,n)$ determines
+$N$, so these $N$ number at most
+\[
+ A\cdot\#\{n\leq AX:W_A\nmid\sigma(n)\}=o_A(X)
+\]
+by Lemma \ref{lem:fixed-modulus-normality}. Thus all but $o_A(X)$ of the
+elements of $V_A\cap[1,X]$ lie outside $G_A$, which gives the density
+bound.
+\end{proof}
+The next estimate determines the scale supplied by this periodic obstruction.
+\begin{corollary}\label{cor:fm-envelope-tail}
+As $A\to\infty$,
+\[
+ \Bigl(\frac{e^{-\gamma}}2-o(1)\Bigr)L(A)\leq \textup{d}(V_A)\leq\Delta(A) .
+\]
+\end{corollary}
+\begin{proof}
+Every prime $p\leq A$ lies in $\mathcal{K}_A$: with $e=p$ and $d=1$ one has
+$D=\{1\}$, $M=C=g=1$ and $K_{p,1}=p$. So $V_A$ consists of $A$-rough
+integers, and $\textup{d}(V_A)\leq\Delta(A)$.
+
+For the lower bound let $P$ be the parameter of
+Lemma \ref{lem:kernel-tails} with $E=A$. Then
+$\log P=(2+o(1))(\log A)(\log\log A)/\log\log\log A$, and Mertens' theorem gives
+\[
+ \Delta(P)=\Bigl(\frac{e^{-\gamma}}2+o(1)\Bigr)L(A).
+\]
+It suffices to show that all but a proportion $o(1)$ of the $P$-rough
+integers lie in $V_A$.
+
+Let $N$ be $P$-rough and divisible by $k=K_{e,d}$ for some $2\leq e\leq A$.
+Then $k$ is $P$-rough. Since $e/g$ divides $k$ and $e/g\leq A<P$, we must
+have $e/g=1$, that is, $e\mid M$ and $k=C$. Now $C\geq M\geq e\geq2$, so
+$C>P$, and $C\leq(e-1)M$ gives $M>P/A$.
+
+Given $M$, there are at most $\tau(M)$ choices of $e$, since $e\mid M$, and
+$e$ and $M$ together determine $D=\{j<e:j\mid M\}$ and hence $C$. So at
+most $\tau(M)$ moduli $k$ share a given $M$, and for each of them the
+$P$-rough multiples of $C$ have density $\Delta(P)/C\leq\Delta(P)/M$.
+
+Since $M\mid\Lambda(A)$ and $M>P/A$,
+\[
+ \textup{d}\{N:N\ \text{$P$-rough},\ N\notin V_A\}
+ \leq\Delta(P)\sum_{\substack{M\mid\Lambda(A)\\ M>P/A}}\frac{\tau(M)}M
+ =\Delta(P)\,S(A,P/A)=o(\Delta(P))
+\]
+by \eqref{eq:fixed-kernel-tail}. Hence $\textup{d}(V_A)\geq(1-o(1))\Delta(P)$.
+\end{proof}
+
+\subsection{Fixed upper levels}
+
+\begin{proof}[Proof of Theorem \ref{thm:almost-log-tail}]
+Fix an integer $j\geq3$ and, for sufficiently large $T$, put
+\[
+ b_j=\frac{j+1}{j-1},\quad
+ E=\left\lceil T^{b_j}(\log T)^{3/(j-1)}\right\rceil.
+\]
+Throughout the counting argument, $j,T,E$ are fixed before $X\to\infty$.
+By Proposition \ref{prop:fm-envelope}, all but $o_E(X)$ of the targets in
+$V_E\cap[1,X]$ have no representation with cofactor at most $E$.
+Lemma \ref{lem:moment} bounds the targets with a representation
+$n\leq TN$ and cofactor greater than $E$ by
+\[
+ C_jT^{j+1}E^{1-j}X\leq\frac{C_jX}{(\log T)^3}.
+\]
+Moreover, $V_E$ consists of $E$-rough integers. Its nonsquarefree members
+up to $X$ therefore number at most
+\[
+ X\sum_{p>E}\frac1{p^2}\ll\frac XE.
+\]
+All its members are odd, so Lemma \ref{lem:analytic-odd-representability}
+discards only $o(X/\log\log\log X)$ unrepresented targets. Every target surviving
+these deletions is represented, squarefree, and satisfies $f(N)>TN$.
+Consequently
+\begin{align*}
+ &\lowerdens\{N\in\Rcal:N\text{ squarefree},\ f(N)>TN\}\\
+ &\hspace{15mm}\geq \textup{d}(V_E)-\frac{C_j}{(\log T)^3}-O(E^{-1}).
+\end{align*}
+Corollary \ref{cor:fm-envelope-tail} and
+\[
+ L(E)=\left(\frac1{b_j}+o(1)\right)L(T)
+ \quad(T\to\infty)
+\]
+show that the right-hand side is at least
+\[
+ \left(\frac{e^{-\gamma}}{2b_j}-o(1)\right)
+ \frac{\log\log\log T}{(\log T)(\log\log T)}.
+\]
+Here both error terms are $o(L(T))$ for each fixed $j$. First let
+$T\to\infty$ for fixed $j$, and then let $j\to\infty$. Since $b_j\to1$,
+this proves \eqref{eq:almost-log-tail}, independently of the finite
+representability computation.
+\end{proof}
+
+\subsection{Growing upper levels}
+
+\begin{proof}[Proof of Theorem \ref{thm:subexp-growth}]
+Fix $0<\varepsilon<1$ sufficiently small in terms of $\eta$. Choose a fixed
+$\rho>0$ sufficiently small, depending only on the absolute constants in
+Lemma \ref{lem:sigma-rate}, and put
+\[
+ P=\left\lfloor\rho\frac{\log\log X}{\log\log\log X}\right\rfloor,
+ \quad J=\log P,
+ \quad W=\sqrt{\frac{J\log J}{2}},
+ \quad F=\lfloor e^W\rfloor,
+ \quad t=e^{(1-\varepsilon)W}.
+\]
+In particular $F<P$ for all sufficiently large $X$. Complete periods modulo
+$P\#$ and Mertens' theorem give
+\begin{equation}\label{eq:sharp-rough-target-count}
+ \#\{X/2<N\leq X:\gcd(N,P\#)=1\}
+ =\frac X2\Delta(P)+O(P\#)
+ \asymp\frac X{\log\log\log X},
+\end{equation}
+because $P\#=\exp(O(P))=X^{o(1)}$ and $\Delta(P)\asymp1/J$. The
+nonsquarefree members of this interval number at most
+\[
+ X\sum_{p>P}\frac1{p^2}\ll\frac XP=o(X\Delta(P)).
+\]
+
+Write $Y=tX$. Lemma \ref{lem:sigma-rate} and the union bound show that the
+number of sources $n\leq Y$ for which some prime $p\leq P$ fails to divide
+$\sigma(n)$ is at most
+\begin{equation}\label{eq:sharp-bad-source-count}
+ O(\sqrt Y)+O\left(
+ Y\pi(P)\exp\left[-c_1\frac{\log\log Y}{P}\right]
+ \right).
+\end{equation}
+The first term treats $p=2$. The chosen range of $P$ is permitted by
+Lemma \ref{lem:sigma-rate} after decreasing $\rho$ if necessary. Since
+\[
+ Ft=e^{(2-\varepsilon)W}=(\log\log X)^{o(1)},
+ \quad
+ \exp\left[-c_1\frac{\log\log Y}{P}\right]
+ =(\log\log X)^{-c_1/\rho+o(1)},
+\]
+we may also ensure $c_1/\rho>3$. Multiplying
+\eqref{eq:sharp-bad-source-count} by the at most $F$ possible cofactors per
+source gives $o(X\Delta(P))$ target--cofactor pairs.
+
+Consider a remaining $P$-rough target $N$ admitting a witness
+$N=F_e(n/e)$ with $n\leq tN$ and $e\leq F$. Again $e=1$ is impossible.
+For $e\geq2$, put
+\[
+ L=\lcm\bigl(\{r:r\mid n,\ r<e\}\bigr),\quad
+ C=\sum_{\substack{r\mid L\\r<e}}\frac Lr,\quad R=\sigma(n)-N.
+\]
+The divisors of $L$ below $e$ are exactly the divisors of $n$ below $e$.
+By Lemma \ref{lem:fm-modulus},
+\[
+ R=\frac nL C.
+\]
+Since
+every prime $p\leq P$ divides $\sigma(n)$ but not $N$, the integer
+$R=(n/L)C$ is $P$-rough. Writing $u=n/L$, both $u$ and $C$ are therefore
+$P$-rough. Since $e\leq F<P$ and $e\mid n=Lu$, every prime-power divisor
+of $e$ already divides $L$. Consequently
+\[
+ n=Lu,\quad \gcd(u,P\#)=1,\quad \gcd(C,P\#)=1,
+ \quad e\mid L\mid \Lambda(F).
+\]
+As before $C\geq L\geq2$, so $C>P$. On the other hand,
+\[
+ C\leq\sigma(L)
+ \leq L\prod_{p\leq F}\left(1-\frac1p\right)^{-1}
+ \ll L\log F.
+\]
+There is therefore an absolute constant $C_0>0$ such that
+\begin{equation}\label{eq:moving-kernel-lower-bound}
+ L>\frac P{C_0W}.
+\end{equation}
+
+Uniformly for $L\mid \Lambda(F)$,
+\[
+ \log L\leq\log \Lambda(F)\ll F=o(\log X),
+ \quad \log(P\#)\ll P=o(\log X).
+\]
+It follows that $tX/L\geq P\#$ for all sufficiently large $X$. Complete
+periods modulo $P\#$ consequently give
+\[
+ \#\{u\leq tX/L:\gcd(u,P\#)=1\}
+ \leq\frac{2tX\Delta(P)}{L}.
+\]
+For each fixed $L$, the admissible cofactors satisfy $e\mid L$, so there are
+at most $\tau(L)$ possibilities. Hence \eqref{eq:moving-kernel-lower-bound}
+and Lemma \ref{lem:kernel-tails} bound the entire remaining low-cofactor
+witness count by
+\begin{align*}
+ 2tX\Delta(P)
+ \sum_{\substack{L\mid \Lambda(F)\\L>P/(C_0W)}}\frac{\tau(L)}L
+ &\leq X\Delta(P)\exp\{-\varepsilon W+o(W)\}\\
+ &=o(X\Delta(P)).
+\end{align*}
+
+Choose a fixed integer $k\geq2$ so large that $(k+1)\varepsilon>2$.
+Lemma \ref{lem:moment} bounds the targets with a witness $n\leq tN$ and
+cofactor $e>F$ by
+\[
+ C_kt^{k+1}F^{1-k}X.
+\]
+After division by $X\Delta(P)$, this is at most
+\[
+ O_k\left(J\exp\{[2-(k+1)\varepsilon+o(1)]W\}\right)=o(1).
+\]
+Thus a positive proportion of the squarefree targets in
+\eqref{eq:sharp-rough-target-count} has no representation with $n\leq tN$.
+These targets are odd. Lemma \ref{lem:analytic-odd-representability}
+discards only $o(X/\log\log\log X)=o(X\Delta(P))$ further targets as unrepresented.
+Consequently a positive proportion still survives, without any use of the
+finite representability computation. Finally,
+\[
+ \log t
+ =\left(\frac{1-\varepsilon}{\sqrt2}+o(1)\right)
+ \sqrt{(\log\log\log X)(\log\log\log\log X)}.
+\]
+Choose $\varepsilon$ sufficiently small in terms of $\eta$. For
+$X/2<N\leq X$, replacing $X$ by $N$ in these iterated logarithms changes
+the right-hand side by $o(1)$ relative to its main term. This proves
+\eqref{eq:subexp-growth}.
+
+For \eqref{eq:positive-moment-growth}, apply the first assertion with a
+sufficiently small auxiliary value of $\eta$, raise the resulting ratios to
+the power $s$, and note that
+\[
+ \log\log\log\log X
+ =o\left(\sqrt{(\log\log\log X)(\log\log\log\log X)}\right).
+\]
+The factor $c_\eta/\log\log\log X$ in the proportion of surviving targets can
+therefore be absorbed into the prescribed exponent loss $\eta$.
+\end{proof}
+
+
+\section{Bounded representations and cofactor ranges}\label{sec:tightness}
+
+We now study the representations themselves and their contribution to the
+distribution of the least representing integer. For $t>0$ and $N\geq1$,
+let
+\begin{align*}
+ r_t(N)&=\#\{(e,d)\in\N^2:F_e(d)=N,\ ed\leq tN\},\\
+ r_t^*(N)&=\#\{(e,d)\in\N^2:e\geq2,\ F_e(d)=N,\ ed\leq tN\}.
+\end{align*}
+The second multiplicity counts proper divisor-prefix sums, excluding the
+full divisor sum. Equivalently, $r_t(N)$ counts the pairs $(n,j)$ for
+which $N=\sigma_j(n)$ and $n\leq tN$. Thus, on the represented set
+$\Rcal$, one has $r_t(N)>0$ if and only if $f(N)\leq tN$.
+
+Recall the empirical measures $\nu_X$ and the normalization $R(X)$ from
+\eqref{eq:empirical-measures}. A mass at $\infty$ in a compactified
+subsequential limit records escape to infinity. Tightness on the finite
+half-line means
+\[
+ \lim_{T\to\infty}\sup_{X\geq1}\nu_X((T,\infty])=0.
+\]
+
+The associated density-one question is
+\begingroup
+\renewcommand{\theequation}{T}
+\begin{equation}\label{eq:T}
+ \lim_{A\to\infty}\limsup_{X\to\infty}
+ \frac1X\#\{N\leq X:r_A(N)=0\}=0.
+\end{equation}
+\endgroup
+The order of the limits matters: $A$ is fixed before $X\to\infty$.
+The next proposition shows that every fixed residue class has many
+representation pairs. This does not by itself control the number of
+distinct targets.
+
+\subsection{A first moment in every residue class}
+
+For fixed $Q\geq1$ and $\rho\pmod Q$, put
+\[
+ \underline{\lambda}_{Q,\rho}(A)
+ =\liminf_{X\to\infty}\frac QX
+ \sum_{\substack{N\leq X\\N\equiv\rho\pmod Q}}r_A(N).
+\]
+
+\begin{proposition}
+\label{prop:class-first-moment}
+For every fixed $Q\geq1$ and every residue class $\rho\pmod Q$,
+\[
+ \underline{\lambda}_{Q,\rho}(A)
+ \gg_{Q,\rho}\frac{A}{(\log A)^2}
+ \quad(A\to\infty).
+\]
+In particular, this lower class mean tends to infinity in every residue
+class.
+\end{proposition}
+
+\begin{proof}
+Fix $Q$ and $\rho$, and set $d_0=\gcd(\rho,Q)$. We first choose a fixed
+integer $h$ satisfying
+\begin{equation}\label{eq:h-gcd}
+ \gcd(\sigma(h),Q)=d_0.
+\end{equation}
+For each prime power $\ell^k\Vert d_0$, Dirichlet's theorem on primes in
+arithmetic progressions permits the choice of a different auxiliary prime
+$q_\ell$ congruent to $1$ modulo every prime dividing $Q$. When $\ell=2$,
+we also require $q_2\equiv1\pmod4$. Put
+\[
+ h_\ell=q_\ell^{\ell^k-1},\quad
+ h=\prod_{\ell^k\Vert d_0}h_\ell,
+\]
+with $h=1$ when $d_0=1$. The lifting-the-exponent formula gives
+$v_\ell(\sigma(h_\ell))=k$. If $r$ is a prime divisor of $Q$ with $r\ne\ell$, then
+$\sigma(h_\ell)\equiv\ell^k\not\equiv0\pmod r$. Multiplicativity of
+$\sigma$ proves \eqref{eq:h-gcd}.
+
+The elementary criterion for a linear congruence now gives a unit
+$u_\rho\pmod Q$ for which
+\begin{equation}\label{eq:u-class}
+ \sigma(h)u_\rho\equiv\rho\pmod Q.
+\end{equation}
+This includes the class $\rho=0$. Prime-power by prime-power, divide by the
+common valuation in \eqref{eq:h-gcd}, solve for a unit modulo the remaining
+power, and combine the solutions by the Chinese remainder theorem.
+
+Dirichlet's theorem also supplies infinitely many primes $e$ satisfying
+\[
+ e>\max\{2,h,Q\},\quad e\equiv-1\pmod Q.
+\]
+For each such prime $e$, define
+\[
+ \mathcal{S}_e(u_\rho)=\{t\geq1:t\equiv u_\rho\pmod Q,\
+ \gcd(t,e\#)=1\}.
+\]
+The Chinese remainder theorem shows that this periodic set has density
+\[
+ \delta_e=\frac1Q
+ \prod_{\substack{p\leq e\\p\nmid Q}}\left(1-\frac1p\right).
+\]
+Every prime factor of $t\in\mathcal{S}_e(u_\rho)$ is larger than $e$.
+
+For $t\in\mathcal{S}_e(u_\rho)$, the divisors of $eht$ below $e$ are exactly
+the divisors of $h$. Complementary divisors therefore give
+\begin{equation}\label{eq:He}
+ F_e(ht)=\sigma(h)H_e(t),
+ \quad H_e(t)=(e+1)\sigma(t)-et=t+(e+1)s(t),
+\end{equation}
+where $s(t)=\sigma(t)-t$. Since $Q\mid e+1$, equations
+\eqref{eq:u-class} and \eqref{eq:He} give
+\[
+ F_e(ht)\equiv\sigma(h)t\equiv\rho\pmod Q.
+\]
+The corresponding representing integer is $n=eht$. Since $H_e(t)\geq t$,
+\begin{equation}\label{eq:representing-ratio}
+ \frac{n}{F_e(ht)}\leq\frac{eh}{\sigma(h)}\leq eh.
+\end{equation}
+
+We next bound the represented value. Complementary divisors give
+\[
+ \frac{H_e(t)}t
+ =1+(e+1)\sum_{\substack{a\mid t\\a>1}}\frac1a.
+\]
+For a fixed integer $a>1$ with $\gcd(a,e\#)=1$, the Chinese remainder theorem
+shows that the set of $t\in\mathcal{S}_e(u_\rho)$ divisible by $a$ has density
+$\delta_e/a$. The contribution of a divisor $a$ to the normalized average is at most
+$a^{-2}$, since at most $T/a$ integers up to $T$ are divisible by $a$.
+Thus $\sum_{a\geq1}a^{-2}<\infty$ justifies interchanging the limit and
+the divisor sum.
+Therefore
+\begin{align*}
+ \lim_{T\to\infty}\frac1T
+ \sum_{\substack{t\leq T\\t\in\mathcal{S}_e(u_\rho)}}\frac{H_e(t)}t
+ &=\delta_e\bigg(1+(e+1)
+ \sum_{\substack{a>1\\\gcd(a,e\#)=1}}\frac1{a^2}\bigg)\\
+ &\leq3\delta_e.
+\end{align*}
+Every integer $a>1$ coprime to $e\#$ exceeds $e$. Hence
+\[
+ (e+1)\sum_{\substack{a>1\\\gcd(a,e\#)=1}}\frac1{a^2}
+ \leq(e+1)\sum_{a>e}\frac1{a^2}
+ \leq\frac{e+1}{e}\leq\frac32,
+\]
+which proves the last inequality. Markov's
+inequality shows that
+\[
+ \mathcal{G}_e=\{t\in\mathcal{S}_e(u_\rho):H_e(t)\leq6t\}
+\]
+has lower density at least $\delta_e/2$.
+
+For a fixed $A$, restrict to primes $e$ satisfying
+\[
+ \max\{2,h,Q\}<e\leq A/h,
+ \quad e\equiv-1\pmod Q.
+\]
+If $t\in\mathcal{G}_e$ and $t\leq X/(6\sigma(h))$, then the represented value in
+\eqref{eq:He} is at most $X$, lies in the class $\rho$, and has a representing integer
+$n\leq AN$ by \eqref{eq:representing-ratio}. Distinct pairs $(e,t)$ give
+distinct representing integers. Indeed, if $e<e'$ and $eht=e'ht'$, then $e\mid t'$,
+contrary to the fact that every prime factor of $t'$ exceeds $e'$. If
+$e=e'$, equality of the representing integers forces $t=t'$. Hence these pairs give distinct representation pairs $(n,j)$, even if some
+represented values coincide. For each eligible prime $e$, the number of
+such $t\leq X/(6\sigma(h))$ is at least
+$(\delta_e/2+o(1))X/(6\sigma(h))$. Multiplying by $Q/X$ and summing over
+$e$ gives
+\begin{equation}\label{eq:class-lower}
+ \underline{\lambda}_{Q,\rho}(A)
+ \geq\frac1{12\sigma(h)}
+ \sum_{\substack{\max\{2,h,Q\}<e\leq A/h\\
+ e\text{ prime}\\e\equiv-1\pmod Q}}
+ \prod_{\substack{p\leq e\\p\nmid Q}}\left(1-\frac1p\right).
+\end{equation}
+Mertens' product theorem gives
+\[
+ \prod_{\substack{p\leq e\\p\nmid Q}}
+ \left(1-\frac1p\right)
+ \sim\frac Q{\varphi(Q)}\frac{e^{-\gamma}}{\log e}.
+\]
+For $Z\geq2$, the prime number theorem in arithmetic progressions, followed
+by partial summation, gives, as $Z\to\infty$,
+\[
+ \sum_{\substack{e\leq Z\\e\text{ prime}\\e\equiv-1\pmod Q}}
+ \frac1{\log e}
+ \sim\frac{Z}{\varphi(Q)(\log Z)^2}.
+\]
+The omitted primes below the fixed threshold $\max\{2,h,Q\}$ do not
+change this asymptotic. Taking $Z=A/h$ in \eqref{eq:class-lower} proves the
+proposition.
+\end{proof}
+
+\begin{remark}
+Proposition \ref{prop:class-first-moment} counts representation pairs. A small set
+of represented values could carry many pairs, so the proposition alone gives no bound
+for $\#\{N\leq X:r_A(N)=0\}$. Thus the proposition does not by itself imply
+\eqref{eq:T}.
+\end{remark}
+
+\subsection{Prime cofactor ranges}
+
+The exact forced modulus of Section \ref{sec:arithmetic-preliminaries} always
+contains the cofactor when that cofactor is prime. This gives a simple
+upper bound for the density of its range.
+\begin{corollary}
+Let $p$ be prime. Then $F_p(d)\equiv\sigma(pd)\pmod p$ for every $d\geq1$,
+and
+\[
+ \#\bigl(F_p(\N)\cap[1,X]\bigr)\leq\frac Xp+o_p(X),
+ \quad\text{so}\quad
+ \upperdens\bigl(F_p(\N)\bigr)\leq\frac1p .
+\]
+\end{corollary}
+\begin{proof}
+Every $j\in D$ satisfies $j<p$, so $p\nmid M$ and $g=1$. Hence
+$p\mid K_{p,d}$, and the congruence follows from \eqref{eq:fm-congruence}.
+Now let $N=F_p(d)\leq X$ with $p\nmid N$. Then $p\nmid\sigma(pd)$, and
+$pd\leq pN\leq pX$ because $d\leq F_p(d)$. Distinct $N$ have distinct
+sources $pd$, so these $N$ number at most
+$\#\{n\leq pX:p\nmid\sigma(n)\}$, which is $o_p(X)$ by
+Lemma \ref{lem:fixed-modulus-normality}. Every other value of $F_p$ up to
+$X$ is a multiple of $p$.
+\end{proof}
+For $p=2$ the bound $1/2$ is weaker than Proposition \ref{prop:theta-two}
+below. For every prime $p$, the numerical upper bound is $1/p$; the error term
+$o_p(X)$ is asserted only with $p$ fixed.
+
+\subsection{Bounded cofactors}
+
+For a positive integer $A$, put
+\[
+ G_A=\bigcup_{e\leq A}F_e(\N),\quad
+ \Lambda(A)=\lcm(1,\ldots,A),\quad P_A=A\Lambda(A).
+\]
+Every $N=F_e(d)$ with
+$e\leq A$ has a representing integer $n=ed\leq AN$, because $F_e(d)\geq d$.
+Thus
+\[
+ G_A\subseteq\{N:r_A(N)>0\}.
+\]
+
+The upper-tail estimate shows that every fixed union of cofactor ranges misses a positive-density set, even among squarefree targets.
+
+\begin{corollary}
+For every fixed $A\geq1$,
+\[
+ \lowerdens(\N\setminus G_A)>0.
+\]
+More precisely, as $A\to\infty$,
+\begin{equation}\label{eq:fixed-cofactor-defect}
+ \lowerdens\{N:N\text{ squarefree},\ N\notin G_A\}
+ \geq\left(\frac{e^{-\gamma}}2-o(1)\right)
+ \frac{\log\log\log A}{(\log A)(\log\log A)}.
+\end{equation}
+\end{corollary}
+
+\begin{proof}
+If $N\in\Rcal$ and $f(N)>AN$, then $N\notin G_A$. The quantitative
+assertion follows from Theorem \ref{thm:almost-log-tail} with $T=A$.
+For any fixed smaller $A$, apply that theorem with one sufficiently large
+fixed $T\geq A$.
+\end{proof}
+
+Write
+\[
+ \delta_A=\Delta(P_A),\quad
+ \eta_A=\upperdens\{N:\gcd(N,P_A\#)>1,\ N\notin G_A\}.
+\]
+For $2\leq e\leq A$, every forced modulus $K_{e,d}$ has a prime
+factor at most $P_A$. Indeed, if $e/g>1$, use a prime factor of $e/g$;
+otherwise $K_{e,d}=C$, where $2\leq C\leq(e-1)M\leq P_A$.
+There are only finitely many such moduli. Lemma \ref{lem:fm-modulus}
+and fixed-modulus normality therefore imply that all but $o_A(X)$
+values $F_e(d)\leq X$ have a prime factor at most $P_A$: their sources
+satisfy $ed\leq AX$, and a fixed source contributes at most $A$ values.
+The case $e=1$ is covered by Lemma \ref{lem:sigma-range-zero}. Hence
+\[
+ \#\{N\leq X:\gcd(N,P_A\#)=1,\ N\in G_A\}=o_A(X).
+\]
+Thus $G_A$ has density zero among the integers coprime to
+$P_A\#$. Hence the coprime part of $\N\setminus G_A$ has density
+$\delta_A$. Since the coprime and noncoprime parts are disjoint,
+\begin{equation}\label{eq:bounded-cofactor-complement}
+ 1-\lowerdens(G_A)=\delta_A+\eta_A.
+\end{equation}
+Moreover, Mertens' theorem and the prime number theorem, in the form
+$\psi(A)=A+o(A)$, give
+$\log P_A=\log A+\psi(A)=A+o(A)$ and hence
+\begin{equation}\label{eq:delta-A-asymptotic}
+ \delta_A=\frac{e^{-\gamma}+o(1)}A.
+\end{equation}
+
+The two terms in \eqref{eq:bounded-cofactor-complement} are of different
+orders, and it is $\eta_A$ that dominates. Recall the notation
+\[
+ L(A)=\frac{\log\log\log A}{(\log A)(\log\log A)} .
+\]
+
+\begin{proposition}
+As $A\to\infty$,
+\[
+ \eta_A\geq\Bigl(\frac{e^{-\gamma}}2-o(1)\Bigr)L(A),
+ \quad\text{so}\quad A\eta_A\to\infty .
+\]
+\end{proposition}
+
+\begin{proof}
+By \eqref{eq:fixed-cofactor-defect},
+$1-\lowerdens(G_A)\geq(e^{-\gamma}/2-o(1))L(A)$. Since $AL(A)\to\infty$,
+\eqref{eq:delta-A-asymptotic} gives $\delta_A=o(L(A))$. Subtracting in
+\eqref{eq:bounded-cofactor-complement} proves the first claim, and the
+second follows from $AL(A)\to\infty$.
+\end{proof}
+
+One might guess that coprimality to $P_A\#$ is asymptotically
+the only obstruction, so that $1-\lowerdens(G_A)\sim e^{-\gamma}/A$. The
+proposition rules this out. The integers missed by $G_A$ for other reasons
+outnumber the coprime ones by a factor that tends to infinity.
+
+Now set
+\[
+ \theta_2=\upperdens\bigl(F_2(\N)\bigr).
+\]
+
+\begin{proposition}\label{prop:theta-two}
+One has
+\[
+ \theta_2\leq\frac12-0.0602757=0.4397243.
+\]
+\end{proposition}
+
+\begin{proof}
+The only divisor of $2d$ exceeding $d$ is $2d$, and hence
+\begin{equation}\label{eq:F2-aliquot}
+ F_2(d)=\sigma(2d)-2d=s(2d).
+\end{equation}
+Thus $F_2(\N)\subseteq s(\N)$ and the cofactor-two range omits every
+untouchable number. Write
+\[
+ \mathcal{U}=\N\setminus s(\N).
+\]
+
+We first note that the odd part of $F_2(\N)$ is negligible. If $n$ is even,
+then $s(n)$ is odd precisely when $\sigma(n)$ is odd, which occurs precisely
+when $n$ is a square or twice a square. For even $n\geq4$ one also has
+$s(n)\geq1+n/2$; the exceptional case $n=2$ is harmless. Thus $s(n)\leq X$
+implies $n<2X$, apart from at most this one value. Consequently,
+\begin{equation}\label{eq:F2-odd-negligible}
+ \#\{N\leq X:N\text{ odd},\ N\in F_2(\N)\}=O(\sqrt X).
+\end{equation}
+
+Almost all untouchable numbers are even. Indeed, let $N$ be odd. If
+$N-1=p+q$ with distinct primes $p$ and $q$, then the proper divisors of $pq$
+are $1,p,q$, and therefore $s(pq)=N$. The exceptional-set theorem of
+Montgomery and Vaughan shows that the even integers up to $X$ that are not a
+sum of two primes number $O(X^{1-\kappa})$ for some $\kappa>0$; the diagonal
+possibilities $N-1=2p$ contribute $O(X/\log X)$ more \cite{MVGoldbach}.
+Hence
+\begin{equation}\label{eq:odd-untouchables}
+ \#\{N\leq X:N\text{ odd},\ N\in\mathcal{U}\}=o(X).
+\end{equation}
+Chen and Zhao proved \cite{ChenZhao} that
+\[
+ \lowerdens(\mathcal{U})\geq0.0602757.
+\]
+By \eqref{eq:odd-untouchables}, the number of even
+untouchables not exceeding $X$ is at least
+$(0.0602757+o(1))X$. There are $X/2+O(1)$ even integers up to $X$, and by
+\eqref{eq:F2-odd-negligible} all but $O(\sqrt X)$ elements of
+$F_2(\N)\cap[1,X]$ are even. Since \eqref{eq:F2-aliquot} shows that this
+range misses every member of $\mathcal{U}$, we obtain
+\[
+ \#\bigl(F_2(\N)\cap[1,X]\bigr)
+ \leq\frac X2-0.0602757X+o(X).
+\]
+Taking the upper limit proves the proposition.
+\end{proof}
+
+\begin{corollary}
+For the residual density defined above,
+\[
+ \eta_2\geq\frac23-0.4397243>0.2269.
+\]
+\end{corollary}
+
+\begin{proof}
+Since $F_1(d)=\sigma(d)$,
+\[
+ G_2=\sigma(\N)\cup F_2(\N).
+\]
+Lemma \ref{lem:sigma-range-zero} implies that $\sigma(\N)$ has density
+zero, and therefore $\upperdens(G_2)\leq\theta_2$. Moreover,
+$\Lambda(2)=2$, $P_2=4$, $P_2\#=6$, and so $\delta_2=1/3$.
+Using \eqref{eq:bounded-cofactor-complement},
+\[
+ \eta_2
+ =1-\lowerdens(G_2)-\delta_2
+ \geq\frac23-\upperdens(G_2)
+ \geq\frac23-0.4397243>0.2269.
+\]
+\end{proof}
+
+We conjecture that bounded cofactors cover sets of lower density tending to one as the cofactor bound grows.
+
+\begin{conjecture}
+\label{conj:bounded-cofactor-weak}
+As $A\to\infty$ through the positive integers,
+\[
+ \lowerdens(G_A)\longrightarrow1.
+\]
+Equivalently, $\eta_A=o(1)$.
+\end{conjecture}
+
+The equivalence in Conjecture \ref{conj:bounded-cofactor-weak} follows from
+\eqref{eq:bounded-cofactor-complement} and
+\eqref{eq:delta-A-asymptotic}.
+
+Corollary \ref{cor:fm-envelope-tail} shows where the congruence argument
+stops. The set $V_A$ consists of $A$-rough integers, so the forced
+congruences say nothing about integers with a prime factor at most $A$
+that are missed by $G_A$. The $A$-rough part of $\N\setminus G_A$ has
+upper density at most $\Delta(A)$, which tends to zero.
+Conjecture \ref{conj:bounded-cofactor-weak} is therefore equivalent to the
+assertion that the part of $\N\setminus G_A$ with a prime factor at most
+$A$ has upper density tending to zero. Every element of that part satisfies some
+forced congruence and is nevertheless not a value.
+
+The conjectured density-one coverage by bounded cofactors is equivalent to tightness of the empirical ratio distributions.
+
+\begin{proposition}
+\label{prop:tightness-equivalence}
+The empirical measures $\nu_X$ form a tight family on $[0,\infty)$
+if and only if
+\begin{equation}\label{eq:tightness-criterion}
+ \lim_{E\to\infty}\upperdens(\N\setminus G_E)=0.
+\end{equation}
+Equivalently,
+\[
+ \lim_{E\to\infty}\lowerdens(G_E)=1.
+\]
+Thus Conjecture \ref{conj:bounded-cofactor-weak} is exactly the assertion
+that the family $\{\nu_X\}$ is tight.
+\end{proposition}
+
+\begin{proof}
+The summand $d$ occurs in $F_e(d)$, so $F_e(d)\geq d$. Hence
+\[
+ N\in G_E\quad\Longrightarrow\quad f(N)\leq ed\leq EN
+ \quad\text{for some }e\leq E.
+\]
+Using \eqref{eq:exact-representability} to replace the normalization by
+$X+O(1)$, we obtain
+\[
+ \limsup_{X\to\infty}\nu_X((E,\infty])
+ \leq\upperdens(\N\setminus G_E).
+\]
+Thus \eqref{eq:tightness-criterion} makes the tail uniformly small for
+all sufficiently large $X$. For $X$ in a bounded interval, only finitely
+many represented targets occur, so their ratios have a common finite
+upper bound. This proves tightness for the whole family.
+
+Conversely, fix $T\geq1$ and an integer $k\geq2$. Every represented
+$N\notin G_E$ with $f(N)\leq TN$ has a witnessing cofactor $e>E$.
+Lemma \ref{lem:moment} therefore gives
+\[
+ \upperdens(\N\setminus G_E)
+ \leq\limsup_{X\to\infty}\nu_X((T,\infty])
+ +C_kT^{k+1}E^{1-k}.
+\]
+If the family is tight, first let $E\to\infty$ and then let $T\to\infty$.
+The right-hand side tends to zero. Finally,
+$\upperdens(\N\setminus G_E)=1-\lowerdens(G_E)$ identically.
+\end{proof}
+
+Since $r_A(N)>0$ is equivalent, apart from the two unrepresented integers,
+to $f(N)\leq AN$, Proposition \ref{prop:tightness-equivalence} also shows
+that the density-one statement \eqref{eq:T} is equivalent to the weak
+bounded-cofactor conjecture.
+
+
+\section{Witness measures and limiting laws}
+
+For a residue class $a\pmod{\Lambda(e)}$, put
+\[
+ c_e(a)=\sum_{\substack{1\leq j<e\\j\mid a}}\frac1j.
+\]
+Write $\mathcal{D}$ for the statistical law of
+$h(n)=\sigma(n)/n$. The Davenport theorem \cite{Davenport} and its version for arithmetic
+progressions by Pollack \cite[Lemma~2]{PollackPalindromes}
+gives an atomless measure $\nu_{a,e}$ characterized by
+\[
+ \nu_{a,e}(B)
+ =\lim_{Y\to\infty}\frac1Y
+ \#\{n\leq Y:n\equiv a\pmod{\Lambda(e)},\ h(n)\in B\}
+\]
+for every continuity set $B$. In particular,
+each $\nu_{a,e}$ has total mass $1/\Lambda(e)$, and
+\begin{equation}
+\label{eq:dadd:progression-domination}
+ \sum_{a\bmod \Lambda(e)}\nu_{a,e}=\mathcal{D},
+ \quad 0\leq\nu_{a,e}\leq\mathcal{D}.
+\end{equation}
+
+The progression laws yield explicit continuous limits for the mean numbers of bounded representations.
+
+\begin{proposition}
+\label{prop:dadd:witness-means}
+For each $t>0$ the limits
+\[
+ W(t)=\lim_{X\to\infty}\frac1X\sum_{N\leq X}r_t(N),
+ \quad
+ W^*(t)=\lim_{X\to\infty}\frac1X\sum_{N\leq X}r_t^*(N)
+\]
+exist, are finite, and are continuous. More explicitly,
+\begin{align*}
+ W(t)&=\sum_{e\geq1}w_e(t),\quad
+ W^*(t)=\sum_{e\geq2}w_e(t), \\
+ w_e(t)
+ &=\sum_{\substack{a\bmod \Lambda(e)\\e\mid a}}
+ \int_{h-c_e(a)\geq1/t}
+ \frac{d\nu_{a,e}(h)}{h-c_e(a)}.
+\end{align*}
+Both series converge uniformly for $0<t\leq T$, for every fixed
+$T>0$, and $W(t)\to0$ as $t\downarrow0$.
+\end{proposition}
+
+\begin{proof}
+For $n\equiv a\pmod{\Lambda(e)}$ with $e\mid a$, complementary divisors
+give the exact identities
+\[
+ F_e(n/e)=n g_e(n),
+ \quad
+ g_e(n)=h(n)-c_e(a).
+\]
+In particular $g_e(n)\geq1/e$. A witness with target at most $X$
+and ratio at most $t$ is characterized by
+\[
+ g_e(n)\geq1/t,
+ \quad n g_e(n)\leq X.
+\]
+For completeness, the progression theorem also yields the joint limit
+\[
+ \frac1X\sum_{\substack{n\leq tX\\n\equiv a\pmod{\Lambda(e)}}}
+ \delta_{(n/X,h(n))}
+ \ \Longrightarrow\
+ \boldsymbol1_{[0,t]}(u)\,du\,d\nu_{a,e}(h).
+\]
+Indeed, on a rectangle $(\alpha,\beta]\times B$ the assertion follows
+by subtracting the progression counts at $\beta X$ and $\alpha X$.
+The limiting law in $h$ is tight, so rectangle approximation proves
+the joint weak convergence. The boundary of
+$\{h-c_e(a)\geq1/t,\ u(h-c_e(a))\leq1\}$ has zero product measure:
+the horizontal boundary has zero measure by atomlessness, and for each
+$h>c_e(a)$ the curved boundary contains only one value of $u$.
+The support condition $h-c_e(a)\geq1/e$ holds for $\nu_{a,e}$ because
+it holds for every source in the progression. We may therefore pass to
+the limit in the witness condition. Tonelli's theorem gives
+\begin{align*}
+ &\lim_{X\to\infty}\frac1X
+ \#\{n\equiv a\pmod{\Lambda(e)}:
+ g_e(n)\geq1/t,\ n g_e(n)\leq X\}\\
+ &\quad=
+ \int_0^t\nu_{a,e}
+ \{h:h-c_e(a)\geq1/t,\ h-c_e(a)\leq1/u\}\,du\\
+ &\quad=
+ \int_{h-c_e(a)\geq1/t}
+ \frac{d\nu_{a,e}(h)}{h-c_e(a)}.
+\end{align*}
+For the cofactor tail, Lemma \ref{lem:moment}
+counts witnessing pairs themselves:
+\begin{align*}
+ \frac1X\sum_{N\leq X}
+ \#\{(e,d):e>E,\ F_e(d)=N,\ ed\leq tN\}
+ &\leq\frac{t^k}{X}
+ \sum_{n\leq tX}\sum_{\substack{e\mid n\\e>E}}g_e(n)^k
+ \nonumber\\
+ &\leq C_kt^{k+1}E^{1-k}.
+\end{align*}
+This proves both limits and uniform convergence on $0<t\leq T$.
+Each fixed $w_e(t)$ is continuous by atomlessness, and tends to
+zero with $t$ since its integrand is bounded by $t$ on its domain.
+The uniform tail proves all remaining assertions.
+\end{proof}
+
+Proposition \ref{prop:class-first-moment} with $Q=1$ also shows that
+$W(t)\gg t/(\log t)^2$ as $t\to\infty$. Since $w_1(t)\leq1$,
+the same lower bound holds for $W^*(t)$.
+
+\subsection{Every subsequential finite law is singular continuous}
+
+All subsequential limits of the empirical ratio distributions have atomless, nonzero finite parts carried by a single Lebesgue-null set.
+
+\begin{theorem}
+\label{thm:dadd:universal-singularity}
+There is a fixed $\sigma$-compact, Lebesgue-null set
+$\mathcal{Z}\subset(0,\infty)$ such that every weak subsequential
+limit $\nu$ of $\nu_X$ on $[0,\infty]$ satisfies
+\begin{gather*}
+ 0\in\operatorname{supp}(\nu),\quad \nu(\{0\})=0,\\
+ \nu\bigl((0,\infty)\setminus\mathcal{Z}\bigr)=0,\quad
+ \nu(\{x\})=0\quad(0<x<\infty).
+\end{gather*}
+Hence its restriction to $[0,\infty)$ is a nonzero singular
+continuous measure. If \eqref{eq:tightness-criterion} holds, every
+subsequential limit is a singular continuous probability law on
+$[0,\infty)$; in particular, none admits a Lebesgue density.
+Neither uniqueness of the limit nor tightness is asserted
+unconditionally.
+\end{theorem}
+
+\begin{proof}
+Erd\H{o}s's singularity theorem asserts that the continuous Davenport
+law $\mathcal{D}$ is purely Lebesgue singular; see the account in
+\cite[p.~59]{ErdosDistribution}.
+By regularity there is a $\sigma$-compact Lebesgue-null set
+$K\subset[1,\infty)$ with $\mathcal{D}(K)=1$.
+For $c\in\R$, write
+\[
+ \psi_c(h)=\frac1{h-c}\quad(h>c),
+\]
+and define the positive witness measure
+\[
+ \mathcal{W}
+ =\sum_{e\geq1}
+ \sum_{\substack{a\bmod \Lambda(e)\\e\mid a}}
+ (\psi_{c_e(a)})_*
+ \bigl(\boldsymbol1_{\{h>c_e(a)\}}
+ \psi_{c_e(a)}(h)\,d\nu_{a,e}(h)\bigr).
+\]
+Proposition \ref{prop:dadd:witness-means} gives
+\[
+ \mathcal{W}((0,t])=W(t)<\infty\quad(t>0),
+\]
+so $\mathcal{W}$ is locally finite and atomless. By
+\eqref{eq:dadd:progression-domination}, every $\nu_{a,e}$ is
+carried by $K$. Therefore $\mathcal{W}$ is carried by
+\[
+ \mathcal{Z}
+ =\bigcup_{e\geq1}
+ \bigcup_{\substack{a\bmod \Lambda(e)\\e\mid a}}
+ \bigcup_{j\geq1}
+ \psi_{c_e(a)}
+ \bigl(K\cap[c_e(a)+1/j,j]\bigr).
+\]
+Each map in the last display is Lipschitz on its indicated set.
+Thus $\mathcal{Z}$ is $\sigma$-compact and Lebesgue null.
+
+At finite scale, define the empirical witness measure
+\[
+ \mathcal{W}_X
+ =\frac1X\sum_{N\leq X}
+ \sum_{\substack{e,d\geq1\\F_e(d)=N}}
+ \delta_{ed/N}.
+\]
+On every bounded ratio interval it is finite. Proposition
+\ref{prop:dadd:witness-means} and continuity of $W$ show that
+$\mathcal{W}_X\to\mathcal{W}$ vaguely on $(0,\infty)$. For every
+nonnegative $\varphi\in C_c((0,\infty))$, choosing a minimizing
+witness separately for each represented target gives
+\[
+ \int\varphi\,d\nu_X
+ \leq\frac X{R(X)}\int\varphi\,d\mathcal{W}_X.
+\]
+Along any weakly convergent subsequence $\nu_{X_j}\Rightarrow\nu$,
+pass to the limit to obtain
+\[
+ \int\varphi\,d\nu\leq\int\varphi\,d\mathcal{W}.
+\]
+Hence $\nu|_{(0,\infty)}\leq\mathcal{W}$. This proves both singularity
+on the common carrier and the absence of positive finite atoms.
+
+Finally, the same witness domination and portmanteau give, for
+every $t>0$,
+\[
+ \nu(\{0\})
+ \leq\nu([0,t))
+ \leq\liminf_{j\to\infty}\nu_{X_j}([0,t))
+ \leq W(t).
+\]
+Let $t\downarrow0$ and use
+Proposition \ref{prop:dadd:witness-means}. To see that zero nevertheless
+belongs to the support, fix $\delta>0$. Theorem \ref{thm:small-values}
+and the closed-set direction of portmanteau give
+\[
+ \nu([0,\delta])
+ \geq\limsup_{j\to\infty}\nu_{X_j}([0,\delta])>0.
+\]
+Applying this with arbitrarily small $\delta$ proves the support claim
+and shows that the finite part is nonzero. Finally, tightness excludes
+mass at $\infty$ in every compactified subsequential limit, so
+Proposition \ref{prop:tightness-equivalence} gives the last assertion.
+\end{proof}
+
+The tail estimates imply divergence of positive and logarithmic moments, while inverse moments remain finite and pass to subsequential limits.
+
+\begin{corollary}
+Every compactified subsequential law $\nu$ satisfies, as
+$T\to\infty$,
+\begin{equation}
+\label{eq:dadd:subsequential-tail}
+ \nu((T,\infty])
+ \geq\left(\frac{e^{-\gamma}}2-o(1)\right)
+ \frac{\log\log\log T}{(\log T)(\log\log T)}.
+\end{equation}
+Moreover, for every $s>0$,
+\[
+ \lim_{X\to\infty}\int x^s\,d\nu_X(x)=\infty,
+ \quad
+ \int_{[0,\infty]}x^s\,d\nu(x)=\infty.
+\]
+The logarithmic means also satisfy
+\[
+ \lim_{X\to\infty}\int\log x\,d\nu_X(x)=\infty,
+ \quad
+ \int_{[0,\infty]}\log x\,d\nu(x)=\infty.
+\]
+In contrast, for every $s>0$,
+\[
+ \sup_{X\geq1}\int x^{-s}\,d\nu_X(x)<\infty,
+ \quad
+ \int x^{-s}\,d\nu(x)<\infty,
+\]
+where $\infty^{-s}=0$. Along every weakly convergent subsequence,
+the inverse moments converge to those of the limiting law.
+In particular, the geometric means of $f(N)/N$ tend to infinity;
+even assuming tightness, every subsequential probability law has
+infinite logarithmic mean and infinite moments of all positive orders.
+\end{corollary}
+
+\begin{proof}
+The closed-set direction of portmanteau and
+Theorem \ref{thm:almost-log-tail} give
+\[
+ \nu([T,\infty])
+ \geq\limsup_{j\to\infty}\nu_{X_j}([T,\infty])
+ \geq\liminf_{X\to\infty}\nu_X((T,\infty]).
+\]
+Theorem \ref{thm:dadd:universal-singularity} excludes an atom at
+$T$, proving \eqref{eq:dadd:subsequential-tail}. For either $\nu_X$
+or $\nu$, the $s$th moment is at least $T^s$ times its mass on
+$(T,\infty]$. First take the lower limit in $X$ when appropriate,
+and then let $T\to\infty$ in the preceding lower bound.
+
+For the logarithmic means, layer cake and Fatou's lemma give
+\begin{align*}
+ \liminf_{X\to\infty}\int\log^+x\,d\nu_X(x)
+ &\geq\int_{T_0}^B
+ \liminf_{X\to\infty}\nu_X((T,\infty])\,\frac{dT}{T}\\
+ &\geq\left(\frac{e^{-\gamma}}4-o(1)\right)
+ (\log\log\log B)^2
+ \quad(B\to\infty).
+\end{align*}
+The same calculation using \eqref{eq:dadd:subsequential-tail}
+shows $\int\log^+x\,d\nu(x)=\infty$. On the other hand,
+Theorem \ref{thm:small-upper} and the bound $X/R(X)\leq3$ give,
+for some $c>0$ and all sufficiently large $u$,
+\[
+ \sup_X\nu_X([0,e^{-u}])
+ \ll\exp\bigl(-\exp(e^{cu})\bigr).
+\]
+Layer cake therefore bounds $\int\log^-x\,d\nu_X(x)$ uniformly
+in $X$. To pass the bound to $\nu$, apply weak convergence to the
+continuous bounded functions $\min\{M,\log^-x\}$ on $[0,\infty]$,
+defined to equal $M$ at zero and zero at infinity, and then let
+$M\to\infty$.
+Subtracting the bounded negative parts proves both logarithmic
+assertions.
+
+Finally, the same uniform lower-tail bound and layer cake show that
+\[
+ \sup_{X\geq1}\int_{\{x<1\}}x^{-s}\,d\nu_X(x)
+ \leq 1+s\int_0^\infty e^{su}
+ \sup_{X\geq1}\nu_X([0,e^{-u}])\,du<\infty.
+\]
+Apply this also with $2s$ in place of $s$ to obtain uniform integrability
+of $x^{-s}$. The bounded truncations $\min\{M,x^{-s}\}$ are continuous
+on the compactified half-line when assigned their limiting endpoint
+values. Weak convergence, followed by removal of the truncation, proves
+the claimed convergence and finiteness of inverse moments.
+\end{proof}
+
+\subsection{The collision obstruction}
+
+Convergence of the empirical ratio distributions is equivalent to convergence of the surplus caused by multiple proper witnesses for the same target.
+
+\begin{proposition}
+\label{prop:dadd:collision-criterion}
+Put
+\[
+ K_X(t)=\frac1X\sum_{N\leq X}(r_t^*(N)-1)_+.
+\]
+For every fixed $t>0$,
+\begin{equation}
+\label{eq:dadd:collision-criterion}
+ \nu_X([0,t])=W^*(t)-K_X(t)+o(1).
+\end{equation}
+Consequently, the threshold density exists if and only if the
+genuine proper-witness collision surplus $K_X(t)$ converges.
+The whole sequence $\nu_X$ converges weakly on $[0,\infty]$ if and only
+if $K_X(t)$ converges for every positive rational $t$.
+\end{proposition}
+
+\begin{proof}
+A represented target absent from the support of $r_t^*$ can only
+be represented at threshold $t$ using cofactor $e=1$; such a
+target belongs to $\operatorname{range}(\sigma)$. Lemma
+\ref{lem:sigma-range-zero} therefore shows that
+\[
+ \nu_X([0,t])
+ =\frac1X\#\{N\leq X:r_t^*(N)>0\}+o(1).
+\]
+For every nonnegative integer $r$,
+$\boldsymbol1_{\{r>0\}}=r-(r-1)_+$. Sum this identity over
+$N\leq X$ with $r=r_t^*(N)$ and apply
+Proposition \ref{prop:dadd:witness-means}.
+
+For the final assertion, all compactified subsequential laws have no
+finite atoms by Theorem \ref{thm:dadd:universal-singularity}. If the
+collision surplus converges at each positive rational threshold, the
+displayed identity forces any two subsequential laws to agree on
+$[0,t]$ at all those thresholds, hence everywhere, including at infinity.
+Compactness then gives convergence of the full sequence. Conversely,
+weak convergence implies convergence of the mass of each $[0,t]$,
+because its boundary has zero limiting measure, and the identity gives
+convergence of $K_X(t)$.
+\end{proof}
+
+This collision surplus is bounded away from zero once the ratio threshold is at least two.
+
+\begin{proposition}
+For every $t\geq2$,
+\[
+ \liminf_{X\to\infty}K_X(t)>\frac19.
+\]
+\end{proposition}
+
+\begin{proof}
+Put $Q=5\#=30$, so that $\Delta(5)=\varphi(Q)/Q=4/15$, and let
+\[
+ \mathcal{C}=\{2,4,8,10\}.
+\]
+For $D\in\mathcal{C}$ and $\gcd(u,Q)=1$, consider the canonical
+cofactor-two witness
+\begin{equation}
+\label{eq:dadd:collision-affine}
+ N=s(Du)=\sigma(D)\sigma(u)-Du
+ =u\bigl(s(D)+\sigma(D)(h(u)-1)\bigr).
+\end{equation}
+Its source $n=Du$ is even, so $N=s(n)\geq n/2$ and its
+source-to-target ratio is at most $2\leq t$.
+
+Let $\nu_Q$ be the unnormalized Davenport law restricted to
+$\gcd(u,Q)=1$, of total mass $\Delta(5)$. Expanding $h(u)$ as a divisor
+sum gives
+\[
+ \frac1{\Delta(5)}\int(h-1)\,d\nu_Q(h)
+ =\sum_{\substack{d\geq1\\\gcd(d,Q)=1}}\frac1{d^2}-1
+ =\frac{8\pi^2}{75}-1=:H.
+\]
+The passage to this first moment is justified by the uniformly bounded
+second moment of $h(u)$, which follows from
+Lemma \ref{lem:kovac-moment} with $q=3$. The radial
+partition argument from Proposition \ref{prop:dadd:witness-means}
+gives the source intensity
+\begin{align*}
+ W_D
+ &:=\lim_{X\to\infty}\frac1X
+ \#\{u:\gcd(u,Q)=1,\ s(Du)\leq X\}\\
+ &=\int\frac{d\nu_Q(h)}{s(D)+\sigma(D)(h-1)}
+ \geq\frac{\Delta(5)}{s(D)+\sigma(D)H},
+\end{align*}
+where the last inequality is Jensen's inequality.
+
+Choose the fixed modulus $q=2^4\cdot3\cdot5^2$.
+Lemma \ref{lem:fixed-modulus-normality} implies that, apart
+from $o(X)$ sources $n\leq2X$, one has
+\[
+ v_p(\sigma(n))>v_p(D)=v_p(n)
+ \quad(p=2,3,5).
+\]
+For every remaining target in \eqref{eq:dadd:collision-affine},
+\[
+ v_p(N)=v_p(\sigma(n)-n)=v_p(D)
+ \quad(p=2,3,5).
+\]
+Thus, up to $o(X)$ exceptions, its image is contained in the
+cylinder
+\[
+ \mathcal{T}_D=\{Dv:\gcd(v,30)=1\},
+ \quad \textup{d}(\mathcal{T}_D)=\frac{\Delta(5)}{D}.
+\]
+If $r_D(N)$ denotes the number of parameters $u$ giving $N$ in
+\eqref{eq:dadd:collision-affine}, it follows that
+\[
+ \liminf_{X\to\infty}\frac1X
+ \sum_{N\leq X}(r_D(N)-1)_+
+ \geq\Delta(5)\left(
+ \frac1{s(D)+\sigma(D)H}-\frac1D\right).
+\]
+The four cores have distinct valuation vectors at $2,3,5$, whereas
+$u$ is coprime to $30$. Thus their source families, and hence their
+cofactor-two witnessing pairs, are disjoint. The elementary inequality
+\[
+ \sum_{D\in\mathcal{C}}(r_D(N)-1)_+
+ \leq\left(\sum_{D\in\mathcal{C}}r_D(N)-1\right)_+
+ \leq(r_t^*(N)-1)_+
+\]
+therefore allows the four lower bounds to be added.
+
+Finally, $\pi<22/7$ gives $H<197/3675$. Since
+\[
+ (D,s(D),\sigma(D))
+ \in\{(2,1,3),(4,3,7),(8,7,15),(10,8,18)\},
+\]
+all four terms are positive and exact rational arithmetic gives
+\begin{align*}
+ \liminf_{X\to\infty}K_X(t)
+ &>
+ \frac4{15}
+ \sum_{(D,s,B)}
+ \left(\frac1{s+197B/3675}-\frac1D\right)\\
+ &=\frac{3492203725711}{31001587618275}
+ >\frac19.
+\end{align*}
+This lower bound proves that the collision term in
+\eqref{eq:dadd:collision-criterion} is substantial; it does not
+prove that the term converges.
+\end{proof}
+
+
+\section{Further questions}
+
+The bounds at the two tails and the structural results above leave several questions about the typical size of the least representing integer.
+
+Theorem \ref{thm:almost-log-tail} gives a fixed-level lower bound of order
+\[
+ \frac{\log\log\log T}{(\log T)(\log\log T)},
+\]
+while Theorem \ref{thm:subexp-growth}, for each fixed $\eta>0$, reaches
+\[
+ \exp\biggl[\left(\frac1{\sqrt2}-\eta\right)
+ \sqrt{(\log\log\log N)(\log\log\log\log N)}\biggr]
+\]
+on
+$\gg_\eta X/\log\log\log X$ targets. What are the correct fixed-level tail and the
+largest growing scale with a comparable counting estimate? In
+particular, does the constant $1/\sqrt2$ reflect the problem itself or the
+present estimate for the divisor-kernel tail? At the lower tail, it also
+remains to quantify the positive-density result as the ratio tends to zero.
+
+Proposition \ref{prop:tightness-equivalence} identifies tightness with
+$\lowerdens(G_E)\to1$. The periodic obstruction $V_E$ lies among the
+$E$-rough integers, whose density tends to zero. Tightness is therefore
+equivalent to the upper density tending to zero of those integers outside
+$G_E$ that have a prime factor at most $E$. Such integers satisfy at least
+one of the forced divisibility conditions, but are still not values.
+The congruence arguments here do not control this residual set.
+
+The witness means $W(t)$ and $W^*(t)$ exist, and
+Proposition \ref{prop:class-first-moment} shows that the first moment of
+bounded representations grows in every fixed residue class. Nevertheless,
+coverage depends on how these representations are distributed among their
+targets. Proposition \ref{prop:dadd:collision-criterion} gives an exact
+criterion at each threshold: convergence of the empirical distribution
+function is equivalent to convergence of the proper-witness collision
+surplus. The lower bound $\liminf K_X(t)>1/9$ for $t\geq2$ confirms that
+these collisions cannot be neglected. It provides no convergence result.
+A second-moment bound comparable to the square of the first moment could
+give positive-density coverage; density-one coverage would require an
+additional argument, for example a sufficiently small normalized variance
+for a suitable family of witnesses.
+
+Every compactified subsequential law has a singular continuous finite
+part on the same null set, with zero in its support and no atom there.
+If tightness holds, the resulting probability laws have unbounded support,
+infinite logarithmic mean, and infinite moments of every positive order.
+It remains to prove or disprove tightness, convergence of the full sequence,
+uniqueness of its subsequential limits, and full support on $(0,\infty)$.
+The divergence of arithmetic and geometric means is compatible with
+tightness and answers none of these existence or uniqueness questions.
+
+We have $\textup{d}(F_1(\N))=0$, $\upperdens(F_2(\N))\leq0.4397243$, and
+$\upperdens(F_p(\N))\leq1/p$ for every prime $p$.
+Luca and Pomerance's work gives positive lower density for $F_2(\N)$
+\cite{LucaPomerance}. It would be useful to decide which other fixed
+cofactor ranges have positive lower density, whether their natural
+densities exist, and how their overlaps affect the coverage of $G_E$.
+
+
+
+
+
+\section*{Formalization}
+
+
+
+\section*{Methodology and AI usage}
+This paper presents the results of a long-term large-scale collaborative project, lasting from November 2025 to August 2026. Its partial results were gradually announced and presented on the forum of the \emph{Erd\H{o}s Problems} website \cite{Bloom1054}, which presents a reliable timeline of project's development. The authors contributed with their thoughts, ideas, proofs, and formalizations, some of which were assisted by generative AI tools. More specifically,
+\begin{itemize}
+\item E.H. proved the adaptation of the Luca--Pomerance collision sieve to uniformly abundant witnesses in the proof of Theorem \ref{thm:small-values} (Lemmas \ref{lem:sv-regular} and \ref{lem:sv-classes} and Proposition \ref{prop:sv-second-moment}), the exact forced modulus of Lemma \ref{lem:fm-modulus}, and the periodic envelope $V_A$ with its density bounds (Proposition \ref{prop:fm-envelope} and Corollary \ref{cor:fm-envelope-tail}). The proofs of Proposition \ref{prop:class-first-moment}, the complement identity \eqref{eq:bounded-cofactor-complement} with the lower bound for $\eta_A$, Proposition \ref{prop:theta-two} with its corollary, and the prime-cofactor ceiling $\upperdens(F_p(\N))\leq1/p$ were generated with the help of Anthropic's Claude Opus 5 and OpenAI's GPT-5.6 Sol, audited by Claude Fable 5 and GPT-6 Astra, and then verified by E.H. The same models were used for polishing the writeup of E.H.'s parts and for numerical checks.
+
+\item Principia Math's autonomous research harness, using the models GPT-5.5 and
+Claude Opus 4.8, resolved the limsup question in Erd\H{o}s Problem~1054,
+proving the $\limsup$ variant of Theorem~\ref{thm:almost-log-tail}. The accompanying Lean
+formalization includes the circle-method proof of the almost-all
+binary Goldbach theorem used as an analytic input. The almost-all Goldbach result was initially useful, but was subsequently made redundant by the proof every integer besides $2$ and $5$ is representable. The formalization of this result, due to H.C. is also included in the Lean formalization repository.
+\end{itemize}
+The authors independently verified the AI-assisted proofs, carefully inspected the AI-generated parts of the text, rewrote them as appropriate, and they assume full responsibility for the final manuscript. Furthermore, OpenAI's ChatGPT-6 Astra was used for several rounds of copyediting and proofreading.
+
+
+\section*{Acknowledgments and funding}
+We are grateful to Terence Tao for the initial breakthrough that enabled this project and for his encouragement. We would also like to thank Thomas Bloom for maintaining the \emph{Erd\H{o}s Problems} website.
+
+V.K. was supported in part by the Croatian Science Foundation under the project HRZZ-IP-2022-10-5116 (\emph{FANAP}) and in part by the European Union -- NextGenerationEU through the National Recovery and Resilience Plan 2021--2026, via an institutional grant of the University of Zagreb Faculty of Science, IK IA 1.1.3, \emph{Impact4Math}.
+
+
+\bibliographystyle{plainurl}
+\bibliography{EP1054}
+
+\end{document}

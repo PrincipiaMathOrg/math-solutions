@@ -1,0 +1,130 @@
+name: erdos1054-ep1054-comparator
+
+# Runs Comparator (https://github.com/leanprover/comparator) to verify mechanically that
+# erdos1054/ep1054/Solution.lean proves exactly the 33 statements of Challenge.lean, using no
+# axioms beyond propext, Quot.sound, Classical.choice.
+#
+# This job deliberately does NOT pre-build Challenge or Solution. Comparator's threat model
+# assumes the solution has not been compiled beforehand; building it here would void that
+# assumption. It is a separate workflow from `build` for the same reason.
+#
+# The configs carry NO `definition_names`. In Comparator (pinned below, Comparator/Compare.lean)
+# a name listed there is a DEFINITION HOLE: only its type is compared, never its value. The
+# statement constants (`Principia.Erdos1054.Lem_FmModulus`, ...) are fully defined in the
+# challenge and must be compared IN FULL, which is what happens to every constant reachable from
+# a listed theorem's type when it is not a hole.
+#
+# RUNTIME IS NOT YET MEASURED. Comparator compiles Solution's whole import closure (the 359
+# vendored modules) from cold. Whether that fits GitHub's 360-minute ceiling on a free 4-vCPU
+# runner is unknown until the first run; see VERIFICATION.md.
+
+on:
+  push:
+    branches: [main]
+    paths: ['erdos1054/ep1054/**', '.github/workflows/erdos1054-ep1054-*.yml']
+  pull_request:
+    paths: ['erdos1054/ep1054/**', '.github/workflows/erdos1054-ep1054-*.yml']
+  workflow_dispatch:
+
+defaults:
+  run:
+    working-directory: erdos1054/ep1054
+
+env:
+  # Same pins as the erdos123 comparator job, which is known-good on this repo.
+  COMPARATOR_SHA: c3903e1ed0148a32cd39510707c632dc4d265514
+  # lean4export must match the PROJECT's Lean version (ep1054 is on v4.31.0).
+  # af5aa64 is toolchain v4.33.0-rc1 and fails with "incompatible header".
+  LEAN4EXPORT_SHA: 8554815c2dc6b7abe99ec1f08849c9759ba77947
+  LANDRUN_SHA: 5ed4a3db3a4ad930d577215c6b9abaa19df7f99f
+
+jobs:
+  comparator:
+    runs-on: ubuntu-latest
+    timeout-minutes: 350
+    steps:
+      - uses: actions/checkout@v4
+
+      # ubuntu-latest ships ~25-30 GB of preinstalled tooling this job never uses, and the
+      # runner image's free space varies between runs. Unpacking the Mathlib olean cache
+      # needs several GB (erdos123 run 29776973373 died mid-unpack with "No space left on
+      # device"). Reclaiming the unused tooling up front removes that coin flip.
+      - name: Free disk space
+        working-directory: .
+        run: |
+          echo "before:"; df -h / | tail -1
+          sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc \
+                      /usr/local/.ghcup /opt/hostedtoolcache/CodeQL \
+                      /usr/local/share/boost "$AGENT_TOOLSDIRECTORY" || true
+          sudo docker image prune --all --force >/dev/null 2>&1 || true
+          echo "after:"; df -h / | tail -1
+
+      - name: Install elan
+        run: |
+          curl -sSfL https://github.com/leanprover/elan/releases/download/v3.1.1/elan-x86_64-unknown-linux-gnu.tar.gz | tar xz
+          ./elan-init -y --default-toolchain none
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+
+      - uses: actions/setup-go@v5
+        with:
+          go-version: '1.23'
+
+      - name: Build landrun
+        run: |
+          git clone https://github.com/Zouuup/landrun.git /tmp/landrun
+          cd /tmp/landrun && git checkout "$LANDRUN_SHA"
+          go build -o /usr/local/bin/landrun ./cmd/landrun
+          landrun --help >/dev/null
+
+      - name: Probe that landrun actually denies out-of-policy writes
+        run: |
+          # If the sandbox silently no-ops, a Comparator pass means nothing.
+          set +e
+          landrun --rox / -- /bin/sh -c 'echo x > /tmp/_landrun_probe' 2>/dev/null
+          rc=$?
+          set -e
+          if [ -f /tmp/_landrun_probe ]; then
+            echo "::error::landrun did NOT deny an out-of-policy write; refusing to trust Comparator"
+            exit 1
+          fi
+          echo "landrun denies out-of-policy writes (rc=$rc)"
+
+      - name: Build lean4export
+        run: |
+          git clone https://github.com/leanprover/lean4export.git /tmp/lean4export
+          cd /tmp/lean4export && git checkout "$LEAN4EXPORT_SHA"
+          lake build
+          echo "COMPARATOR_LEAN4EXPORT=/tmp/lean4export/.lake/build/bin/lean4export" >> "$GITHUB_ENV"
+          # Comparator invokes lean4export *by name* inside the landrun sandbox, so it must
+          # be on PATH (COMPARATOR_LEAN4EXPORT alone is not sufficient at this revision).
+          echo "/tmp/lean4export/.lake/build/bin" >> "$GITHUB_PATH"
+
+      - name: Build comparator
+        run: |
+          git clone https://github.com/leanprover/comparator.git /tmp/comparator
+          cd /tmp/comparator && git checkout "$COMPARATOR_SHA"
+          lake build
+
+      - name: Fetch Mathlib oleans
+        run: lake exe cache get
+
+      # NOTE: `--pipe --wait --collect`, NOT the `--pty` given in Comparator's README: `--pty`
+      # waits on a terminal that never resolves on a CI runner. `--wait` propagates the unit's
+      # exit status. `RestrictAddressFamilies` is kept verbatim; it guards a landrun
+      # vulnerability fixed only in Linux 7.1.
+      - name: Run comparator on all 33 verified results
+        timeout-minutes: 330
+        run: |
+          set -o pipefail
+          systemd-run --property=RestrictAddressFamilies=~AF_UNIX --user --pipe --wait --collect -E PATH="$PATH" --working-directory "$(pwd)" -- bash -c 'lake env /tmp/comparator/.lake/build/bin/comparator comparator/all.json' 2>&1 | tee comparator.log
+
+      - name: Require the success string
+        run: |
+          grep -q "Your solution is okay!" comparator.log
+          echo "comparator accepted the solution"
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: erdos1054-ep1054-comparator-log
+          path: erdos1054/ep1054/comparator.log

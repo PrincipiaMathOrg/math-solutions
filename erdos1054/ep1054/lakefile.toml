@@ -1,0 +1,43 @@
+name = "EP1054"
+defaultTargets = ["Principia"]
+
+# The package options are the source library's VERBATIM (PrincipiaAI
+# `Principia Application/LeanSandbox/lakefile.toml`), so every vendored module elaborates here
+# under exactly the options it was gated under. In particular `autoImplicit` is NOT switched off
+# package-wide: every one of the 359 vendored modules already begins with
+# `set_option autoImplicit false`, and changing a package option would change the build trace of
+# files that are meant to be byte- and option-identical to their source. The three audit files
+# below set it at library level as well as in-file.
+[leanOptions]
+pp.unicode.fun = true # pretty-prints `fun a ↦ b`
+relaxedAutoImplicit = false
+weak.linter.mathlibStandardSet = true
+maxSynthPendingDepth = 3
+
+[[require]]
+name = "mathlib"
+git = "https://github.com/leanprover-community/mathlib4.git"
+rev = "fabf563a7c95a166b8d7b6efca11c8b4dc9d911f" # tag v4.31.0
+
+# The vendored development: the import closure of the EP1054 statements, the 33 verified
+# results and the conditional headline, copied byte-for-byte from the source commit named in
+# `SOURCE.txt` (pinned by `SHA256SUMS`). `Principia.+` builds every vendored module and nothing
+# else; there is deliberately no `Principia.lean` root, so no file here is not from the source.
+[[lean_lib]]
+name = "Principia"
+globs = ["Principia.+"]
+
+# Comparator (github.com/leanprover/comparator) requires the trusted statement file and the
+# claimed proof to be separate libraries.
+[[lean_lib]]
+name = "Challenge"
+leanOptions = { autoImplicit = false }
+
+[[lean_lib]]
+name = "Solution"
+leanOptions = { autoImplicit = false }
+
+# The conditional part of the paper, stated with every hypothesis named. Not a Comparator target.
+[[lean_lib]]
+name = "Conditional"
+leanOptions = { autoImplicit = false }

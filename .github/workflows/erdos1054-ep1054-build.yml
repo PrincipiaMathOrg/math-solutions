@@ -1,0 +1,149 @@
+name: erdos1054-ep1054-build
+
+# Scoped to the EP1054 Lake project (erdos1054/ep1054); the July erdos1054 masters have their
+# own comparator workflow and are not touched here.
+#
+# RUNTIME IS NOT YET MEASURED ON CI. The vendored closure is 359 modules (~238k lines,
+# including kernel-checked numeric certificates). It has only been compiled on the development
+# machine, incrementally, so how long a cold build takes on a free 4-vCPU runner is unknown;
+# `timeout-minutes: 350` sits just under GitHub's 360-minute job ceiling so an overrun reports
+# as a timeout rather than a cancellation. See VERIFICATION.md.
+on:
+  push:
+    branches: [main]
+    paths: ['erdos1054/ep1054/**', '.github/workflows/erdos1054-ep1054-*.yml']
+  pull_request:
+    paths: ['erdos1054/ep1054/**', '.github/workflows/erdos1054-ep1054-*.yml']
+  workflow_dispatch:
+
+defaults:
+  run:
+    working-directory: erdos1054/ep1054
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 350
+    steps:
+      - uses: actions/checkout@v4
+
+      # Unpacking the Mathlib olean cache needs several GB and the runner's free space
+      # varies between runs; reclaim the preinstalled tooling this job never uses.
+      - name: Free disk space
+        working-directory: .
+        run: |
+          echo "before:"; df -h / | tail -1
+          sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc \
+                      /usr/local/.ghcup /opt/hostedtoolcache/CodeQL \
+                      /usr/local/share/boost "$AGENT_TOOLSDIRECTORY" || true
+          sudo docker image prune --all --force >/dev/null 2>&1 || true
+          echo "after:"; df -h / | tail -1
+
+      # The vendored files must be byte-identical to the source commit named in SOURCE.txt.
+      - name: Vendored sources match SHA256SUMS
+        run: |
+          sha256sum -c --quiet --strict SHA256SUMS
+          n=$(wc -l < SHA256SUMS)
+          m=$(find Principia -name '*.lean' | wc -l)
+          echo "SHA256SUMS lines: $n, vendored .lean files: $m"
+          test "$n" -eq "$m"
+
+      - name: Install elan
+        run: |
+          curl -sSfL https://github.com/leanprover/elan/releases/download/v3.1.1/elan-x86_64-unknown-linux-gnu.tar.gz \
+            | tar xz
+          ./elan-init -y --default-toolchain none
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+
+      - name: Cache Mathlib oleans
+        run: lake exe cache get
+
+      # `lake build` builds the default target, the vendored `Principia` library
+      # (glob `Principia.+`, i.e. every vendored module).
+      - name: Build the vendored development
+        run: |
+          set -o pipefail
+          lake build 2>&1 | tee build.log
+
+      - name: Build Solution and Conditional
+        run: |
+          set -o pipefail
+          lake build Solution 2>&1 | tee solution.log
+          lake build Conditional 2>&1 | tee conditional.log
+
+      # The authoritative check that nothing is stubbed: Lean's own warning, not a text search
+      # (a failed tactic injects `sorryAx` downstream while the file reports no sorry).
+      - name: No declaration outside Challenge uses sorry
+        run: |
+          # Lean v4.31 prints `declaration uses `sorry`` (backticks); older releases used quotes.
+          if grep -nE "declaration uses ['\`]sorry['\`]" build.log solution.log conditional.log; then
+            echo "::error::a declaration in the development, Solution or Conditional uses sorry"
+            exit 1
+          fi
+          echo "no sorry-using declarations"
+
+      # Every printed footprint (this also catches sorryAx and Lean.ofReduceBool) must lie in
+      # the permitted set. A footprint may legitimately be a strict SUBSET of the three.
+      - name: No axiom outside {propext, Classical.choice, Quot.sound} anywhere
+        run: |
+          grep -h "depends on axioms" build.log solution.log conditional.log > all_axioms.txt
+          test -s all_axioms.txt || { echo "::error::no axiom lines found"; exit 1; }
+          echo "footprint lines: $(wc -l < all_axioms.txt)"
+          bad=$(sed 's/.*depends on axioms: \[//; s/\]$//' all_axioms.txt \
+                  | tr ',' '\n' | sed 's/^ *//; s/ *$//' | sort -u \
+                  | grep -v -x -e propext -e Classical.choice -e Quot.sound || true)
+          if [ -n "$bad" ]; then
+            echo "::error::unexpected axiom(s): $bad"; exit 1
+          fi
+          echo "every footprint is within {propext, Classical.choice, Quot.sound}"
+
+      # Match BY NAME: `lake build Solution` can replay cached info messages of dependencies,
+      # so counting clean lines would not identify which result each one belongs to.
+      - name: Each of the 33 Solution results has a clean footprint
+        run: |
+          missing=0
+          for n in $(sed -n 's/^#print axioms \(.*\)$/\1/p' Solution.lean); do
+            if ! grep -q "'EP1054.$n' depends on axioms: \[propext, Classical.choice, Quot.sound\]$" solution.log; then
+              echo "::error::EP1054.$n has no clean footprint line"
+              grep "'EP1054.$n' depends on axioms" solution.log || echo "  (no footprint line at all)"
+              missing=$((missing + 1))
+            fi
+          done
+          total=$(grep -c '^#print axioms ' Solution.lean)
+          echo "results checked: $total, missing a clean footprint: $missing"
+          test "$total" -eq 33
+          test "$missing" -eq 0
+
+      # Kernel-bypassing features and declared axioms, by text. Mentions inside docstrings are
+      # written in backticks, which the lookbehind excludes.
+      - name: No native_decide / implemented_by / unsafe / skipKernelTC / axiom declarations
+        run: |
+          if grep -rnP '(?<!`)\bnative_decide\b|\bimplemented_by\b|^\s*unsafe\b|set_option\s+debug\.skipKernelTC' \
+               Principia Solution.lean Conditional.lean Challenge.lean; then
+            echo "::error::kernel-bypassing feature found"; exit 1
+          fi
+          total=$(grep -rhE '^\s*(@\[[^]]*\]\s*)?(private |protected |noncomputable )*axiom\s' \
+                    Principia Solution.lean Conditional.lean Challenge.lean | wc -l)
+          echo "axiom declarations found: $total"
+          test "$total" -eq 0
+
+      # Challenge.lean must have exactly 33 intentional sorries, one per verified result.
+      - name: Build Challenge (the audit fixture) and check its 33 sorries
+        run: |
+          set -o pipefail
+          lake build Challenge 2>&1 | tee challenge.log
+          n=$(grep -c "^  sorry$" Challenge.lean)
+          w=$(grep -cE "Challenge.lean:.*declaration uses ['\`]sorry['\`]" challenge.log || true)
+          echo "intentional sorries in Challenge.lean: $n; sorry warnings: $w"
+          test "$n" -eq 33
+          test "$w" -eq 33
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: erdos1054-ep1054-build-logs
+          path: |
+            erdos1054/ep1054/build.log
+            erdos1054/ep1054/solution.log
+            erdos1054/ep1054/conditional.log
+            erdos1054/ep1054/challenge.log

@@ -11,3 +11,12 @@ comparator/Challenge.lean -text
 *.sh text eol=lf
 *.yml text eol=lf
 *.yaml text eol=lf
+
+# ep1054/: the vendored Lean closure and the paper are pinned by sha256 (ep1054/SHA256SUMS,
+# ep1054/paper/SHA256SUMS); store and check them out byte-for-byte on every platform.
+ep1054/Principia/** -text
+ep1054/SHA256SUMS -text
+ep1054/paper/EP1054.tex -text
+ep1054/paper/EP1054.bib -text
+ep1054/paper/SHA256SUMS -text
+ep1054/paper/EP1054.pdf binary

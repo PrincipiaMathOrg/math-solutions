@@ -1,0 +1,175 @@
+# Schema: https://github.com/mathlib-initiative/formalization.yaml
+version: "v0.3"
+
+project:
+  name: "EP1054: the first occurrence of an integer as a prefix sum of divisors, in Lean 4"
+  authors:
+    - "Principia Math harness (autonomous multi-model research harness)"
+  license: "Apache-2.0"
+
+sources:
+  - title: "On the first occurrence of an integer as a prefix sum of divisors"
+    authors:
+      - "Hyunsik Chae"
+      - "Jimmy Fraiture"
+      - "Eric Hou"
+      - "Vjekoslav Kovač"
+      - "Christian Kudeba"
+      - "Anton Shakov"
+      - "Danny Vidal"
+    id: "paper/EP1054.pdf"
+    type: "manuscript"
+    license: "all rights reserved by the authors"
+    author_contacted: "yes"
+    note: >-
+      Unpublished manuscript (the authors' Overleaf export of 2026-09-25). The source the
+      Lean was checked against is committed at `paper/EP1054.tex` (with its internal `%` comment
+      lines removed; the typeset output is unchanged) and `paper/EP1054.bib`, with
+      `paper/EP1054.pdf` built from them, all three pinned by sha256 in `paper/SHA256SUMS` and
+      `VERIFICATION.md`. Results are identified by their LaTeX labels. The manuscript's
+      "Formalization" section is still an empty placeholder. The problem statement of record is
+      https://www.erdosproblems.com/1054.
+
+status:
+  scope: >-
+    The manuscript has 37 numbered results. Each is stated in Lean as a `def ... : Prop` in
+    `Principia/Erdos1054/Statements/*.lean` (definitions only). 33 are proved unconditionally,
+    with axiom footprint [propext, Classical.choice, Quot.sound], and are Comparator targets
+    (`comparator/`). The other 4 (`lem:fraiture-balanced-goldbach`, `prop:fraiture-tail`,
+    `thm:fraiture-representability`, `eq:exact-representability`) rest in the paper on
+    Helfgott's weighted ternary Goldbach theorem and are proved in Lean only CONDITIONALLY:
+    (a) from one hypothesis encoding Helfgott's bound, and (b) without that hypothesis, from 35
+    named hypotheses (7 cited machine computations, 17 cited published theorems, 11 steps
+    of Helfgott's argument not yet formalized). See `Conditional.lean`. No result is stated with
+    an `axiom`; every assumption of a conditional result is an explicit binder. The sorry counts
+    below exclude `Challenge.lean`, the statement-only Comparator fixture, whose 33 `sorry`s are
+    intentional.
+  sorry_count: 0
+  sorry_in_definitions: 0
+  axioms:
+    - "propext"
+    - "Classical.choice"
+    - "Quot.sound"
+  main_results:
+    - declaration: "EP1054.Thm_SmallUpper"
+      file: "Solution.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator/Thm_SmallUpper.json"
+      literature_dependencies: []
+    - declaration: "EP1054.Thm_SmallValues"
+      file: "Solution.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator/Thm_SmallValues.json"
+      literature_dependencies: []
+    - declaration: "EP1054.Thm_AlmostLogTail"
+      file: "Solution.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator/Thm_AlmostLogTail.json"
+      literature_dependencies: []
+    - declaration: "EP1054.Thm_SubexpGrowth"
+      file: "Solution.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator/Thm_SubexpGrowth.json"
+      literature_dependencies: []
+    - declaration: "EP1054.Thm_DaddUniversalSingularity"
+      file: "Solution.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator/Thm_DaddUniversalSingularity.json"
+      literature_dependencies: []
+    - declaration: "EP1054.Conditional.Thm_FraitureRepresentability_of_helfgott"
+      file: "Conditional.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: null
+      literature_dependencies:
+        - "Helfgott, The ternary Goldbach problem, arXiv:1312.7748, Sec. 7.4, (7.49)-(7.50) -- a HYPOTHESIS (`Principia.Erdos1054.Cite_Helfgott_weighted`), not proved"
+    - declaration: "EP1054.Conditional.derivedClaims_of_atoms"
+      file: "Conditional.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: null
+      literature_dependencies:
+        - "35 named hypotheses, listed by kind in the docstring of Conditional.lean -- 7 cited machine computations (Platt; Platt-Trudgian; Helfgott), 17 cited published theorems (Rosser, Rosser-Schoenfeld, McCurley, Trudgian, Ramare, Ramare-Saouter, Granville-Ramare), 11 steps of Helfgott's proof not yet formalized"
+
+automation:
+  methods:
+    - method: "autonomous"
+      models: []
+      framework: "Principia Math harness"
+      tool_setup: >-
+        Autonomous multi-model research harness (coordinator + Lean agents). Statements were
+        transcribed from the manuscript into a definitions-only layer first; proofs were then
+        developed against those fixed statements and accepted only on a `#print axioms` gate.
+      prompting_notes: >-
+        Targets were the manuscript's labelled results. The statement layer
+        (`Principia/Erdos1054/Statements/`, `Challenge.lean`) is kept separate from the proofs so
+        that the statements being proved are fixed independently of the proof search.
+  notes: >-
+    The `models` list is left empty deliberately rather than guessed; per-declaration model
+    attribution was not retained.
+
+fidelity:
+  divergences: >-
+    (1) `thm:fraiture-representability` and `eq:exact-representability` are the same statement
+    (`R = N \ {2, 5}`); in Lean `Thm_FraitureRepresentability` is an `abbrev` of
+    `Eq_ExactRepresentability`. (2) The hypothesis `Cite_Helfgott_weighted` uses existential
+    weights, which is weaker than Helfgott's fixed weights (see its docstring in
+    `Principia/Erdos1054/Statements/Inputs.lean`). (3) Several owed links in the 35-hypothesis
+    form are stated at constants that differ from those printed in Helfgott's papers; each
+    difference is recorded in that link's docstring. (4) Seven results are unlabelled in the
+    manuscript; they are identified by short descriptions below.
+
+alignment:
+  # 33 verified results (Comparator targets). Lean name = `EP1054.<Name>` in Solution.lean,
+  # statement = `Principia.Erdos1054.<Name>`.
+  - {source: "lem:fm-modulus", lean: "EP1054.Lem_FmModulus", proof: "Principia.Erdos1054.Proofs.ep1054_Lem_FmModulus", status: "verified", comparator_config: "comparator/Lem_FmModulus.json"}
+  - {source: "lem:fixed-modulus-normality", lean: "EP1054.Lem_FixedModulusNormality", proof: "Principia.Erdos1054.Proofs.ep1054_Lem_FixedModulusNormality", status: "verified", comparator_config: "comparator/Lem_FixedModulusNormality.json"}
+  - {source: "lem:sigma-range-zero", lean: "EP1054.Lem_SigmaRangeZero", proof: "Principia.Erdos1054.Proofs.ep1054_Lem_SigmaRangeZero", status: "verified", comparator_config: "comparator/Lem_SigmaRangeZero.json"}
+  - {source: "lem:sigma-rate", lean: "EP1054.Lem_SigmaRate", proof: "Principia.Erdos1054.Proofs.ep1054_Lem_SigmaRate", status: "verified", comparator_config: "comparator/Lem_SigmaRate.json"}
+  - {source: "lem:moment", lean: "EP1054.Lem_Moment", proof: "Principia.Erdos1054.Proofs.ep1054_Lem_Moment", status: "verified", comparator_config: "comparator/Lem_Moment.json"}
+  - {source: "lem:analytic-odd-representability", lean: "EP1054.Lem_AnalyticOddRepresentability", proof: "Principia.Erdos1054.Alt.Round4.ep1054_Lem_AnalyticOddRepresentability_unconditional", status: "verified", comparator_config: "comparator/Lem_AnalyticOddRepresentability.json"}
+  - {source: "prop:fraiture-finite", lean: "EP1054.Prop_FraitureFinite", proof: "Principia.Erdos1054.Alt7.Round7.ep1054_Prop_FraitureFinite_unconditional", status: "verified", comparator_config: "comparator/Prop_FraitureFinite.json"}
+  - {source: "lem:kovac-moment", lean: "EP1054.Lem_KovacMoment", proof: "Principia.Erdos1054.Proofs.ep1054_Lem_KovacMoment", status: "verified", comparator_config: "comparator/Lem_KovacMoment.json"}
+  - {source: "thm:small-upper (Theorem 1.1)", lean: "EP1054.Thm_SmallUpper", proof: "Principia.Erdos1054.Proofs.ep1054_Thm_SmallUpper", status: "verified", comparator_config: "comparator/Thm_SmallUpper.json"}
+  - {source: "unlabelled proposition: f(n) <= n/10 forces n > 10^120", lean: "EP1054.Prop_SmallRatioThreshold", proof: "Principia.Erdos1054.Alt6.Round6.ep1054_Prop_SmallRatioThreshold_unconditional", status: "verified", comparator_config: "comparator/Prop_SmallRatioThreshold.json"}
+  - {source: "unlabelled lemma on the family A_0(X)", lean: "EP1054.Lem_SvA0", proof: "Principia.Erdos1054.Proofs.ep1054_Lem_SvA0", status: "verified", comparator_config: "comparator/Lem_SvA0.json"}
+  - {source: "lem:smooth-part-input", lean: "EP1054.Lem_SmoothPartInput", proof: "Principia.Erdos1054.Proofs.ep1054_Lem_SmoothPartInput", status: "verified", comparator_config: "comparator/Lem_SmoothPartInput.json"}
+  - {source: "lem:sv-regular", lean: "EP1054.Lem_SvRegular", proof: "Principia.Erdos1054.Alt.Round4.ep1054_Lem_SvRegular_unconditional", status: "verified", comparator_config: "comparator/Lem_SvRegular.json"}
+  - {source: "lem:sv-classes", lean: "EP1054.Lem_SvClasses", proof: "Principia.Erdos1054.Proofs.ep1054_Lem_SvClasses", status: "verified", comparator_config: "comparator/Lem_SvClasses.json"}
+  - {source: "prop:sv-second-moment", lean: "EP1054.Prop_SvSecondMoment", proof: "Principia.Erdos1054.Alt.ep1054_Prop_SvSecondMoment_unconditional", status: "verified", comparator_config: "comparator/Prop_SvSecondMoment.json"}
+  - {source: "thm:small-values (Theorem 1.2)", lean: "EP1054.Thm_SmallValues", proof: "Principia.Erdos1054.Alt.Round4.ep1054_Thm_SmallValues_unconditional", status: "verified", comparator_config: "comparator/Thm_SmallValues.json"}
+  - {source: "lem:kernel-tails", lean: "EP1054.Lem_KernelTails", proof: "Principia.Erdos1054.Proofs.ep1054_Lem_KernelTails", status: "verified", comparator_config: "comparator/Lem_KernelTails.json"}
+  - {source: "prop:fm-envelope", lean: "EP1054.Prop_FmEnvelope", proof: "Principia.Erdos1054.Proofs.ep1054_Prop_FmEnvelope", status: "verified", comparator_config: "comparator/Prop_FmEnvelope.json"}
+  - {source: "cor:fm-envelope-tail", lean: "EP1054.Cor_FmEnvelopeTail", proof: "Principia.Erdos1054.Proofs.ep1054_Cor_FmEnvelopeTail", status: "verified", comparator_config: "comparator/Cor_FmEnvelopeTail.json"}
+  - {source: "thm:almost-log-tail (Theorem 1.3)", lean: "EP1054.Thm_AlmostLogTail", proof: "Principia.Erdos1054.Alt.ep1054_Thm_AlmostLogTail_unconditional", status: "verified", comparator_config: "comparator/Thm_AlmostLogTail.json"}
+  - {source: "thm:subexp-growth (Theorem 1.4)", lean: "EP1054.Thm_SubexpGrowth", proof: "Principia.Erdos1054.Alt.Round4.ep1054_Thm_SubexpGrowth_unconditional", status: "verified", comparator_config: "comparator/Thm_SubexpGrowth.json"}
+  - {source: "prop:class-first-moment", lean: "EP1054.Prop_ClassFirstMoment", proof: "Principia.Erdos1054.Proofs.ep1054_Prop_ClassFirstMoment", status: "verified", comparator_config: "comparator/Prop_ClassFirstMoment.json"}
+  - {source: "corollary: prime-cofactor ceiling (label commented out in the source)", lean: "EP1054.Cor_FmPrimeCeiling", proof: "Principia.Erdos1054.Proofs.ep1054_Cor_FmPrimeCeiling", status: "verified", comparator_config: "comparator/Cor_FmPrimeCeiling.json"}
+  - {source: "unlabelled corollary: fixed-cofactor defect", lean: "EP1054.Cor_FixedCofactorDefect", proof: "Principia.Erdos1054.Alt.ep1054_Cor_FixedCofactorDefect_unconditional", status: "verified", comparator_config: "comparator/Cor_FixedCofactorDefect.json"}
+  - {source: "unlabelled proposition: lower bound for eta_A", lean: "EP1054.Prop_EtaALower", proof: "Principia.Erdos1054.Alt.ep1054_Prop_EtaALower_unconditional", status: "verified", comparator_config: "comparator/Prop_EtaALower.json"}
+  - {source: "prop:theta-two", lean: "EP1054.Prop_ThetaTwo", proof: "Principia.Erdos1054.Alt6.Round6.ep1054_Prop_ThetaTwo_unconditional", status: "verified", comparator_config: "comparator/Prop_ThetaTwo.json"}
+  - {source: "unlabelled corollary: lower bound for eta_2", lean: "EP1054.Cor_EtaTwo", proof: "Principia.Erdos1054.Alt6.Round6.ep1054_Cor_EtaTwo_unconditional", status: "verified", comparator_config: "comparator/Cor_EtaTwo.json"}
+  - {source: "prop:tightness-equivalence", lean: "EP1054.Prop_TightnessEquivalence", proof: "Principia.Erdos1054.Alt5.Round5.ep1054_Prop_TightnessEquivalence_unconditional", status: "verified", comparator_config: "comparator/Prop_TightnessEquivalence.json"}
+  - {source: "prop:dadd:witness-means", lean: "EP1054.Prop_DaddWitnessMeans", proof: "Principia.Erdos1054.Alt.ep1054_Prop_DaddWitnessMeans_unconditional", status: "verified", comparator_config: "comparator/Prop_DaddWitnessMeans.json"}
+  - {source: "thm:dadd:universal-singularity", lean: "EP1054.Thm_DaddUniversalSingularity", proof: "Principia.Erdos1054.Alt5.Round5.ep1054_Thm_DaddUniversalSingularity_unconditional", status: "verified", comparator_config: "comparator/Thm_DaddUniversalSingularity.json"}
+  - {source: "unlabelled corollary: heavy tails of subsequential limits", lean: "EP1054.Cor_DaddHeavyTails", proof: "Principia.Erdos1054.Alt5.Round5.ep1054_Cor_DaddHeavyTails_unconditional", status: "verified", comparator_config: "comparator/Cor_DaddHeavyTails.json"}
+  - {source: "prop:dadd:collision-criterion", lean: "EP1054.Prop_DaddCollisionCriterion", proof: "Principia.Erdos1054.Alt5.Round5.ep1054_Prop_DaddCollisionCriterion_unconditional", status: "verified", comparator_config: "comparator/Prop_DaddCollisionCriterion.json"}
+  - {source: "unlabelled proposition: collision lower bound", lean: "EP1054.Prop_DaddCollisionLowerBound", proof: "Principia.Erdos1054.Alt.ep1054_Prop_DaddCollisionLowerBound_unconditional", status: "verified", comparator_config: "comparator/Prop_DaddCollisionLowerBound.json"}
+  # 4 conditional results. NOT Comparator targets. Each is proved twice in Conditional.lean:
+  # `_of_helfgott` (one hypothesis) and `_of_atoms` (35 named hypotheses, no Helfgott hypothesis).
+  - {source: "lem:fraiture-balanced-goldbach", lean: "EP1054.Conditional.Lem_FraitureBalancedGoldbach_of_helfgott, EP1054.Conditional.Lem_FraitureBalancedGoldbach_of_atoms", statement: "Principia.Erdos1054.Lem_FraitureBalancedGoldbach", status: "conditional", note: "see Conditional.lean"}
+  - {source: "prop:fraiture-tail", lean: "EP1054.Conditional.Prop_FraitureTail_of_helfgott, EP1054.Conditional.Prop_FraitureTail_of_atoms", statement: "Principia.Erdos1054.Prop_FraitureTail", status: "conditional", note: "see Conditional.lean"}
+  - {source: "thm:fraiture-representability", lean: "EP1054.Conditional.Thm_FraitureRepresentability_of_helfgott, EP1054.Conditional.Thm_FraitureRepresentability_of_atoms", statement: "Principia.Erdos1054.Thm_FraitureRepresentability", status: "conditional", note: "see Conditional.lean; abbrev of Eq_ExactRepresentability"}
+  - {source: "eq:exact-representability", lean: "EP1054.Conditional.Eq_ExactRepresentability_of_helfgott, EP1054.Conditional.Eq_ExactRepresentability_of_atoms", statement: "Principia.Erdos1054.Eq_ExactRepresentability", status: "conditional", note: "see Conditional.lean"}
+
+acknowledgements: >-
+  Built on Lean 4 and Mathlib. The problem is Erdős Problem 1054
+  (https://www.erdosproblems.com/1054), catalogued by Thomas Bloom. Statement fidelity is checked
+  with Comparator (https://github.com/leanprover/comparator) by the Lean FRO, and this file
+  follows the formalization.yaml reporting standard
+  (https://github.com/mathlib-initiative/formalization.yaml).
