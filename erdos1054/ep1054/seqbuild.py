@@ -12,6 +12,7 @@ import os
 import re
 import subprocess
 import sys
+import time
 
 IMP = re.compile(r"^import\s+(Principia\.[\w.]+)\s*$")
 
@@ -54,11 +55,21 @@ for m in sorted(mods):
     visit(m)
 
 print(f"seqbuild: {len(order)} modules", flush=True)
+try:
+    import resource
+except ImportError:
+    resource = None
 for i, m in enumerate(order, 1):
+    # Logged BEFORE the build, so if the runner is killed the last line names the module.
+    print(f"seqbuild: start {i}/{len(order)} {m}", flush=True)
+    t0 = time.time()
     r = subprocess.run(["lake", "build", m], capture_output=True, text=True)
     if r.returncode != 0:
         print(r.stdout[-4000:], r.stderr[-4000:])
         sys.exit(f"seqbuild: FAILED at {i}/{len(order)} {m}")
-    if i % 25 == 0 or i == len(order):
-        print(f"seqbuild: {i}/{len(order)} {m}", flush=True)
+    rss = ""
+    if resource is not None:
+        # ru_maxrss of children is the largest single child's peak, in KiB on Linux.
+        rss = f" maxChildRSS={resource.getrusage(resource.RUSAGE_CHILDREN).ru_maxrss / 1048576:.1f}G"
+    print(f"seqbuild: done  {i}/{len(order)} {m} {time.time() - t0:.0f}s{rss}", flush=True)
 print("seqbuild: done", flush=True)
