@@ -71,6 +71,12 @@ jobs:
       - name: Cache Mathlib oleans
         run: lake exe cache get
 
+      # One module at a time, dependencies first: Lake 5.0.0 has no -j, and its default
+      # parallelism runs several MNum* kernel certificates at once, which OOM-kills the runner.
+      # Everything after this step only replays these oleans.
+      - name: Sequential build of the vendored library
+        run: python3 seqbuild.py
+
       # `lake build` builds the default target, the vendored `Principia` library
       # (glob `Principia.+`, i.e. every vendored module).
       - name: Build the vendored development

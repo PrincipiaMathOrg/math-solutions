@@ -119,6 +119,12 @@ jobs:
       - name: Fetch Mathlib oleans
         run: lake exe cache get
 
+      # One module at a time, dependencies first: Lake 5.0.0 has no -j, and its default
+      # parallelism runs several MNum* kernel certificates at once, which OOM-kills the runner.
+      # Everything after this step only replays these oleans.
+      - name: Sequential build of the vendored library
+        run: python3 seqbuild.py
+
       # NOTE: `--pipe --wait --collect`, NOT the `--pty` given in Comparator's README: `--pty`
       # waits on a terminal that never resolves on a CI runner. `--wait` propagates the unit's
       # exit status. `RestrictAddressFamilies` is kept verbatim; it guards a landrun
