@@ -31,7 +31,7 @@ defaults:
     working-directory: erdos1054/ep1054
 
 env:
-  LEAN_NUM_THREADS: "2"
+  LEAN_NUM_THREADS: "1"
   # Same pins as the erdos123 comparator job, which is known-good on this repo.
   COMPARATOR_SHA: c3903e1ed0148a32cd39510707c632dc4d265514
   # lean4export must match the PROJECT's Lean version (ep1054 is on v4.31.0).
@@ -61,8 +61,8 @@ jobs:
           echo "after:"; df -h / | tail -1
 
       # The 461-module closure OOM-killed the 16 GB runner at default parallelism (comparator
-      # run 37110713167, 14.8 G peak; build run 37110713171, exit 143). Cap Lean at two worker
-      # threads (LEAN_NUM_THREADS, set in env) and add 8 GB of swap as headroom.
+      # run 37110713167, 14.8 G peak; build run 37110713171, exit 143). Cap Lean at ONE worker
+      # (LEAN_NUM_THREADS, set in env; the MNum* kernel certificates are the heavy modules) and add 8 GB of swap as headroom.
       - name: Add swap
         working-directory: .
         run: |
@@ -127,7 +127,7 @@ jobs:
         timeout-minutes: 330
         run: |
           set -o pipefail
-          systemd-run --property=RestrictAddressFamilies=~AF_UNIX --user --pipe --wait --collect -E PATH="$PATH" --working-directory "$(pwd)" -- bash -c 'lake env /tmp/comparator/.lake/build/bin/comparator comparator/all.json' 2>&1 | tee comparator.log
+          systemd-run --property=RestrictAddressFamilies=~AF_UNIX --user --pipe --wait --collect -E PATH="$PATH" -E LEAN_NUM_THREADS="$LEAN_NUM_THREADS" --working-directory "$(pwd)" -- bash -c 'lake env /tmp/comparator/.lake/build/bin/comparator comparator/all.json' 2>&1 | tee comparator.log
 
       - name: Require the success string
         run: |

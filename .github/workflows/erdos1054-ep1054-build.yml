@@ -21,7 +21,7 @@ defaults:
     working-directory: erdos1054/ep1054
 
 env:
-  LEAN_NUM_THREADS: "2"
+  LEAN_NUM_THREADS: "1"
 
 jobs:
   build:
@@ -43,8 +43,8 @@ jobs:
           echo "after:"; df -h / | tail -1
 
       # The 461-module closure OOM-killed the 16 GB runner at default parallelism (comparator
-      # run 37110713167, 14.8 G peak; build run 37110713171, exit 143). Cap Lean at two worker
-      # threads (LEAN_NUM_THREADS, set in env) and add 8 GB of swap as headroom.
+      # run 37110713167, 14.8 G peak; build run 37110713171, exit 143). Cap Lean at ONE worker
+      # (LEAN_NUM_THREADS, set in env; the MNum* kernel certificates are the heavy modules) and add 8 GB of swap as headroom.
       - name: Add swap
         working-directory: .
         run: |
