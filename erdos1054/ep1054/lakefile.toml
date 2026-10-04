@@ -26,6 +26,10 @@ rev = "fabf563a7c95a166b8d7b6efca11c8b4dc9d911f" # tag v4.31.0
 [[lean_lib]]
 name = "Principia"
 globs = ["Principia.+"]
+# A RESOURCE flag, not an option: it changes no elaboration result. On the 16 GB CI runner the
+# kernel-decided certificates (e.g. PrimeSumExact.CertsA, 47 `decide +kernel` segments of ~1.3 GB
+# each) were checked in parallel and the runner was killed (run 37184184807, 93 s into CertsA).
+moreLeanArgs = ["--threads=1"]
 
 # Comparator (github.com/leanprover/comparator) requires the trusted statement file and the
 # claimed proof to be separate libraries.
