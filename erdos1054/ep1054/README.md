@@ -27,7 +27,7 @@ Mathlib and `Principia/Erdos1054/Defs.lean`, nothing else).
 | | count | where |
 | --- | --- | --- |
 | **Verified** — proved with no hypotheses, axiom footprint `[propext, Classical.choice, Quot.sound]`, Comparator targets | **33** | `Challenge.lean` (statements), `Solution.lean` (proofs), `comparator/` |
-| **Conditional** — rest on Helfgott's weighted ternary Goldbach theorem | **4** | `Conditional.lean` |
+| **Conditional** — rest on Helfgott's weighted ternary Goldbach theorem; proved here from 41 cited inputs (18 machine computations, 23 published theorems) | **4** | `Conditional.lean` |
 
 The 33 include Theorems 1.1–1.4 (`thm:small-upper`, `thm:small-values`, `thm:almost-log-tail`,
 `thm:subexp-growth`), `thm:dadd:universal-singularity`, and `prop:fraiture-finite` (the finite
@@ -43,26 +43,34 @@ them in two ways, both with every assumption an explicit binder (no `axiom`, no 
 
 1. from the single hypothesis `Principia.Erdos1054.Cite_Helfgott_weighted` (Helfgott,
    arXiv:1312.7748, §7.4, (7.49)–(7.50), encoded with existential weights);
-2. without that hypothesis, via `Principia.Erdos1054.Alt7.FromAtomsZD.ep1054_atomsZD`, from **35
-   named hypotheses**:
-   - **7 cited machine computations** (Platt's Theorem 7.1; Platt–Trudgian RH to `3·10¹²`;
-     Helfgott's runs `EspagnCheck`, `EspagnSmall`, `Charpy`, `Charpas`, `AusteriaGrid`);
-   - **17 cited published-literature statements** (Rosser 1941; Rosser–Schoenfeld 1962, 1975;
-     Ramaré 1995, 2015; Ramaré–Saouter 2003; Granville–Ramaré 1996; the explicit zero count as
-     Helfgott cites it) — cited, i.e. stated as hypotheses referenced to their publications,
-     not re-proved in Lean;
-   - **11 steps of Helfgott's argument not yet proved in Lean** (`Rectangle`; `PlusDecay`,
-     `PhiDecay`, `MalMain`; `EspagnEdgeRes`; `Bostb1Eta2`, `Bosta2Eta2`, `Vinland1At`,
-     `EriksagaAt`, `SecI2At`, `SecIIAt`).
+2. without that hypothesis, via `Principia.Erdos1054.Alt7.FromAtoms896I.ep1054_atoms896I`, from
+   **41 hypotheses, every one of which is a cited input**:
+   - **18 cited machine computations**: Platt's Theorem 7.1; Platt–Trudgian RH to `3·10¹²`; and
+     16 of Helfgott's runs (`EspagnCheck`, `EspagnSmall`, `Charpy`, `Charpas`, `AusteriaGrid`,
+     `MalMain` (VNODE-LP), `AmanitaBisect`, `AppB`, `CameloGrid`, `Wollust`, `Kast`, `Notung`,
+     `CortoSmall`, `YuttoSmall`, `CortoC0`, `Ramare`);
+   - **23 cited published theorems**: Rosser 1941; Rosser–Schoenfeld 1962 (×8), 1975 (θ bound and
+     Cor. 2); Ramaré 1995 (×2), 2013 (Cor. 1.4), 2015 (×2); Ramaré–Saouter 2003; Granville–Ramaré
+     1996; the explicit zero count as Helfgott cites it; the sharp large sieve (Montgomery–Vaughan
+     1974); Montgomery's inequality (1968); and Montgomery–Vaughan 1973 Theorem 1 (1.6) and
+     Lemma 8.
 
-   The docstring of `Conditional.lean` lists all 35 by name and kind; each one's exact meaning is
-   the docstring of its definition in the vendored `Principia/Common/TernaryGoldbach/` modules.
+   **No step of Helfgott's argument is owed any more**: every analytic step between these inputs
+   is kernel-checked. The 41 inputs are cited — stated as hypotheses referenced to their
+   publications — and, **by owner decision, linked rather than re-proved in Lean**. The docstring
+   of `Conditional.lean` lists all 41 by name, kind and source; each one's exact meaning is the
+   docstring of its definition in the vendored `Principia/Common/TernaryGoldbach/` modules.
+
+**So this is a CONDITIONAL verification, not a complete one**: 33 of the 37 results are verified
+unconditionally; the other 4 are verified conditionally on the 41 cited inputs. The caveats that
+travel with it (inputs checked against their sources, corrected forms of Helfgott's statements,
+errata) are in [`VERIFICATION.md`](VERIFICATION.md) §8.
 
 ## Layout
 
 ```
 lean-toolchain  lakefile.toml  lake-manifest.json   Lean v4.31.0, Mathlib fabf563a (pinned)
-Principia/**        the vendored development: 359 modules, copied byte-for-byte from the
+Principia/**        the vendored development: 461 modules, copied byte-for-byte from the
                     PrincipiaAI repository (source commit in SOURCE.txt, hashes in SHA256SUMS)
 Challenge.lean      the 33 verified statements, `sorry` proofs (the audit fixture)
 Solution.lean       the same 33, proved by direct term assignment; `#print axioms` per result
@@ -74,8 +82,8 @@ VERIFICATION.md     what was actually run, with its output, and what was not
 ```
 
 The vendored set is exactly the transitive `import Principia.*` closure of the nine statement
-modules, the modules holding the 33 verified proofs, `Principia.Erdos1054.Spine` and
-`Principia.Erdos1054.Alt7.FromAtomsZD` — nothing else.
+modules, the modules holding the 33 verified proofs, `Principia.Erdos1054.Spine`,
+`Principia.Erdos1054.Alt7.FromAtoms896I` and its axiom gate `GateFromAtoms896I` — nothing else.
 
 **What must be trusted.** Unlike this repository's other folders, `Challenge.lean` imports its
 statement modules rather than carrying a copy (the statement layer is ~6.5k lines of definitions).

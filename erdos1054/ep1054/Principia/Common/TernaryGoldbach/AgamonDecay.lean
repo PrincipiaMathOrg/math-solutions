@@ -10,9 +10,9 @@ set_option autoImplicit false
 
 **`mollDecay_holds : EF.MollDecay`**, with no hypothesis. Route (the link's docstring):
 * `G_cont` is bounded on `−1/2 ≤ Re s ≤ 3/2` (`gcont_bounded`):
-  `|M f(s)| ≤ ∫(t^{1/2} + t^{−1/2})|f|` for `Re s ≥ 1/2`; `G_cont(s) = −M f'(s + 1)/s` (`AG.gcont_eq_dslope`) with `|s| ≥ 1` for
-  `Re s < 1/2`, `|Im s| ≥ 1`; and continuity (`AG.continuation_holds`) on the compact rectangle
-  `[−1/2, 1/2] × [−1, 1]`;
+  `|M f(s)| ≤ ∫(t^{1/2} + t^{−1/2})|f|` for `Re s ≥ 1/2`; `G_cont(s) = −M f'(s + 1)/s`
+  (`AG.gcont_eq_dslope`) with `|s| ≥ 1` for `Re s < 1/2`, `|Im s| ≥ 1`; and continuity
+  (`AG.continuation_holds`) on the compact rectangle `[−1/2, 1/2] × [−1, 1]`;
 * `Mν` decays like `|w|^{−k}` for every `k`, uniformly on `|Re w| ≤ R` (`mnu_decay`): with
   `θφ(t) = t φ'(t)`, `w·Mφ(w) = −M(θφ)(w)` for `w ≠ 0` (PNT+ `MellinOfPsi_aux`, one integration by
   parts), so `w^k Mν(w) = (−1)^k M(θ^k ν)(w)` (`mellin_thetaPow`), and

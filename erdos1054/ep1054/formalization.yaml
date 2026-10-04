@@ -38,9 +38,11 @@ status:
     (`comparator/`). The other 4 (`lem:fraiture-balanced-goldbach`, `prop:fraiture-tail`,
     `thm:fraiture-representability`, `eq:exact-representability`) rest in the paper on
     Helfgott's weighted ternary Goldbach theorem and are proved in Lean only CONDITIONALLY:
-    (a) from one hypothesis encoding Helfgott's bound, and (b) without that hypothesis, from 35
-    named hypotheses (7 cited machine computations, 17 cited published theorems, 11 steps
-    of Helfgott's argument not yet formalized). See `Conditional.lean`. No result is stated with
+    (a) from one hypothesis encoding Helfgott's bound, and (b) without that hypothesis, from 41
+    hypotheses every one of which is a cited input (18 cited machine computations, 23 cited
+    published theorems), linked by owner decision and not re-proved in Lean; no step of
+    Helfgott's argument is owed. This is a conditional verification, not a complete one. See
+    `Conditional.lean` and `VERIFICATION.md`. No result is stated with
     an `axiom`; every assumption of a conditional result is an explicit binder. The sorry counts
     below exclude `Challenge.lean`, the statement-only Comparator fixture, whose 33 `sorry`s are
     intentional.
@@ -94,7 +96,7 @@ status:
       axioms: ["propext", "Classical.choice", "Quot.sound"]
       comparator_config: null
       literature_dependencies:
-        - "35 named hypotheses, listed by kind in the docstring of Conditional.lean -- 7 cited machine computations (Platt; Platt-Trudgian; Helfgott), 17 cited published theorems (Rosser, Rosser-Schoenfeld, McCurley, Trudgian, Ramare, Ramare-Saouter, Granville-Ramare), 11 steps of Helfgott's proof not yet formalized"
+        - "41 cited inputs, listed by kind and source in the docstring of Conditional.lean -- 18 cited machine computations (Platt; Platt-Trudgian; 16 of Helfgott's runs), 23 cited published theorems (Rosser, Rosser-Schoenfeld, McCurley, Trudgian, Ramare, Ramare-Saouter, Granville-Ramare, Montgomery, Montgomery-Vaughan 1973 and 1974); hypotheses, not proved; no step of Helfgott's argument is owed"
 
 automation:
   methods:
@@ -119,9 +121,10 @@ fidelity:
     (`R = N \ {2, 5}`); in Lean `Thm_FraitureRepresentability` is an `abbrev` of
     `Eq_ExactRepresentability`. (2) The hypothesis `Cite_Helfgott_weighted` uses existential
     weights, which is weaker than Helfgott's fixed weights (see its docstring in
-    `Principia/Erdos1054/Statements/Inputs.lean`). (3) Several owed links in the 35-hypothesis
-    form are stated at constants that differ from those printed in Helfgott's papers; each
-    difference is recorded in that link's docstring. (4) Seven results are unlabelled in the
+    `Principia/Erdos1054/Statements/Inputs.lean`). (3) In the 41-input form several links of
+    Helfgott's chain are proved in CORRECTED form (the Main Theorem constant 0.896 route;
+    corrected `lem:bogus`, `lem:yutto`; 10.25 for `lem:monro`'s 1.27), each implied by or weaker
+    than what the source proves; the errata are listed in `VERIFICATION.md` section 8. (4) Seven results are unlabelled in the
     manuscript; they are identified by short descriptions below.
 
 alignment:
@@ -161,7 +164,7 @@ alignment:
   - {source: "prop:dadd:collision-criterion", lean: "EP1054.Prop_DaddCollisionCriterion", proof: "Principia.Erdos1054.Alt5.Round5.ep1054_Prop_DaddCollisionCriterion_unconditional", status: "verified", comparator_config: "comparator/Prop_DaddCollisionCriterion.json"}
   - {source: "unlabelled proposition: collision lower bound", lean: "EP1054.Prop_DaddCollisionLowerBound", proof: "Principia.Erdos1054.Alt.ep1054_Prop_DaddCollisionLowerBound_unconditional", status: "verified", comparator_config: "comparator/Prop_DaddCollisionLowerBound.json"}
   # 4 conditional results. NOT Comparator targets. Each is proved twice in Conditional.lean:
-  # `_of_helfgott` (one hypothesis) and `_of_atoms` (35 named hypotheses, no Helfgott hypothesis).
+  # `_of_helfgott` (one hypothesis) and `_of_atoms` (41 cited inputs, no Helfgott hypothesis).
   - {source: "lem:fraiture-balanced-goldbach", lean: "EP1054.Conditional.Lem_FraitureBalancedGoldbach_of_helfgott, EP1054.Conditional.Lem_FraitureBalancedGoldbach_of_atoms", statement: "Principia.Erdos1054.Lem_FraitureBalancedGoldbach", status: "conditional", note: "see Conditional.lean"}
   - {source: "prop:fraiture-tail", lean: "EP1054.Conditional.Prop_FraitureTail_of_helfgott, EP1054.Conditional.Prop_FraitureTail_of_atoms", statement: "Principia.Erdos1054.Prop_FraitureTail", status: "conditional", note: "see Conditional.lean"}
   - {source: "thm:fraiture-representability", lean: "EP1054.Conditional.Thm_FraitureRepresentability_of_helfgott, EP1054.Conditional.Thm_FraitureRepresentability_of_atoms", statement: "Principia.Erdos1054.Thm_FraitureRepresentability", status: "conditional", note: "see Conditional.lean; abbrev of Eq_ExactRepresentability"}

@@ -3,66 +3,67 @@
 The honest ledger. Every claim below is either a command that was actually run, with its real
 output, or an explicit note that it was **not** run.
 
+**This is a CONDITIONAL verification, not a complete one.** Of the manuscript's 37 numbered
+results, **33 are verified unconditionally** (§5); the other **4 are verified conditionally on 41
+cited inputs** — 18 published machine computations and 23 published theorems — which are linked to
+their sources **by owner decision and not re-proved in Lean** (§8).
+
 Environment for everything marked *run here*: the development machine (Windows 10 Pro 19045,
-Git Bash / PowerShell), Lean `leanprover/lean4:v4.31.0` via elan, Lake 5.0.0, 2026-10-02.
+16 GB RAM, Git Bash / PowerShell), Lean `leanprover/lean4:v4.31.0` via elan, Lake 5.0.0,
+2026-10-03.
 
 Source of the vendored development: the PrincipiaAI repository, Lean library at
-`Principia Application/LeanSandbox`, **commit `c1c3bb5d0404e769c46d9a276c102f15d4353c8d`**
-(`SOURCE.txt`).
+`Principia Application/LeanSandbox`, **commit `6a12668add5e38043019b93837a1832d62cc573e`**
+(`SOURCE.txt`). This refresh replaces the previous vendoring (commit `c1c3bb5d`, headline
+`FromAtomsZD` with 35 hypotheses, 11 of them owed steps of Helfgott's argument).
 
 ---
 
-## 1. Vendored files are the source commit's bytes — RUN, passes
+## 1. Vendored files are the source commit's bytes — RUN here, passes
 
-Every file under `Principia/` was extracted with `git show c1c3bb5d…:<path>` (committed bytes, not
+Every file under `Principia/` was extracted with `git show 6a12668a…:<path>` (committed bytes, not
 a working tree; the source working tree carried other sessions' uncommitted edits).
 
 ```
 $ sha256sum -c --strict --quiet SHA256SUMS; echo "exit=$?"
 exit=0
 $ wc -l < SHA256SUMS; find Principia -name '*.lean' | wc -l
-359
-359
+461
+461
 $ find Principia -name '*.lean' -print0 | xargs -0 cat | wc -l -c
- 237980 12529436
+ 274747 14330726
 ```
 
-An independent script (run from the PrincipiaAI repository root) recomputed the closure and
-compared bytes against `git show`:
+An independent script (reads the source repository with `git show` only) recomputed the closure
+and compared bytes:
 
 ```
-statements modules at HEAD: 9 all in roots: True
-roots: 17
-closure modules: 359 missing: []
-vendored files: 359
+statement modules at commit: 9
+roots (incl. audit-file imports): 18
+closure modules: 461
+vendored files: 461
 in closure not vendored: []
 vendored not in closure: []
 byte mismatches vs git show: []
-SHA256SUMS entries: 359 mismatches: [] set equal: True
-statement closure: ['Principia.Erdos1054.Defs', 'Principia.Erdos1054.Statements.Inputs',
-  'Principia.Erdos1054.Statements.S1_Main', ..., 'Principia.Erdos1054.Statements.S7_Limits']
-ledger verified records: 33
-Solution theorems: 33 name==stmt: True
-Solution proof terms not named in ledger verified records: []
+SHA256SUMS entries: 461 mismatches: [] set equal: True
 ```
 
-So: the vendored set is **exactly** the transitive `import Principia.*` closure of the 17 roots
-listed in `SOURCE.txt` (the nine statement modules; `Proofs.Assembly`, `Alt.Round4`,
-`Alt.Unconditional`, `Alt5.Round5`, `Alt6.Round6`, `Alt7.Round7`, which hold the 33 proofs;
-`Spine`; `Alt7.FromAtomsZD`); the statement layer's own closure is `Defs` + the nine statement
-modules + Mathlib; and every proof term used in `Solution.lean` is the declaration the PrincipiaAI
-theorem ledger (`Campaigns/Erdos-1054/THEOREM-LEDGER.jsonl` at the same commit) records as that
-result's verification.
+So the vendored set is **exactly** the transitive `import Principia.*` closure of the 18 roots in
+`SOURCE.txt` (the nine statement modules; `Proofs.Assembly`, `Alt.Round4`, `Alt.Unconditional`,
+`Alt5.Round5`, `Alt6.Round6`, `Alt7.Round7`, which hold the 33 proofs; `Spine`;
+`Alt7.FromAtoms896I` and its gate `Alt7.GateFromAtoms896I`), and every `import Principia.*` of
+`Challenge.lean`, `Solution.lean` and `Conditional.lean` lies inside it. Against the previous
+vendoring: 102 modules added, 0 removed, 2 changed
+(`Principia/Common/TernaryGoldbach/AgamonDecay.lean`, `AgamonLimit.lean`).
 
-## 2. Paper bytes — RUN, passes
+The statement layer (`Principia/Erdos1054/Defs.lean`, `Principia/Erdos1054/Statements/*.lean`)
+and `Principia/Erdos1054/Spine.lean` are byte-identical between `c1c3bb5d` and `6a12668a`
+(`git diff --stat c1c3bb5d 6a12668a -- <those paths>` is empty), so `Challenge.lean` and
+`Solution.lean` are unchanged by this refresh.
 
-`paper/EP1054.bib` is `git show c1c3bb5d…:Campaigns/Erdos-1054/collab-paper/EP1054.bib`, unedited
-(`cmp`: identical). `paper/EP1054.tex` is the same file (sha256 `cdd5ddfbd201f2e76deeabf0636ca9fc69689cca826bbaedcffd7d3befa44112`) with its 36
-whole-line `%` comments removed (internal notes between authors; no trailing comments existed),
-by a script that treats `\%` as an escape; nothing else changed. `paper/EP1054.pdf` was
-built from these in a scratch copy with `latexmk -pdf -interaction=nonstopmode EP1054.tex`
-(MiKTeX): exit 0, `Output written on EP1054.pdf (41 pages, 625068 bytes)`, no undefined
-references or citations in the log, bibtex 0 warnings.
+## 2. Paper bytes — RUN here, passes
+
+Unchanged since the folder's first commit (`57570ce`):
 
 ```
 $ cd paper && sha256sum -c SHA256SUMS
@@ -77,50 +78,48 @@ EP1054.pdf: OK
 | `EP1054.bib` | `9f13c45520a5a14f40ed0b67056dd4f838e3863d8a3103a20c2316db2db3634b` |
 | `EP1054.pdf` | `cbb2d47335ffa93d94ca67da807bdeb1efdf077dc3599356798362b6fb3bbece` |
 
-A PDF is not byte-reproducible across TeX installations (it embeds timestamps); the `.tex` and
-`.bib` are the reference, the PDF a convenience copy of those exact sources.
+`paper/EP1054.bib` is the source repository's `Campaigns/Erdos-1054/collab-paper/EP1054.bib`
+unedited; `paper/EP1054.tex` is that `.tex` (sha256
+`cdd5ddfbd201f2e76deeabf0636ca9fc69689cca826bbaedcffd7d3befa44112`) with its 36 whole-line `%`
+comments removed; `paper/EP1054.pdf` was built from them with `latexmk -pdf` (MiKTeX, 41 pages).
+A PDF is not byte-reproducible across TeX installations; the `.tex` and `.bib` are the reference.
 
-## 3. Build of the vendored modules in the source tree — RUN, passes
+## 3. Build of THIS Lake project from the vendored files — RUN here, passes
 
-In the PrincipiaAI LeanSandbox (the library these files come from), with none of the 359 closure
-files differing from commit `c1c3bb5d` at the time (`git diff --name-only HEAD` listed only files
-outside the closure):
+In an isolated scratch copy of this folder (its `.lean` files, `lakefile.toml`,
+`lake-manifest.json`, `lean-toolchain`, `SHA256SUMS`), with the dependency packages reached through
+a directory junction `.lake/packages` → the PrincipiaAI LeanSandbox's `.lake/packages` (same
+manifest revisions; Mathlib's oleans replayed, `lake exe cache get` not run):
 
 ```
-$ lake build Principia.Erdos1054.Statements.Inputs … Principia.Erdos1054.Statements.S7_Limits \
-    Principia.Erdos1054.Proofs.Assembly Principia.Erdos1054.Alt.Round4 \
-    Principia.Erdos1054.Alt.Unconditional Principia.Erdos1054.Alt5.Round5 \
-    Principia.Erdos1054.Alt6.Round6 Principia.Erdos1054.Alt7.Round7 \
-    Principia.Erdos1054.Spine Principia.Erdos1054.Alt7.FromAtomsZD
+$ LEAN_NUM_THREADS=2 lake build
 ...
-Build completed successfully (4155 jobs).
-SLOTBUILD_EXIT=0 SECONDS=100
+✔ [4276/4278] Built Principia.Erdos1054.Alt7.FromAtoms896I (12s)
+Build completed successfully (4278 jobs).
+LAKE_EXIT=0 SECONDS=1991
 ```
 
-(All 17 roots; the modules were replayed from that tree's existing build, which Lake accepts only
-when each source's hash matches its trace. Finished 15:13 local time; a file in the closure,
-`Principia/Common/TernaryGoldbach/AgamonDecay.lean`, was edited in that working tree afterwards, at
-15:21, by another session, which is why §5 repeats these checks in an isolated copy.)
+(Lake 5.0.0 has no `-j` flag; `LEAN_NUM_THREADS=2` held it to two concurrent `lean` processes,
+observed with `Get-Process`.) The log has no `✖` line, no `error:` line and no
+`declaration uses sorry` line; its 72 `⚠` lines are linter style warnings. Afterwards
+`.lake/build/lib/lean/Principia` holds **461 `.olean` files**, one per vendored module, and
+`sha256sum -c --strict SHA256SUMS` passes in that copy.
 
-## 4. `Challenge.lean`, `Solution.lean` — RUN, pass
+**What was compiled in this run, and what was replayed.** The copy started from the `.lake/build`
+of the previous refresh's isolated build (which compiled all 359 modules of `c1c3bb5d` from source,
+in two stages, on 2026-10-02). In this run Lake **compiled 108 modules from source** — the 102 new
+ones, the 2 changed ones, and the 4 old modules downstream of them (`Alt7.FromAtomsZB`, `ZC`, `ZCS`,
+`ZD`) — and **replayed the other 353** from their existing oleans, which Lake does only when each
+source's hash and every dependency's trace match. Every one of the 461 modules has therefore been
+compiled from these exact bytes in an isolated copy, but not in one uninterrupted build from an
+empty `.lake/build`.
 
-Each file compiled with `lake env lean <file>` against the build of §3:
+## 4. `Challenge.lean`, `Solution.lean`, `Conditional.lean`, the gate — RUN here, pass
 
-**4a. `Challenge.lean`** — exit 0, 0 errors, and exactly **33** warnings, all of the form
+Each compiled with `lake env lean <file>` against the build of §3.
 
-```
-Challenge.lean:49:8: warning: declaration uses `sorry`
-```
-
-one per theorem, as intended. (Counted with `grep -c "declaration uses" …` = 33. The wrapper
-script's own `SORRY_WARNINGS` counter printed `0` here: its pattern looks for `'sorry'` in
-quotes, while Lean v4.31 prints `` `sorry` `` in backticks. A sorry check keyed on the quoted form
-is therefore **vacuous** on this toolchain. The same defect was in the first draft of this
-folder's CI workflow; `erdos1054-ep1054-build.yml` now matches both forms,
-``"declaration uses ['\`]sorry['\`]"``.)
-
-**4b. `Solution.lean`** — exit 0, 0 errors, no warnings, and 33 footprint lines, one per result,
-every one exactly the three permitted axioms:
+**4a. `Solution.lean`** — exit 0, no errors, no warnings, and 33 footprint lines, every one exactly
+the three permitted axioms (identical, line for line, to the previous refresh):
 
 ```
 'EP1054.Lem_FmModulus' depends on axioms: [propext, Classical.choice, Quot.sound]
@@ -161,70 +160,11 @@ every one exactly the three permitted axioms:
 Because each proof in `Solution.lean` is a bare term `theorem X : Principia.Erdos1054.X := <proof>`,
 this also checks that each development theorem's type is the trusted statement constant itself.
 
-## 5. Build of THIS Lake project from the vendored files — RUN, passes (in two stages)
+**4b. `Challenge.lean`** — exit 0, 0 errors, and exactly **33** warnings, all
+``declaration uses `sorry` ``, one per theorem, as intended.
 
-To check the folder as shipped, independently of the PrincipiaAI tree, a scratch copy of
-`erdos1054/ep1054/` (its `.lean` files, `lakefile.toml`, `lake-manifest.json`, `lean-toolchain`)
-was built with `lake build`. The vendored `Principia/**` was compiled **from source**; only
-the dependency packages were reused, through a directory junction `.lake/packages` → the
-PrincipiaAI LeanSandbox's `.lake/packages`, which is at the same manifest revisions (so
-`lake exe cache get` was **not run**; Mathlib's oleans came from that checkout and were replayed,
-not rebuilt).
-
-**5a. All 359 vendored modules — RUN, every module built with no error, but not in ONE
-`lake build` invocation.**
-
-- *Stage 1, `lake build` (default target).* Started 16:07; by 18:05, **298 of the 359 vendored
-  modules had built with no error** (`✔`/`⚠` lines only; the warnings are linter style
-  warnings). Lake then ran eight `lean` processes in parallel at ~4.4 GB committed each on a
-  16 GB machine shared with other Lean jobs; they thrashed (≈10 CPU-seconds each in 20+ minutes)
-  and the build was stopped by killing its own process tree at ~18:42. The five
-  `✖ … error: Lean exited with code 1` lines at the end of that log are the killed processes;
-  none printed a diagnostic.
-- *Stage 2, one module at a time.* The remaining **61** modules were then built in topological
-  order with one `lake build <Module>` per module (so at most one `lean` compiling at once), in
-  the same scratch project: `[1/61] … [61/61] Principia.Erdos1054.Alt7.FromAtomsZD`, **every one
-  `exit=0`**, 4528 s in total, no `error` line in the log.
-
-After both stages the scratch project holds **359 `.olean` files under
-`.lake/build/lib/lean/Principia`**, one per vendored module, and `sha256sum -c --strict SHA256SUMS`
-still passes there. No `declaration uses sorry` warning occurs in either stage's log. What has
-not been observed is one uninterrupted `lake build` from an empty `.lake/build` to "Build
-completed successfully"; the build-time consequence (memory) is the reason, and is the open
-question for the 4-vCPU / 16 GB CI runner too (§7).
-
-**5b. `Solution.lean` against the stage-1 oleans of 5a — RUN, passes.** `lake env lean Solution.lean` in
-the scratch project: exit 0, no errors, no warnings, and the same 33 lines as §4b, every one
-`depends on axioms: [propext, Classical.choice, Quot.sound]` (counted: 33).
-
-**5c. `Challenge.lean` against the stage-1 oleans of 5a — RUN, passes.** Exit 0; exactly 33
-``declaration uses `sorry` `` warnings and no other output.
-
-**5d. Statement-fidelity negative control — RUN, behaves as required.** A scratch file (not
-shipped) assigning a proof of one statement to another:
-
-```lean
-theorem right : Principia.Erdos1054.Lem_FmModulus :=
-  Principia.Erdos1054.Proofs.ep1054_Lem_FmModulus
-theorem wrong : Principia.Erdos1054.Lem_FmModulus :=
-  Principia.Erdos1054.Proofs.ep1054_Lem_Moment
-```
-
-```
-NegCtl.lean:10:2: error: Type mismatch
-  Principia.Erdos1054.Proofs.ep1054_Lem_Moment
-has type
-  Principia.Erdos1054.Lem_Moment
-but is expected to have type
-  Principia.Erdos1054.Lem_FmModulus
-```
-
-Only `wrong` is rejected, so the term-assignment check of `Solution.lean` does distinguish the
-statements.
-
-**5e. `Conditional.lean` against the oleans of 5a (both stages) — RUN, passes.**
-`lake env lean Conditional.lean` in the scratch project: exit 0, no errors, no warnings, and
-nine footprint lines, each exactly the three permitted axioms:
+**4c. `Conditional.lean`** — exit 0, no errors, no warnings, and ten footprint lines, each exactly
+the three permitted axioms:
 
 ```
 'EP1054.Conditional.Lem_FraitureBalancedGoldbach_of_helfgott' depends on axioms: [propext, Classical.choice, Quot.sound]
@@ -236,19 +176,42 @@ nine footprint lines, each exactly the three permitted axioms:
 'EP1054.Conditional.Prop_FraitureTail_of_atoms' depends on axioms: [propext, Classical.choice, Quot.sound]
 'EP1054.Conditional.Thm_FraitureRepresentability_of_atoms' depends on axioms: [propext, Classical.choice, Quot.sound]
 'EP1054.Conditional.Eq_ExactRepresentability_of_atoms' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Principia.Erdos1054.Alt7.FromAtoms896I.ep1054_atoms896I' depends on axioms: [propext, Classical.choice, Quot.sound]
 ```
 
-A clean footprint here means only that no axiom was *added*: every hypothesis of these theorems
-is an explicit binder, and `#print axioms` does not list binders. These are **conditional**
-results; see §8. (An earlier attempt at 15:23 to compile `Conditional.lean` against the
-PrincipiaAI tree's build failed with `object file … AgamonDecay.olean … does not exist`, because
-another session was rebuilding that module from an edited source; that is why this check was
-moved into the isolated scratch project.)
-
-## 6. Text audits of the vendored tree — RUN, clean
+**4d. The vendored gate `Principia/Erdos1054/Alt7/GateFromAtoms896I.lean`** — exit 0; it prints
+the same footprint for `ep1054_atoms896I` and its type, which has exactly **41** hypotheses, in this
+order, before `Principia.Erdos1054.Spine.DerivedClaims` (namespace prefix
+`Principia.Common.TernaryGoldbach.` dropped):
 
 ```
-$ grep -rnwE 'sorry|admit' Principia      # only prose inside docstrings/comments, e.g.
+PC.PlattThm71 → PC.PlattTrudgian → HC.EspagnCheckCited → HC.EspagnSmallCited → HC.CharpyCited →
+HX.CharpasCited → HC.AusteriaGridCited → HC.MalMainCited → HC.AmanitaBisectCited → HC.AppBCited →
+HC.CameloGridCited → HC.WollustCited → HC.KastCited → HC.NotungCited → HC.CortoSmallCited →
+HC.YuttoSmallCited → HC.CortoC0Cited → HC.RamareCited → HM.ZeroCount → HX.RS75Theta →
+CY.CERange → CY.Malito → CY.Cante → GS.RS62Thm15 → EB.RS62Thm12 → EB.RS62Thm13 → LQ.RS62_316 →
+LQ.RS62_324 → LQ.RS62_330 → LQ.RS62_332 → EF.RosserL17 → EF.RamareSaouterL2 → MPc.Grara →
+MPc.Ronsard → MPc.Meproz → KLR.RS75Cor2 → T2K.LargeSieve → T2M.MontgomeryIneq →
+M2Y.RamareMarraki → T2G.MVWeighted → T2V.MV8Large → Principia.Erdos1054.Spine.DerivedClaims
+```
+
+A clean footprint on a conditional theorem means only that no axiom was *added*: every hypothesis
+is an explicit binder, and `#print axioms` does not list binders. See §8 for what they are.
+
+**4e. Statement-fidelity negative control — NOT re-run in this refresh.** It was run on the
+previous vendoring (a scratch file assigning `ep1054_Lem_Moment` to `Lem_FmModulus` was rejected
+with `Type mismatch`); `Solution.lean` and the statement layer are byte-identical since then.
+
+## 5. The 33 unconditional results
+
+`Solution.lean` (§4a) proves the 33 statements of `Challenge.lean` with footprint
+`[propext, Classical.choice, Quot.sound]` and no hypotheses. The list, paper label → Lean name, is
+the `alignment` block of `formalization.yaml`.
+
+## 6. Text audits of the vendored tree — RUN here, clean
+
+```
+$ grep -rnwE 'sorry|admit' Principia      # 7 hits, all prose inside docstrings/comments, e.g.
 Principia/Common/TernaryGoldbach/Spine.lean:130:... `sorry` appears nowhere, deliberately ...
 $ grep -rnP '(?<!`)\bnative_decide\b|\bimplemented_by\b|^\s*unsafe\b|set_option\s+debug\.skipKernelTC' Principia
 (no output)
@@ -256,27 +219,97 @@ $ grep -rhE '^\s*(@\[[^]]*\]\s*)?(private |protected |noncomputable )*axiom\s' P
 (no output)
 ```
 
-A text search is not the authority on `sorry` (a failed tactic can inject `sorryAx` without the
-word appearing); the authority is the `#print axioms` output of §4–§5, which would print
-`sorryAx`.
+A text search is not the authority on `sorry`; the authority is the `#print axioms` output of §4,
+which would print `sorryAx`.
 
-## 7. Comparator — NOT RUN locally; shipped as a CI workflow
+## 7. Comparator — NOT RUN locally; the CI runs so far FAILED on memory
 
 Comparator needs Linux (the landrun / Landlock sandbox) and was **not run** on this Windows
 machine. It is configured in `comparator/` (33 per-result configs + `all.json`; `permitted_axioms`
-exactly `propext`, `Quot.sound`, `Classical.choice`; no `definition_names`, so every statement
-constant is compared in full rather than as a definition hole) and runs in
+exactly `propext`, `Quot.sound`, `Classical.choice`; no `definition_names`) and runs in
 `.github/workflows/erdos1054-ep1054-comparator.yml`, success string `Your solution is okay!`.
-**As of this commit it has never run**, and whether a cold build of the 359-module closure fits
-in GitHub's 360-minute job limit is unknown. Likewise `erdos1054-ep1054-build.yml` has not yet
-run on CI.
+
+Both workflows ran on the two previous pushes of this folder (2026-10-03) and **both failed before
+reaching any check, on memory, during the cold build of the (then 359-module) closure**:
+
+- `erdos1054-ep1054-comparator`, run 37110713167: `Finished with result: oom-kill`, memory peak
+  14.8 G, at `[3906/3957]`;
+- `erdos1054-ep1054-build`, run 37110713171: `The runner has received a shutdown signal`, exit
+  code 143, at `[3915/4145]`.
+
+So **Comparator has never completed on this folder**, and with 461 modules the same failure is to be
+expected until the workflows limit build parallelism (outside this folder; not changed here).
 
 ## 8. What the 4 conditional results depend on
 
 Not proved unconditionally: `lem:fraiture-balanced-goldbach`, `prop:fraiture-tail`,
 `thm:fraiture-representability`, `eq:exact-representability`. `Conditional.lean` proves them
-(a) from the single hypothesis `Principia.Erdos1054.Cite_Helfgott_weighted`, and (b) from 35 named
-hypotheses with no Helfgott hypothesis: 7 cited machine computations, 17 cited published
-theorems, and 11 steps of Helfgott's argument that are **not yet proved in Lean**. While those 11
-remain hypotheses, the representability theorem `R = ℕ \ {2, 5}` is not formally verified here,
-and nothing in this folder should be cited as an unconditional Lean proof of it.
+
+- (a) from the single hypothesis `Principia.Erdos1054.Cite_Helfgott_weighted`, and
+- (b) **without any Helfgott hypothesis**, through `ep1054_atoms896I`, from **41 cited inputs**:
+
+**18 cited machine computations** — Platt, Thm 7.1 (GRH for conductor ≤ 400000 to his height);
+Platt–Trudgian (RH to `3·10¹²`); and 16 of Helfgott's runs: `EspagnCheck`, `EspagnSmall`,
+`Charpy`, `Charpas`, `AusteriaGrid`, `MalMain` (VNODE-LP integrals), `AmanitaBisect`, `AppB`,
+`CameloGrid`, `Wollust`, `Kast`, `Notung`, `CortoSmall`, `YuttoSmall`, `CortoC0`, `Ramare`.
+
+**23 cited published theorems** — Rosser–Schoenfeld 1962 Theorems 12, 13, 15, (2.11), (3.16),
+(3.24), (3.30), (3.32); Rosser–Schoenfeld 1975 (5.1) and Corollary 2; Ramaré 1995 Lemma 3.4 (×2);
+the explicit zero count as Helfgott cites it (Rosser 1941, McCurley 1984, Trudgian 2015); Rosser
+1941 Lemma 17; Ramaré–Saouter 2003 Lemma 2; Granville–Ramaré 1996 Lemma 10.2; Ramaré 2015 (×2);
+Ramaré 2013 Corollary 1.4; the sharp large sieve (Montgomery–Vaughan 1974); Montgomery's
+inequality (1968); Montgomery–Vaughan 1973 Theorem 1 (1.6) and Lemma 8.
+
+Each input is a hypothesis whose definition's docstring names its source; `Conditional.lean`
+lists all 41 with a one-line source each. **By owner decision these inputs are linked to their
+publications and not re-proved in Lean**, so the four results are formally verified only
+*conditionally on them*. **No step of Helfgott's argument is owed**: every analytic step between
+the inputs is kernel-checked (the previous vendoring still carried 11 owed steps as hypotheses).
+Nothing in this folder should be cited as an unconditional Lean proof of `R = ℕ \ {2, 5}`.
+
+**Caveats that travel with this result.**
+
+1. **`T2V.MV8Large`** (Montgomery–Vaughan 1973, Lemma 8, for `R ≥ 100`). The vendored docstring
+   (written before the check) says the lemma was not checked against the paper. It has since been
+   checked by the PrincipiaAI coordinator against *The large sieve*, Mathematika 20 (1973),
+   119–134 (U. Michigan Deep Blue PDF), p. 127: "Suppose that `z ≥ 100`. Then
+   `Σ_{q≤z} (1 + qz⁻¹)⁻¹ μ(q)²/φ(q) > log z + 0.361`." The hypothesis uses Helfgott's `0.25068 <
+   0.361`, so it is **weaker** than the published lemma. (The OCR text layer of that PDF, read for
+   this refresh, shows "LEMMA 8. Suppose that z ^ 100." and the constant "0-361"; the formula
+   itself is not legible in the text layer.)
+2. **`T2G.MVWeighted`** (Montgomery–Vaughan 1973, Theorem 1, (1.6)). Checked by the coordinator
+   against the same paper, pp. 119–120: with `δ_r = min_{s≠r} ‖x_r − x_s‖`,
+   `Σ_r (N + (3/2)δ_r⁻¹)⁻¹ |S(x_r)|² ≤ Σ_{M+1}^{M+N} |a_n|²`. The hypothesis allows any `δ_r`
+   below that minimum, which only shrinks the weights, so it is **weaker**. (Earlier it had been
+   checked only against Montgomery's restatement, Bull. AMS 84 (1978), p. 557, eq. (16).)
+3. **Several links are CORRECTED forms of Helfgott's statements**, not his verbatim ones: the
+   Main Theorem constant `0.896` minor-arc route; corrected `lem:bogus` and `lem:yutto`; `10.25` in
+   place of `lem:monro`'s `1.27` (which rests on an uncited computer check). Each corrected link is
+   **implied by, or weaker than, what the source proves**, and each is a proved theorem here, not
+   a hypothesis.
+4. `SecIICalcC` applies `eq:garn1b` and `eq:procida3` without `prop:kraken`'s blanket hypothesis
+   `Q ≥ 3.5W`; checked against the source, those bounds come from `lem:kastor2` (needs only
+   `q ≤ Q`) and `lem:ogor` (no `Q` hypothesis); only `eq:garn1a` needs `Q ≥ 3.5W`.
+5. The PrincipiaAI theorem ledger had not been updated for the newest links at the source commit.
+
+**Errata in Helfgott's printed argument found along the way** (source-level; each corrected link
+above is what the chain uses):
+
+- `lem:crepe` is FALSE as printed (`eq:envy` omits a factor 4); the chain uses the corrected
+  `CrepeC` (`0.8√x`).
+- `eq:tvorog` (in `lem:bogus`) misses a factor 2 relative to its own proof (`eq:iulia`).
+- `eq:etoile` (proof of `lem:bogus`) is false as printed (`q = 3`, `V = 9`); valid with a factor
+  `3/2`.
+- `lem:bogus` uses `c1b = 1 + η₁D/(2x)` where its odd-`n` sum needs `c1 = 1 + η₁D/x`.
+- `eq:bocio` (proof of `lem:bostb1`) has a wrong step but a true conclusion (repaired in Lean).
+- `lem:yutto`, `v = 2`, `[10⁶, 10¹⁰)`: the printed proof drops a factor `(x/2)^{2ε}`; and its last
+  step for `x ≥ 10¹⁰` is false at `x = 10¹⁰`.
+- `lem:ogor` applies Montgomery's inequality where `R ≤ W′` is not forced (needs a case split,
+  done in Lean).
+- `eq:pokor2` counts `W/2` integers in `(W′, W]` where there can be `(W + 1)/2`; repaired by
+  choosing `R = (7X/23)^{1/2}`.
+- `lem:monro`'s constant `1.27` depends on a computer check not among Helfgott's cited runs
+  (bypassed).
+
+The full record, with line numbers and commits, is `Campaigns/Erdos-1054/LEAN-PROGRESS.md` in the
+source repository.

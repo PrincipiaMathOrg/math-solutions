@@ -29,9 +29,10 @@ Route (the link's docstring: an approximate identity plus a sum-versus-integral 
 
 **Why not dominated convergence for the series:** `sup_ε |f_ε(n/x)|` is a multiplicative maximal
 function of `η` on `[n/2x, 2n/x]`; bounding it by `|η| + ∫|η'|` over that interval costs a
-factor `n` (the overlap), which needs `∫ t log t|η'| < ∞`, i.e. `AgamonReg` with `b > 2`. Only `b > 3/2` is
-given, so the tail must be bounded per scale and averaged. No falsification: the link is TRUE as
-stated (the target `twSum` is a genuinely convergent sum, so the `tsum` junk value never fires).
+factor `n` (the overlap), which needs `∫ t log t|η'| < ∞`, i.e. `AgamonReg` with `b > 2`.
+Only `b > 3/2` is given, so the tail must be bounded per scale and averaged. No falsification:
+the link is TRUE as stated (the target `twSum` is a genuinely convergent sum, so the `tsum`
+junk value never fires).
 -/
 
 namespace Principia.Common.TernaryGoldbach.AG

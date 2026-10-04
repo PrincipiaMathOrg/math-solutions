@@ -16,13 +16,16 @@ LAYER 1 -- one published input. Section 1 proves each of the four from the singl
 Helfgott, arXiv:1312.7748, Section 7.4, (7.49)-(7.50) with the sup norms (7.3), (7.19), encoded
 with existential weights (weaker than Helfgott's fixed weights; see that definition's docstring).
 
-LAYER 2 -- Helfgott's input itself, formalized down to 35 named hypotheses. Section 2 re-exports
-the project's current headline `Principia.Erdos1054.Alt7.FromAtomsZD.ep1054_atomsZD`, which proves
+LAYER 2 -- Helfgott's input itself, formalized down to 41 CITED inputs. Section 2 re-exports the
+project's current headline `Principia.Erdos1054.Alt7.FromAtoms896I.ep1054_atoms896I`, which proves
 `Principia.Erdos1054.Spine.DerivedClaims` (every derived claim of the paper, including the four
-above) WITHOUT `Cite_Helfgott_weighted`, from these 35 hypotheses. Each one's meaning is the
-docstring of its definition, in the vendored `Principia/Common/TernaryGoldbach/` modules.
+above) WITHOUT `Cite_Helfgott_weighted`, from the 41 hypotheses below. Every one of them is a
+cited input -- a published machine computation or a published theorem, linked to its source and,
+by owner decision, NOT re-proved in Lean. No step of Helfgott's argument is owed: every analytic
+step between these inputs is kernel-checked. Each hypothesis's exact meaning is the docstring of
+its definition, in the vendored `Principia/Common/TernaryGoldbach/` modules.
 
-  CITED MACHINE COMPUTATIONS (7) -- linked to, not re-run in Lean:
+  CITED MACHINE COMPUTATIONS (18) -- linked to, not re-run in Lean:
     p    PC.PlattThm71          Platt, Thm 7.1 (arXiv:1305.3087): zeros of L(s, chi), chi primitive
                                 of conductor 2 <= q <= 400000, lie on Re s = 1/2 up to his height
     z    PC.PlattTrudgian       Platt-Trudgian 2021: RH up to height 3*10^12
@@ -31,12 +34,22 @@ docstring of its definition, in the vendored `Principia/Common/TernaryGoldbach/`
     ch   HC.CharpyCited         Helfgott's `eq:charpy`, 120 <= R <= 4*10^7 (Platt's interval run)
     cp   HX.CharpasCited        Helfgott's `eq:charpas`, 200 <= R <= 1.6*10^8 (same method)
     gr   HC.AusteriaGridCited   Helfgott's grid check behind `cor:austeria`, x < 2000
+    mc   HC.MalMainCited        VNODE-LP main-term integrals of Helfgott's major-arc Prop. 1.5
+    am   HC.AmanitaBisectCited  `cor:amanita1`'s bisection: E(rho) >= 0.1065 rho on [1.19, 1.5]
+    ab   HC.AppBCited           Helfgott's Appendix B: root isolation, C_2, C_3, |h'|_inf
+    cg   HC.CameloGridCited     `lem:camelo`'s grid on [0, 655) (Platt's interval arithmetic)
+    wo   HC.WollustCited        `lem:wollust`: |4e(-t/4) - 4e(-t/2) + e(-t)| <= 7.87052
+    kc   HC.KastCited           `eq:kast`, 117 <= y < 2*758699, by direct computation
+    hn   HC.NotungCited         `eq:notung`, e <= T <= 2135.94, by numerical work
+    cs   HC.CortoSmallCited     `eq:corto` for S < 10^5 (v = 1: S >= 40; v = 2: S >= 16)
+    ys   HC.YuttoSmallCited     `lem:yutto` for 33 <= x <= 10^6, by direct computation
+    c0   HC.CortoC0Cited        the C_0 = 10000 sums in the proof of `eq:corto`
+    hRc  HC.RamareCited         `eq:ramare`: |sum_{n<=x} mu(n)/n| <= sqrt(2/x) for x <= 10^12, etc.
 
-  CITED PUBLISHED THEOREMS (17) -- cited, not formalized: the same treatment as Platt's
-  computations above (project decision, 2026-10-02). Each is a hypothesis here, and its
-  definition's docstring records the source and states it as printed in the source, in the
-  form Helfgott quotes or derives it, or weaker (e.g. on a sub-range of the printed range),
-  never stronger:
+  CITED PUBLISHED THEOREMS (23) -- cited, not formalized: the same treatment as the computations
+  above (owner decision, 2026-10-02). Each is a hypothesis here, and its definition's docstring
+  records the source and states it as printed in the source, in the form Helfgott quotes or
+  derives it, or weaker (e.g. on a sub-range of the printed range), never stronger:
     hZC  HM.ZeroCount           explicit zero count N(T, chi) as Helfgott cites it (Rosser 1941,
                                 McCurley 1984, Trudgian 2015)
     rs   HX.RS75Theta           Rosser-Schoenfeld 1975, (5.1): theta(n) <= 1.001102 n
@@ -55,30 +68,27 @@ docstring of its definition, in the vendored `Principia/Common/TernaryGoldbach/`
     hgr  MPc.Grara              Granville-Ramare 1996, Lemma 10.2
     hro  MPc.Ronsard            Ramare 2015 (`eq:ronsard`)
     hme  MPc.Meproz             Ramare 2015 (`eq:meproz`)
+    r75  KLR.RS75Cor2           Rosser-Schoenfeld 1975, Corollary 2, (5.7), on x > 678407
+    ls   T2K.LargeSieve         the sharp large sieve, Montgomery-Vaughan 1974, Corollary 1
+                                (weaker: 0 < delta <= 1/2)
+    mi   T2M.MontgomeryIneq     Montgomery's inequality (Montgomery 1968; Iwaniec-Kowalski L. 7.15)
+    hMk  M2Y.RamareMarraki      Ramare 2013 (Acta Arith. 157), Corollary 1.4 (`eq:marraki`)
+    mv   T2G.MVWeighted         Montgomery-Vaughan 1973, Theorem 1, (1.6), the weighted large
+                                sieve (weaker: any delta_r below the minimal spacing)
+    mv8  T2V.MV8Large           Montgomery-Vaughan 1973, Lemma 8, for R >= 100, with Helfgott's
+                                constant 0.25068 (the paper prints 0.361; weaker)
 
-  OWED ARGUMENT (11) -- steps of Helfgott's proof not yet proved in Lean:
-    hRe  EF.Rectangle           the residue theorem on the rectangle (explicit formula, `lem:agamon`)
-    pd   HM.PlusDecay           decay of G_delta on the critical strip, eta_+ weight (saddle point)
-    fd   HM.PhiDecay            the same for the second weight
-    mm   HM.MalMain             the main term of Helfgott's major-arc Prop. 1.5
-    res  EE.EspagnEdgeRes       the residue of `prop:espagn`: the moduli where both analytic
-                                covers fail (a computation not yet run)
-    hb1  MPG.Bostb1Eta2         `lem:bostb1` for eta_2 (Type I)
-    hb2  MPc.Bosta2Eta2         `lem:bosta2` for eta_2 (Type I)
-    hv1  MPc.Vinland1At         `eq:vinland1` (Type II)
-    her  MPc.EriksagaAt         `eq:eriksaga` (Type II)
-    hs2  MPc.SecI2At            |S_{I,2}| at the second parameter choice
-    hs3  MPc.SecIIAt            |S_{II}| at the second parameter choice
+Several links of the chain are CORRECTED forms of Helfgott's printed statements (the Main Theorem
+constant 0.896 route; corrected `lem:bogus`, `lem:yutto`; 10.25 for `lem:monro`'s 1.27); each
+corrected link is implied by, or weaker than, what the source proves, and each is a proved
+theorem here, not a hypothesis. See `VERIFICATION.md`.
 
-Several owed links are stated at constants that differ from the ones printed in Helfgott's
-papers; each difference is recorded in the docstring of that link's definition.
-
-Section 2 states the 35 hypotheses once, as section variables in the order above, and every
-theorem of the section takes all of them.
+Section 2 states the 41 hypotheses once, as section variables in the order of
+`ep1054_atoms896I`'s signature, and every theorem of the section takes all of them.
 -/
 import Principia.Erdos1054.Proofs.Assembly
 import Principia.Erdos1054.Alt7.Round7
-import Principia.Erdos1054.Alt7.FromAtomsZD
+import Principia.Erdos1054.Alt7.FromAtoms896I
 
 set_option autoImplicit false
 
@@ -111,60 +121,67 @@ theorem Eq_ExactRepresentability_of_helfgott
     Principia.Erdos1054.Eq_ExactRepresentability :=
   Principia.Erdos1054.Alt7.Round7.ep1054_Eq_ExactRepresentability_r7 h
 
-/-! ## 2. Every derived claim of the paper from 35 named hypotheses, without Helfgott's bound -/
+/-! ## 2. Every derived claim of the paper from 41 cited inputs, without Helfgott's bound -/
 
 section Atoms
 
 open Principia.Common.TernaryGoldbach
 
--- cited machine computations (7)
+-- cited machine computations (18)
 variable (p : PC.PlattThm71) (z : PC.PlattTrudgian)
   (chk : HC.EspagnCheckCited) (sm : HC.EspagnSmallCited) (ch : HC.CharpyCited)
-  (cp : HX.CharpasCited) (gr : HC.AusteriaGridCited)
--- cited published theorems (17)
+  (cp : HX.CharpasCited) (gr : HC.AusteriaGridCited) (mc : HC.MalMainCited)
+  (am : HC.AmanitaBisectCited) (ab : HC.AppBCited) (cg : HC.CameloGridCited)
+  (wo : HC.WollustCited) (kc : HC.KastCited) (hn : HC.NotungCited)
+  (cs : HC.CortoSmallCited) (ys : HC.YuttoSmallCited) (c0 : HC.CortoC0Cited)
+  (hRc : HC.RamareCited)
+-- cited published theorems (23)
 variable (hZC : HM.ZeroCount) (rs : HX.RS75Theta) (cer : CY.CERange) (hm : CY.Malito)
   (hc : CY.Cante) (h15 : GS.RS62Thm15) (h12 : EB.RS62Thm12) (h13 : EB.RS62Thm13)
   (h316 : LQ.RS62_316) (h324 : LQ.RS62_324) (h330 : LQ.RS62_330) (h332 : LQ.RS62_332)
   (hR : EF.RosserL17) (hRS : EF.RamareSaouterL2)
-  (hgr : MPc.Grara) (hro : MPc.Ronsard) (hme : MPc.Meproz)
--- owed argument (11)
-variable (hRe : EF.Rectangle) (pd : HM.PlusDecay) (fd : HM.PhiDecay) (mm : HM.MalMain)
-  (res : EE.EspagnEdgeRes)
-  (hb1 : MPG.Bostb1Eta2) (hb2 : MPc.Bosta2Eta2) (hv1 : MPc.Vinland1At)
-  (her : MPc.EriksagaAt) (hs2 : MPc.SecI2At) (hs3 : MPc.SecIIAt)
+  (hgr : MPc.Grara) (hro : MPc.Ronsard) (hme : MPc.Meproz) (r75 : KLR.RS75Cor2)
+  (ls : T2K.LargeSieve) (mi : T2M.MontgomeryIneq) (hMk : M2Y.RamareMarraki)
+  (mv : T2G.MVWeighted) (mv8 : T2V.MV8Large)
 
-include p z chk sm ch cp gr hZC rs cer hm hc h15 h12 h13 h316 h324 h330 h332 hR hRS hgr hro hme
-  hRe pd fd mm res hb1 hb2 hv1 her hs2 hs3
+include p z chk sm ch cp gr mc am ab cg wo kc hn cs ys c0 hRc
+  hZC rs cer hm hc h15 h12 h13 h316 h324 h330 h332 hR hRS hgr hro hme r75 ls mi hMk mv mv8
 
 /-- **Every derived claim of EP1054** (`Principia.Erdos1054.Spine.DerivedClaims`, a structure
-with one field per derived claim of the paper) from the 35 hypotheses above. This is
-`Principia.Erdos1054.Alt7.FromAtomsZD.ep1054_atomsZD`, restated so that its full signature is
-visible here; the proof is that theorem applied to the same hypotheses. -/
+with one field per derived claim of the paper) from the 41 cited inputs above. This is
+`Principia.Erdos1054.Alt7.FromAtoms896I.ep1054_atoms896I`, restated so that its full signature
+is visible here; the proof is that theorem applied to the same hypotheses. -/
 theorem derivedClaims_of_atoms : Principia.Erdos1054.Spine.DerivedClaims :=
-  Principia.Erdos1054.Alt7.FromAtomsZD.ep1054_atomsZD p z hRe pd fd mm chk sm ch cp gr res
-    hb1 hb2 hv1 her hs2 hs3 hZC rs cer hm hc h15 h12 h13 h316 h324 h330 h332 hR hRS hgr hro hme
+  Principia.Erdos1054.Alt7.FromAtoms896I.ep1054_atoms896I p z chk sm ch cp gr mc am ab cg wo kc
+    hn cs ys c0 hRc hZC rs cer hm hc h15 h12 h13 h316 h324 h330 h332 hR hRS hgr hro hme r75 ls mi
+    hMk mv mv8
 
-/-- `lem:fraiture-balanced-goldbach` from the 35 hypotheses: a field of `derivedClaims_of_atoms`. -/
+/-- `lem:fraiture-balanced-goldbach` from the 41 cited inputs: a field of
+`derivedClaims_of_atoms`. -/
 theorem Lem_FraitureBalancedGoldbach_of_atoms :
     Principia.Erdos1054.Lem_FraitureBalancedGoldbach :=
-  (derivedClaims_of_atoms p z chk sm ch cp gr hZC rs cer hm hc h15 h12 h13 h316 h324 h330 h332
-    hR hRS hgr hro hme hRe pd fd mm res hb1 hb2 hv1 her hs2 hs3).c_Lem_FraitureBalancedGoldbach
+  (derivedClaims_of_atoms p z chk sm ch cp gr mc am ab cg wo kc hn cs ys c0 hRc hZC rs cer hm hc
+    h15 h12 h13 h316 h324 h330 h332 hR hRS hgr hro hme r75 ls mi hMk mv
+    mv8).c_Lem_FraitureBalancedGoldbach
 
-/-- `prop:fraiture-tail` from the 35 hypotheses: a field of `derivedClaims_of_atoms`. -/
+/-- `prop:fraiture-tail` from the 41 cited inputs: a field of `derivedClaims_of_atoms`. -/
 theorem Prop_FraitureTail_of_atoms : Principia.Erdos1054.Prop_FraitureTail :=
-  (derivedClaims_of_atoms p z chk sm ch cp gr hZC rs cer hm hc h15 h12 h13 h316 h324 h330 h332
-    hR hRS hgr hro hme hRe pd fd mm res hb1 hb2 hv1 her hs2 hs3).c_Prop_FraitureTail
+  (derivedClaims_of_atoms p z chk sm ch cp gr mc am ab cg wo kc hn cs ys c0 hRc hZC rs cer hm hc
+    h15 h12 h13 h316 h324 h330 h332 hR hRS hgr hro hme r75 ls mi hMk mv mv8).c_Prop_FraitureTail
 
-/-- `thm:fraiture-representability` from the 35 hypotheses: a field of `derivedClaims_of_atoms`. -/
+/-- `thm:fraiture-representability` from the 41 cited inputs: a field of
+`derivedClaims_of_atoms`. -/
 theorem Thm_FraitureRepresentability_of_atoms :
     Principia.Erdos1054.Thm_FraitureRepresentability :=
-  (derivedClaims_of_atoms p z chk sm ch cp gr hZC rs cer hm hc h15 h12 h13 h316 h324 h330 h332
-    hR hRS hgr hro hme hRe pd fd mm res hb1 hb2 hv1 her hs2 hs3).c_Thm_FraitureRepresentability
+  (derivedClaims_of_atoms p z chk sm ch cp gr mc am ab cg wo kc hn cs ys c0 hRc hZC rs cer hm hc
+    h15 h12 h13 h316 h324 h330 h332 hR hRS hgr hro hme r75 ls mi hMk mv
+    mv8).c_Thm_FraitureRepresentability
 
-/-- `eq:exact-representability` from the 35 hypotheses: a field of `derivedClaims_of_atoms`. -/
+/-- `eq:exact-representability` from the 41 cited inputs: a field of `derivedClaims_of_atoms`. -/
 theorem Eq_ExactRepresentability_of_atoms : Principia.Erdos1054.Eq_ExactRepresentability :=
-  (derivedClaims_of_atoms p z chk sm ch cp gr hZC rs cer hm hc h15 h12 h13 h316 h324 h330 h332
-    hR hRS hgr hro hme hRe pd fd mm res hb1 hb2 hv1 her hs2 hs3).c_Eq_ExactRepresentability
+  (derivedClaims_of_atoms p z chk sm ch cp gr mc am ab cg wo kc hn cs ys c0 hRc hZC rs cer hm hc
+    h15 h12 h13 h316 h324 h330 h332 hR hRS hgr hro hme r75 ls mi hMk mv
+    mv8).c_Eq_ExactRepresentability
 
 end Atoms
 
@@ -177,5 +194,6 @@ end Atoms
 #print axioms Prop_FraitureTail_of_atoms
 #print axioms Thm_FraitureRepresentability_of_atoms
 #print axioms Eq_ExactRepresentability_of_atoms
+#print axioms Principia.Erdos1054.Alt7.FromAtoms896I.ep1054_atoms896I
 
 end EP1054.Conditional

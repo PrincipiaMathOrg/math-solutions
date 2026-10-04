@@ -1,12 +1,12 @@
 Vendored Lean sources for erdos1054/ep1054.
 
 source repository : PrincipiaAI (Lean library at "Principia Application/LeanSandbox")
-source commit     : c1c3bb5d0404e769c46d9a276c102f15d4353c8d
+source commit     : 6a12668add5e38043019b93837a1832d62cc573e
 extraction        : `git show <commit>:<path>` for every file (committed bytes, not a
                     working tree); byte-identity is pinned by SHA256SUMS
-modules           : 359
-lines             : 237980
-bytes             : 12529436
+modules           : 461
+lines             : 274747
+bytes             : 14330726
 
 closure roots (the vendored set is exactly their transitive `import Principia.*` closure):
   Principia.Erdos1054.Statements.Inputs
@@ -25,7 +25,8 @@ closure roots (the vendored set is exactly their transitive `import Principia.*`
   Principia.Erdos1054.Alt6.Round6
   Principia.Erdos1054.Alt7.Round7
   Principia.Erdos1054.Spine
-  Principia.Erdos1054.Alt7.FromAtomsZD
+  Principia.Erdos1054.Alt7.FromAtoms896I
+  Principia.Erdos1054.Alt7.GateFromAtoms896I
 
 toolchain         : leanprover/lean4:v4.31.0
 mathlib           : fabf563a7c95a166b8d7b6efca11c8b4dc9d911f (tag v4.31.0; every other dependency rev is the
