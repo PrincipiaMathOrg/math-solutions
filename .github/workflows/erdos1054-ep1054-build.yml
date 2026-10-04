@@ -74,8 +74,36 @@ jobs:
       # One module at a time, dependencies first: Lake 5.0.0 has no -j, and its default
       # parallelism runs several MNum* kernel certificates at once, which OOM-kills the runner.
       # Everything after this step only replays these oleans.
+      # The one-module-at-a-time build of the 461-module closure can outlast one job. Restore the
+      # vendored build products from earlier runs (Lake re-checks every trace, so a stale or
+      # partial cache only means more modules are rebuilt), build for at most 290 minutes, and
+      # SAVE whatever was built even on failure, so successive runs make monotone progress.
+      - name: Restore vendored build products
+        uses: actions/cache/restore@v4
+        with:
+          path: erdos1054/ep1054/.lake/build
+          key: ep1054-build-${{ hashFiles('erdos1054/ep1054/SHA256SUMS', 'erdos1054/ep1054/lakefile.toml', 'erdos1054/ep1054/lake-manifest.json', 'erdos1054/ep1054/lean-toolchain') }}-${{ github.run_id }}
+          restore-keys: |
+            ep1054-build-${{ hashFiles('erdos1054/ep1054/SHA256SUMS', 'erdos1054/ep1054/lakefile.toml', 'erdos1054/ep1054/lake-manifest.json', 'erdos1054/ep1054/lean-toolchain') }}-
+            ep1054-build-
+
       - name: Sequential build of the vendored library
-        run: python3 seqbuild.py
+        id: seqbuild
+        continue-on-error: true
+        run: timeout 290m python3 seqbuild.py
+
+      - name: Save vendored build products
+        if: always()
+        uses: actions/cache/save@v4
+        with:
+          path: erdos1054/ep1054/.lake/build
+          key: ep1054-build-${{ hashFiles('erdos1054/ep1054/SHA256SUMS', 'erdos1054/ep1054/lakefile.toml', 'erdos1054/ep1054/lake-manifest.json', 'erdos1054/ep1054/lean-toolchain') }}-${{ github.run_id }}
+
+      - name: Require the sequential build to have finished
+        if: steps.seqbuild.outcome != 'success'
+        run: |
+          echo "seqbuild did not finish in this run; its progress is cached -- re-run the workflow."
+          exit 1
 
       # `lake build` builds the default target, the vendored `Principia` library
       # (glob `Principia.+`, i.e. every vendored module).

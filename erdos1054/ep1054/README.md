@@ -109,3 +109,5 @@ the three permitted axioms) is checked by Comparator, which is Linux-only; it ru
 The build and audit job is
 [`erdos1054-ep1054-build.yml`](../../.github/workflows/erdos1054-ep1054-build.yml). What has and has
 not been run so far is recorded in [`VERIFICATION.md`](VERIFICATION.md).
+**Comparator passed on CI on 2026-10-04** (run 37185465168: `Your solution is okay!` on all 33
+verified results); details in `VERIFICATION.md` §7.

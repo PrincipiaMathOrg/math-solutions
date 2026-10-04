@@ -222,23 +222,34 @@ $ grep -rhE '^\s*(@\[[^]]*\]\s*)?(private |protected |noncomputable )*axiom\s' P
 A text search is not the authority on `sorry`; the authority is the `#print axioms` output of §4,
 which would print `sorryAx`.
 
-## 7. Comparator — NOT RUN locally; the CI runs so far FAILED on memory
+## 7. Comparator — RUN on CI, PASSES (2026-10-04)
 
-Comparator needs Linux (the landrun / Landlock sandbox) and was **not run** on this Windows
+Comparator needs Linux (the landrun / Landlock sandbox), so it runs in CI, not on this Windows
 machine. It is configured in `comparator/` (33 per-result configs + `all.json`; `permitted_axioms`
 exactly `propext`, `Quot.sound`, `Classical.choice`; no `definition_names`) and runs in
-`.github/workflows/erdos1054-ep1054-comparator.yml`, success string `Your solution is okay!`.
+`.github/workflows/erdos1054-ep1054-comparator.yml`.
 
-Both workflows ran on the two previous pushes of this folder (2026-10-03) and **both failed before
-reaching any check, on memory, during the cold build of the (then 359-module) closure**:
+**Result: `erdos1054-ep1054-comparator`, run 37185465168 (commit `cced91c`), on all 33 verified
+results: `Your solution is okay!` — `Finished with result: success`.** The companion
+`erdos1054-ep1054-build` run 37185465114 also passed (vendored build 4278 jobs; Solution and
+Conditional built; no `sorry` outside `Challenge`; no axiom outside the three; each of the 33
+Solution results has a clean footprint; no `native_decide` / `implemented_by` / `unsafe` /
+`skipKernelTC` / `axiom` declarations; `Challenge` builds with exactly its 33 sorries). Logs:
+artifacts `erdos1054-ep1054-comparator-log` and `erdos1054-ep1054-build-logs` of those runs.
 
-- `erdos1054-ep1054-comparator`, run 37110713167: `Finished with result: oom-kill`, memory peak
-  14.8 G, at `[3906/3957]`;
-- `erdos1054-ep1054-build`, run 37110713171: `The runner has received a shutdown signal`, exit
-  code 143, at `[3915/4145]`.
+How the earlier failures were fixed. Every earlier run died on memory before reaching a check
+(runs 37110713167/37110713171, 37174571376/37174571408, 37177504797, 37178537454, 37184184807).
+Per-module logging (`seqbuild.py`) pinned the kill on `Principia.Common.PrimeSumExact.CertsA`
+(47 `decide +kernel` segment certificates of ~1.3 GB each), which the runner checked in parallel.
+The fix is resource-only: `seqbuild.py` builds one module at a time, `lakefile.toml` passes
+`moreLeanArgs = ["--threads=1"]` to the `Principia` library (no elaboration option changes), and
+the runner gets 20 GB of swap. The sequential build takes about 4.5 hours; the workflows now also
+cache the vendored build products between runs.
 
-So **Comparator has never completed on this folder**, and with 461 modules the same failure is to be
-expected until the workflows limit build parallelism (outside this folder; not changed here).
+**Scope, unchanged:** Comparator certifies the 33 UNCONDITIONAL results (each `Solution` theorem
+proves exactly its `Challenge` statement with only the three permitted axioms). It says nothing
+about the 4 conditional results, which rest on the 41 cited inputs listed in §8 and in
+`Conditional.lean`.
 
 ## 8. What the 4 conditional results depend on
 
