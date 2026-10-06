@@ -294,12 +294,20 @@ $ grep -rhE '^\s*(@\[[^]]*\]\s*)?(private |protected |noncomputable )*axiom\s' \
 A text search is not the authority on `sorry`; the authority is the `#print axioms` output of §4,
 which would print `sorryAx`.
 
-## 7. Comparator — RUN on CI, PASSES (2026-10-04, previous vendoring)
+## 7. Comparator — RUN on CI, PASSES on this vendoring (commit `772b818`, 2026-10-06)
 
-**For this refresh (2026-10-06) the CI runs had not completed when this file was written**; their
-result is not claimed here. The record below is for the 461-module vendoring at `6a12668a`, whose
-`Challenge.lean`, `Solution.lean`, statement layer and every proof module are byte-identical in this
-refresh.
+**Result for this vendoring (502 modules, PrincipiaAI `067a0821`): `erdos1054-ep1054-comparator`,
+run 37478876914 (commit `772b818`), on all 33 verified results: `Your solution is okay!` —
+`Finished with result: success`.** The companion `erdos1054-ep1054-build` run 37478876787 also
+passed every check step: 502 vendored files = 502 `SHA256SUMS` lines; 483 footprint lines, all
+within `[propext, Classical.choice, Quot.sound]`; 33 of 33 `Solution` footprints clean; 0 `axiom`
+declarations; `Challenge` builds with exactly its 33 sorries. The principia-math.com project
+(Machine Verification) reads this workflow and reports it passed on this commit. Memory note: the new
+`Chae.Pntpp.DivisorPrefix.Computation.LargeSeedKernel` peaked at 13.3 GB on the 16 GB runner (plus
+swap); it fits, and the cached build products mean later runs do not recompile it.
+
+The earlier record, for the 461-module vendoring at `6a12668a` (whose `Challenge.lean`,
+`Solution.lean`, statement layer and every proof module are byte-identical here), follows.
 
 Comparator needs Linux (the landrun / Landlock sandbox), so it runs in CI, not on this Windows
 machine. It is configured in `comparator/` (33 per-result configs + `all.json`; `permitted_axioms`
