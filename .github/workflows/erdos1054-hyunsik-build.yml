@@ -1,0 +1,89 @@
+name: erdos1054-hyunsik-build
+
+# Builds Hyunsik Chae's formalization (erdos1054/hyunsik, upstream hs-chae/erdos1054_hyunsik at
+# c065f37, Apache-2.0) with HIS OWN toolchain (lean-toolchain: v4.35.0-rc2, Mathlib 0653561), and
+# fails unless the axiom footprint of Pntpp.DivisorPrefix.erdos1054_conditional lies within
+# {propext, Classical.choice, Quot.sound}. Nothing in that folder is modified by this job; the
+# footprint probe is written outside it.
+on:
+  push:
+    branches: [main]
+    paths: ['erdos1054/hyunsik/**', '.github/workflows/erdos1054-hyunsik-*.yml']
+  pull_request:
+    paths: ['erdos1054/hyunsik/**', '.github/workflows/erdos1054-hyunsik-*.yml']
+  workflow_dispatch:
+
+defaults:
+  run:
+    working-directory: erdos1054/hyunsik
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 300
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Free disk space
+        working-directory: .
+        run: |
+          echo "before:"; df -h / | tail -1
+          sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc \
+                      /usr/local/.ghcup /opt/hostedtoolcache/CodeQL \
+                      /usr/local/share/boost "$AGENT_TOOLSDIRECTORY" || true
+          sudo docker image prune --all --force >/dev/null 2>&1 || true
+          echo "after:"; df -h / | tail -1
+
+      # The included files must be byte-identical to the upstream commit named in SOURCE.txt.
+      - name: Included sources match SHA256SUMS
+        run: |
+          sha256sum -c --quiet --strict SHA256SUMS
+          n=$(wc -l < SHA256SUMS)
+          m=$(find . -type f ! -name SHA256SUMS ! -name SOURCE.txt ! -name PRINCIPIA-NOTES.md | wc -l)
+          echo "SHA256SUMS lines: $n, upstream files present: $m"
+          test "$n" -eq "$m"
+
+      - name: Install elan
+        run: |
+          curl -sSfL https://github.com/leanprover/elan/releases/download/v3.1.1/elan-x86_64-unknown-linux-gnu.tar.gz \
+            | tar xz
+          ./elan-init -y --default-toolchain none
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+
+      - name: Cache Mathlib oleans
+        run: lake exe cache get
+
+      # Default targets: Solution and Challenge (Challenge has the one intended sorry).
+      - name: lake build
+        run: |
+          set -o pipefail
+          lake build 2>&1 | tee "$RUNNER_TEMP/build.log"
+
+      - name: Only Challenge.lean uses sorry
+        run: |
+          if grep -nE "declaration uses ['\`]sorry['\`]" "$RUNNER_TEMP/build.log" | grep -v 'Challenge.lean'; then
+            echo "::error::a declaration outside Challenge.lean uses sorry"; exit 1
+          fi
+          echo "no sorry-using declaration outside Challenge.lean"
+
+      - name: Axiom footprint of erdos1054_conditional
+        run: |
+          printf 'import Solution\n#print axioms Pntpp.DivisorPrefix.erdos1054_conditional\n' > "$RUNNER_TEMP/Axioms.lean"
+          lake env lean "$RUNNER_TEMP/Axioms.lean" 2>&1 | tee "$RUNNER_TEMP/axioms.log"
+          line=$(grep "'Pntpp.DivisorPrefix.erdos1054_conditional' depends on axioms" "$RUNNER_TEMP/axioms.log" || true)
+          test -n "$line" || { echo "::error::no footprint line printed"; exit 1; }
+          bad=$(echo "$line" | sed 's/.*depends on axioms: \[//; s/\]$//' \
+                  | tr ',' '\n' | sed 's/^ *//; s/ *$//' | sort -u \
+                  | grep -v -x -e propext -e Classical.choice -e Quot.sound || true)
+          if [ -n "$bad" ]; then
+            echo "::error::unexpected axiom(s): $bad"; exit 1
+          fi
+          echo "footprint within {propext, Classical.choice, Quot.sound}"
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: erdos1054-hyunsik-build-logs
+          path: |
+            ${{ runner.temp }}/build.log
+            ${{ runner.temp }}/axioms.log

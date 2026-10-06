@@ -14,6 +14,15 @@ formalization of the manuscript's results. It does **not** contain H. Chae's for
 "every integer besides 2 and 5 is representable"; here representability is one of the four
 CONDITIONAL results (see below).
 
+## Hyunsik Chae's formalization
+
+Hyunsik Chae's own Lean formalization of representability (`R = ℕ \ {2, 5}`), conditional on two
+explicit assumptions (`DusartBounds`, `HelfgottTailHypothesis`), is included unmodified, under
+his name and his Apache-2.0 license, in [`../hyunsik/`](../hyunsik/) (upstream
+`hs-chae/erdos1054_hyunsik`, commit `c065f37`; it builds with its own toolchain, Lean v4.35.0-rc2).
+See [`../hyunsik/PRINCIPIA-NOTES.md`](../hyunsik/PRINCIPIA-NOTES.md) for how its
+`HelfgottTailHypothesis` relates to `lem:fraiture-balanced-goldbach` here.
+
 It sits beside the July masters in [`../`](../) (the limsup result of Erdős Problem 1054 and the
 almost-all binary Goldbach theorem), which are unchanged and remain valid on their own.
 

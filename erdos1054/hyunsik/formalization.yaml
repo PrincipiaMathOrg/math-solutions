@@ -1,0 +1,98 @@
+version: "v0.4"
+project:
+  name: "Erdos 1054: conditional divisor-prefix classification"
+  description: >-
+    Formalization of the divisor-prefix argument in Jimmy/JIF's Erdos 1054 verifier,
+    conditional on two explicit prime-counting estimates and the distinct-prime
+    Helfgott tail. Finite checks use kernel-verified subset-sum bitsets.
+  authors: ["Hyunsik (hschae)"]
+  license: "Apache-2.0"
+  responsible_maintainers: ["Hyunsik (hschae)"]
+classification:
+  arxiv: ["math.NT"]
+  msc2020: ["11A25", "11P32"]
+sources:
+  - title: "Erdos Problem 1054 verifier"
+    authors: ["JIF (jif-perso; Jimmy)"]
+    type: "software and mathematical exposition"
+    id: "https://github.com/jif-perso/erdos_1054/tree/e0e377e79538842721d9b515f53a6d821ad62cec"
+    location: "README.md and verify.rs"
+    relationship: "adapts"
+    note: >-
+      The prime-window, subset-sum extension, Bq and Goldbach-tail arguments are
+      formalized. Finite certificate algorithms differ; the analytic tail remains
+      an explicit hypothesis.
+  - title: "The ternary Goldbach conjecture is true"
+    authors: ["Harald A. Helfgott"]
+    type: "paper"
+    id: "https://arxiv.org/abs/1312.7748"
+    location: "Section 7"
+    relationship: "background"
+    note: "The exact distinct-prime quantitative consequence used here is assumed, not derived."
+  - title: "Approximate formulas for some functions of prime numbers"
+    authors: ["J. Barkley Rosser", "Lowell Schoenfeld"]
+    type: "paper"
+    id: "https://doi.org/10.1215/ijm/1255631807"
+    relationship: "background"
+    note: >-
+      Prime-counting estimates used by the source argument. The lower and upper
+      statements previously imported as PNT+ Dusart.corollary_5_2_a/b are now the
+      explicit DusartBounds hypothesis; no proof of them is claimed.
+related_formalizations:
+  - id: "pntpp:35fa8a2d09a9aa334f89b8eb67e35ee3cba8e4e5"
+    relationship: "builds-on"
+    note: >-
+      Local pre-extension Track A baseline. This repository contains the substantive
+      proof code and does not depend on that private checkout. The subsequent
+      449-line weighted Helfgott extension is excluded.
+status:
+  scope: >-
+    DusartBounds and HelfgottTailHypothesis imply that a positive integer is the sum
+    of a nonempty initial segment of the increasing divisors of some positive integer
+    if and only if it is neither 2 nor 5. Both literature inputs are explicit theorem
+    parameters. The inputs themselves and an unconditional Erdos 1054 theorem are
+    outside this result. The Challenge's deliberate hole is excluded from counts.
+  sorry_count: 0
+  sorry_in_definitions: 0
+  axioms: ["propext", "Classical.choice", "Quot.sound"]
+automation:
+  methods:
+    - method: "agent"
+      models: ["GPT-6 (Codex)"]
+      framework: "Codex"
+      tool_setup: "Local Lean kernel, mathlib tactics, Python certificate search, Lean LSP"
+      cost:
+        wall_time: "not tracked"
+        spend_usd: "not tracked"
+        hardware: "local Linux workspace"
+      prompting_notes: >-
+        Owner requested rollback of the 449-line extension and replacement of native
+        computation to prepare a conditional Palomar repository.
+  spend_usd: "not tracked"
+  notes: >-
+    Human owner directed scope and authorized explicit Dusart and Helfgott inputs.
+    Jason/Codex implemented this conversion; earlier baseline automation history has
+    not been reconstructed. No additional paid API calls were made for the conversion.
+fidelity:
+  divergences: >-
+    Analytic inputs remain conditional. The two imported admitted prime-counting
+    estimates became explicit theorem parameters, with unchanged mathematical content.
+    Finite large and small ranges use new subset-sum dynamic programs, proved sound,
+    rather than the original native certificate search. Fixed real comparisons use
+    rational exponential bounds. The divisor-prefix conclusion is unchanged.
+review:
+  status: "self-assessed; local build and three-kernel Comparator validation passed"
+  reviewers: ["Jason (Codex agent)"]
+  notes: >-
+    No independent mathematical audit or human review is claimed. The standalone
+    Challenge is an explicit mathematical statement. Local build and Comparator
+    checks passed; this does not constitute registry acceptance.
+alignment:
+  namespace: "Pntpp.DivisorPrefix"
+  statements:
+    - source: "Erdos Problem 1054 verifier: classification of represented positive integers"
+      lean: "Pntpp.DivisorPrefix.erdos1054_conditional"
+      module: "Solution"
+      status: "adapted"
+      note: "Explicit DusartBounds and HelfgottTailHypothesis; unchanged classification conclusion."
+acknowledgements: "Jimmy/JIF's argument; Lean and mathlib; Helfgott; Rosser and Schoenfeld; PNT+."

@@ -12,6 +12,12 @@ Environment for everything marked *run here*: the development machine (Windows 1
 16 GB RAM, Git Bash / PowerShell), Lean `leanprover/lean4:v4.31.0` via elan, Lake 5.0.0,
 2026-10-03.
 
+**Hyunsik Chae's formalization** is a separate Lake project, included unmodified in
+[`../hyunsik/`](../hyunsik/) (his name, his Apache-2.0 license; upstream
+`hs-chae/erdos1054_hyunsik` at `c065f37`, Lean v4.35.0-rc2). Nothing in this ledger covers it; its
+own build and axiom record is [`../hyunsik/PRINCIPIA-NOTES.md`](../hyunsik/PRINCIPIA-NOTES.md),
+and its CI job is `.github/workflows/erdos1054-hyunsik-build.yml`.
+
 Source of the vendored development: the PrincipiaAI repository, Lean library at
 `Principia Application/LeanSandbox`, **commit `6a12668add5e38043019b93837a1832d62cc573e`**
 (`SOURCE.txt`). This refresh replaces the previous vendoring (commit `c1c3bb5d`, headline

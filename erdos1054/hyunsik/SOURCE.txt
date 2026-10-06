@@ -1,0 +1,16 @@
+Hyunsik Chae's Lean formalization of Erdos Problem 1054 (conditional representability),
+included unmodified.
+
+author            : Hyunsik Chae (hsc1403@snu.ac.kr)
+license           : Apache-2.0 (LICENSE in this folder, as shipped upstream)
+upstream          : https://github.com/hs-chae/erdos1054_hyunsik
+upstream commit   : c065f3788160ee5a7da0390538428af237a5f7f4  ("Cite the analytic sources in the README")
+extraction        : `git -c core.autocrlf=false archive c065f37 | tar -x` (committed bytes, no line-ending
+                    conversion); .git and .lake are not included
+files             : 46 (every file tracked at that commit), byte-identity pinned by SHA256SUMS
+toolchain         : leanprover/lean4:v4.35.0-rc2 (his lean-toolchain)
+mathlib           : 065356127b1dc0016f66b7283ce0ce2c4055aa55 (his lakefile.toml / lake-manifest.json)
+
+Prepared by the author for inclusion in the unified Erdos 1054 repository (email to Anton Shakov,
+2026-09-28). The files SOURCE.txt, SHA256SUMS and PRINCIPIA-NOTES.md were added by Principia Math;
+no other file in this folder was changed.
