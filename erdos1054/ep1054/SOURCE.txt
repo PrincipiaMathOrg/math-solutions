@@ -1,12 +1,12 @@
 Vendored Lean sources for erdos1054/ep1054.
 
 source repository : PrincipiaAI (Lean library at "Principia Application/LeanSandbox")
-source commit     : 6a12668add5e38043019b93837a1832d62cc573e
+source commit     : 067a08212e6e63a6c601555cbf814afc72019abc
 extraction        : `git show <commit>:<path>` for every file (committed bytes, not a
                     working tree); byte-identity is pinned by SHA256SUMS
-modules           : 461
-lines             : 274747
-bytes             : 14330726
+modules           : 502
+lines             : 293228
+bytes             : 14945753
 
 closure roots (the vendored set is exactly their transitive `import Principia.*` closure):
   Principia.Erdos1054.Statements.Inputs
@@ -27,6 +27,16 @@ closure roots (the vendored set is exactly their transitive `import Principia.*`
   Principia.Erdos1054.Spine
   Principia.Erdos1054.Alt7.FromAtoms896I
   Principia.Erdos1054.Alt7.GateFromAtoms896I
+  Principia.Erdos1054.Chae.Route
+  Principia.Erdos1054.Chae.GateRoute
+  Principia.Erdos1054.Chae.Gate
+  Principia.Erdos1054.Chae.Pntpp.DivisorPrefix.Gate
+  Principia.Erdos1054.Chae.Pntpp.DivisorPrefix.Computation.Gate
+
+non-Lean files, also extracted with `git show <commit>:<path>` (not in SHA256SUMS, which lists
+exactly the .lean modules):
+  b40930bbcf80744c86c46a12bc9da056641d722716c378f5659b9e555ef833e1  Principia/Erdos1054/Chae/Pntpp/LICENSE
+  a0484c0d3e657daa611dbccef240525926c1234af9eff37b030b226564780e7a  Principia/Erdos1054/Chae/Pntpp/CREDITS.md
 
 toolchain         : leanprover/lean4:v4.31.0
 mathlib           : fabf563a7c95a166b8d7b6efca11c8b4dc9d911f (tag v4.31.0; every other dependency rev is the

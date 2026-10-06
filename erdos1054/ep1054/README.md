@@ -10,18 +10,46 @@ committed in [`paper/`](paper/) (the `.tex` with its internal `%` comment lines 
 built from them; sha256 in [`paper/SHA256SUMS`](paper/SHA256SUMS)). The manuscript's
 "Formalization" section is still an empty placeholder; its "Methodology and AI usage" paragraph
 refers to an accompanying Lean formalization repository, and this folder is Principia Math's
-formalization of the manuscript's results. It does **not** contain H. Chae's formalization of
-"every integer besides 2 and 5 is representable"; here representability is one of the four
-CONDITIONAL results (see below).
+formalization of the manuscript's results. Representability ("every integer besides 2 and 5 is
+representable") is one of the four CONDITIONAL results (see below). It is proved here by two
+independent conditional routes: ours, and a port of H. Chae's formalization (next section).
 
 ## Hyunsik Chae's formalization
 
 Hyunsik Chae's own Lean formalization of representability (`R = ℕ \ {2, 5}`), conditional on two
-explicit assumptions (`DusartBounds`, `HelfgottTailHypothesis`), is included unmodified, under
+explicit assumptions (`DusartBounds`, `HelfgottTailHypothesis`), is included **unmodified**, under
 his name and his Apache-2.0 license, in [`../hyunsik/`](../hyunsik/) (upstream
 `hs-chae/erdos1054_hyunsik`, commit `c065f37`; it builds with its own toolchain, Lean v4.35.0-rc2).
-See [`../hyunsik/PRINCIPIA-NOTES.md`](../hyunsik/PRINCIPIA-NOTES.md) for how its
+That unmodified copy is a separate Lake project, outside this folder's proof closure. See
+[`../hyunsik/PRINCIPIA-NOTES.md`](../hyunsik/PRINCIPIA-NOTES.md) for how its
 `HelfgottTailHypothesis` relates to `lem:fraiture-balanced-goldbach` here.
+
+**A port of it is now inside this folder's closure**, under
+[`Principia/Erdos1054/Chae/`](Principia/Erdos1054/Chae/):
+
+- `Chae/Pntpp/**` — 35 modules ported from his project to Lean v4.31.0 / Mathlib v4.31.0, plus
+  two Principia axiom gates (`DivisorPrefix/Gate.lean`, `DivisorPrefix/Computation/Gate.lean`,
+  audit scripts naming his declarations). Every statement and proof there is his; the port changes
+  only import paths and adds file-level `set_option`s. License and credits: [`Chae/Pntpp/LICENSE`](Principia/Erdos1054/Chae/Pntpp/LICENSE)
+  (Apache-2.0, unchanged) and [`Chae/Pntpp/CREDITS.md`](Principia/Erdos1054/Chae/Pntpp/CREDITS.md).
+  The Lean is **Hyunsik Chae's**; the argument it formalizes is **Jimmy Fraiture's** Erdős 1054
+  verifier (`jif-perso/erdos_1054`): a prime-window / subset-sum argument whose finite range is
+  covered by Chae's kernel certificates (checked by `decide`, no `native_decide`) and whose tail
+  uses the balanced ternary Goldbach statement.
+- `Chae/Bridge.lean`, `Chae/Route.lean` (and their gates) — Principia's connecting modules. They
+  prove nothing of his route. They show his statements are ours (his `TargetClassification` is
+  `eq:exact-representability`, his `HelfgottTailHypothesis` is `lem:fraiture-balanced-goldbach`)
+  and supply his two hypotheses:
+  `HelfgottTailHypothesis` from the same **41 cited inputs** as our route (`chae_atoms896I`), and
+  `DusartBounds` from **two further cited published theorems**, Rosser–Schoenfeld 1962,
+  Corollary 1, (3.5) and (3.6), stated verbatim as named hypotheses (`Cite_RS62_Eq35`,
+  `Cite_RS62_Eq36`).
+
+`Principia.Erdos1054.Chae.chae_route_closed` is his proof (`Pntpp.DivisorPrefix.erdos1054_conditional`)
+closed on those 41 + 2 cited inputs. `Conditional.lean` §3 re-exports it, together with his
+theorem and `chae_atoms896I`, and transports its conclusion to `eq:exact-representability`. It is
+a **second, independent conditional route** to the same representability result, conditional
+exactly as ours is.
 
 It sits beside the July masters in [`../`](../) (the limsup result of Erdős Problem 1054 and the
 almost-all binary Goldbach theorem), which are unchanged and remain valid on their own.
@@ -48,7 +76,7 @@ part of representability). The full list, paper label → Lean name, is the `ali
 `lem:fraiture-balanced-goldbach`, `prop:fraiture-tail`, `thm:fraiture-representability`
 (`R = ℕ \ {2, 5}`, i.e. `f(N)` exists for every `N ≠ 2, 5`) and `eq:exact-representability` (the
 same statement). **These are not proved unconditionally here.** `Conditional.lean` proves each of
-them in two ways, both with every assumption an explicit binder (no `axiom`, no `sorry`):
+them in two ways (and representability in a third), all with every assumption an explicit binder (no `axiom`, no `sorry`):
 
 1. from the single hypothesis `Principia.Erdos1054.Cite_Helfgott_weighted` (Helfgott,
    arXiv:1312.7748, §7.4, (7.49)–(7.50), encoded with existential weights);
@@ -70,6 +98,11 @@ them in two ways, both with every assumption an explicit binder (no `axiom`, no 
    of `Conditional.lean` lists all 41 by name, kind and source; each one's exact meaning is the
    docstring of its definition in the vendored `Principia/Common/TernaryGoldbach/` modules.
 
+3. `eq:exact-representability` (equivalently `thm:fraiture-representability`) a third way, by
+   **Hyunsik Chae's route** (`Conditional.lean` §3; see "Hyunsik Chae's formalization" above):
+   his proof, closed on the same 41 cited inputs plus Rosser–Schoenfeld 1962, Corollary 1, (3.5)
+   and (3.6) — 43 cited inputs in all. Record: [`VERIFICATION.md`](VERIFICATION.md) §9.
+
 **So this is a CONDITIONAL verification, not a complete one**: 33 of the 37 results are verified
 unconditionally; the other 4 are verified conditionally on the 41 cited inputs. The caveats that
 travel with it (inputs checked against their sources, corrected forms of Helfgott's statements,
@@ -79,11 +112,12 @@ errata) are in [`VERIFICATION.md`](VERIFICATION.md) §8.
 
 ```
 lean-toolchain  lakefile.toml  lake-manifest.json   Lean v4.31.0, Mathlib fabf563a (pinned)
-Principia/**        the vendored development: 461 modules, copied byte-for-byte from the
-                    PrincipiaAI repository (source commit in SOURCE.txt, hashes in SHA256SUMS)
+Principia/**        the vendored development: 502 modules, copied byte-for-byte from the
+                    PrincipiaAI repository (source commit in SOURCE.txt, hashes in SHA256SUMS);
+                    includes Principia/Erdos1054/Chae/ (H. Chae's ported development + connectors)
 Challenge.lean      the 33 verified statements, `sorry` proofs (the audit fixture)
 Solution.lean       the same 33, proved by direct term assignment; `#print axioms` per result
-Conditional.lean    the 4 conditional results, every hypothesis named
+Conditional.lean    the 4 conditional results, every hypothesis named (§3: Hyunsik Chae's route)
 comparator/         one Comparator config per verified result + all.json
 paper/              EP1054.tex, EP1054.bib, EP1054.pdf, SHA256SUMS
 formalization.yaml  mathlib-initiative v0.3 metadata, alignment of all 37 results
@@ -92,7 +126,10 @@ VERIFICATION.md     what was actually run, with its output, and what was not
 
 The vendored set is exactly the transitive `import Principia.*` closure of the nine statement
 modules, the modules holding the 33 verified proofs, `Principia.Erdos1054.Spine`,
-`Principia.Erdos1054.Alt7.FromAtoms896I` and its axiom gate `GateFromAtoms896I` — nothing else.
+`Principia.Erdos1054.Alt7.FromAtoms896I` and its axiom gate `GateFromAtoms896I`, and the Chae
+modules `Chae.Route`, `Chae.GateRoute`, `Chae.Gate`, `Chae.Pntpp.DivisorPrefix.Gate` and
+`Chae.Pntpp.DivisorPrefix.Computation.Gate` — nothing else (plus the two non-Lean files
+`Chae/Pntpp/LICENSE` and `Chae/Pntpp/CREDITS.md`, hashed in `SOURCE.txt`).
 
 **What must be trusted.** Unlike this repository's other folders, `Challenge.lean` imports its
 statement modules rather than carrying a copy (the statement layer is ~6.5k lines of definitions).
@@ -118,5 +155,5 @@ the three permitted axioms) is checked by Comparator, which is Linux-only; it ru
 The build and audit job is
 [`erdos1054-ep1054-build.yml`](../../.github/workflows/erdos1054-ep1054-build.yml). What has and has
 not been run so far is recorded in [`VERIFICATION.md`](VERIFICATION.md).
-**Comparator passed on CI on 2026-10-04** (run 37185465168: `Your solution is okay!` on all 33
+**Comparator passed on CI on 2026-10-04** for the previous vendoring, whose `Challenge`, `Solution` and proof modules are unchanged here (run 37185465168: `Your solution is okay!` on all 33
 verified results); details in `VERIFICATION.md` §7.

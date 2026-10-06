@@ -12,60 +12,70 @@ Environment for everything marked *run here*: the development machine (Windows 1
 16 GB RAM, Git Bash / PowerShell), Lean `leanprover/lean4:v4.31.0` via elan, Lake 5.0.0,
 2026-10-03.
 
-**Hyunsik Chae's formalization** is a separate Lake project, included unmodified in
+**Hyunsik Chae's formalization**, unmodified, is a separate Lake project in
 [`../hyunsik/`](../hyunsik/) (his name, his Apache-2.0 license; upstream
-`hs-chae/erdos1054_hyunsik` at `c065f37`, Lean v4.35.0-rc2). Nothing in this ledger covers it; its
-own build and axiom record is [`../hyunsik/PRINCIPIA-NOTES.md`](../hyunsik/PRINCIPIA-NOTES.md),
-and its CI job is `.github/workflows/erdos1054-hyunsik-build.yml`.
+`hs-chae/erdos1054_hyunsik` at `c065f37`, Lean v4.35.0-rc2). Nothing in this ledger covers that
+unmodified copy; its own build and axiom record is
+[`../hyunsik/PRINCIPIA-NOTES.md`](../hyunsik/PRINCIPIA-NOTES.md), and its CI job is
+`.github/workflows/erdos1054-hyunsik-build.yml`. **A port of it is inside this folder's closure**
+(`Principia/Erdos1054/Chae/`), together with Principia's connecting modules; this ledger covers the
+port (§9).
 
 Source of the vendored development: the PrincipiaAI repository, Lean library at
-`Principia Application/LeanSandbox`, **commit `6a12668add5e38043019b93837a1832d62cc573e`**
-(`SOURCE.txt`). This refresh replaces the previous vendoring (commit `c1c3bb5d`, headline
-`FromAtomsZD` with 35 hypotheses, 11 of them owed steps of Helfgott's argument).
+`Principia Application/LeanSandbox`, **commit `067a08212e6e63a6c601555cbf814afc72019abc`**
+(`SOURCE.txt`). This refresh (2026-10-06) adds the Chae modules to the previous vendoring (commit
+`6a12668a`, 461 modules, 2026-10-03): **41 modules added, 0 removed, 0 changed** — the 461
+previously vendored files are byte-identical at `067a0821`. Sections marked *(2026-10-03)* below
+were run on the previous vendoring and still apply to those unchanged bytes; sections marked
+*(2026-10-06)* were run for this refresh.
 
 ---
 
-## 1. Vendored files are the source commit's bytes — RUN here, passes
+## 1. Vendored files are the source commit's bytes — RUN here, passes (2026-10-06)
 
-Every file under `Principia/` was extracted with `git show 6a12668a…:<path>` (committed bytes, not
+Every file under `Principia/` was extracted with `git show 067a0821…:<path>` (committed bytes, not
 a working tree; the source working tree carried other sessions' uncommitted edits).
 
 ```
 $ sha256sum -c --strict --quiet SHA256SUMS; echo "exit=$?"
 exit=0
 $ wc -l < SHA256SUMS; find Principia -name '*.lean' | wc -l
-461
-461
+502
+502
 $ find Principia -name '*.lean' -print0 | xargs -0 cat | wc -l -c
- 274747 14330726
+ 293228 14945753
 ```
 
-An independent script (reads the source repository with `git show` only) recomputed the closure
-and compared bytes:
+`SHA256SUMS` lists exactly the `.lean` modules. The two non-Lean files of the port,
+`Principia/Erdos1054/Chae/Pntpp/LICENSE` and `CREDITS.md`, are also `git show` bytes; their sha256
+are recorded in `SOURCE.txt`.
+
+An independent script (reads the source repository with `git show` / `git ls-tree` only; roots
+read from `SOURCE.txt` plus every `import Principia.*` of the three audit files) recomputed the
+closure and compared bytes:
 
 ```
-statement modules at commit: 9
-roots (incl. audit-file imports): 18
-closure modules: 461
-vendored files: 461
+roots (SOURCE.txt + audit-file imports): 23
+closure modules: 502
+vendored .lean files: 502  other files: ['Principia/Erdos1054/Chae/Pntpp/CREDITS.md', 'Principia/Erdos1054/Chae/Pntpp/LICENSE']
 in closure not vendored: []
 vendored not in closure: []
-byte mismatches vs git show: []
-SHA256SUMS entries: 461 mismatches: [] set equal: True
+byte mismatches vs git show (incl. non-.lean): []
+SHA256SUMS entries: 502 mismatches: [] set equal: True
 ```
 
-So the vendored set is **exactly** the transitive `import Principia.*` closure of the 18 roots in
+So the vendored set is **exactly** the transitive `import Principia.*` closure of the 23 roots in
 `SOURCE.txt` (the nine statement modules; `Proofs.Assembly`, `Alt.Round4`, `Alt.Unconditional`,
 `Alt5.Round5`, `Alt6.Round6`, `Alt7.Round7`, which hold the 33 proofs; `Spine`;
-`Alt7.FromAtoms896I` and its gate `Alt7.GateFromAtoms896I`), and every `import Principia.*` of
-`Challenge.lean`, `Solution.lean` and `Conditional.lean` lies inside it. Against the previous
-vendoring: 102 modules added, 0 removed, 2 changed
-(`Principia/Common/TernaryGoldbach/AgamonDecay.lean`, `AgamonLimit.lean`).
+`Alt7.FromAtoms896I` and its gate `Alt7.GateFromAtoms896I`; `Chae.Route`, `Chae.GateRoute`,
+`Chae.Gate`, `Chae.Pntpp.DivisorPrefix.Gate`, `Chae.Pntpp.DivisorPrefix.Computation.Gate`), and
+every `import Principia.*` of `Challenge.lean`, `Solution.lean` and `Conditional.lean` lies inside
+it. The 41 added modules are all under `Principia/Erdos1054/Chae/` (35 ported from Hyunsik Chae's
+project, 2 Principia audit gates for them, and Principia's `Bridge`, `Gate`, `Route`, `GateRoute`).
 
-The statement layer (`Principia/Erdos1054/Defs.lean`, `Principia/Erdos1054/Statements/*.lean`)
-and `Principia/Erdos1054/Spine.lean` are byte-identical between `c1c3bb5d` and `6a12668a`
-(`git diff --stat c1c3bb5d 6a12668a -- <those paths>` is empty), so `Challenge.lean` and
-`Solution.lean` are unchanged by this refresh.
+The statement layer (`Principia/Erdos1054/Defs.lean`, `Principia/Erdos1054/Statements/*.lean`),
+`Principia/Erdos1054/Spine.lean` and every module of the previous vendoring are byte-identical, so
+`Challenge.lean` and `Solution.lean` are unchanged by this refresh; `Conditional.lean` gains §3.
 
 ## 2. Paper bytes — RUN here, passes
 
@@ -92,7 +102,52 @@ A PDF is not byte-reproducible across TeX installations; the `.tex` and `.bib` a
 
 ## 3. Build of THIS Lake project from the vendored files — RUN here, passes
 
-In an isolated scratch copy of this folder (its `.lean` files, `lakefile.toml`,
+**3a. This refresh (2026-10-06): the 41 Chae modules.** In a new isolated copy of this folder (the
+502 vendored `.lean` files, `SHA256SUMS`, `lake-manifest.json`, `lean-toolchain`, the audit files,
+and the same `.lake/packages` junction), seeded with the `.lake/build` of the 2026-10-03 isolated
+build (3b below), each Chae module was built with its own `lake build <Module>` call, dependencies
+first, `LEAN_NUM_THREADS=2` (one `lean` process at a time):
+
+```
+chaebuild: 41 Chae modules of 502
+chaebuild: done  1/41 Principia.Erdos1054.Chae.Bridge
+...
+chaebuild: done  38/41 Principia.Erdos1054.Chae.Route 106s
+chaebuild: done  39/41 Principia.Erdos1054.Chae.GateRoute 853s
+chaebuild: done  40/41 Principia.Erdos1054.Chae.Pntpp.DivisorPrefix.Computation.Gate 196s
+chaebuild: done  41/41 Principia.Erdos1054.Chae.Pntpp.DivisorPrefix.Gate 41s
+chaebuild: all done
+```
+
+Then a plain build of the whole library in the same copy:
+
+```
+$ LEAN_NUM_THREADS=2 lake build
+...
+Build completed successfully (9060 jobs).
+LAKE_EXIT=0 SECONDS=33
+```
+
+That log has no `✖` line, no `error:` line and no `declaration uses sorry` line (its 110 `⚠` lines
+are linter style warnings, e.g. long lines in the ported certificate files); it replays **433**
+`#print axioms` footprints from the vendored gates (432 of them from the Chae gates), and the union
+of every axiom they name is exactly `{propext, Classical.choice, Quot.sound}` (several of Chae's
+certificate lemmas print strict subsets, `[propext, Quot.sound]` or `[propext]`). Afterwards
+`.lake/build/lib/lean/Principia` holds **502 `.olean` files** and `sha256sum -c --strict SHA256SUMS`
+passes in that copy.
+
+Honest notes on this run. (i) The local copy used the `lakefile.toml` of the 2026-10-03 build, i.e.
+**without** the `moreLeanArgs = ["--threads=1"]` line later added for CI; that line is a resource
+flag (it changes no elaboration option), and keeping the old lakefile let Lake replay the 461
+unchanged modules instead of recompiling them. CI builds with the published `lakefile.toml`. (ii) A
+first attempt in a scratch directory with a ~150-character path failed at
+`Computation/FirstWindowChecks1` with `failed to write '…FirstWindowChecks1.olean': failed to
+create file` (a Windows path-length limit, not a Lean error); the copy was moved to a short path
+(`C:\Users\Christian\e067`) and resumed — Lake replayed the 22 modules already compiled and
+compiled the rest. (iii) As in 3b, every module has been compiled from these exact bytes in an
+isolated copy, but not in one uninterrupted build from an empty `.lake/build`.
+
+**3b. Previous refresh (2026-10-03), the 461 modules now unchanged.** In an isolated scratch copy of this folder (its `.lean` files, `lakefile.toml`,
 `lake-manifest.json`, `lean-toolchain`, `SHA256SUMS`), with the dependency packages reached through
 a directory junction `.lake/packages` → the PrincipiaAI LeanSandbox's `.lake/packages` (same
 manifest revisions; Mathlib's oleans replayed, `lake exe cache get` not run):
@@ -120,12 +175,13 @@ source's hash and every dependency's trace match. Every one of the 461 modules h
 compiled from these exact bytes in an isolated copy, but not in one uninterrupted build from an
 empty `.lake/build`.
 
-## 4. `Challenge.lean`, `Solution.lean`, `Conditional.lean`, the gate — RUN here, pass
+## 4. `Challenge.lean`, `Solution.lean`, `Conditional.lean`, the gate — RUN here, pass (2026-10-06)
 
-Each compiled with `lake env lean <file>` against the build of §3.
+Each compiled with `lake env lean <file>` against the build of §3a (exit 0 for all three).
 
 **4a. `Solution.lean`** — exit 0, no errors, no warnings, and 33 footprint lines, every one exactly
-the three permitted axioms (identical, line for line, to the previous refresh):
+the three permitted axioms (its output is byte-identical to the 2026-10-03 run, checked with
+`diff`):
 
 ```
 'EP1054.Lem_FmModulus' depends on axioms: [propext, Classical.choice, Quot.sound]
@@ -169,8 +225,8 @@ this also checks that each development theorem's type is the trusted statement c
 **4b. `Challenge.lean`** — exit 0, 0 errors, and exactly **33** warnings, all
 ``declaration uses `sorry` ``, one per theorem, as intended.
 
-**4c. `Conditional.lean`** — exit 0, no errors, no warnings, and ten footprint lines, each exactly
-the three permitted axioms:
+**4c. `Conditional.lean`** — exit 0, no errors, no warnings, and 17 footprint lines (ten for
+Sections 1–2, seven for Section 3, Hyunsik Chae's route), each exactly the three permitted axioms:
 
 ```
 'EP1054.Conditional.Lem_FraitureBalancedGoldbach_of_helfgott' depends on axioms: [propext, Classical.choice, Quot.sound]
@@ -183,9 +239,17 @@ the three permitted axioms:
 'EP1054.Conditional.Thm_FraitureRepresentability_of_atoms' depends on axioms: [propext, Classical.choice, Quot.sound]
 'EP1054.Conditional.Eq_ExactRepresentability_of_atoms' depends on axioms: [propext, Classical.choice, Quot.sound]
 'Principia.Erdos1054.Alt7.FromAtoms896I.ep1054_atoms896I' depends on axioms: [propext, Classical.choice, Quot.sound]
+'EP1054.Conditional.erdos1054_conditional' depends on axioms: [propext, Classical.choice, Quot.sound]
+'EP1054.Conditional.chae_atoms896I' depends on axioms: [propext, Classical.choice, Quot.sound]
+'EP1054.Conditional.chae_route_closed' depends on axioms: [propext, Classical.choice, Quot.sound]
+'EP1054.Conditional.Eq_ExactRepresentability_of_chae_route' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Pntpp.DivisorPrefix.erdos1054_conditional' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Principia.Erdos1054.Chae.chae_atoms896I' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Principia.Erdos1054.Chae.chae_route_closed' depends on axioms: [propext, Classical.choice, Quot.sound]
 ```
 
-**4d. The vendored gate `Principia/Erdos1054/Alt7/GateFromAtoms896I.lean`** — exit 0; it prints
+**4d. The vendored gate `Principia/Erdos1054/Alt7/GateFromAtoms896I.lean`** *(2026-10-03; the
+file and its imports are unchanged)* — exit 0; it prints
 the same footprint for `ep1054_atoms896I` and its type, which has exactly **41** hypotheses, in this
 order, before `Principia.Erdos1054.Spine.DerivedClaims` (namespace prefix
 `Principia.Common.TernaryGoldbach.` dropped):
@@ -214,21 +278,28 @@ with `Type mismatch`); `Solution.lean` and the statement layer are byte-identica
 `[propext, Classical.choice, Quot.sound]` and no hypotheses. The list, paper label → Lean name, is
 the `alignment` block of `formalization.yaml`.
 
-## 6. Text audits of the vendored tree — RUN here, clean
+## 6. Text audits of the vendored tree — RUN here, clean (2026-10-06, 502 modules)
 
 ```
-$ grep -rnwE 'sorry|admit' Principia      # 7 hits, all prose inside docstrings/comments, e.g.
+$ grep -rnwE 'sorry|admit' Principia      # 7 hits, all prose inside docstrings/comments (none in Chae/), e.g.
 Principia/Common/TernaryGoldbach/Spine.lean:130:... `sorry` appears nowhere, deliberately ...
-$ grep -rnP '(?<!`)\bnative_decide\b|\bimplemented_by\b|^\s*unsafe\b|set_option\s+debug\.skipKernelTC' Principia
+$ grep -rnP '(?<!`)\bnative_decide\b|\bimplemented_by\b|^\s*unsafe\b|set_option\s+debug\.skipKernelTC' \
+    Principia Solution.lean Conditional.lean Challenge.lean
 (no output)
-$ grep -rhE '^\s*(@\[[^]]*\]\s*)?(private |protected |noncomputable )*axiom\s' Principia
-(no output)
+$ grep -rhE '^\s*(@\[[^]]*\]\s*)?(private |protected |noncomputable )*axiom\s' \
+    Principia Solution.lean Conditional.lean Challenge.lean | wc -l
+0
 ```
 
 A text search is not the authority on `sorry`; the authority is the `#print axioms` output of §4,
 which would print `sorryAx`.
 
-## 7. Comparator — RUN on CI, PASSES (2026-10-04)
+## 7. Comparator — RUN on CI, PASSES (2026-10-04, previous vendoring)
+
+**For this refresh (2026-10-06) the CI runs had not completed when this file was written**; their
+result is not claimed here. The record below is for the 461-module vendoring at `6a12668a`, whose
+`Challenge.lean`, `Solution.lean`, statement layer and every proof module are byte-identical in this
+refresh.
 
 Comparator needs Linux (the landrun / Landlock sandbox), so it runs in CI, not on this Windows
 machine. It is configured in `comparator/` (33 per-result configs + `all.json`; `permitted_axioms`
@@ -263,7 +334,13 @@ Not proved unconditionally: `lem:fraiture-balanced-goldbach`, `prop:fraiture-tai
 `thm:fraiture-representability`, `eq:exact-representability`. `Conditional.lean` proves them
 
 - (a) from the single hypothesis `Principia.Erdos1054.Cite_Helfgott_weighted`, and
-- (b) **without any Helfgott hypothesis**, through `ep1054_atoms896I`, from **41 cited inputs**:
+- (b) **without any Helfgott hypothesis**, through `ep1054_atoms896I`, from **41 cited inputs**
+  (listed below), and
+- (c) `eq:exact-representability` (equivalently `thm:fraiture-representability`) a second way, by
+  **Hyunsik Chae's route** (§9), from the same 41 cited inputs plus Rosser–Schoenfeld 1962,
+  Corollary 1, (3.5) and (3.6).
+
+The 41 cited inputs:
 
 **18 cited machine computations** — Platt, Thm 7.1 (GRH for conductor ≤ 400000 to his height);
 Platt–Trudgian (RH to `3·10¹²`); and 16 of Helfgott's runs: `EspagnCheck`, `EspagnSmall`,
@@ -330,3 +407,60 @@ above is what the chain uses):
 
 The full record, with line numbers and commits, is `Campaigns/Erdos-1054/LEAN-PROGRESS.md` in the
 source repository.
+
+## 9. Hyunsik Chae's route — RUN here (2026-10-06), conditional
+
+**What it is.** `Principia/Erdos1054/Chae/Pntpp/` (35 modules) is a port of Hyunsik Chae's Lean
+development `hs-chae/erdos1054_hyunsik` (commit `c065f37`, Lean v4.35.0-rc2, Apache-2.0) to Lean
+v4.31.0 / Mathlib v4.31.0. The port changes only import paths (`Pntpp.*` →
+`Principia.Erdos1054.Chae.Pntpp.*`) and adds two file-level `set_option`s that his lakefile set
+globally; every statement and proof is his. **The Lean is Hyunsik Chae's; the argument it
+formalizes is Jimmy Fraiture's** Erdős 1054 verifier (`jif-perso/erdos_1054`). License and credits:
+`Principia/Erdos1054/Chae/Pntpp/LICENSE` (upstream text, unchanged) and `CREDITS.md`. Two Principia
+audit gates (`Pntpp/DivisorPrefix/Gate.lean`, `Pntpp/DivisorPrefix/Computation/Gate.lean`) print
+his declarations' footprints. Principia's connecting modules `Chae/Bridge.lean` and
+`Chae/Route.lean` (gates `Chae/Gate.lean`, `Chae/GateRoute.lean`) prove nothing of his route:
+
+- `Bridge.lean` transcribes his statement definitions and proves them equal to ours
+  (`represents_iff`: his `Represents n` ↔ `n ∈ R`; `helfgottTail_iff`: his
+  `HelfgottTailHypothesis` ↔ `lem:fraiture-balanced-goldbach`; `targetClassification_iff`: his
+  `TargetClassification` ↔ `eq:exact-representability`), and `chae_atoms896I` gives his
+  `HelfgottTailHypothesis ∧ TargetClassification` from the 41 cited inputs **by our chain**.
+- `Route.lean` contains his `Solution.lean` verbatim (`Pntpp.DivisorPrefix.erdos1054_conditional`,
+  hypotheses `DusartBounds` and `HelfgottTailHypothesis`), checks his ported definitions are the
+  transcribed ones (`Iff.rfl`), derives his `DusartBounds` from two named literature hypotheses
+  `Cite_RS62_Eq35` (`x / log x < π(x)` for `x ≥ 17`) and `Cite_RS62_Eq36`
+  (`π(x) < 1.25506 x / log x` for `x > 1`) — Rosser–Schoenfeld 1962, *Illinois J. Math.* 6,
+  Corollary 1, (3.5) and (3.6), stated verbatim (his `DusartBounds` has the weaker constant
+  `1.2551` and non-strict inequalities) — and closes **his** proof as `chae_route_closed`.
+
+**What is proved, with hypothesis counts read from the elaborated types** (a `MetaM` script run
+with `lake env lean` against the build of §3a):
+
+```
+Principia.Erdos1054.Chae.chae_route_closed: 43 hypotheses -> Pntpp.DivisorPrefix.TargetClassification
+Principia.Erdos1054.Chae.chae_atoms896I: 41 hypotheses -> Principia.Erdos1054.Chae.HelfgottTailHypothesis ∧ Principia.Erdos1054.Chae.TargetClassification
+Pntpp.DivisorPrefix.erdos1054_conditional: 2 hypotheses -> Pntpp.DivisorPrefix.TargetClassification
+```
+
+`Conditional.lean` §3 re-exports the three (`EP1054.Conditional.erdos1054_conditional`,
+`chae_atoms896I`, `chae_route_closed`) and adds `Eq_ExactRepresentability_of_chae_route`, which
+transports `chae_route_closed` to `Principia.Erdos1054.Eq_ExactRepresentability` along
+`pntpp_target_iff` and `targetClassification_iff`. All footprints are in §4c; the Chae gates'
+433 footprints in §3a are all within `{propext, Classical.choice, Quot.sound}`.
+
+**Why it is a second, independent route.** In `chae_route_closed` the 41 cited inputs are used
+**only** to supply his Goldbach-tail hypothesis; the classification itself — the finite range
+`6 ≤ n ≤ 10^27 + 10^8`, covered by his kernel certificates (subset-sum bitsets and mask tables
+checked by `decide`, no `native_decide`) and an explicit prime-batch bridge driven by
+`DusartBounds`, and the tail argument — is his proof. Our route (Section 2) reaches the same
+statement through Principia's own proofs of `prop:fraiture-finite` and `prop:fraiture-tail`.
+
+**Inputs of this route: 43 cited inputs** — the 41 of §8 and Rosser–Schoenfeld 1962 (3.5), (3.6).
+Like the 41, the two new ones are linked to their publication and not re-proved in Lean. **This
+route is conditional exactly as the others are**; nothing here is an unconditional proof of
+`R = ℕ \ {2, 5}`.
+
+**His unmodified project** remains in [`../hyunsik/`](../hyunsik/) (a separate Lake project with
+its own toolchain and CI job; see `../hyunsik/PRINCIPIA-NOTES.md`). This section covers only the
+port inside this folder.

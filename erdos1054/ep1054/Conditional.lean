@@ -85,10 +85,31 @@ theorem here, not a hypothesis. See `VERIFICATION.md`.
 
 Section 2 states the 41 hypotheses once, as section variables in the order of
 `ep1054_atoms896I`'s signature, and every theorem of the section takes all of them.
+
+LAYER 3 -- Hyunsik Chae's route: a SECOND, independent conditional route to the same
+representability result. Section 3 re-exports the modules under `Principia/Erdos1054/Chae/`.
+`Chae/Pntpp/` is a port of Hyunsik Chae's own Lean development (`hs-chae/erdos1054_hyunsik`,
+commit c065f37, Apache-2.0; see `Chae/Pntpp/LICENSE` and `Chae/Pntpp/CREDITS.md`): every statement
+and proof there is his (the port changes only import paths and adds file-level `set_option`s). It
+formalizes the divisor-prefix argument of Jimmy Fraiture's Erdos 1054 verifier
+(`jif-perso/erdos_1054`). Its finite range is covered by his own kernel certificates and an explicit
+prime-batch bridge; only the tail uses the balanced ternary Goldbach statement. His theorem
+`Pntpp.DivisorPrefix.erdos1054_conditional` takes two hypotheses, `DusartBounds` and
+`HelfgottTailHypothesis`. Principia's connecting modules (`Chae/Bridge.lean`, `Chae/Route.lean`)
+prove nothing of his route; they supply his two hypotheses:
+  * `HelfgottTailHypothesis` from the same 41 cited inputs as Section 2 (`chae_atoms896I`);
+  * `DusartBounds` from TWO FURTHER cited published theorems, stated verbatim as named hypotheses:
+      h35  Chae.Cite_RS62_Eq35  Rosser-Schoenfeld 1962, Corollary 1, (3.5): x / log x < pi(x), x >= 17
+      h36  Chae.Cite_RS62_Eq36  Rosser-Schoenfeld 1962, Corollary 1, (3.6):
+                                pi(x) < 1.25506 x / log x, x > 1
+`chae_route_closed` is his proof closed on 41 + 2 = 43 cited inputs; it concludes his
+`TargetClassification`, which is definitionally our `eq:exact-representability`
+(`Chae.targetClassification_iff`). This route is CONDITIONAL exactly as Sections 1-2 are.
 -/
 import Principia.Erdos1054.Proofs.Assembly
 import Principia.Erdos1054.Alt7.Round7
 import Principia.Erdos1054.Alt7.FromAtoms896I
+import Principia.Erdos1054.Chae.Route
 
 set_option autoImplicit false
 
@@ -185,6 +206,81 @@ theorem Eq_ExactRepresentability_of_atoms : Principia.Erdos1054.Eq_ExactRepresen
 
 end Atoms
 
+/-! ## 3. Hyunsik Chae's route
+
+A second, independent conditional route to `R = N \ {2, 5}`. The Lean is **Hyunsik Chae's**
+(`hs-chae/erdos1054_hyunsik`, ported under `Principia/Erdos1054/Chae/Pntpp/`, Apache-2.0); the
+argument it formalizes is **Jimmy Fraiture's** Erdos 1054 verifier (`jif-perso/erdos_1054`). Its
+inputs: the 41 cited inputs of Section 2 (used only for the Goldbach tail) and two further cited
+published theorems, Rosser-Schoenfeld 1962, Corollary 1, (3.5) and (3.6) (used for his
+`DusartBounds`). -/
+
+/-- **Hyunsik Chae's theorem**, as he states it (his `Solution.lean`, ported verbatim): his
+target classification (exactly `2` and `5` are not prefix sums of divisors) from his two explicit
+assumptions `DusartBounds` and `HelfgottTailHypothesis`. -/
+theorem erdos1054_conditional (dusart : Pntpp.DivisorPrefix.DusartBounds)
+    (helfgott : Pntpp.DivisorPrefix.HelfgottTailHypothesis) :
+    Pntpp.DivisorPrefix.TargetClassification :=
+  Pntpp.DivisorPrefix.erdos1054_conditional dusart helfgott
+
+section ChaeRoute
+
+open Principia.Common.TernaryGoldbach
+
+-- the same 41 cited inputs as Section 2, in the same order
+variable (p : PC.PlattThm71) (z : PC.PlattTrudgian)
+  (chk : HC.EspagnCheckCited) (sm : HC.EspagnSmallCited) (ch : HC.CharpyCited)
+  (cp : HX.CharpasCited) (gr : HC.AusteriaGridCited) (mc : HC.MalMainCited)
+  (am : HC.AmanitaBisectCited) (ab : HC.AppBCited) (cg : HC.CameloGridCited)
+  (wo : HC.WollustCited) (kc : HC.KastCited) (hn : HC.NotungCited)
+  (cs : HC.CortoSmallCited) (ys : HC.YuttoSmallCited) (c0 : HC.CortoC0Cited)
+  (hRc : HC.RamareCited)
+variable (hZC : HM.ZeroCount) (rs : HX.RS75Theta) (cer : CY.CERange) (hm : CY.Malito)
+  (hc : CY.Cante) (h15 : GS.RS62Thm15) (h12 : EB.RS62Thm12) (h13 : EB.RS62Thm13)
+  (h316 : LQ.RS62_316) (h324 : LQ.RS62_324) (h330 : LQ.RS62_330) (h332 : LQ.RS62_332)
+  (hR : EF.RosserL17) (hRS : EF.RamareSaouterL2)
+  (hgr : MPc.Grara) (hro : MPc.Ronsard) (hme : MPc.Meproz) (r75 : KLR.RS75Cor2)
+  (ls : T2K.LargeSieve) (mi : T2M.MontgomeryIneq) (hMk : M2Y.RamareMarraki)
+  (mv : T2G.MVWeighted) (mv8 : T2V.MV8Large)
+
+include p z chk sm ch cp gr mc am ab cg wo kc hn cs ys c0 hRc
+  hZC rs cer hm hc h15 h12 h13 h316 h324 h330 h332 hR hRS hgr hro hme r75 ls mi hMk mv mv8
+
+/-- Hyunsik Chae's `HelfgottTailHypothesis` and his `TargetClassification` from the 41 cited
+inputs of Section 2. This is `Principia.Erdos1054.Chae.chae_atoms896I`: both conjuncts come from
+OUR chain (`ep1054_atoms896I`), transported along `Chae/Bridge.lean`'s identifications of his
+statements with ours. It is what discharges his tail hypothesis in `chae_route_closed`. -/
+theorem chae_atoms896I :
+    Principia.Erdos1054.Chae.HelfgottTailHypothesis ∧
+      Principia.Erdos1054.Chae.TargetClassification :=
+  Principia.Erdos1054.Chae.chae_atoms896I p z chk sm ch cp gr mc am ab cg wo kc hn cs ys c0 hRc
+    hZC rs cer hm hc h15 h12 h13 h316 h324 h330 h332 hR hRS hgr hro hme r75 ls mi hMk mv mv8
+
+/-- **Hyunsik Chae's route, closed**: his `TargetClassification` BY HIS PROOF
+(`erdos1054_conditional`), with `HelfgottTailHypothesis` supplied from the 41 cited inputs and
+`DusartBounds` from Rosser-Schoenfeld 1962, Corollary 1, (3.5) (`h35`) and (3.6) (`h36`). This is
+`Principia.Erdos1054.Chae.chae_route_closed`. -/
+theorem chae_route_closed (h35 : Principia.Erdos1054.Chae.Cite_RS62_Eq35)
+    (h36 : Principia.Erdos1054.Chae.Cite_RS62_Eq36) :
+    Pntpp.DivisorPrefix.TargetClassification :=
+  Principia.Erdos1054.Chae.chae_route_closed p z chk sm ch cp gr mc am ab cg wo kc hn cs ys c0
+    hRc hZC rs cer hm hc h15 h12 h13 h316 h324 h330 h332 hR hRS hgr hro hme r75 ls mi hMk mv mv8
+    h35 h36
+
+/-- `eq:exact-representability` (equivalently `thm:fraiture-representability`, `R = N \ {2, 5}`)
+by Hyunsik Chae's route: `chae_route_closed` transported along
+`Principia.Erdos1054.Chae.targetClassification_iff`. Inputs: the 41 cited inputs and
+Rosser-Schoenfeld 1962 (3.5), (3.6). -/
+theorem Eq_ExactRepresentability_of_chae_route (h35 : Principia.Erdos1054.Chae.Cite_RS62_Eq35)
+    (h36 : Principia.Erdos1054.Chae.Cite_RS62_Eq36) :
+    Principia.Erdos1054.Eq_ExactRepresentability :=
+  Principia.Erdos1054.Chae.targetClassification_iff.mp
+    (Principia.Erdos1054.Chae.pntpp_target_iff.mp
+      (chae_route_closed p z chk sm ch cp gr mc am ab cg wo kc hn cs ys c0 hRc hZC rs cer hm hc
+        h15 h12 h13 h316 h324 h330 h332 hR hRS hgr hro hme r75 ls mi hMk mv mv8 h35 h36))
+
+end ChaeRoute
+
 #print axioms Lem_FraitureBalancedGoldbach_of_helfgott
 #print axioms Prop_FraitureTail_of_helfgott
 #print axioms Thm_FraitureRepresentability_of_helfgott
@@ -195,5 +291,12 @@ end Atoms
 #print axioms Thm_FraitureRepresentability_of_atoms
 #print axioms Eq_ExactRepresentability_of_atoms
 #print axioms Principia.Erdos1054.Alt7.FromAtoms896I.ep1054_atoms896I
+#print axioms erdos1054_conditional
+#print axioms chae_atoms896I
+#print axioms chae_route_closed
+#print axioms Eq_ExactRepresentability_of_chae_route
+#print axioms Pntpp.DivisorPrefix.erdos1054_conditional
+#print axioms Principia.Erdos1054.Chae.chae_atoms896I
+#print axioms Principia.Erdos1054.Chae.chae_route_closed
 
 end EP1054.Conditional
