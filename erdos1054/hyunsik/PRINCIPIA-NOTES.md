@@ -43,21 +43,42 @@
 
 ## Build record (run by Principia Math, with this folder's own toolchain)
 
-**Pending** — not yet recorded. A local build on the development machine (Windows 10, 16 GB RAM,
-elan-installed `leanprover/lean4:v4.35.0-rc2`, Lake 5.0.0-src+11acb17) is in progress; this section
-will be replaced by its real output. So far, measured and not run:
+**Build of record: GitHub Actions run
+[37405367153](https://github.com/antoshashakov/Principia-Math-Solutions/actions/runs/37405367153)**
+(workflow `erdos1054-hyunsik-build`, commit `181c41b`, `ubuntu-latest`, 2026-10-06, conclusion
+**success**, job 9m19s). elan resolved this folder's `lean-toolchain` (v4.35.0-rc2); nothing in the
+folder was modified. Real output, quoted from the log:
 
-- `lake exe cache get`: first attempt **failed** (8905 decompressions failed with "The system cannot
-  find the path specified" — the build directory was nested too deep for Windows' 260-character
-  path limit); re-run from a short path: `Completed successfully`, exit 0.
-- `lake build`: the first full attempt at the short path was **terminated without an error message
-  after ~90 minutes** (exit 127) while five Mathlib imports ran concurrently on a disk-bound machine;
-  it is being re-run one module at a time.
-- `#print axioms Pntpp.DivisorPrefix.erdos1054_conditional`: **not yet run** here.
+```
+$ sha256sum -c --quiet --strict SHA256SUMS
+SHA256SUMS lines: 46, upstream files present: 46
+$ lake exe cache get
+Decompressed 8915 file(s)
+$ lake build
+warning: Challenge.lean:44:8: declaration uses `sorry`
+✔ [8967/8969] Built Pntpp.DivisorPrefix.FullCoverage (3.1s)
+⚠ [8968/8969] Built Solution (3.0s)
+Build completed successfully (8969 jobs).
+$ # sorry check over the build log
+no sorry-using declaration outside Challenge.lean
+$ lake env lean Axioms.lean    # import Solution / #print axioms Pntpp.DivisorPrefix.erdos1054_conditional
+'Pntpp.DivisorPrefix.erdos1054_conditional' depends on axioms: [propext, Classical.choice, Quot.sound]
+footprint within {propext, Classical.choice, Quot.sound}
+```
 
-Until this section is filled in, the author's own record stands (his `formalization.yaml`:
-`sorry_count: 0`, axioms `propext, Classical.choice, Quot.sound`, local build and Comparator
-passed) and is **not** independently confirmed by Principia Math.
+The only `sorry` warning is `Challenge.lean`'s intended hole. The other 38 build warnings are
+linter style notes (34 × `unnecessarySeqFocus` in `ExplicitBridge.lean`, one in `SmallBq.lean`,
+two "ambiguous namespace `Computation`" notes, one "Try this" suggestion in `Solution.lean`); none
+affects the result.
+
+**Local build on the development machine (Windows 10, 16 GB RAM, HDD): not completed.**
+`lake exe cache get` first failed (8905 decompressions: "The system cannot find the path specified" —
+the build directory was too deep for Windows' 260-character path limit) and then succeeded from a
+short path (`Completed successfully`). `lake build` was then terminated without an error message
+after ~90 minutes (exit 127) with five Mathlib imports competing for a saturated disk alongside
+another Lean build; a one-module-at-a-time retry was stopped by us after the first module had not
+finished importing Mathlib in 48 minutes. These are environment limits of that machine, not
+findings about this development; the CI run above is the independent build.
 
 ## Continuous integration
 
