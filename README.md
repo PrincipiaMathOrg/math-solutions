@@ -1,0 +1,31 @@
+# Principia Math Solutions
+
+Principia's shared repository for mathematical papers, Lean formalizations, and supporting computations. Ongoing and completed work are kept together, with each project in its own directory.
+
+## Projects
+
+| Project | Files | Verification record |
+| --- | --- | --- |
+| Erdős 1054 — Sums of initial segments of divisors | [Project directory](erdos1054/) · [EP1054 formalization and manuscript](erdos1054/ep1054/) | [EP1054 verification details](erdos1054/ep1054/VERIFICATION.md) |
+
+The EP1054 Comparator contract covers 33 unconditional results. Four further results remain conditional on explicitly stated inputs; this repository does not present the entire manuscript as unconditionally formalized. The complete supporting Lean library and pinned build metadata are included.
+
+## Checking a project
+
+Each project records its Lean toolchain, dependencies, comparison contract, and verification scope alongside its source files. Keep those files together; a proof file alone is not a complete reproducible environment.
+
+For EP1054, run **erdos1054-ep1054-build** in the [Actions tab](https://github.com/PrincipiaMathOrg/math-solutions/actions) first, then **erdos1054-ep1054-comparator**. The build caches supporting dependencies; the Comparator compiles and checks the named targets itself. Use the run's recorded commit and logs as the verification evidence. Historical runs linked in imported documents belong to the original repository, not this destination.
+
+## Contributing
+
+Open a pull request for changes, keep all of a project's mathematical and supporting files in its project directory, and preserve the existing author and license notices. Changes to proof statements, allowed axioms, dependencies, or checking workflows require explicit review and fresh checks.
+
+## Authorship and rights
+
+Unless a file or accompanying notice states otherwise, the formalization source code is distributed under Apache License 2.0; see [LICENSE](LICENSE). The EP1054 manuscript and its TeX, bibliography, and PDF retain the rights of their named authors and are not relicensed under the source-code license.
+
+Imported third-party work retains its original authorship, license, and attribution notices, including Hyunsik Chae's development and the mathematical sources credited in the project. Principia's stewardship of this repository does not imply sole authorship or a transfer of copyright.
+
+## Repository provenance
+
+Erdős 1054 was copied from its existing public repository without changing its mathematical files. See [the migration record](MIGRATION.md) for the source snapshot, integrity checks, and history mapping.
