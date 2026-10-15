@@ -2,6 +2,20 @@
 
 Principia's shared repository for mathematical papers, Lean formalizations, and supporting computations. Ongoing and completed work are kept together, with each project in its own directory.
 
+## Latest Erdős 1054 manuscript
+
+The [October 15 collaboration manuscript (PDF)](erdos1054/ep1054/paper/revisions/2026-10-15/EP1054.pdf)
+and [LaTeX source](erdos1054/ep1054/paper/revisions/2026-10-15/EP1054.tex) include the collaborators'
+later corrections, contribution statement, and formalization discussion. The
+[revision record](erdos1054/ep1054/paper/revisions/2026-10-15/README.md) preserves the received
+Overleaf export, contributor drafts, and provenance. October 15 is the receipt/publication date,
+not a claim about when each collaborator last edited the manuscript.
+
+The earlier [September 25 manuscript snapshot](erdos1054/ep1054/paper/) and its checksums remain
+unchanged. The passing Comparator evidence checks the existing Lean statements and proofs;
+publishing revised prose does not automatically certify its correspondence to those statements.
+The verification scope remains **33 unconditional results and four conditional results**.
+
 ## Projects
 
 | Project | Files | Verification record |

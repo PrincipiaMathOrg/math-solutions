@@ -1,0 +1,1003 @@
+%Some random things
+
+\section{Sharper tails and restrictions on a possible limiting law - Random directions}
+\label{sec:fraiture-distribution-addendum}
+
+Write
+\[
+ h(m)=\frac{\sigma(m)}m,
+ \qquad
+ F_e(d)=\sum_{\substack{r\mid ed\\r\leq d}}r,
+ \qquad
+ g_e(m)=\sum_{\substack{r\mid m\\r\geq e}}\frac1r.
+\]
+Complementary divisors give the exact identity
+\begin{equation}
+ F_e(m/e)=m g_e(m)
+ \qquad(e\mid m).
+ \label{eq:addendum-reflection}
+\end{equation}
+Since $\Rcal=\N\setminus\{2,5\}$, retain the normalized empirical
+probability measures from the preceding section and put
+\[
+ R(X)=\#(\Rcal\cap[1,X])=X+O(1),
+ \qquad
+ \mu_X=\frac1{R(X)}
+       \sum_{\substack{N\leq X\\N\in\Rcal}}
+          \delta_{f(N)/N},
+ \qquad
+ G_E=\bigcup_{1\leq e\leq E}F_e(\N).
+\]
+Replacing $R(X)^{-1}$ by $X^{-1}$ in any bounded empirical count
+changes it by $O(X^{-1})$.
+As in the preceding sections, $\log_j$ denotes the $j$-fold iterated
+natural logarithm.  The existing large-cofactor moment estimate gives,
+for every fixed integer $k\geq2$,
+\begin{equation}
+ \sum_{m\leq Z}\ \sum_{\substack{e\mid m\\e>E}}g_e(m)^k
+ \leq C_kZE^{1-k}
+ \qquad(E,Z\geq1).
+ \label{eq:addendum-large-cofactor-moment}
+\end{equation}
+In particular, by Markov's inequality,
+\begin{equation}
+ \#\left\{(m,e):
+  \begin{array}{c}
+   e\mid m,\ e>E,\ F_e(m/e)\leq X,\\
+   m\leq tF_e(m/e)
+  \end{array}\right\}
+ \leq C_kt^{k+1}E^{1-k}X.
+ \label{eq:addendum-large-cofactor-witnesses}
+\end{equation}
+The constants are allowed to depend on $k$, and all uses below respect
+the order in which the parameters are fixed.
+
+% Quantitative addendum for the original divisor-prefix minimum.
+% This fragment uses the notation and theorem environments of the main paper.
+% Its only external cross-references are lem:sigma-rate, lem:moment, and
+% thm:fraiture-representability.
+
+\subsection{Two preliminary rough-kernel estimates}
+
+For a real number $y\geq2$, write
+\[
+ Q_y=\prod_{p\leq y}p,
+ \qquad
+ \Delta_y=\prod_{p\leq y}\left(1-\frac1p\right),
+ \qquad
+ M_y=\operatorname{lcm}(1,\ldots,\lfloor y\rfloor).
+\]
+
+\begin{lemma}[Fixed-modulus divisor-sum normality]
+\label{lem:qadd:fixed-modulus-normality}
+For every fixed positive integer $V$,
+\[
+ \#\{m\leq Y:V\nmid\sigma(m)\}=o_V(Y)
+ \qquad(Y\to\infty).
+\]
+\end{lemma}
+
+\begin{proof}
+It suffices to prove the assertion when $V=q$ is a prime power.
+For every prime $r\equiv-1\pmod q$, the condition $r\Vert m$
+implies
+\[
+ q\mid r+1=\sigma(r)\mid\sigma(m).
+\]
+Therefore, if $q\nmid\sigma(m)$, none of these primes divides
+$m$ exactly once. For any finite set $\mathcal P$ of such primes,
+the Chinese remainder theorem gives
+\[
+ \limsup_{Y\to\infty}\frac1Y
+       \#\{m\leq Y:q\nmid\sigma(m)\}
+ \leq\prod_{r\in\mathcal P}
+            \left(1-\frac1r+\frac1{r^2}\right).
+\]
+The sum of the reciprocals of the primes in the reduced residue
+class $-1\pmod q$ diverges. Letting $\mathcal P$ increase through
+this class makes the displayed product tend to zero. Finally,
+factor a general fixed $V$ into its finitely many prime-power
+divisors and apply the union bound.
+\end{proof}
+
+\begin{lemma}[Two saturated-kernel tails]
+\label{lem:qadd:kernel-tails}
+For $y,H\geq2$, put
+\[
+ S(y,H)=\sum_{\substack{L\mid M_y\\L>H}}
+                  \frac{\tau(L)}L.
+\]
+If $E\to\infty$ and
+\[
+ P=\left\lfloor
+ E^{\,1+(2+(\log_3 E)^{-1/2})\log_2E/\log_3E}
+ \right\rfloor,
+\]
+then
+\begin{equation}
+\label{eq:qadd:fixed-kernel-tail}
+ \log S(E,P/E)
+ \leq-\frac{\log_2E}{\sqrt{\log_3E}}
+      +O\left(\frac{\log_2E}{\log_3E}\right).
+\end{equation}
+If instead $J\to\infty$,
+\[
+ W=\sqrt{\frac{J\log J}{2}},
+ \qquad F=\lfloor e^W\rfloor,
+\]
+then, for every fixed $C>0$,
+\begin{equation}
+\label{eq:qadd:moving-kernel-tail}
+ S\left(F,\frac{e^J}{CW}\right)
+ \leq\exp\{-W+o(W)\}.
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+For $0<\alpha\leq1/4$, Rankin's inequality and the Euler product
+for the divisor function give
+\begin{align}
+ S(y,H)
+ &\leq H^{-\alpha}
+       \prod_{p\leq y}\sum_{a\geq0}
+                \frac{a+1}{p^{a(1-\alpha)}}
+  =H^{-\alpha}
+       \prod_{p\leq y}(1-p^{-1+\alpha})^{-2}.
+ \label{eq:qadd:rankin-product}
+\end{align}
+Mertens' estimate for $\sum_{p\leq y}1/p$, Chebyshev's bound,
+and partial summation show that, when
+$z=\alpha\log y\to\infty$,
+\begin{align}
+ \sum_{p\leq y}p^{-1+\alpha}
+ &=\log_2y+
+   O\left(\int_0^z\frac{e^u-1}{u}\,du\right)
+  =\log_2y+O\left(\frac{e^z}{z}\right).
+ \label{eq:qadd:sharp-prime-sum}
+\end{align}
+The higher terms in the logarithm of the Euler product
+in~\eqref{eq:qadd:rankin-product} are $O(1)$ uniformly for
+$\alpha\leq1/4$.
+
+For~\eqref{eq:qadd:fixed-kernel-tail}, take
+$\alpha=\log_3E/\log E$. Then
+\[
+ \alpha\log(P/E)
+ =\left(2+\frac1{\sqrt{\log_3E}}+o(1)\right)\log_2E,
+\]
+whereas~\eqref{eq:qadd:sharp-prime-sum} gives
+\[
+ 2\sum_{p\leq E}p^{-1+\alpha}
+ =2\log_2E+
+   O\left(\frac{\log_2E}{\log_3E}\right).
+\]
+Substitution in~\eqref{eq:qadd:rankin-product} proves the claim.
+
+For~\eqref{eq:qadd:moving-kernel-tail}, take $\alpha=W/J$.
+Since
+\[
+ \alpha\log F=\frac12\log J+o(1),
+ \qquad
+ \alpha\log\left(\frac{e^J}{CW}\right)=W+o(W),
+\]
+equation~\eqref{eq:qadd:sharp-prime-sum} gives
+\[
+ \sum_{p\leq F}p^{-1+\alpha}
+ \ll\log W+\frac{\sqrt J}{\log J}=o(W).
+\]
+The second assertion follows once more
+from~\eqref{eq:qadd:rankin-product}.
+\end{proof}
+
+\subsection{An almost-logarithmic fixed-level upper tail}
+
+\begin{theorem}[Squarefree fixed levels]
+\label{thm:qadd:almost-log-tail}
+As $T\to\infty$,
+\begin{equation}
+\label{eq:qadd:almost-log-tail}
+ \liminf_{X\to\infty}\frac1X
+ \#\left\{N\leq X:
+       N\in\mathcal R,\ N\text{ squarefree},\ f(N)>TN
+       \right\}
+ \geq\left(\frac{e^{-\gamma}}2-o(1)\right)
+       \frac{\log_3T}{(\log T)(\log_2T)}.
+\end{equation}
+In particular, the same lower bound holds without the
+squarefreeness restriction.
+\end{theorem}
+
+\begin{proof}
+Fix an integer $j\geq3$ and put
+\begin{align*}
+ b_j&=\frac{j+1}{j-1},\\
+ E&=\left\lceil T^{b_j}
+                (\log T)^{3/(j-1)}\right\rceil,\\
+ P&=\left\lfloor
+ E^{\,1+(2+(\log_3E)^{-1/2})\log_2E/\log_3E}
+ \right\rfloor.
+\end{align*}
+All parameters in this proof are fixed while $X\to\infty$.
+For $2\leq e\leq E$ and $L\mid M_E$, define
+\[
+ C_e(L)=\sum_{\substack{r\mid L\\r<e}}\frac Lr,
+ \qquad
+ k_e(L)=\frac{C_e(L)}{\operatorname{sm}_P(C_e(L))},
+\]
+where $\operatorname{sm}_P(v)$ is the largest divisor of $v$
+all of whose prime factors are at most $P$. Set
+\[
+ K=\operatorname{lcm}_{\substack{2\leq e\leq E\\L\mid M_E}}
+                     k_e(L),
+ \qquad V=KQ_P.
+\]
+Lemma~\ref{lem:qadd:fixed-modulus-normality} shows that the
+sources $m\leq EX$ with $V\nmid\sigma(m)$ number $o_{E,P}(X)$.
+Since each such source has at most $E$ possible cofactors not
+exceeding $E$, their entire bounded-cofactor image also has
+cardinality $o_{E,P}(X)$.
+
+Let $N\leq X$ be $P$-rough and suppose that
+$N=F_e(m/e)$ with $e\leq E$ and $V\mid\sigma(m)$.
+Here $m\leq eN\leq EX$. The case $e=1$ is impossible, since
+it would give $N=\sigma(m)$ although $Q_P\mid\sigma(m)$.
+For $e\geq2$, put
+\[
+ L=\operatorname{lcm}\{r:r\mid m,\ r<e\},
+ \qquad C=C_e(L),
+ \qquad q=\sigma(m)-N.
+\]
+Reflection of the divisor list gives the exact identity
+\begin{equation}
+\label{eq:qadd:complementary-kernel}
+ q=\frac mL C.
+\end{equation}
+Since $Q_P\mid\sigma(m)$ and $(N,Q_P)=1$, the integer $q$ is
+$P$-rough. Consequently both $u=m/L$ and $C$ are $P$-rough.
+For every prime $p\mid e$, one has $p\leq E<P$ and therefore
+$v_p(L)=v_p(m)\geq v_p(e)$, because $m=Lu$ and $p\nmid u$.
+Thus $e\mid L$. Moreover $L\mid M_E$ and
+\[
+ C\geq L\geq e\geq2,
+ \qquad C\leq EL.
+\]
+Thus $C>P$, $L>P/E$, and $k_e(L)=C$. By the definition of
+$K$, we have $C\mid K\mid\sigma(m)$, while
+\eqref{eq:qadd:complementary-kernel} gives $C\mid q$.
+Therefore $C\mid N$.
+
+For fixed $e,L$, the $P$-rough multiples of $C$ have natural
+density $\Delta_P/C$. Since $C\geq L$ and $e\mid L$, summing
+over the finitely many admissible pairs gives total upper density
+at most
+\[
+ \Delta_P\sum_{\substack{L\mid M_E\\L>P/E}}
+                         \frac{\tau(L)}L
+ =\Delta_P S(E,P/E)
+ =o(\Delta_P)
+ \qquad(T\to\infty).
+\]
+By Lemma~\ref{lem:moment}, the targets admitting a
+representation with $e>E$ and $m\leq TN$ have upper density
+at most
+\[
+ C_jT^{j+1}E^{1-j}
+ \leq\frac{C_j}{(\log T)^3}
+ =o(\Delta_P).
+\]
+Finally, a $P$-rough target which is not squarefree is divisible
+by $p^2$ for some $p>P$, so these targets have upper density
+at most
+\[
+ \sum_{p>P}\frac1{p^2}\ll\frac1P=o(\Delta_P).
+\]
+Theorem~\ref{thm:fraiture-representability} discards at most
+two additional targets. Subtracting all three exceptional sets
+from the $P$-rough cylinder yields
+\[
+ \liminf_{X\to\infty}\frac1X
+ \#\{N\leq X:N\in\mathcal R,\ N\text{ squarefree},\ f(N)>TN\}
+ \geq(1-o(1))\Delta_P.
+\]
+Mertens' theorem and the definitions of $P,E$ give
+\[
+ \Delta_P
+ =\left(\frac{e^{-\gamma}}{2b_j}+o(1)\right)
+       \frac{\log_3T}{(\log T)(\log_2T)}.
+\]
+First let $T\to\infty$ for each fixed $j$, and then let
+$j\to\infty$. Since $b_j\to1$, this proves
+\eqref{eq:qadd:almost-log-tail}.
+\end{proof}
+
+\subsection{Subexponential growing levels on squarefree targets}
+
+\begin{theorem}[Subexponential squarefree growing levels]
+\label{thm:qadd:growing-level}
+For every fixed $\eta>0$ there exists $c_\eta>0$ such that,
+for all sufficiently large $X$,
+\begin{equation}
+\label{eq:qadd:growing-level}
+ \#\left\{\frac X2<N\leq X:
+       N\in\mathcal R,\ N\text{ squarefree},\quad
+       \frac{f(N)}N>
+       \exp\left[
+         \left(\frac1{\sqrt2}-\eta\right)
+         \sqrt{\log_3N\,\log_4N}
+       \right]\right\}
+ \geq c_\eta\frac X{\log_3X}.
+\end{equation}
+Consequently, for every fixed $s>0$ and $\eta>0$,
+\begin{equation}
+\label{eq:qadd:positive-moment-growth}
+ \frac1X\sum_{\substack{N\leq X\\N\in\mathcal R}}
+       \left(\frac{f(N)}N\right)^s
+ \geq
+ \exp\left[
+       \left(\frac{s}{\sqrt2}-\eta\right)
+       \sqrt{\log_3X\,\log_4X}
+      \right]
+\end{equation}
+for all sufficiently large $X$.
+\end{theorem}
+
+\begin{proof}
+Fix $0<\varepsilon<1$ sufficiently small in terms of $\eta$.
+Choose a fixed $\rho>0$ sufficiently small, depending only on
+the absolute constants in Lemma~\ref{lem:sigma-rate}, and put
+\[
+ P=\left\lfloor\rho\frac{\log_2X}{\log_3X}\right\rfloor,
+ \qquad J=\log P,
+ \qquad W=\sqrt{\frac{J\log J}{2}},
+ \qquad F=\lfloor e^W\rfloor,
+ \qquad t=e^{(1-\varepsilon)W}.
+\]
+In particular $F<P$ for all sufficiently large $X$.
+Complete periods modulo $Q_P$ and Mertens' theorem give
+\begin{equation}
+\label{eq:qadd:rough-target-count}
+ \#\{X/2<N\leq X:(N,Q_P)=1\}
+ =\frac X2\Delta_P+O(Q_P)
+ \asymp\frac X{\log_3X},
+\end{equation}
+because $Q_P=\exp(O(P))=X^{o(1)}$ and
+$\Delta_P\asymp1/J$. The nonsquarefree members of this interval
+number at most
+\[
+ X\sum_{p>P}\frac1{p^2}\ll\frac XP
+ =o(X\Delta_P).
+\]
+
+Write $Y=tX$. Lemma~\ref{lem:sigma-rate} and the union bound
+show that the number of sources $m\leq Y$ for which some prime
+$p\leq P$ fails to divide $\sigma(m)$ is at most
+\begin{align}
+ O(\sqrt Y)
+ +O\left(
+      Y\pi(P)
+       \exp\left[-c_1\frac{\log_2Y}{P}\right]
+    \right).
+ \label{eq:qadd:bad-source-count}
+\end{align}
+The first term treats $p=2$. The chosen range of $P$ is
+permitted by Lemma~\ref{lem:sigma-rate} after decreasing
+$\rho$ if necessary. Since
+\[
+ Ft=e^{(2-\varepsilon)W}
+      =(\log_2X)^{o(1)},
+ \qquad
+ \exp\left[-c_1\frac{\log_2Y}{P}\right]
+      =(\log_2X)^{-c_1/\rho+o(1)},
+\]
+we may also ensure $c_1/\rho>3$. Multiplying
+\eqref{eq:qadd:bad-source-count} by the at most $F$ possible
+cofactors per source then gives $o(X\Delta_P)$ target--cofactor
+pairs.
+
+Consider a remaining $P$-rough target $N$ admitting a witness
+$N=F_e(m/e)$ with $m\leq tN$ and $e\leq F$.
+Again $e=1$ is impossible, since it would give
+$N=\sigma(m)$ although $2\mid\sigma(m)$.
+For $e\geq2$, define $L,C,q$ exactly as
+in~\eqref{eq:qadd:complementary-kernel}. Since every prime
+$p\leq P$ divides $\sigma(m)$ but not $N$, the integer
+$q=(m/L)C$ is $P$-rough. Writing $u=m/L$, both $u$ and $C$
+are therefore $P$-rough. Since $e\leq F<P$ and $e\mid m=Lu$,
+every prime-power divisor of $e$ already divides $L$.
+Consequently
+\[
+ m=Lu,
+ \qquad (u,Q_P)=1,
+ \qquad (C,Q_P)=1,
+ \qquad e\mid L\mid M_F.
+\]
+As before $C\geq L\geq2$, so $C>P$. On the other hand,
+\[
+ C\leq\sigma(L)
+ \leq L\prod_{p\leq F}\left(1-\frac1p\right)^{-1}
+ \ll L\log F.
+\]
+There is therefore an absolute constant $C_0>0$ such that
+\begin{equation}
+\label{eq:qadd:moving-kernel-lower-bound}
+ L>\frac P{C_0W}.
+\end{equation}
+
+Uniformly for all $L\mid M_F$,
+\[
+ \log L\leq\log M_F\ll F=o(\log X),
+ \qquad
+ \log Q_P\ll P=o(\log X).
+\]
+It follows that $tX/L\geq Q_P$ for all sufficiently large $X$.
+Complete periods modulo $Q_P$ consequently give
+\[
+ \#\{u\leq tX/L:(u,Q_P)=1\}
+ \leq\frac{2tX\Delta_P}{L}.
+\]
+For each fixed $L$, the admissible cofactors satisfy $e\mid L$,
+so there are at most $\tau(L)$ possibilities. Hence
+\eqref{eq:qadd:moving-kernel-lower-bound} and
+Lemma~\ref{lem:qadd:kernel-tails} bound the entire remaining
+low-cofactor witness count by
+\begin{align*}
+ 2tX\Delta_P
+     \sum_{\substack{L\mid M_F\\L>P/(C_0W)}}
+                \frac{\tau(L)}L
+ &\leq X\Delta_P
+      \exp\{-\varepsilon W+o(W)\}\\
+ &=o(X\Delta_P).
+\end{align*}
+
+Choose a fixed integer $k\geq2$ so large that
+$(k+1)\varepsilon>2$. Lemma~\ref{lem:moment} bounds the
+targets with a witness $m\leq tN$ and cofactor $e>F$ by
+\[
+ C_kt^{k+1}F^{1-k}X.
+\]
+After division by $X\Delta_P$, this is at most
+\[
+ O_k\left(
+ J\exp\{[2-(k+1)\varepsilon+o(1)]W\}
+ \right)=o(1).
+\]
+Thus a positive proportion of the squarefree targets
+in~\eqref{eq:qadd:rough-target-count} has no representation
+with $m\leq tN$. By
+Theorem~\ref{thm:fraiture-representability}, all but at most
+two of these targets are represented. Finally,
+\[
+ \log t
+ =\left(\frac{1-\varepsilon}{\sqrt2}+o(1)\right)
+          \sqrt{\log_3X\,\log_4X}.
+\]
+Choose $\varepsilon$ sufficiently small in terms of $\eta$.
+For $X/2<N\leq X$, replacing $X$ by $N$ in these iterated
+logarithms changes the right-hand side by $o(1)$ relative to
+its main term. This proves~\eqref{eq:qadd:growing-level}.
+
+For~\eqref{eq:qadd:positive-moment-growth}, apply the first
+assertion with a sufficiently small auxiliary value of $\eta$,
+raise the resulting ratios to the power $s$, and note that
+\[
+ \log\log_3X=\log_4X
+ =o\left(\sqrt{\log_3X\,\log_4X}\right).
+\]
+The factor $c_\eta/\log_3X$ in the proportion of surviving
+targets can therefore be absorbed into the prescribed exponent
+loss $\eta$.
+\end{proof}
+
+% Distributional addendum for Erdos problem 1054.
+% Input this fragment after the quantitative fixed-level theorem.
+% Assumes the collaborative manuscript's definitions of F_e, g_e, h,
+% R(X), mu_X, G_E, and its large-cofactor moment lemma.
+% All new labels have the dadd namespace; external references are
+% supplied in footnotes so that no bibliography changes are needed.
+
+\subsection{The exact meaning of the bounded-cofactor conjecture}
+
+For a set of positive integers $A$, write
+\[
+ \overline d(A)=\limsup_{X\to\infty}
+       \frac{\#(A\cap[1,X])}{X},
+ \qquad
+ \underline d(A)=\liminf_{X\to\infty}
+       \frac{\#(A\cap[1,X])}{X}.
+\]
+
+\begin{proposition}[Bounded cofactors are equivalent to tightness]
+\label{prop:dadd:tightness}
+The empirical probability measures $\mu_X$ are tight on
+$[0,\infty)$ if and only if
+\begin{equation}
+\label{eq:dadd:tightness-criterion}
+ \lim_{E\to\infty}
+       \overline d(\mathbb N\setminus G_E)=0.
+\end{equation}
+Equivalently, the lower asymptotic densities of the finite
+bounded-cofactor unions tend to one:
+\[
+ \lim_{E\to\infty}\underline d(G_E)=1.
+\]
+No asymptotic density is asserted for any individual $G_E$.
+\end{proposition}
+
+\begin{proof}
+The summand $d$ occurs in $F_e(d)$, so $F_e(d)\geq d$. Hence
+\[
+ N\in G_E
+ \quad\Longrightarrow\quad
+ f(N)\leq e d\leq EN
+ \quad\text{for some }e\leq E.
+\]
+Consequently
+\begin{equation}
+\label{eq:dadd:tightness-easy}
+ \limsup_{X\to\infty}\mu_X((E,\infty])
+ \leq\overline d(\mathbb N\setminus G_E).
+\end{equation}
+Here and below $R(X)=X+O(1)$ permits either normalization.
+Thus~\eqref{eq:dadd:tightness-criterion} implies tightness.
+
+Conversely, fix $A>0$ and an integer $k\geq2$. Every represented
+$N\notin G_E$ with $f(N)\leq AN$ has a witnessing cofactor
+$e>E$. The large-cofactor estimate therefore gives
+\begin{equation}
+\label{eq:dadd:tightness-reverse}
+ \overline d(\mathbb N\setminus G_E)
+ \leq\limsup_{X\to\infty}\mu_X((A,\infty])
+      +C_kA^{k+1}E^{1-k}.
+\end{equation}
+First let $E\to\infty$, then let $A\to\infty$. Tightness makes
+the remaining upper limit vanish. Finally,
+$\overline d(\mathbb N\setminus G_E)=1-\underline d(G_E)$
+identically, without assuming that $G_E$ has a density.
+\end{proof}
+
+\begin{corollary}[Every fixed cofactor union has a genuine defect]
+\label{cor:dadd:cofactor-defect}
+For every fixed $E\geq1$,
+$\underline d(\mathbb N\setminus G_E)>0$. More precisely,
+as $E\to\infty$,
+\begin{equation}
+\label{eq:dadd:cofactor-defect}
+ \underline d\{N:N\text{ squarefree},\ N\notin G_E\}
+ \geq
+ \left(\frac{e^{-\gamma}}2-o(1)\right)
+ \frac{\log_3E}{(\log E)(\log_2E)}.
+\end{equation}
+\end{corollary}
+
+\begin{proof}
+The argument preceding~\eqref{eq:dadd:tightness-easy} gives
+\[
+ \{N\in\mathcal R:N\text{ squarefree},\ f(N)>EN\}
+ \subseteq\mathbb N\setminus G_E.
+\]
+Apply Theorem~\ref{thm:qadd:almost-log-tail} with $T=E$.
+For a fixed smaller $E$, use any sufficiently large fixed $T\geq E$
+instead; its fixed-level lower bound is strictly positive.
+\end{proof}
+
+\subsection{The limiting witness measure}
+
+For $t>0$ and $N\geq1$, define the complete and proper witness
+multiplicities by
+\begin{align*}
+ r_t(N)
+ &=\#\{(e,d):F_e(d)=N,\ ed\leq tN\},\\
+ r_t^*(N)
+ &=\#\{(e,d):e\geq2,\ F_e(d)=N,\ ed\leq tN\}.
+\end{align*}
+Put $L_e=\operatorname{lcm}(1,\ldots,e)$, and, for a residue class
+$a\pmod{L_e}$, let
+\[
+ c_e(a)=\sum_{\substack{1\leq j<e\\j\mid a}}\frac1j.
+\]
+Write $\mathcal D$ for the Davenport probability law of
+$h(m)=\sigma(m)/m$. The Davenport theorem on arithmetic
+progressions\footnote{P.~Pollack, \emph{Palindromic sums of proper
+divisors}, Integers \textbf{15A} (2015), article A13, Lemma~2.}
+gives an atomless measure $\nu_{a,e}$ characterized by
+\[
+ \nu_{a,e}(B)
+ =\lim_{Y\to\infty}\frac1Y
+    \#\{m\leq Y:m\equiv a\pmod{L_e},\ h(m)\in B\}
+\]
+for every continuity set $B$. In particular,
+\begin{equation}
+\label{eq:dadd:progression-domination}
+ \sum_{a\bmod L_e}\nu_{a,e}=\mathcal D,
+ \qquad 0\leq\nu_{a,e}\leq\mathcal D.
+\end{equation}
+
+\begin{proposition}[Explicit convergent witness intensities]
+\label{prop:dadd:witness-means}
+For each $t>0$ the limits
+\[
+ W(t)=\lim_{X\to\infty}\frac1X\sum_{N\leq X}r_t(N),
+ \qquad
+ W^*(t)=\lim_{X\to\infty}\frac1X\sum_{N\leq X}r_t^*(N)
+\]
+exist, are finite, and are continuous. More explicitly,
+\begin{align}
+ W(t)&=\sum_{e\geq1}w_e(t),
+ &W^*(t)&=\sum_{e\geq2}w_e(t),
+ \label{eq:dadd:witness-sums}\\
+ w_e(t)
+ &=\sum_{\substack{a\bmod L_e\\e\mid a}}
+      \int_{h-c_e(a)\geq1/t}
+       \frac{d\nu_{a,e}(h)}{h-c_e(a)}.
+ \label{eq:dadd:witness-integral}
+\end{align}
+Both series converge uniformly for $0<t\leq T$, for every fixed
+$T>0$, and $W(t)\to0$ as $t\downarrow0$.
+\end{proposition}
+
+\begin{proof}
+For $m\equiv a\pmod{L_e}$ with $e\mid a$, complementary divisors
+give the exact identities
+\[
+ F_e(m/e)=m g_e(m),
+ \qquad
+ g_e(m)=h(m)-c_e(a).
+\]
+In particular $g_e(m)\geq1/e$. A witness with target at most $X$
+and ratio at most $t$ is characterized by
+\[
+ g_e(m)\geq1/t,
+ \qquad m g_e(m)\leq X.
+\]
+Partition the variable $u=m/X\in(0,t]$ into finitely many
+intervals, apply the progression-restricted Davenport theorem on
+each interval, and then let the mesh tend to zero. Atomlessness
+removes every boundary contribution. Tonelli's theorem gives
+\begin{align*}
+ &\lim_{X\to\infty}\frac1X
+   \#\{m\equiv a\pmod{L_e}:
+       g_e(m)\geq1/t,\ m g_e(m)\leq X\}\\
+ &\quad=
+ \int_0^t\nu_{a,e}
+       \{h:h-c_e(a)\geq1/t,\ h-c_e(a)\leq1/u\}\,du\\
+ &\quad=
+ \int_{h-c_e(a)\geq1/t}
+       \frac{d\nu_{a,e}(h)}{h-c_e(a)}.
+\end{align*}
+For the cofactor tail, the existing large-cofactor moment lemma
+counts witnessing pairs themselves:
+\begin{align}
+ \frac1X\sum_{N\leq X}
+  \#\{(e,d):e>E,\ F_e(d)=N,\ ed\leq tN\}
+ &\leq\frac{t^k}{X}
+   \sum_{m\leq tX}\sum_{\substack{e\mid m\\e>E}}g_e(m)^k
+ \nonumber\\
+ &\leq C_kt^{k+1}E^{1-k}.
+ \label{eq:dadd:witness-tail}
+\end{align}
+This proves both limits and uniform convergence on $0<t\leq T$.
+Each fixed $w_e(t)$ is continuous by atomlessness, and tends to
+zero with $t$ since its integrand is bounded by $t$ on its domain.
+The uniform tail proves all remaining assertions.
+\end{proof}
+
+\subsection{Every subsequential finite law is singular continuous}
+
+\begin{theorem}[One universal singular carrier]
+\label{thm:dadd:universal-singularity}
+There is a fixed $\sigma$-compact, Lebesgue-null set
+$\mathcal Z\subset(0,\infty)$ such that every weak subsequential
+limit $\mu$ of $\mu_X$ on $[0,\infty]$ satisfies
+\[
+ \mu(\{0\})=0,
+ \qquad
+ \mu\bigl((0,\infty)\setminus\mathcal Z\bigr)=0,
+ \qquad
+ \mu(\{x\})=0\quad(0<x<\infty).
+\]
+Hence its restriction to $[0,\infty)$ is purely singular
+continuous. If~\eqref{eq:dadd:tightness-criterion} holds, every
+subsequential limit is a singular continuous probability law on
+$[0,\infty)$; in particular, none admits a Lebesgue density.
+Neither uniqueness of the limit nor tightness is asserted
+unconditionally.
+\end{theorem}
+
+\begin{proof}
+Erd\H{o}s proved that the continuous Davenport law $\mathcal D$ is
+purely Lebesgue singular.\footnote{P.~Erd\H{o}s, \emph{On the
+distribution of numbers of the form $\sigma(n)/n$ and on some
+related questions}, Pacific J. Math. \textbf{52} (1974), 59--65.}
+By regularity there is a $\sigma$-compact Lebesgue-null set
+$K\subset[1,\infty)$ with $\mathcal D(K)=1$.
+For $c\in\mathbb R$, write
+\[
+ \psi_c(h)=\frac1{h-c}\qquad(h>c),
+\]
+and define the positive witness-birth measure
+\begin{equation}
+\label{eq:dadd:singular-envelope}
+ \zeta
+ =\sum_{e\geq1}
+   \sum_{\substack{a\bmod L_e\\e\mid a}}
+    (\psi_{c_e(a)})_*
+       \bigl(\boldsymbol1_{\{h>c_e(a)\}}
+               \psi_{c_e(a)}(h)\,d\nu_{a,e}(h)\bigr).
+\end{equation}
+Proposition~\ref{prop:dadd:witness-means} gives
+\[
+ \zeta((0,t])=W(t)<\infty\qquad(t>0),
+\]
+so $\zeta$ is locally finite and atomless. By
+\eqref{eq:dadd:progression-domination}, every $\nu_{a,e}$ is
+carried by $K$. Therefore $\zeta$ is carried by
+\begin{equation}
+\label{eq:dadd:universal-null-carrier}
+ \mathcal Z
+ =\bigcup_{e\geq1}
+    \bigcup_{\substack{a\bmod L_e\\e\mid a}}
+    \bigcup_{j\geq1}
+      \psi_{c_e(a)}
+       \bigl(K\cap[c_e(a)+1/j,j]\bigr).
+\end{equation}
+Each map in the last display is Lipschitz on its indicated set.
+Thus $\mathcal Z$ is $\sigma$-compact and Lebesgue null.
+
+At finite scale, define the empirical witness-birth measure
+\[
+ \zeta_X
+ =\frac1X\sum_{N\leq X}
+    \sum_{\substack{e,d\geq1\\F_e(d)=N}}
+       \delta_{ed/N}.
+\]
+On every bounded ratio interval it is finite. Proposition
+\ref{prop:dadd:witness-means} and continuity of $W$ show that
+$\zeta_X\to\zeta$ vaguely on $(0,\infty)$. For every
+nonnegative $\varphi\in C_c((0,\infty))$, choosing a minimizing
+witness separately for each represented target gives
+\[
+ \int\varphi\,d\mu_X
+ \leq\frac X{R(X)}\int\varphi\,d\zeta_X.
+\]
+Along any weakly convergent subsequence $\mu_{X_j}\Rightarrow\mu$,
+pass to the limit to obtain
+\[
+ \int\varphi\,d\mu\leq\int\varphi\,d\zeta.
+\]
+Hence $\mu|_{(0,\infty)}\leq\zeta$. This proves both singularity
+on the common carrier and the absence of positive finite atoms.
+
+Finally, the same witness domination and portmanteau give, for
+every $t>0$,
+\[
+ \mu(\{0\})
+ \leq\mu([0,t))
+ \leq\liminf_{j\to\infty}\mu_{X_j}([0,t))
+ \leq W(t).
+\]
+Let $t\downarrow0$ and use
+Proposition~\ref{prop:dadd:witness-means}. Tightness is exactly
+the exclusion of an atom at $\infty$, so the final assertion
+follows from Proposition~\ref{prop:dadd:tightness}.
+\end{proof}
+
+\begin{corollary}[Heavy tails and divergent arithmetic and geometric means]
+\label{cor:dadd:subsequential-tails}
+Every compactified subsequential law $\mu$ satisfies, as
+$T\to\infty$,
+\begin{equation}
+\label{eq:dadd:subsequential-tail}
+ \mu((T,\infty])
+ \geq\left(\frac{e^{-\gamma}}2-o(1)\right)
+       \frac{\log_3T}{(\log T)(\log_2T)}.
+\end{equation}
+Moreover, for every $s>0$,
+\[
+ \lim_{X\to\infty}\int x^s\,d\mu_X(x)=\infty,
+ \qquad
+ \int_{[0,\infty]}x^s\,d\mu(x)=\infty.
+\]
+The logarithmic means also satisfy
+\[
+ \lim_{X\to\infty}\int\log x\,d\mu_X(x)=\infty,
+ \qquad
+ \int_{[0,\infty]}\log x\,d\mu(x)=\infty.
+\]
+In particular, the geometric means of $f(N)/N$ tend to infinity;
+even assuming tightness, every subsequential probability law has
+infinite logarithmic mean and infinite moments of all positive orders.
+\end{corollary}
+
+\begin{proof}
+The closed-set direction of portmanteau and
+Theorem~\ref{thm:qadd:almost-log-tail} give
+\[
+ \mu([T,\infty])
+ \geq\limsup_{j\to\infty}\mu_{X_j}([T,\infty])
+ \geq\liminf_{X\to\infty}\mu_X((T,\infty]).
+\]
+Theorem~\ref{thm:dadd:universal-singularity} excludes an atom at
+$T$, proving~\eqref{eq:dadd:subsequential-tail}. For either $\mu_X$
+or $\mu$, the $s$th moment is at least $T^s$ times its mass on
+$(T,\infty]$. First take the lower limit in $X$ when appropriate,
+and then let $T\to\infty$ in the preceding lower bound.
+
+For the logarithmic means, layer cake and Fatou give
+\begin{align*}
+ \liminf_{X\to\infty}\int\log^+x\,d\mu_X(x)
+ &\geq\int_{T_0}^B
+       \liminf_{X\to\infty}\mu_X((T,\infty])\,\frac{dT}{T}\\
+ &\geq\left(\frac{e^{-\gamma}}4-o(1)\right)
+           (\log_3B)^2
+ \qquad(B\to\infty).
+\end{align*}
+The same calculation using~\eqref{eq:dadd:subsequential-tail}
+shows $\int\log^+x\,d\mu(x)=\infty$. On the other hand, the
+existing small-value estimate, Theorem~\ref{thm:density}, gives
+for some $c>0$ and all sufficiently large $u$
+\[
+ \sup_X\mu_X([0,e^{-u}])
+ \ll\exp\bigl(-\exp(e^{cu})\bigr).
+\]
+Layer cake therefore bounds $\int\log^-x\,d\mu_X(x)$ uniformly
+in $X$; portmanteau gives the same bound for $\mu$.
+Subtracting the bounded negative parts proves both logarithmic
+assertions.
+\end{proof}
+
+\subsection{The exact collision obstruction}
+
+\begin{lemma}[The range of the full divisor sum has density zero]
+\label{lem:dadd:sigma-range}
+The set $\{\sigma(m):m\geq1\}$ has asymptotic density zero.
+\end{lemma}
+
+\begin{proof}
+If $N=\sigma(m)\leq X$, then $m\leq X$. For every fixed $q$,
+the values divisible by $q$ number at most $X/q$, while all
+remaining values arise from $o_q(X)$ exceptional sources by
+Lemma~\ref{lem:qadd:fixed-modulus-normality}. Thus
+\[
+ \overline d(\operatorname{range}(\sigma))\leq\frac1q.
+\]
+Letting $q\to\infty$ proves the claim.
+\end{proof}
+
+\begin{proposition}[Convergence is exactly a collision question]
+\label{prop:dadd:collision-criterion}
+Put
+\[
+ K_X(t)=\frac1X\sum_{N\leq X}(r_t^*(N)-1)_+.
+\]
+For every fixed $t>0$,
+\begin{equation}
+\label{eq:dadd:collision-criterion}
+ \mu_X([0,t])=W^*(t)-K_X(t)+o(1).
+\end{equation}
+Consequently, the threshold density exists if and only if the
+genuine proper-witness collision surplus $K_X(t)$ converges.
+\end{proposition}
+
+\begin{proof}
+A represented target absent from the support of $r_t^*$ can only
+be represented at threshold $t$ using cofactor $e=1$; such a
+target belongs to $\operatorname{range}(\sigma)$. Lemma
+\ref{lem:dadd:sigma-range} therefore shows that
+\[
+ \mu_X([0,t])
+ =\frac1X\#\{N\leq X:r_t^*(N)>0\}+o(1).
+\]
+For every nonnegative integer $r$,
+$\boldsymbol1_{\{r>0\}}=r-(r-1)_+$. Sum this identity over
+$N\leq X$ with $r=r_t^*(N)$ and apply
+Proposition~\ref{prop:dadd:witness-means}.
+\end{proof}
+
+\begin{proposition}[A certificate-free positive collision surplus]
+\label{prop:dadd:collision-one-ninth}
+For every $t\geq2$,
+\begin{equation}
+\label{eq:dadd:collision-one-ninth}
+ \liminf_{X\to\infty}K_X(t)>\frac19.
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+Put $Q=30$, $\Delta=\prod_{p\mid Q}(1-p^{-1})=4/15$, and
+\[
+ \mathcal C=\{2,4,8,10\}.
+\]
+For $D\in\mathcal C$ and $(u,Q)=1$, consider the canonical
+cofactor-two witness
+\begin{equation}
+\label{eq:dadd:collision-affine}
+ N=s(Du)=\sigma(D)\sigma(u)-Du
+        =u\bigl(s(D)+\sigma(D)(h(u)-1)\bigr).
+\end{equation}
+Its source $m=Du$ is even, so $N=s(m)\geq m/2$ and its
+source-to-target ratio is at most $2\leq t$.
+
+Let $\nu_Q$ be the unnormalized Davenport law restricted to
+$(u,Q)=1$, of total mass $\Delta$. Expanding $h(u)$ as a divisor
+sum gives
+\[
+ \frac1\Delta\int(h-1)\,d\nu_Q(h)
+ =\sum_{\substack{d\geq1\\(d,Q)=1}}\frac1{d^2}-1
+ =\frac{8\pi^2}{75}-1=:H.
+\]
+The passage to this first moment is justified, for example, by
+the uniformly bounded second moment of $h(u)$. The radial
+partition argument from Proposition~\ref{prop:dadd:witness-means}
+gives the source intensity
+\begin{align*}
+ W_D
+ &:=\lim_{X\to\infty}\frac1X
+       \#\{u:(u,Q)=1,\ s(Du)\leq X\}\\
+ &=\int\frac{d\nu_Q(h)}{s(D)+\sigma(D)(h-1)}
+ \geq\frac{\Delta}{s(D)+\sigma(D)H},
+\end{align*}
+where the last inequality is Jensen's inequality.
+
+Choose the fixed modulus $q=2^4\cdot3\cdot5^2$.
+Lemma~\ref{lem:qadd:fixed-modulus-normality} implies that, apart
+from $o(X)$ sources $m\leq2X$, one has
+\[
+ v_p(\sigma(m))>v_p(D)=v_p(m)
+ \qquad(p=2,3,5).
+\]
+For every remaining target in~\eqref{eq:dadd:collision-affine},
+\[
+ v_p(N)=v_p(\sigma(m)-m)=v_p(D)
+ \qquad(p=2,3,5).
+\]
+Thus, up to $o(X)$ exceptions, its image is contained in the
+cylinder
+\[
+ \mathcal T_D=\{Dv:(v,30)=1\},
+ \qquad d(\mathcal T_D)=\frac\Delta D.
+\]
+If $r_D(N)$ denotes the number of parameters $u$ giving $N$ in
+\eqref{eq:dadd:collision-affine}, it follows that
+\[
+ \liminf_{X\to\infty}\frac1X
+       \sum_{N\leq X}(r_D(N)-1)_+
+ \geq\Delta\left(
+      \frac1{s(D)+\sigma(D)H}-\frac1D\right).
+\]
+The source cores $D$ are distinct, so their witnessing pairs are
+distinct. The elementary inequality
+\[
+ \sum_{D\in\mathcal C}(r_D(N)-1)_+
+ \leq\left(\sum_{D\in\mathcal C}r_D(N)-1\right)_+
+ \leq(r_t^*(N)-1)_+
+\]
+therefore allows the four lower bounds to be added.
+
+Finally, $\pi<22/7$ gives $H<197/3675$. Since
+\[
+ (D,s(D),\sigma(D))
+ \in\{(2,1,3),(4,3,7),(8,7,15),(10,8,18)\},
+\]
+all four terms are positive and exact rational arithmetic gives
+\begin{align*}
+ \liminf_{X\to\infty}K_X(t)
+ &>
+ \frac4{15}
+ \sum_{(D,s,B)}
+     \left(\frac1{s+197B/3675}-\frac1D\right)\\
+ &=\frac{3492203725711}{31001587618275}
+  >\frac19.
+\end{align*}
+This lower bound proves that the collision term in
+\eqref{eq:dadd:collision-criterion} is substantial; it does not
+prove that the term converges.
+\end{proof}
+
+\begin{remark}[What remains open]
+None of the preceding results proves the bounded-cofactor
+condition~\eqref{eq:dadd:tightness-criterion}, convergence or
+uniqueness of the empirical laws, or full support of a possible
+limiting distribution. In particular, the strict collision lower
+bound~\eqref{eq:dadd:collision-one-ninth} gives no convergence
+information about the collision surplus.
+\end{remark}

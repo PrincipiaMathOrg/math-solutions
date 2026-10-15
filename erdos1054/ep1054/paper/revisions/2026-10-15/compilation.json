@@ -1,0 +1,100 @@
+{
+  "schema_version": 1,
+  "compiled_at": "2026-10-15T18:23:35Z",
+  "source_revision": "2026-10-15",
+  "source_files_changed_for_compilation": false,
+  "source_sha256": {
+    "EP1054.tex": "d718aa4c42581cc9126f58b00cf395c650d18cd82e95a2875379c288b8284474",
+    "EP1054.bib": "e7f0399d697d8467d9244f451defde0bb2004a20da1530ca57b17d5771c6441f"
+  },
+  "compiler": {
+    "distribution": "MiKTeX 26.5 Portable",
+    "engine": "pdfTeX",
+    "engine_version": "3.141592653-2.6-1.40.29",
+    "latex_version": "LaTeX2e 2025-11-01",
+    "l3_version": "2025-12-24",
+    "bibtex_version": "0.99e",
+    "platform": "Windows x64",
+    "installation_scope": "Temporary workspace-only portable installation; Windows registry and PATH integration disabled",
+    "official_sources": [
+      "https://miktex.org/download",
+      "https://docs.miktex.org/manual/miktexsetup.html",
+      "https://mirror.quantum5.ca/CTAN/systems/win32/miktex/tm/packages/"
+    ],
+    "sha256": {
+      "basic-miktex-25.12-x64.exe": "14b42dd9f4b4a7813a8bfd69c8f99316c2888cc4ee26f631f397e163d85d6c62",
+      "miktexsetup-x64.zip": "0571e90f6d94353089b4f189fd82a532f9fe559a388c7e7f1102b14b3c1ae27d",
+      "miktexsetup_standalone.exe": "e47440f724d9bcb09c6b3872edfed783b0d876aafba0d59ec322dfd0ce6ea408",
+      "pdflatex.exe": "e64e4b60b1134de70be838ed6cd6366dea4891fc22b08846747e88296ab2b9bf",
+      "bibtex.exe": "8fd084758722208ab40c741a239307e2d0820284f29477198fdc9c1b58420cae"
+    }
+  },
+  "build": {
+    "latex_pass_count": 4,
+    "bibtex_pass_count": 1,
+    "commands_in_order": [
+      "pdflatex --disable-write18 --dont-parse-first-line --enable-installer --interaction=nonstopmode --halt-on-error --file-line-error --recorder EP1054.tex",
+      "bibtex --enable-installer EP1054",
+      "pdflatex --disable-write18 --dont-parse-first-line --disable-installer --interaction=nonstopmode --halt-on-error --file-line-error --recorder EP1054.tex",
+      "pdflatex --disable-write18 --dont-parse-first-line --disable-installer --interaction=nonstopmode --halt-on-error --file-line-error --recorder EP1054.tex",
+      "pdflatex --disable-write18 --dont-parse-first-line --disable-installer --interaction=nonstopmode --halt-on-error --file-line-error --recorder EP1054.tex"
+    ],
+    "all_exit_codes": [0, 0, 0, 0, 0],
+    "bibliography_style": "plainurl.bst",
+    "bibliography_entries": 18,
+    "shell_escape_enabled": false,
+    "first_line_option_parsing_enabled": false,
+    "package_installation": "Declared TeX and font dependencies downloaded from the CTAN mirror only into the portable installation; automatic installation disabled on final three passes",
+    "reference_convergence": {
+      "aux_toc_and_bookmarks_identical_between_passes": [2, 3, 4],
+      "final_sha256": {
+        "EP1054.aux": "3307da8aecca1080f583ca05d302f7568b3ee5cc92fdaccf726300fcf6ec216a",
+        "EP1054.toc": "28963a5d837a3647f9ffa959e8f14ce5cc91fed4915bea4e7f5e654a21a7978b",
+        "EP1054.out": "6c902dfa3798e0cb250a6a57d8f330dde974d3847c3570490c7c7979f1ce86d9"
+      }
+    }
+  },
+  "diagnostics": {
+    "fatal_errors": 0,
+    "undefined_references": 0,
+    "undefined_citations": 0,
+    "missing_characters": 0,
+    "overfull_boxes": 0,
+    "underfull_boxes": 1,
+    "bibtex_warnings": 0,
+    "remaining_notices": [
+      "epstopdf warns that shell escape is disabled. This is intentional; this document does not require EPS conversion.",
+      "One underfull bibliography paragraph (badness 6641), bibliography item Christian Axler, On Robin's inequality, generated BBL lines 4-9.",
+      "The temporary MiKTeX installation reports that no update check has been run. Its downloaded package repository manifest was current at installation."
+    ]
+  },
+  "fonts": {
+    "all_font_programs_embedded": true,
+    "type1_fonts": 23,
+    "type3_fonts": 2,
+    "bbm_font_source_preserved": true,
+    "bbm_method": "Original CTAN bbm METAFONT sources generated font metrics and the bbm10 657-dpi PK bitmap; no substitutions of mathbbm or other mathematical macros",
+    "type3_font_glyph_counts": [1, 1]
+  },
+  "output": {
+    "file": "EP1054.pdf",
+    "pages": 42,
+    "size_bytes": 637115,
+    "sha256": "1afac5de8bb28d1239c05d0b332ec0b275d109440301a76f6de332f730fd098f",
+    "pdf_version": "1.5",
+    "page_size": "US Letter 612 x 792 pt",
+    "javascript": false,
+    "encrypted": false
+  },
+  "logs": {
+    "compilation/EP1054.log": {
+      "description": "Final pdfLaTeX pass; contains local temporary compiler paths",
+      "sha256": "ba65bd8c85a994e5131a6a367319941014c8486b8c4454a9a3a0334f089a9464"
+    },
+    "compilation/EP1054.blg": {
+      "description": "Successful BibTeX pass",
+      "sha256": "0403879f6efc04e37855992de8a9551ea4533dc2ef4411c3d1a0c5bbfb5ddf4f"
+    }
+  },
+  "verification_scope": "This record certifies paper compilation only. It does not rerun or expand the existing Lean/Comparator proof coverage."
+}

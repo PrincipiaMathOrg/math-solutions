@@ -1,0 +1,149 @@
+\section{An improved bound for the density of $N$ such that $f(N)\leq \delta N$}
+
+\begin{problem}[{\cite[\#1054]{Bloom}}]
+Let $f(N)$ be the minimal integer $m$ such that $N$ is the sum of the $k$ smallest divisors of $m$ for some $k\geq 1$.
+Is it true that $f(N)=o(N)$? Or is this true only for almost all $N$, and $\limsup f(N)/N=\infty$?
+\end{problem}
+
+\begin{theorem}\label{thm:density}
+There exists $c>0$ such that for all sufficiently small $\delta>0$ and all $X\geq1$ we have
+\[ \#\{N\leq X \,:\, f(N)\leq \delta N\} \ll \exp\bigl(-e^{(1/\delta)^c}\bigr) X. \]
+\end{theorem}
+
+In particular, the fraction of numbers $1\leq N\leq X$ such that $f(N)\leq \delta N$ is $O_M(\delta^M)$ for every $M>0$. 
+
+Also, consequently, the upper density of the set 
+\[ \{N\in\mathbb{N} : f(N)\leq \delta N\} \]
+is $O\bigl(\exp\bigl(-e^{(1/\delta)^c}\bigr)\bigr)$ for some $c>0$, but this is a weaker claim. (It is theoretically possible that this density is $0$ for every $\delta>0$.)
+
+\bigskip
+Let $\sigma_j(m)$ denote the sum of the divisors of $m$ excluding the $j$ largest ones.
+
+\begin{lemma}\label{lm:moments}
+There exists $C>0$ such that for every integer $q\geq 3$ and every real $x>0$ one has
+\[ \sum_{m\leq x}\sum_{j\geq 0} \left(\frac{\sigma_j(m)}{m}\right)^q \ll \exp(C q \log\log q) \,x. \]
+\end{lemma}
+
+\begin{proof}[Proof of Lemma \ref{lm:moments}]
+We write $(\cdots)$ for the GCD and $[\cdots]$ for the LCM.
+
+If $r_1<r_2<\cdots<r_{\tau(m)}$ are the divisors of $m$, then ``reflecting'' that list we get $\sigma_j(m)/m=\sum_{i>j}1/r_i$. Expanding the $q$-th power we obtain
+\[ \left(\frac{\sigma_j(m)}{m}\right)^q =
+\sum_{\substack{a_1,\ldots,a_q\mid m\\ a_1,\ldots,a_q> r_j}} \frac1{a_1\cdots a_q} \]
+(the condition $>r_0$ being void), so the summation in $j$ gives
+\[ \sum_{j\geq 0} \left(\frac{\sigma_j(m)}{m}\right)^q
+= \sum_{\substack{r,a_1,\ldots,a_q\mid m\\ r\leq \min\{a_1,\ldots,a_q\}}} \frac1{a_1\cdots a_q}. \]
+(Here we counted for which $j=0,1,\ldots$ the same term $1/a_1\cdots a_q$ appears.)
+Finally, we sum over $m\leq x$, interchange the sums, and bound the number of
+multiples of $[r,a_1,\ldots,a_q]$ not exceeding $x$ by $x/[r,a_1,\ldots,a_q]$:
+\[ \sum_{m\leq x} \sum_{j\geq 0} \left(\frac{\sigma_j(m)}{m}\right)^q
+\leq x \underbrace{\sum_{\substack{r,a_1,\ldots,a_q\geq 1\\ r\leq \min\{a_1,\ldots,a_q\}}} \frac1{a_1\cdots a_q [r,a_1,\ldots,a_q]}}_{=S}. \]
+It remains to show that
+\begin{equation}\label{eq:Sbound}
+S\ll \exp(C q\log\log q).
+\end{equation}
+
+Substitute
+\[ b_i=\frac{r}{(r,a_i)},\quad c_i=\frac{a_i}{(r,a_i)}. \]
+Then $(b_i,c_i)=1$ and the condition $r\leq a_i$ becomes $b_i\leq c_i$. 
+Also,
+\[ a_i=\frac{r c_i}{b_i}, \quad [r,a_1,\ldots,a_q]=r[c_1,\ldots,c_q]. \]
+Hence,
+\[ S \leq
+\sum_{r\geq 1}\frac{1}{r^{q+1}}
+\sum_{b_1,\ldots,b_q\mid r} b_1\cdots b_q
+\sum_{\substack{c_1\geq b_1\\ \cdots\\ c_q\geq b_q}}
+\frac{1}{c_1\cdots c_q [c_1,\ldots,c_q]}. \]
+Fix some $0<\beta<1$. Using $c_i\geq b_i\implies c_i \geq b_i^{1-\beta} c_i^\beta$ estimate
+\[ \sum_{\substack{c_1\geq b_1\\ \cdots\\ c_q\geq b_q}}
+\frac{1}{c_1\cdots c_q [c_1,\ldots,c_q]}
+\leq \frac{1}{b_1^{1-\beta}\cdots b_q^{1-\beta}} \sum_{c_1,\ldots,c_q\geq1} \frac{1}{c_1^\beta\cdots c_q^\beta [c_1,\ldots,c_q]}, \]
+so that
+\[ S \leq \biggl( \sum_{r\geq 1}\frac1{r^{q+1}} \Bigl(\sum_{b\mid r} b^{\beta}\Bigr)^q \biggr)
+\biggl( \sum_{c_1,\ldots,c_q\geq1} \frac{1}{c_1^\beta\cdots c_q^\beta [c_1,\ldots,c_q]} \biggr), \]
+i.e., after ``reflecting'' the divisors of $r$ and choosing $\beta=(q-1)/q$:
+\[ S \leq 
+\biggl( \underbrace{\sum_{r\geq 1}\frac1{r^2} \Bigl(\sum_{d\mid r} \frac{1}{d^{(q-1)/q}}\Bigr)^q}_{S'} \biggr)
+\biggl( \underbrace{\sum_{c_1,\ldots,c_q\geq1} \frac{1}{c_1^{(q-1)/q}\cdots c_q^{(q-1)/q} [c_1,\ldots,c_q]}}_{S''} \biggr). \]
+It remains to prove the desired bounds on $S',S''$ separately.
+
+We first address $S'$ using the prime factorization $r=\prod_p p^{\nu_p(r)}$:
+\[ S' = \prod_p \underbrace{\sum_{l\geq0}
+\frac{1}{p^{2l}} \Bigl( \sum_{0\leq \gamma\leq l} \frac{1}{p^{((q-1)/q)\gamma}} \Bigr)^q}_{L_p} . \]
+We will use 
+\begin{equation}\label{eq:justprimes}
+\sum_{p\leq q} \frac1{p^{(q-1)/q}}
+= \sum_{p\leq q} \frac{p^{1/q}}{p}
+\leq q^{1/q} \sum_{p\leq q} \frac{1}{p}
+\ll \sum_{p\leq q} \frac1p
+\ll \log\log q
+\end{equation}
+a couple of times later.
+For $p\leq q$ we have
+\[ L_p\leq \frac1{1-p^{-2}}\frac1{(1-p^{-(q-1)/q})^q}, \]
+so
+\[ \prod_{p\leq q} L_p
+\leq \zeta(2)\exp\biggl(Cq\sum_{p\leq q}p^{-(q-1)/q}\biggr)
+\stackrel{\eqref{eq:justprimes}}{\ll} \exp(Cq\log\log q). \]
+For $p>q$ we have $p^{-(q-1)/q}<1/2$ and $qp^{-(q-1)/q}\leq q^{1/q}\leq2$, so
+\[ \frac{1}{(1-p^{-(q-1)/q})^q} \leq \exp(2qp^{-(q-1)/q}) \ll 1. \]
+Therefore
+\[ L_p\leq 1 + C\sum_{l\geq1} \frac{1}{p^{2l}} \leq 1+\frac{C}{p^2}, \]
+and so $\prod_{p>q}L_p \ll 1$. Thus
+\begin{equation}\label{eq:S1bound}
+S'\ll \exp(Cq\log\log q).
+\end{equation}
+
+It remains to handle $S''$. By multiplicativity again,
+\[ S''=\prod_p \underbrace{\sum_{\gamma_1,\ldots,\gamma_q\geq0}
+\frac1{p^{((q-1)/q)(\gamma_1+\cdots+\gamma_q)+\max_i\gamma_i}}}_{M_p} . \]
+For $h\geq0$ put
+\[ A_h := \sum_{0\leq\gamma\leq h} \frac{1}{p^{\gamma(q-1)/q}}. \]
+Grouping the summands in $M_p$ according to $h=\max_i\gamma_i$ gives
+\[ M_p = \sum_{h\geq0} \frac{1}{p^h} \bigl(A_h^q-A_{h-1}^q\bigr). \]
+(Here $A_{-1}:=0$.)
+If $p\leq q$, then the rough estimate $A_h\leq(1-p^{-(q-1)/q})^{-1}$ yields
+\[ M_p\leq \frac1{1-p^{-1}}\frac1{(1-p^{-(q-1)/q})^q}. \]
+Consequently,
+\[ \prod_{p\leq q}M_p
+\ll \exp\biggl(C\sum_{p\leq q}\frac{1}{p} + C q\sum_{p\leq q} \frac{1}{p^{(q-1)/q}} \biggr)
+\stackrel{\eqref{eq:justprimes}}{\ll} \exp(Cq\log\log q). \]
+If $p>q$, then, by the mean value theorem for $t\mapsto t^q$,
+\[ A_h^q-A_{h-1}^q
+\leq \frac{q}{p^{h(q-1)/q}} \frac{1}{(1-p^{-(q-1)/q})^{q-1}}
+\ll \frac{q}{p^{h(q-1)/q}}. \]
+Thus
+\[ M_p-1 \ll q\sum_{h\geq1} \frac{1}{p^{h(1+(q-1)/q)}}
+\ll \frac{q}{p^{2-1/q}}. \]
+Therefore
+\[ \sum_{p>q} (M_p-1) \ll q \sum_{n>q} \frac{1}{n^{2-1/q}} \ll 1, \]
+and hence $\prod_{p>q}M_p\ll1$. Therefore
+\begin{equation}\label{eq:S2bound}
+S''\ll \exp(Cq\log\log q).
+\end{equation}
+Combining \eqref{eq:S1bound} and \eqref{eq:S2bound} proves \eqref{eq:Sbound}.
+\end{proof}
+
+\begin{proof}[Proof of Theorem \ref{thm:density}]
+Denote the exceptional set that we need to estimate:
+\[ E_\delta(X)=\{N\leq X \,:\, f(N)\leq \delta N\}. \]
+For every $N\in E_\delta(X)$ put $m=f(N)$. Then $m\leq \delta N\leq \delta X$, and, by the definition of $f$, there is some
+$j\geq 0$ such that $N=\sigma_j(m)$. This pair $(m,j)$ satisfies
+\[ \frac{\sigma_j(m)}{m}=\frac{N}{m}\geq \frac1\delta. \]
+Counting pairs $(m,j)$ we get
+\begin{align*}
+\# E_\delta(X) & \leq \#\Bigl\{(m,j):m\leq \delta X,\ \frac{\sigma_j(m)}{m}\geq \frac1\delta\Bigr\} \\
+& \leq \delta^q \sum_{m\leq \delta X}\sum_{j\geq 0} \left(\frac{\sigma_j(m)}{m}\right)^q.
+\end{align*}
+for every $q\geq3$.
+By Lemma \ref{lm:moments} applied with $x=\delta X$, the last expression is
+\[ \ll \delta^{q+1} \exp(C q \log\log q) \, X 
+= \exp\Big( -(q+1)\log\frac{1}{\delta} + C q \log\log q \Big) \, X. \]
+Take $c=1/(2C)$ and
+\[ q = \big\lfloor \exp \bigl( (1/\delta)^c \bigr) \big\rfloor. \]
+Then
+\[ (q+1)\log\frac{1}{\delta} - C q \log\log q 
+\sim e^{(1/\delta)^c} \Big( \log\frac{1}{\delta} - \frac{1}{2c} c \log\frac{1}{\delta} \Big)
+\sim e^{(1/\delta)^c} \frac12 \log\frac{1}{\delta}, \]
+which is $\gg e^{(1/\delta)^c}$ for small $\delta$.
+\end{proof}

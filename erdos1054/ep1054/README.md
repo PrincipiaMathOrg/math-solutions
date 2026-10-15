@@ -1,5 +1,22 @@
 # EP1054 — Lean formalization of the collaboration paper
 
+## Current manuscript and preserved verification snapshot
+
+**Latest collaboration manuscript:** [October 15 revision (PDF)](paper/revisions/2026-10-15/EP1054.pdf)
+and [LaTeX source](paper/revisions/2026-10-15/EP1054.tex). The
+[revision record](paper/revisions/2026-10-15/README.md) documents the received Overleaf export,
+preserves its contributor drafts, and records compilation/provenance separately. This revision
+includes later corrections and the populated contribution, AI-usage, and formalization sections.
+
+The original September 25 manuscript files at `paper/EP1054.{tex,bib,pdf}` and
+`paper/SHA256SUMS` remain unchanged as the transcription snapshot associated with the existing
+formalization record. No Lean source, Comparator contract, dependency pin, or checking workflow
+was changed for this manuscript publication. Existing checks establish the recorded Lean
+results, not automatic agreement with every sentence of the revised manuscript. The scope
+remains **33 unconditional results and four conditional results**.
+
+## Original formalization source
+
 This folder is a self-contained Lake project formalizing the manuscript
 
 > H. Chae, J. Fraiture, E. Hou, V. Kovač, C. Kudeba, A. Shakov, D. Vidal,
@@ -7,8 +24,8 @@ This folder is a self-contained Lake project formalizing the manuscript
 > (unpublished manuscript, Overleaf export of 2026-09-25)
 
 committed in [`paper/`](paper/) (the `.tex` with its internal `%` comment lines removed) (`EP1054.tex`, `EP1054.bib`, and `EP1054.pdf`
-built from them; sha256 in [`paper/SHA256SUMS`](paper/SHA256SUMS)). The manuscript's
-"Formalization" section is still an empty placeholder; its "Methodology and AI usage" paragraph
+built from them; sha256 in [`paper/SHA256SUMS`](paper/SHA256SUMS)). In that preserved snapshot,
+the "Formalization" section is an empty placeholder; its "Methodology and AI usage" paragraph
 refers to an accompanying Lean formalization repository, and this folder is Principia Math's
 formalization of the manuscript's results. Representability ("every integer besides 2 and 5 is
 representable") is one of the four CONDITIONAL results (see below). It is proved here by two

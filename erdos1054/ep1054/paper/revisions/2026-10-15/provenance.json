@@ -1,0 +1,210 @@
+{
+  "received_date": "2026-10-15",
+  "source_reference": "https://www.overleaf.com/project/6a5d2bee447c1b7186f168e2",
+  "live_overleaf_history_inspected": false,
+  "main_entry_point": "EP1054.tex",
+  "source_zip_sha256": "4c5282948c412ae66c0ebed80bc41670da63618e75d1c48bb2a2c143188860d8",
+  "received_legacy_pdf_sha256": "71a6814318565a2c38cdf068d30eba3b3a743d2dbce71cc0ac723f7e8af20dfc",
+  "source_files": [
+    {
+      "path": "source/AUDIT.md",
+      "bytes": 7806,
+      "sha256": "1a2e33bd6d8570ea016e0c9baf0f504e46489df3f272d051254bb4c5a21adacc"
+    },
+    {
+      "path": "source/EP1054.bib",
+      "bytes": 7066,
+      "sha256": "e7f0399d697d8467d9244f451defde0bb2004a20da1530ca57b17d5771c6441f"
+    },
+    {
+      "path": "source/EP1054.tex",
+      "bytes": 125154,
+      "sha256": "d718aa4c42581cc9126f58b00cf395c650d18cd82e95a2875379c288b8284474"
+    },
+    {
+      "path": "source/fraiture-distribution-addendum.tex",
+      "bytes": 30707,
+      "sha256": "105b0ad2be6d7a7af52b83c0e0ede012f018996e8ab840940aac394530edd1d9"
+    },
+    {
+      "path": "source/fraiture.tex",
+      "bytes": 12493,
+      "sha256": "e112b25f4d2147eca433b17b8b1ea54d0de7e03775ac78616f3b2225bc8abfec"
+    },
+    {
+      "path": "source/kovac.tex",
+      "bytes": 7366,
+      "sha256": "19bbe93fba0eeb4527c895714ac6d4ec420c9d4dbc0ab0a57f9a5d332ca67715"
+    },
+    {
+      "path": "source/old_main.tex",
+      "bytes": 423,
+      "sha256": "56af527d6c0eefad9ce6fe57a576ac5fbf8301fe9e950997db72ff3bab101caa"
+    },
+    {
+      "path": "source/preamble.tex",
+      "bytes": 771,
+      "sha256": "5d0a3aecf4c97d2df1713660023f76fb5093e3a17b5de06a66aa9f54e7f99b43"
+    },
+    {
+      "path": "source/principia-math-older.tex",
+      "bytes": 27562,
+      "sha256": "02316ff952d5e15422dfa26903a05e20371e151efd0e40890605642df2370c52"
+    },
+    {
+      "path": "source/principia-math.tex",
+      "bytes": 83647,
+      "sha256": "15bd3bac16b64b258fa326385d7c6fe9e3a151bed9c4a4b0fa164d7854509f10"
+    },
+    {
+      "path": "source/README.md",
+      "bytes": 661,
+      "sha256": "a12170a9a59f681ff666780f6f272a133711a3e8226a61127bca1b6dbed3e9ec"
+    },
+    {
+      "path": "source/references.tex",
+      "bytes": 1921,
+      "sha256": "1a233cca6bb450c6f50a0c4b03581ff13d59fe028a67fffbdabd4dbd2ab2095d"
+    },
+    {
+      "path": "source/tao.tex",
+      "bytes": 4287,
+      "sha256": "e11d48174b70c83b3fe465b6f5262e36632f4c9f19d8816df1a0e585e46f19a8"
+    }
+  ],
+  "main_source_sha256": "d718aa4c42581cc9126f58b00cf395c650d18cd82e95a2875379c288b8284474",
+  "bibliography_sha256": "e7f0399d697d8467d9244f451defde0bb2004a20da1530ca57b17d5771c6441f",
+  "compiled_pdf_sha256": "1afac5de8bb28d1239c05d0b332ec0b275d109440301a76f6de332f730fd098f",
+  "compilation": {
+    "schema_version": 1,
+    "compiled_at": "2026-10-15T18:23:35Z",
+    "source_revision": "2026-10-15",
+    "source_files_changed_for_compilation": false,
+    "source_sha256": {
+      "EP1054.tex": "d718aa4c42581cc9126f58b00cf395c650d18cd82e95a2875379c288b8284474",
+      "EP1054.bib": "e7f0399d697d8467d9244f451defde0bb2004a20da1530ca57b17d5771c6441f"
+    },
+    "compiler": {
+      "distribution": "MiKTeX 26.5 Portable",
+      "engine": "pdfTeX",
+      "engine_version": "3.141592653-2.6-1.40.29",
+      "latex_version": "LaTeX2e 2025-11-01",
+      "l3_version": "2025-12-24",
+      "bibtex_version": "0.99e",
+      "platform": "Windows x64",
+      "installation_scope": "Temporary workspace-only portable installation; Windows registry and PATH integration disabled",
+      "official_sources": [
+        "https://miktex.org/download",
+        "https://docs.miktex.org/manual/miktexsetup.html",
+        "https://mirror.quantum5.ca/CTAN/systems/win32/miktex/tm/packages/"
+      ],
+      "sha256": {
+        "basic-miktex-25.12-x64.exe": "14b42dd9f4b4a7813a8bfd69c8f99316c2888cc4ee26f631f397e163d85d6c62",
+        "miktexsetup-x64.zip": "0571e90f6d94353089b4f189fd82a532f9fe559a388c7e7f1102b14b3c1ae27d",
+        "miktexsetup_standalone.exe": "e47440f724d9bcb09c6b3872edfed783b0d876aafba0d59ec322dfd0ce6ea408",
+        "pdflatex.exe": "e64e4b60b1134de70be838ed6cd6366dea4891fc22b08846747e88296ab2b9bf",
+        "bibtex.exe": "8fd084758722208ab40c741a239307e2d0820284f29477198fdc9c1b58420cae"
+      }
+    },
+    "build": {
+      "latex_pass_count": 4,
+      "bibtex_pass_count": 1,
+      "commands_in_order": [
+        "pdflatex --disable-write18 --dont-parse-first-line --enable-installer --interaction=nonstopmode --halt-on-error --file-line-error --recorder EP1054.tex",
+        "bibtex --enable-installer EP1054",
+        "pdflatex --disable-write18 --dont-parse-first-line --disable-installer --interaction=nonstopmode --halt-on-error --file-line-error --recorder EP1054.tex",
+        "pdflatex --disable-write18 --dont-parse-first-line --disable-installer --interaction=nonstopmode --halt-on-error --file-line-error --recorder EP1054.tex",
+        "pdflatex --disable-write18 --dont-parse-first-line --disable-installer --interaction=nonstopmode --halt-on-error --file-line-error --recorder EP1054.tex"
+      ],
+      "all_exit_codes": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "bibliography_style": "plainurl.bst",
+      "bibliography_entries": 18,
+      "shell_escape_enabled": false,
+      "first_line_option_parsing_enabled": false,
+      "package_installation": "Declared TeX and font dependencies downloaded from the CTAN mirror only into the portable installation; automatic installation disabled on final three passes",
+      "reference_convergence": {
+        "aux_toc_and_bookmarks_identical_between_passes": [
+          2,
+          3,
+          4
+        ],
+        "final_sha256": {
+          "EP1054.aux": "3307da8aecca1080f583ca05d302f7568b3ee5cc92fdaccf726300fcf6ec216a",
+          "EP1054.toc": "28963a5d837a3647f9ffa959e8f14ce5cc91fed4915bea4e7f5e654a21a7978b",
+          "EP1054.out": "6c902dfa3798e0cb250a6a57d8f330dde974d3847c3570490c7c7979f1ce86d9"
+        }
+      }
+    },
+    "diagnostics": {
+      "fatal_errors": 0,
+      "undefined_references": 0,
+      "undefined_citations": 0,
+      "missing_characters": 0,
+      "overfull_boxes": 0,
+      "underfull_boxes": 1,
+      "bibtex_warnings": 0,
+      "remaining_notices": [
+        "epstopdf warns that shell escape is disabled. This is intentional; this document does not require EPS conversion.",
+        "One underfull bibliography paragraph (badness 6641), bibliography item Christian Axler, On Robin's inequality, generated BBL lines 4-9.",
+        "The temporary MiKTeX installation reports that no update check has been run. Its downloaded package repository manifest was current at installation."
+      ]
+    },
+    "fonts": {
+      "all_font_programs_embedded": true,
+      "type1_fonts": 23,
+      "type3_fonts": 2,
+      "bbm_font_source_preserved": true,
+      "bbm_method": "Original CTAN bbm METAFONT sources generated font metrics and the bbm10 657-dpi PK bitmap; no substitutions of mathbbm or other mathematical macros",
+      "type3_font_glyph_counts": [
+        1,
+        1
+      ]
+    },
+    "output": {
+      "file": "EP1054.pdf",
+      "pages": 42,
+      "size_bytes": 637115,
+      "sha256": "1afac5de8bb28d1239c05d0b332ec0b275d109440301a76f6de332f730fd098f",
+      "pdf_version": "1.5",
+      "page_size": "US Letter 612 x 792 pt",
+      "javascript": false,
+      "encrypted": false
+    },
+    "logs": {
+      "compilation/EP1054.log": {
+        "description": "Final pdfLaTeX pass; contains local temporary compiler paths",
+        "sha256": "ba65bd8c85a994e5131a6a367319941014c8486b8c4454a9a3a0334f089a9464"
+      },
+      "compilation/EP1054.blg": {
+        "description": "Successful BibTeX pass",
+        "sha256": "0403879f6efc04e37855992de8a9551ea4533dc2ef4411c3d1a0c5bbfb5ddf4f"
+      }
+    },
+    "verification_scope": "This record certifies paper compilation only. It does not rerun or expand the existing Lean/Comparator proof coverage."
+  },
+  "original_repository_snapshot": "81374586e775b1a047469a3bf5fc68535d95e2cc",
+  "original_tracked_files_preserved_except_four_documentation_updates": 637,
+  "unchanged": [
+    "all Lean sources",
+    "all comparison contracts",
+    "all dependency pins and toolchains",
+    "formalization.yaml",
+    "all existing workflows",
+    "the September 25 manuscript and its checksums",
+    "the separate July manuscript",
+    "all rights and contributor credit notices"
+  ],
+  "verification_scope": {
+    "unconditional_comparator_targets": 33,
+    "conditional_entries": 4,
+    "prose_revision_is_not_a_new_machine_verification": true,
+    "previous_build_run": "https://github.com/PrincipiaMathOrg/math-solutions/actions/runs/38397965752",
+    "previous_comparator_run": "https://github.com/PrincipiaMathOrg/math-solutions/actions/runs/38432697212"
+  }
+}

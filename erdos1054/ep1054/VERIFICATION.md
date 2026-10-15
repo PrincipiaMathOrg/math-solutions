@@ -472,3 +472,22 @@ route is conditional exactly as the others are**; nothing here is an uncondition
 **His unmodified project** remains in [`../hyunsik/`](../hyunsik/) (a separate Lake project with
 its own toolchain and CI job; see `../hyunsik/PRINCIPIA-NOTES.md`). This section covers only the
 port inside this folder.
+
+## 10. Collaboration manuscript revision — publication record (2026-10-15)
+
+The later collaboration manuscript is stored separately in
+[`paper/revisions/2026-10-15/`](paper/revisions/2026-10-15/); see its
+[revision record](paper/revisions/2026-10-15/README.md) for the received Overleaf source,
+contributor-draft inventory, compilation record, and checksums. The receipt/publication date
+does not establish the date of each underlying edit.
+
+The original September 25 `paper/EP1054.tex`, `paper/EP1054.bib`, `paper/EP1054.pdf`, and
+`paper/SHA256SUMS` remain unchanged. Section 2 above and the original `formalization.yaml`
+source entry continue to describe those exact historical bytes, not the revised manuscript.
+
+This publication changes no Lean source, Comparator contract, dependency pin, or checking
+workflow. It is **not** a new Lean or Comparator run, nor an automatic certification that every
+revised prose statement matches its Lean encoding. The existing formalization still has
+**33 unconditional results and four conditional results**; the latter retain the explicit
+assumptions recorded above. Archival contributor drafts are preserved for provenance, not
+presented as independently verified final manuscripts.

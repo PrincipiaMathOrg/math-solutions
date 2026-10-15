@@ -1,0 +1,9 @@
+# Preserve the received contributor files and compiled manuscript byte-for-byte,
+# including their original line endings, independently of core.autocrlf.
+*.pdf binary
+received/*.zip binary
+# Original whitespace is part of the received archival bytes, not a formatting fix.
+EP1054.* -text whitespace=-trailing-space,cr-at-eol
+original-overleaf-source/** -text whitespace=-trailing-space,cr-at-eol
+received/** -text
+compilation/** -text whitespace=-trailing-space,cr-at-eol

@@ -1,0 +1,381 @@
+
+
+
+
+\section{Representability of all positive integers except 2 and 5}
+\label{sec:fraiture}
+
+The preceding arguments only need the set $\Rcal$ of represented integers
+to have density one.  In fact, its complement can be determined exactly.
+The proof below combines elementary divisor-prefix constructions, finite
+certificates, and an explicit consequence of Helfgott's proof of the ternary
+Goldbach conjecture.  The finite certificates and their independently
+reproducible verifier are available at a fixed revision of
+\cite{FraitureVerifier}.
+
+\begin{theorem}[Computer-assisted representability]
+\label{thm:fraiture-representability}
+The represented positive integers are precisely
+\[
+ \Rcal=\N\setminus\{2,5\}.
+\]
+In particular, $f(N)$ is defined for every $N\geq6$.
+\end{theorem}
+
+\subsection{Divisor-prefix certificates and interval extension}
+
+\begin{lemma}[Prime-window prefix gadget]
+\label{lem:fraiture-prime-window}
+Suppose that $M<p_1<\cdots<p_t\leq Y<M^2$ are distinct primes.  If
+$J\subseteq\{1,\ldots,t\}$ is nonempty, then
+\[
+ 1+\sum_{j\in J}p_j\in\Rcal.
+\]
+\end{lemma}
+
+\begin{proof}
+Put $m=\prod_{j\in J}p_j$.  Every composite divisor of $m$ is larger than
+$M^2$, whereas every prime divisor of $m$ is at most $Y<M^2$.
+Consequently, the positive divisors of $m$ begin with $1$, followed by the
+primes $p_j$, $j\in J$, in increasing order.  Their initial sum is the
+displayed integer.
+\end{proof}
+
+\begin{lemma}[Interval extension]
+\label{lem:fraiture-extension}
+Suppose that the subset sums of a finite set of distinct primes contain
+every integer in $[C,U]$, and let $p$ be a new prime satisfying
+$p\leq U-C+1$.  After adjoining $p$, the subset sums contain every integer
+in $[C,U+p]$.
+\end{lemma}
+
+\begin{proof}
+The old subset sums cover $[C,U]$, and the subset sums using $p$ cover
+$[C+p,U+p]$.  The hypothesis gives $C+p\leq U+1$, so these two integer
+intervals overlap or are consecutive.
+\end{proof}
+
+\begin{proposition}[Finite certificates]
+\label{prop:fraiture-finite}
+Every positive integer in each of the following intervals is represented:
+\begin{align}
+ &[6,10\,000\,000],
+ \label{eq:fraiture-small}\\
+ &[469\,616,273\,803\,744\,799\,154],
+ \label{eq:fraiture-first-window}\\
+ &[105\,000\,001,
+   1\,111\,351\,202\,532\,220\,892\,436\,000\,001].
+ \label{eq:fraiture-large-window}
+\end{align}
+\end{proposition}
+
+\begin{proof}
+All finite computations described here are performed by the single-file
+verifier in \cite{FraitureVerifier}; its committed \texttt{output.json}
+records the exact endpoints, certificates, and intermediate bounds.
+
+For \eqref{eq:fraiture-small}, take $1\leq B\leq1000$ and a prime $q>B$.
+The divisors of $Bq$ consist first of the divisors of $B$ and then of $q$
+times those divisors, in the same order.  Thus every integer of the form
+\[
+ \sigma(B)+q\sum_{i=1}^j d_i(B),
+ \qquad 1\leq j\leq\tau(B),
+\]
+is represented.  A sieve through $10\,000\,000$ marks every integer in
+\eqref{eq:fraiture-small} except $7$, which has the separate
+representation $7=1+2+4$ from $m=4$.
+
+For \eqref{eq:fraiture-first-window}, take $M=10\,000$ and
+$Y=99\,000\,000<M^2$.  The first $94$ primes in $(M,Y]$, lying between
+$10\,007$ and $10\,883$, have subset sums covering
+$[469\,615,480\,503]$.  The verifier checks the hypothesis of
+Lemma~\ref{lem:fraiture-extension} for each successive prime through
+$98\,999\,987$.  The resulting subset-sum interval is
+\[
+ [469\,615,273\,803\,744\,799\,153].
+\]
+Lemma~\ref{lem:fraiture-prime-window} then gives
+\eqref{eq:fraiture-first-window} after adding $1$.
+
+For \eqref{eq:fraiture-large-window}, let $M=20\,000\,000$.
+For every one of the $51\,000\,001$ integers in
+\[
+ [105\,000\,000,156\,000\,000],
+\]
+the verifier constructs and checks a sum of four or five distinct primes
+in $(M,2M)$.  The next prime after $2M$ is $40\,000\,003$, which is at
+most the inclusive width $51\,000\,001$ of the certified interval.  Thus
+Lemma~\ref{lem:fraiture-extension} starts the interval-extension
+induction.  After a prime $p$ has been adjoined, the new interval width is
+at least $2p$, while Bertrand's postulate supplies the next prime below
+$2p$; the induction therefore continues for every subsequent prime.
+
+Set $Y=399\,000\,000\,000\,000<M^2$.  Partitioning $(2M,Y]$ into
+$15$ geometric blocks and applying the explicit prime-counting bounds of
+Rosser and Schoenfeld~\cite{RosserSchoenfeld}, the verifier certifies
+\[
+ \sum_{2M<p\leq Y}p
+ \geq
+ 1\,111\,351\,202\,532\,220\,892\,280\,000\,000.
+\]
+This bound can also be checked without floating-point arithmetic.  For
+$2^k\leq x<2^{k+1}$, put $u=(x-2^k)/(x+2^k)<1/3$.  Then
+\[
+ \log x
+ =k\log2+2\sum_{j=0}^{99}\frac{u^{2j+1}}{2j+1}+R,
+ \qquad
+ 0\leq R\leq\frac{2u^{201}}{201(1-u^2)},
+\]
+and the same expansion with $u=1/3$ encloses $\log2$.  Directed rational
+arithmetic on the $15$ block endpoints gives the stronger certified bound
+\[
+ \sum_{2M<p\leq Y}p
+ \geq
+ 1\,111\,351\,203\,106\,177\,132\,280\,000\,000.
+\]
+Consequently, the extended subset-sum interval ends no earlier than
+\[
+ 156\,000\,000+
+ 1\,111\,351\,202\,532\,220\,892\,280\,000\,000,
+\]
+and Lemma~\ref{lem:fraiture-prime-window} gives precisely
+\eqref{eq:fraiture-large-window}.
+\end{proof}
+
+\begin{remark}[Reproducing the finite certificates]
+\label{rem:fraiture-reproduce}
+\leavevmode\par\noindent
+Use the following fixed revision of~\cite{FraitureVerifier}:
+\par\noindent
+\texttt{e0e377e79538842721d9b515}%
+\allowbreak\texttt{f53a6d821ad62cec}
+\par\noindent
+Run
+\begin{quote}
+\texttt{rustc -O -C overflow-checks=on verify.rs -o /tmp/v}\par
+\texttt{/tmp/v all}
+\end{quote}
+The final JSON object has \texttt{"check": "all"} and
+\texttt{"ok": true}.  Primality, distinctness, subset-sum coverage,
+interval overlap, and all integer endpoints are checked directly.  The
+prime-counting bounds used for the $15$ bridge blocks include conservative
+rounding margins and can alternatively be certified by the rational
+logarithm enclosures above.
+\end{remark}
+
+\subsection{An explicit balanced ternary Goldbach consequence}
+
+\begin{lemma}\label{lem:fraiture-balanced-goldbach}
+Every odd integer $H\geq10^{27}$ is the sum of three distinct odd primes
+$p,q,r$ satisfying
+\[
+ p,q,r>\frac{H}{30\,000\log H}.
+\]
+\end{lemma}
+
+\begin{proof}
+Helfgott's explicit argument
+\cite[\S7.4, equations (7.49)--(7.50)]{Helfgott} gives a real
+weighted sum over odd-prime triples $p+q+r=H$ of at least
+$0.000422H^2$ for every odd $H\geq10^{27}$.  The individual smoothing
+factors satisfy
+\[
+ \lVert\eta_+\rVert_\infty\leq1.079955,
+ \qquad
+ \lVert\eta_*\rVert_\infty\leq1.414;
+\]
+see \cite[equations (7.3) and (7.19)]{Helfgott}.  Put
+\[
+ W=(1.079955)^2\cdot1.414,
+ \qquad z=\frac{H}{30\,000\log H}.
+\]
+Write $\psi(t)=\sum_{a\leq t}\Lambda(a)$.  The explicit estimate
+$\psi(t)\leq1.03883t$ of
+\cite{RosserSchoenfeld} bounds the total absolute weight of triples with
+at least one coordinate at most $z$ by
+\begin{align*}
+ 3W\psi(z)\psi(H)\log H
+ &\leq\frac{3W(1.03883)^2}{30\,000}H^2\\
+ &<0.000178H^2.
+\end{align*}
+Triples with repeated coordinates have total absolute weight at most
+\[
+ 3WH(\log H)^3<10^{-20}H^2
+ \qquad(H\geq10^{27}).
+\]
+For the last inequality, $(\log H)^3/H$ decreases on this range, and
+$\log(10^{27})<63$.  Since
+$0.000422>0.000178+10^{-20}$, some odd-prime triple remains after both
+exceptional classes have been discarded.
+\end{proof}
+
+\begin{proposition}[Infinite tail]
+\label{prop:fraiture-tail}
+Every integer
+\[
+ n\geq10^{27}+10^8
+\]
+belongs to $\Rcal$.
+\end{proposition}
+
+\begin{proof}
+First let $n$ be even and put $H=n-1$.  Apply
+Lemma~\ref{lem:fraiture-balanced-goldbach}, and order its primes as
+$p<q<r$.  Since $H/(\log H)^2$ increases for $H>e^2$ and
+\[
+ \frac{10^{27}}{(30\,000\log(10^{27}))^2}>1,
+\]
+we have
+\[
+ pq>\left(\frac{H}{30\,000\log H}\right)^2>H>r.
+\]
+Hence the divisors of $pqr$ begin with $1,p,q,r$, and their sum is
+$1+p+q+r=n$.
+
+Now let $n$ be odd.  By Bertrand's postulate, choose an odd prime $\ell$
+such that
+\[
+ 60\,000\log n<\ell<120\,000\log n,
+\]
+and put $H=n-1-\ell$.  Set $T=10^{27}+10^8$.  The function
+\[
+ h(t)=t-1-120\,000\log t-10^{27}
+\]
+has positive derivative for $t\geq T$, and $h(T)>0$ because
+$\log T<64$.  Therefore $H\geq10^{27}$; in the same way,
+$H>n/2$.  Apply Lemma~\ref{lem:fraiture-balanced-goldbach} and order
+the resulting primes as $p<q<r$.  Since $\log H<\log n$,
+\[
+ p>\frac{H}{30\,000\log H}
+ >\frac{n}{60\,000\log n}
+ >120\,000\log n>\ell.
+\]
+For the penultimate inequality, observe that
+$n/(\log n)^2$ increases for $n>e^2$ and already exceeds
+$7.2\cdot10^9$ at $n=T$.  Finally,
+\[
+ \ell p>
+ 60\,000\log n\cdot\frac{H}{30\,000\log H}
+ >2H>r.
+\]
+Thus the divisors of $\ell pqr$ begin with $1,\ell,p,q,r$, whose sum is
+$1+\ell+p+q+r=n$.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:fraiture-representability}]
+The three intervals of Proposition~\ref{prop:fraiture-finite} overlap,
+and the last one overlaps the infinite interval of
+Proposition~\ref{prop:fraiture-tail}, because
+\[
+ 1\,111\,351\,202\,532\,220\,892\,436\,000\,001
+ >10^{27}+10^8.
+\]
+Hence every $n\geq6$ is represented.  The integers $1,3,4$ are represented
+by $m=1,2,3$, respectively.  No prefix can equal $2$: its first term is
+$1$, and every longer prefix has sum at least $1+2=3$.  Similarly, a
+two-term prefix equal to $5$ would have to be $1+4$, but $4\mid m$
+implies $2\mid m$, contradicting that $4$ is the second-smallest divisor.
+Every prefix of length at least three has sum at least $1+2+3=6$.
+Therefore neither $2$ nor $5$ is represented.
+\end{proof}
+
+\subsection{Consequences for the ratio distribution}
+
+The two undefined values must be excluded when counting small ratios.
+In particular, the zero entries at indices $2$ and $5$ in the OEIS table
+\cite{OEIS1054} are sentinels for nonexistence, not values of $f$.
+A normalized empirical probability measure for the represented ratios is
+\[
+ \mu_X=
+ \frac{1}{\#(\Rcal\cap[1,X])}
+ \sum_{\substack{n\leq X\\n\in\Rcal}}
+ \delta_{f(n)/n}.
+\]
+
+\begin{proposition}[A small-ratio obstruction]
+\label{prop:fraiture-small-ratio}
+If $n\in\Rcal$ and $f(n)\leq n/10$, then $n>10^{120}$.
+\end{proposition}
+
+\begin{proof}
+Put $m=f(n)$.  Every divisor-prefix sum of $m$ is at most $\sigma(m)$,
+so $f(n)\leq n/10$ implies
+\[
+ \frac{\sigma(m)}m\geq\frac nm\geq10.
+\]
+If $m\leq5040$, then
+\[
+ \frac{\sigma(m)}m=\sum_{d\mid m}\frac1d
+ \leq\sum_{d=1}^{5040}\frac1d
+ \leq1+\log5040<10,
+\]
+a contradiction.  If $n\leq10^{120}$, then $m\leq10^{119}$; hence
+Axler's unconditional refinement of Robin's inequality
+\cite[Corollary 2]{AxlerRobin} gives
+\[
+ \frac{\sigma(m)}m
+ <(1+3.15367\cdot10^{-7})e^\gamma\log\log m
+ \leq9.99745<10,
+\]
+again a contradiction.
+\end{proof}
+
+The obstruction is not vacuous.  For
+$m=\lcm(1,\ldots,289)$, direct evaluation of the finite Euler product for
+$\sigma(m)/m$ gives
+\[
+ \frac{\sigma(m)}m=10.004735741\ldots>10.
+\]
+Thus $n=\sigma(m)$ satisfies
+\[
+ n=3.078152209\ldots\cdot10^{128},
+ \qquad
+ \frac{f(n)}n\leq\frac m{\sigma(m)}
+ =0.099952665\ldots<\frac1{10}.
+\]
+
+\begin{proposition}[Positive mass in a bounded interval]
+\label{prop:fraiture-positive-mass}
+The set
+\[
+ \{n\in\Rcal:f(n)\leq2n\}
+\]
+has positive lower density.  Consequently, there is a $\delta>0$ such
+that
+\[
+ \lowerdens\{n\in\Rcal:\delta n<f(n)\leq2n\}>0.
+\]
+\end{proposition}
+
+\begin{proof}
+Write $s(m)=\sigma(m)-m$.  The proof of the main theorem of Luca and
+Pomerance~\cite[proof of Theorem 1.2, \S3]{LucaPomerance} constructs a set
+$\mathcal A$ of even deficient integers such that
+\[
+ \#s(\mathcal A\cap[1,X])\gg X.
+\]
+For $m\in\mathcal A$, deficiency and the divisor $m/2$ give
+\[
+ \frac m2\leq s(m)<m.
+\]
+The proper divisors of $m$ form an initial segment of all its divisors.
+Thus $s(m)\in\Rcal$ and
+\[
+ f(s(m))\leq m\leq2s(m),
+ \qquad s(m)<m\leq X.
+\]
+It follows that the first displayed set has positive lower density.
+Finally, Kova\v{c}'s uniform small-ratio estimate~\cite{Kovac1054} makes the upper density of
+$\{n\in\Rcal:f(n)\leq\delta n\}$ arbitrarily small as $\delta$ tends
+to zero.  Choosing $\delta$ sufficiently small proves the second claim.
+\end{proof}
+
+\begin{remark}
+\label{rem:fraiture-undefined-ratios}
+For the empirical distribution of $f(n)/n$, one may either omit
+$n=2,5$ or assign them harmless conventional values separately.  Treating
+the OEIS zero sentinels as genuine ratios produces the spurious count $2$
+for the event $f(n)/n\leq1/10$ at every sampled cutoff
+$X\leq20\,000$; Proposition~\ref{prop:fraiture-small-ratio} shows that
+the correct count is zero even for every $X\leq10^{120}$.
+\end{remark}

@@ -17,10 +17,18 @@ three foundations**:
 
 ## EP1054: the collaboration paper (`ep1054/`)
 
+**Latest manuscript:** [October 15 revision (PDF)](ep1054/paper/revisions/2026-10-15/EP1054.pdf),
+[LaTeX source](ep1054/paper/revisions/2026-10-15/EP1054.tex), and
+[revision/provenance record](ep1054/paper/revisions/2026-10-15/README.md). The complete received
+Overleaf source and contributor drafts are preserved separately from the consolidated paper.
+The revised manuscript is not a new verification run or an automatic re-certification of its
+prose-to-Lean alignment.
+
 [`ep1054/`](ep1054/) is a separate, self-contained Lake project formalizing the later
 collaboration manuscript *On the first occurrence of an integer as a prefix sum of divisors*
-(Chae, Fraiture, Hou, Kovač, Kudeba, Shakov, Vidal; 2026-09-25, committed in
-[`ep1054/paper/`](ep1054/paper/)). Of its 37 numbered results, **33 are Lean-verified**
+(Chae, Fraiture, Hou, Kovač, Kudeba, Shakov, Vidal). Its original September 25 transcription
+snapshot remains unchanged in [`ep1054/paper/`](ep1054/paper/), with its recorded checksums.
+Of that snapshot's 37 numbered results, **33 are Lean-verified**
 unconditionally (footprint `[propext, Classical.choice, Quot.sound]`, Comparator configs shipped)
 and **4 are conditional**: `lem:fraiture-balanced-goldbach`, `prop:fraiture-tail`,
 `thm:fraiture-representability` and `eq:exact-representability` rest on Helfgott's weighted

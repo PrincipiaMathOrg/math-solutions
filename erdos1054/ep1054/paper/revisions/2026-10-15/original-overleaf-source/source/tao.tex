@@ -1,0 +1,178 @@
+\section{Terry's comment on the forum}
+
+% Faithful paraphrase of Terence Tao's forum comment,
+% posted at 22:50 on 1 November 2025.
+
+\begin{proposition}
+The assertion
+\[
+    f(N)=o(N)
+\]
+does not hold for all positive integers $N$.
+\end{proposition}
+
+\begin{proof}
+Write the positive divisors of $n$ in increasing order as
+\[
+    d_1(n)<\cdots<d_{\tau(n)}(n),
+\]
+and, for $k\geq 0$, define
+\[
+    \sigma_k(n)
+    :=
+    \begin{cases}
+    d_1(n)+\cdots+d_{\tau(n)-k}(n),
+        & \tau(n)>k,\\
+    0,  & \tau(n)\leq k.
+    \end{cases}
+\]
+Thus, $\sigma_k(n)$ is the sum of all divisors of $n$ except
+for its $k$ largest divisors. In particular,
+$\sigma_0(n)=\sigma(n)$.
+
+We first recall that
+\[
+\begin{aligned}
+    \sum_{n\leq x}\sigma(n)
+    &=\sum_{\substack{d,m\geq1\\dm\leq x}}d
+      =\sum_{d\leq x}d
+        \sum_{m\leq x/d}1  \\
+    &\ll \sum_{d\leq x}x
+     \ll x^2.
+\end{aligned}
+\]
+We shall prove the stronger estimate
+\begin{equation}\label{eq:tao-sigma-k}
+    \sum_{n\leq x}\sigma_k(n)
+    \ll \frac{x^2}{k^{11/10}},
+    \qquad k\geq1.
+\end{equation}
+
+Assuming \eqref{eq:tao-sigma-k} for the moment, Markov's
+inequality gives
+\[
+\begin{aligned}
+&\#\bigl\{(n,k):n\leq x,\ k\geq1,\
+                 \sigma_k(n)\geq C_0x\bigr\}  \\
+&\qquad\leq
+ \frac{1}{C_0x}
+ \sum_{k\geq1}\sum_{n\leq x}\sigma_k(n)
+ \ll
+ \frac{x}{C_0}\sum_{k\geq1}\frac{1}{k^{11/10}}
+ \ll \frac{x}{C_0}.
+\end{aligned}
+\]
+The same estimate for $k=0$ follows from
+$\sum_{n\leq x}\sigma(n)\ll x^2$. Consequently,
+\begin{equation}\label{eq:tao-count}
+    \#\bigl\{N\in[C_0x,2C_0x]:f(N)\leq x\bigr\}
+    \ll \frac{x}{C_0}.
+\end{equation}
+Indeed, if $f(N)\leq x$, then there are $n\leq x$ and
+$k\geq0$ such that $N=\sigma_k(n)$.
+
+For fixed sufficiently large $C_0$, estimate
+\eqref{eq:tao-count} implies that, for arbitrarily large $x$,
+there exist $N\in[C_0x,2C_0x]$ such that $f(N)>x$. For these
+integers,
+\[
+    \frac{f(N)}{N}>\frac{1}{2C_0}.
+\]
+Hence $f(N)/N$ does not tend to zero.
+
+It remains to establish \eqref{eq:tao-sigma-k}. Consider a
+divisor $d$ of $n=dm$ that contributes to $\sigma_k(n)$.
+Since $d$ is not among the $k$ largest divisors of $n$,
+there are at least $k$ divisors of $dm$ that are at most
+$m$, by complementary pairing of divisors.
+
+Put
+\[
+    R_m(d):=\#\{r\leq m:r\mid d\}.
+\]
+Every divisor of $dm$ that is at most $m$ can be written as
+a product of a divisor of $m$ and a divisor $r\mid d$ with
+$r\leq m$. Therefore,
+\[
+    k\leq \tau(m)R_m(d).
+\]
+It follows that at least one of the inequalities
+\[
+    \tau(m)\geq k^{1/10},
+    \qquad
+    R_m(d)\geq k^{9/10}
+\]
+must hold.
+
+The contribution from the first possibility is bounded by
+\[
+\begin{aligned}
+    \sum_{m\leq x}
+    \left(\frac{\tau(m)}{k^{1/10}}\right)^{100}
+    \sum_{d\leq x/m}d
+    &\ll
+    \frac{x^2}{k^{10}}
+    \sum_{m\geq1}\frac{\tau(m)^{100}}{m^2}  \\
+    &\ll \frac{x^2}{k^{10}}.
+\end{aligned}
+\]
+Here the final series converges, for instance by the usual
+divisor bound $\tau(m)=m^{o(1)}$.
+
+For the second possibility, squaring the divisor count gives
+\[
+\begin{aligned}
+&\sum_{m\leq x}\sum_{d\leq x/m}
+  d\left(\frac{R_m(d)}{k^{9/10}}\right)^2  \\
+&\qquad=
+ \frac{1}{k^{9/5}}
+ \sum_{m\leq x}
+ \sum_{r_1,r_2\leq m}
+ \sum_{\substack{d\leq x/m\\ [r_1,r_2]\mid d}}d  \\
+&\qquad\ll
+ \frac{x^2}{k^{9/5}}
+ \sum_{m\geq1}\sum_{r_1,r_2\leq m}
+ \frac{1}{m^2[r_1,r_2]}.
+\end{aligned}
+\]
+Since $[r_1,r_2]\leq m^2$, we have
+\[
+    \frac{1}{m^2[r_1,r_2]}
+    \leq
+    \frac{1}{m^{9/5}[r_1,r_2]^{11/10}}.
+\]
+Moreover,
+\[
+    \sum_{r_1,r_2\geq1}
+    \frac{1}{[r_1,r_2]^{11/10}}
+    <\infty.
+\]
+Indeed, writing $r_1=ga$, $r_2=gb$, with $(a,b)=1$, yields
+\[
+\begin{aligned}
+    \sum_{r_1,r_2\geq1}
+    \frac{1}{[r_1,r_2]^{11/10}}
+    &=
+    \sum_{g\geq1}\frac{1}{g^{11/10}}
+    \sum_{\substack{a,b\geq1\$a,b)=1}}
+    \frac{1}{(ab)^{11/10}}  \\
+    &\leq \zeta(11/10)^3<\infty.
+\end{aligned}
+\]
+Thus, the contribution from the second possibility is
+\[
+    \ll \frac{x^2}{k^{9/5}}.
+\]
+Combining the two estimates proves
+\[
+    \sum_{n\leq x}\sigma_k(n)
+    \ll
+    \frac{x^2}{k^{10}}+\frac{x^2}{k^{9/5}}
+    \ll \frac{x^2}{k^{11/10}},
+\]
+which completes the proof.
+\end{proof}
+
+Heuristics concerning the typical divisor structure of
+integers suggest that the left-hand side of
+\eqref{eq:tao-sigma-k} might even decay exponentially in $k$.
