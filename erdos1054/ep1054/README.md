@@ -5,10 +5,11 @@
 **Latest collaboration manuscript:** [October 16 revision (PDF)](paper/revisions/2026-10-16/EP1054.pdf),
 with the formalization link updated to this organization repository. The
 [revision record](paper/revisions/2026-10-16/README.md) documents the exact received PDF.
-This update was supplied without new TeX source. The
-[latest available LaTeX source](paper/revisions/2026-10-15/EP1054.tex) belongs to the
-[preserved October 15 revision](paper/revisions/2026-10-15/README.md), including its complete
-Overleaf export, contributor drafts, and compilation/provenance records.
+The [current editable LaTeX source](paper/revisions/2026-10-16/EP1054.tex) and
+[bibliography](paper/revisions/2026-10-16/EP1054.bib) are derived from the previous source with
+only its repository URL and displayed date updated to match the new PDF. The
+[October 15 revision](paper/revisions/2026-10-15/README.md), including its complete Overleaf
+export, contributor drafts, and compilation/provenance records, remains preserved unchanged.
 
 The original September 25 manuscript files at `paper/EP1054.{tex,bib,pdf}` and
 `paper/SHA256SUMS` remain unchanged as the transcription snapshot associated with the existing

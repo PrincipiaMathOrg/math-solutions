@@ -19,10 +19,12 @@ three foundations**:
 
 **Latest manuscript:** [October 16 revision (PDF)](ep1054/paper/revisions/2026-10-16/EP1054.pdf)
 and [revision/provenance record](ep1054/paper/revisions/2026-10-16/README.md).
-Its formalization link points to this organization repository. This update was supplied as a
-PDF only; the [latest available LaTeX source](ep1054/paper/revisions/2026-10-15/EP1054.tex)
-belongs to the [preserved October 15 revision](ep1054/paper/revisions/2026-10-15/README.md).
-The complete received Overleaf source and contributor drafts remain preserved separately.
+Its formalization link points to this organization repository. The
+[current editable LaTeX source](ep1054/paper/revisions/2026-10-16/EP1054.tex) and
+[bibliography](ep1054/paper/revisions/2026-10-16/EP1054.bib) are derived from the previous source
+with only its repository URL and displayed date updated to match that PDF.
+The [October 15 revision](ep1054/paper/revisions/2026-10-15/README.md), complete received Overleaf
+source, and contributor drafts remain preserved separately.
 The revised manuscript is not a new verification run or an automatic re-certification of its
 prose-to-Lean alignment.
 

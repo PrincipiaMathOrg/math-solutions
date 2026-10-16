@@ -7,10 +7,11 @@ Principia's shared repository for mathematical papers, Lean formalizations, and 
 The current paper is the [October 16 collaboration manuscript (PDF)](erdos1054/ep1054/paper/revisions/2026-10-16/EP1054.pdf),
 supplied by Christian Kudeba with the formalization link updated to this organization repository.
 See its [revision record](erdos1054/ep1054/paper/revisions/2026-10-16/README.md).
+The [current editable LaTeX source](erdos1054/ep1054/paper/revisions/2026-10-16/EP1054.tex)
+and [bibliography](erdos1054/ep1054/paper/revisions/2026-10-16/EP1054.bib) are derived from the
+previous source with only its formalization URL and displayed date updated to match the new PDF.
 The [previous October 15 PDF and Overleaf export](erdos1054/ep1054/paper/revisions/2026-10-15/README.md)
-remain preserved, including all contributor drafts. The
-[latest available LaTeX source](erdos1054/ep1054/paper/revisions/2026-10-15/EP1054.tex)
-belongs to that previous revision; the October 16 update was supplied as a PDF only.
+remain preserved, including all contributor drafts. No replacement Overleaf export was supplied.
 Receipt/publication dates are not claims about when each collaborator last edited the manuscript.
 
 The earlier [September 25 manuscript snapshot](erdos1054/ep1054/paper/) and its checksums remain

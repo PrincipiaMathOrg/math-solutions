@@ -1,6 +1,8 @@
 # Current collaboration manuscript received 16 October 2026
 
-[Current paper (PDF)](EP1054.pdf) · [Checksums](SHA256SUMS) · [Provenance](provenance.json)
+[Current paper (PDF)](EP1054.pdf) · [Editable LaTeX](EP1054.tex) · [Bibliography](EP1054.bib)
+
+[Checksums](SHA256SUMS) · [Provenance](provenance.json)
 
 Christian Kudeba supplied this 42-page PDF as the latest paper and authorized
 making it the current manuscript on the repository's `main` branch. It is
@@ -17,11 +19,29 @@ new mathematical or machine verification.
 
 ## Source and preserved versions
 
-No revised TeX source was supplied with this update. The
-[latest available TeX and bibliography](../2026-10-15/README.md) therefore belong
-to the previous October 15 revision, not an asserted byte-exact source for this
-PDF. That revision, its original Overleaf ZIP, all contributor drafts, checksums,
-and compilation records remain unchanged. The
+No replacement Overleaf export was supplied. At Christian Kudeba's request,
+the [editable TeX](EP1054.tex) was derived from the
+[preserved October 15 source](../2026-10-15/EP1054.tex), changing only:
+
+- The formalization URL, to the organization link shown above.
+- The displayed date, fixing `October 16, 2026` instead of the variable `\today`.
+
+The [bibliography](EP1054.bib) is copied without changes. Mathematical text,
+contributor credits, AI declarations, comments, and all other source content are
+unchanged. This derived source is not represented as a newly received original
+Overleaf export or as the byte-exact original used to produce the supplied PDF.
+A final newline was also added to the TeX file. The supplied PDF itself is unchanged.
+
+The derived source passed four pdfLaTeX passes and one BibTeX pass with shell
+escape and automatic package installation disabled. The resulting 42-page
+test PDF matches the supplied paper's extracted text on every page, after
+whitespace normalization; its clickable formalization link is correct.
+The title and complete formalization section were also visually reviewed.
+The test compilation does not replace the supplied PDF or claim byte-identical
+PDF output across different TeX distributions.
+
+The October 15 revision, its original Overleaf ZIP, all contributor drafts,
+checksums, and compilation records remain unchanged. The
 [September 25 transcription snapshot](../../) and the separate
 [July manuscript](../../../../paper/) are also preserved at their original paths.
 
