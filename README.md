@@ -4,12 +4,14 @@ Principia's shared repository for mathematical papers, Lean formalizations, and 
 
 ## Latest Erdős 1054 manuscript
 
-The [October 15 collaboration manuscript (PDF)](erdos1054/ep1054/paper/revisions/2026-10-15/EP1054.pdf)
-and [LaTeX source](erdos1054/ep1054/paper/revisions/2026-10-15/EP1054.tex) include the collaborators'
-later corrections, contribution statement, and formalization discussion. The
-[revision record](erdos1054/ep1054/paper/revisions/2026-10-15/README.md) preserves the received
-Overleaf export, contributor drafts, and provenance. October 15 is the receipt/publication date,
-not a claim about when each collaborator last edited the manuscript.
+The current paper is the [October 16 collaboration manuscript (PDF)](erdos1054/ep1054/paper/revisions/2026-10-16/EP1054.pdf),
+supplied by Christian Kudeba with the formalization link updated to this organization repository.
+See its [revision record](erdos1054/ep1054/paper/revisions/2026-10-16/README.md).
+The [previous October 15 PDF and Overleaf export](erdos1054/ep1054/paper/revisions/2026-10-15/README.md)
+remain preserved, including all contributor drafts. The
+[latest available LaTeX source](erdos1054/ep1054/paper/revisions/2026-10-15/EP1054.tex)
+belongs to that previous revision; the October 16 update was supplied as a PDF only.
+Receipt/publication dates are not claims about when each collaborator last edited the manuscript.
 
 The earlier [September 25 manuscript snapshot](erdos1054/ep1054/paper/) and its checksums remain
 unchanged. The passing Comparator evidence checks the existing Lean statements and proofs;

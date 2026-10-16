@@ -2,11 +2,13 @@
 
 ## Current manuscript and preserved verification snapshot
 
-**Latest collaboration manuscript:** [October 15 revision (PDF)](paper/revisions/2026-10-15/EP1054.pdf)
-and [LaTeX source](paper/revisions/2026-10-15/EP1054.tex). The
-[revision record](paper/revisions/2026-10-15/README.md) documents the received Overleaf export,
-preserves its contributor drafts, and records compilation/provenance separately. This revision
-includes later corrections and the populated contribution, AI-usage, and formalization sections.
+**Latest collaboration manuscript:** [October 16 revision (PDF)](paper/revisions/2026-10-16/EP1054.pdf),
+with the formalization link updated to this organization repository. The
+[revision record](paper/revisions/2026-10-16/README.md) documents the exact received PDF.
+This update was supplied without new TeX source. The
+[latest available LaTeX source](paper/revisions/2026-10-15/EP1054.tex) belongs to the
+[preserved October 15 revision](paper/revisions/2026-10-15/README.md), including its complete
+Overleaf export, contributor drafts, and compilation/provenance records.
 
 The original September 25 manuscript files at `paper/EP1054.{tex,bib,pdf}` and
 `paper/SHA256SUMS` remain unchanged as the transcription snapshot associated with the existing

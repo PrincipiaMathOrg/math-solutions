@@ -1,0 +1,50 @@
+{
+  "received_date": "2026-10-16",
+  "supplied_by": "Christian Kudeba",
+  "publication_request": "Make the supplied latest paper the current main-branch version, with its updated formalization URL",
+  "artifact": {
+    "file": "EP1054.pdf",
+    "received_filename": "erdos1054_collaboration.pdf",
+    "pages": 42,
+    "size_bytes": 536005,
+    "sha256": "f7d29e5438d54097fdb4e8e2a9d7a489d5c93d1e72db2e62d287cff42ff8ec49",
+    "preserved_byte_exact": true,
+    "recompiled_or_edited": false
+  },
+  "repository_before_publication": "eaa8e71204e81d6ce8c731c38e4fd1664f3d36d9",
+  "previous_revision": "../2026-10-15/",
+  "previous_pdf_sha256": "1afac5de8bb28d1239c05d0b332ec0b275d109440301a76f6de332f730fd098f",
+  "source_update_received": false,
+  "latest_available_source_revision": "2026-10-15",
+  "new_pdf_matching_source_claimed": false,
+  "formalization_url": "https://github.com/PrincipiaMathOrg/math-solutions/tree/main/erdos1054",
+  "formalization_url_page": 40,
+  "clickable_url_matches_displayed_url": true,
+  "pdf_comparison": {
+    "extraction_method": "PDFium text extraction, whitespace-normalized per page",
+    "previous_and_new_page_counts": [42, 42],
+    "changed_text_pages": [1, 40],
+    "observed_text_changes": [
+      "Displayed date: October 15, 2026 to October 16, 2026",
+      "Formalization URL: old antoshashakov snapshot to PrincipiaMathOrg/math-solutions main/erdos1054"
+    ],
+    "missing_reference_tokens": 0,
+    "visual_review": "All-page contact sheet plus full title and formalization pages 1, 40 and 41",
+    "mathematical_reverification": false
+  },
+  "preserved_unchanged": [
+    "October 15 revision including contributor drafts and original source ZIP",
+    "September 25 paper and original checksums",
+    "Separate July manuscript",
+    "All Lean sources and proof checksum inventories",
+    "Challenge, comparison contracts and formalization metadata",
+    "Toolchains, dependencies and workflows",
+    "Author credits and rights notices"
+  ],
+  "verification_scope": {
+    "unconditional_comparator_targets": 33,
+    "conditional_results": 4,
+    "new_machine_verification_claimed": false
+  },
+  "website_or_database_changes": false
+}
