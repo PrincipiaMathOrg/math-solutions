@@ -1,0 +1,133 @@
+{
+  "mathematics_completed_at_utc": "2026-09-18T21:20:37.010602+00:00",
+  "audit_updated_at_utc": "2026-09-18T21:25:16.617519+00:00",
+  "campaign_eligibility": "pending-complete-journal-final-review",
+  "new_problem_credit": 0,
+  "result": "Every integer Hoggatt parameter m>=4 fails infinite log-convexity: negative fourth iterate at index 2 for m=4,5, and negative third iterate at index 2 for all m>=6, proved by a degree-36 polynomial identity and a uniform sign argument.",
+  "verification_summary": {
+    "groups": 4,
+    "status": "passed",
+    "exact_integer_and_rational_arithmetic": true
+  },
+  "pdf_review": {
+    "pages": 4,
+    "visually_inspected": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "layout_warnings": false
+  },
+  "reviewer": "Authoring agent only; no independent peer review or proof assistant.",
+  "files": [
+    {
+      "path": "ai-claim-index-check.json",
+      "sha256": "040d558a2be28a35290126d42844c47222a66e501eeddb3b9d68a74ee8fae8f7"
+    },
+    {
+      "path": "arxiv-check.json",
+      "sha256": "47f64ad604837940b515d06cb5f494e97f566b0a6af3bc72d883f3557df03182"
+    },
+    {
+      "path": "arxiv-source-snapshot.txt",
+      "sha256": "a82278e732b91ac600fe8f92f1bbe5c9088fc69cfc35b49837a7a56b04b48eb5"
+    },
+    {
+      "path": "attempt-record.json",
+      "sha256": "d00e6871acf1b98e6b3b357ec9149b809d0184694a1137740fbd599fae1ef6ab"
+    },
+    {
+      "path": "crab-check.json",
+      "sha256": "5fa5adeade531e452c351afa5ad4eff96fe2f7e5fb4f887b9c2bc9d727491187"
+    },
+    {
+      "path": "crab-claim-index.txt",
+      "sha256": "fdf15347cbd5002f3fcdc645c82e570b83ffb6d88e0b1fa4dab69f9ce59f6d8b"
+    },
+    {
+      "path": "final-source-check.json",
+      "sha256": "aeaabef498096462918ebbba74646604dd7f8f8312275bbe9a77b07e1cc080f7"
+    },
+    {
+      "path": "literature-audit.md",
+      "sha256": "3cc8161db65a6f8fbbaa646636efbd072e48f2152c6142db84e3e97d021a74d5"
+    },
+    {
+      "path": "mathdb-api-snapshot.txt",
+      "sha256": "cdd658851bd0fb9462a9e9ea627ba3ce028d3928537114688afa3e15d143915c"
+    },
+    {
+      "path": "mathdb-check.json",
+      "sha256": "2ea205b63bb1dbdb8749d6eb330fc94eda7bc86ee4e72c33ac1356986a797f3f"
+    },
+    {
+      "path": "mathdb-final-check.json",
+      "sha256": "86e3555fcbca5b2f0177c3613b268ff1f0fb33b2f339d0bfc83b3e0510ade3c8"
+    },
+    {
+      "path": "mathdb-initial-check.json",
+      "sha256": "6656dfb17e9aaab28d31191d8fe728173011833fbc8a7fb39568be4226cf5c6e"
+    },
+    {
+      "path": "mathdb-page-check.json",
+      "sha256": "06d0838fab0c4fa4bd5f7229dc45d83a3d688a4a2bed7a8610e07eb0a320e388"
+    },
+    {
+      "path": "mathdb-page-snapshot.txt",
+      "sha256": "0e37ab2c2ad3da15821ee2352f0f7e77ddfe0a05382af1bfd3a3d937ff683feb"
+    },
+    {
+      "path": "oeis-snapshot.txt",
+      "sha256": "4c1461f5a3b4605ff8e518b6d07fec7b30bc8a5a3e11ff4e27d19c759e02e123"
+    },
+    {
+      "path": "oeis4-check.json",
+      "sha256": "fc7bb9c3ffa8dde47ef546724958c99b52c84a6b9ec2406d4d429adbce59a54f"
+    },
+    {
+      "path": "proof-audit.md",
+      "sha256": "c083c228519165c8c84cb6f10eb6c0f65c5b949a94c9bf124a7b15ff06e21c1e"
+    },
+    {
+      "path": "pudim-check.json",
+      "sha256": "80143c5a958c91c6d3340cd11dd28cfb89a9b18228841f372a8064fab63ef308"
+    },
+    {
+      "path": "pudim-claim-index.txt",
+      "sha256": "69274cd3c904774b36b6b3bc3c4a5b4c089e9a23d6f87ba695963dd6f958b780"
+    },
+    {
+      "path": "README.md",
+      "sha256": "305a53dcaafbe9b3df9de8210ccebb94a5fa517d7a63e2feb956deb4ab197aae"
+    },
+    {
+      "path": "related-source-check.json",
+      "sha256": "0b9f810b201c3f531659f4540be72e34e4cab9d902ddfbe531a469894f4fe0d5"
+    },
+    {
+      "path": "search-audit.json",
+      "sha256": "6bd665e240b364e02129b21a77e0399d2796bec9a7ec5fa02839635ea6955dc9"
+    },
+    {
+      "path": "solution.pdf",
+      "sha256": "f02880c56e2fbb0a89c61789c934b9f4c6cb9ecb82cc054fe47ae6e6b5d2b836"
+    },
+    {
+      "path": "solution.tex",
+      "sha256": "71a4c7e71b64974593b28390147d57ff626303827dc8d2378506db7467ba4851"
+    },
+    {
+      "path": "source-check.json",
+      "sha256": "d0eafdcc99d173522a1851566dfaba3a7c0bea419addb1aca63f74a94fe7708d"
+    },
+    {
+      "path": "verification-results.json",
+      "sha256": "83bebb6f47637b0ded6da6f51b32b84853e37fae09bbdb21566b3a2fef6b148a"
+    },
+    {
+      "path": "verify.py",
+      "sha256": "8dd47398a09b5a077e564a18063727325f5036ab3e7a21a68b587632af1d3c89"
+    }
+  ]
+}

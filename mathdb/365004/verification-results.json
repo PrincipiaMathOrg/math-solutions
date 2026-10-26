@@ -1,0 +1,36 @@
+{
+  "status": "passed",
+  "checked_at_utc": "2026-09-21T22:43:00.467108+00:00",
+  "verifier_sha256": "47cd8924772e783e22b4f47b7637f9fe2cce9fbccf882e6b599f15359d57ad97",
+  "groups": [
+    {
+      "name": "Strict nesting, positive axes, and exclusion of all three configurations",
+      "status": "passed",
+      "largest_normalized_radius_squared": "1521/1600",
+      "h_inside_caustic": true
+    },
+    {
+      "name": "Blaschke cubic, pair relation, and exact caustic tangency",
+      "status": "passed",
+      "identities": 4
+    },
+    {
+      "name": "Exact universal altitude identity and initial triangle",
+      "status": "passed",
+      "orthocenter": [
+        "31/16",
+        "0"
+      ],
+      "identities": 5
+    },
+    {
+      "name": "Independent Euclidean numerical check",
+      "status": "passed",
+      "configurations": 48,
+      "decimal_precision": 90,
+      "largest_residual": "2.6786432158809e-90",
+      "checks": "Outer incidence, all altitude dot products, caustic support equality, strict interior side."
+    }
+  ],
+  "limitation": "Finite numerical checks supplement the exact proof; eligibility remains pending the unread identified journal final."
+}

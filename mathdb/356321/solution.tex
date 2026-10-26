@@ -1,0 +1,183 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,hyperref,enumitem}
+\hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue}
+\newtheorem{theorem}{Theorem}
+\newcommand{\bb}{\mathcal B}
+\title{Positive Bernstein coefficients of Bernoulli densities}
+\author{Principia Math In Progress}
+\date{21 September 2026}
+\begin{document}
+\maketitle
+\noindent\textbf{MathDB 356321. Full intended theorem; source review pending.}
+The identified journal final remains unread, so this package earns
+\textbf{zero new campaign credit}. The endpoint wording correction alone
+is not counted as a research solution.
+
+\section*{Task 1: the all-degree positivity theorem}
+Let \(b_n(x)=B_n(x)/n!\), with Bernoulli numbers \(B_n=B_n(0)\) in the
+convention \(B_1=-1/2\). Let
+\(\bb_{r,n}(x)=\binom nr x^r(1-x)^{n-r}\).
+Write the unique Bernstein expansion
+\[
+ 1-2^n b_n(x)=\sum_{r=0}^n c_{n,r}\bb_{r,n}(x).
+ \tag{1}
+\]
+Conjecture 3.7 of El Maazouz--Pitman [1, p.~8] proposes positive
+coefficients in (1) for every positive \(n\).
+\begin{theorem}
+Every \(c_{n,r}\) is strictly positive for \(n\geq2\). For \(n=1\),
+\((c_{1,0},c_{1,1})=(2,0)\). In particular the expansion has nonnegative
+coefficients for every positive \(n\). Moreover, for all \(n\geq1\),
+\[
+ \max_{0\leq r\leq n}|c_{n,r}-1|
+       \leq 4 e^{2\pi}\pi^{-n}.
+ \tag{2}
+\]
+\end{theorem}
+\noindent Thus the intended positivity conclusion holds in every degree,
+and is strict after the elementary \(n=1\) boundary case.
+If \emph{positive} is read as strictly positive even when \(n=1\),
+that literal statement has the displayed exception. Restricting the
+variable to \([0,1)\) does not change the unique polynomial coefficients.
+
+\section*{A uniform coefficient bound}
+The generating function \(te^{xt}/(e^t-1)\) gives
+\[
+ 2^n b_n(x)=\sum_{j=0}^n a_{n,j}x^j,\qquad
+ a_{n,j}=\frac{2^n b_{n-j}(0)}{j!}.
+\]
+Put \(A_\ell=(2\pi)^\ell b_\ell(0)\). Then \(A_0=1\),
+\(A_1=-\pi\), \(A_\ell=0\) for odd \(\ell\geq3\), and
+\(|A_\ell|=2\zeta(\ell)\leq2\zeta(2)<4\) for positive even \(\ell\).
+Consequently
+\[
+ |a_{n,j}|=\pi^{-n}|A_{n-j}|\frac{(2\pi)^j}{j!}
+       \leq4\pi^{-n}\frac{(2\pi)^j}{j!}.
+ \tag{3}
+\]
+\newpage
+\section*{Proof for all large degrees and exact small cases}
+The monomial-to-Bernstein identity is
+\[
+ x^j=\sum_{r=0}^n\frac{\binom rj}{\binom nj}\bb_{r,n}(x),
+ \qquad 0\leq j\leq n,
+ \tag{4}
+\]
+where \(\binom rj=0\) for \(r<j\).
+Indeed, for \(R\sim\operatorname{Binomial}(n,x)\), counting \(j\)-element
+sets of successful trials gives
+\(\mathbb E\binom Rj=\binom nj x^j\).
+The coefficient ratio in (4) belongs to \([0,1]\).
+Combining (3)--(4) with \(\sum_r\bb_{r,n}=1\) yields
+\[
+ |c_{n,r}-1|
+ \leq\sum_{j=0}^n|a_{n,j}|
+ \leq4\pi^{-n}\sum_{j=0}^\infty\frac{(2\pi)^j}{j!}
+ =4e^{2\pi}\pi^{-n}.
+\]
+This proves (2). For \(n\geq9\), the elementary inequalities
+\(3<\pi<7/2\) and \(e<3\) give
+\[
+ 4e^{2\pi}\pi^{-n}<4\cdot3^{7-n}\leq\frac49<1,
+\]
+so every coefficient in (1) is strictly positive.
+
+For completeness, every remaining coefficient is explicitly certified
+below. Formula (4) gives
+\[
+ c_{n,r}
+ =1-\frac{2^n}{n!}\sum_{j=0}^{r}\binom rj B_{n-j}.
+ \tag{5}
+\]
+The table lists a positive denominator \(D_n\) and the entire numerator
+row \((D_n c_{n,0},\ldots,D_n c_{n,n})\).
+\begin{center}\small
+\begin{tabular}{r|r|l}
+\(n\)&\(D_n\)&numerator row\\ \hline
+1&1&\(2,\ 0\)\\
+2&3&\(2,\ 5,\ 2\)\\
+3&9&\(9,\ 7,\ 11,\ 9\)\\
+4&45&\(46,\ 46,\ 41,\ 46,\ 46\)\\
+5&225&\(225,\ 227,\ 229,\ 221,\ 223,\ 225\)\\
+6&4725&\(4715,\ 4715,\ 4729,\ 4757,\ 4729,\ 4715,\ 4715\)\\
+7&33075&\(33075,\ 33055,\ 33035,\ 33043,\ 33107,\ 33115,\ 33095,\ 33075\)\\
+8&33075&\(33082,\ 33082,\ 33077,\ 33067,\ 33059,\ 33067,\ 33077,\ 33082,\ 33082\)
+\end{tabular}
+\end{center}
+These are obtained from (5) using
+\[
+ (B_0,\ldots,B_8)=
+ \left(1,-\tfrac12,\tfrac16,0,-\tfrac1{30},0,
+       \tfrac1{42},0,-\tfrac1{30}\right).
+\]
+All entries for \(2\leq n\leq8\) are positive. For \(n=1\),
+\(1-2b_1(x)=2(1-x)=2\bb_{0,1}(x)\), giving the stated boundary
+case. This completes the proof in every degree. \(\square\)
+
+Finally, \(\int_0^1\bb_{r,n}(x)\,dx=1/(n+1)\) and
+\(\int_0^1b_n(x)\,dx=0\), so
+\(\sum_r c_{n,r}=n+1\).
+Thus \(c_{n,r}/(n+1)\) are the mixture probabilities when using
+normalized beta densities instead of the partition-of-unity basis.
+\newpage
+\section*{Verification and attribution}
+The proof is analytic for every \(n\geq9\), and the complete finite table
+certifies all remaining cases without a numerical approximation.
+The standard-library verifier independently reconstructs the power
+polynomial from the Bernstein coefficients through degree 30, checks
+all finite base cases, checks 5,106 further coefficients through degree
+100, and checks normalization and reflection through degree 80.
+Finite checks supplement the all-degree argument.
+
+The Bernoulli-number formula and the monomial basis conversion are
+classical and are not claimed as new. Formula (5) also follows from the
+general expansion in Proposition 3.9 of [1]. The result here is a uniform
+majorant and its application to the separate degree-\(n\) positivity
+target. The approximation theorem for the discrete clock has been
+published separately as MathDB 356320.
+
+\section*{Tasks 2--5: four follow-up directions}
+\begin{enumerate}[start=2,leftmargin=*]
+\item Determine the largest multiplier \(s_n\) for which
+\(1-s_n b_n(x)\) has nonnegative degree-\(n\) Bernstein coefficients,
+as asked in source Question 3.8.
+\item Identify the minimum-coefficient indices for every \(n\), including
+their asymptotic location and parity dependence.
+\item Find a direct probabilistic construction of the mixture weights
+\(c_{n,r}/(n+1)\) using \(n+1\) ordered uniform points.
+\item Establish analogous explicit positivity thresholds for other
+Appell polynomial densities with uniformly controlled power coefficients.
+\end{enumerate}
+These directions receive no additional solution credit.
+
+\section*{Dated source and claim audit}
+Checked 21 September 2026. All 25 pages of arXiv:2210.02027v2
+(11 January 2024) were read during the immediately preceding problem.
+The refreshed PDF is byte-identical. Conjecture 3.7 is on page 8.
+The author's 2022 thesis repeats it as Conjecture 4.14 on PDF page 89;
+only its title and target page were read.
+The identified 28-page Cambridge final remains unread after its public
+PDF route returned the abstract page.
+
+Initial and final MathDB checks inspect all eight engagement fields.
+Recorded bounded claim-index and web searches found no earlier full
+target claim in the inspected material, but are not exhaustive.
+The source eligibility therefore remains pending and the campaign
+count is unchanged. The \(n=1\) wording correction earns no credit.
+Review is by the authoring agent, without independent peer review or
+proof-assistant certification.
+
+\begin{thebibliography}{1}
+\raggedright
+\bibitem{emp}
+Y. El Maazouz and J. Pitman,
+\emph{The Bernoulli clock: probabilistic and combinatorial interpretations
+of the Bernoulli polynomials by circular convolution}.
+\href{https://arxiv.org/abs/2210.02027}{arXiv:2210.02027v2}, 2024.
+Journal final: \emph{Combinatorics, Probability and Computing}
+33(2) (2024), 210--237,
+\href{https://doi.org/10.1017/S0963548323000421}{doi:10.1017/S0963548323000421}
+(identified, full text unread).
+\end{thebibliography}
+\end{document}

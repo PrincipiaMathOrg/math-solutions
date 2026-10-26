@@ -1,0 +1,298 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,hyperref,enumitem}
+\hypersetup{colorlinks=true,urlcolor=blue,linkcolor=blue,citecolor=blue}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newcommand{\Q}{\mathbb Q}
+\newcommand{\R}{\mathbb R}
+\title{Uniform initial partial quotients\\of a square root of a zeta tail}
+\author{Principia Math In Progress\\MathDB 375794}
+\date{18 September 2026}
+\begin{document}
+\maketitle
+\begin{abstract}
+For $R_N=\sum_{j>N}j^{-3}$ and $g_N=\sqrt{R_N/2}$, we prove that
+the first two partial quotients are $2N+1$ and $4N+2$ for every
+$N\ge1$, and the third is $\lfloor(12N+6)/19\rfloor$ for every
+$N\ge2$. This includes every Pell index in Feldman's Conjecture~4.1.
+Every fixed partial quotient is eventually a quasi-polynomial.
+The uniform claims follow from explicit rational telescoping bounds.
+\end{abstract}
+\noindent\textbf{Priority and campaign status.}
+The mathematics below is complete. Campaign eligibility remains pending,
+with zero new problem credit: Hu's 2026 dissertation explicitly claims
+the general eventual quasi-polynomial mechanism, but its full text could
+not be obtained to check whether it also contains these specific uniform
+zeta-tail formulas. The general mechanism is not claimed as new here.
+No Lean verification or independent review is asserted.
+
+\section*{Task 1: the complete mathematical result}
+Write $g_N=[0;a_1(N),a_2(N),\ldots]$ using regular continued fractions.
+The irrationality of $\zeta(3)$, proved by Ap\'ery, implies that $g_N$
+is irrational, so this expansion is infinite. Also $0<g_N<1$.
+A function on the positive integers is eventually quasi-polynomial
+if, for some period $M$, its restriction to each residue class modulo
+$M$ agrees with a rational polynomial for all sufficiently large inputs.
+
+\begin{theorem}\label{thm}
+For every integer $N\ge1$,
+\[
+ a_1(N)=2N+1,\qquad a_2(N)=4N+2.
+\]
+For every integer $N\ge2$,
+\[
+ a_3(N)=\left\lfloor\frac{12N+6}{19}\right\rfloor.
+\]
+For each fixed $j\ge1$, $a_j(N)$ is eventually quasi-polynomial.
+The first three eventual periods are $1,1,19$.
+\end{theorem}
+Here \emph{eventually} permits a threshold depending on $j$; no common
+threshold for infinitely many coefficients is asserted. At $N=1$ the
+third coefficient is $1$, whereas the displayed floor would be $0$.
+Thus the word \emph{formal} in the source's pattern is essential.
+All its Pell indices $N_k=(Q_{2k+1}-1)/2=3,20,119,\ldots$ are covered.
+In particular the theorem proves both formulas singled out in
+\cite[Conjecture~4.1, Remark~4.2, Open Problem~1]{F}.
+
+\subsection*{1. Rational bounds for the tail}
+Put $q=2N+1$ and define
+\begin{align*}
+ U_6(q)&=\frac2{q^2}-\frac2{q^4}+\frac{14}{3q^6},&
+ L_8(q)&=U_6(q)-\frac{62}{3q^8},\\
+ U_{10}(q)&=L_8(q)+\frac{762}{5q^{10}},&
+ L_{12}(q)&=U_{10}(q)-\frac{5110}{3q^{12}}.
+\end{align*}
+For a rational function $f$ let
+$D_f(q)=f(q)-f(q+2)-8/(q+1)^3$.
+The exact coefficient certificates below show, for every $q>0$,
+\[
+ D_{U_6}>0,\quad D_{L_8}<0,\quad D_{U_{10}}>0,\quad D_{L_{12}}<0.
+\]
+Each of these functions tends to zero at infinity. Summing their
+defects at $q,q+2,q+4,\ldots$ and using
+$R_N=\sum_{r\ge0}8/(q+1+2r)^3$ therefore gives
+\begin{equation}\label{bounds}
+ \max(L_8(q),L_{12}(q))<R_N<\min(U_6(q),U_{10}(q)).
+\end{equation}
+All inequalities are strict.
+
+\subsection*{2. The first two floors}
+Let $u=1/g_N=\sqrt{2/R_N}$ and $\delta=u-q$.
+The rational comparisons certified below are
+\begin{align}
+ L_8(q)&>\frac2{(q+1/(2q))^2} &&(q\ge3),\label{firstlo}\\
+ U_6(q)&<\frac2{(q+1/(2q+1))^2} &&(q\ge5).\label{firsthi}
+\end{align}
+For $N=1$, monotonicity of $t^{-3}$ supplies the remaining upper bound:
+\[
+ R_1<\sum_{j=2}^{20}\frac1{j^3}+\int_{20}^{\infty}t^{-3}\,dt
+ <\frac{1011}{5000}<\frac{49}{242}
+ =\frac2{(3+1/7)^2}.
+\]
+The middle comparison is a finite rational inequality.
+Consequently \eqref{bounds}--\eqref{firsthi}, including this small case,
+give
+\[
+ \frac1{2q+1}<\delta<\frac1{2q}
+ \quad\Longrightarrow\quad
+ q<u<q+1,\qquad 2q<\frac1\delta<2q+1.
+\]
+These are exactly $a_1=q$ and $a_2=2q$.
+
+\subsection*{3. The third floor}
+The third complete quotient is
+\[
+ X_3=\frac1{1/\delta-2q}=\frac{\delta}{1-2q\delta}.
+\]
+This is strictly increasing in $\delta$ on the interval just proved.
+Define
+\[
+ v_-(q)=q+\frac{6q}{12q^2+19},\qquad
+ v_+(q)=q+\frac{6q^2+19}{q(12q^2+57)}.
+\]
+For $q\ge5$, the further rational comparisons below give
+\[
+ U_{10}(q)<\frac2{v_-(q)^2},
+ \qquad L_{12}(q)>\frac2{v_+(q)^2}.
+\]
+Hence $v_-<u<v_+$, and substitution into the increasing expression
+for $X_3$ yields the useful uniform estimate
+\begin{equation}\label{x3}
+ \frac{6q}{19}<X_3<\frac{6q}{19}+\frac1q\qquad(q\ge5).
+\end{equation}
+When $q\ge19$, the fractional part of $6q/19$ is a multiple of $1/19$,
+and \eqref{x3} cannot cross the next integer. For the remaining odd
+$q=5,7,9,11,13,15,17$, the exact positive gaps
+$\lfloor6q/19\rfloor+1-6q/19-1/q$ are, respectively,
+\[
+ \frac{21}{95},\quad\frac{86}{133},\quad\frac8{171},\quad
+ \frac{91}{209},\quad\frac{202}{247},\quad
+ \frac{56}{285},\quad\frac{185}{323}.
+\]
+Thus $a_3=\lfloor6q/19\rfloor$ throughout $N\ge2$.
+This floor is a quasi-polynomial of period $19$ in $N$.
+Its least period is $19$: subtracting $12N/19$ leaves a bounded
+periodic sequence, whose distinct fractional offsets require a period
+divisible by $19$.
+
+\subsection*{4. Every fixed coefficient is eventually quasi-polynomial}
+We include the argument to make the application self-contained; the
+general formal Gauss-map phenomenon is also stated in Hu's dissertation
+abstract \cite{H}.
+There is a unique formal series
+$F(X)=\sum_{r\ge2}c_rX^{-r}$ satisfying
+\begin{equation}\label{diff}
+ F(X)-F(X+1)=(X+1)^{-3}.
+\end{equation}
+Its coefficients are rational and $c_2=1/2$: at each next order the
+new coefficient $c_r$ appears multiplied by the nonzero integer $r$.
+If $A_m(X)=\sum_{r=2}^m c_rX^{-r}$, then
+\[
+ A_m(N)-A_m(N+1)-(N+1)^{-3}=O(N^{-m-2}).
+\]
+Summing this identity to infinity proves
+$R_N-A_m(N)=O(N^{-m-1})$. Hence $R_N$ has the full rational
+asymptotic expansion $F$ and $g_N$ has the formal expansion
+$G=\sqrt{F/2}\in\Q((X^{-1}))$, beginning with $1/(2X)$.
+The square root with positive leading coefficient is used.
+
+Neither $F$ nor $G$ is a rational function of $X$.
+Indeed, if $F$ were rational, \eqref{diff} would be a rational-function
+identity. It cannot be a polynomial, since it tends to zero and is
+nonzero. Choose a pole $\alpha$ of maximal real part and a pole $\beta$
+of minimal real part. The pole at $\alpha$ of $F(X)$ cannot be
+cancelled by $F(X+1)$, so \eqref{diff} forces $\alpha=-1$.
+Similarly the pole at $\beta-1$ of $F(X+1)$ cannot be cancelled by
+$F(X)$, forcing $\beta=0$. These conclusions contradict the extremal
+real parts. Since $F=2G^2$, rationality of $G$ is also impossible.
+
+Proceed by induction through the ordinary floor-and-invert algorithm.
+On each of finitely many residue classes, suppose all previous
+coefficients are rational polynomials in $N$ for sufficiently large $N$.
+The current complete quotient then has a full Laurent expansion
+\[
+ H(X)=\frac{A(X)G(X)+B(X)}{C(X)G(X)+D(X)},
+ \qquad A,B,C,D\in\Q[X],\quad AD-BC=\pm1.
+\]
+It is nonrational, since otherwise the displayed equation would solve
+for a rational $G$. Let $P(X)\in\Q[X]$ be its polynomial part.
+The negative-power tail $H-P$ is nonzero; its first nonzero coefficient
+determines its eventual sign, denoted $\sigma\in\{+,-\}$.
+Let $d$ clear the denominators of all coefficients of $P$.
+On each residue class modulo $d$, the fractional part of $P(N)$ is a
+constant $\theta\in\{0,1/d,\ldots,(d-1)/d\}$, because
+$P(N+d)-P(N)$ is an integer.
+Refine the old residue classes by this period. Since the actual
+complete quotient equals $P(N)$ plus a tail tending to zero,
+its floor eventually equals
+\[
+ \begin{cases}
+ P(N)-\theta,&\theta>0,\\
+ P(N),&\theta=0,\ \sigma=+,\\
+ P(N)-1,&\theta=0,\ \sigma=-.
+ \end{cases}
+\]
+In each case this is a rational polynomial on the refined class.
+Subtracting it and inverting gives a new full Laurent expansion.
+The nonzero tail prevents formal termination, and the invertible
+linear fractional transformation preserves nonrationality.
+This proves the induction for every fixed depth, starting with
+$H=1/G$. Only finitely many residue classes occur at any fixed depth,
+so their finitely many thresholds have a common maximum.
+This proves the final assertion of Theorem~\ref{thm}.
+\hfill$\square$
+
+\subsection*{5. Explicit algebra certificates}
+For complete reproducibility define $P_d$ by the following coefficient
+lists, ordered from degree $d$ to degree zero:
+\begin{align*}
+ P_6:\;&(124,744,1833,2372,1716,672,112),\\
+ P_8:\;&(1143,9144,32676,68040,90280,78208,43200,13888,1984),\\
+ P_{10}:\;&(76650,766500,3593323,10350584,20197784,27787328,\\
+ &\hspace{12mm}27194720,18628928,8519104,2340864,292608),\\
+ P_{12}:\;&(1414477,16973724,98558638,363216500,939352932,\\
+ &\hspace{12mm}1785002880,2542240704,2722051008,2166240320,\\
+ &\hspace{12mm}1245299712,489389568,117734400,13081600).
+\end{align*}
+Direct multiplication gives
+\[
+ D_{U_6}=\frac{8P_6}{3q^6(q+1)^3(q+2)^6},\qquad
+ D_{L_8}=\frac{-8P_8}{3q^8(q+1)^3(q+2)^8},
+\]
+\[
+ D_{U_{10}}=\frac{8P_{10}}{15q^{10}(q+1)^3(q+2)^{10}},\qquad
+ D_{L_{12}}=\frac{-8P_{12}}{15q^{12}(q+1)^3(q+2)^{12}}.
+\]
+All listed coefficients are positive, proving the defect signs.
+The four rational differences used in the proof have numerator $2B_i$
+and the following positive denominators:
+\[
+\begin{array}{c|c|c}
+i&\text{difference}&\text{denominator}\\ \hline
+1&L_8-2/(q+1/(2q))^2&3q^8(2q^2+1)^2\\
+2&2/(q+1/(2q+1))^2-U_6&3q^6(2q^2+q+1)^2\\
+3&2/v_-^2-U_{10}&15q^{10}(12q^2+25)^2\\
+4&L_{12}-2/v_+^2&15q^{12}(12q^4+63q^2+19)^2
+\end{array}
+\]
+where
+\begin{align*}
+ B_1={}&19q^6-99q^4-117q^2-31,\\
+ B_2={}&6q^5-16q^4-22q^3-32q^2-14q-7,\\
+ B_3={}&10695q^6-93467q^4-588925q^2-714375,\\
+ B_4={}&135q^{12}+54612q^{10}-718884q^8-14616460q^6\\
+       &-53848988q^4-30170727q^2-4611775.
+\end{align*}
+Substitution $q=t+3$ in $B_1$ and $q=t+5$ in $B_2,B_3,B_4$
+gives polynomials with strictly positive coefficients.
+This is a finite coefficient test, not an asymptotic inference.
+The accompanying exact verifier checks these identities and
+coefficients, the seven floor gaps, and the $N=1$ bound; it also
+independently encloses the first three coefficients for $1\le N\le18$
+using rational tail bounds.
+
+\section*{Task 2: effective thresholds at arbitrary depth}
+Turn the residue-class induction into an algorithm that outputs an
+explicit threshold $N_j$, constituent polynomials, and a period for
+each fixed $a_j$. Quantify the precision needed in the tail enclosure.
+The proof above establishes existence but does not bound $N_j$.
+
+\section*{Task 3: period and degree growth}
+Determine the least periods and polynomial degrees of later
+coefficients. Can either grow faster than exponentially with the
+depth? Identify which residue classes create unexpectedly large
+partial quotients by cancellation.
+
+\section*{Task 4: normalized tails of other odd zeta values}
+For $s=2r+1$, study
+$\sqrt{\bigl(\sum_{j>N}j^{-s}\bigr)/(2r)}$, whose leading term is
+$1/(2rN^r)$. Derive its initial quasi-polynomials and uniform rational
+enclosures, and compare the exceptional indices with the Pell
+phenomenon at $s=3$.
+
+\section*{Task 5: a formal proof of the uniform inequalities}
+Formalize the telescoping bounds and four polynomial certificates,
+then use the first two floor inequalities to discharge the source's
+declaration \texttt{prop\_gcf}. This is a proposed follow-up:
+the present package has not been checked by a proof assistant.
+
+\begin{thebibliography}{9}
+\bibitem{F} D.~V.~Feldman,
+\emph{Anomalous Partial Quotients in the Continued Fraction of
+$\sqrt{\zeta(3)-S_N}$}, arXiv:2607.04077v1 (5 July 2026),
+\href{https://arxiv.org/abs/2607.04077}{arXiv record}.
+Complete ten-page source inspected; Conjecture~4.1 is on p.~6.
+\bibitem{H} Q.~Hu, \emph{Certain Hidden Stabilities of Continued
+Fraction Arithmetic, with applications to classical constants and
+functions of analysis}, Ph.D. dissertation, University of New Hampshire
+(2026), \href{https://scholars.unh.edu/dissertation/2988/}{repository record}.
+Only the complete public abstract and metadata were accessible;
+the PDF returned HTTP 403. The abstract claims the general asymptotic
+quasi-polynomial theorem, and is credited on that basis.
+\bibitem{A} R.~Ap\'ery, \emph{Irrationalit\'e de $\zeta(2)$ et $\zeta(3)$},
+Ast\'erisque \textbf{61} (1979), 11--13.
+The classical irrationality theorem is used only to ensure that
+each numerical continued fraction is infinite.
+\end{thebibliography}
+\end{document}

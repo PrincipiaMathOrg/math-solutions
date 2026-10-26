@@ -1,0 +1,209 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true,urlcolor=blue,linkcolor=blue}
+\newtheorem{theorem}{Theorem}
+\title{A fourth configuration with stationary orthocenter\\
+\large MathDB 365004 (duplicate formulation 372155)}
+\author{Principia Math In Progress}
+\date{21 September 2026}
+\begin{document}
+\maketitle
+\section*{Task 1: a full counterexample}
+The classification conjecture of Garcia, Helman and Reznik
+\cite[Conjecture 1, p.6]{special} asserts that a Poncelet triangle family
+can have a stationary orthocenter only in the focal-$X_4$, MacBeath, or
+Dual configurations. The following counterexample has nested,
+noncircular ellipses and consists entirely of acute triangles.
+
+\begin{theorem}
+The two ellipses
+\[
+ E:\ \frac{x^2}{4}+y^2=1,\qquad
+ K:\ \frac{(x-31/20)^2}{4/25}+\frac{y^2}{63/1600}=1
+\]
+support a full Poncelet family of triangles. Every triangle has
+orthocenter $H=(31/16,0)$. This conic pair is none of the three
+configurations in the conjecture.
+\end{theorem}
+
+\noindent\textbf{Credit and prior work.}
+The general orthocenter-locus semiaxis formula is already
+\cite[Theorem 3]{general}; the example can be obtained by specializing
+that formula. We explicitly credit it and give a direct algebraic
+verification below. The campaign assigns \textbf{zero new credit}
+pending inspection of the identified journal final of the original
+source \cite{original}. No new general locus formula is claimed.
+
+\section*{1. Nesting and the full family}
+Apply $(x,y)=(2X,Y)$ to the unit circle. The inverse image of $K$ is
+\[
+ K_0:\quad (X,Y)=
+ \left(\frac{31}{40}+\frac15\cos t,\frac{3\sqrt7}{40}\sin t\right).
+\]
+With $v=\cos t$ its squared distance to the origin is
+\[
+ X^2+Y^2=\frac{v^2+496v+1024}{1600}
+       \leq\frac{1521}{1600}<1 .
+\]
+The polynomial is increasing on $[-1,1]$. Thus the caustic is strictly
+nested, and both its semiaxes are positive.
+
+\newpage
+Put $f=4/5$, $g=3/4$, $s=f+g=31/20$ and $p=fg=3/5$. For every
+$|\lambda|=1$, let $a,b,c$ be the roots of
+\begin{equation}\label{cubic}
+ P_\lambda(z)=z^3-(s+p\lambda)z^2+(p+s\lambda)z-\lambda.
+\end{equation}
+The equation $P_\lambda(z)=0$ is equivalent on the unit circle to
+\[
+ B(z)=\lambda,\qquad
+ B(z)=\frac{z(z-f)(z-g)}{(1-fz)(1-gz)}.
+\]
+This degree-three finite Blaschke product has strictly positive
+argument derivative
+$1+(1-f^2)/|e^{it}-f|^2+(1-g^2)/|e^{it}-g|^2$.
+Its total argument change is $6\pi$. Consequently every $\lambda$
+has exactly three distinct roots on the unit circle. The triangles
+with vertices $Z(a),Z(b),Z(c)$, where
+$Z(z)=(3z+z^{-1})/2$, are nondegenerate and inscribed in $E$.
+
+\section*{2. Every side touches the same caustic}
+For a pair $a,b$ write $q=a+b$, $r=ab$.
+Vieta's formulas from \eqref{cubic} imply
+\[
+ c(1-pr)=s-q,\qquad r-p=c(sr-q).
+\]
+Here $1-pr\ne0$, since $|pr|=3/5$. Eliminating $c$ gives
+\begin{equation}\label{pair}
+ q^2-\frac{31}{20}(1+r)q+\frac35(1+r^2)
+                         +\frac{417}{400}r=0.
+\end{equation}
+The chord of the unit circle through $a,b$ has equation
+$z+r\overline z=q$. Write $r=e^{2i\theta}$ and
+$q=2d e^{i\theta}$ with $d\in\mathbb R$. This is the real line
+$X\cos\theta+Y\sin\theta=d$.
+Its tangency condition to $K_0$ is
+\[
+ \left(d-\frac{31}{40}\cos\theta\right)^2
+       =\frac1{25}\cos^2\theta+\frac{63}{1600}\sin^2\theta.
+\]
+Multiplication by $4r\cdot1600$ converts this condition into
+\[
+ 1600q^2-2480q(r+1)+897(r+1)^2+63(r-1)^2=0.
+\]
+This is precisely 1600 times \eqref{pair}.
+Every side therefore touches $K_0$, and its affine image touches $K$.
+
+The caustic is inside each triangle. At $\lambda=1$, the roots are
+$1$ and $23/40\pm3i\sqrt{119}/40$, giving the physical triangle
+\[
+ (2,0),\quad
+ \left(\frac{23}{20},\frac{3\sqrt{119}}{40}\right),\quad
+ \left(\frac{23}{20},-\frac{3\sqrt{119}}{40}\right).
+\]
+Its interior contains the caustic center $(31/20,0)$. As $\lambda$
+varies, roots remain distinct, and a tangent line cannot cross the
+center of a nondegenerate ellipse. Continuity preserves the interior
+side for all three supporting lines. Thus all these triangles
+circumscribe $K$. They form a full Poncelet family: every point of $E$
+occurs as a vertex, by choosing $\lambda=B(z)$ for its preimage $z$.
+
+\newpage
+\section*{3. All altitudes pass through the fixed point}
+Put $A=3/2$, $D=1/2$, $h=31/16$, $L=abc$, $s_1=a+b+c$ and
+$s_2=ab+bc+ca$. For unit $a,b,c$,
+$Z(a)=Aa+D/a$ and $\overline{Z(a)}=A/a+Da$.
+Direct expansion gives
+\begin{align*}
+ &(h-Z(a))(\overline{Z(b)}-\overline{Z(c)})
+ +(h-\overline{Z(a)})(Z(b)-Z(c))\\
+ &\quad=\frac{b-c}{L}
+ \left[(DL-Aa)h+(AL-Da)h-2ADLa
+       +(A^2+D^2)s_1a-(A^2+D^2)s_2+2AD\right].
+\end{align*}
+Substitute $L=\lambda$, $s_1=s+p\lambda$,
+$s_2=p+s\lambda$. The bracket is identically zero:
+its $a$, $\lambda a$, $\lambda$, and constant coefficients all vanish.
+The left side is twice the real Euclidean dot product of
+$H-Z(a)$ with $Z(b)-Z(c)$. Thus $H$ lies on the altitude from $Z(a)$;
+cyclically it lies on all three. It is their orthocenter.
+
+\section*{4. Exclusion of the three configurations}
+The definitions in \cite[Sections 3--4]{special} distinguish the three
+families by their actual Euclidean conic configurations:
+
+\begin{center}
+\begin{tabular}{ll}
+Configuration & Reason our pair is different\\ \hline
+MacBeath & The outer conic is a circle; $E$ has semiaxes $2,1$.\\
+Focal-$X_4$ & The inner conic is a circle; $4/25\ne63/1600$.\\
+Dual & The two ellipses are concentric; their centers here differ.
+\end{tabular}
+\end{center}
+
+These distinctions are preserved by similarities. In addition,
+$H$ is not a focus of $E$, since $(31/16)^2\ne3$.
+Finally,
+\[
+             \frac{(31/16-31/20)^2}{4/25}
+                    =\frac{961}{1024}<1.
+\]
+So $H$ lies strictly inside $K$ and therefore inside every family
+triangle. Every triangle is acute. Neither degeneracy nor an obtuse
+exception is involved. This completes the counterexample.
+
+\section*{Prior formula and audit status}
+For outer semiaxes $a_0,b_0$, the known formula
+\cite[Theorem 3]{general} has the semiaxis numerator
+\[
+ \sigma=\left|fg(a_0^2+b_0^2)-(a_0^2-b_0^2)\right|.
+\]
+Our choice gives $\sigma=|(3/5)5-3|=0$. Thus the example is consistent
+with that earlier theorem. Its application to the later proposed
+three-family classification is the subject of this note.
+
+\newpage
+The full current 24-page original preprint, the complete 7-page
+classification preprint, and the complete 18-page general-locus preprint
+were read. The 32-page final journal article corresponding to the
+original preprint remains unread; the publisher provides a subscription
+preview. Source and priority eligibility therefore remain pending.
+MathDB 365004 and 372155 are the same problem, not two credits.
+
+The accompanying verifier checks nesting, the exact cubic and tangency
+identities, and the universal altitude identity. It also checks
+48 configurations independently in Euclidean coordinates at 90 decimal
+digits. These numerical checks supplement the proof.
+Review is by the authoring agent only.
+
+\section*{Proposed follow-up Tasks 2--5}
+\begin{enumerate}
+\item \textbf{Task 2.} Find a synthetic explanation for the stationary
+orthocenter of this pair.
+\item \textbf{Task 3.} Classify all nested ellipse pairs with stationary
+orthocenter, up to similarities, using the credited general formula.
+\item \textbf{Task 4.} Describe the exact region of attainable stationary
+orthocenters for a prescribed outer ellipse.
+\item \textbf{Task 5.} Determine the polar-circle invariants of every
+family in that classification.
+\end{enumerate}
+
+\begin{thebibliography}{9}
+\bibitem{special} R. A. Garcia, M. Helman, D. Reznik,
+\emph{Four special Poncelet triangle families about the incircle}.
+\href{https://arxiv.org/abs/2512.17440}{arXiv:2512.17440v2} (2025).
+\bibitem{general} R. A. Garcia, M. Helman, D. Reznik,
+\emph{Poncelet triangles: conic loci of the orthocenter and of the
+isogonal conjugate of a fixed point}.
+\href{https://arxiv.org/abs/2508.02368}{arXiv:2508.02368v3} (2025).
+\bibitem{original} R. A. Garcia, M. Helman, D. Reznik,
+\emph{Harmonious loci of Poncelet triangles about the incircle and their
+degeneracies}. \href{https://arxiv.org/abs/2409.19464}{arXiv:2409.19464v7}
+(2025). Journal final under the title \emph{Graceful loci},
+Beitr.\ Algebra Geom.\ \textbf{67} (2026), 667--698,
+\href{https://doi.org/10.1007/s13366-026-00825-1}{doi:10.1007/s13366-026-00825-1};
+final unread.
+\end{thebibliography}
+\end{document}

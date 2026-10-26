@@ -1,0 +1,92 @@
+{
+  "mathdb_number": 339077,
+  "passed": true,
+  "exact_groups": 4,
+  "arithmetic": "Exact integers and integer polynomials",
+  "verified_at_utc": "2026-09-18T11:18:11.848361+00:00",
+  "groups": [
+    {
+      "name": "defining recurrence and specialization",
+      "passed": true,
+      "moments": [
+        1,
+        1,
+        0,
+        0,
+        1,
+        1,
+        -1,
+        -1,
+        3,
+        3,
+        -6,
+        -6
+      ]
+    },
+    {
+      "name": "Leibniz sum and displayed row certificate",
+      "passed": true,
+      "permutations": 120,
+      "determinant": 2,
+      "matrix": [
+        [
+          0,
+          1,
+          1,
+          -1,
+          -1
+        ],
+        [
+          1,
+          1,
+          -1,
+          -1,
+          3
+        ],
+        [
+          1,
+          -1,
+          -1,
+          3,
+          3
+        ],
+        [
+          -1,
+          -1,
+          3,
+          3,
+          -6
+        ],
+        [
+          -1,
+          3,
+          3,
+          -6,
+          -6
+        ]
+      ]
+    },
+    {
+      "name": "full polynomial determinant and division",
+      "passed": true,
+      "valuation": 62,
+      "normalized_coefficients": [
+        1,
+        2,
+        0,
+        2,
+        2,
+        0,
+        1,
+        2
+      ],
+      "remainder": 2
+    },
+    {
+      "name": "independent weighted-walk moment computation",
+      "passed": true,
+      "coefficientwise_comparisons": 12
+    }
+  ],
+  "limitation": "Finite exact counterexample; no source eligibility or independent peer review established."
+}

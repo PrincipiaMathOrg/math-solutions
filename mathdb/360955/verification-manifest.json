@@ -1,0 +1,152 @@
+{
+  "mathematics_completed_at_utc": "2026-09-18T09:11:06.357504+00:00",
+  "audit_updated_at_utc": "2026-09-18T09:20:14.040213+00:00",
+  "campaign_eligibility": "pending-final-source-audit",
+  "new_problem_credit": 0,
+  "mathematical_proof_complete": true,
+  "result": "Complete proof for all stars with delays1/2; more generally A(q)[m]_q! is unimodal for every nonnegative A of degree<=m.",
+  "verification": {
+    "passed": true,
+    "groups": 4,
+    "checked_at_utc": "2026-09-18T09:17:04.055937+00:00",
+    "arithmetic": "Exact Python integers throughout.",
+    "recursive_factorization": {
+      "cases": 1023,
+      "leaf_counts": "0..9",
+      "delay_values": [
+        1,
+        2
+      ]
+    },
+    "theorem_checks": {
+      "weighted_cases": 21844,
+      "coefficient_alphabet": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "weighted_lengths": "1..7",
+      "additional_binary_cases": 7936,
+      "additional_binary_lengths": "8..12"
+    },
+    "moving_sums": {
+      "unimodal_inputs": 2269,
+      "cases": 18152,
+      "widths": "1..8"
+    },
+    "known_scope_counterexamples": {
+      "cases": 2,
+      "source": "Preprint Example3.1(a) and Remark3.4; both have delay4 and are prior results."
+    },
+    "reviewer": "Authoring agent only; no independent review or proof assistant."
+  },
+  "pdf_review": {
+    "pages": 3,
+    "visually_inspected": [
+      1,
+      2,
+      3
+    ],
+    "layout_warnings": false
+  },
+  "reviewer": "Authoring agent only; no independent peer review or proof assistant.",
+  "files": [
+    {
+      "path": "arxiv-source-check.json",
+      "sha256": "01ca2b5ee2ebb5afcf399fbdbb40e8b6a5620e0ce9ce0babeb93a148ab9bfd07"
+    },
+    {
+      "path": "arxiv-source-snapshot.txt",
+      "sha256": "ffc6c7a5e685e56838b9b375f254f19ef240751a3ec5f07c2392e1461298b9ed"
+    },
+    {
+      "path": "attempt-record.json",
+      "sha256": "586a6da145e7386c720110ef5b42ffd19374ce08f8320028fa538f3c0449b36b"
+    },
+    {
+      "path": "author-articles-publication-snapshot.txt",
+      "sha256": "de7cddf11b1a36f6d6bf4ee7a32217d8d42655f9f91731c9b80f5d3bbe467d09"
+    },
+    {
+      "path": "crab-claim-check.json",
+      "sha256": "7c55d8845f1a21d17ac99436d9bf5e63bdc9ecf429391e3cb7d21138e3edd246"
+    },
+    {
+      "path": "crab-claim-index.txt",
+      "sha256": "4e6e9035598a253e2ec09df95e4a69b4c3f7253143bddf770458995709c485ef"
+    },
+    {
+      "path": "crossref-publication-snapshot.txt",
+      "sha256": "a6381a0c6a49b171d88e3da78e818911b547012291f30e3175d91c787211478d"
+    },
+    {
+      "path": "final-retrieval-check.json",
+      "sha256": "88073663f4a3542e48a32a3a78889abb6140c41832a60510c6ef120b8e4aed73"
+    },
+    {
+      "path": "literature-audit.md",
+      "sha256": "4b2718d267240d24610b8cb5c72bf331bc0d87b3def30260b317468aa9c461c8"
+    },
+    {
+      "path": "mathdb-api-snapshot.txt",
+      "sha256": "acb8f07cb25b6928a153e25ae6f3837d0a721e28e0ad2feee33fa626ec64648f"
+    },
+    {
+      "path": "mathdb-final-check.json",
+      "sha256": "4e800a5d49ada2b0f57dd01b1f8b64f150ae59a6011ed1084080aa2b796b6d73"
+    },
+    {
+      "path": "mathdb-initial-check.json",
+      "sha256": "b164a9b5f8005b2e75fd760ad74677a4d54c696c26c976054ae8e85eda7119fc"
+    },
+    {
+      "path": "mathdb-page-check.json",
+      "sha256": "b8bf54bc4fa8da7f6d911d82a6580b361d161d1ccf2e340fe91fc6634a01e132"
+    },
+    {
+      "path": "mathdb-page-snapshot.txt",
+      "sha256": "a58905b028844b792de88dcd0855359c56aa5ecdbcc940c9e37a61d93caa0a1a"
+    },
+    {
+      "path": "proof-audit.md",
+      "sha256": "960fe1046af12254f6e154ee3867580a773aa014a12357c90a887a2d0ef0e81c"
+    },
+    {
+      "path": "pudim-claim-check.json",
+      "sha256": "517b18713ff44314cfab9169101720b92e4a6df8a8e0f89251e00b3b7ac65bf0"
+    },
+    {
+      "path": "pudim-claim-index.txt",
+      "sha256": "69274cd3c904774b36b6b3bc3c4a5b4c089e9a23d6f87ba695963dd6f958b780"
+    },
+    {
+      "path": "README.md",
+      "sha256": "ac79a8aa25a583643f7faf07ead55790c27cb0f741ed47b331b4e09191dbe9f6"
+    },
+    {
+      "path": "search-audit.json",
+      "sha256": "a302e19300701d6e0392960e88cc193448e5442ff81b7f3a6cd19196592c1a5a"
+    },
+    {
+      "path": "solution.pdf",
+      "sha256": "5a38dce447abb6a8d4fb6bf90442507416ea6efe9f3f24d7d58a9e2363a8f80d"
+    },
+    {
+      "path": "solution.tex",
+      "sha256": "78a5d2b63e6fb1d04f38e26c38a0fb84ae584fb874269a75e32955eeeb5d87bd"
+    },
+    {
+      "path": "source-check.json",
+      "sha256": "71adb541a7bf1720ba207f29e2d06ac25370054dc52550e81508fec4f60bd837"
+    },
+    {
+      "path": "verification-results.json",
+      "sha256": "e0e760497b89f9d99ef2de298993a2b4bdfff74406c27214e9fc8868a5af1ce6"
+    },
+    {
+      "path": "verify.py",
+      "sha256": "d856e063539f82526487fa69bfdd9921af0bfe7c8997323a24a1ba6290f9ce55"
+    }
+  ]
+}

@@ -1,0 +1,131 @@
+{
+  "mathematics_completed_by_utc": "2026-09-22T05:32:44.889992+00:00",
+  "audit_updated_at_utc": "2026-09-22T05:34:35.227539+00:00",
+  "campaign_eligibility": "pending-related-final-claim-scope",
+  "new_problem_credit": 0,
+  "result": "For every n>=7, T_n/x has at least four distinct negative real zeros, refuting the original nonreal-zero conjunction.",
+  "verification_summary": {
+    "groups": 3,
+    "status": "passed",
+    "exact_groups": 3
+  },
+  "pdf_review": {
+    "pages": 2,
+    "visually_inspected": [
+      1,
+      2
+    ],
+    "layout_warnings": false
+  },
+  "reviewer": "Authoring agent only; no independent peer review or proof assistant.",
+  "files": [
+    {
+      "path": "ai-index-check.json",
+      "sha256": "1e17f0208c1d3a91805a284e765758c7b9a3029eb6f7b4bf83cabccf2ead368b"
+    },
+    {
+      "path": "arxiv-check.json",
+      "sha256": "fafbed4ef1576b9e618cf9d04b1c3467b0516669beb2876c9a43f1980d0b1742"
+    },
+    {
+      "path": "arxiv-source-snapshot.txt",
+      "sha256": "2f0227125b02c667e29f5eefff773527a89d98e41d647fce0ed97980278b9e4c"
+    },
+    {
+      "path": "attempt-record.json",
+      "sha256": "c45799c53894718adfd3fdc678b292fc2c219c9d6ba3450a23c73a593e4c6dca"
+    },
+    {
+      "path": "crab-check.json",
+      "sha256": "4b2dc3c6addf518334a630b651320b9db836ba8605b49a1fe54a4fc977a04cfe"
+    },
+    {
+      "path": "crab-claim-index.txt",
+      "sha256": "ae27582e94f2a5e2a8fe0b7f117434d9ef960e75ebc2c1521da0c757e9ca4ee9"
+    },
+    {
+      "path": "final-source-check.json",
+      "sha256": "45d5985ed5dd6f5b0fe25d3d42899848ca5ff436ed612e4698a2747af64155ff"
+    },
+    {
+      "path": "literature-audit.md",
+      "sha256": "d1380d8e5744479000bd1f38c72b8246ca13bda040f5e158a614290c3f3782cd"
+    },
+    {
+      "path": "mathdb-api-snapshot.txt",
+      "sha256": "f9cdfa4eb48a536b1719bd08edff6cde7bc7f0a124fa1a506fe681cd62931fbe"
+    },
+    {
+      "path": "mathdb-check.json",
+      "sha256": "1604e61df28efadea34781923ae904b7333f57d99772eeeb142bc1d88ff3216c"
+    },
+    {
+      "path": "mathdb-final-check.json",
+      "sha256": "842973cbd9ff393c610f33090319e56f5ed3e7c324e657ebcadc3bb7dcf0ae9c"
+    },
+    {
+      "path": "mathdb-initial-check.json",
+      "sha256": "20d3abf72e44b049c81e2594b651dc22d613a081fec0292c7ee4c6376d392500"
+    },
+    {
+      "path": "mathdb-page-check.json",
+      "sha256": "cb7d032626a1ae02254b29223693baa3282f9ceb3aca432d98da74a232a2eb4c"
+    },
+    {
+      "path": "mathdb-page-snapshot.txt",
+      "sha256": "fab670013f2d00ab0a9d732227ff2d187a49af64c4679ea2cb7890a371949ec1"
+    },
+    {
+      "path": "proof-audit.md",
+      "sha256": "d4feb1aa2f2dbc616d98a6f2c7fed0888fa94c9b6cf15fdbc7d1b9a11f1ad815"
+    },
+    {
+      "path": "pudim-check.json",
+      "sha256": "598a098923fd335f9d8df2ec00ed8e152699f9359b8aa00e50072ca0903d3690"
+    },
+    {
+      "path": "pudim-claim-index.txt",
+      "sha256": "69274cd3c904774b36b6b3bc3c4a5b4c089e9a23d6f87ba695963dd6f958b780"
+    },
+    {
+      "path": "README.md",
+      "sha256": "0da2ec91899f0244db0fc65deea6a7d04b52b52a824a4468c6d8db8feda5aaa8"
+    },
+    {
+      "path": "related-source-check.json",
+      "sha256": "73dcbf7b87b057a7590398a82bcd181245b6b3618ff5d1c18ec31cfa490493ff"
+    },
+    {
+      "path": "search-audit.json",
+      "sha256": "266d8192753ed1a4de659413ee431893d9cb630d8d4751c9b8db0ca071743e86"
+    },
+    {
+      "path": "solution.pdf",
+      "sha256": "77c898fa01e9c2aa9f20d77aa45d0100e118465dc39d247d8932d435441966a1"
+    },
+    {
+      "path": "solution.tex",
+      "sha256": "1f6023fc9ca304facc42b5a3a53cf0f64d90f8f1f82121a14dea3826990536d9"
+    },
+    {
+      "path": "source-check.json",
+      "sha256": "80fe841d39b885bebf340e599b9de63ac658ea789a563d832d6ee2c4ef262401"
+    },
+    {
+      "path": "status.md",
+      "sha256": "5000d1742e1d1e88005b2f2b5232ebe695ae9ad8ac6ffc0361756fc49f9ae1f4"
+    },
+    {
+      "path": "verification-results.json",
+      "sha256": "c0233d2b62881c4af79187037766aac7c9487c74c3c978be2c6887c061d182a0"
+    },
+    {
+      "path": "verify.py",
+      "sha256": "a3514e1952052315e3be88f22c7e833c521c19f3649513acf7da8213c2fa71d6"
+    },
+    {
+      "path": "web-claim-records.json",
+      "sha256": "560e087826dc398b7d8007d83354148dc37bbdb1653e8bf21b308f1ea195f37f"
+    }
+  ]
+}

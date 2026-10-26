@@ -1,0 +1,261 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[hidelinks]{hyperref}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newcommand{\J}{\mathcal J}
+\title{Counterexamples to the proposed Redheffer lower bound\\
+for a ratio of normalized Bessel functions}
+\author{Principia Math In Progress}
+\date{18 September 2026}
+\begin{document}
+\maketitle
+\begin{abstract}
+The lower bound in MathDB 335189 fails at the explicit pair
+\((\nu,x)=(30,1)\). We certify this with rational arithmetic and
+a variational bound for the first Bessel zero. More generally, for
+every real \(\nu\ge28\) it fails at all sufficiently small nonzero
+real \(x\). The upper bound was already known in the literature.
+The mathematical counterexample is complete, but campaign eligibility
+remains pending inspection of the complete 2018 journal version of
+the source. No new research credit or priority is claimed here.
+\end{abstract}
+
+\section*{Task 1: the conjecture and a complete counterexample}
+For \(\nu>-1\), define the even entire normalized Bessel function by
+\[
+ \J_\nu(x)=\sum_{k=0}^{\infty}
+ \frac{(-1)^k x^{2k}}{4^k k!(\nu+1)_k},
+ \qquad
+ \J_\nu(x)=2^\nu\Gamma(\nu+1)x^{-\nu}J_\nu(x)\quad(x>0).
+\]
+Here \((a)_k=a(a+1)\cdots(a+k-1)\), with \((a)_0=1\).
+Write \(j=j_{\nu,1}\) for the first positive zero of \(J_\nu\),
+\(q=j^2\), and \(R_\nu(x)=\J_{\nu+1}(x)/\J_\nu(x)\).
+Conjecture 1, equation (3.2), on page 8 of the current preprint
+\cite{BM} asserts, for \(|x|<j\),
+\begin{equation}\label{conj}
+ \left(\frac q{q-x^2}\right)^{q/[4(\nu+1)(\nu+2)]}
+ \le R_\nu(x)\le\frac q{q-x^2}.
+\end{equation}
+The source explicitly conjectures the left inequality for every
+\(\nu>-1\); our examples satisfy that intended range.
+
+\begin{theorem}\label{main}
+For every real \(\nu\ge28\), there is \(\varepsilon_\nu>0\)
+such that the left inequality in \eqref{conj} is strictly reversed
+whenever \(0<|x|<\varepsilon_\nu\).
+It is also strictly reversed at \(\nu=30,\ x=1\).
+\end{theorem}
+
+\subsection*{A bound for the first zero}
+\begin{lemma}\label{zero}
+For every real \(\nu\ge28\),
+\[
+ j_{\nu,1}^2\le U_\nu:=\frac{3(2\nu+7)(2\nu+8)}{10}
+ <T_\nu:=\frac{4(\nu+1)(\nu+2)(\nu+3)}{3\nu+5}.
+\]
+\end{lemma}
+\begin{proof}
+Set \(\phi(r)=J_\nu(jr)\), which is positive on \(0<r<1\).
+The Bessel equation gives
+\[
+ -(r\phi')'+\frac{\nu^2}{r}\phi=j^2r\phi .
+\]
+For \(u(r)=r^\nu(1-r)^3\), integration by parts gives the
+ground-state identity
+\begin{equation}\label{ground}
+ \int_0^1\left(r(u')^2+\frac{\nu^2}{r}u^2-j^2ru^2\right)\,dr
+ =\int_0^1r\phi^2\left((u/\phi)'\right)^2\,dr\ge0.
+\end{equation}
+For completeness, substitute \(u=\phi v\) in the left side:
+its integrand is \(r\phi^2(v')^2+(r\phi\phi'v^2)'\).
+The boundary term \(r\phi'u^2/\phi\) tends to zero at both ends.
+At zero, \(\phi(r)=c r^\nu(1+O(r^2))\); at one,
+\(\phi(r)\) has a simple zero and \(u(r)=O((1-r)^3)\).
+All the displayed integrals converge. Simplicity of the zero follows
+from uniqueness for the Bessel differential equation at \(r=1\).
+
+Writing \(u=r^\nu w\), integration of the cross term yields
+\[
+ \int_0^1\left(r(u')^2+\frac{\nu^2}{r}u^2\right)\,dr
+ =\int_0^1r^{2\nu+1}(w')^2\,dr,
+ \qquad w=(1-r)^3.
+\]
+Indeed, the removed boundary term is \(\nu r^{2\nu}w^2\);
+it vanishes at both endpoints. Consequently \eqref{ground} implies
+\[
+ j^2\le
+ \frac{9\int_0^1r^{2\nu+1}(1-r)^4\,dr}
+      {\int_0^1r^{2\nu+1}(1-r)^6\,dr}
+ =9\frac{B(2\nu+2,5)}{B(2\nu+2,7)}
+ =U_\nu.
+\]
+The beta-integral evaluation follows by repeated integration by parts.
+Finally, if \(s=\nu-28\ge0\), direct algebra gives
+\[
+ 10(3\nu+5)(T_\nu-U_\nu)
+ =4s^3+246s^2+3854s+2256>0.
+\]
+\end{proof}
+
+\subsection*{Failure near zero for every order at least 28}
+Both normalized functions are positive near zero, so their real
+logarithms have convergent Taylor series there. The defining series gives
+\[
+ \log R_\nu(x)=
+ \frac{x^2}{4(\nu+1)(\nu+2)}
+ +\frac{(3\nu+5)x^4}
+ {32(\nu+1)^2(\nu+2)^2(\nu+3)}+O(x^6).
+\]
+The logarithm of the proposed lower bound is
+\[
+ \frac{q}{4(\nu+1)(\nu+2)}
+       \log\frac{q}{q-x^2}
+ =\frac{x^2}{4(\nu+1)(\nu+2)}
+  +\frac{x^4}{8(\nu+1)(\nu+2)q}+O(x^6).
+\]
+Thus their difference has coefficient
+\[
+ C_\nu=
+ \frac{(3\nu+5)q-4(\nu+1)(\nu+2)(\nu+3)}
+ {32(\nu+1)^2(\nu+2)^2(\nu+3)q}
+\]
+at \(x^4\). Lemma \ref{zero} proves \(C_\nu<0\).
+For each fixed \(\nu\ge28\), analyticity therefore makes the difference
+strictly negative at every sufficiently small nonzero real \(x\).
+We can choose \(\varepsilon_\nu<j_{\nu,1}\), proving the first assertion.
+This is an analytic sign argument, not an inference from a finite
+set of Taylor coefficients or numerical samples.
+
+\subsection*{An exact counterexample at \((30,1)\)}
+Set \(q=j_{30,1}^2\), \(U=6834/5\), and \(A=3968=4\cdot31\cdot32\).
+Lemma \ref{zero} gives \(q\le U\). Also \(j_{30,1}>1\):
+for \(0\le x\le1\), the alternating defining series has decreasing
+term magnitudes and
+\(\J_{30}(x)\ge1-x^2/124>0\).
+The claimed inequality is therefore defined at \(x=1\).
+
+Let
+\[
+ S_{\nu,m}=\sum_{k=0}^m\frac{(-1)^k}{4^k k!(\nu+1)_k}.
+\]
+The alternating-series remainder bound implies
+\[
+ 0<S_{30,5}\le\J_{30}(1),\qquad
+ \J_{31}(1)\le S_{31,4}.
+\]
+The exact partial sums are
+\[
+ S_{30,5}=\frac{4748440055099}{4786893619200},
+ \qquad S_{31,4}=\frac{7660705361}{7720796160}.
+\]
+Consequently, with \(d=252139378/10^{12}>0\),
+\[
+ R_{30}(1)\le
+ \frac{4749637323820}{4748440055099}<1+d.
+\]
+One exact check of the strict inequality is
+\[
+ d-\left(\frac{4749637323820}{4748440055099}-1\right)
+ =\frac{481473794211}{2374220027549500000000000}>0.
+\]
+For \(d\ge0\), integration of
+\((1+t)^{-1}\le1-t+t^2\) gives
+\(\log(1+d)\le d-d^2/2+d^3/3\). On the other hand, since
+\(1<q\le U\),
+\[
+ \frac qA\log\frac q{q-1}
+ =\frac1A\sum_{m=1}^\infty\frac{q^{1-m}}m
+ \ge\frac1A+\frac1{2AU}.
+\]
+The remaining rational comparison is
+\[
+ \frac1A+\frac1{2AU}
+       -\left(d-\frac{d^2}{2}+\frac{d^3}{3}\right)
+ =\frac{9597654965608638275835585186379}
+ {13240875000000000000000000000000000000000}
+ >\frac7{10^{10}}>0.
+\]
+It follows that
+\[
+ \log R_{30}(1)<\frac qA\log\frac q{q-1},
+\]
+which proves the explicit counterexample and completes the proof
+of Theorem \ref{main}. The accompanying verifier reproduces every
+rational comparison and the symbolic identities.
+
+\subsection*{Scope of the conclusion and the known upper bound}
+A single admissible counterexample disproves \eqref{conj} as a universal
+statement; the interval family supplies a second analytic proof.
+We do not assert failure at every order below 28.
+For context, the upper bound in \eqref{conj} is already credited
+to earlier work by \cite{BM}, page 8.
+Its short proof uses the classical Mittag--Leffler expansion
+and first Rayleigh sum recorded in that source:
+\[
+ R_\nu(x)=\sum_{k\ge1}
+ \frac{w_k}{1-x^2/j_{\nu,k}^2},\qquad
+ w_k=\frac{4(\nu+1)}{j_{\nu,k}^2}>0,\qquad \sum_{k\ge1}w_k=1.
+\]
+Every denominator is at least \(1-x^2/j_{\nu,1}^2\) for real
+\(|x|<j_{\nu,1}\), proving the upper inequality. Its exponent 1
+is necessary because the first summand has a simple pole at
+\(x=j_{\nu,1}\). This known upper bound earns no separate credit.
+
+\section*{Task 2: determine the exact range of valid orders}
+Find the set of \(\nu>-1\) for which the proposed lower bound
+holds throughout \((-j_{\nu,1},j_{\nu,1})\).
+The inequality \(j_{\nu,1}^2\ge T_\nu\) is a necessary local condition.
+Determine whether it is sufficient and, if not, identify the
+additional obstruction. The proved \(\nu=-1/2\) case in \cite{BM}
+provides a starting point.
+
+\section*{Task 3: determine the true optimal lower exponent}
+Study
+\[
+ a_\nu=\inf_{0<x<j_{\nu,1}}
+ \frac{\log R_\nu(x)}
+      {\log(j_{\nu,1}^2/(j_{\nu,1}^2-x^2))}.
+\]
+Determine the minimizer and a useful formula or certified bounds.
+For \(\nu\ge28\), the proof shows that \(a_\nu\) is strictly less
+than the proposed value \(j_{\nu,1}^2/[4(\nu+1)(\nu+2)]\).
+Resolve its behavior as \(\nu\) tends to infinity.
+
+\section*{Task 4: classify the Rayleigh-coefficient monotonicity}
+The source proposes monotonicity in \(m\) of
+\[
+ \omega_{m,\nu}=j_{\nu,1}^{2m}
+   \left(\sum_{k\ge1}j_{\nu,k}^{-2m}
+               -\sum_{k\ge1}j_{\nu+1,k}^{-2m}\right).
+\]
+The inequality \(\omega_{2,\nu}\ge\omega_{1,\nu}\) is exactly the
+necessary condition \(j_{\nu,1}^2\ge T_\nu\).
+Classify the orders and indices where monotonicity changes, and
+determine whether the sequence has at most one change of direction.
+
+\section*{Task 5: optimize elementary variational certificates}
+Replace \(r^\nu(1-r)^3\) by \(r^\nu(1-r)^p\) with \(p>1/2\).
+The same computation gives
+\[
+ j_{\nu,1}^2\le
+ \frac{p(2\nu+2p+1)(2\nu+2p+2)}{2(2p-1)}.
+\]
+Optimize this bound, or extend the trial space by a polynomial
+factor, to obtain the smallest provable threshold for counterexamples
+using elementary exact inequalities.
+
+\begin{thebibliography}{9}
+\bibitem{BM}
+\'A.~Baricz and K.~Mehrez,
+\emph{Redheffer type bounds for Bessel and modified Bessel functions
+of the first kind}, arXiv:1701.08446v1 (2017), 9 pp.,
+\url{https://arxiv.org/abs/1701.08446}.
+Complete preprint inspected; Conjecture 1 is on p.~8.
+Published in \emph{Aequationes Mathematicae} 92 (2018), 425--439,
+\url{https://doi.org/10.1007/s00010-018-0545-8}.
+The complete journal text has not been inspected.
+\end{thebibliography}
+\end{document}

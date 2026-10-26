@@ -1,0 +1,14 @@
+# Proof audit
+
+1. **Explicit valid conics.** Both axes are positive. After undoing the x-axis stretch, every point of the caustic has squared radius at most 1521/1600. Strict nesting is proved analytically.
+2. **Full triangle family.** The cubic is B(z)=λ for the displayed degree-three finite Blaschke product. Its argument derivative is strictly positive and its winding number is three. Thus every unit λ gives three distinct unit roots. Their stretched images give nondegenerate triangles on the outer ellipse. Every outer point occurs.
+3. **Tangency.** Eliminating the third root from the two Vieta identities yields a quadratic relation in the first pair's sum and product. Its exact scalar multiple is the support-line tangency equation for the inverse-image caustic. Affine stretching preserves tangency.
+4. **Interior caustic.** At λ=1 the triangle is explicit and its interior contains the caustic center. Along the connected parameter circle, its three distinct vertices remain cyclically ordered, and no supporting tangent can cross the caustic center. The caustic is therefore inside every triangle, not an excircle-like external conic.
+5. **Stationary orthocenter.** An exact complex expansion of twice each altitude dot product factors through the elementary symmetric functions. All coefficients cancel for h=31/16. Cyclic symmetry proves all three altitudes pass through H.
+6. **All three proposed configurations excluded.** The outer conic is not a circle, excluding MacBeath. The inner conic is not a circle, excluding focal-X4; also H is not an outer focus. The centers differ, excluding Dual. These are differences in the actual Euclidean conic configuration, preserved by similarities.
+7. **Intended scope.** H lies strictly inside the caustic: the defining ellipse expression is 961/1024. All family triangles are acute. The example does not rely on degeneracy, a missing intended hypothesis, or a database transcription error; the later source's Conjecture 1 explicitly concerns general Poncelet triangle pairs.
+8. **Prior contribution.** Theorem 3 of arXiv:2508.02368 already gives the general semiaxis factor |fg(a²+b²)−(a²−b²)|. The explicit example is consistent with its vanishing. No new general criterion is claimed. Source and priority eligibility remain pending because the original paper's identified final version is unread.
+
+The verifier passed three exact groups and 48 independent numerical configurations at 90 decimal digits, with largest residual below 2.7×10^−90. It verifies outer incidence, caustic support equations and interior side, and Euclidean altitude dot products. The tests supplement the analytic proof.
+
+All PDF pages were visually inspected, and compilation has no layout or reference warnings. Review is by the authoring agent only; no independent peer review or proof assistant is claimed.

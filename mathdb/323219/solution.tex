@@ -1,0 +1,161 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,hyperref}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newcommand{\Aut}{\operatorname{Aut}}
+\newcommand{\supp}{\operatorname{supp}}
+\title{Integrality of the alpha-triangle\\\large MathDB 323219}
+\author{Principia Math in Progress}
+\date{18 September 2026}
+\begin{document}
+\maketitle
+\noindent\textbf{Status.} Complete mathematical proof. The final published source has
+not been available for comparison; campaign eligibility remains pending, with zero
+new credit. Review was by the authoring agent only.
+
+\section*{Task 1: Full solution}
+Govindarajan's Conjecture 3.1 in \cite{G}, printed page 16, asserts the integrality
+of the coefficients defined by
+\[
+ a_{m+r+1,r}=\frac1{(2m)!!}\sum_{z=0}^{2m}\alpha_{m,z}r^{2m-z},
+ \qquad (2m)!!=2^m m!.
+\]
+Here a Ferrers diagram in $\mathbb Z_{\geq0}^r$ is a finite order ideal for the
+coordinatewise order. A strict diagram uses every coordinate. It therefore
+contains $\mu_r=\{0,e_1,\ldots,e_r\}$, and $a_{m+r+1,r}$ counts the diagrams
+obtained by adding $m$ nodes to $\mu_r$. These interpretations, and the orbit
+counting by reduced dimension used below, are prior results in \cite{G},
+Sections 2.2--2.5.
+
+\begin{theorem}\label{main}
+For every $m\geq0$, the polynomial $2^m m!\,a_{m+r+1,r}$ belongs to $\mathbb Z[r]$.
+Consequently every $\alpha_{m,z}$ is an integer. In fact this polynomial is a
+nonnegative integer linear combination of the falling factorials
+$(r)_k=r(r-1)\cdots(r-k+1)$.
+\end{theorem}
+
+For a set $S$ of added nodes, discard the coordinates that are zero on all of
+$S$. Its remaining number of coordinates is $k$, the reduced dimension.
+Thus $S\subset\mathbb Z_{\geq0}^k$ uses every coordinate, $|S|=m$, every
+node of $S$ has coordinate sum at least two, and $\mu_k\cup S$ is a Ferrers
+diagram. Let $\Aut(S)\leq\mathfrak S_k$ be its coordinate permutation group.
+
+\begin{lemma}\label{group}
+For every such reduced diagram, $|\Aut(S)|$ divides $2^m m!$.
+\end{lemma}
+\begin{proof}
+Let $T\subseteq S$ consist of the nodes with coordinate sum two. Construct a
+graph on the $k$ coordinates: $2e_i\in T$ is a loop at $i$, and
+$e_i+e_j\in T$ is the undirected edge $\{i,j\}$. Every vertex occurs in this
+graph. Indeed, if $v\in S$ uses coordinate $i$, then either $v_i\geq2$, so
+$2e_i\leq v$, or $v_i=1$ and some $v_j>0$, so $e_i+e_j\leq v$.
+The order-ideal condition supplies the stated quadratic node in each case.
+In particular $k\leq2|T|\leq2m$.
+
+The group $G=\Aut(S)$ acts on the $m$ added nodes. Write $K$ for the kernel
+and $H$ for the image of this action. Then $|G|=|K||H|$ and $|H|\mid m!$.
+Every member of $K$ fixes each quadratic node individually. It therefore fixes
+every loop vertex and preserves each edge as an unordered pair.
+
+A vertex on two distinct edges is fixed, as the unique intersection of their
+endpoint sets. Along an edge incident with a fixed vertex, the other endpoint
+is fixed as well. Hence all vertices of a connected component with a loop,
+or with at least three vertices, are fixed. The only components admitting
+any remaining motion are components consisting of a single edge and its two
+endpoints, with no loops. If there are $q$ such components, restriction to
+their endpoints embeds $K$ into $(\mathbb Z/2\mathbb Z)^q$. Notice that
+components cannot be permuted by $K$: every edge is fixed individually.
+Thus $|K|\mid2^q$; and $q\leq|T|\leq m$. Combining the two divisibilities gives
+\[
+ |G|=|K||H|\ \mid\ 2^q m!\ \mid\ 2^m m!,
+\]
+as required. Higher-degree nodes may further restrict $K$, which does not
+affect this argument.
+\end{proof}
+
+\begin{proof}[Proof of Theorem \ref{main}]
+For fixed $m$, let $\mathcal R_m$ contain one representative of each coordinate
+permutation orbit of reduced diagrams with $m$ added nodes. It is finite:
+$k\leq2m$, and a coordinate value $v_i$ in an added node is at most $m+1$,
+since all nodes $2e_i,\ldots,v_i e_i$ must be present.
+
+Fix $S\in\mathcal R_m$ with $k$ active coordinates and $r\geq k$. There are
+$\binom rk$ ways to choose its coordinates in $\{1,\ldots,r\}$ and
+$k!/|\Aut(S)|$ distinct coordinate labelings on a chosen set. The other
+coordinates contribute only their basis nodes in $\mu_r$. Every diagram
+counted by $a_{m+r+1,r}$ arises uniquely in this fashion. Therefore
+\begin{equation}\label{orbits}
+ a_{m+r+1,r}=\sum_{S\in\mathcal R_m}\frac{(r)_{k(S)}}{|\Aut(S)|}.
+\end{equation}
+This also holds for $0\leq r<k(S)$, since that summand vanishes. It is a
+polynomial identity: the right side is a fixed polynomial in $r$, and agrees
+with the defining count for every nonnegative integer $r$.
+Multiplication by $2^m m!$ and Lemma \ref{group} give
+\[
+ 2^m m!\,a_{m+r+1,r}
+ =\sum_{S\in\mathcal R_m}
+ \underbrace{\frac{2^m m!}{|\Aut(S)|}}_{\text{nonnegative integer}}(r)_{k(S)}
+ \ \in\mathbb Z[r].
+\]
+Its monomial coefficients are exactly the $\alpha_{m,z}$. For $m=0$, the
+empty reduced diagram has $k=0$, trivial automorphism group, and $(r)_0=1$;
+the polynomial is $1$, as required. The prescribed zero entries outside the
+triangle are integers as well.
+\end{proof}
+
+\paragraph{Sharpness and an example.}
+The only reduced diagram on $2m$ coordinates is a matching of $m$ disjoint
+quadratic edges. To see this, the covering bound $k\leq2|T|\leq2m$ must be
+an equality: every added node is quadratic, no loop occurs, and no endpoints
+are shared. Its automorphism group has order $2^m m!$. Hence the leading
+coefficient of $a_{m+r+1,r}$ is $1/(2^m m!)$, and the normalization is the
+smallest positive integer that can make the whole polynomial integral.
+For $m=1$, the loop and edge give
+\[
+ a_{r+2,r}=r+\frac{(r)_2}{2},\qquad
+ 2a_{r+2,r}=r^2+r.
+\]
+The same proof applies to any union of coordinate permutation orbits of
+reduced diagrams, chosen independently of the ambient dimension. In particular,
+it applies to the symmetric-box restrictions in Appendix A of \cite{G}.
+
+\paragraph{Exact verification.}
+The accompanying standard-library Python script independently enumerates all
+diagrams with $0\leq m\leq4$ in dimensions $1\leq r\leq8$. Their reduced
+counts match the source's Table 3. It checks the group, kernel, image, and
+orbit identities for all 87 reduced orbits in that range; compares 40
+polynomial evaluations with direct counts; and checks 75 additional exact
+falling-factorial divisibilities in the source rows $m=5,\ldots,9$.
+These finite checks supplement the proof; they are not used to infer the
+all-$m$ assertion.
+
+\section*{Task 2: The alpha--beta decomposition}
+Investigate whether decomposing reduced diagrams into connected components
+proves the finite binomial expansion of $\alpha_{m,z}$ proposed in
+Conjecture 3.2 of \cite{G}. The present integrality proof does not establish
+that expansion or its asserted vanishing conditions.
+
+\section*{Task 3: Denominators of restricted families}
+For families excluding isolated quadratic edges, determine the smallest
+normalizing integer. The proof isolates the possible kernel as a group of
+endpoint swaps, and may therefore permit sharper bounds than $2^m m!$.
+
+\section*{Task 4: Weighted refinements}
+For integer-valued, coordinate-invariant statistics on reduced diagrams,
+study the resulting multivariate integral polynomials and identify natural
+combinatorial meanings for their falling-factorial coefficients.
+
+\section*{Task 5: Computation by reduced orbits}
+Develop enumeration directly on reduced isomorphism types, keeping their
+automorphism orders. Formula \eqref{orbits} then recovers counts in every
+ambient dimension without enumerating all coordinate labelings.
+
+\begin{thebibliography}{9}
+\bibitem{G} S. Govindarajan, \emph{Notes on higher-dimensional partitions},
+\href{https://arxiv.org/abs/1203.4419}{arXiv:1203.4419v1} (2012), 36 pages.
+Published in \emph{J. Combin. Theory Ser. A} \textbf{120} (2013), 600--622,
+\href{https://doi.org/10.1016/j.jcta.2012.11.005}{doi:10.1016/j.jcta.2012.11.005}.
+The full preprint was read; the published version has not been read.
+\end{thebibliography}
+\end{document}

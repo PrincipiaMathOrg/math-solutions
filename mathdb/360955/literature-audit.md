@@ -1,0 +1,15 @@
+# Literature and eligibility audit
+
+Checked on 18 September 2026. **Final-source comparison remains pending; zero new campaign credit.**
+
+The primary preprint is Ibarra, Landry, Montoya-Vega and Przytycki, [Exploring unimodality of the plucking polynomial with delay function](https://arxiv.org/abs/2311.18059), arXiv:2311.18059v1, 29 November 2023. The current arXiv record lists only v1. All thirteen pages were read, and the page containing Conjecture 4.1 was additionally inspected visually. The conjecture is explicit on page 12; Proposition 2.5 gives the factorization and Proposition 2.6 supplies the initial coefficient comparison. Corollary 2.7 treats a symmetric subcase, and Proposition 2.8 treats two quantum-integer factors. All these prior inputs are credited.
+
+A final chapter exists in *Contemporary Mathematics* 834 (2026), pages 95–108, [DOI 10.1090/conm/834/16686](https://doi.org/10.1090/conm/834/16686). Its publication metadata was checked in the DOI registration and on the [author's publication page](https://dionneibarra.com/publications), whose live article-data endpoint is archived. The author's link points to that DOI. The publisher's book, chapter, and PDF endpoints returned HTTP 403, through both browser retrieval and direct HTTP where attempted. The ResearchGate listing offers a full-text request, not accessible chapter text. No author message or paid access was requested. The final chapter has not been read; we therefore cannot confirm whether it retains the conjecture or includes its resolution.
+
+The bounded title, source-ID, author, hedgehog, delay, convolution, and conjecture searches are recorded in `search-audit.json`. They identified the primary and final publication, older plucking-polynomial background, and the live MathDB entry, but no accessible later full claim for the target. The general moving-sum lemma is not presented as new. Absence of a search hit is not an exhaustive novelty guarantee, and does not clear the unavailable final source.
+
+The live MathDB page was read and showed zero solutions and no recorded progress. A fresh API response was open, with all eight engagement fields present and empty: solutions, model_attempts, human_solves, progress, comments, replies, attachments, and formulations. The visible-page snapshot, extracted text, initial and final API evidence, and raw final API response are included.
+
+PUDIM and CRAB claim catalogues had no matches for the MathDB ID, arXiv ID, Ibarra surname, plucking terminology, or hedgehog terminology. Raw catalogue snapshots and check records are included. The ID is absent from the prior-campaign baseline and no ID or source-ID duplicate was found in the tracked repository.
+
+The complete mathematical proof is published under the standing instruction to push completed solves. Eligibility must be reconsidered only after the complete final chapter has been read and any relevant new prior claims checked. This package presently contributes zero toward the target of 100 new full solutions.

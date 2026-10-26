@@ -1,0 +1,127 @@
+{
+  "mathematics_completed_at_utc": "2026-09-18T11:12:13.342082+00:00",
+  "audit_updated_at_utc": "2026-09-18T11:20:56.481997+00:00",
+  "campaign_eligibility": "pending-final-source-and-literature-check",
+  "new_problem_credit": 0,
+  "result": "D_5(-1)=2, whereas t_5(-1)=0; no monomial normalization can satisfy t_5 | g_5.",
+  "verification_summary": {
+    "passed": true,
+    "groups": 4,
+    "exact_groups": 4
+  },
+  "pdf_review": {
+    "pages": 2,
+    "visually_inspected": [
+      1,
+      2
+    ],
+    "layout_warnings": false
+  },
+  "reviewer": "Authoring agent only; no independent peer review or proof assistant.",
+  "files": [
+    {
+      "path": "arxiv-source-check.json",
+      "sha256": "4bbe88c531c03b94dc981150eef624504b28b1ae076d6e5b5e2cfc5ecd3054f0"
+    },
+    {
+      "path": "arxiv-source-snapshot.txt",
+      "sha256": "8e69724bd2655e60ab0fff21cd87e7e22f39189cdbad30ef61b5f30b8773563f"
+    },
+    {
+      "path": "attempt-record.json",
+      "sha256": "47723c89a9d23d64204c637069af9c19393b781f1b67adce41ae0dc8451e00c6"
+    },
+    {
+      "path": "crab-claim-check.json",
+      "sha256": "a69c7edffc82ada901f3a03783f7c421f429e61c483b8e04360ac0d1fa139d73"
+    },
+    {
+      "path": "crab-claim-index.txt",
+      "sha256": "4e6e9035598a253e2ec09df95e4a69b4c3f7253143bddf770458995709c485ef"
+    },
+    {
+      "path": "final-source-access-check.json",
+      "sha256": "988ca458cc311f11f9b2133e61838ca3850cf8cc4b5674fe25ca3fa38ca2977d"
+    },
+    {
+      "path": "literature-audit.md",
+      "sha256": "d9ceced533b526cef148fcd8f1e432b1f89d3727eca59c0f30d98b91397831ce"
+    },
+    {
+      "path": "mathdb-api-check.json",
+      "sha256": "000d93dbaed6372330f06f256de82e193a15d77dfcaa24769e22c7069da5c81c"
+    },
+    {
+      "path": "mathdb-api-snapshot.txt",
+      "sha256": "809a1bb8fb5243f12df73c4d4906cc5eb363f7502b38e9be646f0b88d981bc86"
+    },
+    {
+      "path": "mathdb-final-check.json",
+      "sha256": "909e2203cc540e48d5d0a3ba844d3bfbef21761103051f9e729bd74bf399ece4"
+    },
+    {
+      "path": "mathdb-initial-check.json",
+      "sha256": "7f400021bd28801a91a4e28bbc116b42ef79d154480b062bd37dba9329fb0975"
+    },
+    {
+      "path": "mathdb-page-check.json",
+      "sha256": "63bddfd53330711223ea152b1e7e3153272e75fffcd4c376a70cb43024550172"
+    },
+    {
+      "path": "mathdb-page-snapshot.txt",
+      "sha256": "37895b499dbb0cdc338f1fc93b619e2f6da9ed55586954739bab842a66e665ad"
+    },
+    {
+      "path": "openalex-metadata-snapshot.json",
+      "sha256": "c8dd9a744fec353b8cc5e3e20c5e830405f41039b0772c27b4f7fe0be07731ca"
+    },
+    {
+      "path": "proof-audit.md",
+      "sha256": "38fea2d85698127a523df332bec7403f6f59bf056059c80ccafbb57ff8fa4f60"
+    },
+    {
+      "path": "publisher-metadata-check.json",
+      "sha256": "c16ba14d68361b2d8d3e5d570fa324dbd0f9faa9f8fc916c5662d17f2f493ea9"
+    },
+    {
+      "path": "publisher-metadata-snapshot.txt",
+      "sha256": "643ba44bbdf9ef8935257a3aa7c48d22322099fe97ee1e85809ea24efaad0383"
+    },
+    {
+      "path": "pudim-claim-check.json",
+      "sha256": "7bdf4bb3875e7ece6898d934b8a5bf49aa6eb1dc21cc4d91387736141c707d11"
+    },
+    {
+      "path": "pudim-claim-index.txt",
+      "sha256": "69274cd3c904774b36b6b3bc3c4a5b4c089e9a23d6f87ba695963dd6f958b780"
+    },
+    {
+      "path": "README.md",
+      "sha256": "8aaec9fc2128b29f63c69fa75b887f2a1c78a1821c6d025f60a437446b917a1b"
+    },
+    {
+      "path": "search-audit.json",
+      "sha256": "882faf7506b85a11af941b127f95288362025a3e087002d2bbc8c100c91cebfd"
+    },
+    {
+      "path": "solution.pdf",
+      "sha256": "4c4706f85076c4718a0c487e3aa22f8fd647a4f5f8f56b9e4639de10234a07aa"
+    },
+    {
+      "path": "solution.tex",
+      "sha256": "c4b3d069bea32e1061374624fdb776db0f1446ebe7e9fe1edf89a31f24b2b9d5"
+    },
+    {
+      "path": "source-check.json",
+      "sha256": "eb658461cd77b5e582a35973fd3f26b0fa9e52c576fc7d012985aad19f703fbd"
+    },
+    {
+      "path": "verification-results.json",
+      "sha256": "9c4f13f92d58e3669e5847a22076f71608b07755270783e03fa37e67ec5ef9d4"
+    },
+    {
+      "path": "verify.py",
+      "sha256": "39cc101d33dd5e06e025804ea1cbbda54b48f366c571c909b035e0874d9c3176"
+    }
+  ]
+}

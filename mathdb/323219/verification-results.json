@@ -1,0 +1,2848 @@
+{
+  "passed": true,
+  "groups": 4,
+  "checked_at_utc": "2026-09-18T09:34:25.247575+00:00",
+  "method": "Python standard-library exact integer enumeration; no floating point.",
+  "labeled_enumeration": {
+    "maximum_added_nodes": 4,
+    "dimensions": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8
+    ],
+    "compared_source": "arXiv:1203.4419v1 Table 3"
+  },
+  "group_checks": {
+    "orbits": 87,
+    "records": [
+      {
+        "m": 1,
+        "k": 1,
+        "nodes": [
+          [
+            2
+          ]
+        ],
+        "automorphisms": 1,
+        "kernel": 1,
+        "image": 1,
+        "isolated_pairs": 0
+      },
+      {
+        "m": 1,
+        "k": 2,
+        "nodes": [
+          [
+            1,
+            1
+          ]
+        ],
+        "automorphisms": 2,
+        "kernel": 2,
+        "image": 1,
+        "isolated_pairs": 1
+      },
+      {
+        "m": 2,
+        "k": 1,
+        "nodes": [
+          [
+            2
+          ],
+          [
+            3
+          ]
+        ],
+        "automorphisms": 1,
+        "kernel": 1,
+        "image": 1,
+        "isolated_pairs": 0
+      },
+      {
+        "m": 2,
+        "k": 2,
+        "nodes": [
+          [
+            0,
+            2
+          ],
+          [
+            1,
+            1
+          ]
+        ],
+        "automorphisms": 1,
+        "kernel": 1,
+        "image": 1,
+        "isolated_pairs": 0
+      },
+      {
+        "m": 2,
+        "k": 2,
+        "nodes": [
+          [
+            0,
+            2
+          ],
+          [
+            2,
+            0
+          ]
+        ],
+        "automorphisms": 2,
+        "kernel": 1,
+        "image": 2,
+        "isolated_pairs": 0
+      },
+      {
+        "m": 2,
+        "k": 3,
+        "nodes": [
+          [
+            0,
+            0,
+            2
+          ],
+          [
+            1,
+            1,
+            0
+          ]
+        ],
+        "automorphisms": 2,
+        "kernel": 2,
+        "image": 1,
+        "isolated_pairs": 1
+      },
+      {
+        "m": 2,
+        "k": 3,
+        "nodes": [
+          [
+            0,
+            1,
+            1
+          ],
+          [
+            1,
+            0,
+            1
+          ]
+        ],
+        "automorphisms": 2,
+        "kernel": 1,
+        "image": 2,
+        "isolated_pairs": 0
+      },
+      {
+        "m": 2,
+        "k": 4,
+        "nodes": [
+          [
+            0,
+            0,
+            1,
+            1
+          ],
+          [
+            1,
+            1,
+            0,
+            0
+          ]
+        ],
+        "automorphisms": 8,
+        "kernel": 4,
+        "image": 2,
+        "isolated_pairs": 2
+      },
+      {
+        "m": 3,
+        "k": 1,
+        "nodes": [
+          [
+            2
+          ],
+          [
+            3
+          ],
+          [
+            4
+          ]
+        ],
+        "automorphisms": 1,
+        "kernel": 1,
+        "image": 1,
+        "isolated_pairs": 0
+      },
+      {
+        "m": 3,
+        "k": 2,
+        "nodes": [
+          [
+            0,
+            2
+          ],
+          [
+            0,
+            3
+          ],
+          [
+            1,
+            1
+          ]
+        ],
+        "automorphisms": 1,
+        "kernel": 1,
+        "image": 1,
+        "isolated_pairs": 0
+      },
+      {
+        "m": 3,
+        "k": 2,
+        "nodes": [
+          [
+            0,
+            2
+          ],
+          [
+            0,
+            3
+          ],
+          [
+            2,
+            0
+          ]
+        ],
+        "automorphisms": 1,
+        "kernel": 1,
+        "image": 1,
+        "isolated_pairs": 0
+      },
+      {
+        "m": 3,
+        "k": 2,
+        "nodes": [
+          [
+            0,
+            2
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            2
+          ]
+        ],
+        "automorphisms": 1,
+        "kernel": 1,
+        "image": 1,
+        "isolated_pairs": 0
+      },
+      {
+        "m": 3,
+        "k": 2,
+        "nodes": [
+          [
+            0,
+            2
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            0
+          ]
+        ],
+        "automorphisms": 2,
+        "kernel": 1,
+        "image": 2,
+        "isolated_pairs": 0
+      },
+      {
+        "m": 3,
+        "k": 3,
+        "nodes": [
+          [
+            0,
+            0,
+            2
+          ],
+          [
+            0,
+            0,
+            3
+          ],
+          [
+            1,
+            1,
+            0
+          ]
+        ],
+        "automorphisms": 2,
+        "kernel": 2,
+        "image": 1,
+        "isolated_pairs": 1
+      },
+      {
+        "m": 3,
+        "k": 3,
+        "nodes": [
+          [
+            0,
+            0,
+            2
+          ],
+          [
+            0,
+            1,
+            1
+          ],
+          [
+            1,
+            0,
+            1
+          ]
+        ],
+        "automorphisms": 2,
+        "kernel": 1,
+        "image": 2,
+        "isolated_pairs": 0
+      },
+      {
+        "m": 3,
+        "k": 3,
+        "nodes": [
+          [
+            0,
+            0,
+            2
+          ],
+          [
+            0,
+            1,
+            1
+          ],
+          [
+            1,
+            1,
+            0
+          ]
+        ],
+        "automorphisms": 1,
+        "kernel": 1,
+        "image": 1,
+        "isolated_pairs": 0
+      },
+      {
+        "m": 3,
+        "k": 3,
+        "nodes": [
+          [
+            0,
+            0,
+            2
+          ],
+          [
+            0,
+            1,
+            1
+          ],
+          [
+            2,
+            0,
+            0
+          ]
+        ],
+        "automorphisms": 1,
+        "kernel": 1,
+        "image": 1,
+        "isolated_pairs": 0
+      },
+      {
+        "m": 3,
+        "k": 3,
+        "nodes": [
+          [
+            0,
+            0,
+            2
+          ],
+          [
+            0,
+            2,
+            0
+          ],
+          [
+            2,
+            0,
+            0
+          ]
+        ],
+        "automorphisms": 6,
+        "kernel": 1,
+        "image": 6,
+        "isolated_pairs": 0
+      },
+      {
+        "m": 3,
+        "k": 3,
+        "nodes": [
+          [
+            0,
+            1,
+            1
+          ],
+          [
+            1,
+            0,
+            1
+          ],
+          [
+            1,
+            1,
+            0
+          ]
+        ],
+        "automorphisms": 6,
+        "kernel": 1,
+        "image": 6,
+        "isolated_pairs": 0
+      },
+      {
+        "m": 3,
+        "k": 4,
+        "nodes": [
+          [
+            0,
+            0,
+            0,
+            2
+          ],
+          [
+            0,
+            0,
+            1,
+            1
+          ],
+          [
+            1,
+            1,
+            0,
+            0
+          ]
+        ],
+        "automorphisms": 2,
+        "kernel": 2,
+        "image": 1,
+        "isolated_pairs": 1
+      },
+      {
+        "m": 3,
+        "k": 4,
+        "nodes": [
+          [
+            0,
+            0,
+            0,
+            2
+          ],
+          [
+            0,
+            0,
+            2,
+            0
+          ],
+          [
+            1,
+            1,
+            0,
+            0
+          ]
+        ],
+        "automorphisms": 4,
+        "kernel": 2,
+        "image": 2,
+        "isolated_pairs": 1
+      },
+      {
+        "m": 3,
+        "k": 4,
+        "nodes": [
+          [
+            0,
+            0,
+            0,
+            2
+          ],
+          [
+            0,
+            1,
+            1,
+            0
+          ],
+          [
+            1,
+            0,
+            1,
+            0
+          ]
+        ],
+        "automorphisms": 2,
+        "kernel": 1,
+        "image": 2,
+        "isolated_pairs": 0
+      },
+      {
+        "m": 3,
+        "k": 4,
+        "nodes": [
+          [
+            0,
+            0,
+            1,
+            1
+          ],
+          [
+            0,
+            1,
+            0,
+            1
+          ],
+          [
+            1,
+            0,
+            0,
+            1
+          ]
+        ],
+        "automorphisms": 6,
+        "kernel": 1,
+        "image": 6,
+        "isolated_pairs": 0
+      },
+      {
+        "m": 3,
+        "k": 4,
+        "nodes": [
+          [
+            0,
+            0,
+            1,
+            1
+          ],
+          [
+            0,
+            1,
+            0,
+            1
+          ],
+          [
+            1,
+            0,
+            1,
+            0
+          ]
+        ],
+        "automorphisms": 2,
+        "kernel": 1,
+        "image": 2,
+        "isolated_pairs": 0
+      },
+      {
+        "m": 3,
+        "k": 5,
+        "nodes": [
+          [
+            0,
+            0,
+            0,
+            0,
+            2
+          ],
+          [
+            0,
+            0,
+            1,
+            1,
+            0
+          ],
+          [
+            1,
+            1,
+            0,
+            0,
+            0
+          ]
+        ],
+        "automorphisms": 8,
+        "kernel": 4,
+        "image": 2,
+        "isolated_pairs": 2
+      },
+      {
+        "m": 3,
+        "k": 5,
+        "nodes": [
+          [
+            0,
+            0,
+            0,
+            1,
+            1
+          ],
+          [
+            0,
+            0,
+            1,
+            0,
+            1
+          ],
+          [
+            1,
+            1,
+            0,
+            0,
+            0
+          ]
+        ],
+        "automorphisms": 4,
+        "kernel": 2,
+        "image": 2,
+        "isolated_pairs": 1
+      },
+      {
+        "m": 3,
+        "k": 6,
+        "nodes": [
+          [
+            0,
+            0,
+            0,
+            0,
+            1,
+            1
+          ],
+          [
+            0,
+            0,
+            1,
+            1,
+            0,
+            0
+          ],
+          [
+            1,
+            1,
+            0,
+            0,
+            0,
+            0
+          ]
+        ],
+        "automorphisms": 48,
+        "kernel": 8,
+        "image": 6,
+        "isolated_pairs": 3
+      },
+      {
+        "m": 4,
+        "k": 1,
+        "nodes": [
+          [
+            2
+          ],
+          [
+            3
+          ],
+          [
+            4
+          ],
+          [
+            5
+          ]
+        ],
+        "automorphisms": 1,
+        "kernel": 1,
+        "image": 1,
+        "isolated_pairs": 0
+      },
+      {
+        "m": 4,
+        "k": 2,
+        "nodes": [
+          [
+            0,
+            2
+          ],
+          [
+            0,
+            3
+          ],
+          [
+            0,
+            4
+          ],
+          [
+            1,
+            1
+          ]
+        ],
+        "automorphisms": 1,
+        "kernel": 1,
+        "image": 1,
+        "isolated_pairs": 0
+      },
+      {
+        "m": 4,
+        "k": 2,
+        "nodes": [
+          [
+            0,
+            2
+          ],
+          [
+            0,
+            3
+          ],
+          [
+            0,
+            4
+          ],
+          [
+            2,
+            0
+          ]
+        ],
+        "automorphisms": 1,
+        "kernel": 1,
+        "image": 1,
+        "isolated_pairs": 0
+      },
+      {
+        "m": 4,
+        "k": 2,
+        "nodes": [
+          [
+            0,
+            2
+          ],
+          [
+            0,
+            3
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            2
+          ]
+        ],
+        "automorphisms": 1,
+        "kernel": 1,
+        "image": 1,
+        "isolated_pairs": 0
+      },
+      {
+        "m": 4,
+        "k": 2,
+        "nodes": [
+          [
+            0,
+            2
+          ],
+          [
+            0,
+            3
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            0
+          ]
+        ],
+        "automorphisms": 1,
+        "kernel": 1,
+        "image": 1,
+        "isolated_pairs": 0
+      },
+      {
+        "m": 4,
+        "k": 2,
+        "nodes": [
+          [
+            0,
+            2
+          ],
+          [
+            0,
+            3
+          ],
+          [
+            2,
+            0
+          ],
+          [
+            3,
+            0
+          ]
+        ],
+        "automorphisms": 2,
+        "kernel": 1,
+        "image": 2,
+        "isolated_pairs": 0
+      },
+      {
+        "m": 4,
+        "k": 2,
+        "nodes": [
+          [
+            0,
+            2
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            2,
+            0
+          ]
+        ],
+        "automorphisms": 1,
+        "kernel": 1,
+        "image": 1,
+        "isolated_pairs": 0
+      },
+      {
+        "m": 4,
+        "k": 3,
+        "nodes": [
+          [
+            0,
+            0,
+            2
+          ],
+          [
+            0,
+            0,
+            3
+          ],
+          [
+            0,
+            0,
+            4
+          ],
+          [
+            1,
+            1,
+            0
+          ]
+        ],
+        "automorphisms": 2,
+        "kernel": 2,
+        "image": 1,
+        "isolated_pairs": 1
+      },
+      {
+        "m": 4,
+        "k": 3,
+        "nodes": [
+          [
+            0,
+            0,
+            2
+          ],
+          [
+            0,
+            0,
+            3
+          ],
+          [
+            0,
+            1,
+            1
+          ],
+          [
+            1,
+            0,
+            1
+          ]
+        ],
+        "automorphisms": 2,
+        "kernel": 1,
+        "image": 2,
+        "isolated_pairs": 0
+      },
+      {
+        "m": 4,
+        "k": 3,
+        "nodes": [
+          [
+            0,
+            0,
+            2
+          ],
+          [
+            0,
+            0,
+            3
+          ],
+          [
+            0,
+            1,
+            1
+          ],
+          [
+            1,
+            1,
+            0
+          ]
+        ],
+        "automorphisms": 1,
+        "kernel": 1,
+        "image": 1,
+        "isolated_pairs": 0
+      },
+      {
+        "m": 4,
+        "k": 3,
+        "nodes": [
+          [
+            0,
+            0,
+            2
+          ],
+          [
+            0,
+            0,
+            3
+          ],
+          [
+            0,
+            1,
+            1
+          ],
+          [
+            2,
+            0,
+            0
+          ]
+        ],
+        "automorphisms": 1,
+        "kernel": 1,
+        "image": 1,
+        "isolated_pairs": 0
+      },
+      {
+        "m": 4,
+        "k": 3,
+        "nodes": [
+          [
+            0,
+            0,
+            2
+          ],
+          [
+            0,
+            0,
+            3
+          ],
+          [
+            0,
+            2,
+            0
+          ],
+          [
+            1,
+            1,
+            0
+          ]
+        ],
+        "automorphisms": 1,
+        "kernel": 1,
+        "image": 1,
+        "isolated_pairs": 0
+      },
+      {
+        "m": 4,
+        "k": 3,
+        "nodes": [
+          [
+            0,
+            0,
+            2
+          ],
+          [
+            0,
+            0,
+            3
+          ],
+          [
+            0,
+            2,
+            0
+          ],
+          [
+            2,
+            0,
+            0
+          ]
+        ],
+        "automorphisms": 2,
+        "kernel": 1,
+        "image": 2,
+        "isolated_pairs": 0
+      },
+      {
+        "m": 4,
+        "k": 3,
+        "nodes": [
+          [
+            0,
+            0,
+            2
+          ],
+          [
+            0,
+            1,
+            1
+          ],
+          [
+            0,
+            1,
+            2
+          ],
+          [
+            1,
+            0,
+            1
+          ]
+        ],
+        "automorphisms": 1,
+        "kernel": 1,
+        "image": 1,
+        "isolated_pairs": 0
+      },
+      {
+        "m": 4,
+        "k": 3,
+        "nodes": [
+          [
+            0,
+            0,
+            2
+          ],
+          [
+            0,
+            1,
+            1
+          ],
+          [
+            0,
+            1,
+            2
+          ],
+          [
+            1,
+            1,
+            0
+          ]
+        ],
+        "automorphisms": 1,
+        "kernel": 1,
+        "image": 1,
+        "isolated_pairs": 0
+      },
+      {
+        "m": 4,
+        "k": 3,
+        "nodes": [
+          [
+            0,
+            0,
+            2
+          ],
+          [
+            0,
+            1,
+            1
+          ],
+          [
+            0,
+            1,
+            2
+          ],
+          [
+            2,
+            0,
+            0
+          ]
+        ],
+        "automorphisms": 1,
+        "kernel": 1,
+        "image": 1,
+        "isolated_pairs": 0
+      },
+      {
+        "m": 4,
+        "k": 3,
+        "nodes": [
+          [
+            0,
+            0,
+            2
+          ],
+          [
+            0,
+            1,
+            1
+          ],
+          [
+            0,
+            2,
+            0
+          ],
+          [
+            1,
+            0,
+            1
+          ]
+        ],
+        "automorphisms": 1,
+        "kernel": 1,
+        "image": 1,
+        "isolated_pairs": 0
+      },
+      {
+        "m": 4,
+        "k": 3,
+        "nodes": [
+          [
+            0,
+            0,
+            2
+          ],
+          [
+            0,
+            1,
+            1
+          ],
+          [
+            0,
+            2,
+            0
+          ],
+          [
+            2,
+            0,
+            0
+          ]
+        ],
+        "automorphisms": 2,
+        "kernel": 1,
+        "image": 2,
+        "isolated_pairs": 0
+      },
+      {
+        "m": 4,
+        "k": 3,
+        "nodes": [
+          [
+            0,
+            0,
+            2
+          ],
+          [
+            0,
+            1,
+            1
+          ],
+          [
+            1,
+            0,
+            1
+          ],
+          [
+            1,
+            1,
+            0
+          ]
+        ],
+        "automorphisms": 2,
+        "kernel": 1,
+        "image": 2,
+        "isolated_pairs": 0
+      },
+      {
+        "m": 4,
+        "k": 3,
+        "nodes": [
+          [
+            0,
+            0,
+            2
+          ],
+          [
+            0,
+            1,
+            1
+          ],
+          [
+            1,
+            1,
+            0
+          ],
+          [
+            2,
+            0,
+            0
+          ]
+        ],
+        "automorphisms": 2,
+        "kernel": 1,
+        "image": 2,
+        "isolated_pairs": 0
+      },
+      {
+        "m": 4,
+        "k": 3,
+        "nodes": [
+          [
+            0,
+            1,
+            1
+          ],
+          [
+            1,
+            0,
+            1
+          ],
+          [
+            1,
+            1,
+            0
+          ],
+          [
+            1,
+            1,
+            1
+          ]
+        ],
+        "automorphisms": 6,
+        "kernel": 1,
+        "image": 6,
+        "isolated_pairs": 0
+      },
+      {
+        "m": 4,
+        "k": 4,
+        "nodes": [
+          [
+            0,
+            0,
+            0,
+            2
+          ],
+          [
+            0,
+            0,
+            0,
+            3
+          ],
+          [
+            0,
+            0,
+            1,
+            1
+          ],
+          [
+            1,
+            1,
+            0,
+            0
+          ]
+        ],
+        "automorphisms": 2,
+        "kernel": 2,
+        "image": 1,
+        "isolated_pairs": 1
+      },
+      {
+        "m": 4,
+        "k": 4,
+        "nodes": [
+          [
+            0,
+            0,
+            0,
+            2
+          ],
+          [
+            0,
+            0,
+            0,
+            3
+          ],
+          [
+            0,
+            0,
+            2,
+            0
+          ],
+          [
+            1,
+            1,
+            0,
+            0
+          ]
+        ],
+        "automorphisms": 2,
+        "kernel": 2,
+        "image": 1,
+        "isolated_pairs": 1
+      },
+      {
+        "m": 4,
+        "k": 4,
+        "nodes": [
+          [
+            0,
+            0,
+            0,
+            2
+          ],
+          [
+            0,
+            0,
+            0,
+            3
+          ],
+          [
+            0,
+            1,
+            1,
+            0
+          ],
+          [
+            1,
+            0,
+            1,
+            0
+          ]
+        ],
+        "automorphisms": 2,
+        "kernel": 1,
+        "image": 2,
+        "isolated_pairs": 0
+      },
+      {
+        "m": 4,
+        "k": 4,
+        "nodes": [
+          [
+            0,
+            0,
+            0,
+            2
+          ],
+          [
+            0,
+            0,
+            1,
+            1
+          ],
+          [
+            0,
+            0,
+            1,
+            2
+          ],
+          [
+            1,
+            1,
+            0,
+            0
+          ]
+        ],
+        "automorphisms": 2,
+        "kernel": 2,
+        "image": 1,
+        "isolated_pairs": 1
+      },
+      {
+        "m": 4,
+        "k": 4,
+        "nodes": [
+          [
+            0,
+            0,
+            0,
+            2
+          ],
+          [
+            0,
+            0,
+            1,
+            1
+          ],
+          [
+            0,
+            0,
+            2,
+            0
+          ],
+          [
+            1,
+            1,
+            0,
+            0
+          ]
+        ],
+        "automorphisms": 4,
+        "kernel": 2,
+        "image": 2,
+        "isolated_pairs": 1
+      },
+      {
+        "m": 4,
+        "k": 4,
+        "nodes": [
+          [
+            0,
+            0,
+            0,
+            2
+          ],
+          [
+            0,
+            0,
+            1,
+            1
+          ],
+          [
+            0,
+            1,
+            0,
+            1
+          ],
+          [
+            1,
+            0,
+            0,
+            1
+          ]
+        ],
+        "automorphisms": 6,
+        "kernel": 1,
+        "image": 6,
+        "isolated_pairs": 0
+      },
+      {
+        "m": 4,
+        "k": 4,
+        "nodes": [
+          [
+            0,
+            0,
+            0,
+            2
+          ],
+          [
+            0,
+            0,
+            1,
+            1
+          ],
+          [
+            0,
+            1,
+            0,
+            1
+          ],
+          [
+            1,
+            0,
+            1,
+            0
+          ]
+        ],
+        "automorphisms": 1,
+        "kernel": 1,
+        "image": 1,
+        "isolated_pairs": 0
+      },
+      {
+        "m": 4,
+        "k": 4,
+        "nodes": [
+          [
+            0,
+            0,
+            0,
+            2
+          ],
+          [
+            0,
+            0,
+            1,
+            1
+          ],
+          [
+            0,
+            1,
+            0,
+            1
+          ],
+          [
+            2,
+            0,
+            0,
+            0
+          ]
+        ],
+        "automorphisms": 2,
+        "kernel": 1,
+        "image": 2,
+        "isolated_pairs": 0
+      },
+      {
+        "m": 4,
+        "k": 4,
+        "nodes": [
+          [
+            0,
+            0,
+            0,
+            2
+          ],
+          [
+            0,
+            0,
+            1,
+            1
+          ],
+          [
+            0,
+            1,
+            1,
+            0
+          ],
+          [
+            1,
+            0,
+            1,
+            0
+          ]
+        ],
+        "automorphisms": 2,
+        "kernel": 1,
+        "image": 2,
+        "isolated_pairs": 0
+      },
+      {
+        "m": 4,
+        "k": 4,
+        "nodes": [
+          [
+            0,
+            0,
+            0,
+            2
+          ],
+          [
+            0,
+            0,
+            1,
+            1
+          ],
+          [
+            0,
+            1,
+            1,
+            0
+          ],
+          [
+            1,
+            1,
+            0,
+            0
+          ]
+        ],
+        "automorphisms": 1,
+        "kernel": 1,
+        "image": 1,
+        "isolated_pairs": 0
+      },
+      {
+        "m": 4,
+        "k": 4,
+        "nodes": [
+          [
+            0,
+            0,
+            0,
+            2
+          ],
+          [
+            0,
+            0,
+            1,
+            1
+          ],
+          [
+            0,
+            1,
+            1,
+            0
+          ],
+          [
+            2,
+            0,
+            0,
+            0
+          ]
+        ],
+        "automorphisms": 1,
+        "kernel": 1,
+        "image": 1,
+        "isolated_pairs": 0
+      },
+      {
+        "m": 4,
+        "k": 4,
+        "nodes": [
+          [
+            0,
+            0,
+            0,
+            2
+          ],
+          [
+            0,
+            0,
+            1,
+            1
+          ],
+          [
+            0,
+            2,
+            0,
+            0
+          ],
+          [
+            1,
+            1,
+            0,
+            0
+          ]
+        ],
+        "automorphisms": 2,
+        "kernel": 1,
+        "image": 2,
+        "isolated_pairs": 0
+      },
+      {
+        "m": 4,
+        "k": 4,
+        "nodes": [
+          [
+            0,
+            0,
+            0,
+            2
+          ],
+          [
+            0,
+            0,
+            1,
+            1
+          ],
+          [
+            0,
+            2,
+            0,
+            0
+          ],
+          [
+            2,
+            0,
+            0,
+            0
+          ]
+        ],
+        "automorphisms": 2,
+        "kernel": 1,
+        "image": 2,
+        "isolated_pairs": 0
+      },
+      {
+        "m": 4,
+        "k": 4,
+        "nodes": [
+          [
+            0,
+            0,
+            0,
+            2
+          ],
+          [
+            0,
+            0,
+            2,
+            0
+          ],
+          [
+            0,
+            2,
+            0,
+            0
+          ],
+          [
+            2,
+            0,
+            0,
+            0
+          ]
+        ],
+        "automorphisms": 24,
+        "kernel": 1,
+        "image": 24,
+        "isolated_pairs": 0
+      },
+      {
+        "m": 4,
+        "k": 4,
+        "nodes": [
+          [
+            0,
+            0,
+            0,
+            2
+          ],
+          [
+            0,
+            1,
+            1,
+            0
+          ],
+          [
+            1,
+            0,
+            1,
+            0
+          ],
+          [
+            1,
+            1,
+            0,
+            0
+          ]
+        ],
+        "automorphisms": 6,
+        "kernel": 1,
+        "image": 6,
+        "isolated_pairs": 0
+      },
+      {
+        "m": 4,
+        "k": 4,
+        "nodes": [
+          [
+            0,
+            0,
+            1,
+            1
+          ],
+          [
+            0,
+            1,
+            0,
+            1
+          ],
+          [
+            0,
+            1,
+            1,
+            0
+          ],
+          [
+            1,
+            0,
+            0,
+            1
+          ]
+        ],
+        "automorphisms": 2,
+        "kernel": 1,
+        "image": 2,
+        "isolated_pairs": 0
+      },
+      {
+        "m": 4,
+        "k": 4,
+        "nodes": [
+          [
+            0,
+            0,
+            1,
+            1
+          ],
+          [
+            0,
+            1,
+            0,
+            1
+          ],
+          [
+            1,
+            0,
+            1,
+            0
+          ],
+          [
+            1,
+            1,
+            0,
+            0
+          ]
+        ],
+        "automorphisms": 8,
+        "kernel": 1,
+        "image": 8,
+        "isolated_pairs": 0
+      },
+      {
+        "m": 4,
+        "k": 5,
+        "nodes": [
+          [
+            0,
+            0,
+            0,
+            0,
+            2
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            3
+          ],
+          [
+            0,
+            0,
+            1,
+            1,
+            0
+          ],
+          [
+            1,
+            1,
+            0,
+            0,
+            0
+          ]
+        ],
+        "automorphisms": 8,
+        "kernel": 4,
+        "image": 2,
+        "isolated_pairs": 2
+      },
+      {
+        "m": 4,
+        "k": 5,
+        "nodes": [
+          [
+            0,
+            0,
+            0,
+            0,
+            2
+          ],
+          [
+            0,
+            0,
+            0,
+            1,
+            1
+          ],
+          [
+            0,
+            0,
+            1,
+            0,
+            1
+          ],
+          [
+            1,
+            1,
+            0,
+            0,
+            0
+          ]
+        ],
+        "automorphisms": 4,
+        "kernel": 2,
+        "image": 2,
+        "isolated_pairs": 1
+      },
+      {
+        "m": 4,
+        "k": 5,
+        "nodes": [
+          [
+            0,
+            0,
+            0,
+            0,
+            2
+          ],
+          [
+            0,
+            0,
+            0,
+            1,
+            1
+          ],
+          [
+            0,
+            0,
+            1,
+            1,
+            0
+          ],
+          [
+            1,
+            1,
+            0,
+            0,
+            0
+          ]
+        ],
+        "automorphisms": 2,
+        "kernel": 2,
+        "image": 1,
+        "isolated_pairs": 1
+      },
+      {
+        "m": 4,
+        "k": 5,
+        "nodes": [
+          [
+            0,
+            0,
+            0,
+            0,
+            2
+          ],
+          [
+            0,
+            0,
+            0,
+            1,
+            1
+          ],
+          [
+            0,
+            0,
+            2,
+            0,
+            0
+          ],
+          [
+            1,
+            1,
+            0,
+            0,
+            0
+          ]
+        ],
+        "automorphisms": 2,
+        "kernel": 2,
+        "image": 1,
+        "isolated_pairs": 1
+      },
+      {
+        "m": 4,
+        "k": 5,
+        "nodes": [
+          [
+            0,
+            0,
+            0,
+            0,
+            2
+          ],
+          [
+            0,
+            0,
+            0,
+            1,
+            1
+          ],
+          [
+            0,
+            1,
+            1,
+            0,
+            0
+          ],
+          [
+            1,
+            0,
+            1,
+            0,
+            0
+          ]
+        ],
+        "automorphisms": 2,
+        "kernel": 1,
+        "image": 2,
+        "isolated_pairs": 0
+      },
+      {
+        "m": 4,
+        "k": 5,
+        "nodes": [
+          [
+            0,
+            0,
+            0,
+            0,
+            2
+          ],
+          [
+            0,
+            0,
+            0,
+            2,
+            0
+          ],
+          [
+            0,
+            0,
+            2,
+            0,
+            0
+          ],
+          [
+            1,
+            1,
+            0,
+            0,
+            0
+          ]
+        ],
+        "automorphisms": 12,
+        "kernel": 2,
+        "image": 6,
+        "isolated_pairs": 1
+      },
+      {
+        "m": 4,
+        "k": 5,
+        "nodes": [
+          [
+            0,
+            0,
+            0,
+            0,
+            2
+          ],
+          [
+            0,
+            0,
+            0,
+            2,
+            0
+          ],
+          [
+            0,
+            1,
+            1,
+            0,
+            0
+          ],
+          [
+            1,
+            0,
+            1,
+            0,
+            0
+          ]
+        ],
+        "automorphisms": 4,
+        "kernel": 1,
+        "image": 4,
+        "isolated_pairs": 0
+      },
+      {
+        "m": 4,
+        "k": 5,
+        "nodes": [
+          [
+            0,
+            0,
+            0,
+            0,
+            2
+          ],
+          [
+            0,
+            0,
+            1,
+            1,
+            0
+          ],
+          [
+            0,
+            1,
+            0,
+            1,
+            0
+          ],
+          [
+            1,
+            0,
+            0,
+            1,
+            0
+          ]
+        ],
+        "automorphisms": 6,
+        "kernel": 1,
+        "image": 6,
+        "isolated_pairs": 0
+      },
+      {
+        "m": 4,
+        "k": 5,
+        "nodes": [
+          [
+            0,
+            0,
+            0,
+            0,
+            2
+          ],
+          [
+            0,
+            0,
+            1,
+            1,
+            0
+          ],
+          [
+            0,
+            1,
+            0,
+            1,
+            0
+          ],
+          [
+            1,
+            0,
+            1,
+            0,
+            0
+          ]
+        ],
+        "automorphisms": 2,
+        "kernel": 1,
+        "image": 2,
+        "isolated_pairs": 0
+      },
+      {
+        "m": 4,
+        "k": 5,
+        "nodes": [
+          [
+            0,
+            0,
+            0,
+            1,
+            1
+          ],
+          [
+            0,
+            0,
+            1,
+            0,
+            1
+          ],
+          [
+            0,
+            0,
+            1,
+            1,
+            0
+          ],
+          [
+            1,
+            1,
+            0,
+            0,
+            0
+          ]
+        ],
+        "automorphisms": 12,
+        "kernel": 2,
+        "image": 6,
+        "isolated_pairs": 1
+      },
+      {
+        "m": 4,
+        "k": 5,
+        "nodes": [
+          [
+            0,
+            0,
+            0,
+            1,
+            1
+          ],
+          [
+            0,
+            0,
+            1,
+            0,
+            1
+          ],
+          [
+            0,
+            1,
+            0,
+            0,
+            1
+          ],
+          [
+            1,
+            0,
+            0,
+            0,
+            1
+          ]
+        ],
+        "automorphisms": 24,
+        "kernel": 1,
+        "image": 24,
+        "isolated_pairs": 0
+      },
+      {
+        "m": 4,
+        "k": 5,
+        "nodes": [
+          [
+            0,
+            0,
+            0,
+            1,
+            1
+          ],
+          [
+            0,
+            0,
+            1,
+            0,
+            1
+          ],
+          [
+            0,
+            1,
+            0,
+            0,
+            1
+          ],
+          [
+            1,
+            0,
+            0,
+            1,
+            0
+          ]
+        ],
+        "automorphisms": 2,
+        "kernel": 1,
+        "image": 2,
+        "isolated_pairs": 0
+      },
+      {
+        "m": 4,
+        "k": 5,
+        "nodes": [
+          [
+            0,
+            0,
+            0,
+            1,
+            1
+          ],
+          [
+            0,
+            0,
+            1,
+            0,
+            1
+          ],
+          [
+            0,
+            1,
+            0,
+            1,
+            0
+          ],
+          [
+            1,
+            0,
+            1,
+            0,
+            0
+          ]
+        ],
+        "automorphisms": 2,
+        "kernel": 1,
+        "image": 2,
+        "isolated_pairs": 0
+      },
+      {
+        "m": 4,
+        "k": 6,
+        "nodes": [
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            2
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            1,
+            1
+          ],
+          [
+            0,
+            0,
+            1,
+            1,
+            0,
+            0
+          ],
+          [
+            1,
+            1,
+            0,
+            0,
+            0,
+            0
+          ]
+        ],
+        "automorphisms": 8,
+        "kernel": 4,
+        "image": 2,
+        "isolated_pairs": 2
+      },
+      {
+        "m": 4,
+        "k": 6,
+        "nodes": [
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            2
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            2,
+            0
+          ],
+          [
+            0,
+            0,
+            1,
+            1,
+            0,
+            0
+          ],
+          [
+            1,
+            1,
+            0,
+            0,
+            0,
+            0
+          ]
+        ],
+        "automorphisms": 16,
+        "kernel": 4,
+        "image": 4,
+        "isolated_pairs": 2
+      },
+      {
+        "m": 4,
+        "k": 6,
+        "nodes": [
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            2
+          ],
+          [
+            0,
+            0,
+            0,
+            1,
+            1,
+            0
+          ],
+          [
+            0,
+            0,
+            1,
+            0,
+            1,
+            0
+          ],
+          [
+            1,
+            1,
+            0,
+            0,
+            0,
+            0
+          ]
+        ],
+        "automorphisms": 4,
+        "kernel": 2,
+        "image": 2,
+        "isolated_pairs": 1
+      },
+      {
+        "m": 4,
+        "k": 6,
+        "nodes": [
+          [
+            0,
+            0,
+            0,
+            0,
+            1,
+            1
+          ],
+          [
+            0,
+            0,
+            0,
+            1,
+            0,
+            1
+          ],
+          [
+            0,
+            0,
+            1,
+            0,
+            0,
+            1
+          ],
+          [
+            1,
+            1,
+            0,
+            0,
+            0,
+            0
+          ]
+        ],
+        "automorphisms": 12,
+        "kernel": 2,
+        "image": 6,
+        "isolated_pairs": 1
+      },
+      {
+        "m": 4,
+        "k": 6,
+        "nodes": [
+          [
+            0,
+            0,
+            0,
+            0,
+            1,
+            1
+          ],
+          [
+            0,
+            0,
+            0,
+            1,
+            0,
+            1
+          ],
+          [
+            0,
+            0,
+            1,
+            0,
+            1,
+            0
+          ],
+          [
+            1,
+            1,
+            0,
+            0,
+            0,
+            0
+          ]
+        ],
+        "automorphisms": 4,
+        "kernel": 2,
+        "image": 2,
+        "isolated_pairs": 1
+      },
+      {
+        "m": 4,
+        "k": 6,
+        "nodes": [
+          [
+            0,
+            0,
+            0,
+            0,
+            1,
+            1
+          ],
+          [
+            0,
+            0,
+            0,
+            1,
+            0,
+            1
+          ],
+          [
+            0,
+            1,
+            1,
+            0,
+            0,
+            0
+          ],
+          [
+            1,
+            0,
+            1,
+            0,
+            0,
+            0
+          ]
+        ],
+        "automorphisms": 8,
+        "kernel": 1,
+        "image": 8,
+        "isolated_pairs": 0
+      },
+      {
+        "m": 4,
+        "k": 7,
+        "nodes": [
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            2
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            1,
+            1,
+            0
+          ],
+          [
+            0,
+            0,
+            1,
+            1,
+            0,
+            0,
+            0
+          ],
+          [
+            1,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        ],
+        "automorphisms": 48,
+        "kernel": 8,
+        "image": 6,
+        "isolated_pairs": 3
+      },
+      {
+        "m": 4,
+        "k": 7,
+        "nodes": [
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            1,
+            1
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            1,
+            0,
+            1
+          ],
+          [
+            0,
+            0,
+            1,
+            1,
+            0,
+            0,
+            0
+          ],
+          [
+            1,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        ],
+        "automorphisms": 16,
+        "kernel": 4,
+        "image": 4,
+        "isolated_pairs": 2
+      },
+      {
+        "m": 4,
+        "k": 8,
+        "nodes": [
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1,
+            1
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            1,
+            1,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            1,
+            1,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            1,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        ],
+        "automorphisms": 384,
+        "kernel": 16,
+        "image": 24,
+        "isolated_pairs": 4
+      }
+    ]
+  },
+  "polynomial_evaluation_checks": 40,
+  "additional_source_table_checks": 75,
+  "alpha_rows": {
+    "0": [
+      1
+    ],
+    "1": [
+      1,
+      1,
+      0
+    ],
+    "2": [
+      1,
+      2,
+      -1,
+      6,
+      0
+    ],
+    "3": [
+      1,
+      3,
+      -3,
+      13,
+      74,
+      -40,
+      0
+    ],
+    "4": [
+      1,
+      4,
+      -6,
+      16,
+      297,
+      92,
+      -676,
+      656,
+      0
+    ],
+    "5": [
+      1,
+      5,
+      -10,
+      10,
+      745,
+      901,
+      -3920,
+      4460,
+      10864,
+      -9216,
+      0
+    ],
+    "6": [
+      1,
+      6,
+      -15,
+      -10,
+      1495,
+      3226,
+      -13349,
+      10450,
+      134204,
+      -94312,
+      -191456,
+      195840,
+      0
+    ],
+    "7": [
+      1,
+      7,
+      -21,
+      -49,
+      2625,
+      8281,
+      -34783,
+      1989,
+      707210,
+      -63028,
+      -2969176,
+      1834560,
+      7455104,
+      -6297600,
+      0
+    ],
+    "8": [
+      1,
+      8,
+      -28,
+      -112,
+      4214,
+      17696,
+      -76692,
+      -72848,
+      2507457,
+      1758680,
+      -19353880,
+      5505920,
+      99976848,
+      23541376,
+      -382393600,
+      278906880,
+      0
+    ],
+    "9": [
+      1,
+      9,
+      -36,
+      -204,
+      6342,
+      33558,
+      -150612,
+      -328740,
+      7011825,
+      11342617,
+      -83000016,
+      -21202776,
+      799954448,
+      549021456,
+      -3994340736,
+      -5039223040,
+      22686050304,
+      -14729379840,
+      0
+    ]
+  },
+  "limits": "Finite checks support the self-contained all-m proof; they do not establish it."
+}

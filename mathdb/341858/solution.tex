@@ -1,0 +1,163 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[hidelinks]{hyperref}
+\newtheorem{theorem}{Theorem}
+\title{The two-variable Bernoulli determinant\\
+\large A corrected evaluation for MathDB 341858}
+\author{Principia Math In Progress}
+\date{18 September 2026}
+\begin{document}
+\maketitle
+\begin{abstract}
+We prove the intended all-order factorization by integer rank
+deficiencies and a leading-coefficient calculation, correcting its
+lower product index from zero to one. The underlying evaluation is
+also covered by Dominici's published Hahn determinant theorem.
+This expository resolution receives zero new-solution credit.
+\end{abstract}
+
+\section*{Task 1: the original problem and its resolution}
+Normalize Bernoulli polynomials by $B_1(X)=X-\tfrac12$.
+For $r\geq1$, the columns of the source's $2r$ by $2r$ matrix
+$A_r(x,y)$ are indexed in order by
+$(m,v)=(0,1),(0,2),\ldots,(r-1,1),(r-1,2)$.
+Put $x_1=x,x_2=y$. Its entries are
+\[
+ (A_r)_{a,(m,v)}=\delta_{a,m}\quad(0\leq a<r),\qquad
+ (A_r)_{r+i,(m,v)}=\frac{B_{i+m+1}(x_v)}{i+m+1}
+                 \quad(0\leq i<r).
+\]
+Then $\bar F_{r,2}(x,y)=\det A_r(x,y)$ is the polynomial
+in \cite[(4.7)]{C}. MathDB repeats Conjecture 4.4 of the preprint,
+numbered Conjecture 4.1 in the published article.
+Its product starts at $j=0$. Literally this is false: at $r=1$
+the determinant is $y-x$, whereas the printed expression is $(y-x)^3$.
+For example $(x,y)=(0,2)$ gives $2\ne8$.
+Here is the complete corrected identity.
+
+\begin{theorem}
+For every $r\geq1$ and all complex $x,y$, with $t=y-x$,
+\begin{equation}\label{eq:answer}
+ \bar F_{r,2}(x,y)=(-1)^{\binom r2}C_r\,t^r
+                    \prod_{j=1}^{r-1}(t^2-j^2)^{r-j},
+ \qquad
+ C_r=\frac{\bigl(\prod_{j=1}^{r-1}j!\bigr)^3}
+                 {\prod_{j=r}^{2r-1}j!}.
+\end{equation}
+Empty products have value one.
+\end{theorem}
+\begin{proof}
+Subtract each column at $x$ from its partner at $y$, then move all
+the $x$ columns before all the difference columns. This permutation
+has $\binom r2$ inversions. Expanding along the first $r$ rows gives
+\begin{equation}\label{eq:reduction}
+ \bar F_{r,2}(x,x+t)=(-1)^{\binom r2}t^r
+             \det_{0\leq i,j<r}m_{i+j}(x,t),\qquad
+ m_k(x,t)=\frac{B_{k+1}(x+t)-B_{k+1}(x)}{(k+1)t}.
+\end{equation}
+This quotient is polynomial, including at $t=0$.
+The identity $B_{k+1}(u+1)-B_{k+1}(u)=(k+1)u^k$ gives
+\[
+ m_k(x,L)=\frac1L\sum_{a=0}^{L-1}(x+a)^k
+ \qquad(L\text{ a positive integer}).
+\]
+The binomial change of basis from $a^i$ to $(x+a)^i$ is a unit
+lower triangular matrix $P(x)$. The moment matrices therefore
+satisfy $H(x,L)=P(x)H(0,L)P(x)^T$, so their determinants agree.
+Both determinants are polynomials in $x,t$; equality for infinitely
+many integer $t=L$ proves equality identically. It remains to evaluate
+\[
+ \Delta_r(t)=\det_{0\leq i,j<r}\mu_{i+j}(t),\qquad
+ \mu_k(t)=\frac{B_{k+1}(t)-B_{k+1}(0)}{(k+1)t}.
+\]
+The degree of $\mu_k$ is $k$, with leading coefficient $1/(k+1)$.
+Every determinant term has degree at most $r(r-1)$, and its
+coefficient of that degree is the Hilbert determinant
+\begin{equation}\label{eq:Hilbert}
+ \det_{0\leq i,j<r}\frac1{i+j+1}
+ =\frac{\prod_{0\leq i<j<r}(j-i)^2}
+         {\prod_{0\leq i,j<r}(i+j+1)}
+ =C_r>0,
+\end{equation}
+by the Cauchy determinant formula.
+
+For $1\leq s<r$, the matrix at $t=s$ is a moment matrix on $s$
+atoms, so has rank at most $s$. This also holds at $t=-s$, since
+telescoping in the opposite direction gives
+\[
+ \mu_k(-s)=\frac1s\sum_{a=-s}^{-1}a^k.
+\]
+If a polynomial $r$ by $r$ matrix has rank at most $s$ at $t=a$,
+an invertible constant row transformation makes $r-s$ rows zero
+there. Factoring $t-a$ from each such row proves divisibility of
+the determinant by $(t-a)^{r-s}$. Thus
+\[
+ \prod_{s=1}^{r-1}(t^2-s^2)^{r-s}\mid\Delta_r(t).
+\]
+The product is monic of degree $r(r-1)$. The degree bound and
+\eqref{eq:Hilbert} make the quotient exactly $C_r$.
+Equation \eqref{eq:reduction} proves \eqref{eq:answer}, including
+all degenerate values by polynomial identity.
+\end{proof}
+
+\paragraph{Existing literature and campaign treatment.}
+The corrected evaluation receives no new credit. Dominici's
+Corollary 4 \cite{D}, combined with his Proposition 1, evaluates
+the integer moment determinant. Set both parameters in that
+corollary to $1$, put $n=r$, and let $N=L-1$ with $L\geq r+1$.
+All weights are one, giving
+\begin{align*}
+ \det_{0\leq i,j<r}\sum_{a=0}^{L-1}a^{i+j}
+ &=\prod_{k=0}^{r-1}
+       \frac{(k!)^3(L+k)!}{(L-1-k)!(r+k)!}\\
+ &=C_r L^r\prod_{s=1}^{r-1}(L^2-s^2)^{r-s}.
+\end{align*}
+Translation and polynomial continuation give the full corrected
+identity. This identification is our inference from his theorem;
+Dominici does not describe it as a solution of Cimpoea\c{s}'s
+conjecture. He attributes the summation to earlier work of
+Krattenthaler. The elementary rank proof is retained as exposition,
+not a claim of a new evaluation. The printed index error earns
+no credit either.
+
+\section*{Tasks 2--5: proposed follow-up directions}
+These are proposed directions, not claimed solutions; their own
+literature checks remain to be done.
+\paragraph{Task 2: shifted moment minors.}
+Evaluate $\det(\mu_{i+j+q}(t))_{0\leq i,j<r}$ for fixed $q>0$.
+Separate forced integer-root factors from the remaining polynomial
+and relate the latter to Hahn polynomials.
+\paragraph{Task 3: local degeneracy.}
+Find explicit polynomial bases for the nullspaces at $t=\pm s$
+and the leading nonzero determinant coefficient there.
+\paragraph{Task 4: more variables.}
+Reconcile the sum/product notation in the source's second
+factorization conjecture, then evaluate its intended $r=2$,
+arbitrary $D$ determinant, including the rational constant.
+\paragraph{Task 5: deformed moments.}
+Replace uniform atoms by beta-binomial or $q$-Hahn weights.
+Identify surviving rank-based factors and translation properties,
+including degenerate parameters.
+
+\paragraph{Verification.}
+The exact verifier checks the original block determinant, the
+normalized formula, integer ranks, Hilbert constants, and the
+published Hahn specialization. These finite checks supplement the
+proof. Verification and manuscript review are by the authoring
+agent only; no independent peer review is asserted.
+
+\begin{thebibliography}{9}
+\bibitem{C}
+M. Cimpoea\c{s}, \emph{Determinants with Bernoulli polynomials and the
+restricted partition function}, U.P.B. Sci. Bull., Series A
+\textbf{81}(4) (2019), 39--52.
+\href{https://www.scientificbulletin.upb.ro/static/pdfs/fullf2e_830874.pdf}{Published PDF};
+\href{https://arxiv.org/abs/1902.05302}{arXiv:1902.05302}.
+\bibitem{D}
+D. Dominici, \emph{Hankel determinants, Hahn polynomials, and a formula
+of Krattenthaler}, S\'eminaire Lotharingien de Combinatoire
+\textbf{81} (2020), Article B81i, 14 pp.
+\href{https://www.mat.univie.ac.at/~slc/wpapers/s81dominici.pdf}{Published PDF}.
+\end{thebibliography}
+\end{document}

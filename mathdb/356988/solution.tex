@@ -1,0 +1,233 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,booktabs,enumitem,hyperref}
+\hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue,citecolor=blue}
+\newtheorem{theorem}{Theorem}
+\title{Two exact counterexamples to backtracking PageRank monotonicity\\\large MathDB 356988}
+\author{Principia Math In Progress}
+\date{September 18, 2026}
+\begin{document}
+\maketitle
+\begin{abstract}
+On the house graph with uniform personalization, one vertex's
+$\mu$-PageRank decreases and then increases. A six-vertex
+theta graph has PageRank spread strictly increasing for $0<\mu<1$
+and strictly decreasing for $\mu>1$. These give exact counterexamples
+to both monotonicity assertions in Conjecture 3.1 of the cited
+preprint, and also to the opposite spread direction suggested
+by the source's prose. All graphs are connected, simple, undirected,
+and have minimum degree two. Rational stationary distributions provide
+certificates requiring only polynomial arithmetic.
+\end{abstract}
+
+\section*{Task 1. Complete counterexamples}
+We use Definition 2.4 of \cite{GJKO} exactly. For a graph with $n$
+vertices, replace each edge by its two orientations. Write $y_{ij}$
+for the stationary mass of oriented edge $(i,j)$, and $d_i$ for
+the degree of vertex $i$. Fix damping $0<\epsilon<1$, backtracking
+weight $\mu\ge0$, and uniform vertex personalization. Then
+\[
+ u_{ij}=\frac1{nd_i},\qquad
+ y_{ij}=\frac{1-\epsilon}{nd_i}+
+ \frac{\epsilon}{d_i-1+\mu}
+ \left(\mu y_{ji}+\sum_{h\sim i,\ h\ne j}y_{hi}\right).          \tag{1}
+\]
+The vertex PageRank is the source's tail projection
+\[
+ \pi_\mu(i)=\sum_{j\sim i}y_{ij}.                              \tag{2}
+\]
+Every graph below has $d_i\ge2$, so (1) is defined even at $\mu=0$.
+If $P_\mu$ is the column-stochastic transition matrix on oriented
+edges, (1) is $y=\epsilon P_\mu y+(1-\epsilon)u$. It has the unique
+solution
+\[
+ y=(1-\epsilon)\sum_{r=0}^{\infty}\epsilon^rP_\mu^r u,          \tag{3}
+\]
+because the series converges in the $\ell^1$ norm. This solution
+is positive and has total mass one. Thus a normalized rational
+vector satisfying (1) certifies the exact PageRank.
+
+\begin{theorem}
+The assertion that every coordinate of $\pi_\mu$ is monotonic in
+$\mu$ is false, even for the five-vertex house graph with uniform
+personalization and $\epsilon=1/2$.
+\end{theorem}
+\begin{proof}
+Take vertices $0,1,2,3,4$ and edges
+\[
+ E_H=\{01,03,04,12,23,34\}.
+\]
+Vertices $0,3$ have degree three, and $1,2,4$ have degree two.
+The reflection interchanges $0\leftrightarrow3$ and
+$1\leftrightarrow2$, fixing $4$. Let
+\[
+ D=9\mu^3+87\mu^2+263\mu+241>0.
+\]
+The six directed-edge orbits have the following masses; each row
+lists the numerator of the common denominator $30D$.
+\begin{center}
+\begin{tabular}{cll}
+\toprule
+Mass & Directed edges & Numerator of the mass\\
+\midrule
+$a$ & $03,30$ & $6(\mu+5)(3\mu^2+16\mu+19)$\\
+$b$ & $01,32$ & $3(7\mu^3+67\mu^2+201\mu+181)$\\
+$c$ & $04,34$ & $21\mu^3+199\mu^2+595\mu+553$\\
+$d$ & $10,23$ & $6(4\mu^3+39\mu^2+120\mu+113)$\\
+$f$ & $12,21$ & $3(9\mu^3+85\mu^2+247\mu+211)$\\
+$g$ & $40,43$ & $2(12\mu^3+115\mu^2+346\mu+319)$\\
+\bottomrule
+\end{tabular}
+\end{center}
+For a direct verification of the table, substitute its entries in
+the six instances of (1):
+\begin{align*}
+ a&=\frac1{30}+\frac{\mu a+d+g}{2(\mu+2)},&
+ b&=\frac1{30}+\frac{a+\mu d+g}{2(\mu+2)},\\
+ c&=\frac1{30}+\frac{a+d+\mu g}{2(\mu+2)},&
+ d&=\frac1{20}+\frac{\mu b+f}{2(\mu+1)},\\
+ f&=\frac1{20}+\frac{b+\mu f}{2(\mu+1)},&
+ g&=\frac1{20}+\frac c2.
+\end{align*}
+All six identities follow by multiplication by their denominators;
+also $2(a+b+c+d+f+g)=1$. Positivity of the displayed coefficients
+proves nonnegativity of every mass. Uniqueness in (3) identifies
+this vector with the stationary distribution.
+
+The roof vertex $4$ consequently has
+\[
+ p(\mu):=\pi_\mu(4)=2g
+ =\frac{2(12\mu^3+115\mu^2+346\mu+319)}{15D}.                 \tag{4}
+\]
+In particular,
+\[
+ p(1/2)=\frac{8356}{47445},\qquad
+ p(1)=\frac{22}{125},\qquad
+ p(2)=\frac{3134}{17805},
+\]
+and the exact positive differences are
+\[
+ p(1/2)-p(1)=\frac{142}{1186125},\qquad
+ p(2)-p(1)=\frac8{445125}.                                    \tag{5}
+\]
+Thus the coordinate is neither nondecreasing nor nonincreasing,
+using three strictly positive backtracking parameters.
+\end{proof}
+
+For additional information, differentiation of (4) gives
+\[
+ p'(\mu)=\frac{2(9\mu^4+84\mu^3+206\mu^2-76\mu-511)}{15D^2}.
+\]
+Its numerator has exactly one positive zero: there is one sign
+change in its coefficient sequence, while it is negative at $0$
+and eventually positive. Hence this coordinate has exactly one
+minimum for $\mu>0$.
+
+\begin{theorem}
+The PageRank spread need not be monotonic in either direction.
+With uniform personalization and $\epsilon=9/10$, the graph
+\[
+ E_\Theta=\{01,04,05,12,23,34,35\}
+\]
+on $\{0,1,2,3,4,5\}$ has spread strictly increasing on $[0,1]$
+and strictly decreasing on $[1,\infty)$.
+\end{theorem}
+\begin{proof}
+Let $A=\{0,3\}$, $B=\{1,2\}$ and $C=\{4,5\}$ be the vertex
+orbits. The vertices in $A$ have degree three and the others
+degree two. Write $a,b,c,d,f$ for the common masses of directed
+edges of types $AB,AC,BA,BB,CA$, respectively. Their multiplicities
+are $2,4,2,2,4$. Put
+\[
+ E=361\mu^2+10488\mu+59951>0.
+\]
+The following numerators over the common denominator $36E$ give
+the stationary masses:
+\begin{center}
+\begin{tabular}{cl}
+\toprule
+Mass & Numerator\\
+\midrule
+$a$ & $893\mu^2+26754\mu+151753$\\
+$b$ & $893\mu^2+25944\mu+152563$\\
+$c$ & $12(76\mu^2+2283\mu+13091)$\\
+$d$ & $3(361\mu^2+9918\mu+51521)$\\
+$f$ & $12(76\mu^2+2208\mu+12941)$\\
+\bottomrule
+\end{tabular}
+\end{center}
+Indeed, these entries are positive, $2a+4b+2c+2d+4f=1$, and
+direct substitution verifies (1), which now reduces to
+\begin{align*}
+ a&=\frac1{180}+\frac{9(\mu c+2f)}{10(\mu+2)},&
+ b&=\frac1{180}+\frac{9(c+(\mu+1)f)}{10(\mu+2)},\\
+ c&=\frac1{120}+\frac{9(\mu a+d)}{10(\mu+1)},&
+ d&=\frac1{120}+\frac{9(a+\mu d)}{10(\mu+1)},\\
+ f&=\frac1{120}+\frac{9b}{10}.&&
+\end{align*}
+The vertex scores are $\pi_A=a+2b$, $\pi_B=c+d$, $\pi_C=2f$:
+\begin{align*}
+ \pi_A&=\frac{893\mu^2+26214\mu+152293}{12E},\\
+ \pi_B&=\frac{5(133\mu^2+3810\mu+20777)}{12E},\\
+ \pi_C&=\frac{2(76\mu^2+2208\mu+12941)}{3E}.
+\end{align*}
+For all $\mu\ge0$, their order is strict, since
+\[
+ \pi_A-\pi_B=\frac{19\mu^2+597\mu+4034}{E}>0,\qquad
+ \pi_B-\pi_C=\frac{19\mu^2+462\mu+119}{4E}>0.
+\]
+Thus the spread $s(\mu)=\max_i\pi_\mu(i)-\min_i\pi_\mu(i)$ is
+\[
+ s(\mu)=\frac{5(19\mu^2+570\mu+3251)}{4E},\qquad
+ s'(\mu)=-\frac{855(\mu-1)(19\mu+221)}{2E^2}.                  \tag{6}
+\]
+This derivative proves both asserted strict inequalities. For
+finite rational certificates one may also use
+\[
+ s(1)-s(1/2)=\frac{57}{20543092}>0,\qquad
+ s(1)-s(2)=\frac{57}{6479852}>0.
+\]
+\end{proof}
+
+The source's displayed spread inequality has the increasing
+direction, while its original motivating prose describes a
+shrinking range. Theorem 2 refutes both directions. Theorem 1
+independently refutes coordinate monotonicity. The result therefore
+does not depend on a sign or transcription discrepancy.
+
+\section*{Tasks 2--5. Proposed follow-ups}
+\begin{enumerate}[label=\textbf{Task \arabic*.},start=2,leftmargin=*]
+\item Characterize connected graphs for which every coordinate
+is monotonic in $\mu$ for uniform personalization and every damping
+parameter in $(0,1)$.
+\item For the house and theta graphs, determine exactly how the
+number and location of turning points vary with damping and with
+the personalization vector.
+\item Bound the number of positive critical points of one
+$\mu$-PageRank coordinate in terms of graph size or the number of
+orbits of directed edges.
+\item Find conditions under which $\infty$-PageRank still correctly
+predicts the ordering between standard and non-backtracking scores,
+without assuming monotonicity along the whole parameter interval.
+\end{enumerate}
+
+\paragraph{Verification and audit status.}
+Four exact verification groups check the symbolic stationary
+certificates, the derivative and ordering identities, independent
+rational Gaussian elimination, and finite Neumann-series enclosures.
+The complete current 22-page preprint was read. The identified
+journal final could not be retrieved in full, so campaign eligibility
+remains pending and this package receives zero new credit. Review
+is by the authoring agent only.
+
+\begin{thebibliography}{9}
+\bibitem{GJKO} C. Glover, T. Jones, M. Kempton and A. Oveson,
+\emph{Effects of Backtracking on PageRank},
+\href{https://arxiv.org/abs/2211.13353}{arXiv:2211.13353v2},
+February 9, 2026. Definition 2.4 and Conjecture 3.1.
+Published article: Applied Mathematics and Computation
+\textbf{531} (2026), 130182,
+\href{https://doi.org/10.1016/j.amc.2026.130182}{doi:10.1016/j.amc.2026.130182}
+(identified final; complete text not accessed).
+\end{thebibliography}
+\end{document}

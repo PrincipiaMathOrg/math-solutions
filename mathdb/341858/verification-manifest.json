@@ -1,0 +1,114 @@
+{
+  "mathematics_completed_at_utc": "2026-09-18T07:04:19.427305+00:00",
+  "audit_completed_at_utc": "2026-09-18T07:13:57.350856+00:00",
+  "campaign_eligibility": "excluded-existing-equivalent-evaluation",
+  "new_problem_credit": 0,
+  "result": "All-order corrected j=1 factorization: translation-invariant normalized Bernoulli difference moments have rank <=s at t=+/-s, yielding all zeros with multiplicity; degree and Hilbert leading coefficient finish the identity.",
+  "verification": {
+    "checked_at_utc": "2026-09-18T07:12:00.144236+00:00",
+    "all_passed": true,
+    "sympy_version": "1.14.0",
+    "groups": {
+      "symbolic_normalized_determinants": 5,
+      "original_block_determinants": 4,
+      "positive_and_negative_integer_ranks": 56,
+      "hilbert_leading_coefficients": 10,
+      "published_hahn_specialization": 32
+    },
+    "verification_scope": "Exact finite checks; general proof is in solution.tex.",
+    "reviewer": "Authoring agent only; no independent review.",
+    "new_problem_credit": 0
+  },
+  "pdf_review": {
+    "pages": 3,
+    "visually_inspected": [
+      1,
+      2,
+      3
+    ],
+    "layout_warnings": false
+  },
+  "reviewer": "Authoring agent only; no independent peer review or proof assistant.",
+  "files": [
+    {
+      "path": "arxiv-source-snapshot.txt",
+      "sha256": "b421a2ab36f8a72e926106b9a93734360866dc5a9b1ddf086af9efca7755b1b2"
+    },
+    {
+      "path": "attempt-record.json",
+      "sha256": "ff0d9a15aaa0f1e9888543fc4a047e6a217daa3684bbddb68dd0754a74e51711"
+    },
+    {
+      "path": "crab-claim-check.json",
+      "sha256": "907b0e4f6599f5f86d3e02f6df60f2ede3370cbf4479a22e22bae5a227a5158d"
+    },
+    {
+      "path": "crab-claim-index.txt",
+      "sha256": "4e6e9035598a253e2ec09df95e4a69b4c3f7253143bddf770458995709c485ef"
+    },
+    {
+      "path": "literature-audit.md",
+      "sha256": "3d3433b648ac642909e31530feb73c6f181609e5ff123bce2c84438ae6b5b97b"
+    },
+    {
+      "path": "mathdb-final-check.json",
+      "sha256": "261863a4f909b55271ee7ca6af44f33ec494caca44a6dc0b2cbd3b4bb2b2eff9"
+    },
+    {
+      "path": "mathdb-final-snapshot.txt",
+      "sha256": "42cf9dc1eee51ec8215965564b59283cf5fe3e593357c41048ddde505dc87c2c"
+    },
+    {
+      "path": "mathdb-initial-check.json",
+      "sha256": "31dd143ed6e1292cea2a62096297fa363eb5578b6a7e6f85cdb3a71180c1196e"
+    },
+    {
+      "path": "prior-claim-check.json",
+      "sha256": "bc06963c4c461734d960c258b5e92b7a3e9f54930d9e813ba824aea4ca4ddfe0"
+    },
+    {
+      "path": "prior-theorem-snapshot.txt",
+      "sha256": "03774832fec66e556dd35657c5829238858c46c7c41e0bbe933ba0a9f199a6bc"
+    },
+    {
+      "path": "proof-audit.md",
+      "sha256": "2dd0148112eea33ae6bf72856ceef8ede4b2731de585ab2341ac74afa2c9c1f5"
+    },
+    {
+      "path": "published-source-snapshot.txt",
+      "sha256": "dc0a08ab3526c55eaa431630907c50591feb962a7702675f327dc503ed9daad8"
+    },
+    {
+      "path": "pudim-claim-check.json",
+      "sha256": "97307bab57d86538525395bd8e4ec83ad4b9a659989b4b5f134fc64a71eab158"
+    },
+    {
+      "path": "pudim-claim-index.txt",
+      "sha256": "69274cd3c904774b36b6b3bc3c4a5b4c089e9a23d6f87ba695963dd6f958b780"
+    },
+    {
+      "path": "README.md",
+      "sha256": "6c54679d685f8f8829b93d561d4c2cc6bd382312065ee82bb059c6ac3a6c008d"
+    },
+    {
+      "path": "solution.pdf",
+      "sha256": "f1f8ea34c4c0abedd7376b2cadce744f4cd99e033ee7194ff923b06377bd4651"
+    },
+    {
+      "path": "solution.tex",
+      "sha256": "1a153d39853371808b52b5ceb804f70c199032f51916f83ae8a9407bb0890ab5"
+    },
+    {
+      "path": "source-check.json",
+      "sha256": "523d6783fd86ce1353b711be298c6e5e3243b75039089795d3ada3bf6090c1ec"
+    },
+    {
+      "path": "verification-results.json",
+      "sha256": "bf7b71573bee004dde3d6e73b8bfd804bfbd38471edb3edfa37943e3b113fafc"
+    },
+    {
+      "path": "verify.py",
+      "sha256": "569fbccfeda2f94878f085ab5fa960433f2501c34cbceee5a3a8f60e634fee12"
+    }
+  ]
+}

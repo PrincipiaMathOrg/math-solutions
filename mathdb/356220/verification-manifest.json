@@ -1,0 +1,214 @@
+{
+  "mathematics_completed_at_utc": "2026-09-18T05:29:01.020600+00:00",
+  "audit_completed_at_utc": "2026-09-18T05:49:04.015271+00:00",
+  "campaign_eligibility": "pending-final-journal-scope",
+  "new_problem_credit": 0,
+  "result": "The original formula gives 613766 at (n,k)=(58,1), while direct matrix inversion gives 613767. The corrected inverse for every n,k is the ordinary Mobius sum over divisors of 2n+1.",
+  "verification": {
+    "all_passed": true,
+    "check_count": 12,
+    "checks": [
+      {
+        "name": "Euler product times partition generating function",
+        "passed": true
+      },
+      {
+        "name": "Euler product: all 1711 lower-triangular entries",
+        "passed": true
+      },
+      {
+        "name": "Euler product: direct matrix product",
+        "passed": true
+      },
+      {
+        "name": "1-q: all 1711 lower-triangular entries",
+        "passed": true
+      },
+      {
+        "name": "1-q: direct matrix product",
+        "passed": true
+      },
+      {
+        "name": "1+2q-3q^2: all 1711 lower-triangular entries",
+        "passed": true
+      },
+      {
+        "name": "1+2q-3q^2: direct matrix product",
+        "passed": true
+      },
+      {
+        "name": "first disagreement",
+        "passed": true,
+        "first": [
+          58,
+          1,
+          613766,
+          613767
+        ],
+        "differences_through_row_58": [
+          [
+            58,
+            1,
+            613766,
+            613767
+          ]
+        ]
+      },
+      {
+        "name": "counterexample partition values",
+        "passed": true
+      },
+      {
+        "name": "counterexample negative terms",
+        "passed": true,
+        "terms": [
+          {
+            "i": 1,
+            "partition_index": 18,
+            "value": 385
+          },
+          {
+            "i": 4,
+            "partition_index": 5,
+            "value": 7
+          },
+          {
+            "i": 6,
+            "partition_index": 3,
+            "value": 3
+          },
+          {
+            "i": 19,
+            "partition_index": 0,
+            "value": 1
+          }
+        ]
+      },
+      {
+        "name": "counterexample positive terms",
+        "passed": true,
+        "terms": [
+          {
+            "m": 2,
+            "i": 1,
+            "partition_index": 5,
+            "value": 7
+          },
+          {
+            "m": 2,
+            "i": 6,
+            "partition_index": 0,
+            "value": 1
+          }
+        ]
+      },
+      {
+        "name": "corrected counterexample",
+        "passed": true
+      }
+    ],
+    "bound": 58,
+    "arithmetic": "exact Python integers",
+    "scope": "Finite regression checks; the manuscript proves the formula for all entries."
+  },
+  "pdf_review": {
+    "pages": 3,
+    "visually_inspected": [
+      1,
+      2,
+      3
+    ],
+    "layout_warnings": false
+  },
+  "reviewer": "Authoring agent only; no independent review or proof assistant.",
+  "files": [
+    {
+      "path": "arxiv-paper-source-snapshot.txt",
+      "sha256": "ddfa8ee2a3cd5b8e0ce3df268e3f4326ffc53bc5e64e87ce9f2fae9a94f31003"
+    },
+    {
+      "path": "arxiv-thesis-source-snapshot.txt",
+      "sha256": "823ca3fbd8f691e3804b1e67870c6a133716df259a6f837db44fa447896bff13"
+    },
+    {
+      "path": "attempt-record.json",
+      "sha256": "65079ae8b302a201183c88ef7a77d4e471a5d012fba6857b55075dc2a3dae318"
+    },
+    {
+      "path": "crab-claim-check.json",
+      "sha256": "97dc7699615ef2508d294d2d88fcfee79eb7395c7b67ffa3bf971e6513bc21da"
+    },
+    {
+      "path": "crab-claim-index.txt",
+      "sha256": "4e6e9035598a253e2ec09df95e4a69b4c3f7253143bddf770458995709c485ef"
+    },
+    {
+      "path": "crossref-source-snapshot.txt",
+      "sha256": "0beeea77ab527bc0322df05c02e274dc9445966e4a93812c4583f147d914eecf"
+    },
+    {
+      "path": "exact-certificate.json",
+      "sha256": "bb716d95ad78841e8ddcb7196095657e25979e33a5dcae87791edc5ad14da2d3"
+    },
+    {
+      "path": "literature-audit.md",
+      "sha256": "2a84f482665f35f79df28b6e84667165f51dc3fa1539cecdb1448e310e1a9734"
+    },
+    {
+      "path": "mathdb-final-check.json",
+      "sha256": "a17b731367a780b58fbc987a6bd3c51438d5ceb3fa39f3a53eae01e41033b8b4"
+    },
+    {
+      "path": "mathdb-initial-check.json",
+      "sha256": "a2845922e8fa401353b0283708a007eff81787ce041400e2c7885ca5f79401fd"
+    },
+    {
+      "path": "openalex-citing-snapshot.txt",
+      "sha256": "6bbf8df763493df6d02e577974991063490856d172efbbff30af424e9dbf9697"
+    },
+    {
+      "path": "openalex-source-snapshot.txt",
+      "sha256": "970edb91e16d8c390c109d3e8093dfbec080340c90f5c9b8b6bb5633f057c29c"
+    },
+    {
+      "path": "proof-audit.md",
+      "sha256": "7347e1f59649ba0b099cd9ecfbc43de994afcfaab3cbde177242948adca10cff"
+    },
+    {
+      "path": "pudim-claim-check.json",
+      "sha256": "49dc38da9afb5e4c560fb1297d79b8524b54f8d2850e08422c60e5f09547d259"
+    },
+    {
+      "path": "pudim-claim-index.txt",
+      "sha256": "69274cd3c904774b36b6b3bc3c4a5b4c089e9a23d6f87ba695963dd6f958b780"
+    },
+    {
+      "path": "README.md",
+      "sha256": "8195a22e77f98811743066cd574fa44a83b4b1dcc29e479ac920b2789f61c8e2"
+    },
+    {
+      "path": "search-audit.json",
+      "sha256": "1828c505473a91ac5204026bef85ce9af471c15d566130a4f76535b94847111d"
+    },
+    {
+      "path": "solution.pdf",
+      "sha256": "e38aa163c9dd9d90934bfd418a310d3de410a4229a387b57f569fc5bc47a3fdc"
+    },
+    {
+      "path": "solution.tex",
+      "sha256": "fc43f9f248be0c644094d928ffb0faf711deaceeeefa5b9810acb0170cceb63a"
+    },
+    {
+      "path": "source-check.json",
+      "sha256": "13c4adba2cb1c7ba7242a9c164cb1bfd2782281c5e7073482edb5d6cc6810deb"
+    },
+    {
+      "path": "source-version-comparison.json",
+      "sha256": "748bce6df10e178960b699ddc1a4a69c990e5f28e68a7ed2949582f7c5e62c00"
+    },
+    {
+      "path": "verify.py",
+      "sha256": "6f310ea3af447e3fa55a780c5ca5e7aab30f52a9cb43b6b20db80a9d23bee26c"
+    }
+  ]
+}

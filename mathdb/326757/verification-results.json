@@ -1,0 +1,42 @@
+{
+  "status": "passed",
+  "checked_at_utc": "2026-09-21T22:53:37.438129+00:00",
+  "verifier_sha256": "f71a7e35496e55928bfb568219fd1a39d7316a477c06191ded806682ae2f2bbf",
+  "groups": [
+    {
+      "name": "Original Hahn equations and boundary condition",
+      "status": "passed",
+      "exact_identities": 12,
+      "n_range": [
+        1,
+        6
+      ]
+    },
+    {
+      "name": "Coefficient positivity and full x-degree support",
+      "status": "passed",
+      "n_range": [
+        1,
+        7
+      ],
+      "monomial_counts": [
+        1,
+        2,
+        7,
+        20,
+        45,
+        86,
+        147
+      ]
+    },
+    {
+      "name": "Leading coefficient, coprimality, and initial examples",
+      "status": "passed",
+      "n_range": [
+        1,
+        7
+      ]
+    }
+  ],
+  "limitation": "Finite checks supplement the all-n induction. Zero credit pending final-source and prior-implication review."
+}

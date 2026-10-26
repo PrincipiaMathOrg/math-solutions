@@ -1,0 +1,69 @@
+{
+  "checked_at_utc": "2026-09-22T04:18:33.351972+00:00",
+  "status": "passed",
+  "groups": [
+    {
+      "name": "Independent rational recovery of Hilbert coefficients",
+      "status": "passed",
+      "dimensions": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25
+      ],
+      "additional_integer_identity_cases": 1620
+    },
+    {
+      "name": "Exhaustive independent word-involution checks",
+      "status": "passed",
+      "objects_checked": 22548,
+      "word_counts": [
+        1,
+        2,
+        3
+      ],
+      "sizes": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ]
+    },
+    {
+      "name": "Source example and printed-index error",
+      "status": "passed",
+      "correct_n4_s5": 715,
+      "printed_n1_s1_sides": [
+        2,
+        4
+      ]
+    }
+  ],
+  "verifier_sha256": "3d47d888ae3cc5ed2adc8adf5268146431a712de45119d679f5be52dabc4fd29",
+  "limitation": "Finite exact checks supplement two general proofs; no novelty or independent peer review claimed."
+}

@@ -1,0 +1,35 @@
+{
+  "status": "passed",
+  "checked_at_utc": "2026-09-18T20:22:53.343417+00:00",
+  "sympy_version": "1.14.0",
+  "arithmetic": "Exact integer, polynomial and Fraction arithmetic; no floating point.",
+  "groups": [
+    {
+      "name": "Source-matrix symbolic stationary certificates",
+      "oriented_edges": 26,
+      "status": "passed"
+    },
+    {
+      "name": "Exact coordinate, spread, derivative and ordering identities",
+      "house_positive_critical_points": 1,
+      "status": "passed"
+    },
+    {
+      "name": "Independent Fraction Gaussian elimination",
+      "systems": 52,
+      "status": "passed"
+    },
+    {
+      "name": "Independent finite Neumann-series rational enclosures",
+      "certified_intervals": {
+        "house": 3,
+        "theta": 3
+      },
+      "last_series_index": {
+        "house": 70,
+        "theta": 300
+      },
+      "status": "passed"
+    }
+  ]
+}

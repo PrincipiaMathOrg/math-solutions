@@ -1,0 +1,166 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,hyperref,enumitem}
+\hypersetup{colorlinks=true,urlcolor=blue,linkcolor=blue}
+\setlength{\emergencystretch}{1em}
+\newtheorem{theorem}{Theorem}
+\title{Hilbert coefficients of the square of the maximal ideal}
+\author{Principia Math In Progress}
+\date{22 September 2026}
+\begin{document}
+\maketitle
+\noindent\textbf{MathDB 360642. Full intended formula proved;
+zero new campaign credit.}
+The coefficient identity is already a direct specialization of classical
+Gegenbauer formulas. We record that prior implication explicitly and
+supply elementary algebraic and combinatorial proofs. Neither the
+alternative proof nor the source's index correction earns new credit.
+
+\section*{Task 1: the complete intended statement}
+Let \(S_n=k[x_1,\ldots,x_n]\), where \(k\) is any field and \(n\geq1\),
+and put \(I=(x_1,\ldots,x_n)^2\). Use the source's defining convention
+\[
+ \ell(S_n/I^s)=\sum_{j=0}^n(-1)^j e_j(I)
+                    \binom{s+n-j-1}{n-j}\qquad(s\gg0).       \tag{1}
+\]
+\begin{theorem}
+For every \(n\geq1\),
+\[
+ e_j(I)=
+ \begin{cases}
+ 2^{n-2j}\binom{n-j}{j},&0\leq j\leq\lfloor n/2\rfloor,\\
+ 0,&\lfloor n/2\rfloor<j\leq n.
+ \end{cases}                                                \tag{2}
+\]
+In particular the claimed nonzero coefficients are strictly positive.
+The corresponding identity, valid for every integer \(s\geq1\), is
+\[
+ \binom{2s+n-1}{n}
+ =\sum_{j=0}^{\lfloor n/2\rfloor}(-1)^j2^{n-2j}
+        \binom{n-j}{j}\binom{s+n-j-1}{n-j}.                  \tag{3}
+\]
+\end{theorem}
+The current preprint's Conjecture 3 and the published Conjecture 3.1
+state the intended coefficient formula (2), but omit the final minus
+one in the upper entry of the last binomial in (3). Their own example
+\(n=4,s=5\) uses the corrected convention. The uncorrected identity
+already fails at \(n=1\), giving \(2s=2s+2\). This typographical issue
+is separate from proving (2) for every dimension.
+
+\section*{An elementary proof in every dimension}
+The monomials of total degree less than \(2s\) form a basis of
+\(S_n/I^s\), so stars and bars gives its length as the left side of (3).
+In formal power series, for a fixed positive integer \(s\),
+\[
+ (1-t)^{-2s}=(1-2t+t^2)^{-s}
+      =\sum_{r\geq0}\binom{s+r-1}{r}(2t-t^2)^r.             \tag{4}
+\]
+All substitutions are valid formally because \(2t-t^2\) has zero
+constant term. Its \(r\)-th power contributes to degree \(n\) only
+when \(r=n-j\) and \(0\leq j\leq\lfloor n/2\rfloor\); that
+coefficient is \((-1)^j2^{n-2j}\binom{n-j}{j}\).
+The coefficient of \(t^n\) on the left of (4) is
+\(\binom{2s+n-1}{n}\), proving (3).
+
+For fixed \(n\), the polynomials
+\(\binom{s+n-j-1}{n-j}\), \(0\leq j\leq n\), have distinct
+degrees \(n-j\) and nonzero leading coefficients. They form a basis
+of the polynomials of degree at most \(n\). Comparing (1) and (3)
+therefore gives every coefficient in (2), including the vanishing
+ones. This argument concerns integer dimensions and lengths and is
+valid independently of the characteristic of \(k\).
+
+\section*{A combinatorial proof by cancellation}
+Consider \(s\) ordered, possibly empty words made from tiles \(A,B,D\).
+Tiles \(A,B\) each have size one and positive sign; \(D\) has size
+two and negative sign. Give a tuple of words total size \(n\) and
+sign \((-1)^{\#D}\). When it has \(j\) tiles \(D\), it has
+\(r=n-j\) tiles altogether. Choose the \(j\) domino locations,
+color the other tiles \(A\) or \(B\), and distribute the ordered
+tile string among the \(s\) words by a weak composition of \(r\).
+Its signed count is precisely the \(j\)-th summand of (3).
+
+Scan the words in order and the tiles within each word from left
+to right. Find the first occurrence of either a tile \(D\) or an
+adjacent pair \(AB\) within one word. Replace
+\[
+                        D\ \longleftrightarrow\ AB.         \tag{5}
+\]
+If no such occurrence exists, leave the tuple fixed. The replacement
+preserves size and flips the sign. It is an involution: the unchanged
+prefix has no earlier occurrence, and expanding \(D\) starts with
+\(A\), so no new \(AB\) starts just before the replacement.
+Conversely contracting \(AB\) to \(D\) creates no earlier occurrence.
+The same place is consequently selected on applying (5) again.
+Word boundaries are never crossed.
+
+Every fixed tuple has no domino and no \(AB\) in any word. Thus each
+word is uniquely \(B^{b_i}A^{a_i}\), with \(a_i,b_i\geq0\).
+The fixed tuples are in bijection with the weak compositions
+\[
+                  a_1+b_1+\cdots+a_s+b_s=n.
+\]
+They all have positive sign, and their number is
+\(\binom{n+2s-1}{n}\). Cancellation proves (3) for every \(n,s\),
+and the polynomial-basis argument above completes (2).
+
+\section*{The classical identity and counting decision}
+This result is already implied by the two classical identities
+\[
+ C_n^{(s)}(x)=\sum_{j=0}^{\lfloor n/2\rfloor}
+       \frac{(-1)^j(s)_{n-j}}{j!(n-2j)!}(2x)^{n-2j},\qquad
+ C_n^{(s)}(1)=\frac{(2s)_n}{n!}.                            \tag{6}
+\]
+Here \((a)_r\) is the rising factorial. The first formula is NIST
+DLMF 18.5.10; the second follows immediately from 18.5.9 at \(x=1\),
+where the hypergeometric argument is zero. Since
+\[
+ \frac{(s)_{n-j}}{j!(n-2j)!}
+       =\binom{n-j}{j}\binom{s+n-j-1}{n-j},
+\]
+their specialization is exactly (3). DLMF 18.12.4 also gives the
+generating function behind (4). The relevant equations and parameter
+specializations were inspected directly. The full DLMF chapter and
+its cited books were not read.
+
+The complete current and published problem sources still call this
+a conjecture. Nevertheless, the existing full identity above already
+implies every intended coefficient, so we conservatively exclude
+this package from new campaign credit. No claim of a new binomial
+identity or historical priority is made for either elementary proof.
+
+\section*{Tasks 2--5: four proposed follow-ups}
+\begin{enumerate}[label=\textbf{Task \arabic*:},start=2,leftmargin=*]
+\item Extend the explicit coefficient extraction to every ideal
+\((x_1,\ldots,x_n)^d\), with \(d\geq3\).
+\item Find a cancellation model for those higher-power coefficient
+formulas, with fixed objects explaining their signs.
+\item Derive exact Hilbert series for powers of ideals generated by
+all squares and the edges of an arbitrary finite graph.
+\item Determine which such graph ideals have nonnegative Hilbert
+coefficients in every dimension.
+\end{enumerate}
+These are proposed mathematical directions, not additional solutions.
+
+\section*{Sources and verification}
+R. Fr\"oberg, \emph{Hilbert coefficients of quadratic algebras},
+\href{https://arxiv.org/abs/2311.02860}{arXiv:2311.02860v1},
+6 November 2023, Conjecture 3, p.~5; all seven pages read.
+Published as \emph{Journal of Experimental Mathematics} 1(2) (2025),
+315--321, \href{https://doi.org/10.56994/JXM.001.002.007}{DOI
+10.56994/JXM.001.002.007}, Conjecture 3.1, p.~319; all seven article
+pages and both front-matter pages read.
+
+NIST Digital Library of Mathematical Functions:
+\href{https://dlmf.nist.gov/18.5.E9}{18.5.9},
+\href{https://dlmf.nist.gov/18.5.E10}{18.5.10}, and
+\href{https://dlmf.nist.gov/18.12.E4}{18.12.4}.
+Exact equations and their displayed context checked 22 September 2026.
+
+Supplementary exact checks independently recover the Hilbert
+coefficients from lengths, enumerate the cancellation involution on
+small word tuples, and test the displayed index correction.
+Finite checks supplement the proofs; they do not prove the infinite
+claims. Review by the authoring agent only, without independent peer
+review or a proof assistant.
+\end{document}

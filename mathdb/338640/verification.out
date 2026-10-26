@@ -1,0 +1,21 @@
+$ python verify_counterexample.py
+PASS: exact bicommutative-system counterexample for MathDB #338640
+certificate_sha256=a66d12048d963de70180540eff002c7f3a97d6dce080c7fcd4ee78b7ecd523b7
+uniform_universe=6435
+source_terms=490+1176+196+8=1870
+certificate_size=1173; source_size=1870; improvement=697
+certificate_pairwise_checks=687378; outside_maximality_checks=5262; disjoint_witness_incidences=9384; maximum_witnesses_for_one_outside_set=6
+source_pairwise_checks=1747515; outside_maximality_checks=4565; disjoint_witness_incidences=14960; maximum_witnesses_for_one_outside_set=8
+all checks use exact integer arithmetic and remain active under -OO
+
+$ python -OO verify_counterexample.py
+PASS: exact bicommutative-system counterexample for MathDB #338640
+certificate_sha256=a66d12048d963de70180540eff002c7f3a97d6dce080c7fcd4ee78b7ecd523b7
+uniform_universe=6435
+source_terms=490+1176+196+8=1870
+certificate_size=1173; source_size=1870; improvement=697
+certificate_pairwise_checks=687378; outside_maximality_checks=5262; disjoint_witness_incidences=9384; maximum_witnesses_for_one_outside_set=6
+source_pairwise_checks=1747515; outside_maximality_checks=4565; disjoint_witness_incidences=14960; maximum_witnesses_for_one_outside_set=8
+all checks use exact integer arithmetic and remain active under -OO
+
+normal_and_optimized_output_byte_identical=true

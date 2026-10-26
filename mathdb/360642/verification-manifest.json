@@ -1,0 +1,144 @@
+{
+  "mathematics_completed_at_utc": "2026-09-22T04:18:46.391811+00:00",
+  "audit_updated_at_utc": "2026-09-22T04:20:05.396590+00:00",
+  "campaign_eligibility": "excluded-prior-classical-identity",
+  "new_problem_credit": 0,
+  "result": "Full intended all-dimension Hilbert coefficient formula with a sign-reversing involution; already subsumed by classical Gegenbauer identities, so zero credit.",
+  "verification_summary": {
+    "groups": 3,
+    "status": "passed",
+    "exact_groups": 3
+  },
+  "pdf_review": {
+    "pages": 3,
+    "visually_inspected": [
+      1,
+      2,
+      3
+    ],
+    "layout_warnings": false
+  },
+  "reviewer": "Authoring agent only; no independent peer review or proof assistant.",
+  "files": [
+    {
+      "path": "ai-index-check.json",
+      "sha256": "f4ea65f76fb1db8126add0e242ec0e193cf67bc69f78746938e66de08eec7bf8"
+    },
+    {
+      "path": "arxiv-check.json",
+      "sha256": "ff81d1e94ac7ad2d511c4def2863fb472c4bbadfd3f5e86646793ae6232cabbf"
+    },
+    {
+      "path": "arxiv-source-snapshot.txt",
+      "sha256": "35cf4323eeb0734b8af3fe0e5f2ffe79cecb986fa85b934cc6b98513b790ba38"
+    },
+    {
+      "path": "attempt-record.json",
+      "sha256": "ea122a0f3cbc0403955e922797f2863c0813975fed2c90b78c1b8536d74a0f89"
+    },
+    {
+      "path": "crab-check.json",
+      "sha256": "9680e8339ffa590add463e9ff6f692c049495cad32f4e5dd0b8a496d4844483f"
+    },
+    {
+      "path": "crab-claim-index.txt",
+      "sha256": "ae27582e94f2a5e2a8fe0b7f117434d9ef960e75ebc2c1521da0c757e9ca4ee9"
+    },
+    {
+      "path": "dlmf-e10-equation.tex.txt",
+      "sha256": "15e963b9bcfa5ed9516d38778d28e9bf7c62e41a3d2b9e731b50cdf8190537f7"
+    },
+    {
+      "path": "dlmf-e4-equation.tex.txt",
+      "sha256": "abf73b2b405ac00672bfca4a8edf81c69bcf4480a9437a92b1782a646ee2f518"
+    },
+    {
+      "path": "dlmf-e9-equation.tex.txt",
+      "sha256": "1c7582dc91c5c85d9f7ee99255ac89e6a916b868848f5daba84d5d7d125b13d7"
+    },
+    {
+      "path": "final-source-check.json",
+      "sha256": "34f0e2945db7b323d0b3d25cbd6b161a7fb80f92c7653c8d14d2be8d8b6090e0"
+    },
+    {
+      "path": "literature-audit.md",
+      "sha256": "fd37b226e3220823f90d197a3ef1ed99698005e3ad8a8cea2528f61a9d07fda8"
+    },
+    {
+      "path": "mathdb-api-snapshot.txt",
+      "sha256": "aae9ad99c331388a6aaf1968cd77888424ed2db32bdd82fbf84579ab31329336"
+    },
+    {
+      "path": "mathdb-check.json",
+      "sha256": "a3a310a6674dbe7e03a38ce2cd88e3e0d188bcf14a694fa0563933958574deb6"
+    },
+    {
+      "path": "mathdb-final-check.json",
+      "sha256": "2a5dd3e09f6bdfded8eaade75f09aa1273dd66a6201402b09cd3aa5b74ff37c7"
+    },
+    {
+      "path": "mathdb-initial-check.json",
+      "sha256": "ee5a8aa46444d6ab3195e2311651e35719ddba1fc63364b334f4fa9054b5f017"
+    },
+    {
+      "path": "mathdb-page-check.json",
+      "sha256": "5589e0e003b0b18c9744cb1a091a855d3ae60e628b101788ec31c796619958dc"
+    },
+    {
+      "path": "mathdb-page-snapshot.txt",
+      "sha256": "7f0b041898a55277660f6ef406bcde3dd0cf64eed5b07cea3c09ddbaada9968f"
+    },
+    {
+      "path": "proof-audit.md",
+      "sha256": "2c2335e2bedd751a4c5bc452bfce1b8c4f8fee9c33ba6774416e732b1d68f336"
+    },
+    {
+      "path": "pudim-check.json",
+      "sha256": "1d6961cdd4cb25417370aea2e9dd5649be1e343781c83f8c978e31c5d06bbd74"
+    },
+    {
+      "path": "pudim-claim-index.txt",
+      "sha256": "69274cd3c904774b36b6b3bc3c4a5b4c089e9a23d6f87ba695963dd6f958b780"
+    },
+    {
+      "path": "README.md",
+      "sha256": "e897963d6fa3b981ca7a9e8f405b8537e41eaeeb3ee3239a1949d856cf7ccd41"
+    },
+    {
+      "path": "related-source-check.json",
+      "sha256": "a7de486849bc0e4729d6c84802c86ace3e3d726c35d80343921b3f2732bfb2a0"
+    },
+    {
+      "path": "search-audit.json",
+      "sha256": "9870f8ee6a473de9f429e9f4bf53d7d4157fee7f2cfe0346b8eadb0ccb319a4b"
+    },
+    {
+      "path": "solution.pdf",
+      "sha256": "8fc5732e63c2a5a2df8bb16c684d1a4712a0ba90da6be3b0d8936a6f08ecdfcb"
+    },
+    {
+      "path": "solution.tex",
+      "sha256": "33267fb860ddd241afb7f2ff5bd4eff03c14a5504a3484d18434489abef2826a"
+    },
+    {
+      "path": "source-check.json",
+      "sha256": "c4f9ac92e62f7372d43a28e253df17b02b4fb1d6d088da59c74a7f21d8230bc2"
+    },
+    {
+      "path": "status.md",
+      "sha256": "db76814b4233b8c1c2cca85709ec0d2f2c8c093ae1f18249549c3f63b9d6aef8"
+    },
+    {
+      "path": "verification-results.json",
+      "sha256": "ce1e42c2ee38166c4dec4ca892bbe03f8a3bf7f71a274b77b797d7d35b9af9eb"
+    },
+    {
+      "path": "verify.py",
+      "sha256": "3d47d888ae3cc5ed2adc8adf5268146431a712de45119d679f5be52dabc4fd29"
+    },
+    {
+      "path": "web-claim-records.json",
+      "sha256": "4a76c029fe0f93199a6f5e94cb93a567aaec14ea38acbdc4e3a9ea17065d2a2c"
+    }
+  ]
+}

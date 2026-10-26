@@ -1,0 +1,141 @@
+\documentclass[10pt]{article}
+\usepackage[margin=0.9in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[hidelinks]{hyperref}
+\newtheorem{theorem}{Theorem}
+\title{A counterexample to the three-shifted\\q-Motzkin divisibility conjecture}
+\author{Principia Math In Progress}
+\date{18 September 2026}
+\begin{document}
+\maketitle
+\begin{abstract}
+The size-five three-shifted Hankel determinant has value \(2\) at
+\(q=-1\), while its conjectured divisor \(1+q^3\) vanishes.
+This disproves the divisibility part of the intended conjecture.
+The journal final remains unavailable for a corrections check;
+this proof therefore carries zero new campaign credit.
+\end{abstract}
+
+\section*{Task 1: the original conjecture and a counterexample}
+Write \(M_n(q)=\widetilde{\mathcal M}^{\dagger}_n(q)\) for the polynomials
+defined on page 62 of \cite{OS} by
+\[
+ M_0(q)=1,\qquad
+ M_{n+1}(q)=M_n(q)+\sum_{r=0}^{n-1}q^{r+1}M_r(q)M_{n-r-1}(q).
+\]
+Set
+\[
+ D_n(q)=\det[M_{i+j+3}(q)]_{i,j=0}^{n-1},
+ \qquad t_n(q)=\sum_{r=0}^{\lfloor n/3\rfloor}q^{3r}.
+\]
+Conjecture A.3, reproduced as MathDB 339077, intends
+\(D_n=(-1)^{\lfloor n/3\rfloor}q^{c_n}g_n(q)\), with
+\(c_n\geq0\), \(g_n\in\mathbb Z_{\geq0}[q]\), and in particular
+\(t_n\mid g_n\) when \(n\equiv2\pmod3\).
+The printed display uses \(f_n\) where the ensuing text uses \(g_n\).
+We resolve that notation in the intended way and disprove the
+substantive divisibility assertion.
+
+\begin{theorem}
+We have \(D_5(-1)=2\). Consequently \(1+q^3\) does not divide \(D_5(q)\),
+and no choice of monomial prefactor makes its normalized polynomial
+divisible by \(t_5(q)=1+q^3\).
+\end{theorem}
+\begin{proof}
+Put \(a_j=M_j(-1)\). Direct substitution in the defining recurrence gives
+\[
+ a_{n+1}=a_n+\sum_{r=0}^{n-1}(-1)^{r+1}a_ra_{n-r-1}.
+\]
+Starting at \(a_0=1\), its values through \(a_{11}\) are
+\[
+ (1,1,0,0,1,1,-1,-1,3,3,-6,-6).
+\]
+Thus \(D_5(-1)=\det A\), where
+\[
+ A=\begin{pmatrix}
+ 0&1&1&-1&-1\\
+ 1&1&-1&-1&3\\
+ 1&-1&-1&3&3\\
+ -1&-1&3&3&-6\\
+ -1&3&3&-6&-6
+ \end{pmatrix}.
+\]
+Swap the first two rows, then eliminate the first two columns using
+their unit pivots. The remaining block is
+\[
+ B=\begin{pmatrix}2&2&-2\\2&2&-3\\-2&-3&1\end{pmatrix},
+ \qquad \det A=-\det B=2.
+\]
+Indeed, subtracting the first row of \(B\) from its second and adding
+it to its third leaves lower rows \((0,0,-1)\), \((0,-1,-1)\);
+hence \(\det B=-2\).
+If \(t_5\mid g_5\) and \(D_5=-q^{c_5}g_5\), then evaluation at
+\(-1\) would give \(D_5(-1)=0\), a contradiction.
+\end{proof}
+
+\subsection*{Scope and exact checks}
+Evaluation at a negative value of \(q\) is legitimate: the claim is
+polynomial divisibility, so a proposed identity must hold under every
+specialization. The argument does not assume that \(q\) is a positive
+probability parameter and does not exploit the \(f_n/g_n\) notation.
+A single admissible size \(5\equiv2\pmod3\) disproves the universal claim.
+
+As a supplemental certificate, exact polynomial elimination gives
+\[
+ D_5(q)=-q^{62}
+ \bigl(1+2q+2q^3+2q^4+q^6+2q^7\bigr).
+\]
+Its remainder on division by \(1+q^3\) is the constant \(2\).
+The elementary proof above needs only the twelve displayed integers
+and the row operations, not this larger polynomial computation.
+
+The verifier checks the integer recurrence, the determinant by all
+\(120\) signed permutation products and by the displayed elimination,
+the full polynomial determinant and its remainder, and twelve moment
+polynomials by a separate weighted-walk computation. These are exact
+checks of a finite counterexample, not numerical evidence for an
+unbounded assertion.
+
+All 68 pages of the current primary preprint, including the references,
+were read. Its page 62 was also inspected visually. The 2019 journal
+final \cite{OSfinal} was identified but could not be obtained in full;
+possible corrections and the complete subsequent literature remain
+an eligibility limitation. The earlier repository package for MathDB
+339076 evaluates shift two and proposes shift three as a follow-up;
+it does not supply this counterexample.
+No independent peer review or proof-assistant certification is claimed.
+
+\section*{Task 2: determine the correct divisors}
+Classify the sizes \(n\equiv2\pmod3\) for which \(t_n\mid D_n\).
+Compute the exact greatest common divisor with \(t_n\) in the remaining
+cases, using roots of unity to isolate the obstructing factors.
+
+\section*{Task 3: evaluate all three-shift determinants}
+Find a uniform formula for \(D_n\), including its order at \(q=0\).
+Separate the surviving coefficient-sign and square-factor assertions
+from the divisibility assertion disproved here.
+
+\section*{Task 4: root-of-unity specializations}
+Find recurrences for \(M_n(\zeta)\) and \(D_n(\zeta)\) when \(\zeta\)
+has finite multiplicative order. Determine whether the size-five
+obstruction extends to an infinite family of sizes.
+
+\section*{Task 5: higher shifts}
+Investigate coefficient signs and cyclotomic factors of
+\(\det[M_{i+j+s}(q)]\) as the shift \(s\) varies.
+In particular, the separate all-even-shifts positivity conjecture,
+MathDB 339078, is not settled by this counterexample.
+Tasks 2--5 are proposed directions and carry no additional credit.
+
+\begin{thebibliography}{9}
+\bibitem{OS}
+S.-j. Oh and T. Scrimshaw, \emph{Identities from representation theory},
+arXiv:1805.00113v1 (2018), Appendix A, pp.~61--63.
+\url{https://arxiv.org/abs/1805.00113v1}.
+\bibitem{OSfinal}
+S.-j. Oh and T. Scrimshaw, \emph{Identities from representation theory},
+Discrete Mathematics \textbf{342}(9) (2019), 2493--2541.
+\url{https://doi.org/10.1016/j.disc.2019.05.020}.
+Bibliographic identification only; final full text not read.
+\end{thebibliography}
+\end{document}

@@ -1,0 +1,151 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,hyperref}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\title{An infinite counterexample to the factorial-partition sign conjecture}
+\author{Principia Math In Progress}
+\date{18 September 2026}
+\begin{document}
+\maketitle
+
+\section*{Task 1: Counterexample for MathDB 353583}
+For a set $A$ of positive integers, let $c_A(\ell,n)$ count the
+unordered partitions of $n$ into exactly $\ell$ parts belonging to $A$,
+and put
+\[
+ S_{A,k}(n)=\sum_{\ell=0}^n(-1)^\ell\ell^k c_A(\ell,n).
+\]
+For $U_m=\{1!,2!,\ldots,m!\}$, the second assertion of Conjecture 4.4
+in the current preprint of Gawron and Ulas~\cite{GU} predicts
+$(-1)^n S_{U_m,k}(n)\geq0$ for all sufficiently large $n$ whenever
+$k\geq m-1$. The following elementary formula disproves this assertion.
+
+\begin{theorem}
+For every integer $u\geq0$,
+\begin{equation}\label{counter}
+ S_{\{1,2,6\},2}(12u+30)
+ =-\frac{(u+3)(52u^2+147u+35)}3<0.
+\end{equation}
+Consequently the conjectured eventual inequality fails for
+$m=3$ and $k=2=m-1$.
+\end{theorem}
+
+We first record two alternating sums. For every integer $h\geq0$
+and every real $N$,
+\begin{align}
+ \sum_{b=0}^{2h+1}(-1)^b(N-b)^2
+   &=(h+1)(2N-2h-1),\label{odd}\\
+ \sum_{b=0}^{2h}(-1)^b(N-b)^2
+   &=N^2-2hN+2h^2+h.\label{even}
+\end{align}
+Indeed, pairing $b=2v$ and $b=2v+1$ gives
+$(N-2v)^2-(N-2v-1)^2=2N-4v-1$.
+Summing this expression proves \eqref{odd}. Pairing up to $2h-1$
+and adding $(N-2h)^2$ proves \eqref{even}, including $h=0$.
+
+\begin{proof}[Proof of the theorem]
+A partition with parts in $\{1,2,6\}$ is uniquely described by
+multiplicities $(a,b,c)$ satisfying $a+2b+6c=n$. It has
+$\ell=a+b+c=n-b-5c$ parts. When $n$ is even, its sign is
+$(-1)^\ell=(-1)^{b+c}$, and hence
+\begin{equation}\label{direct}
+ S_{\{1,2,6\},2}(n)
+ =\sum_{c=0}^{\lfloor n/6\rfloor}
+   \sum_{b=0}^{\lfloor(n-6c)/2\rfloor}
+    (-1)^{b+c}(n-b-5c)^2.
+\end{equation}
+Let $n=12j+6$, where $j\geq0$. Pair the terms with
+$c=2r$ and $c=2r+1$, for $0\leq r\leq j$, and write $v=j-r$.
+For $c=2r$, the upper bound on $b$ is $6v+3$, and
+$n-5c=2j+6+10v$. Formula \eqref{odd}, with $h=3v+1$, gives
+\[
+ E_v=(3v+2)(4j+9+14v)
+     =42v^2+(12j+55)v+8j+18.
+\]
+For $c=2r+1$, the upper bound is $6v$, and
+$n-5c=2j+1+10v$. Before the additional minus sign from $c$,
+formula \eqref{even}, with $h=3v$, gives
+\[
+ O_v=58v^2+(28j+17)v+(2j+1)^2.
+\]
+Thus \eqref{direct} becomes
+\begin{align*}
+ S_{\{1,2,6\},2}(12j+6)
+ &=\sum_{v=0}^j(E_v-O_v)\\
+ &=\sum_{v=0}^j
+   \bigl(-16v^2+(38-16j)v-4j^2+4j+17\bigr)\\
+ &=-\frac{(j+1)(52j^2-61j-51)}3.
+\end{align*}
+The last equality follows by substituting
+$\sum_{v=0}^jv=j(j+1)/2$ and
+$\sum_{v=0}^jv^2=j(j+1)(2j+1)/6$.
+Putting $j=u+2$ proves \eqref{counter}.
+All its displayed factors are positive for $u\geq0$.
+The integers $12u+30$ are even and unbounded, so no eventual
+threshold can make $(-1)^nS_{U_3,2}(n)$ nonnegative.
+\end{proof}
+
+The first value on this progression is $S_{U_3,2}(30)=-35$.
+The argument uses the intended factorial set, the stated weight,
+and the original definition of unordered partitions. An infinite
+progression, rather than a finite collection of small exceptions,
+is what contradicts the conjecture.
+
+\paragraph{Verification and publication scope.}
+The accompanying verifier compares exact partition counts with the
+generating function
+\[
+ \left.(t\partial_t)^2
+ \frac1{(1-tx)(1-tx^2)(1-tx^6)}\right|_{t=-1}
+ =\sum_{n\geq0}S_{U_3,2}(n)x^n
+\]
+and checks the symbolic finite-sum identities above.
+The complete current preprint~\cite{GU} and the complete later
+composition paper~\cite{comp} were read. The final journal version
+of~\cite{GU} was identified but could not be read in full.
+Accordingly, this package is a full mathematical counterexample
+to the stated preprint/MathDB assertion, with campaign eligibility
+pending that source check and zero new credit at publication.
+Review is by the authoring agent; no independent peer review is claimed.
+
+\section*{Task 2: Exact formulas for other weights}
+Determine the residue-class polynomial formulas for
+$S_{U_3,k}(n)$ for arbitrary fixed $k$, and obtain explicit thresholds
+for their eventual signs.
+
+\section*{Task 3: Larger factorial sets}
+Determine the eventual sign patterns for $U_m$ when $m\geq4$.
+Which roots of unity give the largest pole orders, and when do
+their contributions cancel on a residue class?
+
+\section*{Task 4: A classification for finite part sets}
+For a general finite $A$, give effective conditions on the poles
+of the weighted generating function that guarantee eventual
+alternation, a longer sign period, or infinitely many zero values.
+Seek an algorithm that certifies the threshold as well as the period.
+
+\section*{Task 5: Combinatorial explanation}
+Can a sign-reversing pairing of weighted partitions explain
+\eqref{counter} directly, leaving a family whose total weight is
+$(u+3)(52u^2+147u+35)/3$?
+
+\begin{thebibliography}{9}
+\bibitem{GU}
+F.~Gawron and M.~Ulas,
+\emph{Signs behaviour of sums of weighted numbers of partitions},
+\href{https://arxiv.org/abs/2202.05221}{arXiv:2202.05221v1} (2022),
+Conjecture 4.4, p.~11.
+Journal version, under the singular title \emph{Sign behaviour},
+Ramanujan J. \textbf{60} (2023), 571--584,
+\href{https://doi.org/10.1007/s11139-022-00602-3}
+{doi:10.1007/s11139-022-00602-3}; full final version not inspected.
+\bibitem{comp}
+F.~Gawron and M.~Ulas,
+\emph{Signs behaviour of sums of weighted numbers of compositions},
+Ramanujan J. \textbf{66} (2025), article 32,
+\href{https://doi.org/10.1007/s11139-024-01006-1}
+{doi:10.1007/s11139-024-01006-1}.
+This paper concerns ordered compositions.
+\end{thebibliography}
+\end{document}

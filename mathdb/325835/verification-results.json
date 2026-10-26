@@ -1,0 +1,25 @@
+{
+  "status": "passed",
+  "checked_at_utc": "2026-09-22T03:23:07.166602+00:00",
+  "verifier_sha256": "789d3d4e14ded6fe476c7d6fa89186d1b46a8584223fe9fe2c7cbbfba894b12b",
+  "arithmetic": "Exact rational matrices and symbolic algebraic numbers; no floating point.",
+  "groups": [
+    {
+      "name": "Fourier slices and sorted spectra from rational inputs",
+      "cases": 3
+    },
+    {
+      "name": "Real t-SVD reconstruction and t-orthogonality",
+      "cases": 3
+    },
+    {
+      "name": "Exact strict triangle and midpoint failures; norm-ball scaling; distinct TNN",
+      "values": [
+        "sqrt(10)/2",
+        "sqrt(10)/2",
+        "sqrt(2) + 2"
+      ],
+      "squared_gap": "4*(sqrt(2)-1)>0"
+    }
+  ]
+}

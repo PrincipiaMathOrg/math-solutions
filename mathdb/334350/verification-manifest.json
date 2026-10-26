@@ -1,0 +1,1408 @@
+{
+  "mathematics_completed_at_utc": "2026-09-18T08:09:17.958889+00:00",
+  "audit_recorded_at_utc": "2026-09-18T08:24:52.975020+00:00",
+  "campaign_eligibility": "pending-related-source-access",
+  "new_problem_credit": 0,
+  "result": "Full identity proved for every n,j,k, strengthened to every odd function; all positive signed coefficients proved strictly positive.",
+  "unresolved": "Full text of relevant DOI 10.1007/s10958-019-04299-6 remains inaccessible; campaign eligibility is pending.",
+  "verification": {
+    "checked_at_utc": "2026-09-18T08:17:44.275435+00:00",
+    "passed": true,
+    "groups": 4,
+    "brute_tuple_distributions": [
+      {
+        "n": 1,
+        "j": 1,
+        "weak_tuples": 1
+      },
+      {
+        "n": 1,
+        "j": 2,
+        "weak_tuples": 3
+      },
+      {
+        "n": 1,
+        "j": 3,
+        "weak_tuples": 10
+      },
+      {
+        "n": 1,
+        "j": 4,
+        "weak_tuples": 35
+      },
+      {
+        "n": 1,
+        "j": 5,
+        "weak_tuples": 126
+      },
+      {
+        "n": 1,
+        "j": 6,
+        "weak_tuples": 462
+      },
+      {
+        "n": 2,
+        "j": 1,
+        "weak_tuples": 2
+      },
+      {
+        "n": 2,
+        "j": 2,
+        "weak_tuples": 10
+      },
+      {
+        "n": 2,
+        "j": 3,
+        "weak_tuples": 56
+      },
+      {
+        "n": 2,
+        "j": 4,
+        "weak_tuples": 330
+      },
+      {
+        "n": 2,
+        "j": 5,
+        "weak_tuples": 2002
+      },
+      {
+        "n": 2,
+        "j": 6,
+        "weak_tuples": 12376
+      },
+      {
+        "n": 3,
+        "j": 1,
+        "weak_tuples": 3
+      },
+      {
+        "n": 3,
+        "j": 2,
+        "weak_tuples": 21
+      },
+      {
+        "n": 3,
+        "j": 3,
+        "weak_tuples": 165
+      },
+      {
+        "n": 3,
+        "j": 4,
+        "weak_tuples": 1365
+      },
+      {
+        "n": 3,
+        "j": 5,
+        "weak_tuples": 11628
+      },
+      {
+        "n": 4,
+        "j": 1,
+        "weak_tuples": 4
+      },
+      {
+        "n": 4,
+        "j": 2,
+        "weak_tuples": 36
+      },
+      {
+        "n": 4,
+        "j": 3,
+        "weak_tuples": 364
+      },
+      {
+        "n": 4,
+        "j": 4,
+        "weak_tuples": 3876
+      },
+      {
+        "n": 4,
+        "j": 5,
+        "weak_tuples": 42504
+      },
+      {
+        "n": 5,
+        "j": 1,
+        "weak_tuples": 5
+      },
+      {
+        "n": 5,
+        "j": 2,
+        "weak_tuples": 55
+      },
+      {
+        "n": 5,
+        "j": 3,
+        "weak_tuples": 680
+      },
+      {
+        "n": 5,
+        "j": 4,
+        "weak_tuples": 8855
+      }
+    ],
+    "order_statistic_distributions": [
+      {
+        "n": 1,
+        "j": 1,
+        "positive_coefficients": 1,
+        "signed_mass": 1
+      },
+      {
+        "n": 1,
+        "j": 2,
+        "positive_coefficients": 2,
+        "signed_mass": 5
+      },
+      {
+        "n": 1,
+        "j": 3,
+        "positive_coefficients": 3,
+        "signed_mass": 22
+      },
+      {
+        "n": 1,
+        "j": 4,
+        "positive_coefficients": 4,
+        "signed_mass": 93
+      },
+      {
+        "n": 1,
+        "j": 5,
+        "positive_coefficients": 5,
+        "signed_mass": 386
+      },
+      {
+        "n": 1,
+        "j": 6,
+        "positive_coefficients": 6,
+        "signed_mass": 1586
+      },
+      {
+        "n": 1,
+        "j": 7,
+        "positive_coefficients": 7,
+        "signed_mass": 6476
+      },
+      {
+        "n": 1,
+        "j": 8,
+        "positive_coefficients": 8,
+        "signed_mass": 26333
+      },
+      {
+        "n": 1,
+        "j": 9,
+        "positive_coefficients": 9,
+        "signed_mass": 106762
+      },
+      {
+        "n": 1,
+        "j": 10,
+        "positive_coefficients": 10,
+        "signed_mass": 431910
+      },
+      {
+        "n": 1,
+        "j": 11,
+        "positive_coefficients": 11,
+        "signed_mass": 1744436
+      },
+      {
+        "n": 1,
+        "j": 12,
+        "positive_coefficients": 12,
+        "signed_mass": 7036530
+      },
+      {
+        "n": 1,
+        "j": 13,
+        "positive_coefficients": 13,
+        "signed_mass": 28354132
+      },
+      {
+        "n": 1,
+        "j": 14,
+        "positive_coefficients": 14,
+        "signed_mass": 114159428
+      },
+      {
+        "n": 1,
+        "j": 15,
+        "positive_coefficients": 15,
+        "signed_mass": 459312152
+      },
+      {
+        "n": 1,
+        "j": 16,
+        "positive_coefficients": 16,
+        "signed_mass": 1846943453
+      },
+      {
+        "n": 2,
+        "j": 1,
+        "positive_coefficients": 2,
+        "signed_mass": 2
+      },
+      {
+        "n": 2,
+        "j": 2,
+        "positive_coefficients": 4,
+        "signed_mass": 16
+      },
+      {
+        "n": 2,
+        "j": 3,
+        "positive_coefficients": 6,
+        "signed_mass": 116
+      },
+      {
+        "n": 2,
+        "j": 4,
+        "positive_coefficients": 8,
+        "signed_mass": 816
+      },
+      {
+        "n": 2,
+        "j": 5,
+        "positive_coefficients": 10,
+        "signed_mass": 5662
+      },
+      {
+        "n": 2,
+        "j": 6,
+        "positive_coefficients": 12,
+        "signed_mass": 38992
+      },
+      {
+        "n": 2,
+        "j": 7,
+        "positive_coefficients": 14,
+        "signed_mass": 267276
+      },
+      {
+        "n": 2,
+        "j": 8,
+        "positive_coefficients": 16,
+        "signed_mass": 1826400
+      },
+      {
+        "n": 2,
+        "j": 9,
+        "positive_coefficients": 18,
+        "signed_mass": 12453182
+      },
+      {
+        "n": 2,
+        "j": 10,
+        "positive_coefficients": 20,
+        "signed_mass": 84774336
+      },
+      {
+        "n": 2,
+        "j": 11,
+        "positive_coefficients": 22,
+        "signed_mass": 576388848
+      },
+      {
+        "n": 2,
+        "j": 12,
+        "positive_coefficients": 24,
+        "signed_mass": 3915167424
+      },
+      {
+        "n": 2,
+        "j": 13,
+        "positive_coefficients": 26,
+        "signed_mass": 26573730120
+      },
+      {
+        "n": 2,
+        "j": 14,
+        "positive_coefficients": 28,
+        "signed_mass": 180253682128
+      },
+      {
+        "n": 2,
+        "j": 15,
+        "positive_coefficients": 30,
+        "signed_mass": 1222059136156
+      },
+      {
+        "n": 2,
+        "j": 16,
+        "positive_coefficients": 32,
+        "signed_mass": 8281578138816
+      },
+      {
+        "n": 3,
+        "j": 1,
+        "positive_coefficients": 3,
+        "signed_mass": 3
+      },
+      {
+        "n": 3,
+        "j": 2,
+        "positive_coefficients": 6,
+        "signed_mass": 33
+      },
+      {
+        "n": 3,
+        "j": 3,
+        "positive_coefficients": 9,
+        "signed_mass": 333
+      },
+      {
+        "n": 3,
+        "j": 4,
+        "positive_coefficients": 12,
+        "signed_mass": 3273
+      },
+      {
+        "n": 3,
+        "j": 5,
+        "positive_coefficients": 15,
+        "signed_mass": 31788
+      },
+      {
+        "n": 3,
+        "j": 6,
+        "positive_coefficients": 18,
+        "signed_mass": 306711
+      },
+      {
+        "n": 3,
+        "j": 7,
+        "positive_coefficients": 21,
+        "signed_mass": 2947374
+      },
+      {
+        "n": 3,
+        "j": 8,
+        "positive_coefficients": 24,
+        "signed_mass": 28246617
+      },
+      {
+        "n": 3,
+        "j": 9,
+        "positive_coefficients": 27,
+        "signed_mass": 270189540
+      },
+      {
+        "n": 3,
+        "j": 10,
+        "positive_coefficients": 30,
+        "signed_mass": 2580834468
+      },
+      {
+        "n": 3,
+        "j": 11,
+        "positive_coefficients": 33,
+        "signed_mass": 24625618053
+      },
+      {
+        "n": 3,
+        "j": 12,
+        "positive_coefficients": 36,
+        "signed_mass": 234774515871
+      },
+      {
+        "n": 3,
+        "j": 13,
+        "positive_coefficients": 39,
+        "signed_mass": 2236786905252
+      },
+      {
+        "n": 3,
+        "j": 14,
+        "positive_coefficients": 42,
+        "signed_mass": 21299144754186
+      },
+      {
+        "n": 3,
+        "j": 15,
+        "positive_coefficients": 45,
+        "signed_mass": 202723728894828
+      },
+      {
+        "n": 3,
+        "j": 16,
+        "positive_coefficients": 48,
+        "signed_mass": 1928783869749369
+      },
+      {
+        "n": 4,
+        "j": 1,
+        "positive_coefficients": 4,
+        "signed_mass": 4
+      },
+      {
+        "n": 4,
+        "j": 2,
+        "positive_coefficients": 8,
+        "signed_mass": 56
+      },
+      {
+        "n": 4,
+        "j": 3,
+        "positive_coefficients": 12,
+        "signed_mass": 724
+      },
+      {
+        "n": 4,
+        "j": 4,
+        "positive_coefficients": 16,
+        "signed_mass": 9136
+      },
+      {
+        "n": 4,
+        "j": 5,
+        "positive_coefficients": 20,
+        "signed_mass": 114024
+      },
+      {
+        "n": 4,
+        "j": 6,
+        "positive_coefficients": 24,
+        "signed_mass": 1414520
+      },
+      {
+        "n": 4,
+        "j": 7,
+        "positive_coefficients": 28,
+        "signed_mass": 17482336
+      },
+      {
+        "n": 4,
+        "j": 8,
+        "positive_coefficients": 32,
+        "signed_mass": 215529568
+      },
+      {
+        "n": 4,
+        "j": 9,
+        "positive_coefficients": 36,
+        "signed_mass": 2652465388
+      },
+      {
+        "n": 4,
+        "j": 10,
+        "positive_coefficients": 40,
+        "signed_mass": 32600896816
+      },
+      {
+        "n": 4,
+        "j": 11,
+        "positive_coefficients": 44,
+        "signed_mass": 400295538680
+      },
+      {
+        "n": 4,
+        "j": 12,
+        "positive_coefficients": 48,
+        "signed_mass": 4911304508080
+      },
+      {
+        "n": 4,
+        "j": 13,
+        "positive_coefficients": 52,
+        "signed_mass": 60220617886784
+      },
+      {
+        "n": 4,
+        "j": 14,
+        "positive_coefficients": 56,
+        "signed_mass": 738032744902208
+      },
+      {
+        "n": 4,
+        "j": 15,
+        "positive_coefficients": 60,
+        "signed_mass": 9041196774609984
+      },
+      {
+        "n": 4,
+        "j": 16,
+        "positive_coefficients": 64,
+        "signed_mass": 110719804878640320
+      },
+      {
+        "n": 5,
+        "j": 1,
+        "positive_coefficients": 5,
+        "signed_mass": 5
+      },
+      {
+        "n": 5,
+        "j": 2,
+        "positive_coefficients": 10,
+        "signed_mass": 85
+      },
+      {
+        "n": 5,
+        "j": 3,
+        "positive_coefficients": 15,
+        "signed_mass": 1340
+      },
+      {
+        "n": 5,
+        "j": 4,
+        "positive_coefficients": 20,
+        "signed_mass": 20645
+      },
+      {
+        "n": 5,
+        "j": 5,
+        "positive_coefficients": 25,
+        "signed_mass": 314775
+      },
+      {
+        "n": 5,
+        "j": 6,
+        "positive_coefficients": 30,
+        "signed_mass": 4771960
+      },
+      {
+        "n": 5,
+        "j": 7,
+        "positive_coefficients": 35,
+        "signed_mass": 72086880
+      },
+      {
+        "n": 5,
+        "j": 8,
+        "positive_coefficients": 40,
+        "signed_mass": 1086399285
+      },
+      {
+        "n": 5,
+        "j": 9,
+        "positive_coefficients": 45,
+        "signed_mass": 16345497950
+      },
+      {
+        "n": 5,
+        "j": 10,
+        "positive_coefficients": 50,
+        "signed_mass": 245625330675
+      },
+      {
+        "n": 5,
+        "j": 11,
+        "positive_coefficients": 55,
+        "signed_mass": 3687583159540
+      },
+      {
+        "n": 5,
+        "j": 12,
+        "positive_coefficients": 60,
+        "signed_mass": 55321352653160
+      },
+      {
+        "n": 5,
+        "j": 13,
+        "positive_coefficients": 65,
+        "signed_mass": 829449319785325
+      },
+      {
+        "n": 5,
+        "j": 14,
+        "positive_coefficients": 70,
+        "signed_mass": 12430261324260900
+      },
+      {
+        "n": 5,
+        "j": 15,
+        "positive_coefficients": 75,
+        "signed_mass": 186208636371973200
+      },
+      {
+        "n": 5,
+        "j": 16,
+        "positive_coefficients": 80,
+        "signed_mass": 2788535958561858645
+      },
+      {
+        "n": 6,
+        "j": 1,
+        "positive_coefficients": 6,
+        "signed_mass": 6
+      },
+      {
+        "n": 6,
+        "j": 2,
+        "positive_coefficients": 12,
+        "signed_mass": 120
+      },
+      {
+        "n": 6,
+        "j": 3,
+        "positive_coefficients": 18,
+        "signed_mass": 2232
+      },
+      {
+        "n": 6,
+        "j": 4,
+        "positive_coefficients": 24,
+        "signed_mass": 40608
+      },
+      {
+        "n": 6,
+        "j": 5,
+        "positive_coefficients": 30,
+        "signed_mass": 731436
+      },
+      {
+        "n": 6,
+        "j": 6,
+        "positive_coefficients": 36,
+        "signed_mass": 13102272
+      },
+      {
+        "n": 6,
+        "j": 7,
+        "positive_coefficients": 42,
+        "signed_mass": 233904096
+      },
+      {
+        "n": 6,
+        "j": 8,
+        "positive_coefficients": 48,
+        "signed_mass": 4166213184
+      },
+      {
+        "n": 6,
+        "j": 9,
+        "positive_coefficients": 54,
+        "signed_mass": 74087986554
+      },
+      {
+        "n": 6,
+        "j": 10,
+        "positive_coefficients": 60,
+        "signed_mass": 1315953024720
+      },
+      {
+        "n": 6,
+        "j": 11,
+        "positive_coefficients": 66,
+        "signed_mass": 23352954120744
+      },
+      {
+        "n": 6,
+        "j": 12,
+        "positive_coefficients": 72,
+        "signed_mass": 414130671749952
+      },
+      {
+        "n": 6,
+        "j": 13,
+        "positive_coefficients": 78,
+        "signed_mass": 7339872266642844
+      },
+      {
+        "n": 6,
+        "j": 14,
+        "positive_coefficients": 84,
+        "signed_mass": 130029116522777088
+      },
+      {
+        "n": 6,
+        "j": 15,
+        "positive_coefficients": 90,
+        "signed_mass": 2302651446169398912
+      },
+      {
+        "n": 6,
+        "j": 16,
+        "positive_coefficients": 96,
+        "signed_mass": 40764108954673835136
+      },
+      {
+        "n": 7,
+        "j": 1,
+        "positive_coefficients": 7,
+        "signed_mass": 7
+      },
+      {
+        "n": 7,
+        "j": 2,
+        "positive_coefficients": 14,
+        "signed_mass": 161
+      },
+      {
+        "n": 7,
+        "j": 3,
+        "positive_coefficients": 21,
+        "signed_mass": 3451
+      },
+      {
+        "n": 7,
+        "j": 4,
+        "positive_coefficients": 28,
+        "signed_mass": 72401
+      },
+      {
+        "n": 7,
+        "j": 5,
+        "positive_coefficients": 35,
+        "signed_mass": 1504237
+      },
+      {
+        "n": 7,
+        "j": 6,
+        "positive_coefficients": 42,
+        "signed_mass": 31085789
+      },
+      {
+        "n": 7,
+        "j": 7,
+        "positive_coefficients": 49,
+        "signed_mass": 640280893
+      },
+      {
+        "n": 7,
+        "j": 8,
+        "positive_coefficients": 56,
+        "signed_mass": 13158901553
+      },
+      {
+        "n": 7,
+        "j": 9,
+        "positive_coefficients": 63,
+        "signed_mass": 270016987576
+      },
+      {
+        "n": 7,
+        "j": 10,
+        "positive_coefficients": 70,
+        "signed_mass": 5534307788331
+      },
+      {
+        "n": 7,
+        "j": 11,
+        "positive_coefficients": 77,
+        "signed_mass": 113332735518086
+      },
+      {
+        "n": 7,
+        "j": 12,
+        "positive_coefficients": 84,
+        "signed_mass": 2319263772512813
+      },
+      {
+        "n": 7,
+        "j": 13,
+        "positive_coefficients": 91,
+        "signed_mass": 47435916174681132
+      },
+      {
+        "n": 7,
+        "j": 14,
+        "positive_coefficients": 98,
+        "signed_mass": 969775043371970059
+      },
+      {
+        "n": 7,
+        "j": 15,
+        "positive_coefficients": 105,
+        "signed_mass": 19818682596413993446
+      },
+      {
+        "n": 7,
+        "j": 16,
+        "positive_coefficients": 112,
+        "signed_mass": 404896996465125940209
+      },
+      {
+        "n": 8,
+        "j": 1,
+        "positive_coefficients": 8,
+        "signed_mass": 8
+      },
+      {
+        "n": 8,
+        "j": 2,
+        "positive_coefficients": 16,
+        "signed_mass": 208
+      },
+      {
+        "n": 8,
+        "j": 3,
+        "positive_coefficients": 24,
+        "signed_mass": 5048
+      },
+      {
+        "n": 8,
+        "j": 4,
+        "positive_coefficients": 32,
+        "signed_mass": 119968
+      },
+      {
+        "n": 8,
+        "j": 5,
+        "positive_coefficients": 40,
+        "signed_mass": 2824088
+      },
+      {
+        "n": 8,
+        "j": 6,
+        "positive_coefficients": 48,
+        "signed_mass": 66132784
+      },
+      {
+        "n": 8,
+        "j": 7,
+        "positive_coefficients": 56,
+        "signed_mass": 1543655240
+      },
+      {
+        "n": 8,
+        "j": 8,
+        "positive_coefficients": 64,
+        "signed_mass": 35953857856
+      },
+      {
+        "n": 8,
+        "j": 9,
+        "positive_coefficients": 72,
+        "signed_mass": 836138041712
+      },
+      {
+        "n": 8,
+        "j": 10,
+        "positive_coefficients": 80,
+        "signed_mass": 19423264257648
+      },
+      {
+        "n": 8,
+        "j": 11,
+        "positive_coefficients": 88,
+        "signed_mass": 450811136047456
+      },
+      {
+        "n": 8,
+        "j": 12,
+        "positive_coefficients": 96,
+        "signed_mass": 10456257443380576
+      },
+      {
+        "n": 8,
+        "j": 13,
+        "positive_coefficients": 104,
+        "signed_mass": 242396008201071408
+      },
+      {
+        "n": 8,
+        "j": 14,
+        "positive_coefficients": 112,
+        "signed_mass": 5616754430433174992
+      },
+      {
+        "n": 8,
+        "j": 15,
+        "positive_coefficients": 120,
+        "signed_mass": 130103492794083114368
+      },
+      {
+        "n": 8,
+        "j": 16,
+        "positive_coefficients": 128,
+        "signed_mass": 3012738093038807571072
+      },
+      {
+        "n": 9,
+        "j": 1,
+        "positive_coefficients": 9,
+        "signed_mass": 9
+      },
+      {
+        "n": 9,
+        "j": 2,
+        "positive_coefficients": 18,
+        "signed_mass": 261
+      },
+      {
+        "n": 9,
+        "j": 3,
+        "positive_coefficients": 27,
+        "signed_mass": 7074
+      },
+      {
+        "n": 9,
+        "j": 4,
+        "positive_coefficients": 36,
+        "signed_mass": 187821
+      },
+      {
+        "n": 9,
+        "j": 5,
+        "positive_coefficients": 45,
+        "signed_mass": 4940424
+      },
+      {
+        "n": 9,
+        "j": 6,
+        "positive_coefficients": 54,
+        "signed_mass": 129285774
+      },
+      {
+        "n": 9,
+        "j": 7,
+        "positive_coefficients": 63,
+        "signed_mass": 3372540768
+      },
+      {
+        "n": 9,
+        "j": 8,
+        "positive_coefficients": 72,
+        "signed_mass": 87789385485
+      },
+      {
+        "n": 9,
+        "j": 9,
+        "positive_coefficients": 81,
+        "signed_mass": 2281790845107
+      },
+      {
+        "n": 9,
+        "j": 10,
+        "positive_coefficients": 90,
+        "signed_mass": 59242042026756
+      },
+      {
+        "n": 9,
+        "j": 11,
+        "positive_coefficients": 99,
+        "signed_mass": 1536805578727890
+      },
+      {
+        "n": 9,
+        "j": 12,
+        "positive_coefficients": 108,
+        "signed_mass": 39840259210222158
+      },
+      {
+        "n": 9,
+        "j": 13,
+        "positive_coefficients": 117,
+        "signed_mass": 1032278820343409700
+      },
+      {
+        "n": 9,
+        "j": 14,
+        "positive_coefficients": 126,
+        "signed_mass": 26735355423643497696
+      },
+      {
+        "n": 9,
+        "j": 15,
+        "positive_coefficients": 135,
+        "signed_mass": 692183404543603584744
+      },
+      {
+        "n": 9,
+        "j": 16,
+        "positive_coefficients": 144,
+        "signed_mass": 17915444562200376512205
+      },
+      {
+        "n": 10,
+        "j": 1,
+        "positive_coefficients": 10,
+        "signed_mass": 10
+      },
+      {
+        "n": 10,
+        "j": 2,
+        "positive_coefficients": 20,
+        "signed_mass": 320
+      },
+      {
+        "n": 10,
+        "j": 3,
+        "positive_coefficients": 30,
+        "signed_mass": 9580
+      },
+      {
+        "n": 10,
+        "j": 4,
+        "positive_coefficients": 40,
+        "signed_mass": 281040
+      },
+      {
+        "n": 10,
+        "j": 5,
+        "positive_coefficients": 50,
+        "signed_mass": 8169050
+      },
+      {
+        "n": 10,
+        "j": 6,
+        "positive_coefficients": 60,
+        "signed_mass": 236251280
+      },
+      {
+        "n": 10,
+        "j": 7,
+        "positive_coefficients": 70,
+        "signed_mass": 6811094300
+      },
+      {
+        "n": 10,
+        "j": 8,
+        "positive_coefficients": 80,
+        "signed_mass": 195952748960
+      },
+      {
+        "n": 10,
+        "j": 9,
+        "positive_coefficients": 90,
+        "signed_mass": 5629169077960
+      },
+      {
+        "n": 10,
+        "j": 10,
+        "positive_coefficients": 100,
+        "signed_mass": 161534214847600
+      },
+      {
+        "n": 10,
+        "j": 11,
+        "positive_coefficients": 110,
+        "signed_mass": 4631532837319860
+      },
+      {
+        "n": 10,
+        "j": 12,
+        "positive_coefficients": 120,
+        "signed_mass": 132709923618624000
+      },
+      {
+        "n": 10,
+        "j": 13,
+        "positive_coefficients": 130,
+        "signed_mass": 3800642007050012290
+      },
+      {
+        "n": 10,
+        "j": 14,
+        "positive_coefficients": 140,
+        "signed_mass": 108799594488016988400
+      },
+      {
+        "n": 10,
+        "j": 15,
+        "positive_coefficients": 150,
+        "signed_mass": 3113479877063508976400
+      },
+      {
+        "n": 10,
+        "j": 16,
+        "positive_coefficients": 160,
+        "signed_mass": 89071317212359717307200
+      },
+      {
+        "n": 11,
+        "j": 1,
+        "positive_coefficients": 11,
+        "signed_mass": 11
+      },
+      {
+        "n": 11,
+        "j": 2,
+        "positive_coefficients": 22,
+        "signed_mass": 385
+      },
+      {
+        "n": 11,
+        "j": 3,
+        "positive_coefficients": 33,
+        "signed_mass": 12617
+      },
+      {
+        "n": 11,
+        "j": 4,
+        "positive_coefficients": 44,
+        "signed_mass": 405273
+      },
+      {
+        "n": 11,
+        "j": 5,
+        "positive_coefficients": 55,
+        "signed_mass": 12899986
+      },
+      {
+        "n": 11,
+        "j": 6,
+        "positive_coefficients": 66,
+        "signed_mass": 408561043
+      },
+      {
+        "n": 11,
+        "j": 7,
+        "positive_coefficients": 77,
+        "signed_mass": 12899751876
+      },
+      {
+        "n": 11,
+        "j": 8,
+        "positive_coefficients": 88,
+        "signed_mass": 406451319945
+      },
+      {
+        "n": 11,
+        "j": 9,
+        "positive_coefficients": 99,
+        "signed_mass": 12787980148691
+      },
+      {
+        "n": 11,
+        "j": 10,
+        "positive_coefficients": 110,
+        "signed_mass": 401909594963030
+      },
+      {
+        "n": 11,
+        "j": 11,
+        "positive_coefficients": 121,
+        "signed_mass": 12621155601111728
+      },
+      {
+        "n": 11,
+        "j": 12,
+        "positive_coefficients": 132,
+        "signed_mass": 396087994568921259
+      },
+      {
+        "n": 11,
+        "j": 13,
+        "positive_coefficients": 143,
+        "signed_mass": 12424011602835339804
+      },
+      {
+        "n": 11,
+        "j": 14,
+        "positive_coefficients": 154,
+        "signed_mass": 389539010812141888236
+      },
+      {
+        "n": 11,
+        "j": 15,
+        "positive_coefficients": 165,
+        "signed_mass": 12209288298171408699772
+      },
+      {
+        "n": 11,
+        "j": 16,
+        "positive_coefficients": 176,
+        "signed_mass": 382564158140997032093289
+      },
+      {
+        "n": 12,
+        "j": 1,
+        "positive_coefficients": 12,
+        "signed_mass": 12
+      },
+      {
+        "n": 12,
+        "j": 2,
+        "positive_coefficients": 24,
+        "signed_mass": 456
+      },
+      {
+        "n": 12,
+        "j": 3,
+        "positive_coefficients": 36,
+        "signed_mass": 16236
+      },
+      {
+        "n": 12,
+        "j": 4,
+        "positive_coefficients": 48,
+        "signed_mass": 566736
+      },
+      {
+        "n": 12,
+        "j": 5,
+        "positive_coefficients": 60,
+        "signed_mass": 19605312
+      },
+      {
+        "n": 12,
+        "j": 6,
+        "positive_coefficients": 72,
+        "signed_mass": 674862696
+      },
+      {
+        "n": 12,
+        "j": 7,
+        "positive_coefficients": 84,
+        "signed_mass": 23159418840
+      },
+      {
+        "n": 12,
+        "j": 8,
+        "positive_coefficients": 96,
+        "signed_mass": 793143750816
+      },
+      {
+        "n": 12,
+        "j": 9,
+        "positive_coefficients": 108,
+        "signed_mass": 27123697578600
+      },
+      {
+        "n": 12,
+        "j": 10,
+        "positive_coefficients": 120,
+        "signed_mass": 926581583112576
+      },
+      {
+        "n": 12,
+        "j": 11,
+        "positive_coefficients": 132,
+        "signed_mass": 31627611035581716
+      },
+      {
+        "n": 12,
+        "j": 12,
+        "positive_coefficients": 144,
+        "signed_mass": 1078881528591539856
+      },
+      {
+        "n": 12,
+        "j": 13,
+        "positive_coefficients": 156,
+        "signed_mass": 36784172966279601888
+      },
+      {
+        "n": 12,
+        "j": 14,
+        "positive_coefficients": 168,
+        "signed_mass": 1253628940383927456336
+      },
+      {
+        "n": 12,
+        "j": 15,
+        "positive_coefficients": 180,
+        "signed_mass": 42709926150035827695936
+      },
+      {
+        "n": 12,
+        "j": 16,
+        "positive_coefficients": 192,
+        "signed_mass": 1454669849120126943548736
+      }
+    ],
+    "summary": {
+      "brute_parameter_pairs": 26,
+      "brute_tuples": 84974,
+      "larger_parameter_pairs": 192,
+      "odd_function_checks": 64,
+      "rational_lemma_checks": 432
+    },
+    "limitation": "Finite exact checks supplement the proof for all positive n,j and every odd function."
+  },
+  "pdf_review": {
+    "pages": 4,
+    "visually_inspected": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "layout_warnings": false
+  },
+  "reviewer": "Authoring agent only; no independent peer review or proof assistant.",
+  "files": [
+    {
+      "path": "arxiv-source-snapshot.txt",
+      "sha256": "c62f0613b8f2c27eb1ac4d41f9fdaa6fc0761553f2e9adc9810ddfc989c49643"
+    },
+    {
+      "path": "attempt-record.json",
+      "sha256": "c4ce643e1dea971afd987f3556b3ca0ff8b11bf0b36e04081d2d295ecb6ea6f1"
+    },
+    {
+      "path": "crab-claim-check.json",
+      "sha256": "0ffba8aa37a4c78ed90fedfff4ae9e123a3826a46759c16c1a6a2f978c7763fc"
+    },
+    {
+      "path": "crab-claim-index.txt",
+      "sha256": "4e6e9035598a253e2ec09df95e4a69b4c3f7253143bddf770458995709c485ef"
+    },
+    {
+      "path": "crossref-source-check.json",
+      "sha256": "cfeb120314b1ae53c2247394604151adaaa18752da340c56dce3b280ad249e71"
+    },
+    {
+      "path": "crossref-source-snapshot.txt",
+      "sha256": "be1190c962b5a84da70079810bdbd4455f37b72cb398268dafcaad5504548423"
+    },
+    {
+      "path": "literature-audit.md",
+      "sha256": "ab5096b1aa33f0601885f47a1cfe61f4b403bebeccc77eeaf2d9a52f661797c7"
+    },
+    {
+      "path": "mathdb-attempt-refresh-check.json",
+      "sha256": "e7b901d40963aca1b37ba97cc98de31fcfc77c822d325f01200f7d48d3ea7c86"
+    },
+    {
+      "path": "mathdb-final-check.json",
+      "sha256": "bac4e8808d32c9fa0baa112785a9e41fe25df08571935cd208402c54428b5ea9"
+    },
+    {
+      "path": "mathdb-initial-check.json",
+      "sha256": "ea5e636f960656ef2d343c9e19f80aae4e93c22e7d5884bfe47e2b76ce22b162"
+    },
+    {
+      "path": "mathdb-page-check.json",
+      "sha256": "0afc5d18f002ea16359e5dd3cb1b2ae9cf53e92ae955e854b25731adc250d081"
+    },
+    {
+      "path": "mathdb-page-snapshot.txt",
+      "sha256": "ea20a53d21c869988ef300f2e6a1a0f7385923c4eaa0e42384449a7ce66e6d13"
+    },
+    {
+      "path": "proof-audit.md",
+      "sha256": "7a8a313ada933521dc9a16be396502dbe1c14fdadf36949483fa67b08b5e8a53"
+    },
+    {
+      "path": "pudim-claim-check.json",
+      "sha256": "3adc48c7fc22b877d85033f03d3e818dcd61933125e1cf4572a79518fb9b9ce3"
+    },
+    {
+      "path": "pudim-claim-index.txt",
+      "sha256": "69274cd3c904774b36b6b3bc3c4a5b4c089e9a23d6f87ba695963dd6f958b780"
+    },
+    {
+      "path": "README.md",
+      "sha256": "f252609db00486be5aa68cc7280dbf4dc8a58c91b2201dacb862109541f0f686"
+    },
+    {
+      "path": "search-audit.json",
+      "sha256": "88bcd04bf3426d982dab9f291a96340489f59591b34d0939f097cf17de8129cd"
+    },
+    {
+      "path": "solution.pdf",
+      "sha256": "49b3678ec1811885081545a01ef312d66282468d42867f62ad35175fb998a949"
+    },
+    {
+      "path": "solution.tex",
+      "sha256": "1d53d45e49d0951561049ae8a94fbb206f7350fd3241e8b004ce3193038b3029"
+    },
+    {
+      "path": "source-check.json",
+      "sha256": "21fc97798dcb4bbb2bc26460b2c02d52dcc6c1d11e8c1f59629d911863ca8af6"
+    },
+    {
+      "path": "verification-results.json",
+      "sha256": "fb668066ff5311ea3c8cda800aee642e4ff8aac3bf50286d39c9b507a33551af"
+    },
+    {
+      "path": "verify.py",
+      "sha256": "7a7ddad06d7ced8ffd918e0856b58786ea77206df28bb2582ae6ce37e252fd44"
+    }
+  ]
+}

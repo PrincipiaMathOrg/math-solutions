@@ -1,0 +1,29 @@
+{
+  "checked_at_utc": "2026-09-18T10:54:29.284949+00:00",
+  "passed": true,
+  "groups": 4,
+  "arithmetic": "Exact integers and rational symbolic identities",
+  "partition_counts": {
+    "n_min": 0,
+    "n_max": 240,
+    "values": 241
+  },
+  "generating_function": {
+    "numerator": "x*(x**2 + x + 1)*(9*x**11 + 2*x**10 - 14*x**9 + 18*x**7 - 2*x**6 - 9*x**5 + x**4 + 3*x**3 + x - 1)",
+    "denominator": "(x + 1)**3*(x**2 + 1)**4*(x**4 - x**2 + 1)**3",
+    "coefficient_values": 241
+  },
+  "alternating_square_lemmas": "Both universal polynomial identities verified",
+  "progression": {
+    "symbolic_identity": "(-j - 1)*(52*j**2 - 61*j - 51)/3",
+    "values_checked": 101,
+    "first_n": 6,
+    "last_n": 1206,
+    "negative_formula": "(-u - 3)*(52*u**2 + 147*u + 35)/3",
+    "first_negative_progression_value": {
+      "n": 30,
+      "value": -35
+    }
+  },
+  "limitations": "Finite checks supplement the written proof; no proof assistant."
+}

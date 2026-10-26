@@ -1,0 +1,194 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[hidelinks]{hyperref}
+\newtheorem{theorem}{Theorem}
+\title{An exact evaluation of the two-shifted q-Motzkin determinant}
+\author{Principia Math In Progress}
+\date{18 September 2026}
+\begin{document}
+\maketitle
+\begin{abstract}
+We evaluate the determinant for every size, using determinant condensation
+and Cigler's established zero- and one-shift evaluations. This determines
+the missing power of \(q\) and the complete normalized polynomial.
+The printed conjecture omits a constant term when the size is divisible
+by three. Campaign eligibility remains pending: the complete final
+journal source has not been inspected. No new research credit is claimed.
+\end{abstract}
+
+\section*{Task 1: the original problem and its complete evaluation}
+Let \(M_0(q)=1\) and
+\[
+ M_{n+1}(q)=M_n(q)+
+       \sum_{r=0}^{n-1}q^{r+1}M_r(q)M_{n-r-1}(q).
+\]
+Put
+\[
+ D_n^{(s)}=\det[M_{i+j+s}(q)]_{i,j=0}^{n-1},
+ \qquad D_0^{(s)}=1,\qquad
+ S_n=\sum_{j=0}^{n-1}j^2=\frac{n(n-1)(2n-1)}6 .
+\]
+MathDB 339076 reproduces Conjecture A.2 on p.~62 of
+\cite{OS}. It predicts \(D_n^{(2)}=q^{c_n}f_n(q)\) with
+\[
+ f_n(q)=
+ \begin{cases}
+ \displaystyle\sum_{\substack{1\le l\le n\\l\not\equiv1\pmod3}}q^l,
+                    &n\equiv0\pmod3,\\[5pt]
+ \displaystyle(1+q)\sum_{r=0}^{\lfloor n/3\rfloor}q^{3r},
+                    &n\not\equiv0\pmod3.
+ \end{cases}
+\]
+The lower bound \(1\le l\) in the first branch is also present in the
+primary preprint. The following theorem evaluates the whole family,
+not merely the first exception to that printed formula.
+
+\begin{theorem}\label{evaluation}
+For every integer \(n\ge0\), the following polynomial identity holds:
+\begin{equation}\label{sum}
+ D_n^{(2)}
+   =q^{S_n+n^2}
+      \sum_{\substack{0\le j\le n\\j\not\equiv2\pmod3}}q^{-j}.
+\end{equation}
+For \(n\ge1\), equivalently \(D_n^{(2)}=q^{c_n}g_n(q)\), where
+\begin{align}
+ c_n&=S_n+n^2-n+
+             \begin{cases}1,&n\equiv2\pmod3,\\0,&\text{otherwise},\end{cases}
+                                                        \label{exponent}\\
+ g_n(q)&=
+ \begin{cases}
+ \displaystyle\sum_{\substack{0\le l\le n\\l\not\equiv1\pmod3}}q^l,
+                    &n\equiv0\pmod3,\\[5pt]
+ \displaystyle(1+q)\sum_{r=0}^{\lfloor n/3\rfloor}q^{3r},
+                    &n\not\equiv0\pmod3.
+ \end{cases}                                            \label{normalized}
+\end{align}
+In particular, every nonzero coefficient of \(g_n\) is \(1\);
+\(g_n(0)=1\); and \(c_n\) is the exact order of vanishing at \(q=0\).
+\end{theorem}
+
+\subsection*{A condensation proof}
+Cigler's established formulas \cite[Eqs.~(39)--(40)]{Cigler} are
+\begin{equation}\label{known}
+ D_n^{(0)}=q^{S_n},\qquad
+ D_n^{(1)}=\kappa_n q^{S_n+n(n-1)/2},
+ \qquad
+ (\kappa_n)_{n\ge0}=(1,1,0,-1,-1,0,1,1,0,\ldots).
+\end{equation}
+The period is six. These two evaluations are credited prior inputs,
+not new assertions of this note. We work first in the field
+\(\mathbb Q(q)\), where each \(D_n^{(0)}\) is nonzero.
+
+The Desnanot--Jacobi identity, applied to the \((n+1)\)-square
+unshifted Hankel matrix, gives for every \(n\ge1\)
+\begin{equation}\label{condense}
+ D_{n+1}^{(0)}D_{n-1}^{(2)}
+      =D_n^{(0)}D_n^{(2)}-(D_n^{(1)})^2 .
+\end{equation}
+Indeed, the two principal corner minors have shifts zero and two;
+each off-diagonal corner minor has shift one; and deleting both
+extreme rows and columns gives the size \(n-1\), shift-two minor.
+This also applies to \(n=1\), with the empty determinant equal to one.
+
+Set \(E_n=D_n^{(2)}/D_{n+1}^{(0)}\). Dividing
+\eqref{condense} by \(D_n^{(0)}D_{n+1}^{(0)}\) and using
+\(S_{n+1}-S_n=n^2\), we obtain
+\[
+ E_n-E_{n-1}
+   =\frac{(D_n^{(1)})^2}{D_n^{(0)}D_{n+1}^{(0)}}
+   =\kappa_n^2q^{\,n(n-1)-n^2}
+   =\kappa_n^2q^{-n}.
+\]
+Now \(E_0=1=\kappa_0^2\), and
+\(\kappa_j^2=1\) precisely when \(j\not\equiv2\pmod3\).
+Summing the recurrence yields
+\[
+ E_n=\sum_{\substack{0\le j\le n\\j\not\equiv2\pmod3}}q^{-j}.
+\]
+Multiplying by \(D_{n+1}^{(0)}=q^{S_n+n^2}\) proves \eqref{sum}.
+No division by a one-shift determinant occurs; its periodic zeros
+therefore cause no exception.
+
+To normalize the result, the largest permitted index is \(n\) when
+\(n\not\equiv2\pmod3\), and \(n-1\) otherwise.
+Reversing the summation about this largest index gives
+\eqref{exponent}--\eqref{normalized}. The exponent \(c_n\) is nonnegative
+because \(S_n\ge0\) and \(n^2-n\ge0\). Both sides of the evaluated
+identity are polynomials, so the equality obtained in
+\(\mathbb Q(q)\) is also valid at \(q=0\) and at every complex \(q\).
+This proves the theorem. \qed
+
+\subsection*{The printed formula, scope, and checks}
+For example,
+\[
+ D_1^{(2)}=1+q,\qquad D_2^{(2)}=q^4(1+q),\qquad
+ D_3^{(2)}=q^{11}(1+q^2+q^3).
+\]
+Thus the printed \(f_3=q^2+q^3\) cannot be repaired by changing only
+its monomial prefactor: it has two nonzero terms, while \(D_3^{(2)}\)
+has three. For every positive multiple of three one must add the
+constant term to \(f_n\). The theorem supplies the full corrected
+evaluation for all sizes; a transcription correction alone would not
+qualify as a new campaign solution.
+
+The accompanying verifier builds the moments directly from their
+defining recurrence and computes exact polynomial determinants.
+It checks all three shifts at sizes \(0\le n\le16\), including zeros
+in the one-shift sequence, and compares the two forms of the answer.
+These finite checks audit the indexing and exponents. The proof for
+unbounded \(n\) is the condensation argument above.
+
+The 2019 final article \cite{OSfinal} was identified bibliographically
+but could not be obtained in full. The current preprint was inspected
+selectively, especially Appendix A; it was not read throughout.
+Consequently the source and priority audit is incomplete, and this
+package has zero new campaign credit. An authoring-agent audit and
+exact checks do not constitute independent peer review.
+
+\section*{Task 2: a direct weighted-path interpretation}
+Construct a weight-preserving description of the terms
+\(q^{S_n+n^2-j}\), \(j\not\equiv2\pmod3\), directly from the
+shifted Hankel path families. The objective is an explicit cancellation
+map whose fixed points explain the missing residue class.
+
+\section*{Task 3: the three-shift determinant}
+Evaluate \(D_n^{(3)}\) for every size and determine its sign and
+normalized factors in all three residue classes. Start from condensation
+with shift one; handle the vanishing \(D_n^{(1)}\) without dividing by
+zero. This is a proposed direction, not a solved additional problem.
+
+\section*{Task 4: higher even shifts}
+Prove or disprove coefficientwise positivity of \(D_n^{(2k)}\) for
+all positive \(n,k\), the separate Conjecture A.4 in \cite{OS}.
+The present theorem covers only \(k=1\). Positivity of a Gram
+determinant for real \(q>0\) does not establish coefficientwise
+positivity.
+
+\section*{Task 5: retain a horizontal-step parameter}
+Replace the moment recursion by
+\[
+ M_{n+1}(a,q)=aM_n(a,q)+
+       \sum_{r=0}^{n-1}q^{r+1}M_r(a,q)M_{n-r-1}(a,q).
+\]
+Find the corresponding shift-two determinant and identify values of
+\(a\) giving periodic normalized one-shift determinants. Determine
+which specializations retain nonnegative coefficients in \(q\).
+
+\begin{thebibliography}{9}
+\bibitem{Cigler}
+J. Cigler, \emph{q-Catalan- und q-Motzkinzahlen},
+Sitzungsber.\ Abt.\ II \textbf{208} (1999), 3--20,
+especially Eqs.~(37), (39), (40), printed pp.~15--16.
+\url{https://homepage.univie.ac.at/johann.cigler/preprints/cat-motzkin.pdf}.
+\bibitem{OS}
+S.-j. Oh and T. Scrimshaw, \emph{Identities from representation theory},
+arXiv:1805.00113v1 (2018), Appendix A, pp.~61--63.
+\url{https://arxiv.org/abs/1805.00113v1}.
+\bibitem{OSfinal}
+S.-j. Oh and T. Scrimshaw, \emph{Identities from representation theory},
+Discrete Math.\ \textbf{342}(9) (2019), 2493--2541.
+\url{https://doi.org/10.1016/j.disc.2019.05.020}.
+Bibliographic identification only; complete final text not inspected.
+\end{thebibliography}
+\end{document}

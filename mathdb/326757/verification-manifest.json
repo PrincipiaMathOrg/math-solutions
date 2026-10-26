@@ -1,0 +1,127 @@
+{
+  "mathematics_completed_at_utc": "2026-09-21T22:54:13.641473+00:00",
+  "audit_updated_at_utc": "2026-09-21T22:55:16.568131+00:00",
+  "campaign_eligibility": "pending-unread-final-and-prior-implication-review",
+  "new_problem_credit": 0,
+  "result": "For every n, [n-1]_q! C_n(x|q) has nonnegative integer coefficients, every nonzero coefficient is positive, and it is coprime to [n-1]_q!, proving the intended full numerator conjecture.",
+  "verification_summary": {
+    "groups": 3,
+    "status": "passed",
+    "exact_groups": 3
+  },
+  "pdf_review": {
+    "pages": 2,
+    "visually_inspected": [
+      1,
+      2
+    ],
+    "layout_warnings": false
+  },
+  "reviewer": "Authoring agent only; no independent peer review or proof assistant.",
+  "files": [
+    {
+      "path": "ai-index-check.json",
+      "sha256": "6725906b4ed5dd5b679d2e3690ec6c7303f0052cf74fe2ee2376b6df50460727"
+    },
+    {
+      "path": "arxiv-check.json",
+      "sha256": "49b175ff662052f1ed645a6b063d28f96893e661ff259f7d7bdc70d7d05c410d"
+    },
+    {
+      "path": "arxiv-source-snapshot.txt",
+      "sha256": "a1eabd661e66e8335dc055bd8ea2a531a57147a07cb2a9d07a73eac61240f92f"
+    },
+    {
+      "path": "attempt-record.json",
+      "sha256": "a5e45f3bca6f04b26149a4dc04fcb056cc0238ab9ee0335c01067e697d0edfd0"
+    },
+    {
+      "path": "crab-check.json",
+      "sha256": "d7a0b88cc739258ad957168e0113874a9aebc4d409094ee9f87fb034a46d1e8f"
+    },
+    {
+      "path": "crab-claim-index.txt",
+      "sha256": "ae27582e94f2a5e2a8fe0b7f117434d9ef960e75ebc2c1521da0c757e9ca4ee9"
+    },
+    {
+      "path": "final-source-check.json",
+      "sha256": "b4f43dc4af5c5d5a2a2ff01a20f7010256002fe147167d0a5611be3b9b1790fa"
+    },
+    {
+      "path": "literature-audit.md",
+      "sha256": "9e929140033208eeb46d68b5faa8232630e6d36e32d0d6e330e75098f6538eed"
+    },
+    {
+      "path": "mathdb-api-snapshot.txt",
+      "sha256": "058929895831d19f6baaef952cb796829b6ab09593f7d28aa45a038324f1a541"
+    },
+    {
+      "path": "mathdb-check.json",
+      "sha256": "345ea3698ac2767ab6518a15bef748046d5a81845183847a05c362f81bfec90d"
+    },
+    {
+      "path": "mathdb-final-check.json",
+      "sha256": "12abd8a6f067f1d06019240b570e6a9f8a2e62a485cb907198e5527d8d1add61"
+    },
+    {
+      "path": "mathdb-initial-check.json",
+      "sha256": "ffdaf1ece881fabafc665ee5bd9b7b8dfb803cf380ed93cc675904a376fc8ecf"
+    },
+    {
+      "path": "mathdb-page-check.json",
+      "sha256": "7b67055f787185bb36556ce716969b7dad36f89ce965e56f37ebd8d4c81f2ef7"
+    },
+    {
+      "path": "mathdb-page-snapshot.txt",
+      "sha256": "9d86609330e99b480d702e250d04b404443c6e4832b4332365cb16071c598c8c"
+    },
+    {
+      "path": "proof-audit.md",
+      "sha256": "025d9ce3c83f0ac262716a66e8d8c176fc4f6a80af51a6c667515acf1960a3fc"
+    },
+    {
+      "path": "pudim-check.json",
+      "sha256": "eeb53be952c78f61aff9146400343f056f979e318d0b98300d2276c539513e67"
+    },
+    {
+      "path": "pudim-claim-index.txt",
+      "sha256": "69274cd3c904774b36b6b3bc3c4a5b4c089e9a23d6f87ba695963dd6f958b780"
+    },
+    {
+      "path": "README.md",
+      "sha256": "0ac0f1ed3d51cdd86c08fb513a18a8fe2374807b8a97016f6ca37d4a1d259718"
+    },
+    {
+      "path": "related-source-check.json",
+      "sha256": "f4e4f0ae21528a27513daf1c489be4253807eac77932d2763248523a9282a1ca"
+    },
+    {
+      "path": "search-audit.json",
+      "sha256": "bdae56ebaec9ffdea55770ace7f494a0b9dd57de38e9bf41d8ee83d4f77418e8"
+    },
+    {
+      "path": "solution.pdf",
+      "sha256": "625910e1b34e194c3370965a812e3fccac55fb08ba1b8ebd1b9d2d71bd192d2b"
+    },
+    {
+      "path": "solution.tex",
+      "sha256": "73936eeab1b6f74ccbbfa7b5fa6ec1d6df3584c74f8e9783b0bbf367e41919b2"
+    },
+    {
+      "path": "source-check.json",
+      "sha256": "2e6243215cd8a41fab76ce49b416d3a4efbc402f4afa3dcf502f48606811b662"
+    },
+    {
+      "path": "verification-results.json",
+      "sha256": "de1abb1dd786ffeb2cc40d376610540a522695a864ce93e7b283c8f29b816a6e"
+    },
+    {
+      "path": "verify.py",
+      "sha256": "f71a7e35496e55928bfb568219fd1a39d7316a477c06191ded806682ae2f2bbf"
+    },
+    {
+      "path": "web-claim-records.json",
+      "sha256": "56b56d2671a232f1748f1f79259bacd79e6af9eac38edb3d234dedb1ecb97e29"
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "passed": true,
+  "groups": 4,
+  "checked_at_utc": "2026-09-18T09:17:04.055937+00:00",
+  "arithmetic": "Exact Python integers throughout.",
+  "recursive_factorization": {
+    "cases": 1023,
+    "leaf_counts": "0..9",
+    "delay_values": [
+      1,
+      2
+    ]
+  },
+  "theorem_checks": {
+    "weighted_cases": 21844,
+    "coefficient_alphabet": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "weighted_lengths": "1..7",
+    "additional_binary_cases": 7936,
+    "additional_binary_lengths": "8..12"
+  },
+  "moving_sums": {
+    "unimodal_inputs": 2269,
+    "cases": 18152,
+    "widths": "1..8"
+  },
+  "known_scope_counterexamples": {
+    "cases": 2,
+    "source": "Preprint Example3.1(a) and Remark3.4; both have delay4 and are prior results."
+  },
+  "reviewer": "Authoring agent only; no independent review or proof assistant."
+}

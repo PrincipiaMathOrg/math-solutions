@@ -1,0 +1,148 @@
+{
+  "mathematics_completed_at_utc": "2026-09-22T01:54:27.146652+00:00",
+  "audit_updated_at_utc": "2026-09-22T01:55:45.955077+00:00",
+  "campaign_eligibility": "pending-complete-journal-final-review",
+  "new_problem_credit": 0,
+  "result": "Three triangles sharing an edge satisfy the gradient-Laplacian identity but are not a pseudomanifold. Uniform formula for r>=3 d-simplices joined along one common facet, for all d>=2.",
+  "verification_summary": {
+    "groups": 5,
+    "status": "passed",
+    "exact_groups": 5
+  },
+  "pdf_review": {
+    "pages": 3,
+    "visually_inspected": [
+      1,
+      2,
+      3
+    ],
+    "layout_warnings": false
+  },
+  "reviewer": "Authoring agent only; no independent peer review or proof assistant.",
+  "files": [
+    {
+      "path": "ai-index-check.json",
+      "sha256": "c283f114925aaabf717a258d9c6e59d0bebd8c3eb782c7e20ca8c39d29241dc7"
+    },
+    {
+      "path": "arxiv-check.json",
+      "sha256": "4ca3c8b0b961494a77ccb2f144eecda694714a99465f42c05377f5d551f1cbe9"
+    },
+    {
+      "path": "arxiv-source-snapshot.txt",
+      "sha256": "ed231a3f04fd90cd489b7c5170f13fcbb139c258db065bd060a3016b45b4ac90"
+    },
+    {
+      "path": "attempt-record.json",
+      "sha256": "bc1a7d9bcda911cd22dcacbb767c2531c98c4d5a82b1561a4bab7a5640d84d38"
+    },
+    {
+      "path": "author-code-check.json",
+      "sha256": "650a3a07a9cb219df17caf502d9f360e0d14521b68328075e9a31712f4e6b083"
+    },
+    {
+      "path": "author-code-readme-check.json",
+      "sha256": "63fe118a1825cb473c2d02d964d94b4161527b07df5c75663e9e486bd68a99ab"
+    },
+    {
+      "path": "author-code-readme-snapshot.txt",
+      "sha256": "10c0d9abcd4fc837e762de51367b256af8eec9274517b1310ce6f4160fd10200"
+    },
+    {
+      "path": "author-index-check.json",
+      "sha256": "5bba84bb1aa0d529d3dad84efe670fcb48203e60f85b591e70ec5e4b6ee0eeb1"
+    },
+    {
+      "path": "author-index-snapshot.txt",
+      "sha256": "b0fda052955447e754e4a6d5bacaaf3ad128e2108556b0e9a17025e9f8bb1d2f"
+    },
+    {
+      "path": "crab-check.json",
+      "sha256": "880ca2e6bb4fc836581c5f91614becdffee57deba891bc4f1f70c249cca351f2"
+    },
+    {
+      "path": "crab-claim-index.txt",
+      "sha256": "ae27582e94f2a5e2a8fe0b7f117434d9ef960e75ebc2c1521da0c757e9ca4ee9"
+    },
+    {
+      "path": "final-source-check.json",
+      "sha256": "ee900048047972461f0c253d7b0faee43ee0800bba714d3e66f1854055ebe8e8"
+    },
+    {
+      "path": "literature-audit.md",
+      "sha256": "a23c0c4160dd4e0774c8ddc651f250ba4d4426d2b908ebf562d7fa130f0cd360"
+    },
+    {
+      "path": "mathdb-api-snapshot.txt",
+      "sha256": "a0a03f972d072652f533c350e5965a1ba5144b0d33c6877cb418fe8c0fe0c201"
+    },
+    {
+      "path": "mathdb-check.json",
+      "sha256": "a175de7c3a8a2785b3b06e8d152300c3eafd523d848da02056343c1be95a064d"
+    },
+    {
+      "path": "mathdb-final-check.json",
+      "sha256": "f5d434f27bc3af9f0b8d73123980e8c2c7f6c7df73735190c8a3f7806708fb0d"
+    },
+    {
+      "path": "mathdb-initial-check.json",
+      "sha256": "bb4f7c98c6d5aabcb288325515674a95f28bd0b465105311881aa01eeec94c78"
+    },
+    {
+      "path": "mathdb-page-check.json",
+      "sha256": "0a747ed3d6fc0e7f653ba261c101e9ead600b642eee22ab9d40f6bfc169f86ca"
+    },
+    {
+      "path": "mathdb-page-snapshot.txt",
+      "sha256": "4314ef7950cb502f1f97eee2bae4f3659685e52eb28bb6e1ba277c30ea1b03a8"
+    },
+    {
+      "path": "proof-audit.md",
+      "sha256": "138716d10c3c2fddb6e65c6bbbec9c80a6ca94510002e00a6ee7ae4a4bc3544b"
+    },
+    {
+      "path": "pudim-check.json",
+      "sha256": "c5ba3d64a2840d292e8c5200161052e518bd0969b5ebd3a78b968a9c0bc6db88"
+    },
+    {
+      "path": "pudim-claim-index.txt",
+      "sha256": "69274cd3c904774b36b6b3bc3c4a5b4c089e9a23d6f87ba695963dd6f958b780"
+    },
+    {
+      "path": "README.md",
+      "sha256": "9a82e31bef55b32f72b3ec488aed07e039c32bfe0f378abc8b9e8bef8fb0047d"
+    },
+    {
+      "path": "search-audit.json",
+      "sha256": "76badd488a2438b0c6624e259928920c2d1efa311e1d6a25083775719a0adbc0"
+    },
+    {
+      "path": "solution.pdf",
+      "sha256": "1deed3c392753ab45b1e322661b66b0feb295ed7572bbcc10ab63354cf92ebc9"
+    },
+    {
+      "path": "solution.tex",
+      "sha256": "88a2311909078af4beeb6015855e2c9c07bf6296830cf5a58b7cdb1c13036718"
+    },
+    {
+      "path": "source-check.json",
+      "sha256": "56291b253c80d2e6495b9db3c60c5f74d31d3c9c8370dde6ab901625a9bd68f7"
+    },
+    {
+      "path": "status.md",
+      "sha256": "518955a0bf6c69534bd49073a5c1862c79a7a1ca5d0de4057ce6ff87e536867c"
+    },
+    {
+      "path": "verification-results.json",
+      "sha256": "c1476e2fe8a56784a3a91d6f750400187923e1710201057890c59a6ec6b84045"
+    },
+    {
+      "path": "verify.py",
+      "sha256": "25263589e276e81446c1061aa383134aba7bb8443af50671e14e6a82382af6b0"
+    },
+    {
+      "path": "web-claim-records.json",
+      "sha256": "93309e36f7d967d967aa80cbbff17f964911363d7426faf1875fe2d73a25cc9f"
+    }
+  ]
+}

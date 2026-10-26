@@ -1,0 +1,122 @@
+{
+  "status": "passed",
+  "checked_at_utc": "2026-09-21T23:33:18.022709+00:00",
+  "verifier_sha256": "4d8a474f0782c40817b33994e5aec6fb1dac3b8022ae241df81d1ff3b5af4f59",
+  "groups": [
+    {
+      "name": "exact reconstruction of all power coefficients",
+      "degrees": 30
+    },
+    {
+      "name": "complete finite base cases",
+      "cases": [
+        {
+          "n": 1,
+          "coefficients": [
+            "2",
+            "0"
+          ],
+          "minimum": "0"
+        },
+        {
+          "n": 2,
+          "coefficients": [
+            "2/3",
+            "5/3",
+            "2/3"
+          ],
+          "minimum": "2/3"
+        },
+        {
+          "n": 3,
+          "coefficients": [
+            "1",
+            "7/9",
+            "11/9",
+            "1"
+          ],
+          "minimum": "7/9"
+        },
+        {
+          "n": 4,
+          "coefficients": [
+            "46/45",
+            "46/45",
+            "41/45",
+            "46/45",
+            "46/45"
+          ],
+          "minimum": "41/45"
+        },
+        {
+          "n": 5,
+          "coefficients": [
+            "1",
+            "227/225",
+            "229/225",
+            "221/225",
+            "223/225",
+            "1"
+          ],
+          "minimum": "221/225"
+        },
+        {
+          "n": 6,
+          "coefficients": [
+            "943/945",
+            "943/945",
+            "4729/4725",
+            "4757/4725",
+            "4729/4725",
+            "943/945",
+            "943/945"
+          ],
+          "minimum": "943/945"
+        },
+        {
+          "n": 7,
+          "coefficients": [
+            "1",
+            "6611/6615",
+            "6607/6615",
+            "33043/33075",
+            "33107/33075",
+            "6623/6615",
+            "6619/6615",
+            "1"
+          ],
+          "minimum": "6607/6615"
+        },
+        {
+          "n": 8,
+          "coefficients": [
+            "4726/4725",
+            "4726/4725",
+            "33077/33075",
+            "33067/33075",
+            "33059/33075",
+            "33067/33075",
+            "33077/33075",
+            "4726/4725",
+            "4726/4725"
+          ],
+          "minimum": "33059/33075"
+        }
+      ]
+    },
+    {
+      "name": "supplemental positivity beyond analytic cutoff",
+      "n_range": [
+        9,
+        100
+      ],
+      "coefficients": 5106
+    },
+    {
+      "name": "density normalization and Bernoulli reflection",
+      "degrees": 80
+    }
+  ],
+  "dependencies": "Python standard library only",
+  "limitation": "Finite exact checks supplement the analytic bound for every n>=9."
+}

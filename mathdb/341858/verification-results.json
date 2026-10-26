@@ -1,0 +1,15 @@
+{
+  "checked_at_utc": "2026-09-18T07:12:00.144236+00:00",
+  "all_passed": true,
+  "sympy_version": "1.14.0",
+  "groups": {
+    "symbolic_normalized_determinants": 5,
+    "original_block_determinants": 4,
+    "positive_and_negative_integer_ranks": 56,
+    "hilbert_leading_coefficients": 10,
+    "published_hahn_specialization": 32
+  },
+  "verification_scope": "Exact finite checks; general proof is in solution.tex.",
+  "reviewer": "Authoring agent only; no independent review.",
+  "new_problem_credit": 0
+}

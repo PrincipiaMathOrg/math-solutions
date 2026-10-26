@@ -1,0 +1,205 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,enumitem,hyperref}
+\hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue,citecolor=blue}
+\newtheorem{theorem}{Theorem}
+\newcommand{\LL}{\mathcal L}
+\title{Hoggatt sums fail infinite log-convexity for every $m\ge4$\\\large MathDB 368345}
+\author{Principia Math In Progress}
+\date{September 18, 2026}
+\begin{document}
+\maketitle
+\begin{abstract}
+We disprove Conjecture 4.3 of Fang--Zhang--Zhao in its current
+arXiv formulation. For parameter $m=4$ or $5$, the fourth
+log-convexity iterate has a negative entry. For every $m\ge6$,
+the third iterate already has a negative entry. The separate Baxter
+case $m=3$ is not decided. The identified journal final has not
+been read; campaign eligibility remains pending.
+\end{abstract}
+
+\section*{Task 1. Full disproof and uniform extension}
+Use exactly the source's convention
+\[
+ (\LL a)_n=a_na_{n+2}-a_{n+1}^2.
+\]
+Infinite log-convexity requires every entry of $\LL^r a$ to be
+nonnegative for every integer $r\ge1$. Define the Hoggatt sums
+from \cite[p.~3]{FZZ} by
+\[
+ A_n(m)=H_n^{[m]}(1,1)=
+ \sum_{k=0}^{n-1}
+ \frac{\prod_{i=0}^{m-1}\binom{n+m-2}{k+i}}
+ {\prod_{j=1}^{m-1}\binom{n+m-2}{j}},\qquad n\ge1.       \tag{1}
+\]
+Conjecture 4.3 asserts infinite log-convexity for every fixed
+integer $m\ge2$.
+
+\begin{theorem}
+The sequence $(A_n(m))_{n\ge1}$ is not infinitely log-convex
+for any integer $m\ge4$. More precisely,
+\[
+ \begin{aligned}
+ (\LL^4 A(4))_2&=-111509459048444462640611465400686603136,\\
+ (\LL^4 A(5))_2&=-44045680773437284570849713497906508911110782976,
+ \end{aligned}                                               \tag{2}
+\]
+and $(\LL^3 A(m))_2<0$ for every integer $m\ge6$.
+\end{theorem}
+
+\subsection*{The finite certificate at $m=4$}
+Substitution in (1) gives
+\[
+ (A_1(4),\ldots,A_{10}(4))=
+ (1,2,7,32,177,1122,7898,60398,494078,4274228).
+                                                               \tag{3}
+\]
+These are the known terms of OEIS A005362, with index shifted
+by one; their numerical discovery is not claimed here.
+Applying the displayed definition of $\LL$ gives
+\[
+\begin{array}{c|r|r}
+n&(\LL A(4))_n&(\LL^2 A(4))_n\\\hline
+1&3&420\\
+2&15&22400\\
+3&215&8967705\\
+4&4575&5312555556\\
+5&139062&6332625182576\\
+6&5388152&10985704681554720\\
+7&254309640&\\
+8&14041752660&
+\end{array}                                                  \tag{4}
+\]
+The next row is
+\[
+\begin{array}{c|r}
+n&(\LL^3 A(4))_n\\\hline
+1&3264676100\\
+2&38581511487375\\
+3&28565867977326238944\\
+4&18260024739573021120028544
+\end{array}                                                  \tag{5}
+\]
+Consequently $(\LL^4 A(4))_2$ equals
+\[
+ 38581511487375\cdot18260024739573021120028544
+ -28565867977326238944^2,
+\]
+which is the negative integer in (2). This already disproves
+the stated universal conjecture. The entry uses only $A_2$ through
+$A_{10}$, so there is no choice of a boundary value involved.
+
+For $m=5$, the ten initial values from (1) are
+\[
+ (1,2,8,44,310,2606,25202,272582,3233738,41454272).
+                                                               \tag{6}
+\]
+Four applications of the same subtraction give the second value
+in (2). The complete intermediate rows for both parameters are
+included in the exact verification output.
+
+\subsection*{A polynomial certificate for every $m\ge6$}
+Writing $\ell=n-1-k$, factorial cancellation in (1) gives
+\[
+ A_n(m)=\sum_{k=0}^{n-1}M(k,n-1-k;m),\qquad
+ M(k,\ell;m)=\prod_{i=1}^k\prod_{j=1}^{\ell}
+                \frac{m+i+j-1}{i+j-1}.                       \tag{7}
+\]
+For example, both expressions for each summand equal
+$\prod_{i=0}^{m-1}(k+\ell+i)!i!/((k+i)!(\ell+i)!)$.
+Empty products are $1$. Formula (7) expresses every $A_n(m)$
+as a polynomial in $m$ with rational coefficients.
+
+Set
+\[
+ Q(m)=m^4+9m^3+26m^2+36m+72
+\]
+and
+\[
+\begin{aligned}
+P(m)={}&m^{17}+42m^{16}+723m^{15}+6462m^{14}+27742m^{13}\\
+ &-16148m^{12}-934842m^{11}-5962420m^{10}-21758691m^9\\
+ &-53818158m^8-97778329m^7-138523978m^6\\
+ &-159475276m^5-154920392m^4-129902448m^3\\
+ &-88784352m^2-37081152m-2892672.
+\end{aligned}                                                \tag{8}
+\]
+Expanding (7) for $2\le n\le8$ and applying $\LL$ three times
+yields the polynomial identity
+\[
+ (\LL^3 A(m))_2=
+ -\frac{m^4(m-1)^4(m+1)^5(m+2)^2Q(m)P(m)}{1547934105600}.
+                                                               \tag{9}
+\]
+This is a finite algebraic identity, directly reproducible from
+(7). The verifier checks it by exact polynomial arithmetic and
+independently by 37 evaluations of the source binomial sums;
+the degree is at most 36.
+
+It remains to prove the sign uniformly. The function
+\[
+ \frac{P(m)}{m^{13}}
+ =m^4+42m^3+723m^2+6462m+27742
+   -\sum_{j=1}^{13}c_jm^{-j}
+\]
+has $c_j>0$ by (8), so its derivative is strictly positive
+for $m>0$. Direct evaluation gives
+\[
+ P(6)=264264378826752>0.
+\]
+It follows that $P(m)>0$ for every real $m\ge6$.
+All other factors in (9) are positive there, proving the
+negative sign and completing the theorem.
+
+\section*{Verification, scope and attribution}
+The verifier uses exact integer and rational arithmetic throughout.
+It compares the two defining products, reproduces both finite
+certificates, checks the degree-36 identity in two ways, and
+supplies an additional sign certificate: all 18 coefficients
+of $P(z+6)$ are strictly positive.
+The infinite family follows from (9) and the proved sign, not
+from numerical extrapolation. Review is by the authoring agent only.
+
+The source already establishes ordinary log-convexity at $m=4$;
+the negative fourth iterate does not contradict that weaker result.
+The Catalan case $m=2$ is known to be infinitely log-convex.
+Conjecture 4.2, the Baxter case $m=3$, remains separate.
+The row and column log-concavity results in \cite{MS,LM} concern
+different sequences. The complete current preprint \cite{FZZ}
+was read. Its identified journal final, DOI
+\href{https://doi.org/10.1016/j.jmaa.2026.130615}{10.1016/j.jmaa.2026.130615},
+remains unread, so this package receives zero new campaign credit
+pending the final-source audit.
+
+\section*{Tasks 2--5. Follow-up directions}
+\begin{enumerate}[start=2,leftmargin=*]
+\item Decide infinite log-convexity for the remaining Baxter
+parameter $m=3$.
+\item Determine the largest $r$ for which the entire Hoggatt
+sequence is $r$-log-convex, as a function of $m\ge4$.
+\item Prove eventual $r$-log-convexity for every fixed $m,r$,
+with explicit bounds on the starting index.
+\item Locate all negative entries of the third and fourth
+iterates, and determine how their positions depend on $m$.
+\end{enumerate}
+
+\begin{thebibliography}{9}
+\raggedright
+\bibitem{FZZ} H. Fang, C. X. T. Zhang and J. J. Y. Zhao,
+\emph{Analytic properties arising from the Baxter numbers},
+\href{https://arxiv.org/abs/2505.05873}{arXiv:2505.05873v1},
+current 14-page preprint; Conjecture 4.3 on p.~11.
+\bibitem{OEIS} OEIS Foundation,
+\href{https://oeis.org/A005362}{A005362}, Hoggatt sequence with parameter $4$.
+Entry by N. J. A. Sloane and S. Plouffe.
+\bibitem{MS} J. Mao and W. Shi,
+\emph{The analytic properties of Hoggatt triangles},
+\href{https://arxiv.org/abs/2607.01582}{arXiv:2607.01582v1}, 2026.
+\bibitem{LM} Y. Liu and J. Mao,
+\emph{Pfaffian--Toeplitz identities, Schur positivity, and the
+$q$-log-convexity of Baxter polynomials},
+\href{https://arxiv.org/abs/2608.22258}{arXiv:2608.22258v1}, 2026.
+\bibitem{DB} MathDB, \href{https://mathdb.com/p/368345}{Problem 368345},
+accessed September 18, 2026.
+\end{thebibliography}
+\end{document}

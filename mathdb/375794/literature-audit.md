@@ -1,0 +1,13 @@
+# Literature and eligibility audit
+
+The complete ten-page current primary was inspected: David Victor Feldman, “Anomalous Partial Quotients in the Continued Fraction of sqrt(zeta(3) - S_N),” arXiv:2607.04077v1, submitted 5 July 2026. The current arXiv record lists only v1 and no journal reference. The target is Conjecture 4.1 on page 6, with its precise open status explained in Remark 4.2 on page 7 and Open Problem 1 on pages 9–10. Those four pages were also visually inspected.
+
+The primary's theorem about sqrt(R_N) is distinct from this problem about sqrt(R_N/2). The current proof does not take the primary's claimed six-coefficient theorem as an input. The arXiv source archive contains only 00README.json and q2.tex; the accompanying Lean file is not in that archive. The TeX records prop_gcf as unproved. A public Lean completion was not located in the recorded bounded searches.
+
+Qian Hu's 2026 dissertation, “Certain Hidden Stabilities of Continued Fraction Arithmetic, with applications to classical constants and functions of analysis,” was found during the prior-claim search. Its complete public abstract explicitly claims that sequences with rational Laurent asymptotics have eventually quasi-polynomial continued-fraction coefficients. Feldman is its first advisor. Repository metadata records an online date of 15 July 2026.
+
+This general mechanism is therefore credited as prior work, with a self-contained proof of the special application supplied for readability. **The dissertation PDF could not be inspected:** the public download endpoint returned HTTP 403 through the browser tool, urllib, curl, and a public reader service. Its coverage of the particular zeta-tail formulas and finite thresholds remains unknown. This is a material scope limitation, so the package is published with **zero campaign credit and eligibility pending**.
+
+The initial and final MathDB API checks show an open record with all eight solution/discussion fields empty. Bounded exact-title, identifier, formalization-name, and author searches, plus the recorded public Pudim and Crab indexes, did not identify a separate complete claim for the specific uniform formulas. OpenAlex lists only the arXiv location and zero citations. These checks do not clear the unresolved dissertation scope or establish universal priority.
+
+No prior repository package for this MathDB number or arXiv identifier was found. The N = 1 third-coefficient exception is not used as a research counterexample: the source explicitly concerns a formal pattern and its Pell indices start at N = 3. Publication of this package records the complete mathematics without presenting inaccessible literature as cleared.

@@ -1,0 +1,130 @@
+{
+  "mathematics_completed_at_utc": "2026-09-21T22:44:02.350601+00:00",
+  "audit_updated_at_utc": "2026-09-21T22:48:22.365636+00:00",
+  "campaign_eligibility": "pending-unread-identified-final-and-priority-scope",
+  "new_problem_credit": 0,
+  "result": "The ellipses x^2/4+y^2=1 and (x-31/20)^2/(4/25)+y^2/(63/1600)=1 support a full Poncelet triangle family with stationary orthocenter (31/16,0), outside the focal-X4, MacBeath and Dual configurations.",
+  "verification_summary": {
+    "groups": 4,
+    "status": "passed",
+    "exact_groups": 3,
+    "supplemental_numerical_cases": 48
+  },
+  "pdf_review": {
+    "pages": 4,
+    "visually_inspected": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "layout_warnings": false
+  },
+  "reviewer": "Authoring agent only; no independent peer review or proof assistant.",
+  "files": [
+    {
+      "path": "ai-index-check.json",
+      "sha256": "d4eb89ba21c8a5f74cb9d202d9dc160c86e954490bf19d5a91e43f3af3ddde71"
+    },
+    {
+      "path": "arxiv-check.json",
+      "sha256": "6f0d18158c08b708ee244e880e0b98869734ff80eab368233a428f49aabb12a7"
+    },
+    {
+      "path": "arxiv-source-snapshot.txt",
+      "sha256": "6b57b2504cfd121f30d84fb8d04cf0a2017816cb680e70efad417614d33ef32c"
+    },
+    {
+      "path": "attempt-record.json",
+      "sha256": "5792c80b47dcee62911246609fb03542a2aa44f415b5a398452d641d098186df"
+    },
+    {
+      "path": "crab-check.json",
+      "sha256": "e96c071d27d9dca110ade00748b154eb8dbe2c9c42ceef301fd4993d0c02e725"
+    },
+    {
+      "path": "crab-claim-index.txt",
+      "sha256": "ae27582e94f2a5e2a8fe0b7f117434d9ef960e75ebc2c1521da0c757e9ca4ee9"
+    },
+    {
+      "path": "final-source-check.json",
+      "sha256": "0eb313dc8ddd43d21c9e3008721b63dd8e1edc1f9b6d8166214ea877633e8aa0"
+    },
+    {
+      "path": "literature-audit.md",
+      "sha256": "ddca6e69a959c5d7c2de1020b2b5ca35a83b5254373c1714d7d09652a8b9edb5"
+    },
+    {
+      "path": "mathdb-api-snapshot.txt",
+      "sha256": "44390bd9c99cf38ccc95c666bd030f245a53fd5916a357fc8b0a0a2612a112db"
+    },
+    {
+      "path": "mathdb-check.json",
+      "sha256": "d5112400a860505fec15cf33c6f4cbe41863b4a2b3f503ac572f16a036f6a8b9"
+    },
+    {
+      "path": "mathdb-final-check.json",
+      "sha256": "c5356def54009d73b6fe9d385fd3679311fb96d1f857e9f399b047d32991d09c"
+    },
+    {
+      "path": "mathdb-initial-check.json",
+      "sha256": "d2e55f32ae1e2eddb1317446be926a414e0b4eb7811d108b79b064af53881703"
+    },
+    {
+      "path": "mathdb-page-check.json",
+      "sha256": "05da2865229bf8b9acf3e598c59dd393218387a87b728bbefeb643221984d0e1"
+    },
+    {
+      "path": "mathdb-page-snapshot.txt",
+      "sha256": "6487e46e1d72bfa6f5d73e2e73009f90fe242893d8a3aef85a25940865c6f286"
+    },
+    {
+      "path": "proof-audit.md",
+      "sha256": "2dd459733f9e9a0161008b6b1b95d1282570a1a6dde4ad4a312230203cdef8ce"
+    },
+    {
+      "path": "pudim-check.json",
+      "sha256": "4f59386563a95eb3605a53127e7ab8a52ed052125e45f820adc146f2d34995fa"
+    },
+    {
+      "path": "pudim-claim-index.txt",
+      "sha256": "69274cd3c904774b36b6b3bc3c4a5b4c089e9a23d6f87ba695963dd6f958b780"
+    },
+    {
+      "path": "README.md",
+      "sha256": "46025f70dbd3847fae9d695614f6ff3fc0f6cc8471d75089e0cc79141b56ee2c"
+    },
+    {
+      "path": "related-source-check.json",
+      "sha256": "4408806cf8100d3f1fb12993eb2a2ae9dd951ebc297d67206d566d434a2e1c05"
+    },
+    {
+      "path": "search-audit.json",
+      "sha256": "77eb4ea7ad6f9ea99d0fd0ab074ed3767acc8d47b03b142b5727f4447c609b5e"
+    },
+    {
+      "path": "solution.pdf",
+      "sha256": "7022c2829f77e141d7cb9b31a891d430031456c65ed9bf886fd0bd21c2f71ceb"
+    },
+    {
+      "path": "solution.tex",
+      "sha256": "7906e4aaa5bbc2343bfe21f4fb6e58a6558d5cc046eb5a4a116572755e9d0e1b"
+    },
+    {
+      "path": "source-check.json",
+      "sha256": "ddc91d724c9321b8557b08f3cb3c637504873e8d01b72d818c5caab9505eacc2"
+    },
+    {
+      "path": "verification-results.json",
+      "sha256": "6e97eb0e45bcb7008812a9b24ecd5eeb7778f41290675c328f507c8f63eec5d2"
+    },
+    {
+      "path": "verify.py",
+      "sha256": "47cd8924772e783e22b4f47b7637f9fe2cce9fbccf882e6b599f15359d57ad97"
+    },
+    {
+      "path": "web-claim-records.json",
+      "sha256": "6b645730a898d1744d75af280abf71dd436f49583c97f907490ca6720dc27dfb"
+    }
+  ]
+}

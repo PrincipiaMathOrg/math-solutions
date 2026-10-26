@@ -1,0 +1,128 @@
+{
+  "mathematics_completed_at_utc": "2026-09-21T23:36:06.007784+00:00",
+  "audit_updated_at_utc": "2026-09-21T23:37:05.939674+00:00",
+  "campaign_eligibility": "pending-unread-identified-target-final",
+  "new_problem_credit": 0,
+  "result": "For every n>=2, all degree-n Bernstein coefficients of 1-2^n B_n(x)/n! are strictly positive. For n=1 the coefficients are exactly (2,0).",
+  "verification_summary": {
+    "groups": 4,
+    "status": "passed",
+    "exact_groups": 4
+  },
+  "pdf_review": {
+    "pages": 3,
+    "visually_inspected": [
+      1,
+      2,
+      3
+    ],
+    "layout_warnings": false
+  },
+  "reviewer": "Authoring agent only; no independent peer review or proof assistant.",
+  "files": [
+    {
+      "path": "ai-index-check.json",
+      "sha256": "4bdb49de61704b209bf662f374c297f8053f22c43c0e8701e0076e6fe0ea3a76"
+    },
+    {
+      "path": "arxiv-check.json",
+      "sha256": "0236078de6b6045320a9a01f04ef7bc7be8d565367e6c1ee2e98ab859d2e77ff"
+    },
+    {
+      "path": "arxiv-source-snapshot.txt",
+      "sha256": "9226cfeb3fc9d54e95a70e517a3fb6af700bed984a40638e9359a74084a5d780"
+    },
+    {
+      "path": "attempt-record.json",
+      "sha256": "969ea621879f8d7a8ad0de6602bdfaad863ad8ad5086a4da76ee922775fd0762"
+    },
+    {
+      "path": "crab-check.json",
+      "sha256": "f8d009beefdee6a8b914fbc1ce59a7f30723abdde2e627146a22dfa213c2c9d6"
+    },
+    {
+      "path": "crab-claim-index.txt",
+      "sha256": "ae27582e94f2a5e2a8fe0b7f117434d9ef960e75ebc2c1521da0c757e9ca4ee9"
+    },
+    {
+      "path": "final-source-check.json",
+      "sha256": "0b54137e4ec7b69e25798c1bf88af3f01155079e76762efd57e90a1234bb95b5"
+    },
+    {
+      "path": "literature-audit.md",
+      "sha256": "04005cf93490ddddff8a43200a6b52cfcfa5cb4cfb6fa926e44954e54ed85bdd"
+    },
+    {
+      "path": "mathdb-api-snapshot.txt",
+      "sha256": "c0647657c070ba4d3deed6e1a73879269c3213a454470c5fcdac0f875f6d40e1"
+    },
+    {
+      "path": "mathdb-check.json",
+      "sha256": "4d06ef27fe8a829add4940c8a3dda8168d86bd9121d0b33fe0fe4f0bddffd33e"
+    },
+    {
+      "path": "mathdb-final-check.json",
+      "sha256": "33a9f3dc1ff45eb733eb7c6da138a45c1c74a69012a74456dac7ff1f0a3c4701"
+    },
+    {
+      "path": "mathdb-initial-check.json",
+      "sha256": "3298d8b56d415eeef42a4c43fef0428863231446e016ba9a77dfa638a91b01e2"
+    },
+    {
+      "path": "mathdb-page-check.json",
+      "sha256": "ee0c14112fd1b4a5c53565e266b523e93577c2f154694cf845943512515cfa70"
+    },
+    {
+      "path": "mathdb-page-snapshot.txt",
+      "sha256": "b0bb2ad89e68e8b0ca641b19acf0a827a6e37c11766cd8ec14ce98d1f9a8138e"
+    },
+    {
+      "path": "proof-audit.md",
+      "sha256": "c9cbb3a42017368ab66fb31bb2f8bab235cb82a7a88ab2594881609ecc9fbe9b"
+    },
+    {
+      "path": "pudim-check.json",
+      "sha256": "957a16dd087e42072bbd9b48a594fe9f8143d476ebd48c52ab593ec967ae840c"
+    },
+    {
+      "path": "pudim-claim-index.txt",
+      "sha256": "69274cd3c904774b36b6b3bc3c4a5b4c089e9a23d6f87ba695963dd6f958b780"
+    },
+    {
+      "path": "README.md",
+      "sha256": "80b561f611b800c4ce829066f40b8ee0b6291adf4ce9593cd66def4f761b65af"
+    },
+    {
+      "path": "related-source-check.json",
+      "sha256": "ee825533d517d9e36b5ff1fdf5d6a851154f7a3afb9e4a4fe88411a73f176d56"
+    },
+    {
+      "path": "search-audit.json",
+      "sha256": "ab5658a4930f15b2043996bfd3885be578e178412b951461fd013b218336c005"
+    },
+    {
+      "path": "solution.pdf",
+      "sha256": "f8a465e9c585e94fe6bff3679824f23262a0410582434189bcaf10bccfd9dd18"
+    },
+    {
+      "path": "solution.tex",
+      "sha256": "ebaa0c3ead4a07f10667c1d5c878f351b33473ff4aa155ae18ecc72b7efab8e4"
+    },
+    {
+      "path": "source-check.json",
+      "sha256": "d0a155c51f62fc9d17ecf9840dd2129dc94a5dd142fe197b9a1548f42427dde8"
+    },
+    {
+      "path": "verification-results.json",
+      "sha256": "e82588db81c7021527499b9e7ec9cd38940f1fe795ab5146f12339ffdfd6f9e4"
+    },
+    {
+      "path": "verify.py",
+      "sha256": "4d8a474f0782c40817b33994e5aec6fb1dac3b8022ae241df81d1ff3b5af4f59"
+    },
+    {
+      "path": "web-claim-records.json",
+      "sha256": "df5750f9aa65342dd26a98a868523f494d457015635ed39a7057fe3c94ad05b1"
+    }
+  ]
+}

@@ -1,0 +1,249 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[hidelinks]{hyperref}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\title{A proof of the generalized power-sum identity\\
+\large MathDB 334350, with an extension to every odd function}
+\author{Principia Math In Progress}
+\date{18 September 2026}
+\begin{document}
+\maketitle
+\begin{abstract}
+We prove Svinin's conjectured equality between a sum over weakly
+increasing tuples and a binomial combination of sums over ordered
+tuples. In fact, the equality holds when the odd power is replaced
+by any odd function on the integers. The proof establishes a
+Laurent polynomial identity by counting gaps and applying an
+elementary truncated negative-binomial identity.
+\end{abstract}
+
+\section*{Task 1: the original conjecture and its full solution}
+Let $n,j\geq1$ be integers, and define
+\[
+ A(z)=z+\cdots+z^n,\qquad
+ A(z)^\ell=\sum_{q=0}^{\ell(n-1)}C_{\ell,q}(n)z^{\ell+q}.
+\]
+For $k\geq0$, put
+\[
+ s_{k,\ell}(n)=\sum_{q=0}^{\ell(n-1)}C_{\ell,q}(n)(\ell+q)^{2k+1},
+ \qquad
+ S_{k,j}(n)=\sum_{q=0}^{j-1}\binom{j(n+1)}q s_{k,j-q}(n).
+\]
+Conjecture 3.1 of \cite{S} asserts that
+\begin{equation}\label{target}
+ \sum_{1\leq\lambda_1\leq\cdots\leq\lambda_j\leq jn}
+       \sum_{i=1}^j(\lambda_i-(i-1)n)^{2k+1}=S_{k,j}(n).
+\end{equation}
+The source proves the case $j=2$. We prove every $j$, without
+restrictions on $k$ or $n$ beyond those stated.
+
+\begin{theorem}\label{main}
+For every odd function $\psi:\mathbb Z\to\mathbb C$ and all
+$n,j\geq1$,
+\begin{equation}\label{strong}
+ \sum_{1\leq\lambda_1\leq\cdots\leq\lambda_j\leq jn}
+       \sum_{i=1}^j\psi(\lambda_i-(i-1)n)
+ =\sum_{\ell=1}^j\binom{j(n+1)}{j-\ell}
+       \sum_{r_1,\ldots,r_\ell=1}^n\psi(r_1+\cdots+r_\ell).
+\end{equation}
+In particular, \eqref{target} holds for every $k\geq0$.
+\end{theorem}
+
+\subsection*{A finite coefficient identity}
+\begin{lemma}\label{truncation}
+For positive integers $a,j$, define
+\[
+ P(X)=\sum_{q=0}^{j-1}\binom{a+q-1}q X^{j-q},\qquad
+ T(b)=[t^{a-1}]\frac1{(1-t)^j(b-t)}.
+\]
+As rational functions of $b$,
+\begin{equation}\label{T}
+ T(b)=b^{-a}(1-b)^{-j}-P\bigl((1-b)^{-1}\bigr).
+\end{equation}
+\end{lemma}
+\begin{proof}
+The elementary polynomial identity
+\begin{equation}\label{binomial}
+ (1-b)^j\sum_{p=0}^{a-1}\binom{j+p-1}p b^p
+ +b^a\sum_{q=0}^{j-1}\binom{a+q-1}q(1-b)^q=1
+\end{equation}
+follows by partitioning binary words of length $a+j-1$ according
+to whether the $j$th second symbol or the $a$th first symbol
+occurs first. Give the first symbol weight $b$ and the second
+weight $1-b$. In the first case, $p<a$ first symbols precede the
+last second symbol; in the second case, $q<j$ second symbols
+precede the last first symbol. The total weight of all possible
+suffixes is one. These two cases give the two sums, and the total
+weight of all words is $(b+(1-b))^{a+j-1}=1$.
+
+On the other hand, expanding at $t=0$ gives
+$T(b)=b^{-a}\sum_{p=0}^{a-1}\binom{j+p-1}p b^p$.
+Divide \eqref{binomial} by $b^a(1-b)^j$ to obtain \eqref{T}.
+\end{proof}
+
+\subsection*{The marked-tuple generating polynomial}
+Fix $n,j$, and abbreviate
+\[
+ a=jn,\qquad h=n+1,\qquad N=j(n+1)=a+j,\qquad
+ B(z)=1+A(z).
+\]
+Let
+\[
+ F(z)=\sum_{1\leq\lambda_1\leq\cdots\leq\lambda_j\leq a}
+             \sum_{i=1}^j z^{\lambda_i-(i-1)n},\qquad
+ R(z)=\sum_{\ell=1}^j\binom N{j-\ell}A(z)^\ell.
+\]
+Thus $F$ is a Laurent polynomial and $R$ is an ordinary
+polynomial with zero constant term. We will prove
+\begin{equation}\label{Laurent}
+ F(z)-F(z^{-1})=R(z)-R(z^{-1}).
+\end{equation}
+
+The involution
+$\lambda_i\mapsto a+1-\lambda_{j+1-i}$ sends each exponent
+to $h$ minus the corresponding reversed exponent. Therefore
+\begin{equation}\label{symmetry}
+ F(z^{-1})=z^{-h}F(z).
+\end{equation}
+For a tuple $\lambda$, write its nonnegative gaps as
+\[
+ g_0=\lambda_1-1,\quad
+ g_i=\lambda_{i+1}-\lambda_i\ (1\leq i<j),\quad
+ g_j=a-\lambda_j.
+\]
+They sum to $a-1$, and
+$\lambda_i-(i-1)n=1+g_0+\cdots+g_{i-1}-(i-1)n$.
+Summing each gap independently gives
+\begin{align}
+ F(z)&=z[t^{a-1}]\sum_{l=0}^{j-1}
+ \frac{z^{-nl}}{(1-zt)^{l+1}(1-t)^{j-l}}\label{gaps}\\
+ &=z[t^{a-1}]
+ \frac{(1-t)^{-j}-z^{-a}(1-zt)^{-j}}
+      {(1-zt)-z^{-n}(1-t)}.\label{geometric}
+\end{align}
+The second equality is a finite geometric sum.
+
+Work temporarily in the field $\mathbb Q(z)$ and put
+\[
+ b=\frac{z^n-1}{z^{n+1}-1}.
+\]
+Multiplying \eqref{geometric} by $1-z^{-h}$ and using
+\eqref{symmetry} yields
+\begin{align}
+ F(z)-F(z^{-1})
+ &=[t^{a-1}]\frac{(1-t)^{-j}-z^{-a}(1-zt)^{-j}}{b-t}
+ \notag\\
+ &=T(b)-T(zb).\label{difference}
+\end{align}
+For the second term substitute $w=zt$ in the coefficient
+extraction; the factors $z^{a-1}$, $z$, and $z^{-a}$ cancel.
+
+Now
+\[
+ 1-b=z^n(1-zb),\qquad
+ (1-zb)^{-1}=B(z),\qquad
+ (1-b)^{-1}=z^{-n}B(z)=B(z^{-1}).
+\]
+Since $a=jn$, we also have
+\[
+ b^{-a}(1-b)^{-j}=(zb)^{-a}(1-zb)^{-j}.
+\]
+These terms cancel when Lemma \ref{truncation} is applied to
+\eqref{difference}, leaving
+\begin{equation}\label{Pdifference}
+ F(z)-F(z^{-1})=P(B(z))-P(B(z^{-1})).
+\end{equation}
+
+\subsection*{Identifying the binomial combination}
+As an identity of polynomials in $B$, with $A=B-1$, we have
+\begin{align*}
+ R+\binom Nj
+ &=[w^j]\frac{(1+w)^N}{1-(B-1)w}\\
+ &=[w^j]\sum_{\ell\geq0}B^\ell w^\ell(1+w)^{N-1-\ell}\\
+ &=\sum_{\ell=0}^j\binom{N-1-\ell}{j-\ell}B^\ell
+  =P(B)+\binom{N-1}j.
+\end{align*}
+Thus $R=P(B)-\binom{N-1}{j-1}$. The constant disappears upon
+subtracting the expression with $z^{-1}$, so
+\eqref{Pdifference} proves \eqref{Laurent}. Although rational
+functions were used to establish it, both sides of
+\eqref{Laurent} are Laurent polynomials. There are no exceptional
+values of $n,j$ or numerical substitutions to exclude.
+
+\begin{proof}[Proof of Theorem \ref{main}]
+Apply to \eqref{Laurent} the linear map sending $z^r$ to
+$\psi(r)$. Oddness gives $\psi(-r)=-\psi(r)$ and $\psi(0)=0$,
+so each side becomes twice its evaluation on $F$ or $R$,
+respectively. Dividing by two proves \eqref{strong}. Expanding
+$A(z)^\ell$ and choosing $\psi(r)=r^{2k+1}$ gives exactly the
+source coefficients and \eqref{target}.
+\end{proof}
+
+As a further consequence, if $c_r$ is the number of marked tuples
+with exponent $r$ minus the number with exponent $-r$, then
+\[
+ c_r=[z^r]R(z)>0\qquad(1\leq r\leq jn).
+\]
+Indeed, choose $\ell=\lceil r/n\rceil\leq j$; since
+$\ell\leq r\leq\ell n$, at least one ordered $\ell$-tuple from
+$\{1,\ldots,n\}$ has sum $r$. This proves the positivity
+consequence noted conditionally in \cite{SS}.
+
+\section*{Task 2: a direct cancellation on marked tuples}
+Construct an explicit sign-reversing pairing between marked
+tuples with negative and positive exponents. Identify the
+unpaired positive objects with the ordered tuples and binomial
+choices on the right of \eqref{strong}. Such a construction would
+give a direct combinatorial explanation of the coefficient
+positivity proved above.
+
+\section*{Task 3: the even part of the distribution}
+Determine a useful positive formula for $F(z)+F(z^{-1})$.
+Use it to express sums of even functions over the same weak
+tuples and to quantify the difference from the odd-function
+binomial transform. Include the mass at exponent zero.
+
+\section*{Task 4: quantitative properties of the positive coefficients}
+Study the coefficient sequence $([z^r]R(z))_{r=1}^{jn}$.
+Determine its modes, whether it is unimodal or log-concave, and
+its limiting distribution when $j$ or $n$ grows. The strict
+positivity just proved is a starting point, not a solution to
+these further questions.
+
+\section*{Task 5: a recurrence for the normalized power sums}
+Use the identity to investigate the source's separate Conjecture
+5.1 on representing $S_{k,j}(n)$ by polynomials in $j$ with
+coefficients rational in $n(n+1)$. Seek a recurrence uniform in
+$n$, while distinguishing the known special case $n=1$ and the
+later partial results cited in the literature audit.
+
+\paragraph{Verification and scope.}
+Exact tuple counts, independent convolutions, and rational checks
+supplement the all-parameter proof. Tasks 2--5 are proposals.
+Review is by the authoring agent; no independent review or proof
+assistant is claimed.
+
+\paragraph{Campaign eligibility.}
+This is a full mathematical proof with zero new campaign credit
+pending the literature audit. A related 2019 paper concerning the
+same sums was accessible only as an abstract and first-page
+preview. Its remaining contents must be checked before eligibility
+can be cleared; see the accompanying literature audit.
+
+\begin{thebibliography}{9}
+\bibitem{S} A. K. Svinin, \emph{Conjectures Involving a Generalization
+of the Sums of Powers of Integers}, Experimental Mathematics
+\textbf{27}(4), 437--443; published online 5 April 2017,
+Conjecture 3.1. \url{https://doi.org/10.1080/10586458.2017.1306815}.
+Preprint: arXiv:1610.05387v2 (1 March 2017).
+\bibitem{SS} A. K. Svinin and S. V. Svinina,
+\emph{On Some Generalizations of Sum of Powers of Natural Numbers},
+Russian Mathematics \textbf{63}(8) (2019), 25--37.
+\url{https://doi.org/10.3103/S1066369X19080048}.
+The Russian original, pages 37--38, equation (25), retains the
+target as a conjecture and states its conditional positivity
+consequence.
+\end{thebibliography}
+\end{document}

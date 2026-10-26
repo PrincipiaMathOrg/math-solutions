@@ -1,0 +1,132 @@
+{
+  "mathematics_completed_at_utc": "2026-09-22T03:25:48.338868+00:00",
+  "audit_updated_at_utc": "2026-09-22T03:25:48.338868+00:00",
+  "campaign_eligibility": "pending-related-literature-scope",
+  "new_problem_credit": 0,
+  "result": "Two real rational 2x2x2 tensors have singular-tube TTN sqrt(5/2) each, while their sum has TTN 2+sqrt(2)>sqrt(10); neither the norm nor convex-relaxation assertion holds.",
+  "verification_summary": {
+    "groups": 3,
+    "status": "passed",
+    "exact_groups": 3
+  },
+  "pdf_review": {
+    "pages": 3,
+    "visually_inspected": [
+      1,
+      2,
+      3
+    ],
+    "layout_warnings": false
+  },
+  "reviewer": "Authoring agent only; no independent peer review or proof assistant.",
+  "files": [
+    {
+      "path": "ai-index-check.json",
+      "sha256": "c70b92a6e5849a669c980b14dee701af1f60cf8966d9299433f9aedd0a6933f5"
+    },
+    {
+      "path": "arxiv-check.json",
+      "sha256": "350dd6911d2c72d1e65e469a0dbee03d980867a40f228d03030ac2bf114bee74"
+    },
+    {
+      "path": "arxiv-source-snapshot.txt",
+      "sha256": "74ce29bfa97604753d3db77dfd019122465c9fc0221060e4e7130220bb8f6c67"
+    },
+    {
+      "path": "attempt-record.json",
+      "sha256": "af6e35f115c80c956fa7673ac956ac257c83d354c51c407ef68b784321f6c9e9"
+    },
+    {
+      "path": "crab-check.json",
+      "sha256": "52206079f9cbbab9a56464e36d88056f426dc7a5f5df2f339632da3b24873c99"
+    },
+    {
+      "path": "crab-claim-index.txt",
+      "sha256": "ae27582e94f2a5e2a8fe0b7f117434d9ef960e75ebc2c1521da0c757e9ca4ee9"
+    },
+    {
+      "path": "final-source-check.json",
+      "sha256": "ca411f2525542137502bd7c91bf48a30e0ea7d49178fb9ac64dfd43ff5e5d5d6"
+    },
+    {
+      "path": "literature-audit.md",
+      "sha256": "15bba0779b86701b87d12b8861aa6fca6a5def200e3b27e180e1cd8eeb367289"
+    },
+    {
+      "path": "mathdb-api-snapshot.txt",
+      "sha256": "246d0b9fb9ead81a5393572864f7d4434c37358dc27dae3f4c099b158c5d982f"
+    },
+    {
+      "path": "mathdb-check.json",
+      "sha256": "cc98b1566232933043bb0b2a55f59e32b6ef374eed39fb3d0bfda7854676c45e"
+    },
+    {
+      "path": "mathdb-final-check.json",
+      "sha256": "acda95e69e126a103f86b0f550032163d34bdab5ff4c3a6e586856a277c7e85a"
+    },
+    {
+      "path": "mathdb-initial-check.json",
+      "sha256": "1f6a5a8cbc6e72320f12917ad98eb0e22650dcf286357f01ed389ccc877d42c4"
+    },
+    {
+      "path": "mathdb-page-check.json",
+      "sha256": "16ef882d7c3f1a425d360fae486797c6b5d573153a8b7aaa35d1e7b5f454b9af"
+    },
+    {
+      "path": "mathdb-page-snapshot.txt",
+      "sha256": "c2fbda64910c27cbe5b3441d656c846f414e306d23e48f1cfff61d4335e82eab"
+    },
+    {
+      "path": "proof-audit.md",
+      "sha256": "d151627c4a49f4592a86253159134982ac9a9bf7f551ad4af157ca77e4b7a352"
+    },
+    {
+      "path": "pudim-check.json",
+      "sha256": "08a66b749447ba6bc60991007c6069bc94491c4f764b39b821512f815f8d74a5"
+    },
+    {
+      "path": "pudim-claim-index.txt",
+      "sha256": "69274cd3c904774b36b6b3bc3c4a5b4c089e9a23d6f87ba695963dd6f958b780"
+    },
+    {
+      "path": "README.md",
+      "sha256": "bcb5e7d8dd46e83f77e3c93666dce71f801c6cf39c4d3d68ec7af5c0c7771e95"
+    },
+    {
+      "path": "related-source-check.json",
+      "sha256": "fa550953b9f90e02e92d948784c99b488716722d77653234302d05cf2987e519"
+    },
+    {
+      "path": "search-audit.json",
+      "sha256": "c9c29ca05769ebf6200d99b0dd63feb83e5271d14bb76a909488d79db5e8d968"
+    },
+    {
+      "path": "solution.pdf",
+      "sha256": "edc4a0bd8c03215aed6b0c45aa760d12fbe3482531857638a65584acb48197ba"
+    },
+    {
+      "path": "solution.tex",
+      "sha256": "2fc8453b846d9b19299fb1e384c7dba17032491476ebaf05ee637175d119f53f"
+    },
+    {
+      "path": "source-check.json",
+      "sha256": "e5c25fef0b299836f7e413cec10e899c8e703cef20720dcbe8c1b0173c11e93d"
+    },
+    {
+      "path": "status.md",
+      "sha256": "d40f17260ccc705c718ba8d683970603ad7c685b2073c007aca24c41026f0d47"
+    },
+    {
+      "path": "verification-results.json",
+      "sha256": "194ee67ab3be29a585d68b8e4d73cf2d1cb7cb484eb1a1673f1e94b695ff54bc"
+    },
+    {
+      "path": "verify.py",
+      "sha256": "789d3d4e14ded6fe476c7d6fa89186d1b46a8584223fe9fe2c7cbbfba894b12b"
+    },
+    {
+      "path": "web-claim-records.json",
+      "sha256": "3e18a6d6ee8748ed83bf3e99f9b367c18125b18707865e4a2cbd6f9ce9fee2a7"
+    }
+  ]
+}

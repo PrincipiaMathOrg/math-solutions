@@ -1,0 +1,125 @@
+{
+  "mathematics_completed_at_utc": "2026-09-18T20:17:51+00:00",
+  "audit_updated_at_utc": "2026-09-18T20:27:26.042351+00:00",
+  "campaign_eligibility": "pending-complete-journal-final-review",
+  "new_problem_credit": 0,
+  "result": "A five-vertex house graph has a nonmonotonic PageRank coordinate; a six-vertex theta graph has score spread increasing before mu=1 and decreasing afterward. Both have uniform personalization and exact rational stationary certificates.",
+  "verification_summary": {
+    "groups": 4,
+    "status": "passed",
+    "exact_integer_and_rational_arithmetic": true
+  },
+  "pdf_review": {
+    "pages": 4,
+    "visually_inspected": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "layout_warnings": false
+  },
+  "reviewer": "Authoring agent only; no independent peer review or proof assistant.",
+  "files": [
+    {
+      "path": "ai-claim-index-check.json",
+      "sha256": "f46c1828121554fd61c70df4747949139121241845e394ae36be96e3fbc3e6e1"
+    },
+    {
+      "path": "arxiv-check.json",
+      "sha256": "79595a7b5fe622bdcafc988f2fd25450a269c9d82a26d8cf6fcb35ad389e4b74"
+    },
+    {
+      "path": "arxiv-source-snapshot.txt",
+      "sha256": "4a502afe0afa3ab5dc42c7dc7d790ea9cb79f1dd6f76674459a2dd436f66204e"
+    },
+    {
+      "path": "attempt-record.json",
+      "sha256": "ea0ddb10ebe76fb3da7e738a3d9aaa8cd068f46240a2c505804e4965fdcf382e"
+    },
+    {
+      "path": "author-repository-check.json",
+      "sha256": "7f3b2b770e6814aa532f1a95d675a8fc25cf09f3dce85be69b7c8c3b7973930a"
+    },
+    {
+      "path": "crab-check.json",
+      "sha256": "b65c0ebf5c2a4411dbcbd65f7fb19d0955a4b4dcf09b8a0e9a80b378839e6433"
+    },
+    {
+      "path": "crab-claim-index.txt",
+      "sha256": "358e3557e8f59c0ecc4bb34ae2d011685677496140458247f7c92ee56d3c5ef1"
+    },
+    {
+      "path": "final-source-check.json",
+      "sha256": "221fba66da70cc299a05af6d83d12a3d464949976fd743877203c856fda2f9d6"
+    },
+    {
+      "path": "literature-audit.md",
+      "sha256": "aaf666924031e93d7123a8b7f5a80113c742a816c7fe8c894de0d7004e94b913"
+    },
+    {
+      "path": "mathdb-api-snapshot.txt",
+      "sha256": "af704318e2712e6d8df91366f3a92e5b42b39cd09fd9e873e284d28d8b226685"
+    },
+    {
+      "path": "mathdb-check.json",
+      "sha256": "65fceb3abf415573422527330df8659aad59705f387561dde926a39bf7fcd2be"
+    },
+    {
+      "path": "mathdb-final-check.json",
+      "sha256": "b24a07260dca65d562d42247a7257f9eae8a6a66b74ae66624010ed2bf1ee713"
+    },
+    {
+      "path": "mathdb-initial-check.json",
+      "sha256": "373efc9a1c4e7977f079804f821bc560f52d0de3ae634b8de1c6eda5c1d78674"
+    },
+    {
+      "path": "mathdb-page-check.json",
+      "sha256": "eb1de2fa8593136c3d50fad3a63bb220631872e6a281ef86b92bcd4513f9491e"
+    },
+    {
+      "path": "mathdb-page-snapshot.txt",
+      "sha256": "339cb1ad74d706c8f75fa9ffa849303519bb4bb7c00909ebdd9ff06cd19ae403"
+    },
+    {
+      "path": "proof-audit.md",
+      "sha256": "77498b1d89292bb62cbfbca1ca4f136b96f97385f547161942e6acfc00443340"
+    },
+    {
+      "path": "pudim-check.json",
+      "sha256": "cc37d3f2fd2432353a30e02debfa939a4f9e9b413574cfc6cb0350502d672377"
+    },
+    {
+      "path": "pudim-claim-index.txt",
+      "sha256": "69274cd3c904774b36b6b3bc3c4a5b4c089e9a23d6f87ba695963dd6f958b780"
+    },
+    {
+      "path": "README.md",
+      "sha256": "26919df0dac23ff2e97c2160a99c411a85f873364662b692c7f657b4d6c6440b"
+    },
+    {
+      "path": "search-audit.json",
+      "sha256": "fab6cda603dee3e336247817b572c8d2a5e3debd97b6f127d32ab96e21e3cdd0"
+    },
+    {
+      "path": "solution.pdf",
+      "sha256": "88332dc39e0b550a49b6db830a8eb3312c8e170d5b0879d5b2ff499df6354d6b"
+    },
+    {
+      "path": "solution.tex",
+      "sha256": "cda095b62701286b1e131ccf86ad60a3d739bc9199e3f59d3b599a05493f68e4"
+    },
+    {
+      "path": "source-check.json",
+      "sha256": "c42010311ec80a1545aeedf07adbe3a84234bdd7fe8eaed0a0ff85dd2c061255"
+    },
+    {
+      "path": "verification-results.json",
+      "sha256": "2ff5dfa5ff6f691a3794dd1234a567c3589a1648ed5585a10dc9ea3926a28606"
+    },
+    {
+      "path": "verify.py",
+      "sha256": "cabf2a1547e1b3f4c7ec323d86ddec1a8b2b57848a794d3a7ee6f4d4eb2be8fc"
+    }
+  ]
+}

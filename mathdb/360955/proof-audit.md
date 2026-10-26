@@ -1,0 +1,14 @@
+# Proof audit
+
+This is a full proof of the mathematical assertion in Conjecture 4.1 of arXiv:2311.18059v1, page 12. Campaign eligibility is separately pending because the published 2026 chapter has not been read.
+
+1. The factorization `Q(T,f)=A(q)[n-1]_q!` is the source's Proposition 2.5. Leaves are ordered from right to left, the exponent records the number of right-hand edges, and A records the leaves with initial delay one. Once an eligible leaf is removed, every surviving delay is one. The empty eligible set gives zero; the one-leaf and empty-star cases are treated explicitly.
+2. The source's Proposition 2.6 already proves the first unimodality comparison for binary coefficients. We credit it and reproduce the same argument for arbitrary nonnegative real coefficients. For A of degree at most m, the coefficients of `A[m]_q` are increasing partial sums through index m-1 and decreasing tail sums from index m. There is only one intermediate comparison, whose difference is `a_m-a_0`. Either sign gives unimodality.
+3. Multiplication by `[r]_q` preserves any finite nonnegative unimodal sequence. After extending the input coefficients by zero, the output difference is `b_i-b_(i-r)`. It is nonnegative for i<=p, nonpositive for i>=p+r, and nonincreasing in the interval between, where p is an input peak. This establishes a single possible positive-to-negative sign change, including plateaus and end zeros.
+4. Apply the previous step successively to the remaining factors `[m-1]_q,...,[1]_q`. This proves the weighted polynomial theorem and, with m=n-1, the original all-star, all-pattern conjecture. Symmetry and anti-unimodality of the delay function are unnecessary hypotheses.
+
+The moving-sum fact is an elementary preservation result reproduced with its complete proof; no novelty claim is made for that general fact. The source factorization and initial comparison are also explicitly credited. The result does not concern all delay functions or all rooted trees. In particular, the two nonunimodal examples with delay four in the verifier are prior examples, not new counterexamples.
+
+Four exact groups passed. The recursive definition was checked for every delay-one-or-two assignment on 0..9 leaves (1,023 cases). The weighted theorem was checked for 21,844 vectors over `{0,1,2,3}` of lengths 1..7, and 7,936 additional binary vectors of lengths 8..12. All 2,269 unimodal vectors in the first family were multiplied by each quantum integer of lengths 1..8 (18,152 checks). Finally, the two cited delay-four examples were reproduced exactly and checked to be nonunimodal.
+
+The proof applies to every size and does not depend on enumeration. All three PDF pages were visually inspected and the TeX build had no layout warnings. The authoring agent performed the review; there was no independent reviewer or proof-assistant check.

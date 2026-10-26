@@ -1,0 +1,84 @@
+{
+  "status": "passed",
+  "checked_at_utc": "2026-09-22T05:32:44.889992+00:00",
+  "verifier_sha256": "a3514e1952052315e3be88f22c7e833c521c19f3649513acf7da8213c2fa71d6",
+  "groups": [
+    {
+      "name": "exact recurrence and sign certificate",
+      "exact": true,
+      "coefficients_P7": [
+        1,
+        63,
+        1023,
+        4641,
+        16479,
+        26481,
+        37759,
+        26481,
+        16479,
+        4641,
+        1023,
+        63,
+        1
+      ],
+      "value_at_minus_one_over_twenty": "-316770843280059/4096000000000000"
+    },
+    {
+      "name": "independent dual-Stirling-permutation enumeration",
+      "exact": true,
+      "objects": 135135,
+      "runs_histogram": {
+        "1": 1,
+        "2": 63,
+        "3": 1023,
+        "4": 4641,
+        "5": 16479,
+        "6": 26481,
+        "7": 37759,
+        "8": 26481,
+        "9": 16479,
+        "10": 4641,
+        "11": 1023,
+        "12": 63,
+        "13": 1
+      }
+    },
+    {
+      "name": "exact Sturm counts and reciprocity",
+      "exact": true,
+      "cases": [
+        {
+          "n": 2,
+          "negative_real_roots": 0,
+          "positive_real_roots": 0
+        },
+        {
+          "n": 3,
+          "negative_real_roots": 0,
+          "positive_real_roots": 0
+        },
+        {
+          "n": 4,
+          "negative_real_roots": 0,
+          "positive_real_roots": 0
+        },
+        {
+          "n": 5,
+          "negative_real_roots": 0,
+          "positive_real_roots": 0
+        },
+        {
+          "n": 6,
+          "negative_real_roots": 0,
+          "positive_real_roots": 0
+        },
+        {
+          "n": 7,
+          "negative_real_roots": 4,
+          "positive_real_roots": 0
+        }
+      ]
+    }
+  ],
+  "limitation": "The infinite n>=7 extension uses the analytic negative-minimum argument, not the finite checks."
+}

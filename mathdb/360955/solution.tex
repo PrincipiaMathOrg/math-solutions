@@ -1,0 +1,182 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[hidelinks]{hyperref}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\title{Unimodality for hedgehog trees with delays one and two\\
+\large A complete proof for MathDB 360955; source audit pending}
+\author{Principia Math In Progress}
+\date{18 September 2026}
+\begin{document}
+\maketitle
+\begin{abstract}
+We prove the unimodality conjecture for the plucking polynomial
+of a star whose leaf delays belong to $\{1,2\}$. The source's
+factorization reduces it to multiplying a polynomial of degree
+at most $m$ by $[m]_q!$. One long quantum-integer factor gives
+unimodality, and each remaining factor preserves it by an
+elementary moving-sum argument. The proof extends to arbitrary
+nonnegative real coefficients in the initial polynomial.
+\end{abstract}
+
+\paragraph{Publication status.}
+This note gives a full proof of the mathematical assertion in
+Conjecture 4.1 of the current arXiv preprint \cite{ILMP}.
+A published 2026 chapter exists \cite{final}, but its full text
+could not be retrieved for comparison. Accordingly, this result
+has \textbf{zero new campaign credit pending that source audit}.
+The preprint was read completely; novelty relative to the final
+chapter is not claimed.
+
+\section*{Task 1: the original problem and its full solution}
+A finite nonnegative sequence is \emph{unimodal} if it is weakly
+increasing up to some index and weakly decreasing thereafter.
+Initial or final zeros are permitted, as is the zero sequence.
+A polynomial is unimodal when its coefficient sequence is.
+Put
+\[
+ [r]_q=1+q+\cdots+q^{r-1},\qquad
+ [r]_q!=\prod_{j=1}^r[j]_q,\qquad [0]_q!=1.
+\]
+
+Let $T$ be a plane star with $n$ leaves. Label the leaves from
+right to left by $v_0,\ldots,v_{n-1}$ and give each a delay
+$f(v_i)\in\{1,2\}$. Only delay-one leaves can be plucked at the
+first step. Plucking $v_i$ contributes $q^i$, removes that leaf,
+and replaces every surviving delay by $\max(1,f(v)-1)$.
+Thus all remaining delays are one, and the remaining star has
+plucking polynomial $[n-1]_q!$.
+The source's Proposition 2.5 is precisely the resulting formula
+\begin{equation}\label{factor}
+ Q(T,f)=A(q)[n-1]_q!,\qquad
+ A(q)=\sum_{i=0}^{n-1}\varepsilon_i q^i,
+ \quad\varepsilon_i=\begin{cases}1&f(v_i)=1,\\0&f(v_i)=2.\end{cases}
+\end{equation}
+An empty set of eligible leaves gives $Q=0$.
+The conjecture asks whether \eqref{factor} is always unimodal.
+We credit \eqref{factor} and the binary-coefficient case of the
+next lemma to Propositions 2.5 and 2.6 of \cite{ILMP}.
+
+\begin{lemma}\label{long}
+For $m\geq1$ and $A(q)=\sum_{j=0}^m a_jq^j$ with $a_j\geq0$,
+the polynomial $A(q)[m]_q$ is unimodal.
+\end{lemma}
+\begin{proof}
+Write $A(q)[m]_q=\sum_{i=0}^{2m-1}b_iq^i$, allowing zero
+coefficients at the ends. Its coefficients satisfy
+\[
+ b_i=\begin{cases}
+       a_0+\cdots+a_i,&0\leq i\leq m-1,\\
+       a_{i-m+1}+\cdots+a_m,&m\leq i\leq2m-1.
+      \end{cases}
+\]
+Hence $b_0\leq\cdots\leq b_{m-1}$ and
+$b_m\geq\cdots\geq b_{2m-1}$. The single comparison between
+$b_{m-1}$ and $b_m$ can have either sign: in the first case
+the peak is at $m$, and in the other it is at $m-1$.
+More explicitly, $b_m-b_{m-1}=a_m-a_0$.
+This also covers $m=1$.
+\end{proof}
+
+\begin{lemma}[Moving sums]\label{moving}
+If $B(q)$ has a finite nonnegative unimodal coefficient sequence,
+then $B(q)[r]_q$ is unimodal for every integer $r\geq1$.
+\end{lemma}
+\begin{proof}
+Extend the coefficients $b_i$ by zero to every integer index,
+and choose a peak index $p$. For
+$B(q)[r]_q=\sum_i c_iq^i$, telescoping gives
+\begin{equation}\label{difference}
+ c_i-c_{i-1}=b_i-b_{i-r}.
+\end{equation}
+When $i\leq p$, the right side is nonnegative, since both
+indices are in the increasing part of $b$. When $i\geq p+r$,
+it is nonpositive, since both are in the decreasing part.
+For $p\leq i\leq p+r$, the term $b_i$ is nonincreasing in $i$
+and the term $b_{i-r}$ is nondecreasing. Their difference is
+therefore nonincreasing throughout this middle interval.
+Thus the differences in \eqref{difference} can change sign
+only from nonnegative to nonpositive. This is unimodality of
+$(c_i)$. The all-zero sequence is immediate.
+\end{proof}
+
+\begin{theorem}\label{main}
+If $m\geq1$ and $A$ is a polynomial of degree at most $m$ with
+nonnegative real coefficients, then $A(q)[m]_q!$ is unimodal.
+Consequently $Q(T,f)$ is unimodal for every star and every
+delay function with values in $\{1,2\}$.
+\end{theorem}
+\begin{proof}
+Apply Lemma~\ref{long} to $A(q)[m]_q$, padding the coefficients
+of $A$ by zeros when necessary. Then multiply successively by
+$[m-1]_q,[m-2]_q,\ldots,[1]_q$, applying Lemma~\ref{moving}
+each time. The product is $A(q)[m]_q!$.
+For a star with $n\geq2$, take $m=n-1$ in \eqref{factor}.
+For $n=1$, the polynomial is $1$ or $0$ according to the delay.
+For the empty star it is $1$ by the initial condition.
+\end{proof}
+
+\paragraph{Scope and attribution.}
+The argument allows nonsymmetric delay patterns and arbitrary
+numbers of leaves. It does not require the delay function to be
+anti-unimodal. The first factor and the initial unimodality
+comparison are already in the source. The moving-sum lemma is
+an elementary preservation property, reproduced here in full;
+we do not claim it as a new general theorem. Applying it to
+the remaining quantum-integer factors completes the particular
+conjecture as stated in the preprint. The source's other delay
+families and general rooted trees are not included in this result.
+
+\section*{Task 2: delays taking three values}
+Determine whether every star with leaf delays in $\{1,2,3\}$
+has a unimodal plucking polynomial. After the first pluck some
+delays can still be two, so the common remaining factor in
+\eqref{factor} no longer follows immediately. Seek a decomposition
+whose summands have compatible coefficient peaks, or an explicit
+counterexample.
+
+\section*{Task 3: strict increase and the peak interval}
+For a nonempty eligible set $S\subseteq\{0,\ldots,n-1\}$,
+determine the complete interval of maximal coefficients of
+$[n-1]_q!\sum_{i\in S}q^i$. Characterize the sets $S$ for which
+the coefficients, after deleting end zeros, increase strictly
+and then decrease strictly, allowing at most a two-term peak.
+
+\section*{Task 4: the largest universally smoothed degree}
+For each $m$, determine the largest $d(m)$ for which
+$A(q)[m]_q!$ is unimodal for every nonnegative polynomial $A$
+of degree at most $d(m)$. Theorem~\ref{main} proves $d(m)\geq m$.
+Study sharp obstructions from polynomials supported at two
+widely separated exponents and the growth of $d(m)$ with $m$.
+
+\section*{Task 5: extending the argument beyond stars}
+For a general plane rooted tree with delays one and two,
+the first-step summands have different remaining tree shapes.
+Find structural hypotheses that force these summands to have
+compatible modes or a common sufficiently long quantum-integer
+factor. Establish such a criterion for an explicit family of
+trees with two levels of branching.
+
+\paragraph{Verification.}
+The accompanying script uses exact integers to compare the
+recursive definition with \eqref{factor}, check coefficient
+unimodality on finite exhaustive families, verify moving sums,
+and reproduce two already-known nonunimodal examples outside
+the delay-one-or-two hypothesis. The all-size proof above is
+independent of those checks. Review was by the authoring agent
+only. Tasks 2--5 are proposed questions, not claimed results.
+
+\begin{thebibliography}{9}
+\raggedright\small
+\bibitem{ILMP} D. Ibarra, A. Landry, G. Montoya-Vega,
+and J. H. Przytycki, \emph{Exploring unimodality of the plucking
+polynomial with delay function},
+\href{https://arxiv.org/abs/2311.18059}{arXiv:2311.18059v1}
+(29 November 2023), 13 pages. Complete preprint read.
+\bibitem{final} The same authors, same title, Contemporary
+Mathematics \textbf{834} (2026), 95--108,
+\href{https://doi.org/10.1090/conm/834/16686}{doi:10.1090/conm/834/16686}.
+Publication metadata verified; full chapter not retrieved or read.
+\end{thebibliography}
+\end{document}

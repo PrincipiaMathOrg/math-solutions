@@ -1,0 +1,123 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,hyperref}
+\hypersetup{colorlinks=true,urlcolor=blue}
+\newtheorem{theorem}{Theorem}
+\title{Positive reduced numerators for Carlitz--Riordan interpolation}
+\author{Principia Math In Progress}
+\date{21 September 2026}
+\begin{document}
+\maketitle
+\section*{Task 1: the full numerator assertion}
+Write $[r]=1+q+\cdots+q^{r-1}$, $[0]!=1$, and
+$[r]!=\prod_{i=1}^r[i]$. Chapoton--Zeng \cite{CZ} define $C_1=1$
+and the polynomials $C_n(x\mid q)\in\mathbb Q(q)[x]$ by
+\[
+ \frac{C_{n+1}(1+qx\mid q)-C_{n+1}(x\mid q)}{1+(q-1)x}
+       =qC_n(q^2x+q+1\mid q),\qquad
+ C_{n+1}(-q^{-1}\mid q)=0.
+\]
+Their Conjecture 8 asks for positive numerators with exact denominator
+$[n-1]!$. Here positivity means nonnegative coefficients, with every
+coefficient present in the support positive; it does not require every
+monomial in a bounding rectangle to occur.
+
+\begin{theorem}
+For every $n\geq1$,
+\[
+ P_n(x,q)=[n-1]!\,C_n(x\mid q)\in\mathbb Z_{\geq0}[x,q],
+ \qquad [x^{n-1}]P_n=q^{(n-1)^2}.
+\]
+Every power $x^k$, $0\leq k\leq n-1$, has a nonzero coefficient
+polynomial in $q$. Moreover $P_n$ and $[n-1]!$ are coprime in
+$\mathbb Q[x,q]$, so this denominator is already reduced.
+\end{theorem}
+
+\noindent\textbf{Prior input.}
+Let $T_0=1$ and
+$T_{r+1}=\sum_{i=0}^r q^iT_iT_{r-i}$ be the standard
+Carlitz--Riordan polynomials, all in $\mathbb Z_{\geq0}[q]$.
+Theorem 7, equation (4.9), of \cite{CZ} proves
+\[
+ [n]C_{n+1}=([2n-1]+xq^{2n-1})C_n+
+ \sum_{j=0}^{n-2}[n-j-1]T_jq^{2j+1}C_{n-j}.
+\]
+This recurrence is the authors' result. The proof below is its direct
+consequence, not a new recurrence.
+
+\begin{proof}
+Multiply the known recurrence by $[n-1]!$. It becomes
+\begin{align*}
+ P_{n+1}={}&([2n-1]+xq^{2n-1})P_n\\
+ &+\sum_{j=0}^{n-2}
+ q^{2j+1}[n-j-1]T_j
+ \left(\prod_{t=n-j}^{n-1}[t]\right)P_{n-j}.
+\end{align*}
+Every multiplier is a polynomial with nonnegative integer coefficients.
+Empty products equal one and the sum is empty for $n=1$.
+Induction from $P_1=1$ proves coefficient positivity for all $n$.
+The first term preserves every existing $x$-degree and adds the next one,
+proving nonvanishing in each degree.
+\newpage
+\noindent
+To finish the proof, all summands except $xq^{2n-1}P_n$ have
+$x$-degree at most $n-1$. Thus the leading coefficient obeys
+$L_{n+1}=q^{2n-1}L_n$, $L_1=1$, yielding
+$L_n=q^{1+3+\cdots+(2n-3)}=q^{(n-1)^2}$.
+Any common irreducible factor of $P_n$ and $[n-1]!$ must belong
+to $\mathbb Q[q]$ and divide every $x$-coefficient of $P_n$,
+including this monomial. But $[n-1]!(0)=1$, so it has no factor $q$.
+No common nonconstant factor exists. This also covers $n=1$.
+\end{proof}
+
+For example,
+\[
+ P_2=1+qx,\qquad
+ P_3=(1+q)^2+(q+2q^2+2q^3)x+q^4x^2 .
+\]
+The argument establishes both parts of the conjecture for the entire
+sequence, including irreducibility of the fraction; it does not infer
+the infinite assertion from computed examples.
+
+\section*{Attribution and campaign status}
+The complete current 15-page preprint \cite{CZ} and the complete
+14-page author note \cite{C} were read. Cigler's Theorem 5 gives a
+positive expansion in $q$-Gould polynomials of parameter one, while
+equation (3.1) identifies the present family. This is an additional
+substantial prior implication that must be credited in any priority
+assessment. The source's own recurrence already supplies the short
+proof above.
+
+The identified 14-page journal final, \emph{Contributions to Discrete
+Mathematics} 10(1) (2015), 99--112, could not be read: public download
+requests returned server errors. Accordingly this package receives
+\textbf{zero new campaign credit}, pending final-source and
+prior-implication review. No new research priority is claimed.
+The exact verifier checks the original defining difference equations,
+the boundary condition, coefficient signs, leading terms, and denominator
+coprimality for initial degrees. These checks supplement the proof.
+Review is by the authoring agent only.
+
+\section*{Proposed follow-up Tasks 2--5}
+\begin{enumerate}
+\item \textbf{Task 2.} Construct a direct combinatorial model for the
+coefficients of the reduced numerator.
+\item \textbf{Task 3.} Determine the exact monomial support and Newton
+polygon for every $n$.
+\item \textbf{Task 4.} Classify unimodality or log-concavity of the
+coefficient polynomials in $q$ for fixed powers of $x$.
+\item \textbf{Task 5.} Extend the exact reduced-denominator statement to
+Cigler's general parameter-$m$ Gould family.
+\end{enumerate}
+
+\begin{thebibliography}{9}
+\bibitem{CZ} F. Chapoton and J. Zeng,
+\emph{A curious polynomial interpolation of Carlitz--Riordan's
+$q$-ballot numbers}, \href{https://arxiv.org/abs/1311.7228}{arXiv:1311.7228v2}
+(2013). Journal final:
+\href{https://doi.org/10.55016/ojs/cdm.v10i1.62222}{Contrib. Discrete Math.
+10(1) (2015), 99--112}, unread.
+\bibitem{C} J. Cigler, \emph{Some notes on $q$-Gould polynomials} (2013),
+\href{https://homepage.univie.ac.at/johann.cigler/preprints/gould.pdf}{author PDF}.
+\end{thebibliography}
+\end{document}

@@ -1,0 +1,149 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,hyperref}
+\newtheorem{theorem}{Theorem}
+\newcommand{\TTN}{\operatorname{TTN}}
+\newcommand{\diag}{\operatorname{diag}}
+\title{A counterexample to the tensor-tubal-norm conjecture}
+\author{Principia Math In Progress}
+\date{22 September 2026}
+\begin{document}
+\maketitle
+\begin{abstract}
+The sum of the Euclidean norms of the singular tubes in the standard
+t-SVD is not a norm. Two real tensors of size $2\times2\times2$ have
+value $\sqrt{5/2}$ each, while their sum has value $2+\sqrt2$.
+This also disproves the proposed convex-relaxation assertion.
+\end{abstract}
+
+\section*{Task 1: the original conjecture}
+Conjecture 2.4.1 in Zhang, Ely, Aeron, Hao and Kilmer
+\cite{original}, p.~4, concerns
+\[
+ F(X)=\TTN(X)=\sum_i\|S(i,i,:)\|_2,
+ \qquad X=U*S*V^{\mathsf T}.
+\]
+Here the t-SVD is calculated by Algorithm 1 of that source: take the
+discrete Fourier transform in the third coordinate, compute the usual
+matrix SVD of each Fourier slice, and apply the inverse transform.
+We use the standard nonincreasing order of the singular values in each
+matrix SVD. The conjecture states that $F$ is a norm and is the tightest
+convex relaxation of tensor-tubal-rank.
+
+This functional differs from the tensor-nuclear-norm in Theorem 2.4.1
+of the same source. The latter sums all singular values of all Fourier
+slices. The counterexample below concerns the singular-tube functional
+in the conjecture.
+
+\section*{Exact counterexample}
+For a tensor with two frontal slices $X_1,X_2$, the Fourier convention
+in the source gives
+\[
+ \widehat X_1=X_1+X_2,\qquad \widehat X_2=X_1-X_2.
+\]
+Write $s_{ij}=\sigma_i(\widehat X_j)$, where singular values are sorted.
+The $i$th diagonal tube of $S$ is
+\[
+ \left(\frac{s_{i1}+s_{i2}}2,\frac{s_{i1}-s_{i2}}2\right).
+ \quad\text{Consequently}\quad
+ F(X)=\frac1{\sqrt2}\sum_i\sqrt{s_{i1}^2+s_{i2}^2}.
+ \tag{1}
+\]
+This identity follows directly from the inverse Fourier transform and
+the Euclidean norm; it involves no numerical approximation.
+
+\begin{theorem}
+The real tensors $A,B\in\mathbb R^{2\times2\times2}$ with frontal slices
+\[
+ \begin{aligned}
+ A_1&=\diag(3/2,0),& A_2&=\diag(1/2,0),\\
+ B_1&=\diag(1/2,1),& B_2&=\diag(-1/2,1)
+ \end{aligned}
+\]
+satisfy
+\[
+ F(A)=F(B)=\sqrt{5/2},\qquad
+ F(A+B)=2+\sqrt2>\sqrt{10}=F(A)+F(B).
+\]
+Thus $F$ is neither a norm nor a convex function.
+\end{theorem}
+
+\begin{proof}
+Their Fourier slices and those of their sum $C=A+B$ are
+\[
+\begin{array}{c|cc}
+ &\widehat X_1&\widehat X_2\\ \hline
+ A&\diag(2,0)&\diag(1,0)\\
+ B&\diag(0,2)&\diag(1,0)\\
+ C&\diag(2,2)&\diag(2,0).
+\end{array}
+\]
+Both $A$ and $B$ therefore have singular-value lists $(2,0)$ and
+$(1,0)$ in the first and second frequency slices. Their diagonal
+singular tubes are $(3/2,1/2)$ and $(0,0)$, proving their asserted values.
+For $C$ the lists are $(2,2)$ and $(2,0)$, so its diagonal singular
+tubes are $(2,0)$ and $(1,1)$. This gives $F(C)=2+\sqrt2$.
+
+All these lists arise from valid real t-SVDs. For $A$ take identity
+left and right singular-vector matrices at both frequencies. For $B$
+take the coordinate-swap permutation matrix for both left and right
+vectors at the first frequency, and identity matrices at the second.
+For $C$ take identity matrices at both frequencies. Inverse Fourier
+transforms of these real frequency factors produce real tensor
+factors; frequencywise orthogonality gives t-orthogonality and the
+frequencywise products reconstruct the displayed tensors. The repeated
+singular value of $\widehat C_1=2I$ causes no ambiguity in its
+singular-value list.
+
+Since both sides are positive, the strict comparison follows by squaring:
+$(2+\sqrt2)^2=6+4\sqrt2>10$. Finally, $F$ is positively homogeneous
+by (1). Hence
+\[
+ F\left(\frac{A+B}{2}\right)
+ =1+\frac1{\sqrt2}>\sqrt{5/2}
+ =\frac{F(A)+F(B)}2,
+\]
+which violates convexity as well as the triangle inequality.
+\end{proof}
+
+A convex envelope must be convex. Thus this functional cannot be the
+proposed tightest convex relaxation of tubal rank. Although the source
+does not specify a bounding set for that assertion, the obstruction
+persists on every norm ball about zero of positive radius: multiply
+$A,B$ and their midpoint by the same sufficiently small positive scalar.
+This observation addresses the usual bounded-domain interpretation;
+the disproof does not depend on the omission of a bounding set.
+
+The source's distinct tensor-nuclear-norm takes values $3,3,6$ on
+$A,B,C$, respectively, and is not contradicted. The later conference
+paper \cite{conference}, Section 2.4, omits the TTN conjecture and
+discusses the different tensor-nuclear-norm. Its omission alone is
+not a proof claim resolving the original conjecture.
+
+\section*{Proposed follow-up Tasks 2--5}
+These are proposed research tasks, not further solved problems.
+\begin{enumerate}
+\setcounter{enumi}{1}
+\item Determine the convex envelope of $F$ on the Frobenius unit ball
+in $\mathbb R^{2\times2\times2}$.
+\item Determine the smallest constant $K$ such that
+$F(X+Y)\leq K(F(X)+F(Y))$ for all real $2\times2\times2$ tensors.
+\item Characterize real linear subspaces of $2\times2\times2$ tensors
+on which the restriction of $F$ is a norm.
+\item Find the convex envelope of tensor-tubal-rank on the Frobenius
+unit ball for real $2\times2\times2$ tensors and compare it with
+the normalized tensor-nuclear-norm.
+\end{enumerate}
+
+\begin{thebibliography}{9}
+\bibitem{original} Z. Zhang, G. Ely, S. Aeron, N. Hao and M. Kilmer,
+\emph{Novel Factorization Strategies for Higher Order Tensors:
+Implications for Compression and Recovery of Multi-linear Data},
+\href{https://arxiv.org/abs/1307.0805v3}{arXiv:1307.0805v3}, 2013.
+\bibitem{conference} Z. Zhang, G. Ely, S. Aeron, N. Hao and M. Kilmer,
+\emph{Novel methods for multilinear data completion and de-noising
+based on tensor-SVD}, CVPR 2014, pp.~3842--3849,
+\href{https://doi.org/10.1109/CVPR.2014.485}{doi:10.1109/CVPR.2014.485}.
+Official CVF open-access conference copy inspected.
+\end{thebibliography}
+\end{document}

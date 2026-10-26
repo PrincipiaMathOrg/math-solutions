@@ -1,0 +1,118 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=25mm]{geometry}
+\usepackage{amsmath,amssymb,amsthm,hyperref}
+\newtheorem{theorem}{Theorem}
+\title{Negative real zeros in the Ma--Wang alternating-run polynomials}
+\author{Principia Math In Progress}
+\date{22 September 2026}
+\begin{document}
+\maketitle
+\noindent\textbf{Task 1 (MathDB 330839).}
+Ma and Wang's published Conjecture 4.1 \cite{MW} asserts that
+$T_n(x)/x$ has only imaginary zeros and a coordinate-separation property
+for every $n\ge2$. Here ``imaginary'' is read as nonreal, as indicated by
+the source's use of general conjugate pairs with nonzero real parts.
+The assertion already fails at $n=7$; the failure persists for all larger
+indices.
+
+\begin{theorem}
+For every integer $n\ge7$, $T_n(x)/x$ has at least two distinct real zeros
+in $(-1,0)$ and at least two distinct real zeros in $(-\infty,-1)$.
+In particular, the full conjunction in Ma--Wang's Conjecture 4.1 is false.
+\end{theorem}
+\begin{proof}
+The defining recurrence \cite[Eq.~(1.1)]{MW} is
+\[
+ T_{n+1}(x)=(2nx+1)xT_n(x)+x(1-x^2)T_n'(x),\qquad T_1(x)=x.
+\]
+Writing $P_n(x)=T_n(x)/x$, we obtain
+\begin{equation}\label{eq:rec}
+ P_{n+1}(x)=\bigl(1+x+(2n-1)x^2\bigr)P_n(x)
+               +x(1-x^2)P_n'(x),\qquad P_1=1.
+\end{equation}
+In particular,
+\begin{equation}\label{eq:end}
+ P_n(0)=1,\qquad P_n(-1)=(2n-3)!!>0\quad(n\ge2).
+\end{equation}
+Six applications of \eqref{eq:rec} give
+\begin{align*}
+P_7(x)={}&1+63x+1023x^2+4641x^3+16479x^4+26481x^5\\
+ &+37759x^6+26481x^7+16479x^8+4641x^9\\
+ &+1023x^{10}+63x^{11}+x^{12}.
+\end{align*}
+Exact substitution yields
+\begin{equation}\label{eq:sign}
+ P_7(-1/20)=-\frac{316770843280059}{4096000000000000}<0.
+\end{equation}
+Together with \eqref{eq:end}, the intermediate value theorem already
+gives two distinct real zeros in $(-1,0)$.
+
+For persistence, suppose $P_n$ takes a negative value on $(-1,0)$.
+By \eqref{eq:end}, its minimum on $[-1,0]$ is attained at an interior
+point $a$, with $P_n(a)<0$ and $P_n'(a)=0$. Equation \eqref{eq:rec} gives
+\[
+ P_{n+1}(a)=\bigl(1+a+(2n-1)a^2\bigr)P_n(a)<0,
+\]
+because $-1<a<0$ and $n\ge1$. Its endpoint values are again positive,
+so it has two distinct zeros in $(-1,0)$. Induction starting from
+\eqref{eq:sign} proves this for every $n\ge7$.
+
+The source's symmetry assertion \cite[Theorem 2.2]{MW} gives
+\[
+ P_n(x)=x^{2n-2}P_n(1/x).
+\]
+It also follows immediately by induction from the coefficient recurrence
+in \cite[Eq.~(1.2)]{MW}. Each of the two zeros in $(-1,0)$ therefore has
+a distinct reciprocal zero in $(-\infty,-1)$. The four zeros are distinct
+and nonzero, completing the proof.
+\end{proof}
+
+\noindent\textbf{Scope and prior work.}
+This refutation concerns the nonreal-zero assertion in the original
+conjunction. It is compatible with Hurwitz stability, which permits
+negative real zeros. Ding and Zhu \cite[Conjecture 2.13 and Proposition
+2.16]{DZ} prove Hurwitz stability of the same sequence, while citing
+Ma--Wang's Conjecture 4.1 for that different statement. Their result is
+credited and is not contradicted here. Their later journal version,
+\emph{Advances in Applied Mathematics} 152 (2024), 102591, has not been
+read in full; its precise discussion of the original conjecture remains
+a priority-audit gap. This note therefore receives \textbf{zero new
+campaign credit pending that check}. Both complete versions of the
+original Ma--Wang paper were read.
+
+The accompanying exact verifier derives the displayed coefficients by
+the recurrence and independently enumerates all $135135$ dual Stirling
+permutations of order seven. Rational sign evaluations and Sturm counts
+provide additional checks. The persistence argument is analytic and
+covers infinitely many indices. No independent peer review or formal
+verification is claimed.
+
+\medskip
+\noindent\textbf{Proposed Tasks 2--5 (not additional solutions).}
+\begin{enumerate}
+\setcounter{enumi}{1}
+\item Determine the exact number of negative real zeros of $P_n$ for every
+$n\ge7$, including multiplicities.
+\item Determine whether the proportion of real zeros of $P_n$ has a limit
+as $n\to\infty$, and compute it if it exists.
+\item Determine the indices for which the real and imaginary coordinates
+of the nonreal conjugate pairs of consecutive polynomials interlace.
+\item Obtain asymptotic formulas for the negative real zeros closest to
+zero and their reciprocal partners.
+\end{enumerate}
+
+\begin{thebibliography}{2}
+\bibitem{MW} S.-M. Ma and H.-N. Wang,
+\emph{Enumeration of a dual set of Stirling permutations by their
+alternating runs}, Bulletin of the Australian Mathematical Society
+\textbf{94} (2016), 177--186.
+\href{https://doi.org/10.1017/S0004972716000186}{doi:10.1017/S0004972716000186}.
+Preprint: \href{https://arxiv.org/abs/1506.08716}{arXiv:1506.08716v2},
+30 June 2015; its corresponding assertion is Conjecture 7.
+\bibitem{DZ} M.-J. Ding and B.-X. Zhu,
+\emph{Stability of combinatorial polynomials and its applications},
+\href{https://arxiv.org/abs/2106.12176}{arXiv:2106.12176v2}, 24 June 2021.
+Related journal version:
+\href{https://doi.org/10.1016/j.aam.2023.102591}{doi:10.1016/j.aam.2023.102591}.
+\end{thebibliography}
+\end{document}

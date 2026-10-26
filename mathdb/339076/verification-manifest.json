@@ -1,0 +1,299 @@
+{
+  "mathematics_completed_at_utc": "2026-09-18T02:49:04.930627+00:00",
+  "audit_completed_at_utc": "2026-09-18T02:54:35.853275+00:00",
+  "result": "Complete corrected two-shift evaluation for every size and all complex q.",
+  "prior_scope_credited": "Cigler's zero- and one-shift determinant evaluations.",
+  "campaign_eligibility": "pending-complete-primary-and-literature-scope",
+  "new_problem_credit": 0,
+  "verification": {
+    "mathdb_number": 339076,
+    "arithmetic": "Exact integer polynomials, python-flint",
+    "determinant_checks": 51,
+    "normalized_formula_checks": 17,
+    "condensation_checks": 15,
+    "rows": [
+      {
+        "n": 0,
+        "exact_valuation": 0,
+        "normalized_coefficients": [
+          1
+        ]
+      },
+      {
+        "n": 1,
+        "exact_valuation": 0,
+        "normalized_coefficients": [
+          1,
+          1
+        ]
+      },
+      {
+        "n": 2,
+        "exact_valuation": 4,
+        "normalized_coefficients": [
+          1,
+          1
+        ]
+      },
+      {
+        "n": 3,
+        "exact_valuation": 11,
+        "normalized_coefficients": [
+          1,
+          0,
+          1,
+          1
+        ]
+      },
+      {
+        "n": 4,
+        "exact_valuation": 26,
+        "normalized_coefficients": [
+          1,
+          1,
+          0,
+          1,
+          1
+        ]
+      },
+      {
+        "n": 5,
+        "exact_valuation": 51,
+        "normalized_coefficients": [
+          1,
+          1,
+          0,
+          1,
+          1
+        ]
+      },
+      {
+        "n": 6,
+        "exact_valuation": 85,
+        "normalized_coefficients": [
+          1,
+          0,
+          1,
+          1,
+          0,
+          1,
+          1
+        ]
+      },
+      {
+        "n": 7,
+        "exact_valuation": 133,
+        "normalized_coefficients": [
+          1,
+          1,
+          0,
+          1,
+          1,
+          0,
+          1,
+          1
+        ]
+      },
+      {
+        "n": 8,
+        "exact_valuation": 197,
+        "normalized_coefficients": [
+          1,
+          1,
+          0,
+          1,
+          1,
+          0,
+          1,
+          1
+        ]
+      },
+      {
+        "n": 9,
+        "exact_valuation": 276,
+        "normalized_coefficients": [
+          1,
+          0,
+          1,
+          1,
+          0,
+          1,
+          1,
+          0,
+          1,
+          1
+        ]
+      },
+      {
+        "n": 10,
+        "exact_valuation": 375,
+        "normalized_coefficients": [
+          1,
+          1,
+          0,
+          1,
+          1,
+          0,
+          1,
+          1,
+          0,
+          1,
+          1
+        ]
+      },
+      {
+        "n": 11,
+        "exact_valuation": 496,
+        "normalized_coefficients": [
+          1,
+          1,
+          0,
+          1,
+          1,
+          0,
+          1,
+          1,
+          0,
+          1,
+          1
+        ]
+      },
+      {
+        "n": 12,
+        "exact_valuation": 638,
+        "normalized_coefficients": [
+          1,
+          0,
+          1,
+          1,
+          0,
+          1,
+          1,
+          0,
+          1,
+          1,
+          0,
+          1,
+          1
+        ]
+      },
+      {
+        "n": 13,
+        "exact_valuation": 806,
+        "normalized_coefficients": [
+          1,
+          1,
+          0,
+          1,
+          1,
+          0,
+          1,
+          1,
+          0,
+          1,
+          1,
+          0,
+          1,
+          1
+        ]
+      },
+      {
+        "n": 14,
+        "exact_valuation": 1002,
+        "normalized_coefficients": [
+          1,
+          1,
+          0,
+          1,
+          1,
+          0,
+          1,
+          1,
+          0,
+          1,
+          1,
+          0,
+          1,
+          1
+        ]
+      },
+      {
+        "n": 15,
+        "exact_valuation": 1225,
+        "normalized_coefficients": [
+          1,
+          0,
+          1,
+          1,
+          0,
+          1,
+          1,
+          0,
+          1,
+          1,
+          0,
+          1,
+          1,
+          0,
+          1,
+          1
+        ]
+      },
+      {
+        "n": 16,
+        "exact_valuation": 1480,
+        "normalized_coefficients": [
+          1,
+          1,
+          0,
+          1,
+          1,
+          0,
+          1,
+          1,
+          0,
+          1,
+          1,
+          0,
+          1,
+          1,
+          0,
+          1,
+          1
+        ]
+      }
+    ],
+    "all_passed": true,
+    "limitation": "Finite checks audit the universal condensation proof; they do not establish source eligibility or priority."
+  },
+  "pdf_pages_visually_inspected": 4,
+  "followup_tasks": [
+    2,
+    3,
+    4,
+    5
+  ],
+  "review_scope": "Authoring-agent audit; no independent peer review or priority claim.",
+  "sha256": {
+    "problems/339076/arxiv-source-snapshot.txt": "8e69724bd2655e60ab0fff21cd87e7e22f39189cdbad30ef61b5f30b8773563f",
+    "problems/339076/attempt-record.json": "5fe5642d726ac0ad58779f711a6f749c842a0a5049a04db777fdcab0a90aacc5",
+    "problems/339076/crab-final-check.json": "7bfb37ab99862470edd3f099ad7b043a32c2acd477bf6df493c1c331e9617fd0",
+    "problems/339076/crab-final-claim-index.txt": "ed9242e97d47d79d419326e74ffa70dc1b41aceb1d2bc52dfc385d4b93c30ed0",
+    "problems/339076/crossref-source-snapshot.txt": "ff757d2d7a7dc5dce0904559dba99942c9ac50110667853c47725fc41d447d03",
+    "problems/339076/exact-certificate.json": "f7e5a9d87bcec8165f943c7b11c85bafdf71c6c8a9fb9097699723ab58c6acd2",
+    "problems/339076/literature-audit.md": "5c99eb5d75ed82cd256d54f5fc86cd2ed80e2033b3e85e9ac824f45ad4bb1c17",
+    "problems/339076/mathdb-final-check.json": "b26c8eac643db66faff40833fc7a5bb55382eeac6ca1211669777c376d694a37",
+    "problems/339076/mathdb-initial-check.json": "e9b213977dfc4cee7b734e89e64e4885628671dc15f8bb5071cf7df963a138bb",
+    "problems/339076/openalex-source-snapshot.txt": "ee89b16df0de69289907b7aff54c0136f87669f5a2521f827412de652eb1425a",
+    "problems/339076/proof-audit.md": "6c0f3931815633dccdbd008020d0e81dfa8da9e707bb95fc1766755bffa1e98e",
+    "problems/339076/publisher-metadata-snapshot.txt": "643ba44bbdf9ef8935257a3aa7c48d22322099fe97ee1e85809ea24efaad0383",
+    "problems/339076/pudim-final-check.json": "7286b0da4ad44d1bee221de8764d3627162d3f5c80fc1f4b25a0f3bb3f2cc02e",
+    "problems/339076/pudim-final-claim-index.txt": "69274cd3c904774b36b6b3bc3c4a5b4c089e9a23d6f87ba695963dd6f958b780",
+    "problems/339076/README.md": "f3b4309c9ac50a8aa30a7fc845546e454f8fc1d225a2049e898b884254d3ff26",
+    "problems/339076/search-audit.json": "51a2fd09b70a3f0b2ab6c698b8463d3b77b0b043a81dc265de0290f23b308df9",
+    "problems/339076/solution.pdf": "1318093cb41dcb644830fad0e083f64ba76c9f001b3945f6712d1f7873179df8",
+    "problems/339076/solution.tex": "60f1182302933d4d0124512ee6c9ee0c03076ee1d0047e79519ee0b44f1216d9",
+    "problems/339076/source-check.json": "bb9a589a0d987656e96806f135a789ecf3a8f418b2c481a4e83a62e405cd9fd8",
+    "problems/339076/verify_determinants.py": "6c4aff661bf8ae10a8965dfcbb919e323e0b92218b12f50c61f3504e6a8c8a7e"
+  }
+}
