@@ -24,6 +24,16 @@ The verification scope remains **33 unconditional results and four conditional r
 | Project | Files | Verification record |
 | --- | --- | --- |
 | Erdős 1054 — Sums of initial segments of divisors | [Project directory](erdos1054/) · [EP1054 formalization and manuscript](erdos1054/ep1054/) | [EP1054 verification details](erdos1054/ep1054/VERIFICATION.md) |
+| MathDB — Lean formalizations of 143 open problems | [Project directory](mathdb/) · [index of the modules](mathdb/README.md) | [MathDB verification details](mathdb/VERIFICATION.md) |
+
+The MathDB directory holds one Lake project with 178 modules: 143 of them formalize a MathDB
+open problem and were gated locally, and the rest are supporting modules they import. Those
+gates were run on the authors' machine, not in this repository's CI, and **no Comparator
+contract exists for them yet** — there is no `Challenge.lean`/`Solution.lean` pair and no
+`comparator.json` under `mathdb/`, so nothing there has been or can yet be checked by the
+Comparator. Many of the modules formalize a *refutation* of the problem as stated rather than a
+proof of it; the index says which, and each module's header says what it still owes. Treat
+`mathdb/VERIFICATION.md` as the scope statement for the whole directory.
 
 The EP1054 Comparator contract covers 33 unconditional results. Four further results remain conditional on explicitly stated inputs; this repository does not present the entire manuscript as unconditionally formalized. The complete supporting Lean library and pinned build metadata are included.
 
