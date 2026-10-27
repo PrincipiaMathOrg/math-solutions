@@ -1,7 +1,12 @@
 # MathDB formalizations
 
-Lean 4 formalizations of 143 problems from the MathDB open-problem collection, produced by
+Lean 4 formalizations of 186 problems from the MathDB open-problem collection, produced by
 Principia's formalization campaign and checked on the authors' machine.
+
+**143 of the 186 are fully verified and are the ones tabulated below. The other 43 are not**,
+and they are listed separately in [PARTIAL.md](PARTIAL.md) with what each one proves and what
+it still assumes. Nothing in this file is about those 43; do not read a module's presence in
+this directory as a verification of its problem.
 
 ## What "verified" means here, and what it does not
 
@@ -32,10 +37,13 @@ lake exe cache get
 lake build Principia
 ```
 
-`Principia.lean` imports every module in this directory: 160 under `Principia/MathDB/` and
-18 shared results under `Principia/Common/`. The MathDB count exceeds the 143 verified
-problems below because the verified modules import further problem modules whose own rows are
-still partial.
+`Principia.lean` imports all 229 modules in this directory: 204 under `Principia/MathDB/`
+(including `Statements/P343324.lean`, the proof-free statement layer of the one Comparator
+contract) and 24 shared results under `Principia/Common/`.
+
+Those 204 modules carry **187** distinct problem numbers: the 143 verified below, the 43 in
+[PARTIAL.md](PARTIAL.md), and `Problem331409`, which is here only because a listed module
+imports it -- its own Principia project has an owner, so it gets no row of its own.
 
 ## The verified modules
 
