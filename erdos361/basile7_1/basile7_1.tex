@@ -1,0 +1,285 @@
+\documentclass[10pt,reqno]{amsart}
+
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[margin=0.88in]{geometry}
+\usepackage{microtype}
+\usepackage[hidelinks]{hyperref}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\newcommand{\N}{\mathbb N}
+\newcommand{\card}[1]{\lvert #1\rvert}
+\newcommand{\lcmop}{\operatorname{lcm}}
+\newcommand{\snd}{\operatorname{snd}}
+
+\title{An inverse zero-sum theorem for dense subsets of an interval}
+\author{Principia Math}
+\date{}
+
+\begin{document}
+
+\begin{abstract}
+For an integer $s\geq1$, let $\snd(s)$ be the least positive integer not dividing $s$.
+We prove that, for every $0<x\leq1$ and $\varepsilon>0$, every sufficiently large $T$ has the following property: if
+\[
+ A\subseteq\{1,\ldots,\lfloor xT\rfloor\},
+ \qquad
+ \card A>\left(\frac{x}{\snd(s)}+\varepsilon\right)T,
+\]
+then some subset of $A$ has sum $sT$.
+Thus an inverse zero-sum question posed by Basile Beyer de Ryke has an affirmative answer in full generality.
+When $\snd(s)\nmid sT$, the bound is asymptotically sharp, as witnessed by the multiples of $\snd(s)$.
+\end{abstract}
+
+\maketitle
+
+For $m\in\N$, write $[m]=\{1,\ldots,m\}$, and let $hB$ denote the set of sums of $h$ elements of $B$, with repetitions allowed.
+For a finite set $A$ of positive integers, write $\Sigma(A)$ for its nonempty subset sums.
+The question is an inverse counterpart to Alon's bounded zero-sum theorem~\cite{Alon}.
+
+\begin{theorem}\label{thm:main}
+Let $s\geq1$, put $q=\snd(s)$, and fix $0<x\leq1$ and $\varepsilon>0$.
+For all sufficiently large integers $T$, every set
+\[
+ A\subseteq[\lfloor xT\rfloor],
+ \qquad
+ \card A>\left(\frac{x}{q}+\varepsilon\right)T,
+\]
+satisfies $sT\in\Sigma(A)$.
+The conclusion does not require the additional hypothesis $q\nmid sT$.
+\end{theorem}
+
+Consequently the proposed density is exact whenever the elementary congruence obstruction is present.
+
+\begin{corollary}\label{cor:sharp}
+Let
+\[
+ F_{s,x}(T)=\max\bigl\{\card A:A\subseteq[\lfloor xT\rfloor],\ sT\notin\Sigma(A)\bigr\}.
+\]
+If $T\to\infty$ through integers for which $q\nmid sT$, then
+\[
+ F_{s,x}(T)=\frac{x}{q}T+o(T).
+\]
+\end{corollary}
+
+The proof uses three short ingredients.  The first turns bounded sums with repetitions into genuine subset sums.  Let $r_3(E)$ be the largest size of a subset of $[E]$ containing no nonconstant three-term arithmetic progression.  Roth's theorem gives $r_3(E)=o(E)$~\cite{Roth}.
+
+\begin{lemma}[Distinctification]\label{lem:distinct}
+Fix $M\geq2$.  Uniformly for $A\subseteq[E]$, there is a set $G\subseteq A$ such that
+\[
+ \card G=\card A-o(E)
+\]
+and every sum of at most $M$ elements of $G$, repetitions allowed, is a sum of distinct elements of $A$.
+\end{lemma}
+
+\begin{proof}
+For $g\in A$, let
+\[
+ \nu_A(g)=\#\{u\in A:u<g,\ 2g-u\in A\}.
+\]
+Let $C=\{g\in A:\nu_A(g)<M\}$.  Form the $3$-uniform hypergraph on $C$ whose edges are its nonconstant three-term progressions.  Every edge has a unique midpoint, so this hypergraph has fewer than $M\card C$ edges.  Indeed, retain each vertex independently with probability $p=(2M)^{-1/2}$ and then delete one vertex from each surviving edge.  The expected number left is at least
+\[
+ (p-Mp^3)\card C=\frac p2\card C.
+\]
+Thus the hypergraph has an independent set of size $\gg_M\card C$.  Such an independent set is three-term-progression-free, whence
+\[
+ \card C\ll_M r_3(E)=o(E).
+\]
+Set $G=A\setminus C$.
+
+It remains to remove repetitions.  Start with a multiset of at most $M$ elements of $G$.  If $g$ occurs twice, remove two copies of $g$.  The remaining support has size at most $M-2$.  The $\nu_A(g)\geq M$ pairs
+\[
+ \{u,2g-u\},\qquad u<g,
+\]
+are pairwise disjoint, so one of them avoids the remaining support.  Replace the two copies of $g$ by that pair.  The sum and cardinality are unchanged, while the number of distinct entries increases.  The inserted entries are new to the current support, so every entry that is repeated later still belongs to $G$.  Repeating the operation therefore terminates with distinct elements of $A$.
+\end{proof}
+
+The next lemma is elementary.
+
+\begin{lemma}[A central interval]\label{lem:central}
+Let $B\subseteq\{0,\ldots,L\}$, with $0,L\in B$, and put $N=\card B$.
+If
+\[
+ L\leq2N-4,
+ \qquad
+ \gamma=2L+2-2N,
+\]
+then, for every $h\geq2$,
+\[
+ [\gamma,hL-\gamma]\subseteq hB.
+\]
+\end{lemma}
+
+\begin{proof}
+There are $L+1-N=\gamma/2$ holes in $[0,L]$.  If
+$\gamma\leq z\leq2L-\gamma$, then the set of $u\in[0,L]$ for which $z-u\in[0,L]$ has at least $\gamma+1$ elements.  At most $\gamma/2$ of them fail to lie in $B$, and at most $\gamma/2$ have $z-u\notin B$.  Hence
+\[
+ [\gamma,2L-\gamma]\subseteq2B. \tag{1}
+\]
+
+Put $D=B\setminus\{L\}$.  Since $2\card D>L$, the two subsets $D$ and $r-D$ of $\mathbb Z/L\mathbb Z$ intersect for every residue $r$.  Thus every $0\leq r<L$ is of the form
+\[
+ r=b_1+b_2
+ \quad\text{or}\quad
+ r+L=b_1+b_2,
+ \qquad b_1,b_2\in D. \tag{2}
+\]
+Now let $\gamma\leq z\leq hL-\gamma$.  If $z\leq2L-\gamma$, use (1) and append zeros.  If $z\geq(h-2)L+\gamma$, subtract $(h-2)L$, use (1), and append copies of $L$.  In the remaining range write $z=kL+r$, with $0\leq r<L$; then $1\leq k\leq h-2$.  Equation (2), followed by the appropriate number of zeros and copies of $L$, gives an $h$-term representation of $z$.
+\end{proof}
+
+We use Freiman's $3k-3$ theorem in the following standard form: if
+$B\subseteq[0,L]$, $0,L\in B$, $\gcd(B)=1$, and
+$L\geq2\card B-3$, then
+\[
+ \card{(B+B)}\geq3\card B-3. \tag{3}
+\]
+This is the usual normalized consequence of Freiman's theorem~\cite{HP}.
+
+\begin{lemma}[Bounded additive basis]\label{lem:basis}
+Fix an integer $q\geq2$ and real numbers $\eta,K>0$.
+For all sufficiently large $L$, the following holds.
+If
+\[
+ B\subseteq\{0,\ldots,L\},\qquad
+ 0,L\in B,\qquad \gcd(B)=1,
+ \qquad
+ \card B\geq\left(\frac1q+\eta\right)L,
+\]
+then every integer $y$ satisfying
+\[
+ 2^{q-2}L\leq y\leq KL
+\]
+is a sum of at most $M=M(q,K)$ elements of $B$.
+\end{lemma}
+
+\begin{proof}
+Set $B_0=B$ and $B_{j+1}=B_j+B_j$.  Thus
+\[
+ B_j\subseteq[0,2^jL],\qquad 0,2^jL\in B_j,
+ \qquad \gcd(B_j)=1.
+\]
+Write $N_j=\card{B_j}$ and $k=q-2$.  Suppose that
+\[
+ 2^jL>2N_j-4 \tag{4}
+\]
+for every $0\leq j\leq k$.  Whenever $j<k$, (4) and (3) imply
+$N_{j+1}\geq3N_j-3$, and hence
+\[
+ N_k\geq3^k\left(N_0-\frac32\right)+\frac32. \tag{5}
+\]
+Moreover
+\[
+ \left(\frac32\right)^{q-2}\geq\frac q2; \tag{6}
+\]
+there is equality for $q=2,3$, and thereafter the ratio of the left side to $q/2$ is increasing.  From (5), (6), and $N_0\geq(1/q+\eta)L$, we obtain
+\[
+ 2N_k-4-2^kL\geq2\cdot3^k\eta L-O_q(1)>0
+\]
+for large $L$, contradicting (4).  Therefore, for some $j\leq q-2$,
+\[
+ 2^jL\leq2N_j-4. \tag{7}
+\]
+
+Apply Lemma~\ref{lem:central} to $B_j$.  Its lower endpoint is
+\[
+ \gamma_j=2^{j+1}L+2-2N_j\leq2^jL-2.
+\]
+Since $j\leq q-2$, every $y\geq2^{q-2}L$ is larger than $\gamma_j$.  Choose an integer $h\geq K+1$.  Since $2^jL\geq L$ and $\gamma_j\leq2^jL$, every $y\leq KL$ satisfies
+\[
+ y\leq(h-1)2^jL\leq h2^jL-\gamma_j.
+\]
+Thus $y\in hB_j=(h2^j)B$, and $h2^j\leq h2^{q-2}$.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:main}]
+Put $E=\lfloor xT\rfloor$ and choose
+\[
+ \eta=\frac{\varepsilon}{2x},\qquad
+ \alpha=\frac1q+\eta,\qquad
+ K=\frac{2s}{\alpha x}.
+\]
+Since $E\leq xT$,
+\[
+ \card A>\frac Eq+\varepsilon T
+ \geq\left(\frac1q+\frac{\varepsilon}{x}\right)E.
+\]
+Let $M$ be the bound supplied by Lemma~\ref{lem:basis} for $q,\eta,K$, and then apply Lemma~\ref{lem:distinct}.  For sufficiently large $T$ we obtain $G\subseteq A$ such that
+\[
+ \card G\geq\alpha E, \tag{8}
+\]
+and every sum of at most $M$ elements of $G$, with repetitions, can be made distinct inside $A$.
+
+Let $d=\gcd(G)$.  If $d\geq q$, then $G$ contains at most $E/d\leq E/q$ elements, contrary to (8).  Hence $d<q$, and therefore $d\mid s$ by the definition of $q=\snd(s)$.
+Put
+\[
+ B=\{0\}\cup\{g/d:g\in G\},
+ \qquad
+ L=\max G/d,
+ \qquad
+ y=sT/d.
+\]
+Then $0,L\in B$, $\gcd(B)=1$, and $L\to\infty$.  Also
+\[
+ \card B>\card G\geq\alpha E
+ \geq\alpha L, \tag{9}
+\]
+because $L\leq E$.
+
+Let $\Lambda_n=\lcmop(1,\ldots,n)$.  Since every positive integer below $q$ divides $s$, one has $\Lambda_{q-1}\mid s$.  The classical bound~\cite{Farhi}
+\[
+ \Lambda_n\geq2^{n-1} \tag{10}
+\]
+therefore gives $s\geq2^{q-2}$.  As $dL=\max G\leq E\leq xT$,
+\[
+ \frac yL=\frac{sT}{dL}\geq\frac{s}{x}\geq2^{q-2}. \tag{11}
+\]
+On the other hand, the positive elements of $B$ are distinct, so $L\geq\card G$.  For large $T$ one has $E\geq xT/2$, and hence (8) gives
+\[
+ \frac yL\leq\frac{sT}{\card G}
+ \leq\frac{2s}{\alpha x}=K. \tag{12}
+\]
+Lemmas~\ref{lem:basis} and (9)--(12) now show that $y$ is a sum of at most $M$ elements of $B$.  Discarding zeros and multiplying by $d$, we express $sT$ as a sum of at most $M$ elements of $G$, repetitions allowed.  Lemma~\ref{lem:distinct} converts this into a subset sum of $A$.
+\end{proof}
+
+\begin{proof}[Proof of Corollary~\ref{cor:sharp}]
+Theorem~\ref{thm:main} gives the upper bound.  If $q\nmid sT$, the multiples of $q$ in $[\lfloor xT\rfloor]$ have cardinality $xT/q+O(1)$, and every one of their subset sums is divisible by $q$.  They therefore give the matching lower bound.
+\end{proof}
+
+\begin{remark}
+The congruence condition $q\nmid sT$ is used only to construct the extremal example.  The representation theorem itself holds for every sufficiently large $T$.
+\end{remark}
+
+\section*{Acknowledgment}
+We thank Basile Beyer de Ryke for formulating the inverse zero-sum question and for sharing his draft.
+
+\begin{thebibliography}{9}
+
+\bibitem{Alon}
+N.~Alon,
+\emph{Subset sums},
+J. Number Theory \textbf{27} (1987), 196--205.
+
+\bibitem{Farhi}
+B.~Farhi,
+\emph{An identity involving the least common multiple of binomial coefficients and its application},
+Amer. Math. Monthly \textbf{116} (2009), 836--839.
+
+\bibitem{HP}
+Y.~O.~Hamidoune and A.~Plagne,
+\emph{A generalization of Freiman's $3k-3$ theorem},
+Acta Arith. \textbf{103} (2002), 147--156.
+
+\bibitem{Roth}
+K.~F.~Roth,
+\emph{On certain sets of integers},
+J. London Math. Soc. \textbf{28} (1953), 104--109.
+
+\end{thebibliography}
+
+\end{document}

@@ -1,0 +1,21 @@
+{
+    "challenge_module": "Challenge",
+    "solution_module": "Solution",
+    "theorem_names": [
+        "Erdos361.Statement.erdos361_cge1",
+        "Erdos361.Statement.erdos361_irregular",
+        "Erdos361.Statement.basile71_unconditional"
+    ],
+    "permitted_axioms": [
+        "propext",
+        "Quot.sound",
+        "Classical.choice"
+    ],
+    "definition_names": [
+        "Erdos361.Statement.Avoids",
+        "Erdos361.Statement.Avoiders",
+        "Erdos361.Statement.F",
+        "Erdos361.Statement.Fc"
+    ],
+    "enable_nanoda": false
+}

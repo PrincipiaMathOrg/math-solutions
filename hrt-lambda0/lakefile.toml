@@ -1,0 +1,58 @@
+name = "HRTLambda0"
+defaultTargets = ["HRTLambda0"]
+
+# These are the development environment's options verbatim
+# (PrincipiaAI `Principia Application/LeanSandbox/lakefile.toml` / the certification
+# playground), so that this standalone project elaborates the same file under the same
+# settings that gated it.
+[leanOptions]
+pp.unicode.fun = true # pretty-prints `fun a ↦ b`
+relaxedAutoImplicit = false
+weak.linter.mathlibStandardSet = true
+maxSynthPendingDepth = 3
+
+[[require]]
+name = "mathlib"
+git = "https://github.com/leanprover-community/mathlib4.git"
+rev = "v4.31.0"
+
+[[lean_lib]]
+name = "HRTLambda0"
+
+# The second route: the full Zak/Birkhoff/Jensen development, which PROVES what
+# `HRTLambda0.ZakReduction` assumes.  Kept as its own library so the first route's tiny
+# import closure is unaffected; not a default target, so `lake build` still builds exactly
+# the certified `HRTLambda0` library.
+#
+# The modules keep the flat names they were kernel-checked under in the development
+# repository, so the `globs` list makes those names resolvable against `srcDir` without
+# renaming a verified file — the same device `sendov9-11/lakefile.toml` uses for its box
+# libraries. `globs` entries must be MODULE names: a bare "*" is not a valid module glob,
+# and using one here broke `lake` configuration outright, which made even `lake exe cache
+# get` fail before it fetched anything (CI b53970e).
+#
+# `HRTBridge` is the capstone and its import closure reaches all 24 others, including the
+# `Atiyah*`/`GroupVonNeumann` group-von-Neumann-algebra development via
+# `HRTRectangular -> AtiyahHRT`; those are load-bearing, not stray campaign files.
+[[lean_lib]]
+name = "HRT"
+srcDir = "HRT"
+globs = [
+  "AtiyahConvolution", "AtiyahDeterminant", "AtiyahFolner",
+  "AtiyahHRT", "AtiyahMaster", "AtiyahTwisted",
+  "AtiyahTwistedMaster", "BirkhoffErgodic", "GroupVonNeumann",
+  "HRTBridge", "HRTChar", "HRTCocycle",
+  "HRTFourierCov", "HRTHthree", "HRTLambdaZero",
+  "HRTMaster", "HRTMix", "HRTRectangular",
+  "HRTReduction", "HRTResonantFibre", "HRTShift",
+  "HRTSmall", "HRTTransfer", "HRTZakL2",
+  "ZakTransform",
+]
+
+# Comparator (github.com/leanprover/comparator) requires the trusted statement file and
+# the claimed proof to be separate libraries.
+[[lean_lib]]
+name = "Challenge"
+
+[[lean_lib]]
+name = "Solution"

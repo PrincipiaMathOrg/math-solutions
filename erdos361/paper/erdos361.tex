@@ -1,0 +1,202 @@
+% Source for erdos361.pdf
+\documentclass[11pt,reqno]{amsart}
+
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[margin=1.15in]{geometry}
+\usepackage{microtype}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}[theorem]{Proposition}
+
+\newcommand{\N}{\mathbb N}
+\newcommand{\Z}{\mathbb Z}
+\newcommand{\card}[1]{\lvert #1\rvert}
+
+\title{The Erd\H{o}s--Graham irregularity problem for subset sums}
+\author{Principia Math}
+\date{}
+
+\begin{document}
+
+\begin{abstract}
+For $c>0$, let $f_c(n)$ be the largest cardinality of a set
+$A\subseteq\{1,\ldots,\lfloor cn\rfloor\}$ for which $n$ is not a subset sum of $A$.
+We prove that $f_c(n)/n$ does not converge for every $0<c<1$.  For $c\geq1$ we have the exact formula
+$f_c(n)=\lfloor cn\rfloor-\lceil n/2\rceil$, and hence $f_c(n)/n\to c-1/2$.
+The only non-elementary input is a bounded zero-sum theorem of Alon.
+\end{abstract}
+
+\maketitle
+
+For a finite set $A$ of positive integers, write
+\[
+ \Sigma(A)=\left\{\sum_{a\in B}a:B\subseteq A\right\},
+ \qquad
+ F(M,n)=\max\{\card A:A\subseteq[1,M],\ n\notin\Sigma(A)\}.
+\]
+Thus $f_c(n)=F(\lfloor cn\rfloor,n)$.  Erd\H{o}s and Graham asked whether this extremal quantity depends irregularly on $n$ \cite[p.~59]{EG}.  We prove the following complete dichotomy.
+
+\begin{theorem}\label{thm:main}
+Let $c>0$.
+\begin{enumerate}
+\item If $0<c<1$, then $f_c(n)/n$ does not converge.
+\item If $c\geq1$, then
+\[
+ f_c(n)=\lfloor cn\rfloor-\left\lceil\frac n2\right\rceil
+ \qquad(n\geq1),
+\]
+so $f_c(n)/n\to c-1/2$.
+\end{enumerate}
+\end{theorem}
+
+We use the following theorem of Alon \cite[Theorem~1.1]{Alon}: for every integer $k\geq2$ and every $\varepsilon>0$, there is $N_0$ such that, whenever $N\geq N_0$ and $X\subseteq\Z/N\Z$ satisfies
+\[
+ \card X>\left(\frac1k+\varepsilon\right)N,
+\]
+there is a nonempty $Y\subseteq X$ with $\card Y\leq k$ and $\sum_{y\in Y}y=0$ in $\Z/N\Z$.
+
+The next consequence is the only additive input needed below.
+
+\begin{proposition}\label{prop:bound}
+Fix $\rho\geq2$ and $\delta>0$.  For all sufficiently large $E$, the following holds uniformly for every even integer $\tau$ with
+\[
+ 2E\leq\tau\leq\rho E.
+\]
+If $A\subseteq[1,E]$ and $\tau\notin\Sigma(A)$, then, with
+\[
+ K=\left\lfloor\frac{3\tau}{2E}\right\rfloor,
+\]
+we have
+\[
+ \card A\leq \frac{\tau}{2K}+\delta E.
+\]
+\end{proposition}
+
+\begin{proof}
+Put $q=\tau/2$.  Then $E\leq q\leq\rho E/2$, while $3\leq K\leq3\rho/2$; hence $K$ ranges over a fixed finite set.  We may therefore use Alon's theorem uniformly in $K$, with $\varepsilon=\delta/\rho$, and take $E$ so large that also $K<\delta E/2$.
+
+Suppose that $\card A>q/K+\delta E$.  Reduction modulo $q$ is injective on $[1,E]$, and
+\[
+ \frac{q}{K}+\frac{\delta q}{\rho}
+ \leq \frac{q}{K}+\frac{\delta E}{2}<\card A.
+\]
+Alon's theorem gives a nonempty $B_1\subseteq A$ with $\card{B_1}\leq K$ and $q\mid\sum_{b\in B_1}b$.  Moreover
+\[
+ 0<\sum_{b\in B_1}b\leq \card{B_1}E\leq KE\leq3q.
+\]
+The last inequality is strict.  Indeed, equality throughout would force $\card{B_1}=K\geq3$ and every element of $B_1$ to equal $E$, which is impossible.  Thus
+\[
+ \sum_{b\in B_1}b\in\{q,2q\}.
+\]
+If this sum is $2q=\tau$, we are done.  Otherwise it is $q$.  After deleting $B_1$ we still have
+\[
+ \card{A\setminus B_1}>\frac{q}{K}+\delta E-K
+ >\frac qK+\frac{\delta E}{2}
+ \geq\left(\frac1K+\frac\delta\rho\right)q.
+\]
+A second application of Alon's theorem gives a nonempty $B_2\subseteq A\setminus B_1$ whose ordinary sum is again $q$ or $2q$.  In the latter case $B_2$ sums to $\tau$; in the former case $B_1\cup B_2$ does.  Hence every set larger than the asserted bound contains a subset summing to $\tau$.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:main}]
+First suppose $0<c<1$, and assume for contradiction that
+\[
+ \frac{f_c(n)}n\longrightarrow L.
+\]
+For odd $n$, the even elements of $[1,\lfloor cn\rfloor]$ have no subset sum equal to $n$.  Their cardinality is $\lfloor\lfloor cn\rfloor/2\rfloor$, so passage to the odd subsequence gives
+\begin{equation}\label{eq:odd}
+ L\geq\frac c2.
+\end{equation}
+
+Suppose first that $c\leq1/2$, and put
+\[
+ J=\left\lfloor\frac{3}{2c}\right\rfloor.
+\]
+Since $\lfloor x\rfloor>x-1$ and $c\leq1/2$, we have $J>1/c$.  Choose $\delta>0$ so that
+\[
+ \beta:=\frac1{2J}+\delta c<\frac c2.
+\]
+For sufficiently large even $n$, set $M=\lfloor cn\rfloor$.  Then $2M\leq n\leq(2/c)M$, and Proposition~\ref{prop:bound}, applied with $E=M$ and $\tau=n$, gives
+\[
+ f_c(n)\leq \frac{n}{2K}+\delta M,
+ \qquad
+ K=\left\lfloor\frac{3n}{2M}\right\rfloor\geq J.
+\]
+Consequently $f_c(n)/n\leq\beta$ for all sufficiently large even $n$, and therefore $L\leq\beta<c/2$, contradicting \eqref{eq:odd}.
+
+Now suppose $1/2<c<1$.  Write $d=1-c$ and
+\[
+ J=\left\lfloor\frac{3}{2d}\right\rfloor.
+\]
+Since $d<1/2$, the same calculation gives $J>1/d$.  Set
+\[
+ g=\frac d2-\frac1{2J}>0,
+ \qquad
+ \delta=\frac{g}{3d},
+ \qquad
+ \eta=\frac g3.
+\]
+Then
+\begin{equation}\label{eq:gap}
+ c-\frac12+\frac1{2J}+\delta d+\eta
+ =\frac c2-\frac g3<\frac c2.
+\end{equation}
+For a sufficiently large even $n$, put $M=\lfloor cn\rfloor$ and $D=n-M$.  If $A\subseteq[1,M]$ avoids $n$, split
+\[
+ A_0=A\cap[1,D-1],
+ \qquad
+ A_1=A\cap[D,M].
+\]
+The interval $[D,M]$ is invariant under $x\mapsto n-x$.  Since $A$ cannot contain both members of a two-element orbit,
+\[
+ \card{A_1}\leq\left\lfloor\frac{M-D+2}{2}\right\rfloor
+ \leq\left(c-\frac12\right)n+1.
+\]
+Since $dn\leq D<dn+1$, for all sufficiently large $n$ we have $D\leq M$,
+$2(D-1)\leq n\leq(2/d)(D-1)$, and $D-1\leq dn$.  Apply Proposition~\ref{prop:bound} to $A_0$ with $E=D-1$, $\tau=n$, and $\rho=2/d$; it gives
+\[
+ \card{A_0}\leq\frac{n}{2K}+\delta(D-1),
+ \qquad
+ K=\left\lfloor\frac{3n}{2(D-1)}\right\rfloor\geq J.
+\]
+Since $D-1\leq dn$, we obtain
+\[
+ \frac{\card A}{n}
+ \leq c-\frac12+\frac1{2J}+\delta d+\frac1n.
+\]
+Taking $n$ large enough that $1/n\leq\eta$, \eqref{eq:gap} again gives an eventual upper bound strictly below $c/2$ on the even subsequence, contradicting \eqref{eq:odd}.  This proves part~(1).
+
+For part~(2), let $1\leq n\leq M$.  An avoiding set cannot contain $n$.  On $[1,n-1]$, the map
+\[
+ x\longmapsto\min\{x,n-x\}
+\]
+is injective on every avoiding set, since two distinct elements with the same image sum to $n$.  Hence an avoiding subset of $[1,M]$ has at most
+\[
+ \left\lfloor\frac n2\right\rfloor+(M-n)
+ =M-\left\lceil\frac n2\right\rceil
+\]
+elements.  Equality is attained by
+\[
+ \left[\left\lceil\frac n2\right\rceil,n-1\right]\cup[n+1,M],
+\]
+which plainly has no subset sum equal to $n$.  Thus
+\[
+ F(M,n)=M-\left\lceil\frac n2\right\rceil.
+\]
+Taking $M=\lfloor cn\rfloor$ proves part~(2).
+\end{proof}
+
+\begin{thebibliography}{9}
+
+\bibitem{Alon}
+N.~Alon,
+\emph{Subset sums},
+J. Number Theory \textbf{27} (1987), 196--205.
+
+\bibitem{EG}
+P.~Erd\H{o}s and R.~L. Graham,
+\emph{Old and New Problems and Results in Combinatorial Number Theory},
+Monographies de L'Enseignement Math\'ematique, no.~28, Geneva, 1980.
+
+\end{thebibliography}
+
+\end{document}

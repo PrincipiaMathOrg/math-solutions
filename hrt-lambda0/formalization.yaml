@@ -1,0 +1,281 @@
+# Schema: https://github.com/mathlib-initiative/formalization.yaml
+version: "v0.3"
+
+project:
+  name: "HRT at Λ₀ = {(0,0),(1,0),(0,1),(√2,√2)} — two routes, in Lean 4 (BOTH CONDITIONAL)"
+  authors:
+    - "Principia Math harness (autonomous multi-model research harness)"
+  license: "Apache-2.0"
+
+sources:
+  - title: "Linear independence of four time–frequency translates at a resonant non-lattice configuration"
+    authors:
+      - "Principia Math"
+    id: "paper/hrt-lambda0.pdf"
+    type: "manuscript"
+    license: "Apache-2.0"
+    author_contacted: "author is the repository owner"
+    note: >-
+      The manuscript the Lean is checked against, committed at `paper/hrt-lambda0.tex`
+      (sha256-pinned in `VERIFICATION.md`; the PDF is built from that exact tex, not
+      author-supplied bytes). MERGED 2026-08-07 from two earlier manuscripts; it proves
+      TWO theorems about the resonant family {(0,0),(1,0),(0,1),(a,a+j)}, a irrational,
+      j ∉ {-1,1}. Theorem 1 (UNCONDITIONAL): independence for every window whose Zak
+      transform has a continuous representative, in particular every nonzero Schwartz
+      window — this settles Heil-Speegle Conjecture 2 as stated. Theorem 2 (conditional
+      on Iwanik-Lemanczyk-Rudolph): independence for EVERY nonzero g in L², no regularity
+      hypothesis. NEITHER THEOREM IS FORMALIZED UNCONDITIONALLY: the Lean covers Theorem
+      2's route conditional on `ILRStatement` (library `HRT`) and Theorem 1's endgame
+      conditional on `ZakReduction` (library `HRTLambda0`). HRT at Λ₀ is NOT claimed
+      unconditionally in Lean by this repository.
+  - title: "Absolutely continuous cocycles over irrational rotations"
+    authors:
+      - "Anzelm Iwanik"
+      - "Mariusz Lemańczyk"
+      - "Daniel Rudolph"
+    id: "Israel J. Math. 83 (1993), 73-95"
+    type: "literature"
+    license: "n/a"
+    author_contacted: "no"
+    note: >-
+      The one external input of the paper's Theorem 2 and of the `HRT` library. Carried in
+      Lean as `ILRStatement`, a `def ... : Prop` discharged by the caller — NOT an `axiom`,
+      so it introduces no `sorryAx` and no extra axiom into any footprint. Its conclusion
+      (Lebesgue maximal spectral type) is not expressible in current Mathlib, which has no
+      maximal spectral type, no spectral measure for unitaries and no Lebesgue spectrum.
+      `ILRStatement` is pinned to the loop family that actually arises (`quadLoop`) so it
+      cannot be accidentally stronger than the cited theorem. The character case is proved
+      outright as `ILR_character`.
+  - title: "The HRT conjecture for symmetric configurations and real-valued functions"
+    authors:
+      - "Shuang Guan"
+      - "Kasso A. Okoudjou"
+    id: "arXiv:2607.26878v1 (29 July 2026)"
+    type: "literature"
+    license: "n/a"
+    author_contacted: "no"
+    note: >-
+      PRIOR ART FOR PART OF THE RESULT, recorded for attribution. Their Theorem 1 proves HRT
+      for the symmetric (2n+1,2) configurations {(0,k) : -n<=k<=n} + {(a,b),(a,-b)} with
+      arbitrary L^2 windows and ab != 0. Their Corollary 1 covers EVERY four-point
+      configuration {(0,0),(0,1),(s,0),(a,b)} when the window is REAL-VALUED (conjugation
+      sends b to -b, producing the symmetric companion point); their Corollary 2 extends this
+      to exp(2*pi*i*phi)*g with g real-valued and phi a real polynomial of degree at most 2,
+      the quadratic part absorbed metaplectically. Λ₀ is an instance (s=1, (a,b)=(sqrt2,sqrt2)),
+      so the quadratic-phase-times-real Λ₀ case is theirs, unconditionally and by a far
+      shorter route than either route here. No priority is claimed for it. What their method
+      cannot reach is a GENERAL phase: their Remark 2 observes that Corollary 1 settles |g|
+      and Corollary 2 settles quadratic phases, so "the essential remaining problem is to
+      understand the effect of more general phase functions". The paper's theorems impose no
+      condition on the phase at all, so Heil-Speegle Conjecture 2 — which permits an arbitrary
+      smooth phase — is NOT settled by their results. Discussed in the paper's §9, which also
+      records a proposed synthesis. Not used by the formalization.
+  - title: "Linear independence of finite Gabor systems (survey; poses Conjecture 9.2)"
+    authors:
+      - "Christopher Heil"
+    id: "Chapter in Harmonic Analysis and Applications, Birkhäuser, 2006, pp. 171-206"
+    type: "literature"
+    license: "n/a"
+    author_contacted: "no"
+    note: >-
+      Conjecture 9.2(a) is exactly the Λ₀ configuration treated here; restated as
+      Conjecture 2 in the Heil-Speegle survey. Recorded as the source of the problem;
+      not used by the formalization.
+  - title: "Oussa's resonant-fibration program (fibration, dichotomy, winding identity)"
+    authors:
+      - "Vignon Oussa"
+    id: "cited in the paper as arXiv:2508.04613v2"
+    type: "literature"
+    license: "n/a"
+    author_contacted: "no"
+    note: >-
+      The paper attributes the Zak fibration of the torus, the zero-propagation
+      dichotomy and the fibre winding identity to this work; the paper's own
+      contribution (and the content formalized here) is the Jensen-constancy +
+      Vieta-rigidity endgame. The Lean formalizes shape-level lemmas for the dichotomy
+      (`zero_propagates`, `fibre_dichotomy`) and the arithmetic core of the degree
+      identity, all from stated hypotheses; none of the cited analysis is assumed as an
+      axiom.
+
+formalization:
+  scope: >-
+    TWO independent Lean 4 + Mathlib libraries, one per route of the paper, each
+    conditional on ONE explicitly named hypothesis.
+    ROUTE I — library `HRTLambda0`: the ENDGAME of Theorem 1. Given the paper's analytic
+    reduction (packaged as the named hypothesis `ZakReduction g`, NOT proved in that
+    library), the four translates of g at Λ₀ are linearly independent. Supporting lemmas
+    (symplectic escape, dichotomy propagation, root-count arithmetic, quadratic and
+    two-circle rigidity) are proved unconditionally. Comparator-certified.
+    ROUTE II — library `HRT`, 25 modules / ~19,300 lines / 1,065 declarations: the full L²
+    development behind Theorem 2. Unlike Route I this library PROVES the analysis — the Zak
+    reduction and modulus cocycle for arbitrary shift and arbitrary j, the Birkhoff
+    coboundary lemma and mean condition, the argument principle in the form required
+    (`exists_lift_quadratic`, an explicit lift of the quadratic loop, since Mathlib has no
+    winding number and no argument principle), the fixed-radius counting lemma, and the
+    three-point input discharged for Λ₀ (`hthree_lambdaZero`). What it quotes instead is the
+    single spectral theorem `ILRStatement`.
+    The sorry count below excludes `Challenge.lean` (the statement-only Comparator fixture;
+    1 intentional placeholder). THE HRT SUBCONJECTURE AT Λ₀ IS NOT CLAIMED UNCONDITIONALLY
+    IN LEAN BY EITHER ROUTE; the paper's unconditional Theorem 1 is NOT formalized.
+  sorry_count: 0
+  sorry_in_definitions: 0
+  axioms:
+    - "propext"
+    - "Classical.choice"
+    - "Quot.sound"
+  main_results:
+    - declaration: "HRTBridge.lambda0Translates_linearIndependent_of_ILR"
+      file: "HRT/HRTBridge.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      literature_dependencies: ["Iwanik-Lemanczyk-Rudolph, Israel J. Math. 83 (1993) 73-95"]
+      note: >-
+        ROUTE II headline. CONDITIONAL on the ILR spectral theorem, carried as an explicit
+        Lean hypothesis (a `def : Prop`, not an `axiom`). Covers EVERY nonzero g in L² with
+        no regularity hypothesis — a strictly wider window class than Route I's paper
+        theorem — and carries no three-point hypothesis, `hthree_lambdaZero` having
+        discharged it.
+    - declaration: "HRTBridge.exists_lift_quadratic"
+      file: "HRT/HRTBridge.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      literature_dependencies: []
+      note: >-
+        The argument principle in the only form the paper needs: for the quadratic loop with
+        no root on the unit circle, an explicit lift is constructed and its winding number
+        computed, giving deg = -(j+1) + N. Unconditional. Mathlib has no winding number, no
+        argument principle and no π₁(S¹) ≅ ℤ; none is needed because only this one family of
+        loops occurs.
+    - declaration: "HRTBridge.ILR_character"
+      file: "HRT/HRTBridge.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      literature_dependencies: []
+      note: >-
+        The character case of ILR, proved outright via Parseval and invariance of |Ŵ| along
+        arithmetic progressions of step d. A nontrivial fragment of the one quoted input.
+        Unconditional.
+    - declaration: "HRTBridge.lambdaZero_dependence_forces_norm_eq"
+      file: "HRT/HRTBridge.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      literature_dependencies: []
+      note: >-
+        Unconditional consequence of a hypothetical dependence at Λ₀, requiring no external
+        input at all.
+    - declaration: "HRTLambda0.lambda0_independent_of_reduction"
+      file: "HRTLambda0/Endgame.lean  (statement layer: HRTLambda0.Statement.lambda0_independent_of_reduction)"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator/all.json"
+      literature_dependencies: []
+      note: >-
+        ROUTE I headline. CONDITIONAL: hypothesis `ZakReduction g` (the paper's pre-endgame
+        analysis) is unproved in that library — though the `HRT` library of Route II does
+        prove the corresponding analysis. Comparator-certified; its conditionality is the
+        honest content of this route.
+    - declaration: "HRTLambda0.hrt_endgame"
+      file: "HRTLambda0/Endgame.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      literature_dependencies: []
+      note: >-
+        The paper's new mathematics, fully formalized: on any interval of positive
+        length < 1, Vieta's relations for Q_c(z) = c₃z² + c₁z + c₂e^{-2πic} are
+        inconsistent with the Jensen constancy |ζ_out| = |c₄|/|c₃|. Unconditional.
+    - declaration: "HRTLambda0.circle_pair_quadratic"
+      file: "HRTLambda0/Endgame.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      literature_dependencies: []
+      note: >-
+        Continuity-free strengthening of the paper's two-point argument: the two-circle
+        intersection is the zero set of one fixed quadratic, so three sample fibres
+        suffice. Unconditional.
+
+automation:
+  proof_assistant: "Lean 4"
+  mathlib: "rev fabf563a7c95a166b8d7b6efca11c8b4dc9d911f (tag v4.31.0)"
+
+fidelity:
+  divergences:
+    - >-
+      The paper's endgame uses continuity of ζ_out to force constancy on the live
+      interval; the Lean (`circle_pair_quadratic` + `two_of_three_eq_of_quadratic`)
+      derives the contradiction from three sample fibres with no continuity hypothesis.
+      This is a strict strengthening of the same step.
+    - >-
+      The paper proves `ZakReduction` for windows with continuous Zak transform; the
+      `HRTLambda0` library does not prove it for any class, and instead takes it as a named
+      hypothesis. This is the deliberate, documented gap for Route I — not a divergence in a
+      proved statement, but the boundary of what that library proves. Route II's `HRT`
+      library does prove the corresponding analysis in L².
+    - >-
+      The paper's Theorem 1 is UNCONDITIONAL; no Lean library here certifies it. Route I
+      formalizes its endgame only, and Route II formalizes a different (L²) argument that
+      quotes ILR. The two missing ingredients for Theorem 1 are invariance of the degree of a
+      circle map under precomposition with a rotation, and the continuous fibre dichotomy.
+      Stating this plainly matters: a reader who sees "Theorem 1 is unconditional" in the
+      paper and "axiom-clean" in Lean could otherwise infer an unconditional formalization,
+      which does not exist.
+  no_known_divergences_in: >-
+    The definitions `tfTranslate`, `configTranslates`, `lambda0Translates`,
+    `Lambda0Independent` versus the paper's eq. (translates) and Theorem "main";
+    audited by Comparator via `definition_names`.
+
+review:
+  comparator: >-
+    Runs on CI (.github/workflows/hrt-lambda0-comparator.yml), Linux-only, in a
+    landrun/Landlock sandbox: comparator/all.json with permitted axioms exactly propext,
+    Quot.sound, Classical.choice, and definition_names covering all five
+    project-specific definitions. Not yet run at commit time; a pass certifies statement
+    fidelity and footprint of the CONDITIONAL theorem only.
+  non_vacuity: >-
+    Honest caveat rather than a check: `ZakReduction g` is an implication and holds
+    vacuously for windows whose translates are already independent, so no NonVacuous.lean
+    is possible in the sendov9-11 style. The meaningful content is the endgame reasoning
+    itself (`hrt_endgame`, unconditional) plus the paper's on-paper proof of the
+    reduction for continuous-Zak windows. See VERIFICATION.md §1.
+
+alignment:
+  statements:
+    - paper_result: "Theorem 1 (UNCONDITIONAL; HRT at Λ_{a,j} for continuous-Zak windows; settles Heil-Speegle Conjecture 2)"
+      lean_name: "— none —"
+      module: "—"
+      status: "NOT FORMALIZED. Its endgame is (see the next row); the missing ingredients are rotation-invariance of circle-map degree and the continuous fibre dichotomy."
+    - paper_result: "Theorem 1, endgame only"
+      lean_name: "HRTLambda0.Statement.lambda0_independent_of_reduction"
+      module: "Challenge.lean / Solution.lean (proved from HRTLambda0/Endgame.lean)"
+      status: "proved CONDITIONALLY on `ZakReduction` (the paper's pre-endgame analysis); unconditional claim NOT made"
+    - paper_result: "Theorem 2 (HRT at Λ_{a,j} for EVERY nonzero g in L²)"
+      lean_name: "HRTBridge.lambda0Translates_linearIndependent_of_ILR"
+      module: "HRT/HRTBridge.lean"
+      status: "proved CONDITIONALLY on `ILRStatement` (the cited ILR spectral theorem, a hypothesis not an axiom); the analysis it rests on IS proved"
+    - paper_result: "Proposition 7 / eq. (deg) — the argument principle deg ξ = -(j+1) + N"
+      lean_name: "HRTBridge.exists_lift_quadratic"
+      module: "HRT/HRTBridge.lean"
+      status: "proved, axiom-clean, by explicit lift (Mathlib has no winding number or argument principle)"
+    - paper_result: "Lemma 10 + eq. (mean) — Birkhoff coboundary and the fibre mean condition"
+      lean_name: "HRTBridge.cocycle_norm_of_real and the BirkhoffErgodic module"
+      module: "HRT/"
+      status: "proved, axiom-clean, for arbitrary real shift and arbitrary j, no compact support"
+    - paper_result: "§2 three-point input (reduction to ABCD ≠ 0)"
+      lean_name: "HRTHthree.hthree_lambdaZero"
+      module: "HRT/HRTHthree.lean"
+      status: "proved for Λ₀, so the Route II theorem carries no three-point hypothesis"
+    - paper_result: "Remark (Λ₀ escapes lattice and parallel-line cases)"
+      lean_name: "HRTLambda0.lambda0_symplectic_escape"
+      module: "HRTLambda0/Endgame.lean"
+      status: "proved, axiom-clean"
+    - paper_result: "Lemma dichotomy (zero propagation along the fibre)"
+      lean_name: "HRTLambda0.zero_propagates / HRTLambda0.fibre_dichotomy"
+      module: "HRTLambda0/Endgame.lean"
+      status: "proved from stated hypotheses (density of the irrational orbit supplied as input)"
+    - paper_result: "Lemma degree identity (kills |j| ≥ 2)"
+      lean_name: "HRTLambda0.degree_identity_kills"
+      module: "HRTLambda0/Endgame.lean"
+      status: "arithmetic core proved ([propext, Quot.sound] only); the winding computation itself is on paper"
+    - paper_result: "Lemma jensen + Vieta rigidity (the endgame contradiction)"
+      lean_name: "HRTLambda0.hrt_endgame"
+      module: "HRTLambda0/Endgame.lean"
+      status: "proved, axiom-clean, continuity-free (stronger than the paper's prose)"

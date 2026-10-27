@@ -1,0 +1,401 @@
+\documentclass[11pt]{amsart}
+
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage[hidelinks]{hyperref}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\newcommand{\Q}{\mathbb Q}
+\newcommand{\R}{\mathbb R}
+\newcommand{\Z}{\mathbb Z}
+\newcommand{\T}{\mathbb T}
+\newcommand{\D}{\mathbb D}
+\newcommand{\e}{\mathrm e}
+\newcommand{\dd}{\,\mathrm d}
+
+\title{A resonant four-point case of the HRT conjecture}
+\author{}
+\date{}
+
+\begin{document}
+
+\begin{abstract}
+For $a\in\R\setminus\Q$ and $j\in\Z\setminus\{-1,1\}$, we prove that, for every nonzero
+$g\in L^2(\R)$, the four functions
+\[
+ g,\qquad T_1g,\qquad M_1g,\qquad M_{a+j}T_ag
+\]
+are linearly independent. In particular, taking $a=\sqrt2$ and $j=0$ proves the
+Heil--Speegle four-point subconjecture, and in fact proves the corresponding statement
+for arbitrary nonzero $L^2$ windows. The proof combines the Zak transform and the
+resonant decomposition into invariant circles with Jensen's formula and the theorem of
+Iwanik--Lema\'nczyk--Rudolph on nonzero-degree cocycles over irrational rotations.
+This is a result for a specific resonant family of four-point configurations; it does not
+settle the HRT conjecture for arbitrary four-point sets.
+\end{abstract}
+
+\maketitle
+
+\section{Statement}
+
+Put $\T=\R/\Z$. For $x,\omega\in\R$, write
+\[
+ (T_xg)(t)=g(t-x),\qquad (M_\omega g)(t)=\e^{2\pi i\omega t}g(t).
+\]
+The HRT conjecture asserts that the time--frequency translates indexed by any finite set
+of distinct points in $\R^2$ are linearly independent for every nonzero $g\in L^2(\R)$.
+We prove the following special four-point case.
+
+\begin{theorem}\label{thm:main}
+Let $a\in\R\setminus\Q$ and let $j\in\Z\setminus\{-1,1\}$. For every nonzero
+$g\in L^2(\R)$, the four functions
+\[
+ g,\qquad T_1g,\qquad M_1g,\qquad M_{a+j}T_ag
+\]
+are linearly independent.
+\end{theorem}
+
+The case $a=\sqrt2$, $j=0$ is the configuration
+\[
+ \Lambda_0=\{(0,0),(1,0),(0,1),(\sqrt2,\sqrt2)\}
+\]
+singled out by Heil and Speegle as the HRT subconjecture \cite[Conjecture~2]{HeilSpeegle}.
+The argument below works directly in $L^2$; no continuity or decay assumption on $g$ is
+used.
+
+We use one external spectral theorem. If $R_\alpha t=t+\alpha$ is an irrational
+rotation of $\T$ and $\xi:\T\to\T$, let
+\[
+ V_{\xi,\alpha}f(t)=\xi(t)f(R_\alpha t),\qquad f\in L^2(\T).
+\]
+
+\begin{theorem}[Iwanik--Lema\'nczyk--Rudolph]\label{thm:ILR}
+Suppose that $\alpha$ is irrational and that $\xi:\T\to\T$ is absolutely continuous,
+has nonzero topological degree, and has derivative of bounded variation. Then
+$V_{\xi,\alpha}$ has Lebesgue maximal spectral type. In particular,
+$V_{\xi,\alpha}$ has no eigenvectors.
+\end{theorem}
+
+This is the form of the main spectral statement in \cite{ILR}; see also
+\cite[Theorem~4]{KanigowskiLemanczyk}. We will apply it only to real-analytic
+circle-valued functions.
+
+\section{Zak reduction and the invariant fibres}
+
+Use the Zak transform normalized by
+\[
+ Zg(t,\omega)=\sum_{n\in\Z}g(t-n)\e^{2\pi i n\omega}.
+\]
+Initially this formula is interpreted on a dense subspace and then extended by unitarity
+from $L^2(\R)$ onto $L^2([0,1)^2)$. Its quasiperiodic extension satisfies, almost
+everywhere,
+\begin{equation}\label{eq:zak-quasi}
+ Zg(t+1,\omega)=\e^{2\pi i\omega}Zg(t,\omega),
+ \qquad
+ Zg(t,\omega+1)=Zg(t,\omega),
+\end{equation}
+and
+\begin{equation}\label{eq:zak-covariance}
+ Z(M_bT_xg)(t,\omega)=\e^{2\pi i bt}Zg(t-x,\omega-b).
+\end{equation}
+
+Assume, towards a contradiction, that
+\begin{equation}\label{eq:dependence}
+ A g+B T_1g+C M_1g+D M_{a+j}T_ag=0
+\end{equation}
+for some coefficients not all zero. If one coefficient vanishes, this is a dependence
+among at most three time--frequency translates, contrary to the three-point theorem of
+Heil--Ramanathan--Topiwala \cite{HRT}. Hence
+\begin{equation}\label{eq:nonzero-coefficients}
+ A B C D\ne0.
+\end{equation}
+
+Put $G=Zg$. By \eqref{eq:zak-quasi}, \eqref{eq:zak-covariance}, and $j\in\Z$,
+\eqref{eq:dependence} becomes
+\begin{equation}\label{eq:FE}
+ p(t,\omega)G(t,\omega)
+ =-D\e^{2\pi i(a+j)t}G(t-a,\omega-a),
+\end{equation}
+where
+\begin{equation}\label{eq:p}
+ p(t,\omega)=A+B\e^{-2\pi i\omega}+C\e^{2\pi i t}.
+\end{equation}
+The translation $(t,\omega)\mapsto(t-a,\omega-a)$ preserves
+$\theta=\omega-t\pmod1$. For $\theta\in\T$, set
+\[
+ G_\theta(t)=G(t,t+\theta),
+ \qquad
+ P_\theta(t)=A+B\e^{-2\pi i(t+\theta)}+C\e^{2\pi i t}.
+\]
+The coordinate change $(t,\theta)\mapsto(t,t+\theta)$ preserves Haar measure on
+$\T^2$. Consequently, for almost every $\theta$, the restriction of $G_\theta$ to
+$[0,1)$ belongs to $L^2([0,1))$, and the following identities hold almost everywhere
+in $t$:
+\begin{align}
+ G_\theta(t+1)&=\e^{2\pi i(t+\theta)}G_\theta(t),\label{eq:fibre-quasi}\\
+ G_\theta(t-a)&=-D^{-1}\e^{-2\pi i(a+j)t}P_\theta(t)G_\theta(t).
+ \label{eq:fibre-FE}
+\end{align}
+Moreover,
+\begin{equation}\label{eq:fubini}
+ \|g\|_2^2=\int_\T\int_0^1 |G_\theta(t)|^2\dd t\dd\theta.
+\end{equation}
+
+Call a fibre \emph{live} if $G_\theta$ is not zero as an element of $L^2([0,1))$.
+Since $g\ne0$, \eqref{eq:fubini} implies that the set of live fibres has positive
+measure.
+
+\begin{lemma}[Fibre dichotomy]\label{lem:dichotomy}
+For almost every $\theta$, either $G_\theta=0$ almost everywhere or
+$G_\theta(t)\ne0$ for almost every $t$.
+\end{lemma}
+
+\begin{proof}
+Taking absolute values in \eqref{eq:fibre-FE} gives
+\begin{equation}\label{eq:modulus-cocycle}
+ |G_\theta(t-a)|=|D|^{-1}|P_\theta(t)|\,|G_\theta(t)|.
+\end{equation}
+By \eqref{eq:fibre-quasi}, $|G_\theta|$ is $1$-periodic. The trigonometric
+polynomial $P_\theta$ is not identically zero and has only finitely many zeros.
+Hence $|P_\theta|>0$ almost everywhere, and \eqref{eq:modulus-cocycle} shows that
+the zero set of $|G_\theta|$ is invariant modulo null sets under the irrational
+rotation $t\mapsto t-a$. Ergodicity gives measure zero or one.
+\end{proof}
+
+\section{A mean condition and a counting lemma}
+
+We first record a measurable-coboundary fact.
+
+\begin{lemma}\label{lem:mean-zero}
+Let $R$ be an ergodic measure-preserving transformation of a probability space. Suppose
+$\varphi\in L^1$ and $u$ is finite and measurable almost everywhere, with
+\[
+ \varphi=u\circ R-u
+\]
+almost everywhere. Then $\int\varphi=0$.
+\end{lemma}
+
+\begin{proof}
+By Birkhoff's theorem,
+\[
+ \frac1n\sum_{k=0}^{n-1}\varphi\circ R^k\longrightarrow\int\varphi
+\]
+almost everywhere. The left side equals $(u\circ R^n-u)/n$. For every
+$\varepsilon>0$,
+\[
+ \mu\bigl(|u\circ R^n-u|>n\varepsilon\bigr)
+ \le 2\mu\bigl(|u|>n\varepsilon/2\bigr)\longrightarrow0,
+\]
+since $u\circ R^n$ and $u$ have the same distribution. Thus the Birkhoff averages
+converge to zero in measure, and hence $\int\varphi=0$.
+\end{proof}
+
+For a live fibre, Lemma~\ref{lem:dichotomy} allows us to take logarithms in
+\eqref{eq:modulus-cocycle}; the values on a null set may be defined arbitrarily. Since
+$\log|P_\theta|\in L^1(\T)$, Lemma~\ref{lem:mean-zero} yields
+\begin{equation}\label{eq:mean-condition}
+ \int_0^1\log|P_\theta(t)|\dd t=\log|D|.
+\end{equation}
+
+Write $z=\e^{2\pi i t}$ and
+\begin{equation}\label{eq:Q}
+ Q_\theta(z)=Cz^2+Az+B\e^{-2\pi i\theta},
+ \qquad
+ P_\theta(t)=z^{-1}Q_\theta(z).
+\end{equation}
+Let $N(\theta)$ be the number of zeros of $Q_\theta$ in the open unit disc, counted
+with multiplicity, whenever $Q_\theta$ has no zero on the unit circle.
+
+\begin{lemma}[Fixed-radius counting]\label{lem:counting}
+For each $\rho>0$, there are at most two values of $\theta\in\T$ for which
+$Q_\theta$ has a zero of modulus $\rho$.
+\end{lemma}
+
+\begin{proof}
+Suppose that $Q_\theta(\rho\e^{i\phi})=0$. Taking absolute values gives
+\[
+ \rho\,|A+C\rho\e^{i\phi}|=|B|.
+\]
+After squaring,
+\[
+ \Re\!\left(C\overline A\,\e^{i\phi}\right)
+ =\frac{|B|^2/\rho^2-|A|^2-|C|^2\rho^2}{2\rho}.
+\]
+Because $A C\ne0$, this equation has at most two solutions for $\phi$ modulo $2\pi$.
+For each such zero $z=\rho\e^{i\phi}$, the equation
+\[
+ \e^{-2\pi i\theta}=-\frac{Cz^2+Az}{B}
+\]
+determines at most one $\theta\in\T$.
+\end{proof}
+
+In particular, the exceptional set
+\begin{equation}\label{eq:boundary-set}
+ E_\partial=\{\theta:Q_\theta\text{ has a zero on }|z|=1\}
+\end{equation}
+has at most two elements.
+
+If $N(\theta)=1$, let $\zeta_{\rm out}(\theta)$ denote the zero outside the unit disc.
+Jensen's formula and \eqref{eq:mean-condition} give
+\begin{equation}\label{eq:jensen}
+ \log|D|
+ =\log|C|+\log|\zeta_{\rm out}(\theta)|.
+\end{equation}
+Thus every live fibre with $N(\theta)=1$ belongs to the set in
+Lemma~\ref{lem:counting} with
+\begin{equation}\label{eq:rho}
+ \rho=\frac{|D|}{|C|}.
+\end{equation}
+Consequently,
+\begin{equation}\label{eq:N1-finite}
+ \{\theta:\theta\text{ is live and }N(\theta)=1\}
+ \quad\text{has at most two elements.}
+\end{equation}
+
+\section{The phase cocycle}
+
+Fix a live fibre $\theta\notin E_\partial$. Define
+\begin{equation}\label{eq:m}
+ m_\theta(t)=\e^{2\pi i\theta t}\e^{\pi i t(t-1)}.
+\end{equation}
+Then $|m_\theta|=1$ and
+\[
+ \frac{m_\theta(t+1)}{m_\theta(t)}=\e^{2\pi i(t+\theta)}.
+\]
+Hence
+\[
+ V_\theta(t)=\frac{G_\theta(t)}{m_\theta(t)}
+\]
+defines a measurable $1$-periodic function. A direct calculation gives
+\[
+ \frac{m_\theta(t)}{m_\theta(t-a)}
+ =\e^{2\pi i\theta a}\e^{2\pi iat}\e^{-\pi i(a^2+a)}.
+\]
+Using \eqref{eq:fibre-FE}, we obtain
+\begin{equation}\label{eq:periodic-cocycle}
+ V_\theta(t-a)=\Lambda_\theta\e^{-2\pi ijt}P_\theta(t)V_\theta(t),
+ \qquad
+ \Lambda_\theta=-D^{-1}\e^{2\pi i\theta a}\e^{-\pi i(a^2+a)}.
+\end{equation}
+
+Since the fibre is live, $V_\theta\ne0$ almost everywhere. Put
+\[
+ W_\theta(t)=\frac{V_\theta(t)}{|V_\theta(t)|}.
+\]
+Because $\theta\notin E_\partial$, $P_\theta$ is zero-free on $\T$, and
+\eqref{eq:periodic-cocycle} implies
+\begin{equation}\label{eq:phase-cocycle}
+ W_\theta(t-a)=\xi_\theta(t)W_\theta(t),
+\end{equation}
+where
+\begin{equation}\label{eq:xi}
+ \xi_\theta(t)=
+ \frac{\Lambda_\theta}{|\Lambda_\theta|}
+ \e^{-2\pi ijt}\frac{P_\theta(t)}{|P_\theta(t)|}.
+\end{equation}
+The function $\xi_\theta:\T\to\T$ is real analytic. By the argument principle,
+\begin{equation}\label{eq:degree}
+ \deg\xi_\theta
+ =-j+\operatorname{wind}(P_\theta,0)
+ =-j-1+N(\theta).
+\end{equation}
+Indeed, $P_\theta=z^{-1}Q_\theta$, the factor $z^{-1}$ has winding number $-1$, and
+$Q_\theta(\e^{2\pi i t})$ has winding number $N(\theta)$.
+
+\begin{lemma}\label{lem:degree-kill}
+Every live fibre $\theta\notin E_\partial$ satisfies
+\[
+ N(\theta)-1-j=0.
+\]
+\end{lemma}
+
+\begin{proof}
+Suppose instead that $\deg\xi_\theta\ne0$. Let
+\[
+ (U_\theta f)(t)=\xi_\theta(t)f(t-a).
+\]
+Theorem~\ref{thm:ILR} applies to $U_\theta$, so $U_\theta$ has no eigenvectors. On the
+other hand, conjugating \eqref{eq:phase-cocycle} gives
+\[
+ U_\theta\overline{W_\theta}
+ =\xi_\theta(t)\overline{W_\theta(t-a)}
+ =\overline{W_\theta(t)}.
+\]
+Thus $\overline{W_\theta}$ is a nonzero eigenvector with eigenvalue $1$, a contradiction.
+\end{proof}
+
+\section{Conclusion}
+
+\begin{proof}[Proof of Theorem~\ref{thm:main}]
+Suppose first that $|j|\ge2$. Since $N(\theta)\in\{0,1,2\}$,
+\[
+ N(\theta)-1-j\ne0
+\]
+for every $\theta\notin E_\partial$. Lemma~\ref{lem:degree-kill} therefore shows that
+every live fibre belongs to the finite set $E_\partial$, up to a null set. This
+contradicts the fact that the live fibres have positive measure.
+
+It remains to treat $j=0$. Lemma~\ref{lem:degree-kill} excludes every live fibre
+outside $E_\partial$ with $N(\theta)=0$ or $2$. The live fibres with $N(\theta)=1$
+form a set of at most two points by \eqref{eq:N1-finite}. Thus the live-fibre set is
+again finite up to a null set, contradicting \eqref{eq:fubini}.
+
+Hence no nontrivial dependence \eqref{eq:dependence} exists.
+\end{proof}
+
+\begin{remark}
+For $j=1$, the phase degree can vanish when both zeros of $Q_\theta$ lie in the unit
+disc; for $j=-1$, it can vanish when both lie outside. The argument above therefore
+stops exactly at $j=\pm1$. No claim about those two families is made here.
+\end{remark}
+
+\begin{remark}[Scope]
+Theorem~\ref{thm:main} proves one resonant family of four-point configurations. It is
+not a proof of the HRT conjecture for every set of four points. In particular, the
+condition that the fourth point have the form $(a,a+j)$ is essential to the invariant
+circle decomposition used above.
+\end{remark}
+
+\begin{remark}[Relation to prior work]
+The Zak reduction and the decomposition of the resonant mixed-integer case into
+invariant cosets are part of Oussa's trichotomy program \cite{Oussa}. The present proof
+uses, in addition, the fixed-radius consequence of Jensen's formula and the spectral
+obstruction supplied by Theorem~\ref{thm:ILR}. Oussa's current arXiv version derives
+necessary dynamical, cohomological, and arithmetic constraints in the infinite proper
+orbit case, rather than claiming a proof of that case.
+\end{remark}
+
+\begin{thebibliography}{99}
+
+\bibitem{HRT}
+C.~Heil, J.~Ramanathan, and P.~Topiwala,
+\emph{Linear independence of time--frequency translates},
+Proc. Amer. Math. Soc. \textbf{124} (1996), 2787--2795.
+
+\bibitem{HeilSpeegle}
+C.~Heil and D.~Speegle,
+\emph{The HRT conjecture and the zero divisor conjecture for the Heisenberg group},
+in \emph{Excursions in Harmonic Analysis}, Vol.~3,
+Birkh\"auser, 2015, 159--176.
+
+\bibitem{ILR}
+A.~Iwanik, M.~Lema\'nczyk, and D.~Rudolph,
+\emph{Absolutely continuous cocycles over irrational rotations},
+Israel J. Math. \textbf{83} (1993), 73--95.
+
+\bibitem{KanigowskiLemanczyk}
+A.~Kanigowski and M.~Lema\'nczyk,
+\emph{Spectral theory of dynamical systems},
+arXiv:2006.11616 (2020).
+
+\bibitem{Oussa}
+V.~Oussa,
+\emph{Trichotomy for the HRT conjecture for mixed integer configuration},
+arXiv:2508.04613v2 (2026).
+
+\end{thebibliography}
+
+\end{document}

@@ -1,0 +1,8 @@
+{
+    "challenge_module": "Challenge",
+    "solution_module": "Solution",
+    "theorem_names": ["Erdos361.Statement.erdos361_cge1"],
+    "permitted_axioms": ["propext", "Quot.sound", "Classical.choice"],
+    "definition_names": ["Erdos361.Statement.Avoids", "Erdos361.Statement.Avoiders", "Erdos361.Statement.F"],
+    "enable_nanoda": false
+}

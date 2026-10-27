@@ -1,0 +1,5 @@
+paper/*.tex -text
+paper/*.pdf binary
+*.sh text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf

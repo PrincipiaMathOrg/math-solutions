@@ -1,0 +1,223 @@
+\documentclass[10pt]{amsart}
+
+\usepackage[letterpaper,left=.68in,right=.68in,top=.62in,bottom=.68in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools,microtype}
+\usepackage[hidelinks]{hyperref}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{remark}[theorem]{Remark}
+
+\newcommand{\R}{\mathbb R}
+\newcommand{\Z}{\mathbb Z}
+\newcommand{\T}{\mathbb T}
+\newcommand{\e}{\mathrm e}
+\newcommand{\dd}{\,\mathrm d}
+\DeclareMathOperator{\wind}{wind}
+
+\setlength{\abovedisplayskip}{5pt plus 2pt minus 2pt}
+\setlength{\belowdisplayskip}{5pt plus 2pt minus 2pt}
+\setlength{\abovedisplayshortskip}{3pt plus 2pt}
+\setlength{\belowdisplayshortskip}{3pt plus 2pt}
+\allowdisplaybreaks
+\raggedbottom
+
+\title{Linear independence for a resonant family of four Gabor shifts}
+\author{Principia Math}
+\date{}
+
+\begin{document}
+
+\begin{abstract}
+Let $a\notin\mathbb Q$ and $j\in\mathbb Z\setminus\{-1,1\}$. We prove that for every
+$0\neq g\in L^2(\mathbb R)$ the functions $g,T_1g,M_1g,M_{a+j}T_ag$ are linearly independent.
+This includes the Heil--Speegle configuration
+$\{(0,0),(1,0),(0,1),(\sqrt2,\sqrt2)\}$, with no regularity assumption on the window.
+Oussa's Zak-transform fibration reduces a putative dependence to cocycles over irrational
+rotations. A theorem of Iwanik--Lema\'nczyk--Rudolph forces a quadratic root count on almost
+every nonzero fibre; Jensen's formula then fixes the modulus of one root, which can occur on
+only finitely many fibres.
+\end{abstract}
+
+\maketitle
+
+For $x,\omega\in\R$, write
+\[
+(T_xg)(t)=g(t-x),\qquad (M_\omega g)(t)=\e^{2\pi i\omega t}g(t).
+\]
+The original HRT conjecture has recently been disproved by a twelve-point Schwartz example
+\cite{FPVV}, but its universal four-point form remains open. Guan and Okoudjou proved that
+form for real-valued windows \cite{GO}. We prove the following complementary result for an
+arbitrary complex window and a resonant non-lattice family.
+
+\begin{theorem}\label{thm:main}
+Let $a\in\R\setminus\mathbb Q$ and $j\in\Z\setminus\{-1,1\}$. For every nonzero
+$g\in L^2(\R)$, the four functions
+\[
+g,\qquad T_1g,\qquad M_1g,\qquad M_{a+j}T_ag
+\]
+are linearly independent.
+\end{theorem}
+
+The case $(a,j)=(\sqrt2,0)$ is the four-point configuration singled out by Heil and Speegle
+\cite{HS}. The Zak reduction and invariant-circle decomposition below are part of Oussa's
+mixed-integer program \cite{Oussa}. The additional ingredients are the root-count
+interpretation, the use of Jensen's formula across fibres, and the fixed-radius endgame.
+
+We use the following consequence of Iwanik--Lema\'nczyk--Rudolph \cite{ILR}: if $a$ is
+irrational and $\xi:\T\to\T$ is absolutely continuous, has nonzero degree, and has derivative
+of bounded variation, then
+\[
+U_{\xi,a}f(t)=\xi(t)f(t-a)
+\]
+has no nonzero eigenfunction in $L^2(\T)$. We apply this only to real-analytic $\xi$.
+
+\begin{proof}[Proof of Theorem~\ref{thm:main}]
+Assume that
+\begin{equation}\label{eq:dep}
+Ag+BT_1g+CM_1g+DM_{a+j}T_ag=0.
+\end{equation}
+By the three-point theorem \cite{HRT}, all four coefficients are nonzero. Let
+\[
+Zg(t,\omega)=\sum_{n\in\Z}g(t-n)\e^{2\pi in\omega}
+\]
+be the Zak transform, interpreted by unitary extension on $L^2$. Its standard covariance
+relations turn \eqref{eq:dep} into
+\begin{equation}\label{eq:zak}
+\bigl(A+B\e^{-2\pi i\omega}+C\e^{2\pi it}\bigr)G(t,\omega)
+=-D\e^{2\pi i(a+j)t}G(t-a,\omega-a),
+\end{equation}
+where $G=Zg$. The translation on the right preserves $\theta=\omega-t\pmod1$. Put
+\[
+G_\theta(t)=G(t,t+\theta),\qquad
+P_\theta(t)=A+B\e^{-2\pi i(t+\theta)}+C\e^{2\pi it}.
+\]
+For almost every $\theta$,
+\begin{align}
+G_\theta(t+1)&=\e^{2\pi i(t+\theta)}G_\theta(t),\label{eq:quasi}\\
+G_\theta(t-a)&=-D^{-1}\e^{-2\pi i(a+j)t}P_\theta(t)G_\theta(t),\label{eq:fibre}
+\end{align}
+and
+\begin{equation}\label{eq:fubini}
+\|g\|_2^2=\int_\T\int_0^1|G_\theta(t)|^2\dd t\dd\theta.
+\end{equation}
+Hence the set $\Theta$ of parameters for which $G_\theta\neq0$ in $L^2(\T)$ has positive
+measure. Since $|G_\theta|$ is periodic and $P_\theta$ has only finitely many zeros, the zero
+set of $G_\theta$ is invariant modulo null sets under the irrational rotation $t\mapsto t-a$.
+Thus, for almost every $\theta\in\Theta$, one has $G_\theta(t)\neq0$ almost everywhere.
+
+Write $z=\e^{2\pi it}$ and
+\begin{equation}\label{eq:Q}
+Q_\theta(z)=Cz^2+Az+B\e^{-2\pi i\theta},
+\qquad P_\theta(t)=z^{-1}Q_\theta(z).
+\end{equation}
+Let $E$ be the set of $\theta$ for which $Q_\theta$ has a zero on $|z|=1$, and for
+$\theta\notin E$ let $N(\theta)$ be the number of its zeros in the open unit disc.
+For later use, observe that for every $\rho>0$ there are at most two $\theta$ for which
+$Q_\theta$ has a zero of modulus $\rho$. Indeed, such a zero lies on the two circles
+\[
+|z|=\rho,
+\qquad |A+Cz|=|B|/\rho,
+\]
+whose centres are distinct because $A\neq0$; once $z$ is fixed, \eqref{eq:Q} determines
+$\theta$. In particular, $E$ is finite.
+
+We now prove the essential identity
+\begin{equation}\label{eq:count}
+N(\theta)=j+1
+\end{equation}
+for almost every $\theta\in\Theta\setminus E$. Set
+\[
+m_\theta(t)=\e^{2\pi i\theta t}\e^{\pi it(t-1)},
+\qquad V_\theta=G_\theta/m_\theta.
+\]
+Then $V_\theta$ is periodic, and \eqref{eq:fibre} becomes
+\[
+V_\theta(t-a)=\Lambda_\theta\e^{-2\pi ijt}P_\theta(t)V_\theta(t)
+\]
+for some $\Lambda_\theta\neq0$. Since $V_\theta\neq0$ almost everywhere,
+$W_\theta=V_\theta/|V_\theta|$ satisfies
+\[
+W_\theta(t-a)=\xi_\theta(t)W_\theta(t),
+\qquad
+\xi_\theta(t)=\frac{\Lambda_\theta}{|\Lambda_\theta|}\e^{-2\pi ijt}
+\frac{P_\theta(t)}{|P_\theta(t)|}.
+\]
+The map $\xi_\theta:\T\to\T$ is real analytic, and the argument principle gives
+\begin{equation}\label{eq:degree}
+\deg\xi_\theta=-j+\wind(P_\theta,0)=-j-1+N(\theta).
+\end{equation}
+If this degree were nonzero, the theorem quoted above would imply that $U_{\xi_\theta,a}$
+has no eigenfunction. But
+\[
+U_{\xi_\theta,a}\overline{W_\theta}=\overline{W_\theta},
+\]
+contradicting that theorem. Thus \eqref{eq:degree} vanishes, proving \eqref{eq:count}.
+
+If $|j|\ge2$, then \eqref{eq:count} is impossible because $N(\theta)\in\{0,1,2\}$.
+Consequently $\Theta$ is contained, up to a null set, in the finite set $E$, contradicting
+\eqref{eq:fubini}.
+
+It remains to take $j=0$. On almost every $\theta\in\Theta\setminus E$, the polynomial
+$Q_\theta$ has one zero inside and one zero $\zeta_{\mathrm{out}}(\theta)$ outside the unit
+circle. Taking logarithms in \eqref{eq:fibre} gives
+\[
+\log|G_\theta(t-a)|-\log|G_\theta(t)|
+=\log|P_\theta(t)|-\log|D|.
+\]
+The right side has integral zero. Indeed, whenever an $L^1$ function has the form
+$u(t-a)-u(t)$ with $u$ finite almost everywhere, its Birkhoff sums converge to its integral
+almost everywhere and to zero in measure. Hence
+\begin{equation}\label{eq:mean}
+\int_0^1\log|P_\theta(t)|\dd t=\log|D|.
+\end{equation}
+Jensen's formula and \eqref{eq:Q} now yield
+\[
+\log|D|=\log|C|+\log|\zeta_{\mathrm{out}}(\theta)|,
+\qquad
+|\zeta_{\mathrm{out}}(\theta)|=|D|/|C|.
+\]
+By the fixed-radius observation above, this can occur for at most two values of $\theta$.
+Thus $\Theta$ is again finite up to a null set, contradicting \eqref{eq:fubini}. This proves
+the theorem.
+\end{proof}
+
+\begin{remark}
+The argument stops at $j=\pm1$: the root count then allows both zeros to lie on the same side
+of the unit circle, and Jensen's formula no longer fixes the modulus of an individual root.
+\end{remark}
+
+\begin{thebibliography}{99}\small
+
+\bibitem{FPVV}
+M.~Faulhuber, P.~Petersen, J.~T.~van Velthoven and F.~Voigtlaender,
+\emph{Linear dependence of time-frequency shifts of a Schwartz function},
+preprint, arXiv:2608.05044 (2026).
+
+\bibitem{GO}
+S.~Guan and K.~A.~Okoudjou,
+\emph{The HRT conjecture for symmetric configurations and real-valued functions},
+preprint, arXiv:2607.26878 (2026).
+
+\bibitem{HRT}
+C.~Heil, J.~Ramanathan and P.~Topiwala,
+\emph{Linear independence of time-frequency translates},
+Proc. Amer. Math. Soc. \textbf{124} (1996), 2787--2795.
+
+\bibitem{HS}
+C.~Heil and D.~Speegle,
+\emph{The HRT conjecture and the zero divisor conjecture for the Heisenberg group},
+in \emph{Excursions in Harmonic Analysis}, Vol.~3, Birkh\"auser, 2015, 159--176.
+
+\bibitem{ILR}
+A.~Iwanik, M.~Lema\'nczyk and D.~Rudolph,
+\emph{Absolutely continuous cocycles over irrational rotations},
+Israel J. Math. \textbf{83} (1993), 73--95.
+
+\bibitem{Oussa}
+V.~Oussa,
+\emph{A trichotomy for the HRT conjecture at mixed-integer configurations},
+preprint, arXiv:2508.04613v2 (2026).
+
+\end{thebibliography}
+
+\end{document}

@@ -1,0 +1,148 @@
+# Schema: https://github.com/mathlib-initiative/formalization.yaml
+version: "v0.3"
+
+project:
+  name: "Erdős Problem 361 — irregularity of forbidden-subset-sum extremal sets, in Lean 4"
+  authors:
+    - "Principia Math harness (autonomous multi-model research harness)"
+  license: "Apache-2.0"
+
+sources:
+  - title: "Divisor-Sensitive Bounds for Forbidden Subset Sums"
+    authors:
+      - "Principia Math harness (ChatGPT / GPT-5 collaboration, refereed by Claude)"
+    id: "paper/erdos361.pdf"
+    type: "manuscript"
+    license: "Apache-2.0"
+    author_contacted: "n/a"
+    note: >-
+      The exact manuscript the Lean is checked against is committed at `paper/erdos361.pdf`
+      and pinned by sha256 in `VERIFICATION.md`. Only Theorem 4 (irregularity) and the c ≥ 1
+      exact formula are formalized here; the paper's general divisor-sensitive Theorem 1 and
+      Corollaries 2–3 are not (see VERIFICATION.md §7). The problem statement of record is
+      https://www.erdosproblems.com/361.
+  - title: "Subset Sums"
+    authors:
+      - "Noga Alon"
+    id: "Alon, J. Number Theory 27 (1987) 196–205, Theorem 1.1"
+    type: "literature"
+    license: "n/a"
+    author_contacted: "n/a"
+    note: >-
+      The bounded zero-sum theorem in ℤ/Nℤ that is the sole external input to the
+      irregularity proof. It is NOT in Mathlib and is NOT re-proved here; it is assumed as
+      the axiom `Erdos361.Statement.alon_zero_sum` (stated verbatim, ε-form 0 < |B| ≤ k) and
+      declared in the trusted statement layer. This is the one literature dependency.
+  - title: "On addition of two distinct sets of integers"
+    authors:
+      - "Vsevolod F. Lev"
+      - "Pavel Y. Smeliansky"
+    id: "Acta Arith. 70 (1995) 85–91, Theorem 1 (attrib. Freiman, the 3k-3 theorem)"
+    type: "literature"
+    license: "n/a"
+    author_contacted: "n/a"
+    note: >-
+      Freiman's 3k-3 lower bound |B+B| ≥ min{L,2|B|-3}+|B| for finite integer sets. Formerly the
+      sole non-Mathlib input to `basile71_unconditional`, carried as the hypothesis `hFreiman`
+      (gcd-1 form). As of 2026-07-28 it is **proved from scratch in-project** in
+      `Erdos361/BasileFreiman.lean` (`Erdos361Freiman.freiman_3k3`, Nathanson's Kneser-free
+      large-diameter induction — no Mathlib port exists), so `basile71_unconditional` now has NO
+      cited hypothesis. Listed here as the classical reference the in-project proof follows.
+  - title: "Erdős Problem 361, forum comment (Problem 7.1)"
+    authors:
+      - "Basile Beyer de Ryke"
+    id: "erdosproblems.com/361 discussion — the located inverse statement (Problem 7.1)"
+    type: "problem-statement"
+    license: "n/a"
+    author_contacted: "n/a"
+    note: >-
+      `basile71_unconditional` is a Lean answer to this forum-posed inverse question
+      (equivalently Alon's Conjecture 4.3 in the linear regime). Candidate, pending expert referee.
+
+status:
+  scope: >-
+    Lean 4 + Mathlib formalization of the Erdős–Graham irregularity question for
+    f_c(n) = max{|A| : A ⊆ [1,⌊cn⌋], n ∉ Σ(A)}: f_c(n)/n converges iff c ≥ 1. The c ≥ 1
+    exact formula (F M n = M − ⌈n/2⌉) is proved axiom-free; Theorem 4 (for every c ∈ (0,1),
+    f_c(n)/n does not converge) is proved conditional on ONE cited literature result,
+    Alon 1987 Theorem 1.1, assumed as the axiom `alon_zero_sum`. Thresholds are existential
+    (∃ E₀, ∃ N₀), matching the manuscript, which makes no effectivity claim. The sorry counts
+    below exclude `Challenge.lean` (the statement-only Comparator fixture; 2 intentional
+    placeholders).
+  sorry_count: 0
+  sorry_in_definitions: 0
+  axioms:
+    - "propext"
+    - "Classical.choice"
+    - "Quot.sound"
+    - "Erdos361.Statement.alon_zero_sum"   # Alon 1987 Thm 1.1; used only by erdos361_irregular
+  main_results:
+    - declaration: "Erdos361.erdos361_cge1"
+      file: "Erdos361/Core.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator/erdos361_cge1.json"
+      literature_dependencies: []
+    - declaration: "Erdos361.erdos361_irregular"
+      file: "Erdos361/Core.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound", "Erdos361.Statement.alon_zero_sum"]
+      comparator_config: "comparator/erdos361_irregular.json"
+      literature_dependencies:
+        - "Alon 1987, Subset Sums, J. Number Theory 27, Theorem 1.1 (bounded zero-sum in ℤ/Nℤ)"
+    - declaration: "Erdos361BasileMaster.basile71_unconditional"
+      file: "Erdos361/BasileMain.lean  (statement layer: Erdos361.Statement.basile71_unconditional)"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator/erdos361_basile.json"
+      literature_dependencies: []
+      note: >-
+        Erdős #361 Part 1 (the size question) in the linear regime c ∈ (1/3,1/2) = Basile Beyer de
+        Ryke's forum Problem 7.1 = Alon's Conjecture 4.3 at m ≍ n. FULLY UNCONDITIONAL as of
+        2026-07-28: Freiman's 3k-3 theorem — formerly carried as the hypothesis `hFreiman` — is now
+        PROVED from scratch in-project (`Erdos361Freiman.freiman_3k3`, `Erdos361/BasileFreiman.lean`;
+        Nathanson's Kneser-free large-diameter induction, no Mathlib port exists). Alon's Prop 2.5
+        good core and the located covering are likewise PROVED in-development (good_core_exists on
+        Mathlib's Roth theorem; hLev_covering by an elementary route that avoids Lev 1997 entirely).
+        No cited hypothesis remains. The development statement layer keeps the name
+        `basile71_unconditional` (now hypothesis-free) and also exposes the explicit
+        `basile71_fully_unconditional`. CANDIDATE pending expert referee; does NOT claim to resolve
+        the full erdosproblems.com #361 as stated.
+
+automation:
+  proof_assistant: "Lean 4"
+  mathlib: "rev fabf563a7c95a166b8d7b6efca11c8b4dc9d911f (tag v4.31.0)"
+
+fidelity:
+  divergences:
+    - "erdos361_irregular is conditional on the axiom alon_zero_sum (Alon 1987 Thm 1.1), a
+       standard published theorem not in Mathlib. erdos361_cge1 is unconditional."
+    - "The paper's general divisor-sensitive Theorem 1 / Cor 2–3 are not formalized."
+    - "Thresholds are existential, not explicit (no effectivity claim in the paper)."
+
+review:
+  comparator: >-
+    Runs on CI (.github/workflows/erdos361-comparator.yml), Linux-only, in a landrun/Landlock
+    sandbox: comparator/erdos361_cge1.json (axiom-free), comparator/erdos361_irregular.json
+    (permits alon_zero_sum), and comparator/erdos361_basile.json (axiom-free — Freiman 3k-3 is a
+    hypothesis, not an axiom). All three must report "Your solution is okay!".
+
+alignment:
+  statements:
+    - paper_result: "c ≥ 1 exact formula (regular range)"
+      lean_name: "Erdos361.Statement.erdos361_cge1"
+      module: "Challenge.lean / Solution.lean (proved from Erdos361/Core.lean)"
+      status: "proved, axiom-free"
+    - paper_result: "Theorem 4 (irregularity for every c ∈ (0,1))"
+      lean_name: "Erdos361.Statement.erdos361_irregular"
+      module: "Challenge.lean / Solution.lean (proved from Erdos361/Core.lean)"
+      status: "proved, conditional on alon_zero_sum (Alon 1987 Thm 1.1)"
+    - paper_result: "Part 1 (size) — Basile 7.1 / Alon Conj 4.3 in the linear regime c ∈ (1/3,1/2)"
+      lean_name: "Erdos361.Statement.basile71_unconditional"
+      module: "Challenge.lean / Solution.lean (proved from Erdos361/BasileMain.lean)"
+      status: "proved, axiom-free and FULLY unconditional (Freiman 3k-3 now proved in-project, not a hypothesis); candidate pending expert referee"
+
+acknowledgements: >-
+  Modular-dichotomy and divisor-sensitive arguments from the ChatGPT/GPT-5 collaboration
+  (including the |B| ≤ k / floor-constant endpoint correction, verified against the Alon
+  source); Lean formalization by the Claude side of the harness.

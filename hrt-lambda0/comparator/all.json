@@ -1,0 +1,20 @@
+{
+    "challenge_module": "Challenge",
+    "solution_module": "Solution",
+    "theorem_names": [
+        "HRTLambda0.Statement.lambda0_independent_of_reduction"
+    ],
+    "definition_names": [
+        "HRTLambda0.tfTranslate",
+        "HRTLambda0.configTranslates",
+        "HRTLambda0.lambda0Translates",
+        "HRTLambda0.Lambda0Independent",
+        "HRTLambda0.ZakReduction"
+    ],
+    "permitted_axioms": [
+        "propext",
+        "Quot.sound",
+        "Classical.choice"
+    ],
+    "enable_nanoda": false
+}

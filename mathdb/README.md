@@ -10,10 +10,13 @@ directory, contains no `sorry` and no local `axiom`, and every declaration's
 `#print axioms` footprint is inside `[propext, Classical.choice, Quot.sound]` -- measured by
 a per-module gate run, not asserted.
 
-**The Principia site Comparator has not been run on any of these modules.** The site's
-formalization stage links point at the files here so a reader can find and rebuild them; that
-is a pointer, not a comparator verdict. Neither is there a `Challenge.lean` / `Solution.lean`
-contract yet, which is what the Comparator checks. See [VERIFICATION.md](VERIFICATION.md).
+**The Comparator has been run on one of these problems: #343324, which passed.** It has a
+`Challenge343324.lean` / `Solution343324.lean` contract, a `comparator/343324.json` config and
+a `mathdb-comparator` workflow run on this repository, and the Principia project records the
+verdict. The other 142 problems have **no contract**, so for them the site's formalization
+stage link is a pointer to source a reader can rebuild, not a comparator verdict. What a pass
+does and does not establish -- in particular that it does *not* certify faithfulness to the
+MathDB problem text -- is set out in [VERIFICATION.md](VERIFICATION.md).
 
 **A row is not a claim that the source conjecture is settled.** Many of these results are
 *refutations* -- an explicit counterexample to the stated conjecture -- and others formalize a
