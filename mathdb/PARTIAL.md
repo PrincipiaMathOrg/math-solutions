@@ -1,7 +1,7 @@
 # MathDB formalizations that are NOT fully verified
 
-This directory holds Lean for 186 MathDB problems. **143 of them are fully
-verified**; they are the ones listed in [README.md](README.md). The **43 listed
+This directory holds Lean for 188 MathDB problems. **143 of them are fully
+verified**; they are the ones listed in [README.md](README.md). The **45 listed
 here are not**, and each one's Principia project links to its module, so this file
 exists to say what that link does and does not mean before anyone reads the Lean.
 
@@ -32,7 +32,7 @@ hypotheses are provably still owed. Three kinds of row appear:
 - **Not CI-checked.** Every verdict below is a LOCAL gate run on the development
   machine. There is no CI run id for any of them.
 
-## The 43
+## The 45
 
 Decl counts are of top-level declarations in the module as committed here. The
 verdict text is lifted from the campaign table's own cells, not rewritten.
@@ -51,6 +51,7 @@ verdict text is lifted from the campaign table's own cells, not rewritten.
 | [#331410](Principia/MathDB/Problem331410.lean) | 9 | Prime periods of the chocolate numbers — *proof* | partial — SPINE: the write-up's *consequently* is PROVED rather than restated, and the dichotomy is reused by import. |
 | [#331783](Principia/MathDB/Problem331783.lean) | 10 | Chaos criterion for a rational second-order recurrence — *counterexample / disproof* | partial — THE CONJECTURE IS REFUTED UNCONDITIONALLY AND NOTHING IS CARRIED. |
 | [#332493](Principia/MathDB/Problem332493.lean) | 17 | A dimension-free proof of the four-projection trace inequality — *proof* | partial — (17 decls) gated, the write-up's entire NON-MATRIX content proved, row deliberately NOT counted. |
+| [#332639](Principia/MathDB/Problem332639.lean) | 24 | The trace coefficient formula for web-colouring matrices — *proof* | partial — SPINE gated 2026-10-27, deliberately NOT counted (24 decls, `Principia/MathDB/Problem332639.lean`). |
 | [#333489](Principia/MathDB/Problem333489.lean) | 13 | Equal-parameter period rule for a delay recurrence — *counterexample / disproof* | partial — THE CONJECTURE IS REFUTED, UNCONDITIONALLY AND WITH NOTHING CARRIED. |
 | [#335304](Principia/MathDB/Problem335304.lean) | 67 | Holt Conjecture 17 (every canonical four-digit continued-fraction permutiple is symmetric: `ad = eh` and `bc = fg`) — *proof* | PARTIAL — the RATIO LEMMA and LEMMA `last` are now both proved in full, and with them every ingredient of the argument except the case analysis A–E. |
 | [#338791](Principia/MathDB/Problem338791.lean) | 63 | Nenashev's central matrix-algebra conjecture (central zonotopal algebra determines the configuration up to z-equivalence) is FALSE — *refutation* | partial — THE REFUTING CLAUSE IS UNCONDITIONAL. |
@@ -77,13 +78,14 @@ verdict text is lifted from the campaign table's own cells, not rewritten.
 | [#373405](Principia/MathDB/Problem373405.lean) | 19 | The weight-to-Laplacian dictionary for the extremal ML-degree bound — *proof* | partial — SPINE: the coordinate dictionary the write-up asserts in one sentence is PROVED, and THREE of its clauses came out STRICTLY STRONGER than stated. |
 | [#373701](Principia/MathDB/Problem373701.lean) | 20 | Hyman Conjecture 3.17 (the persistent integer bases `P_N` have natural density `1/12`) is FALSE — for every fixed sample depth `N ≥ 3` the density does not exist — *refutation* | PARTIAL — the PERSISTENCE CRITERION IS DECIDED ON BOTH CYLINDERS, which is the mathematical core of the refutation, and both verdicts are proved with the two analytic inputs isolated to one line each. |
 | [#374957](Principia/MathDB/Problem374957.lean) | 68 | Transpose duality for preorder multichain matrices — *proof* | partial — (68 decls) gated as a SPINE, conditional on ONE named input. |
+| [#374965](Principia/MathDB/Problem374965.lean) | 12 | Bivariate Ehrhart reciprocity for preorder polytopes — *proof* | partial — SPINE gated 2026-10-27, deliberately NOT counted (12 decls, `Principia/MathDB/Problem374965.lean`). |
 | [#377007](Principia/MathDB/Problem377007.lean) | 11 | Half-integral continued fractions for Chebyshev products — *proof* | partial — SPINE: the whole instantiation bridge from the general theorem to Cohn's conjecture is PROVED. |
 | [#378712](Principia/MathDB/Problem378712.lean) | 11 | A common majorant for both orders of multiplication in a Banach algebra — *proof* | partial — SPINE: the write-up's own stated analytic mechanism is PROVED IN FULL, and it turned out to be CAMPAIGN-AGNOSTIC, so it was promoted to `Common/`. |
 | [#381792](Principia/MathDB/Problem381792.lean) | 12 | High-frequency characteristic roots and diffusive boundary feedback — *proof* | partial — SPINE: the write-up's logical reduction is PROVED, its Rouche inputs are proved, and ITS THRESHOLD IS MEASURED SLACK IN BOTH PLACES IT IS USED. |
 | [#381794](Principia/MathDB/Problem381794.lean) | 29 | Brenti–Sentinelli Conjecture 6.3 (the convex hull of the Wachs permutations in `S_{2m}` is simple for every `m ≥ 1`) — *proof* | PARTIAL — the AFFINE ISOMORPHISM, which is the write-up's entire geometric content, is proved UNCONDITIONALLY and in full generality. |
 | [#381795](Principia/MathDB/Problem381795.lean) | 34 | Brenti–Sentinelli Conjecture 6.4 (the convex hull of the SIGNED Wachs permutations in `B_{2m}` is simple for every `m ≥ 1`) — *proof* | PARTIAL — the CONE CERTIFICATE, which is this write-up's real content and the thing that distinguishes it from the unsigned Conjecture 6.3, is proved as a telescoping identity in full generality. |
 
-**1131 declarations across the 43 modules.**
+**1167 declarations across the 45 modules.**
 
 ## Reproducing a row
 

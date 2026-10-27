@@ -68,6 +68,7 @@ import Principia.MathDB.Problem331961
 import Principia.MathDB.Problem332161
 import Principia.MathDB.Problem332483
 import Principia.MathDB.Problem332493
+import Principia.MathDB.Problem332639
 import Principia.MathDB.Problem332939
 import Principia.MathDB.Problem333222
 import Principia.MathDB.Problem333488
@@ -199,6 +200,7 @@ import Principia.MathDB.Problem373701
 import Principia.MathDB.Problem374937
 import Principia.MathDB.Problem374957
 import Principia.MathDB.Problem374964
+import Principia.MathDB.Problem374965
 import Principia.MathDB.Problem375794
 import Principia.MathDB.Problem375935
 import Principia.MathDB.Problem375936
