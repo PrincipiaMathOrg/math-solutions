@@ -1,0 +1,251 @@
+\documentclass[10pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage[hidelinks]{hyperref}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newcommand{\E}{\mathbb E}
+\newcommand{\Be}{\operatorname{Beta}}
+\title{Real-shift coefficientwise log-concavity\\for rising-factorial ratios\\
+\large A proof of MathDB problem 324472}
+\author{Principia Math In Progress}
+\date{September 12, 2026}
+\begin{document}
+\maketitle
+
+\noindent\textbf{Task 1: solve the original problem.}
+We prove Conjecture 1 of Kalmykov--Karp \cite[p.~408]{KK} under the
+hypotheses of their Theorem 1, with an additional relaxation when the
+parameter gap is at most one.
+
+\begin{theorem}\label{main}
+Let \(c\ge a>0\), and let \(f_j\) be a nonnegative log-concave sequence
+without internal zeros. Define
+\[
+ F(\mu;x)=\sum_{j\ge0}f_j\frac{(a+\mu)_j}{(c+\mu)_j}\frac{x^j}{j!},
+ \qquad (b)_j=\prod_{i=0}^{j-1}(b+i).
+\]
+For every \(\mu,\nu\ge0\), every coefficient of
+\[
+ F(\mu;x)F(\nu;x)-F(0;x)F(\mu+\nu;x)                 \tag{1}
+\]
+is nonnegative. If \(0\le c-a\le1\), the same conclusion holds for every
+nonnegative sequence \(f_j\), without the log-concavity restriction.
+These are formal-series assertions; they imply the corresponding
+Wright log-concavity for nonnegative \(x\) in the common convergence domain.
+\end{theorem}
+
+The proof uses elementary comparisons of densities. We recall the
+one-crossing argument: if two probability densities on an interval have
+an increasing ratio, then the second law is stochastically larger,
+provided the ratio is second divided by first. Indeed the difference of
+the normalized densities crosses zero at most once, from negative to
+positive, so their distribution functions have the required order.
+The same argument applies if the second support also extends farther
+to the right and has no extra portion to the left. Decreasing ratios
+reverse the conclusion.
+
+\begin{lemma}\label{poly}
+For symmetric nonnegative weights satisfying
+\[
+ w_k=w_{n-k},\qquad
+ w_0\le w_1\le\cdots\le w_{\lfloor n/2\rfloor},      \tag{2}
+\]
+the Bernstein polynomial
+\[
+ R_w(r)=\sum_{k=0}^n\binom nk w_k r^k(1-r)^{n-k}
+ \tag{3}
+\]
+is nondecreasing on \([0,1/2]\) and satisfies \(R_w(r)=R_w(1-r)\).
+\end{lemma}
+\begin{proof}
+Symmetry is immediate. For \(n\ge1\), differentiate (3):
+\[
+ R_w'(r)=n\sum_{k=0}^{n-1}(w_{k+1}-w_k)
+                  \binom{n-1}k r^k(1-r)^{n-1-k}.
+ \tag{4}
+\]
+The coefficient differences at reflected indices are opposite, with the
+lower-index one nonnegative. On \([0,1/2]\), the lower-index Bernstein
+term is at least its reflection. Pairing terms proves (4) nonnegative.
+The cases \(n=0,1\) are constant.
+\end{proof}
+
+\begin{lemma}\label{beta}
+Let \(X\sim\Be(u,d)\) and \(Y\sim\Be(v,d)\) be independent, with
+\(u,v,d>0\), and put
+\[
+ P_w(x,y)=\sum_{k=0}^n\binom nk w_kx^ky^{n-k}.
+ \tag{5}
+\]
+At fixed \(S=u+v\), the expectation \(\E P_w(X,Y)\) is nondecreasing
+as \(u,v\) are balanced, in either of the following cases:
+\begin{enumerate}
+\item \(0<d\le1\) and \(w\) is any symmetric nonnegative vector;
+\item \(d>1\) and \(w\) satisfies (2).
+\end{enumerate}
+\end{lemma}
+\begin{proof}
+Write
+\[
+ q=\frac{\min(X,Y)}{\max(X,Y)},\qquad z=\max(X,Y),\qquad
+ \delta=\frac{|u-v|}{2}.
+\]
+Both \(q,z\) lie in \((0,1)\) with probability one. Adding the densities
+from the two possible orders of \(X,Y\), with Jacobian \(z\), gives
+the joint density
+\[
+ \frac{2}{B(u,d)B(v,d)}
+ z^{S-1}q^{S/2-1}(1-z)^{d-1}(1-qz)^{d-1}
+ \cosh(\delta\log q).                              \tag{6}
+\]
+In particular the conditional law of \(z\) given \(q\) does not depend
+on \(\delta\). The marginal density of \(q\), apart from its normalizing
+constant, has the form
+\[
+ A(q)q^{S/2-1}\cosh(\delta\log q),\qquad
+ A(q)=\int_0^1 z^{S-1}(1-z)^{d-1}(1-qz)^{d-1}\,dz.  \tag{7}
+\]
+The integral is positive and finite for \(0<q<1\).
+If \(\delta_2\ge\delta_1\ge0\), the ratio of the marginal densities
+is decreasing in \(q\). To check this, put \(t=-\log q>0\) and note
+\[
+ \frac{d}{dt}\log\frac{\cosh(\delta_2t)}{\cosh(\delta_1t)}
+ =\delta_2\tanh(\delta_2t)-\delta_1\tanh(\delta_1t)\ge0.
+ \tag{8}
+\]
+Thus \(q\) is stochastically larger as \(\delta\) decreases.
+Since \(P_w\) is symmetric, it remains to show that the
+\(\delta\)-independent conditional mean
+\[
+ m(q)=\E[P_w(X,Y)\mid q]
+ \tag{9}
+\]
+is nondecreasing in \(q\).
+
+Suppose first that \(0<d\le1\). For \(0<q_1<q_2<1\), the ratio
+of the conditional \(z\)-densities, apart from a positive constant, is
+\[
+ \left(\frac{1-q_2z}{1-q_1z}\right)^{d-1}.           \tag{10}
+\]
+The inner ratio decreases in \(z\), so (10) increases in \(z\).
+Consequently the conditional moment \(\E[z^n\mid q]\) is nondecreasing
+in \(q\). Also,
+\[
+ P_w(z,qz)=z^nQ_w(q),\qquad
+ Q_w(q)=\sum_{k=0}^n\binom nk w_kq^{n-k}.
+ \tag{11}
+\]
+The polynomial \(Q_w\) has nonnegative coefficients, hence is nonnegative
+and nondecreasing on \((0,1)\). Formula (11) proves the required
+monotonicity of \(m(q)\).
+
+Now suppose \(d>1\), and set \(T=X+Y=(1+q)z\). By (6), its conditional
+density given \(q\), apart from a positive normalizing constant, is
+\[
+ t^{S-1}\bigl(1-t+h(q)t^2\bigr)^{d-1},
+ \quad 0<t<1+q,\qquad h(q)=\frac{q}{(1+q)^2}.        \tag{12}
+\]
+The quadratic is the product
+\((1-t/(1+q))(1-qt/(1+q))\), so it is positive on that support.
+Moreover \(h\) is increasing for \(0<q<1\). If \(q_2>q_1\), write
+\(h_i=h(q_i)\). On the common support the ratio of the two quadratics is
+\[
+ \frac{1-t+h_2t^2}{1-t+h_1t^2}
+ =1+(h_2-h_1)\frac{t^2}{1-t+h_1t^2}.                \tag{13}
+\]
+It is increasing with \(t\), since
+\[
+ \frac{d}{dt}\frac{t^2}{1-t+h_1t^2}
+ =\frac{t(2-t)}{(1-t+h_1t^2)^2}>0
+ \quad(0<t<1+q_1<2).                              \tag{14}
+\]
+Raising (13) to \(d-1>0\) preserves this monotonicity, and the upper
+support endpoint \(1+q\) increases. The one-crossing argument therefore
+shows that \(T\), conditionally on \(q\), is stochastically increasing
+with \(q\). In particular \(\E[T^n\mid q]\) increases.
+
+Homogeneity, symmetry, and Lemma~\ref{poly} give
+\[
+ P_w(X,Y)=T^nR_w\!\left(\frac{q}{1+q}\right).
+ \tag{15}
+\]
+The second factor is nonnegative and nondecreasing in \(q\), since
+\(q/(1+q)\in(0,1/2)\). Multiplying it by
+\(\E[T^n\mid q]\) proves that (9) is nondecreasing. In both cases,
+the stochastic comparison following (8) now proves the lemma.
+
+All conditional-density arguments take place on \(0<q<1\). Possible
+limiting singularities at \(q=1\) cause no exception: that endpoint has
+probability zero, and the polynomial \(P_w\) is bounded on \([0,1]^2\).
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{main}]
+If \(d=c-a=0\), every rising-factorial ratio is one and (1) vanishes.
+Assume \(d>0\). For \(B_{u,d}\sim\Be(u,d)\), the beta integral gives
+\[
+ \E B_{u,d}^{\,k}=\frac{B(u+k,d)}{B(u,d)}
+                =\frac{(u)_k}{(u+d)_k}.             \tag{16}
+\]
+For each degree \(n\), take \(w_k=f_kf_{n-k}\) in (5). The Cauchy
+product and (16) identify \(n!\) times the coefficient of \(x^n\) in
+(1) with
+\[
+ \E P_w(B_{a+\mu,d},B_{a+\nu,d})
+ -\E P_w(B_{a,d},B_{a+\mu+\nu,d}),                  \tag{17}
+\]
+where the two beta variables in each expectation are independent.
+The first parameter pair is at least as balanced as the second,
+because their sums agree and \(|\mu-\nu|\le\mu+\nu\).
+
+If \(f\) is log-concave without internal zeros, its product weights
+satisfy (2). On the positive support this follows from
+\[
+ \frac{w_{k+1}}{w_k}
+ =\frac{f_{k+1}/f_k}{f_{n-k}/f_{n-k-1}}\ge1
+ \quad(k<n/2).                                    \tag{18}
+\]
+Its positive support is a centered interval, so initial or terminal
+zeros cause no exception. If all weights vanish, the coefficient is zero.
+Lemma~\ref{beta} proves (17) nonnegative. Its first case also proves
+the stated extension for arbitrary nonnegative \(f\) when \(d\le1\).
+This covers degree zero and vanishing shifts as well. Replacing
+\((a,c)\) by \((a+t,c+t)\), \(t\ge0\), supplies every common base
+shift required in the Wright definition.
+\end{proof}
+
+\noindent\textbf{Verification.}
+The companion program passes 441 exact rational coefficient cases,
+3 exact density-derivative identities, 225 conditional-moment
+comparisons, and 3 independent transformed beta integrals. The analytic
+proof, not these finite checks, establishes all degrees and all parameters.
+Source and current claim checks are recorded in the literature audit.
+
+\paragraph{Task 2.}
+Determine when arbitrary nonnegative input can produce a negative
+coefficient for \(c-a>1\), and find the smallest failing degree
+as a function of the parameter gap and the base parameter.
+
+\paragraph{Task 3.}
+Determine all equality cases coefficient by coefficient and derive
+sharp quantitative lower bounds for (1) for arbitrary positive real shifts.
+
+\paragraph{Task 4.}
+Extend the conditional-density comparison to products of three or more
+beta variables and identify multivariate coefficient conditions that
+give monotonicity under majorization of the shape parameters.
+
+\paragraph{Task 5.}
+Prove or refute analogous real-shift coefficient inequalities for
+series containing several rising-factorial ratios, using joint
+ratio conditioning to handle the additional parameter differences.
+
+\begin{thebibliography}{9}
+\bibitem{KK}
+S.~I. Kalmykov and D.~B. Karp,
+Log-convexity and log-concavity for series in gamma ratios and applications,
+\emph{J. Math. Anal. Appl.} \textbf{406} (2013), 400--418.
+\href{https://doi.org/10.1016/j.jmaa.2013.04.061}{doi:10.1016/j.jmaa.2013.04.061};
+\href{https://arxiv.org/abs/1211.2882}{arXiv:1211.2882}.
+\end{thebibliography}
+\end{document}

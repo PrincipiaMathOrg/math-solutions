@@ -1,0 +1,239 @@
+\documentclass[11pt]{article}
+\usepackage[margin=0.85in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,hyperref,booktabs}
+\hypersetup{colorlinks=true,urlcolor=blue,linkcolor=blue}
+\newtheorem{theorem}{Theorem}
+\setlength{\emergencystretch}{3em}
+\title{A certified counterexample to complete monotonicity\\
+\large MathDB 351688: the Mills-ratio derivative quotient}
+\author{Principia Math In Progress}
+\date{17 September 2026; source audit updated 22 September 2026}
+\begin{document}
+\maketitle
+
+\section*{Task 1. Resolve the stated complete-monotonicity conjecture}
+Let
+\[
+ r(z)=e^{z^2/2}\int_z^\infty e^{-t^2/2}\,dt,
+ \qquad F_n(z)=-\frac{(r^{(n)}(z))^2}{r^{(2n+1)}(z)}.
+\]
+Conjecture 3 in Ferreira--Simon \cite[p.~31]{FS} asserts that every
+\(F_n\) is completely monotone on \((0,\infty)\). The definition of
+\(r\) is on p.~29. Complete monotonicity requires
+\((-1)^kF_n^{(k)}(z)\geq0\) for every nonnegative integer \(k\) and
+\(z>0\). The following counterexample uses \(n=1\).
+
+\begin{theorem}
+For the exact positive argument \(c=1/100\),
+\begin{equation}\label{negative}
+ -\frac{461}{10^{54}}
+ < \frac{F_1^{(70)}(c)}{70!}
+ < -\frac{460}{10^{54}}<0.
+\end{equation}
+Consequently, \(F_1\) is not completely monotone, and the universal
+assertion in Conjecture 3 is false.
+\end{theorem}
+
+\noindent\textbf{Publication scope.}
+The complete 33-page author manuscript \cite{FS} has now been read.
+The authors announced this version as accepted for publication in
+Transactions of the American Mathematical Society. The source audit
+uses this accepted manuscript; the separately typeset journal version
+remains unread. The package records the bounded claim audit.
+
+\begin{proof}
+Changing variables in the defining integral yields
+\[
+ r(z)=\int_0^\infty e^{-zt-t^2/2}\,dt,
+ \qquad r'(z)=zr(z)-1.
+\]
+Differentiation under the integral is valid locally uniformly for real
+\(z\), because the Gaussian dominates every polynomial times a fixed
+exponential. In particular,
+\[
+ -r'''(z)=\int_0^\infty t^3e^{-zt-t^2/2}\,dt>0.
+\]
+Thus the quotient and all its derivatives are well defined on the
+required interval.
+
+Put \(R(w)=r(c-w)=\sum_{k\geq0}e_kw^k\). The differential equation
+for \(r\) gives the exact coefficient recurrence
+\begin{equation}\label{rrec}
+ e_0=r(c),\qquad e_1=1-ce_0,\qquad
+ e_{k+1}=\frac{e_{k-1}-ce_k}{k+1}\quad(k\geq1).
+\end{equation}
+Moreover,
+\[
+ F_1(c-w)=\frac{R'(w)^2}{R'''(w)}=\sum_{k\geq0}q_kw^k,
+ \qquad q_k=\frac{(-1)^kF_1^{(k)}(c)}{k!}.
+\]
+Define
+\[
+ a_k=(k+1)e_{k+1},\qquad
+ b_k=(k+1)(k+2)(k+3)e_{k+3}.
+\]
+Since \(b_0=-r'''(c)>0\), coefficient comparison gives
+\begin{equation}\label{qrec}
+ q_k=\frac{1}{b_0}\left(
+ \sum_{j=0}^ka_ja_{k-j}-\sum_{j=1}^kb_jq_{k-j}\right).
+\end{equation}
+Computing through \(e_{73}\) and \(q_{70}\) therefore determines the
+required derivative without numerical differentiation.
+
+For completeness, we specify the exact finite certificate for its sign.
+Every bound below uses integers and rational numbers. Set
+\[
+ A(v)=\sum_{j=0}^{199}\frac{(-1)^jv^{2j+1}}{2j+1},
+ \qquad T(v)=\frac{v^{401}}{401}.
+\]
+The alternating-series estimate gives
+\(A(v)<\arctan v<A(v)+T(v)\) for \(v=1/5,1/239\).
+Machin's identity \(\pi=16\arctan(1/5)-4\arctan(1/239)\) then gives
+explicit rational lower and upper bounds \(\pi_-<\pi<\pi_+\).
+The identity follows directly from the tangent addition formula;
+the angle \(4\arctan(1/5)-\arctan(1/239)\) lies in \((0,\pi/2)\)
+and has tangent one.
+
+Let \(S=10^{200}\) and
+\[
+ h=\left\lfloor S\sqrt{\pi_-/2}\right\rfloor.
+\]
+Integer comparisons verify
+\[
+ (h/S)^2<\pi_-/2<\pi_+/2<((h+1)/S)^2.
+\]
+Consequently \(h/S<\sqrt{\pi/2}<(h+1)/S\).
+To enclose \(e_0=r(c)\), use
+\[
+ r(c)=e^{c^2/2}\left(\sqrt{\pi/2}-\int_0^c e^{-t^2/2}\,dt\right).
+\]
+For \(u=c^2/2=1/20000\), define
+\[
+ E=\sum_{j=0}^{79}\frac{u^j}{j!},\qquad
+ J=\sum_{j=0}^{79}\frac{(-1)^jc^{2j+1}}{2^jj!(2j+1)}.
+\]
+Positive-series and alternating-series bounds give
+\begin{align*}
+ E&<e^u<E+\frac{u^{80}}{80!}\frac1{1-u/81},\\
+ J&<\int_0^ce^{-t^2/2}\,dt
+   <J+\frac{c^{161}}{2^{80}80!\,161}.
+\end{align*}
+These enclose the sole nonrational input \(e_0\).
+
+Propagate these intervals through \eqref{rrec} and \eqref{qrec}, rounding
+outwards after every operation to the grid \(S^{-1}\mathbb Z\).
+For multiplication take the minimum and maximum of the four endpoint
+products; for division take the four endpoint quotients, having checked
+that the denominator interval is strictly positive. Round lower endpoints
+down and upper endpoints up. Induction on the recurrences proves that
+every computed interval contains the exact coefficient.
+The accompanying standard-library Python verifier performs precisely
+these operations, using arbitrary-length integers. Its final interval
+is strictly inside
+\[
+ \left(-\frac{461}{10^{54}},-\frac{460}{10^{54}}\right).
+\]
+This is \eqref{negative}, because the derivative order 70 is even.
+The exact rational endpoints are saved in \path{exact-certificate.json}.
+This finite certificate proves a counterexample to a universal statement;
+it is not a finite-sample argument for an infinite assertion.
+\end{proof}
+
+The same verifier additionally certifies
+\[
+ -\frac{302}{10^{28}}<\frac{F_0^{(40)}(0)}{40!}
+ <-\frac{301}{10^{28}},\qquad
+ -\frac{758}{10^{54}}<\frac{F_1^{(70)}(0)}{70!}
+ <-\frac{757}{10^{54}}.
+\]
+Continuity would already give violations at small positive arguments.
+The theorem instead supplies the explicit point \(1/100\).
+This result does not contradict Proposition 10 of \cite{FS}, which
+concerns the different functions \(z\mapsto F_n(\sqrt z)\).
+
+\section*{An analytic explanation of the failure}
+The failure also has a proof that does not depend on the coefficient
+computation. In fact, at every fixed positive argument there are
+infinitely many derivative orders with the wrong sign.
+
+Write \(h(z)=-r'(z)=1-zr(z)\) and
+\[
+ H(z)=-r'''(z)=\int_0^\infty t^3e^{-zt-t^2/2}\,dt
+              =(z^2+3)h(z)-1.
+\]
+Both functions are entire, and \(H(x)>0\) for every real \(x\).
+Moreover,
+\[
+ |H(z)|\leq8e^{|z|^2},\qquad
+ x^4H(x)=\int_0^\infty s^3e^{-s-s^2/(2x^2)}\,ds\longrightarrow6
+ \quad(x\to+\infty).
+\]
+The growth bound follows from
+\(|z|t\leq |z|^2+t^2/4\); the limit follows by dominated convergence.
+
+Suppose \(H\) had no zeros. It would have an entire logarithm \(g\),
+with \(H=e^g\) and \(\Re g(z)\leq\log8+|z|^2\).
+For the Taylor coefficients \(g(z)=\sum d_jz^j\), the Fourier
+coefficient formula on the circle of radius \(R\), applied to
+\(\log8+R^2-\Re g\geq0\), gives
+\[
+ |d_j|R^j\leq2(\log8+R^2-\Re g(0)),\qquad j\geq1.
+\]
+Letting \(R\to\infty\) shows that \(g\) has degree at most two.
+But \(\log|H(x)|=\Re g(x)\) would then be a real polynomial of
+degree at most two, whereas the displayed limit gives
+\(\log H(x)=-4\log x+\log6+o(1)\). This is impossible.
+Hence \(H\) has a nonreal zero. At every zero of \(H\), the identity
+\(H=(z^2+3)h-1\) implies \(h\ne0\). Thus \(F_1=h^2/H\) has a
+nonreal pole and has no real poles.
+
+We recall a short form of the positive-coefficient argument.
+If \(G(w)=\sum a_jw^j\), \(a_j\geq0\), has finite positive
+radius of convergence \(\rho\), it cannot be analytic at \(w=\rho\).
+Indeed, if it were, monotone convergence as \(w\uparrow\rho\) would give
+\[
+ \frac{G^{(k)}(\rho)}{k!}
+ =\sum_{j\geq k}\binom jk a_j\rho^{j-k}.
+\]
+The Taylor series at \(\rho\) converges at \(\rho+\varepsilon\)
+for some \(\varepsilon>0\). Interchanging its nonnegative sums then
+gives \(\sum_j a_j(\rho+\varepsilon)^j<\infty\), a contradiction.
+
+For any fixed \(c>0\), the Taylor series of \(F_1(c-w)\) has finite
+positive radius because of its nonreal pole, but the function is
+analytic at every real \(w\). Its coefficients therefore cannot all
+be nonnegative. Nor can they be eventually nonnegative: subtracting
+finitely many Taylor terms would give the same contradiction.
+Since these coefficients are \((-1)^kF_1^{(k)}(c)/k!\), infinitely
+many have the wrong sign. This proves non-complete-monotonicity
+analytically, as well as explaining why a high derivative can detect it.
+
+\section*{Tasks 2--5. Proposed directions after the counterexample}
+These are proposed mathematical tasks, not additional solved claims.
+\begin{description}
+\item[Task 2.] Determine the smallest order \(k\) for which
+\((-1)^kF_n^{(k)}(z)<0\) somewhere on \((0,\infty)\), first for
+\(n=0,1\), and then its dependence on \(n\).
+\item[Task 3.] Decide whether every \(F_n\), \(n\geq0\), fails complete
+monotonicity. Extend the question to real moment orders by replacing
+\((-1)^nr^{(n)}(z)\) with
+\(\int_0^\infty t^\nu e^{-zt-t^2/2}\,dt\), \(\nu>-1\).
+\item[Task 4.] Characterize the powers \(\beta>0\) for which
+\(z\mapsto F_n(z^\beta)\) is completely monotone. In particular,
+determine whether the known exponent \(\beta=1/2\) is sharp.
+\item[Task 5.] Locate the nearest complex zeros of \(r^{(2n+1)}\),
+identify cancellations in \(F_n\), and use the resulting singularities
+to derive asymptotics and sign changes of its high derivatives.
+\end{description}
+
+\begin{thebibliography}{9}
+\bibitem{FS} R. A. C. Ferreira and T. Simon,
+\emph{Convolution of beta prime distribution},
+arXiv:2108.09244v2 (19 May 2022), Section 5.5, Conjecture 3,
+\url{https://arxiv.org/abs/2108.09244v2}.
+Journal metadata: Trans. Amer. Math. Soc. 376 (2023), 855--890,
+\url{https://doi.org/10.1090/tran/8748}.
+The author-announced accepted manuscript was read completely;
+the separately typeset version of record was not accessible.
+\end{thebibliography}
+\end{document}

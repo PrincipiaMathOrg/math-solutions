@@ -1,0 +1,261 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,hyperref}
+\setlength{\emergencystretch}{2em}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newcommand{\hyp}{{}_2F_1}
+\title{Sharp parameter ranges for zero-balanced\\hypergeometric ratio inequalities\\MathDB 364530}
+\author{Principia Math in Progress}
+\date{12 September 2026}
+\begin{document}
+\maketitle
+
+\paragraph{Task 1: Solve the original problem.}
+The mathematical displays in the MathDB statement are incomplete.
+We use the precise source, Qiu--Ma--Xiang \cite[Conjecture 6.2,
+p.~22]{Q}, together with its equations (1.6)--(1.10) on page~2.
+For \(a,b>0\) and \(0<r<1\), define
+\[
+ f_b(r)=\frac{\hyp(a,b;a+b+1;r)}{\hyp(a,b;a+b;r)}.
+\]
+The parameter \(a\) is fixed unless stated otherwise. Euler's
+transformation gives
+\[
+ \frac{\hyp(a+1,b+1;a+b+1;r)}{\hyp(a,b;a+b;r)}
+ =\frac{f_b(r)}{1-r}.
+\]
+Thus the source asks for the sharp ranges for
+\(\partial_b f_b(r)<0\) and
+\(f_{1-a}(r)>f_{3/2-a}(r)\) throughout \(0<r<1\).
+The unrestricted earlier Baricz conjecture is already disproved in
+\cite{Q}; our subject is its corrected parameter-range conjecture.
+
+\begin{theorem}\label{main}
+For \(a,b>0\),
+\begin{equation}\label{derivativecriterion}
+ \partial_b f_b(r)<0\ \text{for every }r\in(0,1)
+ \quad\Longleftrightarrow\quad b^2\le a(a+1).
+\end{equation}
+More generally, for \(a>0\) and \(0<b_1<b_2\),
+\begin{equation}\label{paircriterion}
+ f_{b_1}(r)>f_{b_2}(r)\ \text{for every }r\in(0,1)
+ \quad\Longleftrightarrow\quad b_1b_2\le a(a+1).
+\end{equation}
+Consequently, for \(0<a<1\),
+\[
+ f_{1-a}(r)>f_{3/2-a}(r)\ \text{for every }r\in(0,1)
+ \quad\Longleftrightarrow\quad a\in[3/7,1).
+\]
+Both parts of source Conjecture 6.2 hold, including their boundary values.
+\end{theorem}
+
+\paragraph{The differential equation.}
+Put \(c=a+b\), \(A=ab/c\), and \(H(r)=\hyp(a,b;c;r)\).
+The positive series and the larger denominator parameter in the numerator
+show that \(0<f_b(r)<1\), with \(f_b(0)=1\).
+The derivative formula and Euler's transformation imply
+\[
+ \frac{H'(r)}{H(r)}=\frac{A}{1-r}f_b(r).
+\]
+Substitution into the hypergeometric differential equation
+\[
+ r(1-r)H''+[c-(c+1)r]H'-abH=0
+\]
+gives the Riccati equation
+\begin{equation}\label{riccati}
+ r f_b'=c(1-f_b)-\frac{Ar}{1-r}f_b^2.
+\end{equation}
+All functions involved extend analytically to \(r=0\).
+Their parameter derivatives are legitimate on compact subsets of the
+positive parameter domain and \(0\le r<1\), by local uniform convergence
+of the hypergeometric series.
+
+\paragraph{A positivity principle at the singular endpoint.}
+We will repeatedly use the following elementary observation.
+If \(c>0\), \(q\) is continuous at zero and on \([0,1)\), and
+a bounded function \(y\) satisfies
+\[
+ r y'+[c+rq(r)]y=e(r),\qquad e(r)=O(r),
+\]
+then, for \(0<r<1\),
+\begin{equation}\label{factor}
+ y(r)=
+ \frac{\displaystyle\int_0^r
+ t^{c-1}\exp\!\left(\int_0^tq(s)\,ds\right)e(t)\,dt}
+ {\displaystyle r^c\exp\!\left(\int_0^rq(s)\,ds\right)}.
+\end{equation}
+Indeed, multiply by the integrating factor and integrate from a positive
+lower endpoint, then let it tend to zero. Boundedness and \(c>0\)
+annihilate the lower boundary term.
+In particular, a strictly positive (respectively negative) forcing
+throughout \(0<r<1\) makes \(y\) strictly positive (respectively negative).
+
+\begin{lemma}[Common quadratic lower barrier]\label{barrier}
+Let \(a,b_1,b_2>0\), allowing \(b_1=b_2\), and suppose that
+\(b_1b_2\le a(a+1)\). Put
+\[
+ c_i=a+b_i,\qquad A_i=\frac{ab_i}{c_i},\qquad
+ k=\frac{a^2}{c_1c_2}.
+\]
+Let \(v(0)=1\) and, for \(0<r<1\), let \(v(r)\in(0,1)\) be the
+positive solution of
+\begin{equation}\label{quad}
+ 1-v=\frac{kr}{1-r}v^2.
+\end{equation}
+Then \(f_{b_i}(r)>v(r)\) for \(i=1,2\) and every \(0<r<1\).
+\end{lemma}
+\begin{proof}
+The explicit expression
+\[
+ v(r)=\frac{2}{1+\sqrt{1+4kr/(1-r)}}
+\]
+shows regularity at zero and positivity. Differentiating \eqref{quad}
+gives
+\[
+ rv'=-\frac{(1-v)v}{(1-r)(2-v)}.
+\]
+Introduce
+\[
+ \lambda=\frac{b_1b_2-a^2}{a},\qquad
+ T(r)=\frac{v}{(1-r)(2-v)}.
+\]
+For either \(i\), with \(j\ne i\), direct simplification gives
+\[
+ c_i-\frac{A_i}{k}
+ =a+b_i-\frac{b_i(a+b_j)}a=-\lambda .
+\]
+Hence the residual of \(v\) in \eqref{riccati} is
+\begin{equation}\label{residual}
+ E(r):=c_i(1-v)-\frac{A_i r}{1-r}v^2-rv'
+ =(1-v)\bigl(T(r)-\lambda\bigr).
+\end{equation}
+We claim that \(E(r)>0\).
+If \(b_1b_2\le a^2\), then \(\lambda\le0\) and the claim follows
+from \(T>0\).
+Otherwise \(a^2<b_1b_2\le a(a+1)\), so \(0<\lambda\le1\) and
+\[
+ c_1c_2=(a+b_1)(a+b_2)
+ \ge (a+\sqrt{b_1b_2})^2>4a^2.
+\]
+Thus \(0<k<1/4\). Eliminating \(r\) using \eqref{quad} now gives
+\begin{equation}\label{Tsign}
+ T(r)-1
+ =\frac{(1-v)(1-2kv)}{kv(2-v)}>0.
+\end{equation}
+It follows that \(T(r)>1\ge\lambda\), even at the threshold
+\(b_1b_2=a(a+1)\), proving the claim.
+
+Set \(D_i=f_{b_i}-v\). Subtracting the equation for \(v\) with
+residual \eqref{residual} from \eqref{riccati} gives
+\[
+ rD_i'+
+ \left[c_i+\frac{A_i r}{1-r}(f_{b_i}+v)\right]D_i=E(r).
+\]
+Here \(D_i\) is bounded at zero and \(E(r)=O(r)\).
+Formula \eqref{factor}, with \(E>0\), proves \(D_i>0\).
+\end{proof}
+
+\begin{proof}[Proof of Theorem \ref{main}]
+\emph{Strict parameter derivative.}
+Suppose \(b^2\le a(a+1)\), and use Lemma \ref{barrier}
+with \(b_1=b_2=b\), so \(k=a^2/c^2\).
+Differentiating \eqref{riccati} with respect to \(b\), and using
+\(\partial_b c=1\) and \(\partial_b A=a^2/c^2=k\), yields,
+for \(h=\partial_b f_b\),
+\[
+ rh'+\left[c+\frac{2Ar}{1-r}f_b\right]h
+ =(1-f_b)-\frac{kr}{1-r}f_b^2 .
+\]
+The expression \(y\mapsto 1-y-kr y^2/(1-r)\) is strictly
+decreasing for \(y>0\), and vanishes at \(v\).
+Since \(f_b>v\), the forcing is strictly negative.
+The function \(h\) is bounded at zero, and the forcing is \(O(r)\).
+Equation \eqref{factor} proves \(h<0\) throughout \((0,1)\).
+
+\emph{Strict comparison of two parameters.}
+Now suppose \(b_1<b_2\) and \(b_1b_2\le a(a+1)\).
+Write \(\Delta=b_2-b_1>0\), \(f_i=f_{b_i}\), and
+\(W=f_1-f_2\). We have \(c_2-c_1=\Delta\) and
+\(A_2-A_1=k\Delta\). Subtracting the two Riccati equations gives
+\[
+ rW'+\left[c_1+\frac{A_1r}{1-r}(f_1+f_2)\right]W
+ =\Delta\left[\frac{kr}{1-r}f_2^2-(1-f_2)\right].
+\]
+Lemma \ref{barrier} gives \(f_2>v\), so the forcing is strictly
+positive. Formula \eqref{factor} proves \(W>0\).
+
+\emph{Necessity.}
+The first terms of the defining series give
+\[
+ f_b(r)=1-\frac{ab}{(a+b)(a+b+1)}r+O(r^2).
+\]
+Parameter differentiation therefore gives
+\[
+ \partial_b f_b(r)=
+ \frac{a[b^2-a(a+1)]}{(a+b)^2(a+b+1)^2}r+O(r^2).
+\]
+If \(b^2>a(a+1)\), this is positive for sufficiently small positive
+\(r\), proving necessity in \eqref{derivativecriterion}.
+Similarly,
+\[
+ f_{b_1}(r)-f_{b_2}(r)
+ =\frac{a(b_2-b_1)[a(a+1)-b_1b_2]}
+ {c_1(c_1+1)c_2(c_2+1)}r+O(r^2).
+\]
+If \(b_1b_2>a(a+1)\), this is negative for sufficiently small
+positive \(r\), proving necessity in \eqref{paircriterion}.
+These local obstructions are also recorded in \cite{Q}.
+
+Finally, for \(0<a<1\), both \(b_1=1-a\) and \(b_2=3/2-a\)
+are positive with \(b_1<b_2\), and
+\[
+ a(a+1)-(1-a)(3/2-a)=\frac{7a-3}{2}.
+\]
+Equation \eqref{paircriterion} gives precisely the interval
+\([3/7,1)\).
+\end{proof}
+
+\paragraph{Scope and status.}
+This proves both assertions in the original source's corrected
+Conjecture 6.2. It also proves the more general pairwise criterion
+\eqref{paircriterion}, with no separate campaign credit.
+The uncorrected conjecture, MathDB 364529, was excluded because the
+source already disproves it.
+Current MathDB and public-claim checks for 364530 are archived with
+the proof. The bounded literature audit located no matching full claim.
+
+\paragraph{Task 2: Classify crossings outside the sharp region.}
+For \(b_1b_2>a(a+1)\), determine the number of zeros of
+\(f_{b_1}(r)-f_{b_2}(r)\) in \(0<r<1\), and characterize their
+dependence on the parameters.
+
+\paragraph{Task 3: Determine the minimum with respect to the parameter.}
+For fixed \(a>0\) and \(0<r<1\), determine whether \(b\mapsto f_b(r)\)
+has a unique minimum, and obtain sharp bounds and endpoint
+asymptotics for its location.
+
+\paragraph{Task 4: Determine optimal uniform comparison bounds.}
+For fixed \(a,b_1,b_2>0\) with \(b_1<b_2\), determine
+\(\inf_{0<r<1}f_{b_1}(r)/f_{b_2}(r)\), especially outside
+the region \(b_1b_2\le a(a+1)\), where the lower bound \(1\) fails.
+
+\paragraph{Task 5: Extend the sharp range to a shifted balance parameter.}
+For fixed \(\delta>0\), classify the parameter-derivative and
+pairwise comparison ranges for
+\[
+ \frac{\hyp(a,b;a+b+\delta;r)}{\hyp(a,b;a+b;r)},
+ \qquad 0<r<1,
+\]
+and determine which values of \(\delta\) admit a scalar comparison
+equation analogous to \eqref{riccati}.
+
+\begin{thebibliography}{9}
+\bibitem{Q}
+S.-L.~Qiu, X.-Y.~Ma and X.-Y.~Xiang,
+\emph{Tur\'an-Type Inequalities for Gaussian Hypergeometric Functions,
+and Baricz's Conjecture},
+\href{https://arxiv.org/abs/2408.15723}{arXiv:2408.15723v1},
+28 August 2024.
+\end{thebibliography}
+\end{document}

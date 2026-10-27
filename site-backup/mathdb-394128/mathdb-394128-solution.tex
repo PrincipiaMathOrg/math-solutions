@@ -1,0 +1,242 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[colorlinks=true,urlcolor=blue,citecolor=blue]{hyperref}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newcommand{\C}{\mathbb C}
+\newcommand{\N}{\mathbb N}
+\newcommand{\Rea}{\operatorname{Re}}
+\newcommand{\Ima}{\operatorname{Im}}
+\title{A parabolic counterexample to a conjecture on chaotic polynomial shifts}
+\author{Principia Math in Progress}
+\date{12 September 2026}
+\begin{document}
+\maketitle
+\begin{abstract}
+For every \(1<p<\infty\), the polynomial
+\(P(x)_j=x_{j+1}+x_{j+1}^2\) on complex \(\ell^p\) is topologically
+mixing and has dense periodic points. Its scalar polynomial has derivative
+one at zero. This disproves the proposed necessity of a repelling fixed
+point in MathDB 394128. The proof uses an explicit inverse branch and an
+elementary five-step covering argument.
+\end{abstract}
+
+\paragraph{Task 1. Resolve the proposed characterization.}
+The conjecture on printed page 2241 of \cite{owr} asks whether, for a complex
+polynomial \(q\) of degree greater than one with \(q(0)=0\), the map
+\[
+ P:\ell^p\longrightarrow\ell^p,\qquad
+ P(x)_j=q(x_{j+1}),
+\]
+is Devaney chaotic exactly when zero is a repelling fixed point of \(q\).
+Here \(1\le p<\infty\), and the source defines Devaney chaos as topological
+transitivity together with density of periodic points.
+
+\begin{theorem}\label{thm:main}
+Let \(q(z)=z+z^2\). For each \(1<p<\infty\), the associated map \(P\)
+on complex \(\ell^p\) is a continuous polynomial, is topologically mixing,
+has dense periodic points, and has sensitive dependence on initial
+conditions. Nevertheless \(q'(0)=1\), so zero is not repelling.
+In particular \(p=2\) gives a counterexample to the conjecture.
+\end{theorem}
+
+Throughout, superscripts on \(q\) and on the inverse branch below denote
+iteration, and \(H=\{z\in\C:\Rea z>0\}\).
+
+\begin{lemma}\label{lem:cover}
+For \(q(z)=z+z^2\), one has \(q^5(H)=\C\).
+\end{lemma}
+\begin{proof}
+First,
+\begin{equation}\label{eq:parabola}
+q(H)=\{s+it:s+t^2>0\}.
+\end{equation}
+Indeed write a square root of \(w+1/4\) as \(A+iB\), choosing \(A\ge0\).
+The two preimages of \(w\) are \(-1/2\pm(A+iB)\). Moreover,
+\[
+ \Rea w+(\Ima w)^2=(A^2-1/4)(1+4B^2).
+\]
+Thus a preimage belongs to \(H\) precisely when \(A>1/2\), proving
+\eqref{eq:parabola}.
+
+If \(w\notin q^2(H)\), neither of its preimages belongs to \(q(H)\).
+Applying \eqref{eq:parabola} to these preimages gives
+\(A+B^2\le1/2\). Consequently \(0\le A\le1/2\) and
+\[
+ |w+1/4|=A^2+B^2\le A^2-A+1/2\le1/2,
+ \qquad |w|\le3/4.
+\]
+We have proved
+\begin{equation}\label{eq:outside}
+ \{w:|w|>3/4\}\subset q^2(H).
+\end{equation}
+
+Put
+\[
+ v=\frac{-1+i}{2},\qquad
+ c=\frac{-1-\sqrt{-1+2i}}2,
+\]
+using the principal square root. Then \(q(c)=v\), \(q(v)=-1/2\), and
+\[
+ \Rea\sqrt{-1+2i}
+ =\sqrt{\frac{\sqrt5-1}{2}}>1/2.
+\]
+Hence \(\Rea c<-3/4\), while \((q^3)'(c)=0\).
+For every \(w\in\C\), some root \(u\) of \(q^3(z)-w\) must therefore
+satisfy \(|u|>3/4\). To justify this last assertion directly, if all
+roots \(r_1,\ldots,r_8\), counted with multiplicity, lay in the closed
+disk of radius \(3/4\), the logarithmic derivative at \(c\) would give
+\[
+ 0=\frac{c(q^3)'(c)}{q^3(c)-w}
+   =\sum_{\nu=1}^8\frac1{1-r_\nu/c}.
+\]
+The denominator on the left is nonzero under that assumption.
+Every summand on the right has positive real part, since \(|r_\nu/c|<1\);
+this is a contradiction. By \eqref{eq:outside}, the resulting root
+has the form \(u=q^2(h)\), \(h\in H\), and then \(q^5(h)=w\).
+\end{proof}
+
+\begin{lemma}\label{lem:inverse}
+The map
+\[
+ g(z)=\frac{-1+\sqrt{1+4z}}2
+     =\frac{2z}{1+\sqrt{1+4z}},\qquad z\in H,
+\]
+with the principal square root, maps \(H\) into itself and satisfies
+\(q\circ g=\operatorname{id}_H\). For \(h\in H\) and \(k\ge1\),
+\begin{equation}\label{eq:decay}
+ |g^k(h)|\le\frac{(1+|h|)^2}{k}.
+\end{equation}
+\end{lemma}
+\begin{proof}
+For \(z\in H\), the real part of \(\sqrt{1+4z}\) is greater than one:
+its square is
+\((|1+4z|+\Rea(1+4z))/2>1\).
+Thus \(g(z)\in H\), and direct substitution proves the inverse identity.
+Set \(a_k=g^k(h)\) and \(M=|h|\). Since
+\(a_k=a_{k+1}(1+a_{k+1})\), the moduli \(|a_k|\) decrease and are at
+most \(M\). Also
+\[
+ \frac1{a_{k+1}}-\frac1{a_k}=\frac1{1+a_{k+1}},\qquad
+ \Rea\frac1{1+a_{k+1}}
+ =\frac{1+\Rea a_{k+1}}{|1+a_{k+1}|^2}
+ \ge\frac1{(1+M)^2}.
+\]
+Summing gives
+\(\Rea(1/a_k)\ge \Rea(1/h)+k/(1+M)^2>k/(1+M)^2\).
+Since \(|1/a_k|\ge\Rea(1/a_k)\), this proves \eqref{eq:decay}.
+\end{proof}
+
+\begin{proof}[Proof of Theorem \ref{thm:main}]
+The coordinatewise product is a continuous bilinear map on \(\ell^p\),
+because
+\[
+ \|(x_jy_j)_j\|_p\le\|x\|_\infty\|y\|_p
+                    \le\|x\|_p\|y\|_p.
+\]
+Composing its associated quadratic polynomial with the bounded backward
+shift, and adding that shift, gives precisely \(P\). Thus \(P\) is a
+continuous polynomial of degree two and is defined on all of \(\ell^p\).
+Induction yields
+\begin{equation}\label{eq:iterate}
+ (P^N x)_j=q^N(x_{j+N}).
+\end{equation}
+
+For mixing, let \(U,V\) be nonempty open sets and choose finitely
+supported \(a\in U\), \(b\in V\). Take \(K\) containing both supports.
+For each \(j\) with \(b_j\ne0\), Lemma \ref{lem:cover} supplies \(h_j\in H\)
+with \(q^5(h_j)=b_j\); put \(C_j=(1+|h_j|)^2\).
+For every integer \(N>K\), \(N\ge6\), set
+\[
+ x^{(N)}=a+\sum_{\{j:b_j\ne0\}}g^{N-5}(h_j)e_{N+j}.
+\]
+The appended coordinates are disjoint from the support of \(a\).
+The inverse identity and \eqref{eq:iterate} give
+\(P^N(x^{(N)})=b\), and
+\[
+ \|x^{(N)}-a\|_p
+ \le \frac{\bigl(\sum_{\{j:b_j\ne0\}}C_j^p\bigr)^{1/p}}{N-5}
+ \longrightarrow0.
+\]
+Thus \(P^N(U)\cap V\ne\varnothing\) for every sufficiently large \(N\).
+This proves mixing, in fact for every \(1\le p<\infty\).
+If hypercyclicity is used in the definition, it follows as well:
+for a countable base \((V_m)\), each
+\(\bigcup_{n\ge0}P^{-n}(V_m)\) is open and dense, so the Baire theorem
+provides a point whose orbit meets every \(V_m\).
+
+For density of periodic points, let \(a\) be supported in
+\(\{1,\ldots,K\}\). For each nonzero \(a_j\), choose \(h_j\in H\) with
+\(q^5(h_j)=a_j\), and again let \(C_j=(1+|h_j|)^2\).
+Given an integer \(N>K\), \(N\ge10\), define
+\[
+ y_j=a_j\quad(1\le j\le K),\qquad
+ y_{j+kN}=g^{kN-5}(h_j)
+       \quad(a_j\ne0,\ k\ge1),
+\]
+and set every remaining coordinate to zero. Residue classes modulo \(N\)
+do not overlap. As \(kN-5\ge kN/2\),
+\begin{equation}\label{eq:tail}
+ \|y-a\|_p^p
+ \le \sum_{\{j:a_j\ne0\}}\sum_{k=1}^\infty
+                    \frac{C_j^p}{(kN-5)^p}
+ \le \left(\frac2N\right)^p
+       \left(\sum_{k=1}^\infty k^{-p}\right)
+       \sum_{\{j:a_j\ne0\}}C_j^p.
+\end{equation}
+For \(p>1\) this is finite and tends to zero as \(N\to\infty\).
+The first block satisfies \(q^N(y_{j+N})=q^5(h_j)=a_j\).
+In every subsequent nonzero residue class,
+\[
+ q^N\bigl(g^{(k+1)N-5}(h_j)\bigr)=g^{kN-5}(h_j)\quad(k\ge1).
+\]
+Zero residue classes remain zero, so \eqref{eq:iterate} proves \(P^N y=y\).
+Finitely supported vectors are dense; hence periodic points are dense.
+
+For completeness, sensitivity has the uniform constant one. Given
+\(x\in\ell^p\) and \(\varepsilon>0\), choose \(0<b<\varepsilon/4\).
+The positive real iterates \(q^n(b)\) tend to infinity: they increase,
+and a finite limit would be a positive fixed point of \(q\), which
+does not exist. Choose \(j\) so large that \(|x_j|<\varepsilon/4\) and
+\(q^{j-1}(b)>2\). Replacing coordinate \(j\) of \(x\) by zero or by \(b\)
+gives two points within distance \(\varepsilon\) of \(x\).
+After \(j-1\) iterates their first coordinates differ by more than two.
+The triangle inequality puts at least one more than distance one from
+\(P^{j-1}x\). Finally \(q'(0)=1\), completing the counterexample.
+\end{proof}
+
+The summability step \eqref{eq:tail} requires \(p>1\). No assertion about
+dense periodic points on \(\ell^1\) is made here. The original equivalence
+is already false on \(\ell^2\).
+
+\paragraph{Task 2. Determine the parabolic summability threshold.}
+For \(q_m(z)=z+z^{m+1}\), \(m\ge1\), determine exactly which exponents
+\(1\le p<\infty\) give dense periodic points for the associated shift.
+Relate the threshold to the decay of inverse iterates near zero,
+including the borderline exponent.
+
+\paragraph{Task 3. Analyze irrationally indifferent fixed points.}
+For polynomials with \(q(0)=0\) and \(q'(0)=e^{2\pi i\alpha}\),
+\(\alpha\) irrational, determine which local behaviors at zero allow
+Devaney chaos on \(\ell^p\). Treat the Siegel and Cremer cases separately.
+
+\paragraph{Task 4. Investigate stronger recurrence.}
+Determine whether the shift in Theorem \ref{thm:main} is frequently
+hypercyclic and whether it admits a fully supported invariant Borel
+probability measure that is mixing.
+
+\paragraph{Task 5. Extend the construction to weighted spaces.}
+Find necessary and sufficient weight conditions for this parabolic
+polynomial shift to be well defined, mixing, and Devaney chaotic on
+weighted \(\ell^p\) and K\"othe echelon spaces.
+
+\begin{thebibliography}{9}
+\bibitem{owr}
+F. Mart\'inez-Gim\'enez (joint work with A. Peris),
+Hypercyclic and chaotic polynomials on Fr\'echet spaces,
+in \emph{Mini-Workshop: Hypercyclicity and Linear Chaos},
+Oberwolfach Report 37/2006, pp.~2238--2241.
+\href{https://ems.press/journals/owr/articles/1323}{Publisher report}.
+\end{thebibliography}
+\end{document}

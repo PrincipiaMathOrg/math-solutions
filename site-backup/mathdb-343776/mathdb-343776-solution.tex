@@ -1,0 +1,107 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,hyperref}
+\newtheorem{theorem}{Theorem}
+\newcommand{\D}{\mathbb D}
+\title{Convexity of Hadamard products in the class $\Omega$}
+\author{Principia Math in Progress}
+\date{12 September 2026}
+\begin{document}
+\maketitle
+\section*{Task 1. Resolve MathDB 343776}
+Write $\D=\{z\in\mathbb C:|z|<1\}$ and let $\mathcal A$ consist of analytic
+functions $f(z)=z+\sum_{n=2}^{\infty}a_nz^n$ on $\D$. Define
+\[
+ \Omega=\{f\in\mathcal A:|zf'(z)-f(z)|<1/2\text{ for every }z\in\D\}.
+\]
+The unnumbered conjecture on page 19 of \cite{WS}, retained as the open
+Problem on published page 1424, asks whether $f_1*f_2$ is convex for every
+$f_1,f_2\in\Omega$. Here $*$ denotes coefficientwise multiplication.
+
+\begin{theorem}
+If $f_1(z)=z+\sum_{n\ge2}a_nz^n$ and
+$f_2(z)=z+\sum_{n\ge2}b_nz^n$ belong to $\Omega$, then
+\begin{equation}\label{bound}
+ \sum_{n=2}^{\infty}n^2|a_nb_n|\le1.
+\end{equation}
+Their Hadamard product is univalent and maps $\D$ onto a convex domain.
+\end{theorem}
+\begin{proof}
+For $0<\rho<1$, Parseval's identity applied to $zf_1'(z)-f_1(z)$ gives
+\[
+ \sum_{n=2}^{\infty}(n-1)^2|a_n|^2\rho^{2n}
+ =\frac1{2\pi}\int_0^{2\pi}
+   |\rho e^{it}f_1'(\rho e^{it})-f_1(\rho e^{it})|^2\,dt
+ \le\frac14.
+\]
+Monotone convergence as $\rho\uparrow1$ therefore gives
+\[
+ E_a:=\sum_{n\ge2}(n-1)^2|a_n|^2\le\frac14,
+ \qquad E_b:=\sum_{n\ge2}(n-1)^2|b_n|^2\le\frac14.
+\]
+Since $n^2\le4(n-1)^2$ for every integer $n\ge2$, Cauchy--Schwarz implies
+\[
+ \sum_{n\ge2}n^2|a_nb_n|
+ \le4\sum_{n\ge2}(n-1)^2|a_n||b_n|
+ \le4\sqrt{E_aE_b}\le1.
+\]
+In particular $h(z):=z+\sum_{n\ge2}a_nb_nz^n$ is analytic on $\D$.
+To check convexity directly, put $c_n=a_nb_n$ and, for $0<r<1$, define
+\[
+ A(r)=\sum_{n\ge2}n|c_n|r^{n-1},\qquad
+ B(r)=\sum_{n\ge2}n(n-1)|c_n|r^{n-1}.
+\]
+Equation \eqref{bound} yields
+\[
+ A(r)+B(r)=\sum_{n\ge2}n^2|c_n|r^{n-1}\le r<1.
+\]
+For $|z|=r$ we consequently have
+\[
+ |h'(z)|\ge1-A(r)>0,\qquad
+ |zh''(z)|\le B(r)<1-A(r)\le|h'(z)|.
+\]
+It follows that $\operatorname{Re}(1+zh''(z)/h'(z))>0$ throughout $\D$;
+the value at zero is $1$. The standard analytic characterization of convex
+functions now proves the assertion. This characterization is also the
+definition of $\mathcal C$ used on published page 1410 of \cite{WS}.
+\end{proof}
+
+\paragraph{Sharpness and scope.}
+The pair $f_1=f_2=z+z^2/2$ belongs to $\Omega$ and gives
+$h=z+z^2/4$, attaining equality in \eqref{bound}. Moreover
+\[
+ 1+\frac{zh''(z)}{h'(z)}=\frac{1+z}{1+z/2},
+ \qquad \lim_{r\uparrow1}\frac{1-r}{1-r/2}=0.
+\]
+Thus a positive uniform order of convexity cannot be asserted for all such
+products. The argument allows arbitrary complex coefficients and does not
+assume a coefficientwise sufficient condition on either factor.
+
+\paragraph{Task 2. Quantify stability near equality.}
+Derive explicit bounds on the weighted square sums of the higher
+coefficients when the left side of \eqref{bound} exceeds $1-\varepsilon$,
+and determine the optimal dependence on $\varepsilon$.
+
+\paragraph{Task 3. Determine the optimal order for unequal bounds.}
+For $\Omega_\alpha=\{f\in\mathcal A:|zf'-f|<\alpha\}$, determine the best
+uniform order of convexity of $f*g$ with $f\in\Omega_\alpha$ and
+$g\in\Omega_\beta$, including the extremal pairs in the convex range.
+
+\paragraph{Task 4. Characterize convolution multipliers.}
+Characterize all normalized analytic functions $g$ for which
+$f*g$ is convex for every $f\in\Omega$, and compare this class with $\Omega$.
+
+\paragraph{Task 5. Determine stronger geometric radii.}
+Find the sharp radius on which every product of two members of $\Omega$
+is uniformly convex, and extend the question to products of three or more
+members.
+
+\begin{thebibliography}{9}
+\bibitem{WS} A. Swaminathan and L. A. Wani,
+\emph{Sufficient Conditions and Radius Problems for a Starlike Class
+Involving a Differential Inequality}, Bull. Korean Math. Soc.
+57 (2020), 1409--1426.
+\href{https://doi.org/10.4134/BKMS.b191074}{doi:10.4134/BKMS.b191074}.
+Preprint \href{https://arxiv.org/abs/1909.04471}{arXiv:1909.04471}.
+\end{thebibliography}
+\end{document}

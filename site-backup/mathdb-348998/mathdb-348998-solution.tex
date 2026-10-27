@@ -1,0 +1,276 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=25mm]{geometry}
+\usepackage{amsmath,amssymb,amsthm,hyperref}
+\hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue,citecolor=blue}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newcommand{\EE}{\mathbb E}
+\newcommand{\PP}{\mathbb P}
+\title{The two hyperbolic bounds for the Kilbas--Saigo function\\
+\large MathDB 348998: proof throughout the conjectured parameter range}
+\author{Principia Math In Progress}
+\date{17 September 2026}
+\begin{document}
+\maketitle
+
+\section*{Task 1: the full conjecture}
+For $\alpha,m>0$ and $l>-1/\alpha$, write
+\begin{equation}\label{definition}
+ E_{\alpha,m,l}(z)=1+\sum_{n=1}^\infty
+ \left(\prod_{k=1}^n
+ \frac{\Gamma(1+\alpha((k-1)m+l))}
+      {\Gamma(1+\alpha((k-1)m+l+1))}\right)z^n.
+\end{equation}
+
+\begin{theorem}\label{main}
+Let $0<\alpha\leq1$, $m>0$, and $l>m-1/\alpha$. Define
+\[
+ c_- =\frac{\Gamma(1+\alpha(l-m))}
+                 {\Gamma(1+\alpha(l-m+1))},
+ \qquad
+ c_+ =\frac{\Gamma(1+\alpha l)}
+                 {\Gamma(1+\alpha(1+l))}.
+\]
+Then, for every $x\geq0$,
+\begin{equation}\label{bounds}
+ \boxed{\displaystyle
+ \frac1{1+c_-x}\ \leq\ E_{\alpha,m,l}(-x)\ \leq\ \frac1{1+c_+x}.}
+\end{equation}
+Both inequalities are strict when $x>0$, and both are equalities at
+$x=0$. The two constants are optimal within bounds of these forms.
+\end{theorem}
+
+This is Conjecture 4 in the published paper \cite{BS}, numbered
+Conjecture 4.5 in its arXiv version. We prove both bounds with exactly
+the printed hypotheses. The proof uses classical facts about
+subordinators and their exponential functionals, credited to
+\cite{BY}; the needed moment and comparison arguments are given below.
+
+\subsection*{A positive gamma-ratio exponent}
+Set
+\begin{equation}\label{parameters}
+ b=1+\alpha(l-m)>0,\qquad d=\alpha m>0,\qquad
+ \phi(s)=\frac{\Gamma(b+ds+\alpha)}{\Gamma(b+ds)},\quad s\geq0.
+\end{equation}
+Thus $c_-=1/\phi(0)$ and $c_+=1/\phi(1)$.
+For $0<\alpha<1$ the beta integral and integration by parts give
+\begin{equation}\label{bernstein}
+ \phi(s)=q+\frac{\alpha}{\Gamma(1-\alpha)}
+ \int_0^\infty (1-e^{-dst})
+       \frac{e^{-(b+\alpha)t}}{(1-e^{-t})^{1+\alpha}}\,dt,
+ \qquad q=\phi(0)>0.
+\end{equation}
+Here is a direct derivation. For $v>0$,
+\[
+ \frac{\Gamma(v+\alpha)}{\Gamma(v)}
+ =\frac{v}{\Gamma(1-\alpha)}
+       \int_0^\infty e^{-vt}(e^t-1)^{-\alpha}\,dt
+ =\frac{\alpha}{\Gamma(1-\alpha)}
+       \int_0^\infty(1-e^{-vt})
+       \frac{e^{-\alpha t}}{(1-e^{-t})^{1+\alpha}}\,dt.
+\]
+For the integration by parts, the boundary product
+$(1-e^{-vt})(e^t-1)^{-\alpha}$ tends to zero at both ends:
+it is $O(t^{1-\alpha})$ at zero and decays at infinity.
+Subtract the last identity at $v=b$ from that at $v=b+ds$ to obtain
+\eqref{bernstein}. All integrals so subtracted are finite.
+
+The measure in \eqref{bernstein} has density of order
+$t^{-1-\alpha}$ at zero and exponential decay at infinity.
+After replacing the jump size $t$ by $dt$, it satisfies the
+subordinator integrability condition $\int(1\wedge y)\,\nu(dy)<\infty$.
+Consequently there exists a nondecreasing L\'evy process $S$, starting
+at zero, such that
+\begin{equation}\label{laplace}
+ \EE e^{-sS_t}=e^{-t(\phi(s)-q)},\qquad s,t\geq0.
+\end{equation}
+This is the standard subordinator construction from its positive
+jump measure; it also follows by truncating the small jumps of a
+Poisson random measure and taking the increasing limit.
+When $\alpha=1$, the same conclusion holds with
+$\phi(s)=b+ds$, $q=b$, and the deterministic process $S_t=dt$.
+Thus the endpoint $\alpha=1$ is covered separately and exactly.
+
+\subsection*{Identifying the exponential functional}
+Let $\zeta$ be independent of $S$, with exponential distribution of
+rate $q$, and define
+\[
+ I=\int_0^\zeta e^{-S_t}\,dt.
+\]
+In particular $0<I\leq\zeta$ almost surely. For each integer $n\geq1$,
+Tonelli's theorem and independent increments yield the classical
+moment formula
+\begin{equation}\label{moments}
+ \EE I^n=\frac{n!}{\prod_{k=1}^n\phi(k)}.
+\end{equation}
+For completeness, expand the $n$th power as $n!$ times the integral
+over $0<t_1<\cdots<t_n<\zeta$. Put $t_0=0$ and
+$u_j=t_j-t_{j-1}$. The expectation of the integrand, including the
+survival probability $e^{-qt_n}$, is
+\[
+ \exp\left(-\sum_{j=1}^n u_j\phi(n-j+1)\right).
+\]
+Integration over all positive $u_j$ proves \eqref{moments}. This is
+also \cite[Theorem 2(i)]{BY}.
+
+The function $\phi(s)$ increases to infinity. For $\alpha<1$ this
+follows by monotone convergence in \eqref{bernstein}, since the
+jump measure has infinite total mass; for $\alpha=1$ it is immediate.
+Hence $\sum_{n\geq0}r^n/\prod_{k=1}^n\phi(k)$ converges for every
+$r\geq0$ by the ratio test. Applying Tonelli to the exponential
+series and then dominated convergence for complex arguments proves
+\begin{equation}\label{representation}
+ \EE e^{zI}=\sum_{n=0}^\infty\frac{z^n}{\prod_{k=1}^n\phi(k)}
+            =E_{\alpha,m,l}(z),\qquad z\in\mathbb C.
+\end{equation}
+The last equality uses $b+dk=1+\alpha((k-1)m+l)$, so it identifies
+every coefficient in \eqref{definition}, not merely an asymptotic
+expansion. In particular
+\[
+ L(x):=E_{\alpha,m,l}(-x)=\EE e^{-xI},\qquad
+ \mu:=\EE I=\frac1{\phi(1)}.
+\]
+
+\subsection*{The lower bound}
+The pathwise inequality $I\leq\zeta$ gives, for $x\geq0$,
+\begin{equation}\label{lower}
+ L(x)\geq\EE e^{-x\zeta}=\frac{q}{q+x}
+                         =\frac1{1+c_-x}.
+\end{equation}
+
+\subsection*{The upper bound from the remaining lifetime}
+For $y>0$ let
+\[
+ A_t=\int_0^t e^{-S_s}\,ds,\qquad
+ T_y=\inf\{t\geq0:A_t>y\}.
+\]
+The process $A$ is continuous and strictly increasing at finite
+times. On $\{T_y<\infty\}$ one has $A_{T_y}=y$ and $T_y\geq y$.
+Also $\{I>y\}=\{T_y<\zeta\}$ up to null events.
+By the strong Markov property of $S$ and the memorylessness of the
+independent killing time, the integral remaining after $T_y$, on
+this event, has the form
+\[
+ I-y=e^{-S_{T_y}}I',
+\]
+where the future functional $I'$ has the same law as $I$ and is
+independent of the past under the surviving conditional law.
+Equivalently, without conditional notation,
+\begin{align}
+ \EE(I-y)_+
+   &=\mu\,\EE\!\left[e^{-S_{T_y}-qT_y};\ T_y<\infty\right]
+       \notag\\
+   &\leq\mu\,\EE\!\left[e^{-qT_y};\ T_y<\infty\right]
+    =\mu\,\PP(I>y).\label{residual}
+\end{align}
+The factor $e^{-qT_y}$ explicitly accounts for survival up to the
+stopping time; it must not be omitted.
+
+For $x>0$, integrate \eqref{residual} against $e^{-xy}\,dy$.
+Tonelli applies to the nonnegative integrands. Direct integration
+gives
+\[
+ \int_0^\infty e^{-xy}\EE(I-y)_+\,dy
+       =\frac{\mu}{x}-\frac{1-L(x)}{x^2},\qquad
+ \int_0^\infty e^{-xy}\PP(I>y)\,dy=\frac{1-L(x)}x.
+\]
+It follows that
+\[
+ \mu x-(1-L(x))\leq\mu x(1-L(x)),
+ \qquad\text{and thus}\qquad
+ L(x)\leq\frac1{1+\mu x}=\frac1{1+c_+x}.
+\]
+Together with \eqref{lower} and $L(0)=1$, this proves both conjectured
+inequalities throughout the stated range.
+
+\subsection*{Strictness, sharp constants, and an independent check}
+For every fixed $t>0$, $S_t>0$ almost surely. For $\alpha=1$ this is
+deterministic. For $\alpha<1$ it follows from
+\[
+ \PP(S_t=0)=\lim_{s\to\infty}\EE e^{-sS_t}
+          =\lim_{s\to\infty}e^{-t(\phi(s)-q)}=0.
+\]
+Monotonicity of the paths and a countable set of positive rational
+times give $S_t>0$ simultaneously for all $t>0$, almost surely.
+Therefore $I<\zeta$ almost surely and \eqref{lower} is strict for
+$x>0$. Since $I>0$ almost surely, there is an $\varepsilon>0$ such
+that $\PP(I>\varepsilon)>0$. For every $0<y<\varepsilon$,
+$T_y\geq y$ makes the inequality in \eqref{residual} strict.
+Its integral is then strict, proving the asserted upper strictness.
+
+For the constants, \eqref{definition} gives
+$L(x)=1-c_+x+O(x^2)$ as $x\downarrow0$. A uniform upper bound
+$L(x)\leq(1+cx)^{-1}$ therefore requires $c\leq c_+$.
+The established asymptotic in \cite[Proposition 6]{BS} is
+$L(x)\sim q/x$ as $x\to\infty$. A uniform lower bound
+$(1+cx)^{-1}\leq L(x)$ consequently requires $c\geq1/q=c_-$.
+This credits the source's already proved asymptotic; it is not a
+new asymptotic claim here.
+
+There is also a short independent check of the upper bound.
+The classical factorization \cite[Theorem 2(ii)]{BY} supplies a
+positive $R$, independent of $I$, with $IR$ standard exponential
+and $\EE R=\phi(1)$. Conditional Jensen gives
+\[
+ L(x)\leq\EE\exp\left(-\frac{xIR}{\phi(1)}\right)
+          =\frac1{1+x/\phi(1)}.
+\]
+The preceding remaining-lifetime proof establishes the bound
+without relying on that factorization theorem.
+
+\subsection*{Verification and source scope}
+The verifier passes thirteen exact symbolic identities, including
+parameter reindexing, the kernel integration by parts, the residual
+Laplace calculation, and six beta-law moments at $\alpha=1$.
+Ninety-six finite series diagnostics cover 24 parameter triples
+at 160 and 220 digits. Twenty-four independent integrals check the
+explicit $\alpha=1$ representation
+$I=(1-e^{-d\zeta})/d$, and four quadratures check
+\eqref{bernstein} at 100 digits. All checks pass. Numerical tests
+are supplementary; the proof above applies to every allowed
+parameter and every $x\geq0$.
+
+The complete published source and its arXiv version retain the
+conjecture. Dated bounded claim searches and a literature audit
+accompany this note. Classical probability inputs are explicitly
+credited. The authoring agent performed the audit; no independent
+peer review is claimed.
+
+\newpage
+\section*{Tasks 2--5: proposed follow-up work}
+These are four proposed tasks, not additional solved problems.
+\begin{enumerate}
+ \setcounter{enumi}{1}
+ \item \textbf{Task 2.} Prove the conjectured sharp lower bound with
+ power $1+1/m$ at the boundary $l=m-1/\alpha$, stated as
+ Conjecture 3 in \cite{BS}, for every $m>0$.
+ \item \textbf{Task 3.} Determine which changes of $\alpha,m,l$
+ order the normalized variables $I/\EE I$ in convex order, and
+ derive the corresponding parameter monotonicity of
+ $E_{\alpha,m,l}(-x/\EE I)$.
+ \item \textbf{Task 4.} Construct sharp rational refinements of
+ \eqref{bounds} that match the coefficient of $x^2$ at zero and
+ the leading $q/x$ term at infinity throughout the same range.
+ \item \textbf{Task 5.} Characterize the parameters for which the
+ survival function of $I$ is log-concave, strengthening the
+ remaining-mean inequality \eqref{residual} to an increasing
+ hazard rate.
+\end{enumerate}
+
+\begin{thebibliography}{9}
+\bibitem{BS} L. Boudabsa and T. Simon,
+\emph{Some Properties of the Kilbas--Saigo Function},
+Mathematics \textbf{9}(3), 217 (2021), 24 pp.,
+\href{https://doi.org/10.3390/math9030217}{doi:10.3390/math9030217}.
+Conjecture 4 and Proposition 6, p.~16.
+Preprint: \href{https://arxiv.org/abs/2012.05666}{arXiv:2012.05666},
+Conjecture 4.5 and Proposition 4.3, p.~17.
+\bibitem{BY} J. Bertoin and M. Yor,
+\emph{Exponential functionals of L\'evy processes},
+Probability Surveys \textbf{2} (2005), 191--212,
+\href{https://doi.org/10.1214/154957805100000122}{doi:10.1214/154957805100000122}.
+See \S3.1 and Theorem 2, pp.~193--196.
+Complete journal reprint:
+\href{https://arxiv.org/abs/math/0511265}{arXiv:math/0511265}.
+\end{thebibliography}
+\end{document}

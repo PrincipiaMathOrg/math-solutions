@@ -1,0 +1,316 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=25mm]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage[colorlinks=true,urlcolor=blue,citecolor=blue]{hyperref}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\DeclareMathOperator{\per}{per}
+\DeclareMathOperator{\sgn}{sgn}
+\newcommand{\Fp}{\mathbb F_p}
+\newcommand{\Zp}{\mathbb Z_{(p)}}
+\title{Restricted reciprocal-permutation sums\\
+and hollow Cauchy matrices}
+\author{Principia Math in Progress\\MathDB problem 351647}
+\date{29 September 2026}
+\begin{document}
+\maketitle
+\begin{abstract}
+We prove the two restricted reciprocal-permutation congruences for every
+odd prime and every parameter prime to it, and the quadratic-residue
+derangement congruence. For parameters divisible by the prime, the signed
+formula holds for all primes at least five; at three its exact correction
+is $-a$ modulo nine. Thus the literal conjecture has exactly the two
+exceptional classes $p=3$, $a\equiv3,6\pmod9$. The proof uses a first-order
+deformation of a hollow Cauchy matrix.
+\end{abstract}
+
+\paragraph{Source and scope.}
+The target is Sun's Conjecture 4.4 in \cite{Sun}, page 26, reproduced in
+\href{https://mathdb.com/p/351647}{MathDB 351647}. All congruences between
+rationals are in $\Zp$, the rationals whose reduced denominators are
+prime to $p$. The source allows every integer $a$ in the signed formula.
+We retain that quantifier and identify all exceptions; the result below
+also proves the remaining, unrestricted prime ranges.
+
+\begin{theorem}\label{main}
+Let $p$ be an odd prime, $n=p-1$, and $a\in\mathbb Z$. Define
+\[
+ M_p(a)_{ij}=
+ \begin{cases}(a+ij)^{-1},&p\nmid a+ij,\\0,&p\mid a+ij,\end{cases}
+ \qquad 1\leq i,j\leq n .
+\]
+If $p\nmid a$, then
+\begin{align}
+ \det M_p(a)&\equiv
+ \left(\frac ap\right)\frac{3-a^{p-1}}2\pmod{p^2},\label{detmain}\\
+ \per M_p(a)&\equiv
+ (-1)^{(p+1)/2}\frac{3-a^{p-1}}2\pmod{p^2}.\label{permain}
+\end{align}
+If $p\mid a$, the signed congruence \eqref{detmain} holds when $p\geq5$.
+For $p=3$ and $3\mid a$, instead
+\begin{equation}
+ \det M_3(a)\equiv-a\pmod9.\label{exception}
+\end{equation}
+Finally, if $p\equiv1\pmod4$ and $m=(p-1)/2$, then
+\begin{equation}
+ \sum_{\tau\in D(m)}
+ \prod_{j=1}^m\frac1{j^2-\tau(j)^2}
+ \equiv\big((m/2)!\big)^{-2}\pmod p.\label{quadratic}
+\end{equation}
+Here $D(m)$ is the set of permutations without fixed points.
+\end{theorem}
+
+The determinant and permanent of $M_p(a)$ are exactly the signed and
+unsigned restricted sums: setting a forbidden entry to zero deletes
+precisely the forbidden permutations.
+
+\paragraph{Prior ingredients.}
+Cycle cancellation for reciprocal differences already appears in
+Guo--Li--Tao--Wei \cite[Lemma 3.1]{GLTW}. The resulting
+permanent--determinant identity, and the canonical determinant modulo
+$p^2$, appear in Yang--Zhang \cite[Proposition 12 and Lemma 15]{YZ}.
+We give self-contained proofs and claim no separate problem credit for
+these ingredients. The quadratic-residue calculation is also closely
+related to the root-of-unity evaluations in \cite{GLTW}.
+
+\begin{lemma}\label{cycles}
+For an even integer $N$ and pairwise distinct nodes $x_1,\ldots,x_N$,
+let $C(x)$ have off-diagonal entries $(x_i-x_j)^{-1}$ and diagonal zero.
+As a rational identity,
+\[
+ \per C(x)=(-1)^{N/2}\det C(x).
+\]
+\end{lemma}
+\begin{proof}
+Fix a set of $\ell\geq3$ nodes and distinguish one of them, $z$.
+Every oriented cycle on the set is obtained uniquely by inserting $z$
+in one edge $(u,v)$ of a cycle on the other $\ell-1$ nodes. The factor
+by which the cycle product changes is
+\[
+ \frac{u-v}{(u-z)(z-v)}
+ =\frac1{u-z}-\frac1{v-z}.
+\]
+Summing this over the edges of any fixed contracted cycle gives zero.
+Thus the sum of products over all cycles on a given set of at least
+three nodes is zero. In either permutation expansion, group permutations
+by the sets supporting their cycles. Fixed points contribute zero;
+a block of size at least three cancels. The remaining permutations
+are perfect matchings, all with sign $(-1)^{N/2}$. This proves the identity.
+It remains valid over any field whenever the node differences are units.
+\end{proof}
+
+\begin{lemma}\label{canonical}
+For $C_p=C(1,2,\ldots,p-1)$, one has
+$\det C_p\equiv1\pmod{p^2}$.
+\end{lemma}
+\begin{proof}
+Write $n=p-1$, $P(X)=\prod_{j=1}^n(X-j)$, $w_j=1/P'(j)$,
+$W=\operatorname{diag}(w_j)$, and $X=\operatorname{diag}(1,\ldots,n)$.
+The matrix $D$ that sends the values of a polynomial of degree below
+$n$ to the values of its derivative has, by Lagrange interpolation,
+\[
+ D_{ij}=\frac{w_j}{w_i(i-j)}\quad(i\ne j),\qquad
+ D_{ii}=\sum_{j\ne i}\frac1{i-j}=H_{i-1}-H_{n-i},
+\]
+where $H_0=0$ and $H_r=\sum_{j=1}^r1/j$.
+Set $L=D+X^{-1}$. The matrix $XL=XD+I$ represents
+$f\mapsto xf'+f$, whose eigenvalues on $1,x,\ldots,x^{n-1}$
+are $1,\ldots,n$. Therefore
+\[
+ \det L=\frac{n!}{\det X}=1.
+\]
+Conjugation by $W$ shows that $L$ is similar to
+$C_p+\operatorname{diag}(u_i)$, where
+$u_i=H_i-H_{p-1-i}$. Since
+$H_{p-1}\equiv0\pmod p$ and
+$\sum_{j=p-i}^{p-1}1/j\equiv-H_i\pmod p$, every $u_i$ is in $p\Zp$.
+In expanding $\det(C_p+\operatorname{diag}(u_i))$, each term linear
+in a $u_i$ has an odd-order skew-symmetric principal minor as coefficient,
+so that coefficient is zero. Terms containing at least two $u_i$ lie
+in $p^2\Zp$. Consequently $\det C_p\equiv\det L=1\pmod{p^2}$.
+\end{proof}
+
+\begin{lemma}\label{deformation}
+Let $x_i=i$ for $1\leq i\leq p-1$, and let $y_j=j+\delta_j$,
+where $\delta_j\in p\Zp$. Define $H(x,y)$ to have zero diagonal and
+off-diagonal entries $(x_i-y_j)^{-1}$. Then, with
+$\chi=(-1)^{(p-1)/2}$,
+\begin{align}
+ \det H(x,y)&\equiv1-\frac12\sum_{j=1}^{p-1}\frac{\delta_j}{j}
+                    \pmod{p^2},\label{detdeform}\\
+ \per H(x,y)&\equiv\chi\det H(x,y)\pmod{p^2}.\label{perdeform}
+\end{align}
+\end{lemma}
+\begin{proof}
+Put $F(x,y)=\det H(x,y)$ and $G(x)=F(x,x)=\det C(x)$.
+Since $H(y,x)=-H(x,y)^T$ and $n=p-1$ is even,
+$F(x,y)=F(y,x)$. On the diagonal this gives
+\[
+ F_{y_j}(x,x)=F_{x_j}(x,x)=\tfrac12G_{x_j}(x).
+\]
+We compute the last derivative at $r=(1,\ldots,p-1)$ over $\Fp$.
+The rational function $G$ is symmetric and homogeneous of degree $-n$.
+For $g\in\Fp^\times$, multiplication by $g$ permutes the coordinates
+of $r$. If $\pi_g(j)$ is the index whose residue is $gj$, symmetry and
+homogeneity yield
+\[
+ G_{x_{\pi_g(j)}}(r)=g^{-n-1}G_{x_j}(r),\qquad
+ r_{\pi_g(j)}G_{x_{\pi_g(j)}}(r)
+     =g^{-n}r_jG_{x_j}(r)=r_jG_{x_j}(r).
+\]
+Thus all $r_jG_{x_j}(r)$ have the same value. Euler's identity says their
+sum is $-nG(r)$. Since $n$ is nonzero in $\Fp$, their common value is
+$-G(r)=-1$, by Lemma \ref{canonical}. It follows that
+$F_{y_j}(r,r)=-1/(2j)$ in $\Fp$.
+The constant term is $F(r,r)\equiv1\pmod{p^2}$. Taylor expansion in
+the $\delta_j$ now proves \eqref{detdeform}.
+
+For completeness set $R(x,y)=\per H(x,y)-\chi\det H(x,y)$.
+It too is symmetric in $x,y$, and $R(x,x)=0$ identically by
+Lemma \ref{cycles}. Differentiation gives
+$R_{x_j}(x,x)+R_{y_j}(x,x)=0$, while symmetry makes the two terms equal.
+They therefore both vanish. Its expansion at $(r,r)$ has neither
+constant nor linear terms, proving \eqref{perdeform}.
+All denominators in these expansions are products of off-diagonal
+node differences, which are units modulo $p$; all terms of degree at
+least two are consequently in $p^2\Zp$.
+\end{proof}
+
+\paragraph{Proof of the unit-parameter formulas.}
+Assume $p\nmid a$. Let $\sigma$ be the permutation of $1,\ldots,n$
+satisfying $\sigma(j)\equiv-a/j\pmod p$, and put
+\[
+ y_j=-\frac a{\sigma(j)},\qquad \delta_j=y_j-j,\qquad
+ B=(p-1)!,\qquad A=a^{p-1}.
+\]
+Then $\delta_j\in p\Zp$. For the column-permuted matrix,
+\[
+ M_p(a)_{i,\sigma(j)}=\frac1{\sigma(j)}H(x,y)_{ij}.
+\]
+This equality also holds on the diagonal: both entries are forced to
+zero there. It follows that
+\begin{equation}
+ \det M_p(a)=\frac{\sgn\sigma}{B}\det H(x,y),\qquad
+ \per M_p(a)=\frac1B\per H(x,y).\label{column}
+\end{equation}
+The exact product identity
+\[
+ \prod_{j=1}^n\frac{y_j}{j}=\frac{A}{B^2}
+\]
+implies $\sum_j\delta_j/j\equiv A/B^2-1\pmod{p^2}$, so
+\[
+ \det H(x,y)\equiv\frac{3-A/B^2}{2}\pmod{p^2}.
+\]
+Write $B=-1+pw$ and $A=1+pq$, using Wilson's and Fermat's theorems.
+Then
+\[
+ B^{-1}\frac{3-A/B^2}{2}
+ \equiv(-1-pw)\left(1-pw-\frac{pq}{2}\right)
+ \equiv-1+\frac{pq}{2}
+ =-\frac{3-A}{2}\pmod{p^2}.\label{cancel}
+\]
+To evaluate $\sgn\sigma$, inversion on $\Fp^\times$ fixes $1,-1$
+and has $(p-3)/2$ transpositions, hence sign $-\chi$.
+Multiplication by $b\in\Fp^\times$ has sign $(b/p)$:
+the ratio of Vandermonde products gives its sign modulo $p$ as
+$b^{n(n-1)/2}=(b^{(p-1)/2})^{p-2}=(b/p)$, and the signs
+$1,-1$ are distinct modulo an odd prime.
+Taking $b=-a$ gives
+$\sgn\sigma=(-\chi)(-a/p)=-(a/p)$.
+Substitution in \eqref{column}, together with
+Lemma \ref{deformation}, proves \eqref{detmain} and \eqref{permain}.
+
+\paragraph{Parameters divisible by the prime.}
+If $p\mid a$, every entry is allowed and
+$M_p(a)_{ij}\equiv1/(ij)\pmod p$.
+For each $i>1$, subtract $i^{-1}$ times the first row from row $i$.
+All entries in those $n-1$ rows now lie in $p\Zp$, so
+$\det M_p(a)\in p^{n-1}\Zp$. For $p\geq5$, this is zero modulo $p^2$,
+as is the right side of \eqref{detmain}.
+For $p=3$ and $3\mid a$, direct calculation gives
+\[
+ \det M_3(a)=
+ \frac1{(a+1)(a+4)}-\frac1{(a+2)^2}
+ =\frac{-a}{(a+1)(a+4)(a+2)^2}
+ \equiv-a\pmod9.
+\]
+The denominator is $1$ modulo $3$, and the numerator is divisible by
+$3$, which justifies the last reduction modulo $9$.
+Thus the original zero prediction fails exactly for
+$a\equiv3,6\pmod9$, and succeeds for $a\equiv0\pmod9$.
+
+\paragraph{Proof of the quadratic-residue formula.}
+Work over $\Fp$. Since $p\equiv1\pmod4$, the integer $m=(p-1)/2$
+is even. The nodes $x_j=j^2$, $1\leq j\leq m$, are distinct and are
+precisely the roots of $P(T)=T^m-1$. Let $Q=C(x)$ and
+$X=\operatorname{diag}(x_j)$.
+The same Lagrange differentiation matrix as in Lemma \ref{canonical}
+has diagonal
+\[
+ D_{jj}=\frac{P''(x_j)}{2P'(x_j)}
+       =\frac{m-1}{2x_j}.
+\]
+Writing $c=(m-1)/2$ in $\Fp$, diagonal conjugation therefore makes
+$Q$ similar to $D-cX^{-1}$. On polynomials of degree below $m$,
+$XD$ represents $f\mapsto xf'$, with eigenvalues $0,1,\ldots,m-1$.
+Consequently
+\[
+ \det Q=\frac{\prod_{d=0}^{m-1}(d-c)}{\prod_{j=1}^m x_j}
+ =\frac{(-1)^{m/2}((m-1)!!)^2}{2^m(m!)^2}.
+\]
+By Lemma \ref{cycles} and $m!=2^{m/2}(m/2)!(m-1)!!$, this gives
+\[
+ \per Q=\frac{1}{2^{2m}((m/2)!)^2}
+       =\frac1{((m/2)!)^2}\quad\hbox{in }\Fp,
+\]
+where $2^{2m}=2^{p-1}=1$. The zero diagonal makes $\per Q$ the sum
+in \eqref{quadratic}, completing Theorem \ref{main}.
+\qed
+
+\paragraph{Verification and limits.}
+The accompanying standard-library Python verifier evaluates the original
+matrices using fraction-free integer determinants and subset dynamic
+programming for permanents. It checks every parameter modulo $p^2$
+for $p=3,5,7,11,13$, additional larger-prime determinants, the
+quadratic-residue formula, and arbitrary first-order column deformations.
+Exact rational permutation enumeration supplies a separate small-matrix
+cross-check. These are corroborating computations; the preceding proof
+establishes the infinite ranges. The package has author-agent review,
+not external peer review.
+
+\paragraph{Task 2. A lift modulo $p^3$.}
+Determine the second-order deformation of $H(x,y)$ and the first
+possible correction to \eqref{detmain}--\eqref{permain} modulo $p^3$.
+Express the answer using node displacements and harmonic sums.
+
+\paragraph{Task 3. Changing integer representatives.}
+Replace $1,\ldots,p-1$ by arbitrary integer representatives of
+$\Fp^\times$ in the row and column sets. Determine exactly which
+linear displacement statistics govern the resulting sums modulo $p^2$.
+
+\paragraph{Task 4. Other multiplicative subgroups.}
+For each even divisor $m$ of $p-1$, and a coset of the subgroup of
+order $m$, evaluate the hollow reciprocal-difference permanent.
+Determine which such evaluations lift from $\Fp$ to $\mathbb Z/p^2\mathbb Z$.
+
+\paragraph{Task 5. More than one forbidden residue.}
+Replace the denominator $a+ij$ by a polynomial with two or more
+forbidden residue classes. Identify conditions under which a
+permanent--determinant relation survives to first order.
+
+\begin{thebibliography}{9}
+\bibitem{Sun} Z.-W. Sun, \emph{Arithmetic properties of some permanents},
+\href{https://arxiv.org/abs/2108.07723v7}{arXiv:2108.07723v7} (2022),
+Conjecture 4.4, p.~26.
+\bibitem{GLTW} X. Guo, X. Li, Z. Tao and T. Wei,
+\emph{The eigenvectors-eigenvalues identity and Sun's conjectures on
+determinants and permanents},
+\href{https://arxiv.org/abs/2206.02592}{arXiv:2206.02592} (2022);
+\emph{Linear Multilinear Algebra} \textbf{72} (2024), 1071--1077,
+\href{https://doi.org/10.1080/03081087.2023.2172380}{doi:10.1080/03081087.2023.2172380}.
+The lemma locator above refers to the arXiv version.
+\bibitem{YZ} Y. Yang and Y. Zhang,
+\emph{Sun-type determinant and permanent congruences},
+\href{https://arxiv.org/abs/2605.19502v3}{arXiv:2605.19502v3} (2026).
+\end{thebibliography}
+\end{document}

@@ -1,0 +1,206 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,listings}
+\usepackage[colorlinks=true,urlcolor=blue,linkcolor=blue]{hyperref}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\lstset{language=Python,basicstyle=\ttfamily\small,columns=fullflexible,
+ keepspaces=true,showstringspaces=false,breaklines=true}
+\title{A counterexample to complete monotonicity\\
+in Poisson approximation\\\large MathDB 317893}
+\author{Principia Math In Progress}
+\date{11 September 2026}
+\begin{document}
+\maketitle
+
+\section*{Task 1. Resolve the complete-monotonicity conjecture}
+
+For a probability mass function $p$ of mean $\lambda$, write
+\[
+ D(p)=\sum_{k\geq0}p_k\log
+ \frac{p_k}{e^{-\lambda}\lambda^k/k!}.
+\]
+All logarithms are natural. Yu's Conjecture 1~\cite{Yu} asserts that,
+for every fixed $\lambda>0$, both
+$D(\operatorname{Bin}(n,\lambda/n))$, $n\geq\lambda$, and
+$D(\operatorname{NB}(n,n/(\lambda+n)))$, $n>0$,
+are completely monotonic in $n$. For a sequence $a_n$, this means
+\[
+ (-1)^r\Delta^r a_n
+ =\sum_{j=0}^r(-1)^j\binom rj a_{n+j}\geq0
+ \quad(r\geq0),\qquad \Delta a_n=a_{n+1}-a_n .
+\]
+
+\begin{theorem}
+Let $D_n=D(\operatorname{Bin}(n,1/n))$. Then
+\begin{equation}
+ -\frac{4003}{10^{12}}
+ <\sum_{j=0}^{84}(-1)^j\binom{84}{j}D_{4+j}
+ <-\frac{4002}{10^{12}}<0.
+ \label{eq:counter}
+\end{equation}
+Consequently the binomial assertion, and therefore the stated conjecture,
+is false.
+\end{theorem}
+
+We prove the sign by a finite rational certificate. No floating-point
+evaluation of the alternating sum is used in the proof.
+The negative-binomial assertion is not decided by this counterexample.
+
+\subsection*{An exact expression for the divergence}
+
+Let $K\sim\operatorname{Bin}(n,1/n)$, $n\geq2$, and $Y=n-K$.
+Then
+\[
+ \Pr(Y=y)=\frac{w_{n,y}}{n^n},\qquad
+ w_{n,y}=\binom ny(n-1)^y,\qquad
+ \sum_{y=0}^n w_{n,y}=n^n .
+\]
+Dividing the binomial mass at $k$ by the Poisson mass $e^{-1}/k!$
+and taking its logarithm gives
+\[
+ 1+\log(n!)-\log((n-k)!)-n\log n+(n-k)\log(n-1).
+\]
+Since $\mathbb EY=n-1$, averaging yields
+\begin{equation}
+ D_n=1-n\log n+(n-1)\log(n-1)+\log(n!)
+       -\frac1{n^n}\sum_{y=0}^n w_{n,y}\log(y!).
+ \label{eq:divergence}
+\end{equation}
+Here $\log(0!)=\log(1!)=0$.
+
+\subsection*{Rational bounds for all logarithms}
+
+\begin{lemma}
+For $1\leq x\leq2$, put $t=(x-1)/(x+1)$ and
+\[
+ A(x)=2\sum_{k=0}^{59}\frac{t^{2k+1}}{2k+1},
+ \qquad
+ B(x)=A(x)+\frac{2t^{121}}{121(1-t^2)}.
+\]
+Then $A(x)\leq\log x\leq B(x)$.
+\end{lemma}
+\begin{proof}
+The identity $\log x=2\operatorname{arctanh}t$ and the geometric
+series give
+$\log x=2\sum_{k\geq0}t^{2k+1}/(2k+1)$.
+For $0\leq t\leq1/3$, the omitted terms are nonnegative and their
+sum is at most $2t^{121}/(121(1-t^2))$.
+\end{proof}
+
+Set $S=10^{50}$. For $1\leq m\leq88$, write $m=2^e x$ with
+$e=\lfloor\log_2m\rfloor$ and $1\leq x<2$, and define the integers
+\[
+ \ell_m=\left\lfloor S\bigl(A(x)+eA(2)\bigr)\right\rfloor,\qquad
+ u_m=\left\lceil S\bigl(B(x)+eB(2)\bigr)\right\rceil.
+\]
+The exponent $e$ is found by integer comparisons, without evaluating
+a logarithm. Thus
+\[
+ \ell_m\leq S\log m\leq u_m.
+\]
+Define $F_0=G_0=0$ and
+$F_y=\sum_{m=1}^y\ell_m$, $G_y=\sum_{m=1}^y u_m$.
+Equation~\eqref{eq:divergence} now gives
+\[
+ a_n\leq SD_n\leq b_n \qquad(4\leq n\leq88),
+\]
+where the following floors and ceilings involve rational numbers only:
+\begin{align*}
+ a_n&=\left\lfloor
+ S-nu_n+(n-1)\ell_{n-1}+F_n
+ -\frac1{n^n}\sum_{y=0}^n w_{n,y}G_y
+ \right\rfloor,\\
+ b_n&=\left\lceil
+ S-n\ell_n+(n-1)u_{n-1}+G_n
+ -\frac1{n^n}\sum_{y=0}^n w_{n,y}F_y
+ \right\rceil.
+\end{align*}
+
+\subsection*{The integer sign certificate}
+
+Write $c_j=\binom{84}{j}$ and set
+\[
+ L=\sum_{\substack{0\leq j\leq84\\j\text{ even}}}c_ja_{4+j}
+   -\sum_{\substack{0\leq j\leq84\\j\text{ odd}}}c_jb_{4+j},
+ \quad
+ U=\sum_{\substack{0\leq j\leq84\\j\text{ even}}}c_jb_{4+j}
+   -\sum_{\substack{0\leq j\leq84\\j\text{ odd}}}c_ja_{4+j}.
+\]
+The displayed rational formulas evaluate to
+\begin{align*}
+ L&=-400267559715299775316466341855642397554631,\\
+ U&=-400267559715296274267292737889552448468935.
+\end{align*}
+Therefore
+\[
+ -\frac{4003}{10^{12}}
+ <\frac LS
+ \leq\sum_{j=0}^{84}(-1)^jc_jD_{4+j}
+ \leq\frac US
+ <-\frac{4002}{10^{12}}.
+\]
+The inequalities at the two ends are direct integer comparisons.
+All indices $4,\ldots,88$ are admissible for the fixed mean $\lambda=1$.
+This proves~\eqref{eq:counter}.
+
+For reproducibility, the complete calculation of $L,U$ appears below.
+Python's \texttt{Fraction} class performs exact rational arithmetic;
+all other operations are on integers. The code implements the formulas
+above and requires only the standard library.
+
+\lstinputlisting{certificate_core.py}
+
+\section*{Scope and checks}
+
+The separate verifier \texttt{verify\_counterexample.py} saves every
+logarithm interval and divergence interval in \texttt{certificate.json}.
+It also recomputes the intervals directly from the original KL sum over
+$K$, independently of the expectation formula over $Y$.
+The scaled logarithm intervals have width at most $1$; the scaled
+divergence intervals have width at most $349$. The large cancellation
+in the 84th difference is accounted for by the signed interval sums,
+so it cannot turn a numerical rounding error into the certified sign.
+No minimality of the order $84$ is asserted.
+
+MathDB and the inspected public claim sources were checked on
+11 September 2026. The database remained open with no attached claims,
+and no existing matching solution claim was located. The full dated search
+record is in \texttt{literature-audit.md}. In particular the later
+Lau--Nair--Ng paper~\cite{LNN} explicitly retains the fixed-mean binomial
+conjecture; its convexity result changes a different parameter.
+
+\section*{Tasks 2--5}
+
+\begin{enumerate}
+\setcounter{enumi}{1}
+\item Determine the smallest finite-difference order at which
+complete monotonicity fails for some admissible pair $(n,\lambda)$,
+and certify an example at that order.
+\item Classify the fixed means $\lambda>0$ for which
+$D(\operatorname{Bin}(n,\lambda/n))$ fails complete monotonicity,
+including whether any positive mean gives a completely monotonic sequence.
+\item Determine whether eventual complete monotonicity can hold after
+discarding finitely many terms, and relate this to the asymptotics of
+high-order finite differences.
+\item Prove or refute the remaining negative-binomial assertion
+$D(\operatorname{NB}(n,n/(\lambda+n)))$ for fixed $\lambda>0$.
+\end{enumerate}
+
+\begin{thebibliography}{9}
+\bibitem{Yu}
+Y. Yu, \emph{Monotonic convergence in an information-theoretic law of
+small numbers}, IEEE Transactions on Information Theory
+\textbf{55} (2009), 5412--5422.
+\href{https://arxiv.org/abs/0810.5203}{arXiv:0810.5203v4},
+Conjecture 1, p.~8.
+\bibitem{LNN}
+C.~W. Lau, C. Nair and D. Ng,
+\emph{A mutual information inequality and some applications},
+IEEE Transactions on Information Theory (2023).
+\href{https://doi.org/10.1109/TIT.2023.3285928}
+{doi:10.1109/TIT.2023.3285928}.
+\href{https://davidng-dn.github.io/papers/mutual_information_inequality_journal.pdf}
+{Author's journal manuscript}, p.~10.
+\end{thebibliography}
+\end{document}

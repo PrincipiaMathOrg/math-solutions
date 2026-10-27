@@ -1,0 +1,213 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,booktabs,hyperref}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\title{A finite obstruction to integrality of Schmidt-type coefficients}
+\author{Principia Math In Progress\\\small AI-assisted research note; author review only}
+\date{27 September 2026}
+\begin{document}
+\maketitle
+\begin{abstract}
+We disprove Guo and Zeng's finite integrality conjecture by taking
+$s=2$ and $N=14$. Three explicit modular left-kernel vectors give
+incompatible necessary conditions on every exponent $r\ge6$.
+The three smaller permitted exponents are excluded by exact fractions.
+All finite certificates are specified here and checked by a short
+standard-library Python program supplied with this note.
+\end{abstract}
+
+\section*{Task 1: the source question and its resolution}
+Write
+\[
+ B_{n,k}=\binom nk\binom{n+k}{k},\qquad
+ F_n(r)=\sum_{k=0}^n B_{n,k}^{\,r}.
+\]
+For positive integers $r,s$, the rational coefficients $c_k^{(r,s)}$
+are uniquely determined by
+\begin{equation}\label{eq:def}
+ F_n(r)=\sum_{k=0}^n B_{n,k}^{\,s}c_k^{(r,s)}\quad(n\ge0).
+\end{equation}
+Uniqueness follows from the nonzero diagonal $B_{n,n}^{\,s}$.
+Conjecture 4.1 of the final published paper~\cite{GZ}, also recorded as
+\href{https://mathdb.com/p/323296}{MathDB 323296}, asks whether for every
+$s>1$ and $N\ge0$ some integer $r>s$ makes all $c_0^{(r,s)},\ldots,c_N^{(r,s)}$
+integers.
+
+\begin{theorem}\label{thm:main}
+For every integer $r>2$, at least one of
+$c_0^{(r,2)},\ldots,c_{14}^{(r,2)}$ is not an integer.
+Consequently Conjecture 4.1 is false.
+\end{theorem}
+
+\subsection*{Three necessary congruences}
+For $d\ge0$ put $A_d=(B_{n,k}^2)_{0\le n,k\le d}$, interpreting
+$B_{n,k}=0$ when $k>n$. If an integer row vector $v$ satisfies
+$vA_d\equiv0\pmod m$, then integrality of $c_0^{(r,2)},\ldots,c_d^{(r,2)}$
+implies
+\begin{equation}\label{eq:necessary}
+ \sum_{n=0}^d v_n F_n(r)\equiv0\pmod m.
+\end{equation}
+Indeed this is obtained by multiplying the first $d+1$ identities
+in~\eqref{eq:def} by $v$. Consider the following vectors, with coordinates
+indexed from zero:
+\begin{align*}
+v={}&(54,0,189,84,0,564,414,243,153,333,486,315,80,0,1),\\
+u={}&(171,133,19,190,266,95,76,76,56,0,1),\\
+w={}&(342,247,342,171,266,38,190,75,213,0,281,1).
+\end{align*}
+Their exact modular identities are
+\begin{equation}\label{eq:kernel}
+ vA_{14}\equiv0\pmod{729},\qquad
+ uA_{10}\equiv0\pmod{361},\qquad
+ wA_{11}\equiv0\pmod{361}.
+\end{equation}
+Each identity means simply that, for every column $k$,
+$\sum_{n=k}^d v_n\binom nk^2\binom{n+k}{k}^2$ is divisible by the stated
+modulus, and similarly for $u,w$. There are only 38 column checks.
+The verification code below specifies them without a matrix inversion.
+
+For a vector $z=(z_0,\ldots,z_d)$, prime $p$, and integer $a\ge0$, define
+\[
+ U_{z,p}(a)=\sum_{n=0}^d z_n
+       \sum_{\substack{0\le k\le n\\p\nmid B_{n,k}}}B_{n,k}^{\,a}.
+\]
+If $r\ge6$, all terms with $3\mid B_{n,k}$ vanish modulo $729=3^6$.
+Terms with $19\mid B_{n,k}$ vanish modulo $361=19^2$ already for $r\ge2$.
+Thus~\eqref{eq:kernel} forces, for $r\ge6$,
+\begin{equation}\label{eq:units}
+ U_{v,3}(r)\equiv0\pmod{729},\qquad
+ U_{u,19}(r)\equiv U_{w,19}(r)\equiv0\pmod{361}.
+\end{equation}
+
+\subsection*{The condition at 3}
+For $3\nmid b$, Euler's theorem gives $b^{18}\equiv1\pmod{27}$.
+Define $q_3(b)=(b^{18}-1)/27$ modulo 27. Direct integer arithmetic gives
+\begin{equation}\label{eq:derivative}
+ \sum_{n=0}^{14}v_n
+ \sum_{\substack{0\le k\le n\\3\nmid B_{n,k}}}
+ B_{n,k}^{\,h}q_3(B_{n,k})\equiv0\pmod{27}
+ \quad(0\le h<18).
+\end{equation}
+As $27^2=729$, the binomial theorem now proves, for every $t\ge0$,
+\[
+ U_{v,3}(h+18t)\equiv U_{v,3}(h)\pmod{729}.
+\]
+The residues $U_{v,3}(h)$ are all divisible by 81. Their quotients modulo 9
+are the following complete table:
+\[
+\begin{array}{c|rrrrrrrrr}
+h&0&1&2&3&4&5&6&7&8\\\hline
+U_{v,3}(h)/81&4&2&6&4&2&0&1&8&3\\[2pt]
+h&9&10&11&12&13&14&15&16&17\\\hline
+U_{v,3}(h)/81&1&8&6&7&5&0&7&5&3
+\end{array}
+\]
+Here and below division of a residue by 81 or 19 means first taking its
+representative in $[0,m)$, which is divisible by that integer.
+The first necessary congruence in~\eqref{eq:units} therefore forces
+\begin{equation}\label{eq:r18}
+ r\equiv5\ \hbox{or}\ 14\pmod{18}.
+\end{equation}
+
+\subsection*{Two incompatible conditions at 19}
+Write $r=h+18t$ with $h\in\{5,14\}$ and $t\ge0$ as permitted
+by~\eqref{eq:r18}. For $19\nmid b$, define
+$q_{19}(b)=(b^{18}-1)/19$ modulo 19. Fermat's theorem and the binomial
+theorem give
+\[
+ b^{h+18t}\equiv b^h(1+19tq_{19}(b))\pmod{361}.
+\]
+For $z=u,w$ and these two $h$, $U_{z,19}(h)$ is divisible by 19, so
+\[
+ \frac{U_{z,19}(h+18t)}{19}\equiv a_{z,h}+b_{z,h}t\pmod{19},
+\]
+where $a_{z,h}=U_{z,19}(h)/19$ modulo 19 and
+\[
+ b_{z,h}=\sum_n z_n\sum_{\substack{k\le n\\19\nmid B_{n,k}}}
+ B_{n,k}^{\,h}q_{19}(B_{n,k})\pmod{19}.
+\]
+The complete table is
+\[
+\begin{array}{cc|rr|r}
+z&h&a_{z,h}&b_{z,h}&\text{required }t\pmod{19}\\\hline
+u&5 &3&2&8\\
+w&5 &7&14&9\\
+u&14&9&10&1\\
+w&14&1&5&15
+\end{array}
+\]
+The two required residues of $t$ disagree for either value of $h$.
+This contradicts~\eqref{eq:units} and excludes every $r\ge6$.
+
+\subsection*{The remaining exponents}
+Forward substitution in~\eqref{eq:def}, with $s=2$, gives
+\[
+ c_3^{(3,2)}=\frac{343}{5},\qquad
+ c_3^{(4,2)}=\frac{11612}{5},\qquad
+ c_3^{(5,2)}=\frac{342076}{5}.
+\]
+None is an integer. Together with the preceding contradiction, this
+proves Theorem~\ref{thm:main}.\qed
+
+\subsection*{Exact finite verification}
+All displayed data use only binomial coefficients, modular exponentiation,
+and finite sums. The accompanying \texttt{verify\_certificate.py} checks
+the 38 kernel columns, all 18 identities~\eqref{eq:derivative}, both tables,
+and the three exceptional fractions. To make the certificate computation
+fully specified in the paper as well, its arithmetic core is:
+\begin{verbatim}
+from math import comb
+def B(n,k): return comb(n,k)*comb(n+k,k)
+def terms(z,p):
+    return [(a,B(n,k)) for n,a in enumerate(z)
+            for k in range(n+1) if B(n,k)%p]
+def U(z,p,h,m):
+    return sum(a*pow(b,h,m) for a,b in terms(z,p))%m
+def kernel(z,m):
+    return [sum(z[n]*B(n,k)**2 for n in range(k,len(z)))%m
+            for k in range(len(z))]
+def slope(z,p,h,divisor,m):
+    return sum(a*pow(b,h,m//divisor)*
+               ((pow(b,18,m)-1)//divisor)
+               for a,b in terms(z,p))%(m//divisor)
+# Insert the three vectors v,u,w displayed above.
+# kernel(v,729), kernel(u,361), kernel(w,361) are zero lists.
+# For h=0,...,17, slope(v,3,h,27,729) is zero;
+# U(v,3,h,729)//81 gives the first table.
+# For z=u,w and h=5,14, the second table is
+# (U(z,19,h,361)//19, slope(z,19,h,19,361)).
+\end{verbatim}
+The standalone script additionally checks the complete Euler periods
+486 and 342 by direct enumeration and reproduces the source's six
+small examples. These supplementary checks agree with the shorter
+algebraic certificates above. The proof covers all exponents by the
+binomial identities; it does not infer an infinite statement from a
+bounded search. No independent peer review or formal proof-assistant
+verification is claimed.
+
+\section*{Four further research tasks}
+\paragraph{Task 2.} Determine the least $N$ for which no $r>2$ makes
+$c_0^{(r,2)},\ldots,c_N^{(r,2)}$ all integers. The theorem gives $N\le14$;
+an exact admissible-exponent classification for $N\le13$ would settle
+minimality.
+\paragraph{Task 3.} For each fixed $s\ge3$, determine whether a finite
+$N(s)$ excludes every $r>s$, and obtain explicit certificates whenever
+such an $N(s)$ exists.
+\paragraph{Task 4.} For fixed $s,N$, construct the complete eventually
+periodic set of exponents giving integral initial coefficients, with a
+proved onset and period derived from the rational triangular inverse.
+\paragraph{Task 5.} Decide Conjecture 4.2 of~\cite{GZ} for all $r>s>1$:
+must some coefficient be nonintegral? The present theorem resolves its
+$s=2$ specialization, but does not resolve all $s>1$.
+
+\begin{thebibliography}{9}
+\bibitem{GZ} V. J. W. Guo and J. Zeng,
+\emph{On Zudilin's $q$-question about Schmidt's problem},
+Electronic Journal of Combinatorics \textbf{19}(3) (2012), P4,
+\href{https://doi.org/10.37236/2231}{doi:10.37236/2231}.
+Conjectures 4.1 and 4.2 appear on page 4 of the final article.
+The current author manuscript is
+\href{https://arxiv.org/abs/1204.0187v3}{arXiv:1204.0187v3}.
+\end{thebibliography}
+\end{document}

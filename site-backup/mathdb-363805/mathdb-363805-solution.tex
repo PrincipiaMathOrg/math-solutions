@@ -1,0 +1,186 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,hyperref,enumitem}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newcommand{\dis}{\operatorname{dis}}
+\title{Strictly increasing distortion of odd trigonometric moment curves}
+\author{Principia Math In Progress}
+\date{21 September 2026}
+\begin{document}
+\maketitle
+\noindent\textbf{Task 1: MathDB 363805.}
+For $m\geq2$ put
+\[
+ \Gamma_m(t)=\frac1{\sqrt m}
+ (\cos t,\sin t,\cos3t,\sin3t,\ldots,
+                  \cos((2m-1)t),\sin((2m-1)t)).
+\]
+Both spheres have their geodesic metrics. Thus $\Gamma_m$
+is $\gamma_{2k+1}$ from M\'emoli and Smith \cite{MS} with
+$m=k+1$. Write $D_m=\dis(\Gamma_m)$. Their Conjecture 6 asks
+whether these distortions increase with $m$.
+
+\begin{theorem}\label{main}
+For every integer $m\geq2$, $D_{m+1}>D_m$. Moreover,
+\[
+ D_m\ \nearrow\ 2\pi-r=1.78977584927\ldots,
+\]
+where $r$ is the unique solution of $\tan r=r$ in $(\pi,3\pi/2)$.
+The decimal is illustrative; the limit is specified exactly by $r$.
+\end{theorem}
+
+\paragraph{Reduction to an angle.}
+The source already gives the kernel and distortion formula
+\cite[Proposition 5.5 and Remark 5.8]{MS}:
+\begin{equation}\label{kernel}
+ K_m(t)=\frac1m\sum_{j=0}^{m-1}\cos((2j+1)t)
+       =\frac{\sin(2mt)}{2m\sin t},\qquad
+ D_m=\max_{0\leq t\leq\pi}|\arccos K_m(t)-t|,
+\end{equation}
+with continuous endpoint values $K_m(0)=1$, $K_m(\pi)=-1$.
+These identities also follow directly by taking the inner product
+of two curve points and summing a geometric series.
+For $0<t<\pi/2$, the elementary inequality
+$|\sin(mu)|\leq m\sin u$ for $0\leq u\leq\pi$ gives
+\[
+ K_m(t)=\frac{\sin(2mt)}{2m\sin t}
+       \leq\frac{m\sin(2t)}{2m\sin t}=\cos t.
+\]
+The sine inequality follows by induction from the sine addition
+formula and $|\cos u|\leq1$.
+Also $K_m(\pi-t)=-K_m(t)$, so the two angle defects are opposite.
+Consequently
+\begin{equation}\label{defect}
+ D_m=\max_{0\leq t\leq\pi/2}F_m(t),\qquad
+ F_m(t):=\arccos K_m(t)-t\geq0.
+\end{equation}
+Both endpoint defects are zero, whereas
+$F_m(\pi/(2m))=\pi/2-\pi/(2m)>0$. Every maximizing angle
+therefore lies in $(0,\pi/2)$.
+
+\begin{lemma}\label{comparison}
+If $m\geq2$ is an integer and $0<t<\pi/2$, then
+\begin{equation}\label{strict}
+ F_{m+1}\left(\frac{m}{m+1}t\right)-F_m(t)
+ \geq c\frac{t}{m+1}>0,
+ \qquad c:=1-\frac2{\pi\sqrt3}>\frac12.
+\end{equation}
+\end{lemma}
+\begin{proof}
+Fix $s=2mt>0$, set $a=\sin s/s$, and define
+\[
+ q(u)=\frac{u}{\sin u},\qquad
+ g_a(u)=\arccos(aq(u))-u.
+\]
+We compare $u=t$ with $u'=mt/(m+1)$. The shared phase $s$ gives
+$F_m(t)=g_a(t)$ and $F_{m+1}(u')=g_a(u')$.
+For $0<u\leq\pi/2$,
+\begin{equation}\label{qbounds}
+ 1\leq q(u)\leq\pi/2,\qquad
+ 0\leq q'(u)=\frac{\sin u-u\cos u}{\sin^2u}\leq1.
+\end{equation}
+The bound on $q$ uses $\sin u\geq2u/\pi$.
+The numerator of $q'$ starts at zero and has derivative $u\sin u$.
+For the upper bound observe that
+\[
+ \sin^2u-\sin u+u\cos u
+ =(u-\sin u)\cos u+
+             \sin u(\sin u+\cos u-1)\geq0.
+\]
+Here $u\geq\sin u$ and $\sin u+\cos u\geq1$ on the stated interval.
+
+If $a\geq0$, then $g_a'(u)\leq-1$ wherever defined. In the
+present application $a q(t)=K_m(t)<1$, since the first cosine
+in the average is less than one. The monotonicity of $q$ makes
+the derivative well-defined throughout $(0,t]$.
+If $a<0$, then $s>\pi$, so $|a|\leq1/\pi$ and
+$|a|q(u)\leq1/2$. Hence on $(0,\pi/2]$,
+\[
+ g_a'(u)=-1+\frac{|a|q'(u)}{\sqrt{1-a^2q(u)^2}}
+         \leq-1+\frac2{\pi\sqrt3}=-c.
+\]
+In both cases $g_a'(u)\leq-c$ for $0<u\leq t$.
+Integration from $u'$ to $t$ proves \eqref{strict}.
+Finally $\pi>3$ implies $3\pi^2>27>16$, which gives $c>1/2$.
+\end{proof}
+
+\begin{proof}[Proof of Theorem \ref{main}]
+Choose a maximizing angle $t_m\in(0,\pi/2)$ in \eqref{defect}.
+Lemma \ref{comparison} gives
+\[
+ D_{m+1}\geq F_{m+1}\left(\frac{m}{m+1}t_m\right)
+            >F_m(t_m)=D_m.
+\]
+This proves the full monotonicity conjecture.
+
+For the limit, let $b(s)=\sin s/s$ for $s>0$ and $b(0)=1$.
+Its global minimum is attained at a unique $r\in(\pi,3\pi/2)$.
+Indeed, $b\geq0$ on $[0,\pi]$; on $(\pi,2\pi)$ its derivative
+has the sign of $s\cos s-\sin s$, whose derivative is
+$-s\sin s>0$. This numerator is negative at $\pi$ and positive
+at $3\pi/2$, giving the unique minimum $r$ there.
+For $s\geq2\pi$ we have $b(s)\geq-1/(2\pi)$, strictly above
+$b(3\pi/2)=-2/(3\pi)$, so no later lobe gives a global minimum.
+At $r$ we have $\sin r/r=\cos r$ and therefore
+$\arccos b(r)=2\pi-r=:M$.
+
+The proof of the lemma also shows, by letting $u\downarrow0$,
+that for any $0<t<\pi/2$ and $s=2mt$,
+\[
+ F_m(t)=g_{b(s)}(t)<g_{b(s)}(0)=\arccos b(s)\leq M.
+\]
+Taking a maximizing angle gives $D_m<M$.
+Conversely $r/(2m)<\pi/2$ for $m\geq2$, and
+\[
+ D_m\geq F_m\left(\frac r{2m}\right)
+ =\arccos\left(\frac{\sin r}{2m\sin(r/(2m))}\right)
+       -\frac r{2m}\longrightarrow\arccos\left(\frac{\sin r}{r}\right)=M.
+\]
+This proves the limit and completes the theorem.
+\end{proof}
+
+\paragraph{Scope, attribution, and verification.}
+The target concerns distortion of the embedding $\gamma_{2k+1}$.
+It is distinct from distortion of the projection correspondence
+$R_{2k+1}$, modulus of discontinuity of the projection, or the
+optimal Gromov--Hausdorff distance between the two spheres.
+The source's kernel and supremum formula are explicitly attributed;
+the contribution is the phase-preserving comparison in
+Lemma \ref{comparison} and its consequences.
+The limit also explains why a finite plot through about $k=100$
+suggested a ceiling near $1.77$; it is not a uniform ceiling.
+The minimum of the sinc function is an elementary classical fact,
+reproved here for completeness.
+
+The verifier checks the kernel and its odd symmetry as exact
+Chebyshev-polynomial identities for $1\leq m\leq30$, and checks
+the derivative identities symbolically. Two supplemental 70-digit
+groups compare the formulas and the quantitative inequality at
+800 inputs, and estimate finite-dimensional maxima and the limit.
+Numerical maximization is not an interval certificate and is not
+used to prove monotonicity or the limiting value.
+All 35 pages of the current target source were read; no target
+journal final was identified in the recorded bounded search.
+Related-paper read limits are disclosed in the literature audit.
+Review is by the authoring agent only.
+
+\begin{enumerate}[label=\textbf{Task \arabic*:},start=2,leftmargin=*]
+\item Determine the first two terms of $M-D_m$ with explicit error bounds.
+\item Prove uniqueness of the maximizing angle in $(0,\pi/2)$ for every $m\geq2$.
+\item Study distortion monotonicity for the normalized even-dimensional
+trigonometric moment curve embeddings defined in the source.
+\item Determine which nonuniform weights on the odd harmonics preserve
+a monotonicity statement as additional harmonics are added.
+\end{enumerate}
+\small
+\begin{thebibliography}{9}
+\raggedright
+\bibitem{MS} F. M\'emoli and Z. T. Smith,
+Embedding-Projection Correspondences for the estimation of the
+Gromov-Hausdorff distance, working paper,
+\href{https://arxiv.org/abs/2407.03295}{arXiv:2407.03295v1} (2024).
+Definition 4 on p.~7; Conjecture 6 on p.~17;
+Proposition 5.5 and Remark 5.8 on pp.~18--19.
+\end{thebibliography}
+\end{document}

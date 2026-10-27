@@ -1,0 +1,142 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,hyperref}
+\newtheorem{theorem}{Theorem}
+\newtheorem{corollary}{Corollary}
+\title{Nonintegrality of Schmidt-type coefficients}
+\author{Principia Math In Progress\\\small AI-assisted research note; author review only}
+\date{27 September 2026}
+\begin{document}
+\maketitle
+\begin{abstract}
+We prove Guo and Zeng's nonintegrality conjecture for every pair of integers
+$r>s>1$. The defining equation at $n=p-2$, reduced at a prime
+$p\ge5$ not dividing $r-s$, gives the obstruction. In fact the least common
+multiple of the first $p-1$ coefficient denominators is divisible by
+$p^{s-1}$. Thus infinitely many coefficients are nonintegral, and all but
+finitely many primes occur in their denominators.
+\end{abstract}
+
+\section*{Task 1: the original conjecture}
+For positive integers $r,s$, let $c_k=c_k^{(r,s)}$ be the unique rational
+numbers defined by
+\begin{equation}\label{eq:definition}
+ \sum_{k=0}^n B_{n,k}^{\,r}
+ =\sum_{k=0}^n B_{n,k}^{\,s}c_k\quad(n\ge0),\qquad
+ B_{n,k}=\binom nk\binom{n+k}{k}.
+\end{equation}
+The diagonal is nonzero, so this is a triangular definition.
+Conjecture 4.2 of Guo and Zeng~\cite{GZ}, recorded as
+\href{https://mathdb.com/p/323297}{MathDB 323297}, states that for every
+$r>s>1$ there exists a positive index $k$ for which $c_k$ is not an integer.
+We prove the following stronger assertion.
+
+\begin{theorem}\label{thm:denom}
+Fix integers $r>s>1$ and put $d=r-s$. For each prime $p\ge5$ with $p\nmid d$,
+let $D_{p-2}$ be the least common multiple of the positive reduced
+denominators of $c_0,\ldots,c_{p-2}$. Then
+\[
+ p^{s-1}\mid D_{p-2}.
+\]
+In particular some $c_k$, with $2\le k\le p-2$, has reduced denominator
+divisible by $p^{s-1}$.
+\end{theorem}
+
+\begin{proof}
+The cases $n=0,1$ of~\eqref{eq:definition} give
+\begin{equation}\label{eq:first}
+ c_0=1,\qquad c_1=2^{r-s}=2^d.
+\end{equation}
+Set $n=p-2$ and $a=B_{p-2,1}=(p-2)(p-1)=2-3p+p^2$.
+For every $2\le k\le p-2$, the binomial coefficient
+\[
+ \binom{p-2+k}{k}=\frac{(p-1)p(p+1)\cdots(p-2+k)}{k!}
+\]
+contains a factor $p$ in the numerator and none in the denominator.
+Consequently $p\mid B_{p-2,k}$. (The numerator has exactly $k$ factors;
+the displayed product begins at $p-1$.)
+
+Write $D=D_{p-2}$. After using~\eqref{eq:first}, multiplying the equation
+at $n=p-2$ by $D$, and separating $k=0,1$, we obtain the integer identity
+\begin{equation}\label{eq:cleared}
+ D a^s(a^d-2^d)
+ +D\sum_{k=2}^{p-2}B_{p-2,k}^{\,r}
+ =\sum_{k=2}^{p-2}B_{p-2,k}^{\,s}(Dc_k).
+\end{equation}
+Every $Dc_k$ is an integer. The right side is divisible by $p^s$.
+The second term on the left is divisible by $p^r$, and $r>s$.
+It follows that
+\begin{equation}\label{eq:divisibility}
+ p^s\mid D a^s(a^d-2^d).
+\end{equation}
+Since $a\equiv2\pmod p$, $p\nmid a$. The binomial theorem gives
+\[
+ a^d-2^d\equiv(2-3p)^d-2^d
+ \equiv-3d\,2^{d-1}p\pmod{p^2}.
+\]
+The coefficient $-3d2^{d-1}$ is nonzero modulo $p$, because $p\ge5$ and
+$p\nmid d$. Thus $a^d-2^d$ is divisible by $p$ but not by $p^2$.
+The divisibility~\eqref{eq:divisibility} therefore forces $p^{s-1}\mid D$.
+An lcm attains each prime exponent at one of its factors, which proves
+the last assertion. The indices 0 and 1 have denominator 1 by~\eqref{eq:first}.
+\end{proof}
+
+\begin{corollary}\label{cor:conjecture}
+Guo and Zeng's Conjecture 4.2 holds. More strongly, for each fixed pair
+$r>s>1$ there are infinitely many indices $k$ with $c_k^{(r,s)}\notin\mathbb Z$.
+Every prime $p\ge5$ not dividing $r-s$ divides the reduced denominator of
+some coefficient, to at least the power $s-1$.
+\end{corollary}
+\begin{proof}
+There are infinitely many primes not dividing the fixed nonzero integer
+$6(r-s)$. Apply Theorem~\ref{thm:denom} to each. A finite collection of
+rational numbers has only finitely many prime factors in its reduced
+denominators. Hence infinitely many distinct nonintegral coefficients
+are necessary. In particular at least one exists, as conjectured.
+\end{proof}
+
+An explicit upper bound for the first nonintegral index is $p_0-2$, where
+$p_0$ is the least prime at least 5 not dividing $r-s$. Also, writing $D_N$
+for the denominator lcm through index $N$, we immediately obtain
+\[
+ \prod_{\substack{5\le p\le N+2\\p\text{ prime},\ p\nmid(r-s)}}p^{s-1}
+ \ \mid\ D_N.
+\]
+These claims follow from the same proof and receive no separate problem credit.
+
+\subsection*{Scope, source and checks}
+The full current author manuscript and the full final published paper
+were read; the definition and Conjecture 4.2 agree. The different finite
+integrality conjecture, Conjecture 4.1, has its own proof package and is
+not counted again here. The theorem above is a direct proof for all
+integers $r>s>1$; it does not depend on that other result or on computation.
+
+The accompanying \texttt{verify\_denominators.py} performs supplementary
+exact checks of the binomial divisibility, first-order obstruction, and
+actual rational coefficient denominators over stated finite ranges.
+These checks test conventions and edge cases; the universal conclusion
+is proved above. The literature audit records a dated, bounded search
+for prior claims. No independent peer review or formal proof-assistant
+verification is claimed.
+
+\section*{Four further research tasks}
+\paragraph{Task 2.} For each fixed $r>s>1$, determine the exact largest
+$p$-power in $D_{p-2}$ for every $p\ge5$, including primes dividing $r-s$.
+\paragraph{Task 3.} Determine the asymptotic growth of $\log D_N$ for each
+fixed pair $r>s>1$, sharpening the prime-product lower bound above.
+\paragraph{Task 4.} Use the equations at $n=p-m$, with fixed $m\ge3$, to
+derive additional necessary congruences on $r,s$ for integrality through
+$p-m$, and compare their strength with the $m=2$ obstruction.
+\paragraph{Task 5.} Determine the first nonintegral index as a function
+of $(r,s)$ and characterize the pairs for which the bound $p_0-2$ is attained.
+
+\begin{thebibliography}{9}
+\bibitem{GZ} V. J. W. Guo and J. Zeng,
+\emph{On Zudilin's $q$-question about Schmidt's problem},
+Electronic Journal of Combinatorics \textbf{19}(3) (2012), P4,
+\href{https://doi.org/10.37236/2231}{doi:10.37236/2231}.
+Conjecture 4.2 appears on page 4 of the final article;
+current author manuscript:
+\href{https://arxiv.org/abs/1204.0187v3}{arXiv:1204.0187v3}.
+\end{thebibliography}
+\end{document}

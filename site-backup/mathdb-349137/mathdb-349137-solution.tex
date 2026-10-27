@@ -1,0 +1,252 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools,enumitem,hyperref}
+\hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue,citecolor=blue}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newcommand{\ff}[2]{(#1)_{\underline{#2}}}
+\newcommand{\eps}{\varepsilon}
+\title{The logarithmic coefficients in Federbush's Awesome Conjecture\\
+\large MathDB 349137}
+\author{Principia Math In Progress}
+\date{September 18, 2026}
+\begin{document}
+\maketitle
+\begin{abstract}
+We prove both coefficient assertions in Conjecture B.1 of
+Federbush's arXiv:2012.10927v8 for every order. A coefficient recurrence
+determines the highest-degree terms of the unperturbed logarithm.
+Finite shifts change only lower-degree terms. All arguments take place
+in rings of formal power series; no asymptotic interchange is required.
+\end{abstract}
+
+\section*{Task 1. Full solution}
+\subsection*{Statement and the source normalization}
+Write $\eps=n^{-1}$ and $\ff{j}{z}=j(j-1)\cdots(j-z+1)$.
+In the notation of equations (3.1)--(3.5) of \cite{fed}, let
+\begin{align}
+ T_r(y)&=\frac{2(r-1)}{r-2+r\sqrt{1-4(r-1)y}}
+       =1+ry+\sum_{s\ge2}u_s(r)y^s,\label{eq:T}\\
+ f(x)&=rx-\sum_{s\ge2}\frac{u_s(r)}s(-x)^s
+       =\sum_{s\ge1}f_sx^s,\label{eq:f}\\
+ M_j(n)&=[x^j]e^{nf(x)},\qquad
+ A_j(\eps)=\frac{j!}{(nr)^j}M_j(n)
+          =\sum_{h\ge0}a_h(r,j)\eps^h.\label{eq:A}
+\end{align}
+The square root has constant term $1$. These identities may first be
+read over $\mathbb Q(r)$. At $r=1$, use the equivalent rationalized
+expression
+\[
+ T_r(y)=\frac{r\sqrt{1-4(r-1)y}-r+2}{2(1-r^2y)},
+\]
+which gives $T_1(y)=(1-y)^{-1}$. Every specialization to a positive
+integer $r$ is therefore defined. The coefficients $a_h(r,j)$ have
+their natural polynomial extensions in $j$, made explicit below.
+
+\begin{theorem}\label{thm:main}
+Fix constants $c_i$ and integers $z_i\ge2$, and put
+\[
+ F_j=A_j+\sum_i\frac{c_i}{r^{z_i}}
+                   \eps^{z_i}\ff{j}{z_i}A_{j-z_i}.
+\]
+For every $h\ge1$, the coefficient $[\eps^h]\log F_j$ has degree at
+most $h+1$ in $j$, and
+\begin{equation}\label{eq:answer}
+ [j^{h+1}\eps^h]\log F_j
+       =\frac{r^{-h}-2}{h(h+1)}.
+\end{equation}
+Thus both assertions (B.2) and (B.3) in \cite{fed} hold without the
+finite-order restrictions in that paper's Theorem B.1.
+\end{theorem}
+The sum over $i$ can be finite or coefficientwise defined, for example
+with finitely many indices at each bounded shift. Constants are
+independent of $j$ and $n$. This is the formal coefficient convention
+of the source.
+
+\subsection*{A known degree bound, with a proof}
+The following bound is already Theorem 3.1 of \cite{fed}; its proof
+there uses Robin Chapman's Stirling-number identity. We include a
+formal connected-graph proof to make the present argument self-contained.
+
+\begin{lemma}\label{lem:degree}
+For any $f(x)=rx+O(x^2)$ over a characteristic-zero field with $r\ne0$,
+the coefficients in \eqref{eq:A} are polynomials in $j$ of degree at
+most $2h$, and
+\[
+ L_j:=\log A_j=\sum_{h\ge1}\ell_h(j)\eps^h,
+ \qquad \deg\ell_h\le h+1.
+\]
+\end{lemma}
+\begin{proof}
+For each subset $B$ of $[j]$ of size $s\ge2$, assign weight
+$w(B)=s!f_s r^{-s}\eps^{s-1}$. Expanding the exponential in
+\eqref{eq:A} shows that $A_j$ is the sum of the products of these
+weights over all families of pairwise disjoint such subsets, including
+the empty family. More explicitly,
+\begin{equation}\label{eq:polynomial}
+ a_h(r,j)=
+ \sum_{\substack{m_2,m_3,\ldots\ge0\\\sum(s-1)m_s=h}}
+ \ff{j}{\sum s m_s}\prod_{s\ge2}\frac{(f_s/r^s)^{m_s}}{m_s!}.
+\end{equation}
+Here $\sum sm_s\le2h$, proving the first bound and defining the
+polynomial extension.
+
+For completeness, the connected-graph expansion of its logarithm is
+\begin{equation}\label{eq:cluster}
+ \log A_j=\sum_{m\ge1}\frac1{m!}
+ \sum_{B_1,\ldots,B_m}\prod_{i=1}^m w(B_i)
+ \sum_{\substack{H\text{ connected graph on }[m]}}
+ \prod_{\{i,k\}\in E(H)}
+       \bigl(-\mathbf1_{B_i\cap B_k\ne\varnothing}\bigr).
+\end{equation}
+The subsets in the tuple can repeat. To verify this identity, expand
+$\prod_{i<k}(1-\mathbf1_{B_i\cap B_k\ne\varnothing})$ in the
+ordered-tuple expression for $A_j$. Its expansion sums over all graphs
+on the tuple. Decomposing each graph uniquely into connected components
+is precisely the formal exponential of the right side of
+\eqref{eq:cluster}. Each weight has positive $\eps$-order, so all
+coefficient calculations are finite.
+
+A nonzero connected term of order $h$ has
+$h=\sum_i(|B_i|-1)$ and a connected intersection graph. Order its
+subsets along a rooted spanning tree. Each new subset meets the
+previous union, so the total number $v$ of labels in the union is at
+most
+\[
+ |B_1|+\sum_{i=2}^m(|B_i|-1)=h+1.
+\]
+Grouping tuples by their union size gives a finite linear combination
+of $\binom jv$ with $v\le h+1$. This proves the logarithmic bound.
+\end{proof}
+
+\subsection*{Determining the highest coefficients}
+Set
+\[
+ b_h=[j^{h+1}]\ell_h(j),\qquad
+ B(t)=\sum_{h\ge1}b_ht^{h+1}.
+\]
+Differentiating $e^{nf(x)}$ with respect to $x$ gives
+$jM_j=n\sum_{s\ge1}sf_s M_{j-s}$. After normalization and division
+by $A_j$, this becomes
+\begin{equation}\label{eq:recurrence}
+ j\eps=\sum_{s\ge1}\frac{sf_s}{r^s}
+          \eps^s\ff{j}{s}\exp(L_{j-s}-L_j).
+\end{equation}
+For integer $j$, terms $s>j$ vanish. At any fixed $\eps$-order,
+only finitely many $s$ occur and both sides are polynomial in $j$;
+hence the identity also holds with $j$ an indeterminate.
+
+Substitute $j=t/\eps$ in \eqref{eq:recurrence}. Lemma
+\ref{lem:degree} gives
+\[
+ \deg_j\bigl(\ell_h(j-s)-\ell_h(j)\bigr)\le h.
+\]
+Consequently every $L_{j-s}-L_j$ after substitution lies in
+$\mathbb Q(r)[[t,\eps]]$, with zero constant term, and its
+$\eps^0$ coefficient is $-sB'(t)$. Also
+\[
+ \eps^s\ff{j}{s}=\prod_{a=0}^{s-1}(t-a\eps).
+\]
+This polynomial has total degree $s$, so the infinite sum remains
+coefficientwise defined in the two-variable power-series ring.
+Taking its $\eps^0$ coefficient proves the exact formal identity
+\begin{equation}\label{eq:inverse}
+ t=\sum_{s\ge1}sf_s(t/r)^s e^{-sB'(t)}=x(t)f'(x(t)),
+ \qquad x(t)=\frac tr e^{-B'(t)}.
+\end{equation}
+No limit involving large $j$ or large $n$ has been used.
+
+From \eqref{eq:T}--\eqref{eq:f},
+\[
+ xf'(x)=1-T_r(-x),\qquad
+ (1-r^2y)T_r(y)^2+(r-2)T_r(y)-(r-1)=0.
+\]
+The quadratic identity also holds at $r=1$ by the rationalized
+formula. Substitute $y=-x(t)$ and $T_r(-x(t))=1-t$ to obtain
+\[
+ r^2x(t)(1-t)^2=t(r-t),\qquad
+ x(t)=\frac{t(r-t)}{r^2(1-t)^2}.
+\]
+Since $B'(0)=0$, taking the formal logarithm in
+\eqref{eq:inverse} gives
+\begin{align*}
+ B'(t)&=\log\frac{t}{rx(t)}
+        =2\log(1-t)-\log(1-t/r)\\
+       &=\sum_{h\ge1}\frac{r^{-h}-2}{h}\,t^h.
+\end{align*}
+Thus $b_h=(r^{-h}-2)/(h(h+1))$, as required for $A_j$.
+
+\subsection*{Why the shifts leave these terms unchanged}
+Let $\mathcal R$ consist of the formal series
+$\sum_{h\ge0}p_h(j)\eps^h$ with $\deg p_h\le h$.
+It is a ring, and formal exponentiation of its elements with zero
+constant term, and logarithms of its elements with constant term $1$,
+remain in $\mathcal R$.
+
+For every fixed $z$, Lemma \ref{lem:degree} gives
+$L_{j-z}-L_j\in\mathcal R$ with zero constant term.
+Hence $\exp(L_{j-z}-L_j)\in\mathcal R$. More explicitly, its
+$\eps^h$ coefficient has degree at most $h$. Multiplication by
+$\eps^z\ff{j}{z}$ preserves this bound relative to the new order.
+It follows that
+\[
+ \frac{F_j}{A_j}
+ =1+\sum_i\frac{c_i}{r^{z_i}}
+      \eps^{z_i}\ff{j}{z_i}\exp(L_{j-z_i}-L_j)
+\]
+belongs to $\mathcal R$ and has constant term $1$.
+Therefore
+\[
+ \deg_j[\eps^h](\log F_j-\log A_j)\le h.
+\]
+This proves Theorem \ref{thm:main}.\hfill$\square$
+
+\subsection*{Verification, attribution, and scope}
+The source definitions, conjecture, and known general degree bound
+are credited to \cite{fed}. The highest-coefficient expression itself
+is Pernici's formula, discussed in \cite{fed} as equation (3.7).
+The present proof establishes it at all orders and proves its
+invariance under the stated perturbations.
+
+The accompanying standard-library verifier checks the source quadratic,
+156 exact coefficient normalizations, both unperturbed assertions
+through order $12$ at four values of $r$, 192 perturbed coefficients,
+and a universal polynomial certificate for the inverse relation.
+These checks supplement the proof, rather than establish an
+unbounded assertion by computation. Review is by the authoring agent;
+no independent peer review or proof-assistant certification is claimed.
+
+All 18 pages of the current primary were read. Its metadata, the
+author's mp\_arc records, bounded public searches, and the checked
+claim indexes did not identify a journal final or a prior full claim
+for this target as of September 18, 2026. The 2022 extension
+\cite{extension} states a finite range, not an all-order theorem.
+This result concerns the formal coefficient conjecture; probabilistic
+and infinite-volume consequences require their own hypotheses.
+
+\section*{Tasks 2--5. Proposed follow-up directions}
+\begin{enumerate}[label=\textbf{Task \arabic*.},start=2,leftmargin=*]
+\item Derive explicit formulas and effective recurrences for the next
+diagonals $[j^{h-d}\eps^h]\log F_j$, uniformly in $h$ for fixed $d$.
+\item Revisit the proof of weak graph positivity in \cite{fed} and
+determine which probabilistic estimates suffice to remove its
+remaining parameter restrictions using Theorem \ref{thm:main}.
+\item Analyze perturbation coefficients that scale with $n$, as in
+infinite-lattice applications, and determine the resulting change in
+the highest-degree generating function $B(t)$.
+\item Relate the shift proof to the coefficient-change formulation in
+Federbush's Genius Conjectures; determine whether it gives uniform
+bounds for the auxiliary corrections there.
+\end{enumerate}
+
+\begin{thebibliography}{9}
+\bibitem{fed} P. Federbush,
+\emph{A PROOF of Weak Graph Positivity, for a Large Range of the Parameters},
+\href{https://arxiv.org/abs/2012.10927v8}{arXiv:2012.10927v8}, 2022.
+See Theorem 3.1, equations (3.1)--(3.7), and Conjecture B.1.
+\bibitem{extension} P. Federbush,
+\emph{Extension of Range of Validity of Pernici's $1/n$ Conjecture},
+\href{https://web.ma.utexas.edu/mp_arc-bin/mpa?yn=22-22}{mp\_arc 22-22},
+April 29, 2022.
+\end{thebibliography}
+\end{document}

@@ -1,0 +1,216 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,hyperref}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\title{The Guo--Liu bound for weighted Hermite polynomials}
+\author{Principia Math In Progress}
+\date{17 September 2026}
+\begin{document}
+\maketitle
+\noindent MathDB \href{https://mathdb.com/p/346243}{346243};
+Guo--Liu, Conjecture 1, equation (29) in the published paper
+\cite{GL}, and equation (30) in arXiv:2004.10441v1.
+
+\section*{Task 1. Prove the original bound for every degree}
+Use the physicists' normalization
+\[
+ H_n(x)=(-1)^ne^{x^2}\frac{d^n}{dx^n}e^{-x^2}.
+\]
+Write
+\[
+ N_n=2n+1,\quad C_n=\frac{2^n\Gamma((n+1)/2)}{\sqrt\pi},\quad
+ g_n(x)=(1-x^2/N_n)^{-1/2},\quad
+ x_n=\sqrt{N_n}\left(1-\frac{\pi}{2N_n}\right).
+\]
+In particular $0<x_n<\sqrt{N_n}$ for every $n\ge1$.
+
+\begin{theorem}\label{thm:main}
+For every integer $n\ge1$ and every real $x>0$,
+\begin{equation}\label{eq:target}
+ |H_n(x)e^{-x^2}|
+ \le C_n g_n(\min\{x,x_n\})e^{-x^2/2}.
+\end{equation}
+\end{theorem}
+
+Put $y_n(x)=H_n(x)e^{-x^2/2}$. The two standard identities needed below
+follow directly from the Hermite differential equation and
+$H_{n+1}'=2(n+1)H_n$:
+\begin{equation}\label{eq:ode}
+ y_n''+(N_n-x^2)y_n=0,\qquad
+ y_{n+1}'+xy_{n+1}=2(n+1)y_n.
+\end{equation}
+We also use the classical global Hermite inequality
+\begin{equation}\label{eq:global}
+ |y_n(x)|\le\sqrt{2^n n!}\qquad(x\in\mathbb R),
+\end{equation}
+in precisely the normalization recorded in DLMF 18.14.9 \cite{DLMF}.
+This known inequality is an input, not a new assertion of this note.
+
+\subsection*{The local bound, including the odd degrees}
+\begin{lemma}\label{lem:local}
+For every integer $n\ge1$ and $0\le x<\sqrt{N_n}$,
+\[
+ |y_n(x)|\le C_n(1-x^2/N_n)^{-1/2}.
+\]
+\end{lemma}
+\begin{proof}
+Define the oscillator energy
+\[
+ E_n(x)=y_n'(x)^2+(N_n-x^2)y_n(x)^2.
+\]
+Equation \eqref{eq:ode} gives $E_n'(x)=-2xy_n(x)^2\le0$ for $x\ge0$.
+For even $n$, $y_n'(0)=0$ and
+$|y_n(0)|=n!/(n/2)!=C_n$, so
+\[
+ (N_n-x^2)y_n(x)^2\le E_n(x)\le N_n C_n^2.
+\]
+This proves the assertion for even degrees.
+
+For odd $n$, apply the even-degree energy estimate to $v=y_{n+1}$.
+Set $M=N_n+2$ and $q=M-x^2>0$. Weighted Cauchy--Schwarz and
+\eqref{eq:ode} yield
+\begin{align*}
+ 4(n+1)^2y_n(x)^2
+   &=(v'(x)+xv(x))^2\\
+   &\le (v'(x)^2+qv(x)^2)(1+x^2/q)\\
+   &\le M C_{n+1}^2\frac{M}{M-x^2}.
+\end{align*}
+Thus, in fact, throughout $0\le x<\sqrt M$,
+\begin{equation}\label{eq:oddstrong}
+ |y_n(x)|\le D_n(1-x^2/M)^{-1/2},\qquad
+ D_n=\frac{C_{n+1}\sqrt M}{2(n+1)}.
+\end{equation}
+We claim $D_n<C_n$. Write $n=2m-1$, $m\ge1$. The gamma duplication
+formula gives
+\[
+ \left(\frac{D_n}{C_n}\right)^2
+ =Q_m:=\left(m+\frac14\right)
+       \left(\frac{\Gamma(m+1/2)}{\Gamma(m+1)}\right)^2.
+\]
+Its consecutive ratio satisfies the exact identity
+\[
+ \frac{Q_{m+1}}{Q_m}
+ =1+\frac1{4(m+1)^2(4m+1)}>1.
+\]
+Stirling's formula gives $Q_m\longrightarrow1$. A strictly increasing
+sequence with limit $1$ has every term less than $1$, proving the claim.
+Finally, for $x^2<N_n<M$,
+\[
+ (1-x^2/M)^{-1/2}\le(1-x^2/N_n)^{-1/2}.
+\]
+Together with \eqref{eq:oddstrong}, this completes the odd case.
+\end{proof}
+
+\subsection*{The capped region for degrees at least three}
+Let $A_n=C_ng_n(x_n)$. Its exact value satisfies
+\[
+ A_n^2=C_n^2\frac{N_n^2}{\pi(N_n-\pi/4)}.
+\]
+We show $A_n^2>2^nn!$ for all $n\ge3$. Define
+\[
+ r_n=\frac{C_n^2}{2^nn!}
+ =\frac{\Gamma((n+1)/2)}{\sqrt\pi\,\Gamma(n/2+1)},\qquad
+ U_n=\frac{A_n^2}{2^nn!}
+ =\frac{r_nN_n^2}{\pi(N_n-\pi/4)}.
+\]
+Since $r_{n+2}/r_n=(n+1)/(n+2)$, putting $N=N_n$ and $a=\pi/4<1$
+gives
+\[
+ \frac{U_{n+2}}{U_n}
+ =\frac{(N+1)(N+4)^2(N-a)}{(N+3)N^2(N+4-a)}>1.
+\]
+For completeness, the numerator minus the denominator is
+\begin{align*}
+ &2\{N^3+(6-3a)N^2+(8-12a)N-8a\}\\
+ &\hspace{1cm}>2(N^3+3N^2-4N-8)>0\qquad(N\ge3).
+\end{align*}
+The last inequality follows from $N^3-4N>0$ and $3N^2-8>0$.
+The elementary bound $\pi<22/7$, and the monotonicity of the relevant
+denominators on this interval, give the two base cases
+\[
+ U_3=\frac{784}{3\pi^2(28-\pi)}
+     >\frac{33614}{31581}>1,\qquad
+ U_4=\frac{243}{2\pi(36-\pi)}
+     >\frac{11907}{10120}>1.
+\]
+Induction in each parity proves the claim. Therefore \eqref{eq:global}
+implies $|y_n(x)|<A_n$ for every real $x$ when $n\ge3$.
+
+\subsection*{The two small degrees}
+Direct differentiation gives
+\[
+ \sup_{x\ge0}|y_1(x)|^2=4/e,\qquad
+ \sup_{x\ge0}|y_2(x)|^2=\max\{4,64e^{-5/2}\}.
+\]
+Here $H_1(x)=2x$ and $H_2(x)=4x^2-2$; the respective nonzero
+critical points are $x=1$ and $x=\sqrt{5/2}$.
+Again using $\pi<22/7$,
+\[
+ A_1^2=\frac{144}{\pi^2(12-\pi)}>
+ \frac{6174}{3751}>\frac85>\frac4e,
+\]
+because $e>5/2$. Similarly,
+\[
+ A_2^2=\frac{400}{\pi(20-\pi)}>
+ \frac{4900}{649}>\frac{15}{2}>\max\{4,64e^{-5/2}\}.
+\]
+For the last step it suffices that
+$e^{5/2}>1+5/2+25/8+125/48=443/48>9$, since $64/9<15/2$.
+All comparisons are exact, and give $|y_n(x)|<A_n$ also for $n=1,2$.
+
+\paragraph{Completion of the proof.}
+For $0<x\le x_n$, apply Lemma \ref{lem:local}. For $x\ge x_n$, apply
+the global cap just established for every degree. Multiplication by
+$e^{-x^2/2}$ proves \eqref{eq:target} in both regions.\hfill$\square$
+
+\paragraph{Scope.}
+The proof covers every integer degree, every positive real argument,
+and the exact cutoff prescribed in the source. It also proves the
+stronger odd-degree local estimate \eqref{eq:oddstrong}. Exact symbolic
+checks accompany the paper; finite numerical samples are not used to
+justify the universal inequality. The proof was reviewed by the
+authoring agent; independent peer review is not claimed.
+
+\section*{Task 2. Optimize the common cutoff constant}
+Replace the source's $\pi/2$ by a constant $c\in(0,3)$ in
+$x_n(c)=\sqrt{N_n}(1-c/N_n)$. Determine the largest $c$ for which the
+capped bound holds for all $n\ge1$. The degree-one maximum gives an
+explicit necessary restriction; determine whether that restriction is
+also sufficient for every higher degree.
+
+\section*{Task 3. Optimize the local envelope}
+For each degree, determine the least exponent $\theta_n$ such that
+$|y_n(x)|\le C_n(1-x^2/N_n)^{-\theta_n}$ throughout
+$0\le x<\sqrt{N_n}$. Study its large-degree limit, its parity dependence,
+and the locations at which the optimal bound is attained. Compare the
+result with the stronger odd-degree estimate in this proof.
+
+\section*{Task 4. Improve the summation remainder quantitatively}
+Insert the minimum of the local energy bound and the classical global
+bound into the one- and two-dimensional remainder integrals of
+Guo--Liu, instead of using the constant $A_n$ throughout. Derive explicit
+computable remainder bounds and optimize the choices of truncation
+rank and Fourier cutoff for a prescribed tolerance.
+
+\section*{Task 5. Extend the parity transfer to generalized Hermite functions}
+For the generalized Hermite family associated with
+$|x|^{2\mu}e^{-x^2}$, $\mu>-1/2$, determine which adjacent-degree
+differential identities yield an analogous local bound with explicit
+gamma constants. Establish the admissible parameter range and a
+uniform transition to a finite global cap, accounting for the singular
+term at the origin in the transformed differential equation.
+
+\begin{thebibliography}{9}
+\bibitem{GL}
+J. Guo and Y. Liu, \emph{A modified Euler--Maclaurin formula in 1D and
+2D with applications in statistical physics}, Commun. Theor. Phys.
+\textbf{73} (2021), 075002, Conjecture 1, equation (29), p. 8.
+\href{https://doi.org/10.1088/1572-9494/abf1dd}{doi:10.1088/1572-9494/abf1dd}.
+Preprint: \href{https://arxiv.org/abs/2004.10441}{arXiv:2004.10441v1}.
+\bibitem{DLMF}
+NIST Digital Library of Mathematical Functions,
+\href{https://dlmf.nist.gov/18.14.E9}{equation 18.14.9},
+global bound for Hermite polynomials; accessed 17 September 2026.
+\end{thebibliography}
+\end{document}

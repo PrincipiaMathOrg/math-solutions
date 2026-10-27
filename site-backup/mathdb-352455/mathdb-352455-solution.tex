@@ -1,0 +1,245 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,hyperref}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newcommand{\R}{\mathbb R}
+\title{Centroids of parabola-inscribed Poncelet polygons}
+\author{Principia Math In Progress}
+\date{21 September 2026}
+\begin{document}
+\maketitle
+\begin{abstract}
+The vertex, perimeter, and area centroids of the focus-circle Poncelet
+family trace coaxial parabolas for every polygon size. Their focal
+distances are, respectively, $f/N$, $f/2$, and $f/3$, where $f$ is the
+outer parabola's focal distance. The proof extends the known ellipse
+centroid theorem by a controlled projective limit. In particular, it
+settles Conjecture 4 of Bellio--Garcia--Reznik and its pentagon special case.
+\end{abstract}
+
+\section*{Task 1: the original problem}
+Normalize the outer parabola, its focus, and the circular caustic as
+\[
+ \mathcal P:\ y^2+4fx=0,\qquad F=(-f,0),\qquad
+ \mathcal C:\ (x+f)^2+y^2=r^2,
+ \qquad 0<r<f.
+\]
+We consider a closed Poncelet family with $N\geq3$ distinct vertices:
+successive edges touch the inner circle. This is the circumscribed
+family studied in \cite{BGR}, including all its convex families in
+Table 2. Points at infinity are limiting configurations, rather than
+finite polygons at which a Euclidean centroid is defined.
+Write $C_0,C_1,C_2$ for the centroids of the vertices, the uniformly
+weighted edges, and the homogeneous polygonal lamina.
+For a star traversal of a nested pair the area centroid is understood
+with signed area and winding multiplicity, as in \cite{ST}; the same
+proof applies. The separate intersecting-conic configurations mentioned
+in the caption of Table 2 of \cite{BGR} are not circumscribed polygons
+with an incircle.
+
+\begin{theorem}\label{main}
+There are real constants $v_0,v_1,v_2$, depending on the fixed family,
+such that the complete finite centroid loci are
+\[
+ C_0:\ X=v_0-\frac{N}{4f}Y^2,\qquad
+ C_1:\ X=v_1-\frac{1}{2f}Y^2,\qquad
+ C_2:\ X=v_2-\frac{3}{4f}Y^2.
+\]
+Furthermore $v_1=\tfrac32v_2+\tfrac12f$.
+Thus all three loci are nondegenerate parabolas with the same axis as
+$\mathcal P$, and their focal distances are $f/N,f/2,f/3$.
+\end{theorem}
+
+The input from earlier work is the following \emph{ellipse} theorem:
+for nested ellipses admitting a Poncelet family, both $C_0$ and $C_2$
+trace ellipses homothetic to the outer ellipse, or single points
+\cite[Theorem 1]{ST}. The removable-singularity issue for the area
+centroid in that proof is addressed in \cite[Proposition 2]{CC}.
+Neither the input theorem nor the tangential-polygon centroid identity
+below is claimed as new here. The source retains the general parabolic
+assertion as Conjecture 4 in both its current preprint and journal version.
+
+\section*{The infinite-vertex limit}
+The real projective completion of $\mathcal P$ is a circle. The Poncelet
+step is a fixed-point-free, orientation-preserving circle map of order
+$N$ on the chosen primitive family. One can see this by mapping the
+nested pair to nested ellipses. Consequently every orbit has $N$
+distinct vertices, including the orbit through the unique point
+$I$ of $\mathcal P$ at infinity.
+
+Let one vertex be
+\[
+ Z(t)=(-t^2/(4f),t),\qquad t\longrightarrow\pm\infty.
+\]
+All other vertices tend to finite, distinct limits. The two edges
+incident with $I$ are the horizontal tangents $y=r$ and $y=-r$ to
+$\mathcal C$. Hence the two neighboring vertices tend to
+\[
+ A_+=(-r^2/(4f),r),\qquad A_-=(-r^2/(4f),-r).
+\]
+Continuity here is projective continuity of the Poncelet map; the
+other orbit points are different from $I$ and therefore remain bounded
+in affine coordinates. It follows immediately that
+\begin{equation}\label{vertexlimit}
+ (C_0)_x=-\frac{t^2}{4fN}+O(1),\qquad
+ (C_0)_y=\frac{t}{N}+O(1).
+\end{equation}
+
+For the area centroid, split the polygon into the triangle formed by
+$Z(t)$ and its two neighbors and the remaining bounded polygon. This
+is also a valid identity for signed areas and first moments. The
+triangle's area has magnitude
+\[
+ \frac{r}{4f}t^2+o(t^2).
+\]
+The remaining polygon has bounded area and first moments. The triangle
+centroid is $Z(t)/3+O(1)$, and replacing its area by the total area
+changes the resulting centroid by $O(1)$. Therefore
+\begin{equation}\label{arealimit}
+ (C_2)_x=-\frac{t^2}{12f}+O(1),\qquad
+ (C_2)_y=\frac{t}{3}+O(1).
+\end{equation}
+In particular, neither of the two centroid loci is contained in a
+line: a relation $aX+bY+c=0$, first divided by $t^2$ and then by $t$,
+would force $a=b=c=0$.
+
+\section*{A projective limit that preserves the quadratic part}
+For $\varepsilon>0$ set
+\[
+ T_\varepsilon(x,y)=
+ \left(\frac{x}{1-\varepsilon x},
+       \frac{y}{1-\varepsilon x}\right).
+\]
+The image of the projectively completed parabola is the ellipse
+\begin{equation}\label{outer}
+ \Gamma_\varepsilon:\quad
+ 4f\varepsilon X^2+Y^2+4fX=0.
+\end{equation}
+Indeed the inverse substitution is
+$x=X/(1+\varepsilon X)$, $y=Y/(1+\varepsilon X)$.
+The map takes the closed parabolic region $y^2+4fx\leq0$, completed
+by its point at infinity, to the closed ellipse disk. The circle disk
+is strictly inside that region: on $\mathcal P$ the squared distance
+to $F$ equals $(f+y^2/(4f))^2\geq f^2>r^2$.
+Thus $T_\varepsilon(\mathcal C)$ is an ellipse strictly inside
+$\Gamma_\varepsilon$. The same projective transformation takes every
+polygon of our family to a Poncelet $N$-gon for this nested pair.
+
+Fix $k\in\{0,2\}$, and let $C_{k,\varepsilon}(P)$ be the centroid
+\emph{computed after transforming all the vertices} of $P$.
+We do not assert projective covariance of centroids. For each finite
+polygon $P$, the vertex and area formulas give
+\begin{equation}\label{continuity}
+ C_{k,\varepsilon}(P)\longrightarrow C_k(P).
+\end{equation}
+The denominator for $C_2$ is nonzero. In the convex case this is
+immediate; in a nested star family orient the edges so that the
+caustic is on their left, and the fan triangles from an interior
+point have positive signed area.
+
+Choose three finite polygons for which the $C_k$ values are
+noncollinear, using \eqref{vertexlimit} or \eqref{arealimit}.
+Their transformed centroid values remain noncollinear for all
+sufficiently small $\varepsilon>0$. The ellipse theorem then excludes
+the single-point alternative and gives one equation, valid for
+every polygon $P$,
+\begin{equation}\label{centroidellipse}
+ 4f\varepsilon X^2+Y^2+
+ a_\varepsilon X+b_\varepsilon Y+c_\varepsilon=0,
+ \qquad (X,Y)=C_{k,\varepsilon}(P).
+\end{equation}
+This normalization of the quadratic terms follows precisely from
+homothety to \eqref{outer}.
+
+Substitute the three chosen centroid values into
+\eqref{centroidellipse}. The coefficient matrix has rows $(X,Y,1)$;
+by \eqref{continuity} it tends to an invertible matrix. The right
+side, $-Y^2-4f\varepsilon X^2$, also has a finite limit. Hence
+$a_\varepsilon,b_\varepsilon,c_\varepsilon$ converge to finite real
+$a,b,c$. For any finite polygon, passage to the limit yields
+\begin{equation}\label{parabolic}
+ Y^2+aX+bY+c=0,\qquad (X,Y)=C_k(P).
+\end{equation}
+Divide by $t^2$ in the infinite-vertex configuration. Equations
+\eqref{vertexlimit} and \eqref{arealimit} give respectively
+\[
+ a=\frac{4f}{N}\quad(k=0),\qquad
+ a=\frac{4f}{3}\quad(k=2).
+\]
+In particular $a>0$, so the limiting conic is a genuine parabola.
+Reflection in the $x$-axis preserves the fixed Poncelet family and
+commutes with each centroid. Subtracting \eqref{parabolic} for
+$(X,Y)$ and $(X,-Y)$ gives $2bY=0$ throughout the locus. Since $Y$
+is unbounded, $b=0$. This proves the stated equations for $C_0,C_2$.
+
+These equations describe the entire finite parabolas, rather than
+only subarcs. Indeed, the space of unlabeled polygons is the quotient
+of the real outer conic by the order-$N$ Poncelet step, hence is a
+circle. Only one orbit contains $I$. Removing it leaves an interval
+on which both centroids are continuous. At its two ends the single
+unbounded vertex has $t\to+\infty$ and $t\to-\infty$. By
+\eqref{vertexlimit} and \eqref{arealimit}, $Y$ has opposite infinite
+limits. The intermediate value theorem supplies every $Y\in\R$.
+
+\section*{The perimeter centroid}
+For completeness, the identity used in \cite[Remark 1]{BGR} follows
+by decomposing the polygon into triangles from $F$. If its successive
+vertices are $P_i$ and its edge lengths are $\ell_i$, let
+$L=\sum_i\ell_i$. Each fan triangle has area $r\ell_i/2$, so
+\[
+ C_2=\frac{\sum_i\ell_i(F+P_i+P_{i+1})}{3L},
+ \qquad
+ C_1=\frac{\sum_i\ell_i(P_i+P_{i+1})}{2L}.
+\]
+These formulas also hold for a nested star traversal with winding
+multiplicity. Thus
+\[
+ C_1=F+\frac32(C_2-F).
+\]
+Substitution of the equation for $C_2$ gives the claimed equation for
+$C_1$, with $v_1=3v_2/2+f/2$. This completes the proof.
+
+\section*{Verification and scope}
+The accompanying verifier checks the projective conic identities,
+the dominant-triangle asymptotics, the centroid identity on exact
+asymmetric tangential polygons, and high-precision closed families
+in the $N=3,4,5,6$ cases. Numerical samples are checks of the formulas;
+the limit argument above proves the assertion for all $N$.
+The pentagon statement (MathDB 352453) is a special case of this result
+and receives no separate campaign credit. This proof does not use the
+parallel/perpendicular typo in the source's different polar conjecture.
+
+\section*{Four proposed follow-up tasks}
+\begin{enumerate}
+ \item \textbf{Task 2.} Express $v_0$ and $v_2$ explicitly in terms of
+ $N$, $r/f$, and standard elliptic-function invariants of the porism.
+ \item \textbf{Task 3.} For a circular caustic whose center is off the
+ parabola's axis, determine the axes and vertices of all three centroid
+ parabolas and characterize when their axes coincide.
+ \item \textbf{Task 4.} Determine, for every $N$, the vertex and area
+ centroid loci of the polygons polar to this family with respect to
+ $\mathcal P$, addressing Conjecture 5 of \cite{BGR}.
+ \item \textbf{Task 5.} Determine the leading constant and exponential
+ rate in $1-r_N/f$ as $N\to\infty$, where $r_N$ is the circular
+ caustic radius admitting the convex $N$-gon family.
+\end{enumerate}
+
+\begin{thebibliography}{9}
+\bibitem{BGR} F. Bellio, R. Garcia, D. Reznik,
+\emph{Parabola-Inscribed Poncelet Polygons Derived from the Bicentric Family},
+KoG \textbf{26} (2022), 3--15,
+\href{https://doi.org/10.31896/k.26.1}{doi:10.31896/k.26.1};
+\href{https://arxiv.org/abs/2111.00979}{arXiv:2111.00979v3}.
+\bibitem{ST} R. Schwartz, S. Tabachnikov,
+\emph{Centers of mass of Poncelet polygons, 200 years after},
+Math. Intelligencer \textbf{38}(2) (2016), 29--34,
+\href{https://doi.org/10.1007/s00283-016-9622-9}{doi:10.1007/s00283-016-9622-9};
+\href{https://arxiv.org/abs/1607.04766}{arXiv:1607.04766}.
+\bibitem{CC} A. C. Chavez-Caliz,
+\emph{More about areas and centers of Poncelet polygons},
+Arnold Math. J. \textbf{7} (2021), 91--106,
+\href{https://doi.org/10.1007/s40598-020-00154-8}{doi:10.1007/s40598-020-00154-8};
+\href{https://arxiv.org/abs/2004.05404}{arXiv:2004.05404}.
+\end{thebibliography}
+\end{document}

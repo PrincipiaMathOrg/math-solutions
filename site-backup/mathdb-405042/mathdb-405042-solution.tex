@@ -1,0 +1,186 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,hyperref,enumitem}
+\hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue}
+\newtheorem{theorem}{Theorem}
+\newtheorem{corollary}{Corollary}
+\newcommand{\R}{\mathbb R}
+\title{Two multi-affine equations with exponentially many\\real connected components}
+\author{Principia Math In Progress}
+\date{22 September 2026}
+\begin{document}
+\maketitle
+\noindent\textbf{MathDB 405042. Negative answer to the degree-only bound.}
+
+\section*{Task 1: the original question and its answer}
+The question in Basu's contribution to Oberwolfach Report 9/2025
+[1, pp.~445--446] asks whether two real multi-affine equations of
+bounded total degree have a number of real connected components
+bounded independently of the number of variables.
+Here multi-affine means degree at most one in each individual variable.
+The answer is no, already for total degrees two and four.
+
+\begin{theorem}
+For every integer \(m\geq2\), there are two multi-affine polynomials
+of total degrees two and four in \(2m\) real variables whose common
+real zero set has exactly \(2^m\) connected components.
+Every component is homeomorphic to \(\R^m\).
+\end{theorem}
+
+\begin{proof}
+Use independent variables \(x_1,y_1,\ldots,x_m,y_m\), and put
+\[
+ z_i=x_i y_i,\qquad
+ F_m=\sum_{i=1}^m z_i-m,\qquad
+ G_m=\sum_{1\leq i<j\leq m}z_i z_j-\binom m2.                 \tag{1}
+\]
+Every nonconstant monomial of \(F_m\) is \(x_i y_i\).
+Every nonconstant monomial of \(G_m\) is
+\(x_i y_i x_j y_j\), where \(i\ne j\).
+Thus no variable occurs with exponent greater than one in either
+polynomial. Their total degrees are exactly two and four.
+
+The polynomial identity
+\[
+ \sum_{i=1}^m(z_i-1)^2
+       =F_m^2+2(m-1)F_m-2G_m                              \tag{2}
+\]
+follows by expanding the square of \(\sum_i z_i\).
+At a common real zero of \(F_m,G_m\), its left side vanishes,
+so \(z_i=1\) for every \(i\). Conversely, these equalities imply
+\(F_m=G_m=0\). Consequently the common real zero set is exactly
+\[
+ V_m=\{(x,y):x_i y_i=1\text{ for every }i\}
+       \cong(\R\setminus\{0\})^m.                         \tag{3}
+\]
+The homeomorphism sends \((x_1,\ldots,x_m)\) to
+\((x_1,x_1^{-1},\ldots,x_m,x_m^{-1})\); its inverse is the
+projection to the \(x\)-coordinates.
+
+Each \(x_i\) is nonzero on \(V_m\). The map taking a point to the
+sign vector of its \(x\)-coordinates is continuous into the discrete
+set \(\{-1,1\}^m\). Hence a connected subset has a constant sign vector.
+For each \(\epsilon\in\{-1,1\}^m\), the corresponding fiber is
+homeomorphic to \(\R^m\) by
+\[
+ t\longmapsto
+  (\epsilon_1e^{t_1},\epsilon_1e^{-t_1},
+        \ldots,\epsilon_me^{t_m},\epsilon_me^{-t_m}).       \tag{4}
+\]
+Its inverse is \(t_i=\log|x_i|\). Thus all \(2^m\) fibers are nonempty
+and connected, and they are precisely the connected components.
+\end{proof}
+
+The degrees stay bounded by four while \(m\) is arbitrary, so (3)
+rules out any finite bound depending only on those degrees.
+Only the subsequence of even ambient dimensions is needed.
+An unused free variable gives the same component count in dimension
+\(2m+1\). The coefficients are allowed to depend on \(m\), as in the
+source question. Identity (2) is a proof device: its square is not
+being introduced as one of the two defining equations.
+
+\section*{A smooth strengthening}
+The conclusion does not depend on the singularity of the pair (1).
+Fix \(0<\rho<1\) and replace its second equation by
+\[
+ G_{m,\rho}=G_m+\rho/2=0.                                 \tag{5}
+\]
+\begin{corollary}
+For every \(m\geq3\), the two equations \(F_m=G_{m,\rho}=0\)
+define a smooth real submanifold of dimension \(2m-2\), with
+exactly \(2^m\) connected components. Each component is
+diffeomorphic to \(\R^m\times S^{m-2}\).
+\end{corollary}
+\begin{proof}
+Identity (2) gives an exact description in the \(z\)-variables:
+\[
+ Z_{m,\rho}
+ =\left\{z:\sum_i z_i=m,\ \sum_i(z_i-1)^2=\rho\right\}.     \tag{6}
+\]
+This is a sphere of radius \(\sqrt\rho\), centered at
+\((1,\ldots,1)\), in the \((m-1)\)-dimensional affine hyperplane
+\(\sum_i z_i=m\). In particular it is diffeomorphic to \(S^{m-2}\).
+It is nonempty, and \(z_i\geq1-\sqrt\rho>0\) throughout.
+
+Fix a sign vector \(\epsilon\). The map from
+\(\R^m\times Z_{m,\rho}\) given by
+\[
+ x_i=\epsilon_i e^{t_i},\qquad
+ y_i=\epsilon_i z_i e^{-t_i}                               \tag{7}
+\]
+is a diffeomorphism onto the part with these signs.
+Its inverse is \(t_i=\log|x_i|\), \(z_i=x_i y_i\).
+Since \(m\geq3\), the sphere in (6) is connected. Each sign fiber
+is therefore connected; the continuous sign map again separates
+the \(2^m\) fibers.
+
+For completeness, the two defining equations are transverse at
+every real solution. The map \((x,y)\mapsto z\) has surjective
+differential because \(x_i\ne0\), and its derivatives with respect
+to the \(y_i\) have nonzero diagonal entries \(x_i\).
+In \(z\)-coordinates the two gradients are
+\[
+ (1,\ldots,1),\qquad
+ \left(\sum_jz_j-z_1,\ldots,\sum_jz_j-z_m\right).
+\]
+They can be dependent only if all \(z_i\) coincide. On the
+hyperplane in (6), that would give \(z_i=1\), contradicting
+\(\rho>0\). Their pullbacks are independent, proving the claimed
+smoothness and dimension.
+\end{proof}
+
+\section*{Tasks 2--5: four proposed mathematical follow-ups}
+\begin{enumerate}[label=\textbf{Task \arabic*:},start=2,leftmargin=*]
+\item Determine the least total-degree bound \(d\) for which two
+multi-affine equations can have unboundedly many connected
+components as the ambient dimension grows; in particular resolve
+the cases \(d=2\) and \(d=3\).
+\item Determine the largest possible number of real connected
+components of two multi-affine equations of degrees at most four
+in \(n\) variables, or determine its exponential growth rate.
+\item Decide whether a degree-only component bound holds when
+each of the two defining multi-affine polynomials is invariant
+under every permutation of the \(n\) variables.
+\item Determine whether two multi-affine equations of uniformly
+bounded total degree can have a compact smooth common real zero
+set with an unbounded number of connected components.
+\end{enumerate}
+These are proposed directions, not additional claimed solutions.
+
+\section*{Verification, sources, and scope of review}
+The accompanying exact verifier checks the identity, monomial
+degrees, representatives of every sign component in finite
+dimensions, and rational transverse examples of (5). These checks
+supplement the proofs for arbitrary \(m\); they do not prove the
+infinite family. Review is by the authoring agent only, without
+independent peer review or a proof assistant.
+
+\medskip\noindent
+[1] \emph{MFO--RIMS Tandem Workshop: Optimization, Theoretical
+Computer Science and Algebraic Geometry: Convexity and Beyond},
+Oberwolfach Report 9/2025,
+\href{https://doi.org/10.4171/OWR/2025/9}{doi:10.4171/OWR/2025/9}.
+The complete 46-page published report was read. The contribution
+on printed pp.~445--446 states the unrestricted two-equation
+question and cites the earlier three-equation construction.
+
+\medskip\noindent
+[2] S. Basu and D. Perrucci,
+\emph{Topology of real multi-affine hypersurfaces and a
+homological stability property},
+\href{https://arxiv.org/abs/2204.01595}{arXiv:2204.01595v1}
+(4 April 2022), all 26 pages read.
+Its Example 2.2 uses three equations; its two-equation question
+is open on pp.~6 and 24.
+The related 33-page journal version, \emph{Adv. Math.} 420 (2023),
+108982, was identified but not obtained.
+The later published source [1] explicitly cites that journal
+paper and still poses the present question.
+
+\medskip\noindent
+The dated audit records the live MathDB checks and bounded
+public searches. No earlier full solution was found in the
+checked material; the audit is not a guarantee of exhaustive
+priority coverage. The smooth strengthening receives no separate
+campaign credit.
+\end{document}

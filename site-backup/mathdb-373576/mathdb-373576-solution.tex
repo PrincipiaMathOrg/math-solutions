@@ -1,0 +1,233 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,enumitem,hyperref}
+\hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue,citecolor=blue}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newcommand{\Q}{\mathcal Q}
+\newcommand{\conv}{\operatorname{conv}}
+\newcommand{\supp}{\operatorname{supp}}
+\title{Simplicial polytopes realizing arbor support vectors\\\large MathDB 373576}
+\author{Principia Math In Progress}
+\date{September 18, 2026}
+\begin{document}
+\maketitle
+\begin{abstract}
+We prove Chapoton's conjecture that the support-count vector of every
+arbor polytope is the $h$-vector of a simplicial polytope. In fact the
+result holds for every finite preorder. We identify a special simplex
+in an augmented bipartite root polytope and verify unimodularity.
+The proof uses, with explicit attribution, the support-enumerator
+theorem of Dai--Hou--Liu--Thawinrak--Wang and Athanasiadis's
+special-simplex theorem.
+\end{abstract}
+
+\section*{Task 1. Full solution}
+Let $\rho$ be a preorder on $E=[n]$, where $n\ge1$, and put
+\[
+ \Q_\rho=\{x\in\mathbb R_{\ge0}^{E}:x(I)\le |I|
+                   \text{ for every order ideal $I$ of $\rho$}\},
+ \qquad x(A)=\sum_{i\in A}x_i.
+\]
+An order ideal contains every predecessor of each of its elements;
+equivalent elements of a preorder are therefore included together.
+Write $P_\rho=\Q_\rho\cap\mathbb Z^E$ and
+\[
+ H_\rho(t)=\sum_{a\in P_\rho}t^{|\supp(a)|},
+ \qquad \supp(a)=\{i:a_i>0\}.
+\]
+For a simplicial $n$-polytope $S$, the convention is
+$h(\partial S,t)=\sum_{i=0}^n f_{i-1}(\partial S)t^i(1-t)^{n-i}$,
+with $f_{-1}=1$.
+\begin{theorem}\label{thm:main}
+For every preorder $\rho$ on $[n]$ there is an $n$-dimensional
+simplicial convex polytope $S_\rho$ such that
+\[
+ \boxed{H_\rho(t)=h(\partial S_\rho,t).}
+\]
+In particular this holds for the support-count polynomial of every
+arbor, proving Conjecture 1.1 of \cite{AXY} in full. Its coefficients
+are palindromic and unimodal, and satisfy the $g$-theorem.
+\end{theorem}
+
+\subsection*{A root polytope with the required Ehrhart numerator}
+Form a bipartite graph $G$ with both vertex sets indexed by $E$,
+placing an edge from left $i$ to right $j$ precisely when
+$j\le_\rho i$. If $A$ is a set of left vertices, its neighborhood
+is the ideal $\downarrow_\rho A$. Thus the set of draconian vectors
+in the convention of \cite{D} is
+\[
+ D(G)=\{a\in\mathbb Z_{\ge0}^{E}:
+                   a(A)\le |\downarrow_\rho A|\text{ for all }A\subseteq E\}
+      =P_\rho.                                                    \tag{1}
+\]
+Indeed the inequalities for ideals give one inclusion; for the other,
+$a(A)\le a(\downarrow A)\le|\downarrow A|$.
+
+Adjoin left and right vertices indexed by $0$, each adjacent to every
+vertex on the other side. In the augmented root polytope, suppressing
+the two coordinates indexed by $0$ gives the integral affine model
+\[
+ R_\rho=\conv\bigl(0,(e_i,0),(0,e_j),(e_i,e_j):j\le_\rho i\bigr)
+                  \ \subset\mathbb R^{E}\oplus\mathbb R^{E}.       \tag{2}
+\]
+The original coordinates have left sum and right sum both equal to
+$1$, so the suppressed coordinates are $1-\sum\alpha_i$ and
+$1-\sum\beta_j$. Hence this model preserves the affine lattice.
+It has dimension $2n$, since $0,(e_i,0),(0,e_i)$ are affinely independent.
+The established support-enumerator theorem \cite[Theorem 1.2]{D}
+and (1) give
+\[
+ \sum_{k\ge0}|kR_\rho\cap\mathbb Z^{2n}|t^k
+       =\frac{H_\rho(t)}{(1-t)^{2n+1}}.                             \tag{3}
+\]
+This previously proved identity is an input, not a new claim here.
+
+\subsection*{Facet description and the special simplex}
+We claim that (2) has the following inequality description:
+\[
+ \alpha_i,\beta_i\ge0,\qquad
+ \beta(F)+\alpha(E\setminus F)\le1
+                  \quad\text{for every filter $F$ of $\rho$}.       \tag{4}
+\]
+The empty and full filters are included. A filter contains all
+successors of each of its elements.
+
+Here are both directions, including sufficiency. Every vertex in (2)
+satisfies (4): an edge with $j\in F$ has $i\in F$, since $j\le_\rho i$.
+Conversely suppose (4) holds. Set
+$\alpha_0=1-\alpha(E)$ and $\beta_0=1-\beta(E)$; these are nonnegative.
+We seek a nonnegative edge weighting of the augmented graph with these
+left and right marginals. The fractional Hall criterion (equivalently,
+the max-flow/min-cut theorem) says that it exists exactly when, for
+every set $B$ of right vertices, its demanded mass does not exceed the
+mass of its left neighborhood. Sets containing $0$ have all left
+vertices as neighbors, so their inequalities are automatic.
+For $B\subseteq E$, the left neighborhood is
+$\{0\}\cup\uparrow_\rho B$. Write $F=\uparrow_\rho B$. Then (4) gives
+\[
+ \beta(B)\le\beta(F)\le1-\alpha(E\setminus F)
+                         =\alpha_0+\alpha(F).
+\]
+These are all the required cut inequalities. The resulting edge
+weights sum to $1$ and express $(\alpha,\beta)$ as a convex combination
+of (2), proving the claim.
+
+Consider the $n$-simplex
+\[
+ \Sigma=\conv\{0,(e_1,e_1),\ldots,(e_n,e_n)\}\subset R_\rho.        \tag{5}
+\]
+All of these points are vertices: they are distinct $0$--$1$ vectors
+in the vertex set of (2), and a $0$--$1$ vector cannot be a convex
+combination of different $0$--$1$ vectors. They are affinely independent.
+Every facet of $R_\rho$ is supported by one of the inequalities in (4),
+because (4) is a finite full-dimensional description.
+A coordinate facet $\alpha_i=0$ or $\beta_i=0$ contains exactly the
+$n$ vertices of $\Sigma$ other than $(e_i,e_i)$.
+A filter facet contains every $(e_i,e_i)$ and omits $0$.
+Consequently every facet contains exactly $n$ of the $n+1$ vertices
+in (5). This is precisely the special-simplex condition.
+
+\subsection*{Unimodularity and polytopality}
+Every full-dimensional simplex with vertices from (2) is unimodular.
+To see this, return to the augmented bipartite graph. A set of its
+edge vectors is affinely independent exactly when the edges form a
+forest. A cycle gives the alternating affine dependence; conversely,
+successively removing leaves proves independence for a forest.
+A full simplex has $2n+1$ edges on $2n+2$ graph vertices, so these
+edges form a spanning tree.
+
+For any integral left and right marginals with the same total, the
+unique real edge weights on such a tree are integral: the weight on
+an edge incident to a leaf is the marginal at that leaf; subtract it
+from the adjacent marginal and continue. Nonnegativity is irrelevant
+to this lattice assertion. Thus the tree edge vectors form an affine
+lattice basis in total degree $1$, proving normalized volume one.
+It follows that every triangulation using the vertices of $R_\rho$
+is unimodular. In particular $R_\rho$ is compressed: every pulling
+triangulation is unimodular.
+
+We now apply the established special-simplex theorem
+\cite[Theorem 3.5]{A}: if a $d$-dimensional integral polytope has a
+unimodular pulling triangulation in which the $q$ vertices of a
+special simplex are pulled first, then its Ehrhart numerator is the
+$h$-polynomial of a simplicial polytope of dimension $d-q+1$.
+All its hypotheses have just been verified, with $d=2n$ and $q=n+1$.
+In combination with (3), its conclusion is exactly Theorem~\ref{thm:main}.
+
+More concretely, the pulling triangulation is the join of $\Sigma$
+with a complex $\Delta$ that triangulates the boundary of the quotient
+by the diagonal subspace. This quotient is
+\[
+ A_\rho=\conv\{\pm e_i,\ e_j-e_i:j\le_\rho i\}\subset\mathbb R^E.
+                                                                    \tag{6}
+\]
+Theorem 3.5 realizes $\Delta$ as the boundary of a simplicial polytope
+by successive vertex pulling. Since the simplex factor has
+$h$-polynomial $1$, $h(\Delta,t)=h^*(R_\rho,t)=H_\rho(t)$.
+The quotient (6) itself need not already be simplicial.
+
+\subsection*{The arbor target and the precise scope}
+An arbor is a rooted tree of nonempty blocks partitioning $[n]$.
+Give its labels the preorder $i\le_\rho j$ when the block of $i$
+is a descendant of the block of $j$. For each tree vertex $v$, let
+$D(v)$ be the union of the blocks of its descendants, including $v$.
+Every ideal of $\rho$ is the disjoint union of the sets $D(v)$
+at its maximal blocks. Therefore the arbor inequalities
+$x(D(v))\le|D(v)|$ are equivalent to all the ideal inequalities
+defining $\Q_\rho$. Its support-count vector is exactly the vector
+in the question, with no restriction on branching or block sizes.
+
+Palindromicity and unimodality now follow from the $g$-theorem for
+simplicial polytopes. The stronger flag-realization and
+gamma-positivity conjectures are not established by this argument.
+The linear-arbor flag result of \cite{linear} is earlier work.
+The support-root-polytope identity and the special-simplex theorem
+are also earlier work; the contribution is their verified application
+to the graph and special simplex above.
+
+\section*{Tasks 2--5. Proposed follow-ups}
+\begin{enumerate}[label=\textbf{Task \arabic*.},start=2,leftmargin=*]
+\item Determine which arbors admit an ordering in the construction
+above for which the resulting simplicial boundary is flag; in
+particular, decide whether every arbor admits one.
+\item Describe the facets of the quotient (6) directly from the
+blocks and branches of an arbor, and give a combinatorial rule for
+the maximal simplices of its boundary pulling triangulation.
+\item Prove or disprove that the gamma-coefficients of $H_\rho(t)$
+are nonnegative for every finite preorder $\rho$.
+\item Construct a direct bijection from $P_\rho$ to the maximal
+simplices of the special-simplex link, carrying support size to
+restriction-face size in an explicit shelling.
+\end{enumerate}
+
+\paragraph{Verification.}
+The exact verifier checks all 389 labeled preorders through size four,
+including 12,708 unimodular maximal simplices and the complete
+$h$-vectors of their links. Independent edge-sum and inequality counts
+give 226 Ehrhart values for all 34 preorders through size three.
+The arbor reduction is checked on all 1,674 labeled arbors through
+size five, with 39 larger geometric examples. These finite checks
+support the proof; they do not replace it. Review is by the authoring
+agent only.
+
+\begin{thebibliography}{9}
+\bibitem{AXY} C. A. Athanasiadis, Q. Xiao, and X. Yan,
+\emph{Lattice point enumeration of some arbor polytopes},
+\href{https://arxiv.org/abs/2603.11654}{arXiv:2603.11654v1}, 2026,
+Conjecture 1.1.
+\bibitem{D} Z. Dai, Q. Hou, Z. Liu, W. Thawinrak, and H. Wang,
+\emph{Counting Lattice Points in Minkowski Sums of Cross Polytopes},
+\href{https://arxiv.org/abs/2608.16037}{arXiv:2608.16037v2}, 2026,
+Theorem 1.2 and Section 4.2.
+\bibitem{A} C. A. Athanasiadis,
+\emph{Ehrhart polynomials, simplicial polytopes, magic squares and
+a conjecture of Stanley}, J. Reine Angew. Math. \textbf{583} (2005),
+163--174; \href{https://arxiv.org/abs/math/0312031}{arXiv:math/0312031},
+Theorem 3.5.
+\bibitem{linear} C. A. Athanasiadis,
+\emph{Lattice Point Enumeration of Polytopes Associated to Integer
+Compositions}, Ann. Comb. (2026),
+\href{https://doi.org/10.1007/s00026-026-00812-2}{doi:10.1007/s00026-026-00812-2}.
+\end{thebibliography}
+\end{document}

@@ -1,0 +1,276 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,hyperref}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newcommand{\F}{\mathbb F_2}
+\title{A cube counterexample to the complementation-set correspondence}
+\author{Principia Math In Progress}
+\date{29 September 2026}
+\begin{document}
+\maketitle
+
+\paragraph{Task 1 (original problem).}
+MathDB \href{https://mathdb.com/p/380333}{380333} records
+Genest's Conjecture 1.7.17 \cite[p.~41]{Genest}: for a bicolored graph
+without isolated vertices or twins, its parity class is in bijection
+with its complementation sets. We disprove the conjecture, including
+for a graph with its natural coloring.
+
+\begin{theorem}\label{main}
+Let \(G\) be the three-dimensional cube, all of whose vertices are black.
+Then \(G\) is connected, has no twins or isolated vertices, has exactly
+\(56\) complementation sets, and has exactly \(28\) graphs in its parity
+class. Consequently no bijection in the conjecture exists.
+\end{theorem}
+
+\paragraph{Definitions from the source.}
+Local complementation at \(u\) toggles the edges between distinct
+neighbors of \(u\). If \(u\) is white, it also reverses its neighbors'
+colors; if \(u\) is black, all colors stay unchanged.
+Allowed parity steps are a white singleton \(u\), or
+\([uv]=uvu\) for adjacent black vertices \(u,v\).
+A parity word is any finite sequence of allowed steps, including the
+empty word. The parity class \([G]\) consists of the resulting colored
+graphs on the original vertex set.
+A reduced word uses disjoint singleton or pair supports; its support
+is a \emph{complementation set}. The result for support \(S\) is denoted
+\(G^S\) and is independent of the reduced word.
+These are Definitions 1.6.1--1.6.4 and Theorem 1.6.3 in \cite{Genest}.
+Twins mean distinct vertices with equal open neighborhoods or equal
+closed neighborhoods. The natural coloring makes odd degrees black
+and even degrees white.
+
+Starting with an all-black graph, every parity step is an adjacent
+black pair, and every resulting graph is all black. We work entirely
+in this case. All matrices below are over \(\F\).
+
+\begin{lemma}\label{pivots}
+Let \(A\) be the adjacency matrix of an all-black graph.
+Its complementation sets are exactly the sets \(S\) for which the
+principal submatrix \(A[S]\) is nonsingular, with the empty matrix
+regarded as nonsingular. Every graph in its parity class equals
+\(G^S\) for such a set.
+\end{lemma}
+\begin{proof}
+For a nonsingular principal block \(P=A[S]\), write
+\[
+ A=\begin{pmatrix}P&Q\\Q^t&R\end{pmatrix}.
+\]
+Solving the first block of \(y=Ax\) for \(x_S\) gives
+\begin{equation}\label{ppt}
+ \begin{pmatrix}x_S\\y_{S^c}\end{pmatrix}
+ =
+ \underbrace{\begin{pmatrix}
+ P^{-1}&P^{-1}Q\\Q^tP^{-1}&R+Q^tP^{-1}Q
+ \end{pmatrix}}_{A*S}
+ \begin{pmatrix}y_S\\x_{S^c}\end{pmatrix}.
+\end{equation}
+This defines the principal pivot \(A*S\).
+
+For an adjacent black pair \(u,v\), its block is
+\(P=\left(\begin{smallmatrix}0&1\\1&0\end{smallmatrix}\right)=P^{-1}\).
+If its outside incidence rows are \(c^t,d^t\), formula \eqref{ppt}
+swaps these rows and adds \(cd^t+dc^t\) to the outside block.
+The source's three local complementations \(uvu\) do exactly this:
+outside adjacencies \((c_i,d_i)\) become \((d_i,c_i)\), and the
+toggle between outside vertices \(i,j\) is
+\[
+ c_ic_j+(c_i+d_i)(c_j+d_j)+d_id_j=c_id_j+d_ic_j.
+\]
+All colors stay black.
+
+For completeness, let
+\[
+ L_A=\{(x,Ax):x\in\F^n\},
+\]
+and let \(\sigma_S\) interchange \(x_i\) and \(y_i\) for \(i\in S\).
+These swaps commute and satisfy
+\(\sigma_S\sigma_T=\sigma_{S\mathbin{\triangle}T}\).
+Writing \(D_S\) for the diagonal indicator of \(S\), the first
+coordinate of \(\sigma_S(x,Ax)\) is
+\[
+ C_Sx,\qquad C_S=I+D_S+D_SA.
+\]
+Its rows outside \(S\) are identity rows and its rows inside \(S\)
+are rows of \(A\). Therefore
+\(\det C_S=\det A[S]\).
+It follows that \(\sigma_SL_A\) is the graph of a matrix precisely
+when \(A[S]\) is nonsingular; that matrix is \(A*S\).
+
+Any parity word is a sequence of pair swaps. Its final subspace is
+\(\sigma_SL_A\), where \(S\) is the symmetric difference of all its
+pair supports. The final graph is a matrix graph, so \(A[S]\) is
+nonsingular and the final matrix is \(A*S\).
+
+Conversely, if \(A[S]\) is nonsingular and nonempty, it is alternating:
+it is symmetric with zero diagonal. It has a nonzero off-diagonal
+entry, hence an allowed black pair. Its Schur complement on the
+unused part of \(S\) is again alternating and nonsingular, by
+the displayed formula and determinant factorization. Repeating gives
+disjoint pair steps covering \(S\). This is a reduced parity word,
+and \eqref{ppt} shows that it realizes \(A*S\).
+\end{proof}
+
+\begin{lemma}\label{fibers}
+Suppose that \(A\) is the adjacency matrix of a connected bipartite
+graph and \(A^2=I\). For any two complementation sets \(S,T\),
+\[
+ G^S=G^T\quad\Longleftrightarrow\quad
+ T=S\ \hbox{or}\ T=V(G)\setminus S.
+\]
+In particular, every graph in the parity class has exactly two
+complementation sets.
+\end{lemma}
+\begin{proof}
+By Lemma~\ref{pivots}, equality is equivalent to
+\(\sigma_{S\mathbin{\triangle}T}L_A=L_A\).
+Let \(D\) be the diagonal indicator of a set \(U\) with
+\(\sigma_UL_A=L_A\). The two coordinates of the swapped vector are
+\[
+ x'=(I+D+DA)x,\qquad y'=(D+(I+D)A)x.
+\]
+Because \(y'=Ax'\) for every \(x\), we obtain
+\begin{equation}\label{stabilizer}
+ D+DA+AD+ADA=0.
+\end{equation}
+For adjacent vertices \(i,j\), bipartiteness implies that they have
+no common neighbor, so \((ADA)_{ij}=0\). The \((i,j)\) entry of
+\eqref{stabilizer} is therefore \(d_i+d_j=0\).
+Connectivity forces all the \(d_i\) to be equal.
+Thus only \(U=\varnothing\) or \(U=V(G)\) can fix \(L_A\).
+Both do fix it: the empty swap is the identity, and the full swap
+gives \(L_{A^{-1}}=L_A\) because \(A^2=I\).
+
+Consequently equality of two pivot results holds exactly when
+\(S\mathbin{\triangle}T\) is empty or full.
+Moreover the complement of every feasible \(S\) is feasible, since
+\(\sigma_{V\setminus S}L_A=\sigma_SL_A\) is a matrix graph.
+The two supports are distinct, completing the proof.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{main}]
+Label the bipartition as
+\[
+ L=\{\ell_1,\ell_2,\ell_3,\ell_4\},\qquad
+ R=\{r_1,r_2,r_3,r_4\},
+\]
+with \(\ell_i\) adjacent to \(r_j\) precisely when \(i\ne j\).
+This is the cube: the labels can be taken as
+\[
+ (\ell_1,\ell_2,\ell_3,\ell_4)=(000,011,101,110),\qquad
+ (r_1,r_2,r_3,r_4)=(111,100,010,001).
+\]
+Edges then join binary strings differing in one coordinate.
+The graph is connected and every vertex has degree three.
+Thus the all-black coloring is its natural coloring.
+
+Two vertices in the same part omit different opposite vertices from
+their open neighborhoods, so these neighborhoods differ. Open
+neighborhoods of vertices in different parts are nonempty and lie
+in disjoint parts, so cannot agree either. Equal closed neighborhoods
+of distinct vertices would require them to be adjacent. But for
+an adjacent pair, one closed neighborhood contains one left vertex
+and the other contains three left vertices. Hence there are no twins.
+
+Let \(J_4\) be the all-ones matrix and put \(B=I_4+J_4\).
+Then
+\[
+ A=\begin{pmatrix}0&B\\B&0\end{pmatrix},\qquad
+ J_4^2=0,\qquad B^2=I_4,\qquad A^2=I_8.
+\]
+It remains to count the nonsingular principal submatrices.
+For \(S=X\cup Y\), with \(X\subseteq L\), \(Y\subseteq R\),
+the principal matrix is
+\(\left(\begin{smallmatrix}0&B[X,Y]\\B[X,Y]^t&0\end{smallmatrix}\right)\).
+It can be nonsingular only if \(|X|=|Y|=k\), and in that case
+it is nonsingular exactly when \(B[X,Y]\) is.
+Identify \(X,Y\) with their index sets in \(\{1,2,3,4\}\).
+The possibilities are:
+\[
+\begin{array}{c|c|c}
+ k&\text{condition for nonsingularity}&\text{number}\\ \hline
+ 0&\text{empty}&1\\
+ 1&X\ne Y&12\\
+ 2&|X\cap Y|=1\text{ or }2&24+6=30\\
+ 3&X\ne Y&12\\
+ 4&X=Y=\{1,2,3,4\}&1
+\end{array}
+\]
+For \(k=2\), disjoint sets give an all-ones matrix of rank one;
+intersection sizes one and two give, up to row and column
+permutations, respectively
+\[
+ \begin{pmatrix}0&1\\1&1\end{pmatrix},\qquad
+ \begin{pmatrix}0&1\\1&0\end{pmatrix},
+\]
+both of determinant one.
+For \(k=3\), equal sets give \(I_3+J_3\), which kills the all-ones
+vector, while unequal sets give, up to permutations,
+\[
+ \begin{pmatrix}0&1&1\\1&0&1\\1&1&1\end{pmatrix}
+\]
+of determinant one. The other rows are immediate, using \(B^2=I_4\)
+for the last row.
+There are therefore \(1+12+30+12+1=56\) complementation sets.
+Lemma~\ref{fibers} gives precisely \(56/2=28\) parity-class graphs.
+This strict cardinality discrepancy excludes every possible bijection,
+not only the canonical map \(S\mapsto G^S\).
+\end{proof}
+
+\paragraph{An infinite counterfamily.}
+Every odd-dimensional cube \(Q_d\), \(d\ge3\), with its natural
+all-black coloring has the same two-to-one correspondence.
+Indeed, write \(A=P_1+\cdots+P_d\), where \(P_i\) flips coordinate
+\(i\). The commuting involutions \(P_i\) satisfy
+\(A^2=dI=I\) over \(\F\). The graph is connected and bipartite.
+Distinct vertices have at most two common neighbors, whereas every
+vertex has \(d\ge3\) neighbors, so open twins are impossible.
+Closed twins are impossible too: they would be adjacent, but an
+adjacent pair has no common neighbor and degree at least three.
+Lemma~\ref{fibers} applies.
+
+\paragraph{Verification and scope.}
+The exact verifier separately explores unrestricted parity words and
+reduced words using the source's three local complementations.
+It checks all \(256\) supports against independent binary elimination,
+finds \(56\) supports and \(28\) distinct labeled colored graphs,
+and confirms that every fiber is a complementary pair.
+For the labels above, one full reduced word returning to the original
+graph is
+\[
+ [\ell_1r_2][\ell_2r_1][\ell_3r_4][\ell_4r_3].
+\]
+The proof above is independent of this computation.
+The conjecture fails under its full source definitions, with no
+transcription repair or missing-hypothesis counterexample involved.
+
+\paragraph{Task 2 (proposed follow-up).}
+Determine the number of complementation sets of \(Q_d\) for odd
+\(d\ge5\), and hence the cardinality of its parity class.
+
+\paragraph{Task 3 (proposed follow-up).}
+Determine the smallest order of a naturally colored graph without
+isolated vertices or twins for which the correspondence is not injective.
+
+\paragraph{Task 4 (proposed follow-up).}
+Classify the connected bipartite graphs whose binary adjacency matrix
+satisfies \(A^2=I\), by their degree and common-neighbor constraints.
+
+\paragraph{Task 5 (proposed follow-up).}
+For general bicolored graphs, classify the diagonal indicator matrices
+\(D\) satisfying \(D+DM+MD+MDM=0\), where \(M\) has diagonal one
+at white vertices, and determine the possible dimensions of this
+space for graphs without twins.
+
+\begin{thebibliography}{1}
+\bibitem{Genest}
+F. Genest, \emph{Graphes eul\'eriens et compl\'ementarit\'e locale}
+(English arXiv title: \emph{Eulerian graphs and local complementation}),
+Ph.D. thesis, Universit\'e de Montr\'eal;
+arXiv:math/0701421v1 (2007), 103 pages.
+Definitions 1.6.1--1.6.4, Theorem 1.6.3,
+and Conjecture 1.7.17.
+\url{https://arxiv.org/abs/math/0701421}.
+\end{thebibliography}
+\end{document}

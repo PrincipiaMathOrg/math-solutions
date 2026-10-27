@@ -1,0 +1,180 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[hidelinks]{hyperref}
+\newtheorem{theorem}{Theorem}
+\DeclareMathOperator{\Var}{Var}
+\title{Failure of the discrete maximal-variation conjecture\\
+\large MathDB 348574}
+\author{Principia Math in Progress}
+\date{12 September 2026}
+\begin{document}
+\maketitle
+
+\paragraph{Task 1. Resolve the original conjecture.}
+For a function on the integers, use the centered maximal function and
+adjacent-difference variation
+\[
+Mf(n)=\sup_{r\in\mathbb Z_{\geq0}}
+\frac{\sum_{k=-r}^r|f(n+k)|}{2r+1},
+\qquad
+\Var_p(f)^p=\sum_{n\in\mathbb Z}|f(n+1)-f(n)|^p.
+\]
+Conjecture~1, equation~(5.4), of Gonz\'alez-Riquelme and
+Madrid~\cite{source} proposes, for \(1/2<p\leq1\) and
+\(f\in\ell^p(\mathbb Z)\),
+\begin{equation}\label{eq:conjecture}
+\Var_p(Mf)\leq C_p\Var_p(f),\qquad
+C_p^p=\sum_{j=0}^{\infty}
+\left(\frac{2}{(2j+1)(2j+3)}\right)^p.
+\end{equation}
+This is false for every \(1/2<p<1\). We first show that no finite
+replacement constant works in that range, then give one fixed
+three-point example refuting the specific proposed constant for all
+those exponents.
+
+\begin{theorem}\label{thm:unbounded}
+For each \(1/2<p<1\),
+\[
+\sup_{\substack{f\ne0\\ f\text{ finitely supported}}}
+\frac{\Var_p(Mf)}{\Var_p(f)}=\infty.
+\]
+\end{theorem}
+\begin{proof}
+Let \(N\geq1\) be an integer and put
+\(f_N=\mathbf1_{[-N,N]\cap\mathbb Z}\).
+There are exactly two unit jumps, so \(\Var_p(f_N)^p=2\).
+We claim that
+\begin{equation}\label{eq:block}
+Mf_N(q)=
+\begin{cases}
+1,&|q|\leq N,\\[1mm]
+(2N+1)/(2|q|+2N+1),&|q|>N.
+\end{cases}
+\end{equation}
+For \(q>N\), the first radius capturing \(j\) support points is
+\(q-N+j-1\), with average
+\[
+\frac{j}{2q-2N+2j-1},\qquad 1\leq j\leq2N+1.
+\]
+These fractions strictly increase with \(j\), because \(2q-2N-1>0\).
+Once the whole support is captured, every larger radius decreases the
+average. This proves the claim; symmetry and radius zero handle the
+other centers.
+
+For \(N+1\leq q\leq2N\), formula~\eqref{eq:block} gives
+\[
+Mf_N(q)-Mf_N(q+1)
+=\frac{2(2N+1)}{(2q+2N+1)(2q+2N+3)}
+\geq\frac4{63N}.
+\]
+Indeed, the numerator is at least \(4N\), and the denominator is at
+most \((6N+1)(6N+3)\leq63N^2\).
+There are \(N\) such jumps on each side. Consequently
+\[
+\left(\frac{\Var_p(Mf_N)}{\Var_p(f_N)}\right)^p
+\geq N\left(\frac4{63N}\right)^p
+=\left(\frac4{63}\right)^pN^{1-p}\longrightarrow\infty.
+\]
+Each \(f_N\) belongs to \(\ell^p\), and each output variation is finite:
+for fixed \(N\), the tail jumps are \(O(q^{-2})\) and \(2p>1\).
+\end{proof}
+
+\paragraph{A fixed counterexample to the proposed constant.}
+Take \(f=f_1=\mathbf1_{\{-1,0,1\}}\). Its maximal function is
+\[
+Mf(n)=1\quad(|n|\leq1),\qquad
+Mf(n)=\frac3{2|n|+3}\quad(|n|\geq2).
+\]
+The jump sizes on either side are
+\[
+a_0=\frac47,\qquad
+a_j=\frac6{(2j+5)(2j+7)}\quad(j\geq1).
+\]
+Set also
+\[
+b_j=\frac2{(2j+1)(2j+3)}\quad(j\geq0).
+\]
+Both \(a\) and \(b\) are decreasing positive sequences of total mass
+one. For \(m\geq1\), their partial sums are
+\[
+A_m=\sum_{j<m}a_j=1-\frac3{2m+5},\qquad
+B_m=\sum_{j<m}b_j=1-\frac1{2m+1},
+\]
+so
+\begin{equation}\label{eq:major}
+B_m-A_m=\frac{2(2m-1)}{(2m+1)(2m+5)}>0.
+\end{equation}
+We make the infinite-sequence concavity step explicit.
+For any decreasing probability sequence \(z=(z_j)\), put
+\[
+K_z(t)=\sum_j\min(z_j,t)\qquad(t>0).
+\]
+If \(Z_m=\sum_{j<m}z_j\) and \(Z_0=0\), then
+\[
+\sum_j(z_j-t)_+=\max_{m\geq0}(Z_m-mt),\qquad
+K_z(t)=1-\sum_j(z_j-t)_+.
+\]
+The maximum is attained at the finite number of entries exceeding \(t\).
+Equation~\eqref{eq:major} therefore implies \(K_a(t)\geq K_b(t)\).
+This inequality is strict for \(4/7<t<2/3\): every \(a_j<t\), so
+\(K_a(t)=1\), while \(b_0=2/3>t\) gives \(K_b(t)<1\).
+
+For \(0<p<1\), direct integration gives
+\[
+z^p=p(1-p)\int_0^\infty \min(z,t)t^{p-2}\,dt.
+\]
+Tonelli's theorem and the preceding strict interval now show
+\[
+\sum_j a_j^p>\sum_j b_j^p\qquad(1/2<p<1).
+\]
+Both sums are finite because their terms are \(O(j^{-2p})\).
+Finally,
+\[
+\left(\frac{\Var_p(Mf)}{\Var_p(f)}\right)^p
+=\frac{2\sum_ja_j^p}{2}
+>\sum_jb_j^p=C_p^p.
+\]
+Thus the same three-point function refutes~\eqref{eq:conjecture}
+for every exponent in the open interval.
+
+\paragraph{Scope.}
+At \(p=1\) both jump sums equal one, so these examples give equality.
+The proof refutes the universally quantified conjecture and all finite
+variation-to-variation constants for \(1/2<p<1\); it does not resolve
+the general endpoint \(p=1\).
+The MathDB strings \(p\ne(1/2,1]\) and the malformed \(\ell^p\)
+are transcription defects: the source and the record's explanatory
+sentence fix the intended range and space.
+The source's proved \(\ell^p\)-to-variation bound is a different estimate
+and is not contradicted.
+
+\paragraph{Task 2. Quantify the dependence on support size.}
+Determine the sharp growth of the best variation-to-variation constant
+when the input is supported on an interval of at most \(L\) lattice
+points, for fixed \(1/2<p<1\).
+
+\paragraph{Task 3. Resolve the endpoint variation bound.}
+Prove or refute \(\Var_1(Mf)\leq\Var_1(f)\) for general
+\(f\in\ell^1(\mathbb Z)\), extending beyond the already known
+indicator-function case.
+
+\paragraph{Task 4. Study radius truncation.}
+For the maximal operator restricted to radii \(r\leq R\), determine
+the optimal variation constant and its growth as \(R\to\infty\)
+when \(1/2<p<1\).
+
+\paragraph{Task 5. Find a replacement estimate.}
+Determine sharp bounds combining input variation with a measure of
+support size, mass or decay that controls the long-block obstruction
+while retaining the established \(\ell^p\)-to-variation inequality.
+
+\begin{thebibliography}{9}
+\bibitem{source}
+C. Gonz\'alez-Riquelme and J. Madrid,
+\emph{Sharp inequalities for maximal operators on finite graphs, II},
+J. Math. Anal. Appl. \textbf{506} (2022), 125647,
+\href{https://doi.org/10.1016/j.jmaa.2021.125647}{doi:10.1016/j.jmaa.2021.125647};
+\href{https://arxiv.org/abs/2011.02630}{arXiv:2011.02630}, Conjecture~1.
+\end{thebibliography}
+\end{document}

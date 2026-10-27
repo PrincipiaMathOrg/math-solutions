@@ -1,0 +1,160 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[hidelinks]{hyperref}
+\newtheorem{theorem}{Theorem}
+\newcommand{\CI}{C_{\mathrm I}}
+\newcommand{\CII}{C_{\mathrm {II}}}
+\title{A counterexample in every band of the parabola conjecture\\
+\large A solution to MathDB 347624}
+\author{Principia Math In Progress}
+\date{18 September 2026}
+\begin{document}
+\maketitle
+\begin{abstract}
+Vielhaber's proposed quadratic lower bound for the inverse binary
+question-mark function is false. At $y=7/8$ the inverse is $4/5$,
+whereas the proposed lower bound is $13/16$. More generally, the
+bound fails by exactly $1/(80\cdot2^k)$ at $y=7/2^{k+3}$, for
+every integer $k\geq0$. All evaluations follow directly from the
+defining finite binary codes.
+\end{abstract}
+
+\section*{Task 1: the original problem and its full solution}
+Write $\phi=\overline{?}_V^{-1}$ for the real-valued inverse in
+Definition 2(iii) of \cite{V}. Conjecture 22 of that source asserts
+that, whenever $k\geq0$ and $2^{-k-1}\leq y\leq2^{-k}$,
+\begin{equation}\label{bound}
+ \phi(y)\geq Q_k(y),\qquad
+ Q_k(y)=\frac43\,2^k\left(y-\frac34\,2^{-k}\right)^2
+               +y-\frac1{12}\,2^{-k}.
+\end{equation}
+It also specifies equality at the two band endpoints and its
+three-quarter point. We disprove the inequality itself at interior
+points distinct from all three specified points.
+
+\subsection*{The coding convention}
+For a positive integer $b=2^\ell+\sum_{j=0}^{\ell-1}a_j2^j$,
+where $a_j\in\{0,1\}$, the source defines
+\[
+ \CI(b)=0^\ell1\overline a_{\ell-1}\cdots\overline a_0,
+ \qquad
+ \CII(b)=1^\ell0a_{\ell-1}\cdots a_0,
+ \qquad \overline a=1-a.
+\]
+An exponent on a bit denotes repetition; an exponent zero denotes
+the empty word. If $r=[b_1,\ldots,b_{2m}]\in(0,1)$ is an even-length
+continued fraction, in the convention
+$[b_1,b_2]=1/(b_1+1/b_2)$, concatenate
+\[
+ w=\CI(b_1)\CII(b_2)\cdots\CI(b_{2m-1})\CII(b_{2m}).
+\]
+Remove all trailing zeroes and then the final one to obtain the
+address $v$. The corresponding dyadic argument is $y=(0.v1)_2$,
+and $\phi(y)=r$. Equivalently, $y=(0.w)_2$, since removing trailing
+zeroes does not change the binary fraction. This is Definition 2
+and the address identification in Appendix 2 of \cite{V}.
+
+\subsection*{The first counterexample}
+The even-length expansion $4/5=[1,4]$ has
+\[
+ \CI(1)\CII(4)=1\,11000=111000.
+\]
+Its address is $v=11$, so $\phi(7/8)=4/5$. Independently, Figure 4
+of the source gives precisely this address, argument, and value.
+But
+\[
+ Q_0(7/8)=\frac43\left(\frac18\right)^2+\frac78-\frac1{12}
+         =\frac{13}{16}
+         =\frac45+\frac1{80}.
+\]
+Thus \eqref{bound} is false.
+
+\subsection*{An exact failure in every band}
+\begin{theorem}
+For every integer $k\geq0$, put $y_k=7/2^{k+3}$. Then
+\[
+ \phi(y_k)=\frac4{5\cdot2^k},\qquad
+ Q_k(y_k)=\frac{13}{16\cdot2^k},\qquad
+ Q_k(y_k)-\phi(y_k)=\frac1{80\cdot2^k}>0.
+\]
+\end{theorem}
+\begin{proof}
+The case $k=0$ was proved above. For $k=1$,
+\[
+ \frac25=[2,2],\qquad \CI(2)\CII(2)=011\,100,
+ \qquad (0.011100)_2=\frac7{16}.
+\]
+Now let $k\geq2$ and set $b=5\cdot2^{k-2}-1$. Since
+$2^k\leq b<2^{k+1}$, its code uses $\ell=k$. Moreover,
+\[
+ b-2^k=2^{k-2}-1.
+\]
+Written with exactly $k$ bits, this last integer is $00\,1^{k-2}$;
+its bitwise complement is $11\,0^{k-2}$. Hence
+\[
+ \frac4{5\cdot2^k}=\frac1{b+1}=[b,1],\qquad
+ \CI(b)\CII(1)=0^k1110^{k-2}\,0.
+\]
+The associated dyadic value is
+$2^{-k-1}+2^{-k-2}+2^{-k-3}=7/2^{k+3}$, proving the inverse
+evaluation. In every case the address is $0^k11$.
+
+Since $y_k=(7/8)2^{-k}$, it lies strictly inside the required band.
+Substitution gives
+\[
+ Q_k(y_k)=2^{-k}\left(\frac43\left(\frac18\right)^2
+                  +\frac78-\frac1{12}\right)
+         =\frac{13}{16\cdot2^k}.
+\]
+Subtracting $4/(5\cdot2^k)$ gives the stated positive gap.
+\end{proof}
+
+This resolves the conjecture negatively. The obstruction uses its
+stated coding convention and occurs in every band, including
+$k=4$ mentioned in the source. It does not depend on an endpoint
+interpretation, a numerical approximation, or the existence of
+the extension away from dyadic arguments.
+
+\section*{Task 2: the least uniform vertical correction}
+Determine the smallest $c\geq0$ for which
+$\phi(y)\geq Q_k(y)-c2^{-k}$ throughout every band. The theorem
+forces $c\geq1/80$. Obtain a matching upper bound or identify
+larger obstructions and the points approaching the supremum.
+
+\section*{Task 3: the limiting shape of small bands}
+For $1/2\leq t\leq1$, study $F_k(t)=2^k\phi(2^{-k}t)$.
+Determine its limiting profile and a uniform error estimate,
+using the first partial denominator and the remaining code.
+The exact identity $F_k(7/8)=4/5$ supplies a consistency check.
+
+\section*{Task 4: the set where the quadratic bound fails}
+For each $k$, describe the set of $t\in[1/2,1]$ satisfying
+$F_k(t)<\frac43(t-3/4)^2+t-1/12$. First classify dyadic
+arguments by their finite codes, then determine the interval
+structure and measure of the full failure set.
+
+\section*{Task 5: sharp multiplicative bounds}
+Determine $\inf_{0<y<1}\phi(y)/y$ and
+$\sup_{0<y<1}\phi(y)/y$, with their equality cases. Compare the
+result with the separate linear-bound Conjecture 21 of \cite{V}.
+The present counterexamples have the constant ratio $32/35$ and
+do not disprove its proposed lower ratio $8/9$.
+
+\paragraph{Verification and status.}
+The accompanying standard-library Python verifier uses exact
+rational arithmetic and separately implements coding and decoding.
+Its finite checks supplement the proof for every $k$. Tasks 2--5
+are proposed directions and receive no solution credit. The full
+20-page primary source and the documented bounded prior-claim
+search were checked by the authoring agent; there has been no
+independent peer review.
+
+\begin{thebibliography}{9}
+\bibitem{V} M. Vielhaber,
+\emph{V Tree---Continued Fraction Expansion, Stern--Brocot Tree,
+Minkowski's $?(x)$ Function In Binary: Exponentially Faster},
+arXiv:2008.08020v1 (2020), Definitions 1--2, Conjecture 22,
+and Figure 4. \url{https://arxiv.org/abs/2008.08020}.
+\end{thebibliography}
+\end{document}

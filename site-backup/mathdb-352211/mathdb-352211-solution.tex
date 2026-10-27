@@ -1,0 +1,201 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true,urlcolor=blue,linkcolor=blue}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newcommand{\C}{\mathbb C}
+\newcommand{\bc}[1]{\overline{#1}}
+\title{The concentric ellipse of common Simson points\\
+\large MathDB 352211: a full proof}
+\author{Principia Math In Progress}
+\date{21 September 2026}
+\begin{document}
+\maketitle
+\section*{Task 1: statement and scope}
+Let a nondegenerate Poncelet triangle family be inscribed in a circle and
+circumscribed about a fixed nested ellipse. For each fixed point $F$ on the
+circle, consider the Simson lines of $F$ relative to the triangles.
+Conjecture 1 of \cite{RG}, or Conjecture 2.1 in its journal version, asks
+whether their envelope point traces an ellipse concentric with the caustic
+as $F$ traverses the circle. We prove this and give its semiaxes.
+
+\begin{theorem}
+Normalize the outer circle to $|z|=1$, and denote the caustic's foci by
+$f,g\in\C$. For $|u|=1$, the Simson lines of $F=u$ form the full pencil
+through
+\[
+             W(u)=\frac{u+f+g-fg/u}{2}.
+\]
+As $u$ traverses the circle, $W(u)$ traces the complete nondegenerate ellipse
+with center $(f+g)/2$ and semiaxes
+$\bigl(1+|fg|\bigr)/2$ and $\bigl(1-|fg|\bigr)/2$.
+A circle is included as an ellipse.
+\end{theorem}
+
+\section*{1. The Simson line in complex coordinates}
+Write $s=f+g$, $p=fg$. For a triangle with vertices $a,b,c$ on the unit
+circle put $\lambda=abc$, $s_1=a+b+c$, $s_2=ab+ac+bc$.
+We use the standard isogonal-foci identities
+\begin{equation}\label{foci}
+       s_1=s+\bc p\lambda,\qquad s_2=p+\bc s\lambda.
+\end{equation}
+These are the input used in the proof of Theorem 1 of \cite{RG}
+(Theorem 2.1 in its journal version), and are displayed as equation (3.1)
+in \cite{GG}. They follow because the two foci of an inellipse are
+isogonal conjugates: in unit-circle coordinates their relation is
+$f+g+\lambda\bc f\bc g=a+b+c$. Conjugation and multiplication by $\lambda$
+give the second identity. We claim no new result for these identities.
+
+The line through $a,b$ has equation $z+ab\bc z=a+b$. Its perpendicular
+foot from $u$ is
+\[
+ q_{ab}=\frac{u+a+b-ab/u}{2};
+\]
+indeed it lies on that line and
+$u-q_{ab}=ab\,\bc{(u-q_{ab})}$, the normal-direction condition.
+Substitution, using $\bc a=1/a$ and cyclically, shows that all three
+feet lie on
+\begin{equation}\label{simson}
+ z-\frac{\lambda}{u}\bc z
+       =\frac{u+s_1-s_2/u-\lambda/u^2}{2}.
+\end{equation}
+At least two feet are distinct: otherwise all three perpendiculars would
+meet the three nonparallel sidelines at the same point, which is
+impossible for a nondegenerate triangle. Thus \eqref{simson} is the Simson
+line, including when $u$ is a vertex.
+
+\newpage
+\section*{2. Its common point and the full pencil}
+Set $W=(u+s-p/u)/2$. Because $|u|=1$,
+$\bc W=(1/u+\bc s-\bc p u)/2$.
+Substitution of \eqref{foci} into \eqref{simson} gives exactly
+\begin{equation}\label{pencil}
+            z-W=\frac{\lambda}{u}\bc{(z-W)}.
+\end{equation}
+In particular the point $W$ is independent of the triangle.
+
+The parameter $\lambda$ traverses the whole unit circle. To see this
+directly, the vertex $a$ is a root of
+\[
+ z^3-(s+\bc p\lambda)z^2+(p+\bc s\lambda)z-\lambda=0.
+\]
+Consequently
+\[
+ \lambda=B(a):=\frac{a(a-f)(a-g)}
+                       {(1-\bc f a)(1-\bc g a)}.
+\]
+Here $|f|,|g|<1$ because the caustic is nested in the circle. Each factor
+$(a-h)/(1-\bc h a)$ maps the unit circle onto itself with winding number
+one, as does $a$. Hence $B$ has winding number three and is onto. The
+Poncelet family lets $a$ traverse the outer circle, proving the assertion.
+In fact the derivative of the argument of $B(e^{it})$ is
+\[
+ 1+\frac{1-|f|^2}{|e^{it}-f|^2}
+   +\frac{1-|g|^2}{|e^{it}-g|^2}>0.
+\]
+Thus \eqref{pencil} describes every unoriented line through $W$. Its
+envelope is the single point $W$; equivalently the equations of a line
+and its derivative with respect to its angle have the unique solution
+$W$.
+
+For completeness this point is also the antipode of $u$ on the circular
+locus of the perpendicular projection $V$ of $u$ onto the Simson line.
+Reflection in \eqref{pencil} sends $z$ to
+$W+(\lambda/u)(\bc z-\bc W)$, so
+\[
+ V=\frac{u+W}{2}+\frac{\lambda}{2u}(\bc u-\bc W).
+\]
+This is the full circle of center $(u+W)/2$ and radius $|u-W|/2$.
+It is nondegenerate, since
+\[
+                    u-W=\frac{(u-f)(u-g)}{2u}\ne0.
+\]
+The source already proves that this projection locus is a circle. Our
+calculation identifies the common point needed for the ellipse theorem.
+
+\section*{3. The complete concentric ellipse}
+As $u$ runs through $|u|=1$,
+\begin{equation}\label{ellipse}
+             W-\frac s2=\frac{u-p\bc u}{2}.
+\end{equation}
+Writing $p=p_r+ip_i$, the real linear map on the right has matrix
+\[
+ M=\frac12
+ \begin{pmatrix}1-p_r&-p_i\\-p_i&1+p_r\end{pmatrix}.
+\]
+Its determinant is $(1-|p|^2)/4>0$, and its positive eigenvalues are
+$(1-|p|)/2$ and $(1+|p|)/2$. The image of the full unit circle under
+this invertible map is precisely the full ellipse of these semiaxes.
+Its center is $s/2$, the midpoint of the caustic's two foci, hence the
+caustic's center. This proves every assertion of the theorem.
+
+\newpage
+\section*{4. Explicit equation, scale, and verification}
+An implicit equation without choices of axis is obtained by putting
+$v=2(W-s/2)$. Equation \eqref{ellipse} implies
+\[
+ v+p\bc v=(1-|p|^2)u,\qquad
+          |v+p\bc v|^2=(1-|p|^2)^2.
+\]
+Conversely the real map $v\mapsto v+p\bc v$ is invertible because
+$|p|<1$, so this equation introduces no extra real component.
+If $p=\rho e^{i\phi}\ne0$, rotate coordinates by $\phi/2$ and write
+$u=e^{i\phi/2}e^{it}$. Then
+\[
+ e^{-i\phi/2}(W-s/2)
+     =\frac{1-\rho}{2}\cos t
+        +i\frac{1+\rho}{2}\sin t.
+\]
+For $p=0$ the locus is the circle of radius $1/2$.
+
+Restoring an outer circle of center $O$ and radius $R$, with caustic
+foci $F_1,F_2$, the center of the locus is $(F_1+F_2)/2$ and its
+semiaxes are
+\[
+             \frac{R^2+|F_1-O|\,|F_2-O|}{2R},
+       \qquad
+             \frac{R^2-|F_1-O|\,|F_2-O|}{2R}.
+\]
+The minor semiaxis is strictly positive. The assertion requires neither
+concentric original conics nor alignment of their axes.
+
+The accompanying \texttt{verify.py} checks the exact identities for
+the feet, the Simson line, its common point, and the projection circle.
+It also checks the matrix and its inverse relation symbolically.
+Independent Euclidean projections check 150 configurations from five
+Poncelet families at 90 decimal digits. These include circular caustics
+and a focus at the outer center. The finite checks supplement the
+general proof.
+
+The common-point assertion recorded separately as MathDB 352210 is a
+lemma here and receives no separate solution credit. Classical and
+bicentric Simson concurrence precedents are acknowledged. The count is
+one for the complete concentric-ellipse target.
+
+\section*{Proposed follow-up Tasks 2--5}
+\begin{enumerate}
+\item \textbf{Task 2.} Characterize exactly when this ellipse is
+axis-aligned with the caustic, using its two foci and the circumcenter.
+\item \textbf{Task 3.} Classify every tangency and intersection between
+the Simson-point ellipse and the caustic.
+\item \textbf{Task 4.} Determine which concentric ellipse pairs can occur
+as a caustic and its Simson-point locus.
+\item \textbf{Task 5.} Determine the envelopes when the projection
+direction is obtained by a fixed rotation of each side's normal.
+\end{enumerate}
+
+\begin{thebibliography}{9}
+\bibitem{RG} D. Reznik and R. Garcia,
+\emph{Poncelet Parabola Pirouettes}.
+International Journal of Geometry \textbf{12}(1) (2023), 93--116.
+\href{https://arxiv.org/abs/2110.06356}{arXiv:2110.06356v5}.
+Both complete 24-page versions were read; the target remains conjectural.
+\bibitem{GG} R. A. Garcia and L. G. Gheorghe,
+\emph{Poncelet Pairs via Isogonal Conjugacy}.
+Aequationes Mathematicae \textbf{100}, article 31 (2026).
+\href{https://doi.org/10.1007/s00010-026-01274-w}{doi:10.1007/s00010-026-01274-w}.
+Equation (3.1) records the standard foci identities.
+\end{thebibliography}
+\end{document}

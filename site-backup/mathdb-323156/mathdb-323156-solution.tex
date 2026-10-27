@@ -1,0 +1,232 @@
+\documentclass[10pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[colorlinks=true,urlcolor=blue,linkcolor=blue]{hyperref}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newcommand{\rf}[2]{(#1)_{#2}}
+\title{Positive coefficients of rising-factorial Tur\'an polynomials\\
+\large A proof of the Karp--Sitnik conjecture, MathDB 323156}
+\author{Principia Math In Progress}
+\date{11 September 2026}
+\begin{document}
+\maketitle
+
+\section*{Task 1. Prove coefficient positivity}
+
+Write $(x)_k=x(x+1)\cdots(x+k-1)$, with $(x)_0=1$.
+For a nonnegative sequence $(f_k)_{k=0}^n$ and $\alpha,\beta>0$, define
+\[
+ Q_n^{\alpha,\beta}(x)=
+ \sum_{k=0}^n \binom nk f_kf_{n-k}
+ \bigl[(x+\alpha)_k(x+\beta)_{n-k}
+       -(x+\alpha+\beta)_k(x)_{n-k}\bigr].
+\]
+
+\begin{theorem}
+If $n\geq3$ and $f_k^2>f_{k-1}f_{k+1}$ for $1\leq k\leq n-1$,
+then $Q_n^{\alpha,\beta}$ has degree $n-2$ and a strictly positive
+coefficient at every $x^j$, $0\leq j\leq n-2$, for all $\alpha,\beta>0$.
+\end{theorem}
+
+This is Conjecture 1 in Karp~\cite{K}. The proof first treats central
+truncations of the rising-factorial Vandermonde sum, and then uses
+summation by parts to handle the sequence weights.
+
+\section*{A positive derivative quotient}
+
+For integers $1\leq r\leq\lfloor n/2\rfloor$, set
+\[
+ C_{n,r}(A,B)=
+ \sum_{k=r}^{n-r}\binom nk(A)_k(B)_{n-k}.
+\]
+This is a symmetric polynomial in $A,B$.
+
+\begin{lemma}\label{lem:derivative}
+There is a polynomial $R_{n,r}(A,B)$ with nonnegative coefficients,
+of degree exactly $n-2$, such that
+\begin{equation}
+ (\partial_A-\partial_B)C_{n,r}(A,B)
+ =(B-A)R_{n,r}(A,B).
+ \label{eq:derivative}
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+The elementary identity
+\begin{equation}
+ \frac{d}{dA}(A)_k
+ =\sum_{s=1}^k\binom ks(s-1)!(A)_{k-s}
+ \label{eq:risingderivative}
+\end{equation}
+follows by differentiating
+$\sum_{k\geq0}(A)_kz^k/k!=(1-z)^{-A}$ and using
+$-\log(1-z)=\sum_{s\geq1}z^s/s$.
+All subsequent computations are identities of finite polynomials.
+
+Apply~\eqref{eq:risingderivative} to $C_{n,r}$, and fix $s$.
+Put $N=n-s$. In $\partial_A C_{n,r}$ the remaining first index ranges
+over $[r-s,N-r]$; in $\partial_B C_{n,r}$ it ranges over
+$[r,n-r]$. Both intervals are intersected with $[0,N]$.
+They are reflections of each other under $k\mapsto N-k$.
+Their common terms cancel. With
+\[
+ L=\max(0,r-s),\qquad U=\min(r-1,N-r),
+\]
+the surviving difference is therefore
+\begin{equation}
+ \begin{split}
+ (\partial_A-\partial_B)C_{n,r}
+ ={}&\sum_{s=1}^{n-r}\binom ns(s-1)!
+ \sum_{k=L}^{U}\binom Nk\\
+ &\quad\cdot\bigl[(A)_k(B)_{N-k}
+                    -(A)_{N-k}(B)_k\bigr].
+ \end{split}
+ \label{eq:boundary}
+\end{equation}
+An empty inner sum is interpreted as zero.
+For every surviving $k$, the bounds $k\leq r-1$ and $k\leq N-r$
+give $2k\leq N-1$.
+Hence $m=N-2k\geq1$, and the bracket factors as
+\[
+ (A)_k(B)_k\bigl[(B+k)_m-(A+k)_m\bigr].
+\]
+The polynomial $P(t)=(t+k)_m$ has nonnegative coefficients.
+If $P(t)=\sum_i p_i t^i$, its divided difference is
+\begin{equation}
+ \frac{P(B)-P(A)}{B-A}
+ =\sum_{i\geq1}p_i\sum_{h=0}^{i-1}A^hB^{i-1-h},
+ \label{eq:quotient}
+\end{equation}
+which has nonnegative coefficients. This is a polynomial identity,
+including $A=B$.
+Dividing~\eqref{eq:boundary} by $B-A$ thus constructs the required
+polynomial $R_{n,r}$ with nonnegative coefficients.
+
+Each summand has degree at most $N-1=n-s-1\leq n-2$.
+For $s=1$ the inner sum contains exactly $k=r-1$; then
+$m=n-2r+1\geq1$, and its degree is
+$2(r-1)+(m-1)=n-2$ with positive leading coefficients.
+No cancellation is possible. Thus $\deg R_{n,r}=n-2$.
+\end{proof}
+
+\section*{Balancing the two parameters}
+
+\begin{lemma}\label{lem:central}
+For every $\alpha,\beta>0$, the polynomial
+\[
+ V_{n,r}(x)=C_{n,r}(x+\alpha,x+\beta)
+            -C_{n,r}(x+\alpha+\beta,x)
+\]
+has strictly positive coefficients at all powers $x^j$,
+$0\leq j\leq n-2$, and degree $n-2$.
+\end{lemma}
+
+\begin{proof}
+Put $c=\alpha+\beta$ and $h=\min(\alpha,\beta)$.
+Along $A=x+t$, $B=x+c-t$, equation~\eqref{eq:derivative} gives
+\[
+ \frac{d}{dt}C_{n,r}(x+t,x+c-t)
+ =(c-2t)R_{n,r}(x+t,x+c-t).
+\]
+Using symmetry at the two endpoints, integrate to obtain
+\begin{equation}
+ V_{n,r}(x)=
+ \int_0^h(c-2t)R_{n,r}(x+t,x+c-t)\,dt.
+ \label{eq:integral}
+\end{equation}
+This identity may be integrated coefficient by coefficient since the
+integrand is a finite polynomial in $x,t$.
+
+For $0<t<h$, both $t$ and $c-t$ are positive, and $c-2t>0$.
+All coefficients of $R_{n,r}$ are nonnegative. Furthermore it has a
+monomial $A^uB^v$ with positive coefficient and $u+v=n-2$.
+The polynomial $(x+t)^u(x+c-t)^v$ has strictly positive coefficients
+at every degree from $0$ to $n-2$.
+Thus every required coefficient of the integrand is strictly positive
+throughout $(0,h)$. Equation~\eqref{eq:integral} proves the lemma.
+This argument includes $\alpha=\beta$: only the integrand's endpoint
+factor then vanishes.
+\end{proof}
+
+\section*{The sequence weights}
+
+Let $M=\lfloor n/2\rfloor$ and $w_k=f_kf_{n-k}$.
+The weights are symmetric and
+\begin{equation}
+ w_0<w_1<\cdots<w_M.
+ \label{eq:weights}
+\end{equation}
+Indeed the strict log-concavity assumption implies $f_k>0$ for
+$1\leq k\leq n-1$.
+When both endpoints are positive, the successive ratios
+$f_k/f_{k-1}$ strictly decrease; for $1\leq k\leq M$ this gives
+\[
+ \frac{w_k}{w_{k-1}}
+ =\frac{f_k/f_{k-1}}{f_{n-k+1}/f_{n-k}}>1.
+\]
+If an endpoint is zero, $w_0=0<w_1$ and the same ratio argument applies
+to all $k\geq2$, using only positive interior terms.
+
+Define $C_{n,0}$ and $V_{n,0}$ by the same sums with $r=0$.
+Vandermonde's identity gives $C_{n,0}(A,B)=(A+B)_n$, so
+$V_{n,0}(x)=0$.
+Writing
+$w_k=w_0+\sum_{r=1}^{\min(k,n-k)}(w_r-w_{r-1})$
+and interchanging finite sums now gives the exact identity
+\begin{equation}
+ Q_n^{\alpha,\beta}(x)
+ =\sum_{r=1}^{M}(w_r-w_{r-1})V_{n,r}(x).
+ \label{eq:decomposition}
+\end{equation}
+Every multiplier is positive by~\eqref{eq:weights}, and every
+$V_{n,r}$ has precisely the strict coefficient positivity required
+by Lemma~\ref{lem:central}. This proves the theorem.
+
+The argument in fact only needs symmetric weights nondecreasing
+toward the center, with at least one positive increment.
+It is valid for $n=2$ as well, where the conclusion is a positive constant.
+
+\section*{Verification and source status}
+
+The proof is a finite algebraic argument and does not depend on a numerical
+search. The accompanying verifier expands the original central sums
+independently of the constructive positive quotient, checks their
+derivative identity exactly, and checks the weighted decomposition.
+The full published statement and current public claim sources were
+checked on 11 September 2026; no matching full solution claim was located.
+The source's known $\alpha=\beta=1$ theorem is distinguished from the
+unrestricted shifts proved here in \texttt{literature-audit.md}.
+
+\section*{Tasks 2--5}
+
+\begin{enumerate}
+\setcounter{enumi}{1}
+\item Characterize all symmetric weight vectors for which the weighted
+Turan polynomial has nonnegative coefficients for every $\alpha,\beta>0$,
+and determine how far the sufficient monotonicity condition can be weakened.
+\item Determine the sharp common translation range $x\mapsto x-\delta$
+that preserves coefficient positivity for all admissible sequences,
+as a function of $\alpha,\beta$ and $n$.
+\item Prove or refute the companion real-negative-zero conjecture for
+$Q_n^{1,1}(x-1)$ when the input sequence is a P\'olya frequency sequence
+of infinite order.
+\item Extend the positive derivative-quotient method to higher-order
+Toeplitz determinants of rising-factorial series and determine sequence
+conditions that ensure positive coefficients.
+\end{enumerate}
+
+\begin{thebibliography}{9}
+\bibitem{K}
+D.~Karp, \emph{Positivity of Toeplitz determinants formed by rising
+factorial series and properties of related polynomials},
+Zap. Nauchn. Sem. POMI \textbf{404} (2012), 184--198,
+Conjecture 1 and formula (3), p.~185.
+\href{https://www.mathnet.ru/eng/znsl5267}{Published article};
+\href{https://arxiv.org/abs/1203.1482}{arXiv:1203.1482}.
+English translation: Journal of Mathematical Sciences
+\textbf{193} (2013), 106--114,
+\href{https://doi.org/10.1007/s10958-013-1438-y}
+{doi:10.1007/s10958-013-1438-y}.
+\end{thebibliography}
+\end{document}

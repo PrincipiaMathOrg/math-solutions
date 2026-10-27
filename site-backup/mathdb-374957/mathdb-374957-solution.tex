@@ -1,0 +1,196 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,enumitem,hyperref}
+\hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue,citecolor=blue}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newcommand{\Z}{\mathbb Z}
+\newcommand{\Q}{\mathcal Q}
+\title{Transpose duality for preorder multichain matrices\\\large MathDB 374957}
+\author{Principia Math In Progress}
+\date{September 18, 2026}
+\begin{document}
+\maketitle
+\begin{abstract}
+We prove the matrix Ehrhart--zeta duality conjecture of Athanasiadis
+and Chapoton. Coordinate increments identify multichains with
+lattice points in a sum of simplices attached to a bipartite graph
+with repeated vertices. Exchanging the two vertex classes reverses
+the preorder and exchanges the two parameters. Postnikov's
+established lattice-point duality then gives the claimed transpose.
+\end{abstract}
+
+\section*{Task 1. Full solution}
+Let $\tau$ be a preorder on a finite set $E$. Its preorder polytope is
+\[
+ \Q_\tau=\{x\in\mathbb R_{\ge0}^E:
+          \sum_{e\in I}x_e\le |I|
+          \text{ for every order ideal }I\text{ of }\tau\}.
+\]
+For $k,\ell\ge0$, let $\nabla_\tau(k,\ell)$ count sequences
+\[
+ a^{(1)}\le a^{(2)}\le\cdots\le a^{(k)},
+ \qquad a^{(j)}\in\ell\Q_\tau\cap\Z^E,
+\]
+where comparison is coordinatewise. These are the $k$-multichains
+of \cite[Section 4.2]{AC}. Let $\tau^*$ be the reversed preorder.
+
+\begin{theorem}\label{thm:main}
+For every finite preorder and all $k,\ell\ge0$,
+\[
+ \boxed{\nabla_\tau(k,\ell)=\nabla_{\tau^*}(\ell,k).}
+\]
+Thus Conjecture 4.2 of \cite{AC} holds.
+\end{theorem}
+
+\subsection*{The established bipartite-graph duality}
+Let $G$ have disjoint vertex classes $A,B$, and let $N(S)$ be
+the neighbors of a subset of either class in the opposite class.
+For a set $J\subseteq B$, put
+$\Delta_J=\operatorname{conv}(0,e_b:b\in J)$ and define
+\[
+ P_G=\sum_{a\in A}\Delta_{N(a)}\subseteq\mathbb R^B.
+\]
+Let $G^*$ be the graph with its two vertex classes exchanged.
+We use Postnikov's lattice-point duality
+\begin{equation}\label{eq:duality}
+ \#(P_G\cap\Z^B)=\#(P_{G^*}\cap\Z^A),
+\end{equation}
+recorded explicitly in \cite[Lemmas 2.4--2.6]{D}.
+We recall the characterization of its integer points and derive
+\eqref{eq:duality} from the counting theorem used by the primary source.
+
+First,
+\begin{equation}\label{eq:hall}
+ P_G\cap\Z^B=
+ \left\{z\in\Z_{\ge0}^B:
+          \sum_{b\in S}z_b\le |N(S)|\text{ for every }S\subseteq B\right\}.
+\end{equation}
+Necessity holds because a simplex summand contributes at most
+one to the sum over $S$, and contributes zero unless its index
+lies in $N(S)$. Conversely, replace each $b$ by $z_b$ copies.
+Every subset of copies projecting to $S$ has at most
+$\sum_{b\in S}z_b\le|N(S)|$ members. Hall's marriage theorem
+therefore matches all copies to distinct vertices of $A$.
+For each matched $a$, choose its matched vector $e_b$ from
+$\Delta_{N(a)}$, and choose $0$ for unmatched $a$.
+Their sum is $z$, proving \eqref{eq:hall}.
+
+To see \eqref{eq:duality} from \cite[Theorem 2.1]{AC}, lift the
+simplices to the coordinates $B\sqcup\{0\}$, using the sets
+$I_a=N(a)\sqcup\{0\}$ with coefficient $1$, and adjoin the
+universal set $I_0=B\sqcup\{0\}$ with coefficient $0$.
+Projection forgetting coordinate $0$ is a bijection of integer
+points, since the sum of all coordinates is fixed at $|A|$.
+The draconian vectors in that theorem are
+\[
+ d_0+\sum_{a\in A}d_a=|B|,\qquad d_a\ge0,
+ \qquad \sum_{a\in T}d_a\le |N(T)|\quad(T\subseteq A).
+\]
+Indeed, the inequalities for nonempty $T\subseteq A$ follow
+after canceling the extra vertex $0$; those involving the
+universal set follow from the total-sum condition. The inequality
+for $T=A$ ensures that $d_0$ is uniquely determined and nonnegative.
+At these coefficients, every binomial factor in Theorem 2.1
+is $1$. The number of lattice points is therefore the number of
+vectors $(d_a)_{a\in A}$ satisfying the displayed inequalities.
+By \eqref{eq:hall} for $G^*$, this is exactly the right side of
+\eqref{eq:duality}. This graph duality is an established input,
+not a new claim of this solution.
+
+\subsection*{The graph of repeated preorder elements}
+Assume $k,\ell\ge1$. Form $G=G_\tau(k,\ell)$ with
+\[
+ A=E\times[\ell],\qquad B=E\times[k],
+\]
+and join $(e,s)\in A$ to $(f,t)\in B$ exactly when
+$e\le_\tau f$. For $S\subseteq B$, let $\pi(S)\subseteq E$
+be its projection. If $D(T)$ denotes the order ideal generated
+by $T\subseteq E$, then
+\[
+ N(S)=D(\pi(S))\times[\ell].
+\]
+Consequently \eqref{eq:hall} reduces to
+\begin{equation}\label{eq:increments}
+ z_{f,t}\ge0,\qquad
+ \sum_{f\in I}\sum_{t=1}^k z_{f,t}\le\ell|I|
+ \quad(I\text{ an order ideal of }\tau).
+\end{equation}
+Here is the reduction in both directions. Taking $S=I\times[k]$
+in \eqref{eq:hall} gives \eqref{eq:increments}, since $D(I)=I$.
+Conversely, for arbitrary $S$, take $I=D(\pi(S))$.
+Nonnegativity and $S\subseteq I\times[k]$ give
+\[
+ \sum_{(f,t)\in S}z_{f,t}
+ \le\sum_{f\in I,t\in[k]}z_{f,t}
+ \le\ell|I|=|N(S)|,
+\]
+as required.
+
+An integer vector in \eqref{eq:increments} determines the chain
+\begin{equation}\label{eq:chain}
+ a_f^{(j)}=\sum_{t=1}^j z_{f,t}\qquad(1\le j\le k).
+\end{equation}
+The terminal vector belongs to $\ell\Q_\tau$ by
+\eqref{eq:increments}. Every earlier vector does too, since
+the polytope is closed under decreasing nonnegative coordinates.
+Conversely, a multichain gives the nonnegative increments
+$z_{f,t}=a_f^{(t)}-a_f^{(t-1)}$, where $a^{(0)}=0$.
+These two constructions are inverse, so
+\begin{equation}\label{eq:id}
+ \nabla_\tau(k,\ell)=\#(P_{G_\tau(k,\ell)}\cap\Z^{E\times[k]}).
+\end{equation}
+
+\begin{proof}[Proof of Theorem~\ref{thm:main}]
+Exchanging the two graph classes gives exactly
+\[
+ G_\tau(k,\ell)^*=G_{\tau^*}(\ell,k),
+\]
+because $e\le_\tau f$ is equivalent to $f\le_{\tau^*}e$.
+Apply \eqref{eq:duality} and then \eqref{eq:id} to both graphs.
+This proves the theorem for positive parameters. If $k=0$ there
+is one empty multichain; if $\ell=0$, the lattice-point poset
+contains only $0$ and again there is one multichain. These cases
+give the same identity. The empty ground set, if allowed, also
+gives the constant count $1$.
+\end{proof}
+
+\subsection*{Scope, attribution, and verification}
+No antisymmetry assumption was used, so equivalent distinct
+elements of the preorder are included. The argument proves every
+matrix entry for arbitrary parameters. The conjecture and
+polytope definitions are due to Athanasiadis and Chapoton.
+Postnikov's counting theorem and Hall's theorem are established
+inputs. The repeated-vertex graph and increment identification
+are the reduction resolving the target.
+
+All 26 pages of the current primary were read, along with the
+relevant graph-duality statements in \cite{D}. Four exact
+verification groups pass: direct chain enumeration, 9,725
+transpose identities, independent graph and increment-vector
+enumeration, and further graph examples. Bounded checks found
+no prior full target claim or identified journal final. Review
+is by the authoring agent only, without independent peer review
+or proof-assistant certification.
+
+\section*{Tasks 2--5. Proposed follow-up directions}
+\begin{enumerate}[label=\textbf{Task \arabic*.},start=2,leftmargin=*]
+\item Turn Postnikov's graph duality into an explicit algorithm
+mapping individual multichains between the two sides.
+\item Determine refinements that retain the ranks of the chain
+entries and remain compatible with exchanging the graph classes.
+\item Study versions with nonuniform numbers of copies of each
+preorder element, allowing different chain capacities by coordinate.
+\item Derive effective formulas for these matrices in families of
+preorders with small width or bounded graph complexity.
+\end{enumerate}
+\begin{thebibliography}{9}
+\raggedright
+\bibitem{AC} C. A. Athanasiadis and F. Chapoton,
+\emph{Polytopes and posets associated to preorders},
+\href{https://arxiv.org/abs/2605.26916v1}{arXiv:2605.26916v1}, 2026.
+\bibitem{D} Z. Dai, Q. Hou, Z. Liu, W. Thawinrak, and H. Wang,
+\emph{Counting Lattice Points in Minkowski Sums of Cross Polytopes},
+\href{https://arxiv.org/abs/2608.16037v2}{arXiv:2608.16037v2}, 2026.
+\end{thebibliography}
+\end{document}

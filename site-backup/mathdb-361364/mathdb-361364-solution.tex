@@ -1,0 +1,301 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,booktabs,hyperref}
+\hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue}
+\newcommand{\sech}{\operatorname{sech}}
+\newcommand{\Res}{\operatorname{Res}}
+\newcommand{\Q}{\mathbb Q}
+\title{The sixth-power Berndt integral\\MathDB 361364}
+\author{Research note}
+\date{17 September 2026}
+\begin{document}
+\maketitle
+
+\section*{Task 1. Prove the exact evaluation}
+Put $G=\Gamma(1/4)$. We prove Xu--Zhao's Conjecture 5.5
+\cite[p.~24]{XZ}, namely
+\begin{align}
+ I:=\int_0^\infty\frac{x^9\,dx}{(\cos x+\cosh x)^6}
+ ={}&-\frac{63}{5\cdot2^{10}}
+ +\frac{1071G^8}{5^2\cdot2^{13}\pi^2}
+ -\frac{21G^8}{2^{12}\pi^3}
+ +\frac{63G^8}{2^{16}\pi^4}\notag\\
+ &-\frac{21G^{16}}{5^3\cdot2^{13}\pi^4}
+ +\frac{3G^{16}}{5\cdot2^{13}\pi^5}
+ -\frac{161G^{16}}{5\cdot2^{19}\pi^6}
+ +\frac{21G^{16}}{2^{21}\pi^8}\notag\\
+ &+\frac{G^{24}}{5^2\cdot2^{19}\pi^8}
+ -\frac{G^{24}}{3\cdot2^{20}\pi^9}
+ +\frac{69G^{24}}{5\cdot2^{25}\pi^{10}}\notag\\
+ &-\frac{21G^{24}}{5\cdot2^{24}\pi^{11}}
+ +\frac{63G^{24}}{5\cdot2^{27}\pi^{12}}
+ -\frac{17G^{32}}{3\cdot5^2\cdot2^{31}\pi^{14}}\notag\\
+ &+\frac{13G^{32}}{5\cdot2^{34}\pi^{16}}
+ +\frac{3G^{40}}{5^2\cdot2^{40}\pi^{20}}.\label{target}
+\end{align}
+The source's general structural theorem assumes $p\ge\lfloor m/2\rfloor$
+for a numerator $x^{4p+1}$ and denominator power $m$. The present
+case $(p,m)=(2,6)$ is outside that assumption. The missing ingredient
+is the elementary Lambert-series formula for $S_0$ below.
+
+\subsection*{1. A convergent residue formula}
+Let
+\[
+ F(z)=\frac{z^9}{(\cos z+\cosh z)^6},\qquad
+ a=\frac{1+i}{2},\quad b=\frac{1-i}{2}.
+\]
+The factorization $\cos z+\cosh z=2\cosh(az)\cosh(bz)$ shows
+that the only poles in the first quadrant are
+\[
+ z_n=(1+i)t_n,\qquad t_n=\pi(n+\tfrac12),\quad n\ge0,
+\]
+each of order six. Integrate on the positively oriented triangle
+with vertices $0,R,iR$, where $R=2\pi N$ and $N$ is a positive integer.
+On its oblique side $x+y=R$, we have
+\[
+ |\cosh(az)|=\cosh((x-y)/2)\ge1,\qquad
+ |\cosh(bz)|\ge\sinh(R/2).
+\]
+The modulus of the integral on that side is therefore at most
+$\sqrt2R^{10}/(64\sinh^6(R/2))$, which tends to zero.
+Since $F(iy)=iF(y)$, the two axial sides together give
+$2\int_0^R F(x)\,dx$. The residue theorem consequently yields
+\begin{equation}\label{residue-sum}
+ I=\pi i\sum_{n\ge0}\Res_{z=z_n}F(z).
+\end{equation}
+The original integral converges at zero and infinity. The residue
+series below is absolutely convergent, because each term is a finite
+sum of polynomials in $t_n$ times derivatives of $\sech^6t_n$.
+
+Write $z=z_n+w$. Then
+\[
+ F(z_n+w)=-\frac{(z_n+w)^9}{64\sinh^6(aw)\cosh^6(t_n+bw)},
+ \qquad
+ \left(\frac{v}{\sinh v}\right)^6
+       =1-v^2+\frac8{15}v^4+O(v^6).
+\]
+Extracting the coefficient of $w^{-1}$ gives
+\begin{equation}\label{residue}
+ \Res_{z=z_n}F(z)=\frac i2\sum_{h=0}^2\gamma_h
+   \sum_{\ell=0}^{5-2h}\binom9\ell
+        \frac{t_n^{9-\ell}}{r!}
+          (\sech^6)^{(r)}(t_n),
+ \quad r=5-2h-\ell,
+\end{equation}
+where $(\gamma_0,\gamma_1,\gamma_2)=(1,1,8/15)$.
+For example, if $(A_0,A_1,A_2)=(1,-1,8/15)$, the phase of the
+term indexed by $h,\ell,r$ is
+\[
+ -\frac{i}{8}A_h a^{2h}(1+i)^{9-\ell}b^r
+          =\frac i2\gamma_h,
+ \qquad \ell+r+2h=5.
+\]
+This checks both the sign and all powers of two in \eqref{residue}.
+
+Define, for even nonnegative $m$ and $y>0$,
+\[
+ S_m(y)=\sum_{n\ge0}(n+\tfrac12)^m
+                         \sech^2((n+\tfrac12)y).
+\]
+The elementary differential identity
+\[
+ \sech^6t=\frac1{120}
+       \left(\frac{d^4}{dt^4}-20\frac{d^2}{dt^2}+64\right)\sech^2t
+\]
+and \eqref{residue-sum}--\eqref{residue} now imply the finite formula
+\begin{equation}\label{finite}
+ I=-\frac\pi{240}\sum_{h=0}^2\gamma_h
+       \sum_{\ell=0}^{5-2h}\binom9\ell\frac{\pi^{9-\ell}}{r!}
+       \sum_{j\in\{0,2,4\}}c_j
+                     S_{4+2h-j}^{(r+j)}(\pi),
+ \quad r=5-2h-\ell,
+\end{equation}
+where $(c_0,c_2,c_4)=(64,-20,1)$.
+Only $S_0,S_2,S_4,S_6,S_8$ occur. Differentiation under each sum
+is justified by locally uniform exponential convergence for $y>0$.
+
+\subsection*{2. The five sums as Lambert series}
+For $|q|<1$ and positive odd $s$, set
+\[
+ L_s(q)=\sum_{k\ge1}\frac{k^s q^k}{1-q^k},\qquad D=q\frac d{dq}.
+\]
+In the next identities $q=e^{-y}$. For $m\in\{2,4,6,8\}$,
+\begin{equation}\label{Sm}
+ S_m(y)=2^{2-m}D\left\{L_{m-1}(q)
+       -(2+2^{m-1})L_{m-1}(q^2)+2^mL_{m-1}(q^4)\right\}.
+\end{equation}
+Indeed, $\sech^2(ky/2)=4q^k/(1+q^k)^2$, and
+\[
+ \sum_{\substack{k\ge1\\k\text{ odd}}}
+       \frac{k^{m-1}q^k}{1+q^k}
+ =L_{m-1}(q)-(2+2^{m-1})L_{m-1}(q^2)
+                        +2^mL_{m-1}(q^4).
+\]
+Differentiating proves \eqref{Sm}.
+
+For the remaining case, interchange two absolutely convergent sums:
+\begin{align*}
+ \frac14 S_0(y)
+ &=\sum_{\substack{k\ge1\\k\text{ odd}}}
+       \sum_{v\ge1}(-1)^{v-1}v q^{kv}
+   =\sum_{v\ge1}\frac{(-1)^{v-1}v q^v}{1-q^{2v}}\\
+ &=L_1(q)-5L_1(q^2)+4L_1(q^4).
+\end{align*}
+Thus
+\begin{equation}\label{Szero}
+ S_0(y)=4\{L_1(q)-5L_1(q^2)+4L_1(q^4)\}.
+\end{equation}
+This uses a weight-two Lambert series instead of a negative-index
+series, and is valid for every $y>0$.
+
+\subsection*{3. Exact modular values and derivatives}
+Use the standard normalization $q=e^{2\pi i\tau}$ for Eisenstein
+series. In this normalization,
+\[
+ L_1=\frac{1-E_2}{24},\qquad
+ L_3=\frac{E_4-1}{240},\qquad
+ L_5=\frac{1-E_6}{504},\qquad
+ L_7=\frac{E_4^2-1}{480}.
+\]
+Ramanujan's differential identities \cite[Section 7]{R} are
+\begin{equation}\label{ramanujan}
+ DE_2=\frac{E_2^2-E_4}{12},\qquad
+ DE_4=\frac{E_2E_4-E_6}{3},\qquad
+ DE_6=\frac{E_2E_6-E_4^2}{2}.
+\end{equation}
+They give every derivative needed in \eqref{finite} by polynomial
+arithmetic over $\Q$.
+
+Put
+\[
+ u=\theta_3(0\mid i)^4=\frac{G^4}{4\pi^3}.
+\]
+The last equality is the classical elliptic-integral value also
+recorded in \cite[equation (2.3)]{XZ}. The three evaluation points
+in \eqref{Sm}--\eqref{Szero} give
+\begin{equation}\label{values}
+\begin{array}{c|ccc}
+\tau&E_2(\tau)&E_4(\tau)&E_6(\tau)\\ \hline
+i/2&6/\pi-3u/2&33u^2/4&-189u^3/8\\
+i&3/\pi&3u^2/4&0\\
+2i&3/(2\pi)+3u/8&33u^2/64&189u^3/512
+\end{array}
+\end{equation}
+For completeness these values follow from the classical theta
+identities as follows. At $i$ the fourth powers of $\theta_2$ and
+$\theta_4$ are both $u/2$. Theta duplication \cite{DLMF} gives at $2i$
+\[
+ (\theta_2^4,\theta_3^4,\theta_4^4)
+   =u\left(\frac{3-2\sqrt2}{8},
+           \frac{3+2\sqrt2}{8},\frac1{\sqrt2}\right).
+\]
+Substitute into
+\[
+ E_4=\tfrac12(\theta_2^8+\theta_3^8+\theta_4^8),\qquad
+ E_6=\tfrac12(\theta_2^4+\theta_3^4)
+                  (\theta_3^4+\theta_4^4)(\theta_4^4-\theta_2^4).
+\]
+For weight two use
+\[
+ 2E_2(2\tau)-E_2(\tau)=\tfrac12(\theta_3^4+\theta_4^4),\qquad
+ E_2(-1/\tau)=\tau^2E_2(\tau)+\frac{6\tau}{\pi i}.
+\]
+The latter gives $E_2(i)=3/\pi$. These formulas and the modular
+transformations $E_w(-1/\tau)=\tau^wE_w(\tau)$ for $w=4,6$
+give all of \eqref{values}.
+
+Here are explicit instructions for the finite evaluation, including
+the chain factors. Introduce variables $e_2,e_4,e_6$ and the derivation
+\[
+ \mathcal D=\frac{e_2^2-e_4}{12}\partial_{e_2}
+       +\frac{e_2e_4-e_6}{3}\partial_{e_4}
+       +\frac{e_2e_6-e_4^2}{2}\partial_{e_6}.
+\]
+Let $\mathcal L_w=(1-e_2)/24,(e_4-1)/240,(1-e_6)/504,
+(e_4^2-1)/480$ for $w=2,4,6,8$, respectively. Let $V_a$ denote
+substitution from row $\tau=ai/2$ of \eqref{values}, for $a=1,2,4$.
+For $d\ge0$,
+\begin{align}
+ S_0^{(d)}(\pi)
+   &=4(-1)^d\sum_{a=1,2,4} b_a a^d
+                         V_a(\mathcal D^d\mathcal L_2),
+       &(b_1,b_2,b_4)&=(1,-5,4),\label{evalzero}\\
+ S_m^{(d)}(\pi)
+   &=2^{2-m}(-1)^d\sum_{a=1,2,4} b_{m,a}a^{d+1}
+                         V_a(\mathcal D^{d+1}\mathcal L_m),
+       &&m=2,4,6,8,\label{evalpositive}
+\end{align}
+where $(b_{m,1},b_{m,2},b_{m,4})=(1,-2-2^{m-1},2^m)$.
+Here the factor $(-1)^d$ comes from $d/dy=-D$, and each factor
+$a$ comes from differentiating $q^a$. Differentiation is performed
+\emph{before} substituting the special values.
+
+\subsection*{4. The resulting polynomial}
+Substitution of \eqref{evalzero}--\eqref{evalpositive} into
+\eqref{finite}, followed by rational polynomial arithmetic, gives
+\begin{align*}
+ I={}&-\frac{63}{5120}
+ +u^2\left(\frac{1071\pi^4}{12800}-\frac{21\pi^3}{256}
+                                      +\frac{63\pi^2}{4096}\right)\\
+ &+u^4\left(-\frac{21\pi^8}{4000}+\frac{3\pi^7}{160}
+                   -\frac{161\pi^6}{10240}+\frac{21\pi^4}{8192}\right)\\
+ &+u^6\left(\frac{\pi^{10}}{3200}-\frac{\pi^9}{768}
+       +\frac{69\pi^8}{40960}-\frac{21\pi^7}{20480}
+       +\frac{63\pi^6}{163840}\right)\\
+ &+u^8\left(-\frac{17\pi^{10}}{2457600}
+                         +\frac{13\pi^8}{1310720}\right)
+ +\frac{3\pi^{10}u^{10}}{26214400}.
+\end{align*}
+Replacing $u$ by $G^4/(4\pi^3)$ is precisely \eqref{target}.
+The accompanying exact checker implements the displayed derivation
+and substitutions and verifies zero difference from every one of the
+sixteen target terms. Its certificate records the nine grouped
+contributions indexed by $(h,j)$ in \eqref{finite}, so the arithmetic
+can also be checked group by group. No numerical recognition of
+constants or unproved convergence assertion is used.\qed
+
+\section*{Task 2. Remove the low-degree restriction}
+Extend this argument to $\int_0^\infty x^{4p+1}(\cos x+\cosh x)^{-m}\,dx$
+when $p<\lfloor m/2\rfloor$. Determine which negative-index sums
+produced by the residue calculation can be replaced by positive-weight
+Lambert series through interchange of divisor sums.
+
+\section*{Task 3. Prove the fifth-moment pattern}
+Apply the resulting machinery to Conjecture 5.9 of \cite{XZ}, concerning
+all denominator powers with numerator $x^5$. Explain the exact allowed
+powers of $\Gamma(1/4)$ and $\pi$, including the predicted missing
+coefficient, rather than merely producing individual evaluations.
+
+\section*{Task 4. Evaluate at other modular parameters}
+Replace the equal cosine and hyperbolic-cosine scales by a ratio tied
+to a general elliptic modulus. Identify analogous exact evaluations
+at other imaginary quadratic parameters and determine the necessary
+periods and algebraic coefficients.
+
+\section*{Task 5. Find recurrences for exact evaluation}
+Develop recurrences in numerator degree and denominator power for the
+residue polynomials and their modular expressions. Measure the growth
+of intermediate expressions and identify a basis that makes the final
+cancellations visible before expansion.
+
+\begin{thebibliography}{3}
+\bibitem{XZ} C.~Xu and J.~Zhao,
+\emph{General Berndt-Type Integrals and Series Associated with Jacobi
+Elliptic Functions},
+\href{https://arxiv.org/abs/2401.01385v2}{arXiv:2401.01385v2} (2024).
+\bibitem{R} S.~Ramanujan, \emph{On certain arithmetical functions},
+Trans. Cambridge Philos. Soc. \textbf{22} (1916), 159--184,
+Section 7; \href{https://ramanujan.sirinudi.org/Volumes/published/ram18.html}{online transcription}.
+\bibitem{DLMF} NIST Digital Library of Mathematical Functions,
+\href{https://dlmf.nist.gov/20.7}{Section 20.7}, theta identities and
+transformations, and \href{https://dlmf.nist.gov/23.8}{Section 23.8},
+elliptic-function series.
+\end{thebibliography}
+\noindent\textit{Verification and status.}
+Run \texttt{verify\_evaluation.py} with Python, SymPy, and mpmath.
+Exact algebra verifies the finite certificate. The separate numerical
+checks are diagnostics only. The full current primary source retains
+Conjecture 5.5; dated source and claim audits accompany this note.
+The authoring agent performed the proof review, without independent
+peer review.
+\end{document}

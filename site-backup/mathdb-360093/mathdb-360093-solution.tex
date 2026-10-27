@@ -1,0 +1,169 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,booktabs,hyperref}
+\setlength{\emergencystretch}{1em}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newcommand{\F}{\mathbb F}
+\title{A finite-field counterexample to the product-dimension conjecture}
+\author{Principia Math In Progress}
+\date{27 September 2026}
+\begin{document}
+\maketitle
+
+\paragraph{Task 1: the published question.}
+Conjecture 38 of Aliabadi \cite{A}, corresponding to Conjecture 5.1 of
+arXiv:2309.14664v3 and MathDB 360093, asserts the following implication.
+For finite-dimensional positive-dimensional $K$-subspaces $A,B$ of a
+field extension $L/K$, assume
+\begin{equation}\label{hyp}
+ \dim_K(aM\cap A)+\dim_K(bM\cap B)\le [M:K]+1
+\end{equation}
+for all $a,b\in L$ and all nontrivial proper finite intermediate fields
+$K\subsetneq M\subsetneq L$. Then the proposed conclusion is
+\begin{equation}\label{conclusion}
+ \dim_K\langle ST\rangle\ge \dim_K S+\dim_K T-1
+ \qquad(S\subseteq A,\ T\subseteq B).
+\end{equation}
+Here $\langle ST\rangle$ denotes the $K$-linear span of all products.
+The final published statement has no upper restriction on
+$\dim A+\dim B$ and explicitly excludes $M=L$ from \eqref{hyp}.
+
+\begin{theorem}\label{main}
+Let
+\[
+ K=\F_2,\quad L=\F_2[X]/(X^6+X+1),\quad \alpha=X\bmod(X^6+X+1),
+\]
+and let
+\[
+ A=\langle\alpha,\alpha^2,\alpha^3,\alpha^4,\alpha^5\rangle_K,
+ \qquad B=\langle\alpha,\alpha^2,\alpha^3\rangle_K.
+\]
+These are proper subspaces of dimensions five and three, and neither
+contains $1$. They satisfy \eqref{hyp} for every scalar pair and every
+nontrivial proper intermediate field. Nevertheless,
+\[
+ \dim_K\langle AB\rangle=6<7=\dim_K A+\dim_K B-1.
+\]
+Thus Conjecture 38 is false, including when its intermediate-field
+condition is nonvacuous and $S,T$ are both nonzero.
+\end{theorem}
+
+\begin{proof}
+Write $f=X^6+X+1$. A reducible degree-six polynomial has an irreducible
+factor of degree at most three. The complete list of monic irreducibles
+over $\F_2$ of these degrees is
+\[
+ X,\quad X+1,\quad X^2+X+1,\quad X^3+X+1,\quad X^3+X^2+1.
+\]
+The respective remainders of $f$ are
+\[
+ 1,\quad 1,\quad X,\quad X^2+X,\quad X^2+1.
+\]
+They are all nonzero, so $f$ is irreducible. Consequently $L$ is a
+field with 64 elements, and $1,\alpha,\ldots,\alpha^5$ is a $K$-basis.
+This establishes the assertions about $A,B$ and $1$.
+
+Every intermediate-field degree divides $[L:K]=6$, by the tower law.
+The only possible nontrivial proper degrees are therefore two and three.
+The corresponding fields are the unique subfields
+\[
+ M_d=\{u\in L:u^{2^d}=u\}\qquad(d=2,3).
+\]
+Indeed the Frobenius fixed sets are subfields; in $\F_{64}$ they have
+$2^d$ elements for $d\mid6$. Alternatively, their elements can be
+checked directly using the encoding below:
+\[
+ M_2=\{0,1,58,59\},\qquad
+ M_3=\{0,1,14,15,22,23,24,25\}.
+\]
+Each displayed set is closed under addition and multiplication and is
+the full root set of $U^{2^d}-U$. Any intermediate field of degree $d$
+consists of roots of that polynomial, which also proves uniqueness.
+
+It remains to check every scalar translate, rather than just $M_2,M_3$
+themselves. Encode $\sum_{j=0}^5 c_j\alpha^j$ by the integer
+$\sum_{j=0}^5 c_j2^j$, where $c_j\in\{0,1\}$. Integers in the next
+table are encodings of field elements, not residues modulo 64.
+Repeated multiplication with $\alpha^6=\alpha+1$ gives
+\begin{center}
+\begin{tabular}{c|rrrrrrr}
+\toprule
+$u\in B\setminus\{0\}$ &2&4&6&8&10&12&14\\
+\midrule
+$u^3$ &8&3&59&24&54&17&15\\
+$u^7$ &6&20&26&59&28&31&1\\
+\bottomrule
+\end{tabular}
+\end{center}
+For example, $2$ encodes $\alpha$, so its cube is encoded by $8$, and
+its seventh power is $\alpha^2+\alpha$, encoded by $6$.
+Both power rows contain seven distinct elements.
+
+If two nonzero elements $u,v$ of $B$ belonged to the same scalar
+translate $bM_d$, then $u/v\in M_d^*$ and hence
+$u^{2^d-1}=v^{2^d-1}$. The table forces $u=v$. Thus
+\[
+ \dim_K(bM_d\cap B)\le1\quad\hbox{for every }b\in L,
+ \qquad d=2,3.
+\]
+This also holds for $b=0$. On the other hand,
+$\dim_K(aM_d\cap A)\le d$ for every $a\in L$. Adding these bounds
+proves \eqref{hyp} for all its quantified choices.
+
+Finally, $AB$ contains $\alpha^2,\alpha^3,\ldots,\alpha^7$.
+These six elements form a basis of $L$, since they are the image of
+$1,\alpha,\ldots,\alpha^5$ under the invertible multiplication map
+$u\mapsto\alpha^2u$. Therefore $\langle AB\rangle=L$.
+Taking $S=A$ and $T=B$ proves the strict inequality in the theorem.
+\end{proof}
+
+\paragraph{Scope of the obstruction.}
+The failure is the ambient-field bound. If the hypothesis also tested
+$M=L$ with $a=b=1$, it would require $5+3\le6+1$, which this example
+violates. Replacing the conclusion by a bound capped at $[L:K]$, or
+adding a suitable dimension hypothesis, changes the question. No such
+modified assertion is resolved here. This is an obstruction in the
+published conjecture, not a difference introduced by MathDB.
+The source's related group proposition tests all nontrivial finite
+subgroups, including the ambient group when finite.
+
+\paragraph{Verification and review.}
+The accompanying standard-library Python verifier independently checks
+irreducibility, field arithmetic, both power rows, subfield closure, all
+$2\cdot64^2=8192$ scalar-pair instances of \eqref{hyp}, and the product
+dimension. The finite certificate supplements the complete argument above.
+The review is by the author agent; no independent peer review or proof
+assistant verification is claimed. The dated literature audit records
+the sources checked and the limits of the search.
+
+\paragraph{Task 2 (proposed).}
+Determine the smallest extension degree over each finite base field that
+admits a counterexample with both $A,B$ proper and at least one
+nontrivial proper intermediate field.
+
+\paragraph{Task 3 (proposed).}
+Classify the three-dimensional $\F_2$-subspaces of $\F_{64}$ meeting
+every scalar translate of $\F_4$ and $\F_8$ in dimension at most one,
+up to scalar multiplication and Frobenius automorphisms.
+
+\paragraph{Task 4 (proposed).}
+Determine whether \eqref{hyp} implies the capped inequality
+$\dim_K\langle ST\rangle\ge
+\min\{[L:K],\dim_K S+\dim_K T-1\}$ for all nonzero $S,T$ in
+arbitrary finite inseparable extensions.
+
+\paragraph{Task 5 (proposed).}
+Construct, or rule out, families satisfying \eqref{hyp} with proper
+$A,B$, nontrivial proper intermediate fields, and unbounded deficit
+$\dim_K A+\dim_K B-1-\dim_K\langle AB\rangle$.
+
+\begin{thebibliography}{9}
+\bibitem{A} M. Aliabadi, \emph{Conditions for matchability in groups and
+field extensions II}, Discussiones Mathematicae General Algebra and
+Applications \textbf{45} (2025), 135--157,
+\href{https://doi.org/10.7151/dmgaa.1461}{doi:10.7151/dmgaa.1461}.
+Conjecture 38, p.~154; preprint
+\href{https://arxiv.org/abs/2309.14664}{arXiv:2309.14664v3}, Conjecture 5.1.
+\end{thebibliography}
+\end{document}

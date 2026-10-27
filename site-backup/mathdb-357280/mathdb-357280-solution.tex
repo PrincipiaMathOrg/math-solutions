@@ -1,0 +1,277 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,hyperref}
+\hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue}
+\newcommand{\Q}{\mathbb Q}
+\newcommand{\sech}{\operatorname{sech}}
+\newcommand{\csch}{\operatorname{csch}}
+\newcommand{\Res}{\operatorname{Res}}
+\newtheorem{theorem}{Theorem}
+\title{The coefficient relations for squared Berndt integrals\\MathDB 357280}
+\author{Research note}
+\date{17 September 2026}
+\begin{document}
+\maketitle
+
+\section*{Task 1. Prove both coefficient relations}
+Put $G=\Gamma(1/4)$. For every integer $p\ge1$, the two evaluations
+in Xu--Zhao \cite[Theorems 6.3 and 8.12]{XZ} have the form
+\begin{align}
+ I_p^-:=\int_0^\infty\frac{x^{4p+1}\,dx}{(\cos x-\cosh x)^2}
+   &=i_p\frac{G^{8p}}{\pi^{2p}}
+                  +j_p\frac{G^{8p+8}}{\pi^{2p+4}},\label{minus}\\
+ I_p^+:=\int_0^\infty\frac{x^{4p+1}\,dx}{(\cos x+\cosh x)^2}
+   &=g_p\frac{G^{8p}}{\pi^{2p}}
+                  +h_p\frac{G^{8p+8}}{\pi^{2p+4}},\label{plus}
+\end{align}
+with rational coefficients. This specifies the theorem references
+omitted from the MathDB transcription. We prove Conjecture 8.14
+of the current source, without changing its range or conclusion.
+
+\begin{theorem}
+For every positive integer $p$,
+\[
+ \boxed{\displaystyle
+ g_p=-\frac{2^{2p-1}-(-1)^p}{2^{2p-1}}\,i_p,
+ \qquad
+ h_p=-\frac{2^{2p-1}+(-1)^p}{2^{2p-1}}\,j_p.}
+\]
+\end{theorem}
+
+The proof also constructs all four rational coefficients. The
+essential connection between the two integral families is the
+degree-two Eisenstein identity, followed by a modular transformation
+from $i$ to $(1+i)/2$.
+
+\subsection*{1. A common residue calculation}
+Fix $p\ge1$ and write $w=4p$, $a=(-1)^p2^{2p-1}$. For $y>0$ set
+\[
+ S_-(y)=\sum_{n\ge1}n^w\csch^2(ny),\qquad
+ S_+(y)=\sum_{\substack{k\ge1\\k\text{ odd}}}
+                         k^w\sech^2(ky/2).
+\]
+We first establish
+\begin{align}
+ I_p^-&=a\pi^{w+1}\{(w+1)S_-(\pi)+\pi S_-'(\pi)\},\label{res-minus}\\
+ I_p^+&=-\frac{a}{2^w}\pi^{w+1}
+                    \{(w+1)S_+(\pi)+\pi S_+'(\pi)\}.
+                    \label{res-plus}
+\end{align}
+These formulas can also be read from the source's contour results;
+we give the details to fix their relative sign and scale.
+
+Let $a_0=(1+i)/2$, $b_0=(1-i)/2$. The factorizations are
+\[
+ \cos z+\cosh z=2\cosh(a_0z)\cosh(b_0z),\qquad
+ \cos z-\cosh z=-2\sinh(a_0z)\sinh(b_0z).
+\]
+Use positively oriented triangles with vertices $0,R,iR$, taking
+$R=2\pi N$ for the plus sign and $R=(2N+1)\pi$ for the minus sign.
+The first hyperbolic factor on the oblique edge has modulus at least
+one, and the second has modulus at least $\sinh(R/2)$. The oblique
+integral is $O_p(R^{w+2}e^{-R})$ and tends to zero. The two axial
+integrals have the same sign and sum to twice the real integral.
+For the minus sign the apparent singularity at zero is removable:
+the quotient is $O(z^{4p-3})$ there. Thus for either sign
+the integral equals $\pi i$ times the sum of its first-quadrant residues.
+
+For the minus sign the poles are $(1+i)t$, $t=n\pi$, $n\ge1$.
+Writing $z=(1+i)t+v$, the denominator squared is
+$4\sinh^2(a_0v)\sinh^2(t+b_0v)$. Since
+$b_0(1+i)=1$ and $(1+i)^w=(-4)^p$, its residue is
+\[
+ -ia\{(w+1)t^w\csch^2t+t^{w+1}(\csch^2)'(t)\}.
+\]
+For the plus sign $t=(n+1/2)\pi$, $n\ge0$, the local denominator
+squared is $-4\sinh^2(a_0v)\cosh^2(t+b_0v)$, and the residue is
+\[
+ ia\{(w+1)t^w\sech^2t+t^{w+1}(\sech^2)'(t)\}.
+\]
+Summing and multiplying by $\pi i$ proves
+\eqref{res-minus}--\eqref{res-plus}. All sums and their differentiated
+versions converge locally uniformly for $y>0$ by exponential decay.
+
+\subsection*{2. The degree-two Eisenstein identity}
+Use $q=e^{2\pi i\tau}$ and $D=(2\pi i)^{-1}d/d\tau=q,d/dq$.
+Let
+\[
+ f(\tau)=E_w(\tau)=1-\frac{2w}{B_w}
+                    \sum_{n\ge1}\sigma_{w-1}(n)q^n,
+ \qquad c=-\frac{B_w}{2w}.
+\]
+Then $L_{w-1}(q)=\sum_{n\ge1}n^{w-1}q^n/(1-q^n)=c(f-1)$.
+For $\tau=iy/\pi$, expansion of $\csch^2$ immediately gives
+\begin{equation}\label{Sminus}
+ S_-(y)=4c(Df)(\tau).
+\end{equation}
+Selecting odd $k$ in the expansion of $\sech^2$ similarly gives
+\begin{equation}\label{Splus-long}
+ S_+(y)=4c\{(Df)(\tau/2)
+       -(2^w+4)(Df)(\tau)+2^{w+2}(Df)(2\tau)\}.
+\end{equation}
+For example, the selector identity before differentiation is
+\[
+ \sum_{k\text{ odd}}\frac{k^{w-1}q^k}{1+q^k}
+ =L_{w-1}(q)-(2+2^{w-1})L_{w-1}(q^2)+2^wL_{w-1}(q^4).
+\]
+Its derivative gives \eqref{Splus-long}, including the chain factors.
+
+The elementary divisor identity, with $\sigma_r(n/2)=0$ for odd $n$,
+\[
+ \sigma_r(2n)=(1+2^r)\sigma_r(n)-2^r\sigma_r(n/2)
+\]
+proves coefficient by coefficient that
+\begin{equation}\label{hecke}
+ f(\tau/2)+f((\tau+1)/2)+2^wf(2\tau)=(2+2^w)f(\tau).
+\end{equation}
+Indeed the two half-argument terms select the even Fourier indices;
+the constant terms also agree. Differentiate \eqref{hecke} and
+substitute in \eqref{Splus-long} to obtain the key simplification
+\begin{equation}\label{Splus}
+ S_+(y)=4c\{2^w(Df)(\tau)-(Df)((\tau+1)/2)\}.
+\end{equation}
+
+\subsection*{3. Two transformed derivatives}
+Write $f_r=(D^rf)(i)$ for $r=0,1,2$, and put
+\[
+ K=(-1)^p2^{2p}=(1+i)^w,\qquad t=\frac{2K}{2^w}
+                                        =\frac{(-1)^p}{2^{2p-1}}.
+\]
+The transformation $\gamma\tau=\tau/(\tau+1)$ is in
+$\mathrm{SL}_2(\mathbb Z)$ and sends $i$ to $(1+i)/2$.
+For any modular form $f$ of weight $w$, differentiating
+$f(\gamma\tau)=(\tau+1)^wf(\tau)$ once and twice gives, with
+$\lambda=(2\pi i)^{-1}$,
+\begin{align*}
+ (Df)(\gamma\tau)
+   &=(\tau+1)^{w+2}Df(\tau)
+                   +w\lambda(\tau+1)^{w+1}f(\tau),\\
+ (D^2f)(\gamma\tau)
+   &=(\tau+1)^{w+4}D^2f(\tau)
+     +2(w+1)\lambda(\tau+1)^{w+3}Df(\tau)\\
+   &\hspace{12mm}+w(w+1)\lambda^2(\tau+1)^{w+2}f(\tau).
+\end{align*}
+Differentiating $f(-1/\tau)=\tau^wf(\tau)$ at $\tau=i$ gives
+$f_1=wf_0/(4\pi)$. Substituting this and $(1+i)^2=2i$ above yields
+\begin{equation}\label{transformed}
+ (Df)((1+i)/2)=2Kf_1,\qquad
+ (D^2f)((1+i)/2)
+       =K\left(-4f_2+\frac{w(w+1)}{2\pi^2}f_0\right).
+\end{equation}
+Now $d/dy=-2D$ for the argument $\tau=iy/\pi$, whereas it is
+$-D$ for $(\tau+1)/2$. Equations \eqref{Sminus}, \eqref{Splus},
+and \eqref{transformed} give
+\begin{align*}
+ S_-(\pi)&=4cf_1,& S_-'(\pi)&=-8cf_2,\\
+ S_+(\pi)&=4c(2^w-2K)f_1,&
+ S_+'(\pi)&=-8c\left((2^w+2K)f_2
+                           -\frac{Kw(w+1)}{4\pi^2}f_0\right).
+\end{align*}
+Using $f_1=wf_0/(4\pi)$ in the residue formulas, the extra
+$Kf_0$ terms cancel. We obtain
+\begin{align}
+ I_p^-&=4ca\pi^{w+1}\{(w+1)f_1-2\pi f_2\},\label{Iminus}\\
+ I_p^+&=-4ca\pi^{w+1}\{(w+1)f_1-2\pi(1+t)f_2\}.
+                                                        \label{Iplus}
+\end{align}
+
+\subsection*{4. Separate the two period powers}
+Set $u=G^4/(4\pi^3)$. The classical values are
+\[
+ E_2(i)=3/\pi,\qquad E_4(i)=3u^2/4,\qquad E_6(i)=0.
+\]
+The rational modular-form ring is $\Q[E_4,E_6]$
+\cite[Proposition 4]{Z}. Thus $f_0=\alpha u^{2p}$ for some
+$\alpha\in\Q$. For a weight-$k$ modular form $F$, its Serre derivative
+\[
+ \vartheta_kF=DF-\frac{k}{12}E_2F
+\]
+is modular of weight $k+2$, with rational Fourier coefficients
+when $F$ has them \cite[Section 5.1]{Z}. Put
+$F=\vartheta_w f$ and $H=\vartheta_{w+2}F$.
+Since a weight congruent to two modulo four vanishes at $i$,
+$F(i)=0$. Ramanujan's identity
+$DE_2=(E_2^2-E_4)/12$ therefore gives
+\begin{align*}
+ f_2
+ &=\frac{w}{12}(DE_2)(i)f_0
+       +\frac{w}{12}E_2(i)f_1+H(i)\\
+ &=\frac{w(w+1)}{16\pi^2}f_0
+                 +H(i)-\frac{w}{144}E_4(i)f_0.
+\end{align*}
+The last two terms are the value at $i$ of a rational modular form
+of weight $w+4$, so they equal $\beta u^{2p+2}$ for some
+$\beta\in\Q$. Hence
+\begin{equation}\label{split}
+ f_0=\alpha u^{2p},\qquad f_1=\frac{w}{4\pi}f_0,
+ \qquad f_2=\frac{w(w+1)}{16\pi^2}f_0+\beta u^{2p+2}.
+\end{equation}
+
+Put $L=w(w+1)f_0/(8\pi)$ and $U=-2\pi\beta u^{2p+2}$.
+Substitution of \eqref{split} in \eqref{Iminus}--\eqref{Iplus} gives
+\[
+ I_p^-=4ca\pi^{w+1}(L+U),\qquad
+ I_p^+=-4ca\pi^{w+1}\{(1-t)L+(1+t)U\}.
+\]
+The first part is a rational multiple of $G^{8p}/\pi^{2p}$,
+and the second is a rational multiple of $G^{8p+8}/\pi^{2p+4}$.
+These two numbers are linearly independent over $\Q$, by the
+established algebraic independence of $\pi$ and $\Gamma(1/4)$
+\cite[p.~85]{Z}. Comparison with \eqref{minus}--\eqref{plus}
+therefore proves $g_p=-(1-t)i_p$ and $h_p=-(1+t)j_p$, as required.
+All steps apply to every $p\ge1$.\qed
+
+For an explicit coefficient algorithm, the same calculation gives
+\[
+ i_p=\frac{(-1)^p c w(w+1)\alpha}{2^{2p+2}},\qquad
+ j_p=\frac{(-1)^{p+1}c\beta}{2^{2p+2}}.
+\]
+The quantities $\alpha,\beta$ follow by rational polynomial
+arithmetic in $E_4,E_6$ and the three Ramanujan differential equations.
+For example, $p=1$ gives $c=1/240$, $\alpha=3/4$, $\beta=5/64$, and
+\[
+ (i_1,j_1,g_1,h_1)=
+ \left(-\frac1{256},\frac1{3\cdot2^{14}},
+              \frac3{512},-\frac1{3\cdot2^{15}}\right),
+\]
+in agreement with the source examples. This checks the smallest
+allowed index without relying on an asymptotic or generic-index argument.
+
+\section*{Task 2. Generalize the modular correspondence}
+Replace the degree-two selector identity by the degree-$N$ Eisenstein
+identity. Identify integral families whose residue sums realize the
+resulting transformed derivatives, and derive their coefficient relations.
+
+\section*{Task 3. Compare higher denominator powers}
+Find the analogue of the two coefficient relations when the denominator
+power is four or higher. Determine which finite combinations of modular
+derivatives control each period power, including contributions from
+the additional poles and the convergence condition at zero.
+
+\section*{Task 4. Determine coefficient signs and growth}
+Determine the signs and possible vanishing of $\beta$ in \eqref{split}
+for all $p$. Obtain asymptotic formulas for $i_p,j_p$ with explicit error
+bounds, and use the proved relations to transfer them to $g_p,h_p$.
+
+\section*{Task 5. Derive recurrences for exact coefficients}
+Construct recurrences for $\alpha$ and $\beta$ as the weight increases
+by four. Seek a method computing the four integral coefficients without
+reconstructing the full Eisenstein polynomial at each new weight.
+
+\begin{thebibliography}{2}
+\bibitem{XZ} C.~Xu and J.~Zhao,
+\emph{Berndt-Type Integrals and Series Associated with Ramanujan and
+Jacobi Elliptic Functions},
+\href{https://arxiv.org/abs/2301.08211v2}{arXiv:2301.08211v2} (2024),
+Theorems 6.3 and 8.12, Conjecture 8.14.
+\bibitem{Z} D.~Zagier, \emph{Elliptic Modular Forms and Their Applications},
+in \emph{The 1-2-3 of Modular Forms}, Springer (2008), pp.~1--103;
+\href{https://people.mpim-bonn.mpg.de/zagier/files/doi/10.1007/978-3-540-74119-0_1/fulltext.pdf}{author-hosted chapter}.
+\end{thebibliography}
+\noindent\textit{Verification and status.}
+Run \texttt{verify\_relations.py} for exact symbolic checks and separate
+numerical diagnostics. The proof for all $p$ is the analytic and
+modular argument above, not a finite test. Full current-source and
+dated bounded claim checks accompany this note. The authoring agent
+conducted the proof audit; independent peer review has not occurred.
+\end{document}

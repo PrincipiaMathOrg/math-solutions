@@ -1,0 +1,223 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,enumitem,hyperref}
+\hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue,citecolor=blue}
+\newtheorem{theorem}{Theorem}
+\newcommand{\Q}{\mathcal Q}
+\newcommand{\Z}{\mathbb Z}
+\newcommand{\supp}{\operatorname{supp}}
+\newcommand{\M}{\overline M}
+\title{Duality for transmuted preorder $M$-triangles\\\large MathDB 374967}
+\author{Principia Math In Progress}
+\date{September 18, 2026}
+\begin{document}
+\maketitle
+\begin{abstract}
+We prove Conjecture 8.2 of Athanasiadis and Chapoton for every finite
+preorder. The proof realizes a rank-and-support enumerator in a
+two-variable lattice-point series. The interior points of the associated
+cone are a fixed translate of all its lattice points. Stanley reciprocity
+then gives exactly the proposed transmuted $M$-triangle duality.
+\end{abstract}
+
+\section*{Task 1. Full solution}
+Let $\tau$ be a preorder on an $n$-element set $E$. Put
+\[
+ P_\tau=\{a\in\Z_{\ge0}^E:a(I)\le |I|
+                       \text{ for every order ideal $I$ of $\tau$}\},
+ \qquad a(I)=\sum_{e\in I}a_e.
+\]
+Its order is componentwise and its rank is $|a|=a(E)$. Write
+$s(a)=|\supp(a)|$. For a finite graded poset $P$, define
+\[
+ M_P(x,y)=\sum_{a\le b}\mu_P(a,b)x^{|a|}y^{|b|},\qquad
+ \M_P(x,y)=M_P\left(\frac{1-y}{1-xy},1-xy\right).
+\]
+\begin{theorem}\label{thm:main}
+For every finite preorder $\tau$ of size $n$,
+\[
+ \boxed{(xy)^n\M_{P_\tau}(1/x,1/y)=\M_{P_\tau}(y,x).}
+\]
+No lattice realization of $P_\tau$ is assumed.
+\end{theorem}
+
+We may suppose $n\ge1$, since the empty preorder gives both sides
+equal to one. Introduce the homogeneous degree-$n$ polynomial
+\begin{equation}\label{eq:H}
+ H_\tau(X,Y,Z)=\sum_{a\in P_\tau}
+                    X^{n-|a|}Y^{s(a)}Z^{|a|-s(a)}.
+\end{equation}
+All exponents are nonnegative, since $|a|\le n$.
+Downward closure makes each interval $[a,b]$ a product of chains.
+Its M\"obius function is zero unless every coordinate of $b-a$ is
+zero or one, in which case it is $(-1)^{|b|-|a|}$. Summing first
+over $a\le b$ gives
+\[
+ M_{P_\tau}(x,y)=\sum_{b\in P_\tau}(xy)^{|b|}(1-x^{-1})^{s(b)}.
+\]
+After transmutation this becomes the polynomial identity
+\begin{equation}\label{eq:M}
+ \M_{P_\tau}(x,y)
+ =\sum_{b\in P_\tau}(-y)^{s(b)}(1-x)^{s(b)}(1-y)^{|b|-s(b)}
+ =H_\tau(1,y(x-1),1-y).
+\end{equation}
+We will prove the stronger homogeneous identity
+\begin{equation}\label{eq:Hinvolution}
+ H_\tau(X,Y,Z)=H_\tau(X+Y-Z,Z,Y).
+\end{equation}
+
+\subsection*{A cone and its interior translation}
+Set $\sigma=\tau^*$, the reversed preorder. In coordinates
+$(t,\alpha,\beta)\in\mathbb R\times\mathbb R^E\times\mathbb R^E$
+consider the rational cone
+\begin{equation}\label{eq:cone}
+ C=\{(t,\alpha,\beta):\alpha,\beta\ge0,\quad
+       \beta(I)+\alpha(E\setminus I)\le t
+                    \text{ for every ideal $I$ of $\sigma$}\}.
+\end{equation}
+Here the empty ideal is included. The cases $I=\varnothing,E$
+give $|\alpha|,|\beta|\le t$. Thus $C$ is pointed. It is full
+dimensional, since
+\[
+ w=(n+1,\mathbf1,\mathbf1)
+\]
+strictly satisfies all its inequalities. Every displayed normal
+is nonzero, so strict inequalities characterize the interior, even
+if some inequalities are redundant. For integer points, they are
+$\alpha_e,\beta_e\ge1$ and
+$\beta(I)+\alpha(E\setminus I)\le t-1$.
+Subtracting $w$ therefore gives the exact equality
+\begin{equation}\label{eq:translate}
+ C^\circ\cap\Z^{2n+1}=w+(C\cap\Z^{2n+1}).
+\end{equation}
+Indeed, the left side of each ideal inequality drops by $n$, while
+the coordinate $t$ drops by $n+1$.
+
+Let $\alpha_0=t-|\alpha|$. It is a nonnegative integer on lattice
+points of $C$. Define the two-variable series
+\[
+ G(u,v)=\sum_{(t,\alpha,\beta)\in C\cap\Z^{2n+1}}
+                                u^{\alpha_0}v^{|\alpha|}.
+\]
+Every coefficient is finite: fixing $\alpha_0$ and $|\alpha|$
+fixes $t$, and both nonnegative vectors have sum at most $t$.
+Moreover a nonzero cone vector has positive total degree in this
+grading. Stanley's reciprocity theorem for rational cones
+\cite[Theorem 1]{BD}, followed by this monomial specialization,
+applies without a zero-degree ray. Since $\dim C=2n+1$ and
+translation by $w$ changes $(\alpha_0,|\alpha|)$ by $(1,n)$,
+\eqref{eq:translate} gives, as rational functions,
+\begin{equation}\label{eq:Grec}
+ G(u^{-1},v^{-1})=-u v^n G(u,v).
+\end{equation}
+
+\subsection*{The numerator of the series}
+For fixed nonnegative integers $(\alpha_0,\alpha)$, the possible
+$\beta$ form the lattice points of
+\begin{equation}\label{eq:section}
+ \alpha_0\Delta_E+
+       \sum_{e\in E}\alpha_e\Delta_{U_\sigma(e)},\qquad
+ \Delta_A=\operatorname{conv}(0,\mathbf e_f:f\in A).
+\end{equation}
+To check this, the cone inequalities become
+$\beta(I)\le\alpha_0+\alpha(I)$ for nonempty ideals.
+The transportation criterion for the Minkowski sum is
+$\beta(A)\le\alpha_0+\alpha(D_\sigma(A))$ for every nonempty
+subset $A$. These conditions are equivalent: take ideals for one
+direction and use $A\subseteq D_\sigma(A)$ for the other.
+
+Postnikov's established formula in
+\cite[Theorem 2.1 and Lemma 4.1]{AC}, with these arbitrary summand
+weights, says that the number of points in \eqref{eq:section} is
+\begin{equation}\label{eq:count}
+ \sum_{a\in P_\tau}
+       \binom{\alpha_0+n-|a|}{n-|a|}
+       \prod_{e\in E}\binom{\alpha_e+a_e-1}{a_e}.
+\end{equation}
+The additional draconian coordinate equals $n-|a|$; its summand
+is the universal simplex, which explains the first binomial factor.
+For fixed nonnegative $k$, the needed series are
+\[
+ \sum_{j\ge0}\binom{j+k}{k}u^j=(1-u)^{-k-1},\qquad
+ \sum_{j\ge0}\binom{j+k-1}{k}v^j=
+ \begin{cases}(1-v)^{-1}&k=0,\\v(1-v)^{-k-1}&k>0.\end{cases}
+\]
+In the $k=0$ case the binomial coefficient is one, including $j=0$.
+Sum \eqref{eq:count} with weights $u^{\alpha_0}v^{|\alpha|}$.
+For $r=|a|$ and $s=s(a)$, its contribution is
+$(1-u)^{-n+r-1}v^s(1-v)^{-n-r}$. Consequently
+\begin{equation}\label{eq:G}
+ G(u,v)=\frac{H_\tau(1-v,v(1-u),1-u)}
+                    {(1-u)^{n+1}(1-v)^{2n}}.
+\end{equation}
+The root-polytope interpretation and its one-variable support
+enumerator appear in \cite[Section 4.2]{D}; here we retain the
+extra grading needed for the $M$-triangle.
+
+\subsection*{Reciprocity becomes transmuted duality}
+Homogeneity of $H_\tau$ and \eqref{eq:G} give
+\[
+ G(u^{-1},v^{-1})=
+ -u v^n\frac{H_\tau(u(1-v),1-u,v(1-u))}
+                    {(1-u)^{n+1}(1-v)^{2n}}.
+\]
+Cancel the common factors using \eqref{eq:Grec}. We obtain
+\begin{equation}\label{eq:param}
+ H_\tau(1-v,v(1-u),1-u)
+       =H_\tau(u(1-v),1-u,v(1-u)).
+\end{equation}
+The first coordinate on the right equals
+$(1-v)+v(1-u)-(1-u)$, so this is \eqref{eq:Hinvolution}
+on the displayed parametrization. Homogeneity extends it to all
+triples. Explicitly, for generic $(X,Y,Z)$ take
+\[
+ v=Y/Z,\qquad u=1-(Z-Y)/X,\qquad \lambda=XZ/(Z-Y).
+\]
+Then $(X,Y,Z)=\lambda(1-v,v(1-u),1-u)$. Thus the two polynomials
+in \eqref{eq:Hinvolution} agree on a dense open set and agree identically.
+
+Finally, substitute $(X,Y,Z)=(1,x(y-1),1-x)$ into
+\eqref{eq:Hinvolution}, and use \eqref{eq:M} and homogeneity:
+\begin{align*}
+ \M_{P_\tau}(y,x)
+ &=H_\tau(1,x(y-1),1-x)\\
+ &=H_\tau(xy,1-x,x(y-1))\\
+ &=(xy)^n H_\tau\left(1,\frac{1-x}{xy},\frac{y-1}{y}\right)
+  =(xy)^n\M_{P_\tau}(1/x,1/y).
+\end{align*}
+This proves Theorem~\ref{thm:main} as a polynomial identity.
+
+\subsection*{Verification and scope}
+The exact verifier checks 78,480 M\"obius intervals and all 389
+labeled preorders of sizes 1--4. It checks 2,466 weighted cone sections
+containing 74,376 lattice points, including their interior translations;
+the source's five-element triangle and larger examples also agree.
+All 26 pages of the primary and all 25 pages of the later root-polytope
+paper were read. The latter proves support-enumerator duality, a
+different statement. Bounded checks found no earlier full target claim
+or target journal final. Review is by the authoring agent only.
+
+\section*{Tasks 2--5. Proposed follow-up directions}
+\begin{enumerate}[label=\textbf{Task \arabic*.},start=2,leftmargin=*]
+\item Describe the coefficient relations in \eqref{eq:Hinvolution}
+directly in terms of ranks, support sizes, and slack coordinates.
+\item Retain separate weights on the supply coordinates and derive
+a multivariate refinement of the transmuted duality.
+\item Characterize bipartite graphs whose augmented root cone admits
+an interior translation with the same grading shift.
+\item Determine which of these reciprocal triangles are realized by
+finite graded lattices, addressing the additional existence question.
+\end{enumerate}
+\begin{thebibliography}{9}
+\raggedright
+\bibitem{AC} C. A. Athanasiadis and F. Chapoton,
+\emph{Polytopes and posets associated to preorders},
+\href{https://arxiv.org/abs/2605.26916v1}{arXiv:2605.26916v1}, 2026.
+\bibitem{BD} M. Beck and M. Develin,
+\emph{On Stanley's reciprocity theorem for rational cones},
+\href{https://arxiv.org/abs/math/0409562v3}{arXiv:math/0409562v3}, 2005.
+\bibitem{D} Z. Dai, Q. Hou, Z. Liu, W. Thawinrak, and H. Wang,
+\emph{Counting Lattice Points in Minkowski Sums of Cross Polytopes},
+\href{https://arxiv.org/abs/2608.16037v2}{arXiv:2608.16037v2}, 2026.
+\end{thebibliography}
+\end{document}

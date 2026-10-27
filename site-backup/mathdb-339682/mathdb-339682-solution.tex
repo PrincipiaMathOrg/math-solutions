@@ -1,0 +1,133 @@
+\documentclass[10pt]{article}
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[hidelinks]{hyperref}
+\newtheorem{proposition}{Proposition}
+\newcommand{\R}{\mathbb R}
+\title{An anisotropic Gaussian counterexample to the\\observable-gradient coupling conjecture}
+\author{MathDB problem 339682}
+\date{12 September 2026}
+\begin{document}
+\maketitle
+
+\paragraph{Task 1.} Resolve the claimed sign of the variance change for
+couplings built from the observable gradient. This is Conjecture 62,
+equation (157), in the final publication of N\"usken and Pavliotis~\cite{NP}.
+The arXiv version numbers it Conjecture 60.
+
+For the overdamped generator \(L=-\nabla V\cdot\nabla+\Delta\), the source
+requires centered \(f,\phi\in L^2(\pi)\) satisfying \(-L\phi=f\), where
+\(\pi(dx)=Z^{-1}e^{-V(x)}dx\). Its conjectured inequality is
+\begin{equation}\label{conj}
+ \int_{\R^d\times\R^d}
+ \nabla\phi(y)^T\alpha_f(x,y)\nabla\phi(x)
+ e^{-V(x)-V(y)}\,dx\,dy\leq0.
+\end{equation}
+Writing \(\widehat{\nabla f}=\nabla f/|\nabla f|\), equation (156) of the source
+sets
+\[
+ \alpha_f(x,y)=I-2\,\frac{w(x,y)w(x,y)^T}{|w(x,y)|^2},
+ \qquad w(x,y)=\widehat{\nabla f}(x)+\widehat{\nabla f}(y),
+\]
+when both gradients and their normalized sum are nonzero; otherwise it sets
+\(\alpha_f=I\). Admissibility in equation (151) is
+\(\alpha_f^T\alpha_f\leq I\).
+
+\begin{proposition}
+Inequality \eqref{conj} is false for the smooth Gaussian potential
+\[
+ V(x)=\tfrac12(x_1^2+9x_2^2),\qquad f(x)=x_1+3x_2,\qquad d=2.
+\]
+Its left-hand side equals \(56\pi^2/405>0\).
+\end{proposition}
+
+\begin{proof}
+Here \(Z=2\pi/3\) and \(\pi\) is the centered Gaussian with covariance
+\(\operatorname{diag}(1,1/9)\). Put
+\[
+ \phi(x)=x_1+\tfrac13x_2,\qquad
+ v=\nabla f=\begin{pmatrix}1\\3\end{pmatrix},\qquad
+ a=\nabla\phi=\begin{pmatrix}1\\1/3\end{pmatrix}.
+\]
+Both linear functions are centered and square-integrable under \(\pi\).
+Since their second derivatives vanish,
+\[
+ -L\phi
+ =x_1\partial_1\phi+9x_2\partial_2\phi-\Delta\phi
+ =x_1+3x_2=f.
+\]
+The observable gradient is the same nonzero vector at every point, so
+\(w=2v/\sqrt{10}\neq0\). Thus the nondegenerate branch of the source's
+definition applies everywhere and gives
+\[
+ \alpha_f=I-\frac{2vv^T}{v^Tv}
+ =\frac15\begin{pmatrix}4&-3\\-3&-4\end{pmatrix}.
+\]
+This constant matrix is measurable and satisfies \(\alpha_f^T\alpha_f=I\).
+The integrand apart from its Gaussian weight is therefore the constant
+\[
+ a^T\alpha_fa
+ =|a|^2-\frac{2(a^Tv)^2}{|v|^2}
+ =\frac{10}{9}-\frac{8}{10}
+ =\frac{14}{45}>0.
+\]
+Multiplication by \(Z^2=4\pi^2/9\) gives \(56\pi^2/405>0\), as claimed.
+If the integral is expressed using the probability measure
+\(\pi\otimes\pi\), its value is \(14/45\); either normalization contradicts
+the proposed sign.
+\end{proof}
+
+The example also defines genuine small perturbations of independent
+sampling. For \(0<\varepsilon<1\), the constant diffusion matrix
+\[
+ Q_\varepsilon=
+ \begin{pmatrix}I&\varepsilon\alpha_f\\
+                 \varepsilon\alpha_f^T&I\end{pmatrix}
+\]
+has eigenvalues \(1-\varepsilon\) and \(1+\varepsilon\), each twice.
+With drift matrix
+\(D=\operatorname{diag}(1,9,1,9)\), the process
+\(dU_t=-DU_t\,dt+\sqrt{2Q_\varepsilon}\,dW_t\)
+has exactly the required two overdamped marginal processes.
+Its covariance converges to
+\(2\int_0^\infty e^{-Ds}Q_\varepsilon e^{-Ds}\,ds\), which is positive
+definite, and its mean converges to zero. It is therefore the usual
+nondegenerate ergodic Gaussian coupling. The counterexample does not
+depend on using only a possibly degenerate full-strength endpoint.
+
+The source's motivating integration-by-parts identity remains valid:
+\(\int\nabla f\cdot\nabla\phi\,d\pi=2=\int f^2\,d\pi\).
+That identity alone does not force the reflection built from
+\(\nabla f\) to have a nonpositive quadratic form on \(\nabla\phi\).
+Anisotropy of the potential separates these two constant directions.
+The argument resolves the universal conjecture by a counterexample; it
+does not decide its restrictions to one dimension or to isotropic targets.
+
+\paragraph{Task 2.} Determine the sharp condition-number threshold for
+nonpositive variance change for every linear observable under a Gaussian
+target, and classify the extremal directions.
+
+\paragraph{Task 3.} Decide whether the observable-gradient sign conjecture
+holds in one dimension under smooth uniform convexity of the potential,
+including observables whose derivatives change sign.
+
+\paragraph{Task 4.} Construct practical preconditioners for the observable
+gradient and prove quantitative conditions under which the resulting
+reflection guarantees a variance improvement.
+
+\paragraph{Task 5.} Quantify the largest variance increase, relative to
+independent sampling, for finite coupling strengths in Gaussian targets
+with prescribed covariance condition number.
+
+\begin{thebibliography}{9}
+\raggedright
+\bibitem{NP}
+N.~N\"usken and G.~A.~Pavliotis,
+\emph{Constructing Sampling Schemes via Coupling: Markov Semigroups and
+Optimal Transport}, SIAM/ASA Journal on Uncertainty Quantification
+\textbf{7}(1) (2019), 324--382.
+\href{https://doi.org/10.1137/18M119896X}{doi:10.1137/18M119896X}.
+Section 5.2, pp.~364--365, equations (150)--(157).
+\href{https://www.ma.imperial.ac.uk/~pavl/NuskenPavliotis2018.pdf}{Final author-hosted publisher PDF}.
+\end{thebibliography}
+\end{document}

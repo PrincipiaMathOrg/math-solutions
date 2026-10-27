@@ -1,0 +1,316 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,booktabs,hyperref}
+\hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue}
+\newtheorem{theorem}{Theorem}
+\newcommand{\Tr}{\operatorname{Tr}}
+\newcommand{\End}{\operatorname{End}}
+\newcommand{\E}{\mathbb E}
+\newcommand{\ip}[2]{\langle #1,#2\rangle}
+\title{An exact obstruction to pairwise orthogonality\\MathDB 376318}
+\author{Research note}
+\date{17 September 2026}
+\begin{document}
+\maketitle
+
+\section*{Task 1. Resolve the original conjecture}
+Kuijper's Conjecture 2.25 \cite[p.~26]{K} asserts that the multivariate
+Hermitian Jacobi polynomials in Definition 2.23 are orthogonal whenever
+their indices are non-equivalent. That definition fixes a multivariate
+Schur leading term and subtracts strictly lower terms in the specified
+partial order; it does not impose orthogonality between incomparable
+indices. We disprove the conjecture, including its allowance for
+arbitrary choices within repeated representation types.
+
+Set $m=3$, $k=6$, and
+\[
+ \alpha_j=\beta_j=\tfrac32\quad(1\le j\le6),\qquad
+ \tau_1=\cdots=\tau_6=(1).
+\]
+Thus $X_1,\ldots,X_6$ are independent and uniformly distributed on
+$0<X<I_3$ in the real vector space of complex Hermitian matrices.
+These parameters lie strictly inside the source's admissible range.
+All inner products below are integration against this probability law.
+The two final partition labels are
+\[
+ \lambda=(4,1,1),\qquad \mu=(3,3).
+\]
+They are distinct and incomparable in dominance order.
+
+\begin{theorem}
+For these parameters, the spaces spanned by the source's Jacobi
+polynomials with final labels $\lambda$ and $\mu$ are not orthogonal.
+This holds for every choice of the multivariate Schur bases within
+their multiplicity spaces. Explicit real polynomials $p_\lambda$ and
+$p_\mu$ in those respective spans satisfy
+\[
+ \boxed{\ip{p_\lambda}{p_\mu}
+ =-\frac{395}{12107408}\left(\frac3{70}\right)^6
+ =-\frac{57591}{284884888758400000}<0.}
+\]
+Consequently at least one pair of the original Jacobi basis
+polynomials with these non-equivalent partition labels has nonzero
+inner product, contradicting Conjecture 2.25.
+\end{theorem}
+
+\subsection*{1. Matrix moments}
+Write $Z=X-I_3/2$. Unitary invariance and invariance under $X\mapsto I-X$
+give $\E X=I_3/2$ and
+\[
+ \E(X_{ab}X_{cd})=A\delta_{ab}\delta_{cd}
+                         +B\delta_{ad}\delta_{bc}.
+\]
+The unordered eigenvalues have density proportional to
+$\Delta(x)^2=\prod_{i<j}(x_i-x_j)^2$ on $[0,1]^3$.
+Direct integration of this polynomial gives
+\[
+\begin{array}{c|cccc}
+ q(x)&1&\sum_i x_i&\sum_i x_i^2&(\sum_i x_i)^2\\ \hline
+ \int_{[0,1]^3}q(x)\Delta(x)^2\,dx
+ &1/360&1/240&13/4200&9/1400.
+\end{array}
+\]
+These identities can be checked simply by integrating each monomial,
+$\int_{[0,1]^3}x_1^ix_2^jx_3^\ell\,dx=
+((i+1)(j+1)(\ell+1))^{-1}$.
+Hence $3A+9B=39/35$ and $9A+3B=81/35$, so that
+$A=17/70$, $B=3/70$. In particular,
+\begin{equation}\label{cov}
+ \E(Z_{ab}Z_{cd})
+ =a\delta_{ad}\delta_{bc}+b\delta_{ab}\delta_{cd},
+ \qquad a=\frac3{70},\quad b=-\frac1{140},\quad b/a=-\frac16.
+\end{equation}
+This also follows from stationarity of the source's equation (8):
+its degree-two moment equations are $12A+2B=3$, $2A+12B=1$.
+
+\subsection*{2. Concrete polynomials and their partition blocks}
+Let $V=\mathbb C^3$. Denote by $T_\sigma$ the permutation of tensor
+factors on $V^{\otimes6}$ corresponding to $\sigma\in S_6$.
+For a partition $\eta\vdash6$ of length at most three, let $f^\eta$
+be the dimension of its symmetric-group representation and let
+$D_\eta=\dim S_\eta(V)$. The central orthogonal projector onto
+the $\eta$-isotypic summand is
+\begin{equation}\label{projector}
+ E_\eta=\frac{f^\eta}{720}
+              \sum_{\sigma\in S_6}\chi^\eta(\sigma)T_\sigma.
+\end{equation}
+Define the explicit multilinear polynomials
+\begin{align*}
+ q_\eta(X_1,\ldots,X_6)
+   &=D_\eta^{-1}\Tr\bigl(E_\eta(X_1\otimes\cdots\otimes X_6)\bigr),\\
+ f_\eta(X_1,\ldots,X_6)
+   &=D_\eta^{-1}\Tr\bigl(E_\eta(Z_1\otimes\cdots\otimes Z_6)\bigr).
+\end{align*}
+They are real on Hermitian arguments and invariant under simultaneous
+unitary conjugation and under all permutations of the six arguments.
+Formula \eqref{projector} makes them finite, fully specified polynomials.
+
+Here is the identification with the source's multiplicity spaces.
+Schur--Weyl decomposition gives
+\[
+ V^{\otimes6}=\bigoplus_{\eta\vdash6,\,\ell(\eta)\le3}
+              S_\eta(V)\otimes F_\eta,
+ \qquad
+ \End_{U(3)}(V^{\otimes6})=
+              \bigoplus_\eta I_{S_\eta(V)}\otimes\End(F_\eta).
+\]
+The trace pairing identifies this commutant with simultaneous-unitary
+invariant multilinear polynomials. Its $\eta$ block, denoted $W_\eta$,
+is exactly the direct sum over equivalent labels in source equation
+(12), with all six individual partitions equal to $(1)$.
+In particular, $q_\eta\in W_\eta$.
+We use the whole block: we do not assume that $q_\eta$ is one of the
+source's individually normalized Schur basis vectors.
+
+\subsection*{3. All strictly lower terms are accounted for}
+Let $L$ be the span of source Schur polynomials whose tuple of
+individual partitions is strictly below $((1),\ldots,(1))$ in the
+source's order on pages 19--20. At the last differing position $j$,
+the partition must be zero. Thus each such polynomial is independent
+of $X_j$, even if it has arbitrarily high degree in earlier variables.
+Every polynomial multilinear in $Z_1,\ldots,Z_6$ has conditional mean
+zero in each variable, and is therefore orthogonal to \emph{all} of $L$.
+
+Let $Cq=q(X_1-I/2,\ldots,X_6-I/2)$ for a multilinear $q$.
+Then $Cq-q\in L$ and $Cq\perp L$; in particular $Cq_\eta=f_\eta$.
+The only length-at-most-three partitions of six strictly below either
+$\lambda$ or $\mu$ are
+\[
+ \nu=(3,2,1),\qquad \omega=(2,2,2).
+\]
+Indeed, all such partitions are
+$(6),(5,1),(4,2),(4,1,1),(3,3),(3,2,1),(2,2,2)$, and comparison of
+their partial sums proves the assertion. Consequently the full
+strictly lower space for either target block is the orthogonal sum
+\begin{equation}\label{lower}
+ L\mathbin{\oplus}N,\qquad N=C(W_\nu\oplus W_\omega).
+\end{equation}
+This identity uses $w-Cw\in L$ for each $w$ in the two lower blocks.
+It does not require a finite-dimensional assumption about $L$.
+
+The product measure is invariant under permutation of the six slots.
+The finite-dimensional space $N$ has the same invariance.
+In a block $W_\eta$, the slot action is conjugation by the irreducible
+$S_6$ representation on $F_\eta$. By Schur's lemma its fixed space
+consists precisely of scalar multiples of the identity of $F_\eta$.
+Thus the permutation-fixed subspace of $N$ is
+\[
+ N^{S_6}=\operatorname{span}\{f_\nu,f_\omega\}.
+\]
+Orthogonal projection onto $N$ commutes with slot permutations.
+Since $f_\lambda$ and $f_\mu$ are fixed, their projections belong to
+this two-dimensional subspace. Projecting away these two vectors
+therefore removes \emph{every} strictly lower term required by the
+source, including all multiplicity copies.
+
+For precision, the map taking a leading polynomial $q\in W_\eta$
+to the polynomial with that leading term, lower corrections, and
+orthogonality to the lower space is linear and unique. Existence here
+follows by first applying $C$ and then projecting away $N$.
+For uniqueness, the difference of two possible answers is lower and
+orthogonal to itself, hence zero because the measure has positive
+density on an open set. Applying this linear map to a Schur basis of
+$W_\eta$ gives exactly Definition 2.23. Thus its value on $q_\eta$
+is a linear combination of the source's Jacobi polynomials with
+final label $\eta$, for \emph{any} allowed choice of basis.
+
+\subsection*{4. Exact Gram calculation}
+For $r\ge0$, let $f^{\eta/\xi}$ denote the number of standard tableaux
+of skew shape $\eta/\xi$, taken as zero unless $\xi\subseteq\eta$.
+Write $f^\xi=f^{\xi/\varnothing}$ and $D_\varnothing=1$.
+The partial trace of $E_\eta$ over $6-r$ slots is
+\begin{equation}\label{partial}
+ \Tr_{6-r}E_\eta
+  =\sum_{\xi\vdash r,\,\ell(\xi)\le3}
+       \frac{D_\eta}{D_\xi}f^{\eta/\xi}E_\xi^{(r)}.
+\end{equation}
+To see this, it commutes with both $U(3)$ and $S_r$, so is scalar
+on each $\xi$ summand. The branching rule from $S_6$ to $S_r$ gives
+\[
+ \Tr\bigl(E_\eta(E_\xi^{(r)}\otimes I)\bigr)
+       =D_\eta f^\xi f^{\eta/\xi}.
+\]
+Dividing by $\Tr E_\xi^{(r)}=D_\xi f^\xi$ proves \eqref{partial}.
+
+Independence and \eqref{cov} give the following normalized Gram matrix:
+\begin{equation}\label{gram}
+ G_{\eta\zeta}:=a^{-6}\ip{f_\eta}{f_\zeta}
+ =\sum_{r=0}^6\binom6r\left(-\frac16\right)^{6-r}
+    \sum_{\xi\vdash r,\,\ell(\xi)\le3}
+        \frac{f^\xi}{D_\xi}f^{\eta/\xi}f^{\zeta/\xi}.
+\end{equation}
+Indeed, choosing the $a$ term of the covariance in $r$ slots and the
+$b$ term in the others contracts the two partial traces in
+\eqref{partial}. The trace of their product, divided by
+$D_\eta D_\zeta$, is the inner sum in \eqref{gram}.
+Slot symmetry gives the binomial coefficient.
+
+In the order $(\lambda,\mu,\nu,\omega)$, evaluation gives
+\begin{equation}\label{matrix}
+ G=\frac1{46656}
+ \begin{pmatrix}
+ 15604&2510&-14576&11330\\
+ 2510&14647&-4480&3505\\
+ -14576&-4480&29152&-42640\\
+ 11330&3505&-42640&174505
+ \end{pmatrix}.
+\end{equation}
+All entries can be calculated using only the corner-removal recurrence
+\[
+ f^{\eta/\xi}=
+ \sum_{\substack{\eta^-\text{ obtained by removing a corner}\\
+                         \xi\subseteq\eta^-}} f^{\eta^-/\xi},
+ \qquad f^{\xi/\xi}=1,
+\]
+and the dimension formula
+\[
+ D_\xi=\prod_{1\le i<j\le3}\frac{\xi_i-\xi_j+j-i}{j-i},
+\]
+with zero parts appended. The accompanying exact verifier implements
+these formulas. It also verifies all sixteen entries independently,
+by constructing the four $729\times729$ integer matrices
+$\sum_{\sigma\in S_6}\chi^\eta(\sigma)T_\sigma$ directly and taking
+their partial traces. In that calculation characters are computed as
+the coefficient of $x^{\eta+(2,1,0)}$ in
+\[
+ \prod_{i<j}(x_i-x_j)\prod_{h\in\mathrm{cycles}(\sigma)}
+          (x_1^{|h|}+x_2^{|h|}+x_3^{|h|}),
+\]
+without using the skew-tableau recurrence. Every operation is exact.
+
+\subsection*{5. The nonzero residual pairing}
+Partition $G$ into target indices $A=(\lambda,\mu)$ and lower indices
+$B=(\nu,\omega)$. The matrix $G_{BB}$ is positive definite, and
+\[
+ G_{AB}G_{BB}^{-1}
+ =-\frac1{1513426}
+     \begin{pmatrix}953923&134828\\292745&41134\end{pmatrix}.
+\]
+Thus the required polynomials are
+\begin{align*}
+ p_\lambda&=f_\lambda+
+          \frac{953923 f_\nu+134828 f_\omega}{1513426},\\
+ p_\mu&=f_\mu+
+          \frac{292745 f_\nu+41134 f_\omega}{1513426}.
+\end{align*}
+By Sections 2--3 these lie in the claimed Jacobi spans and are
+orthogonal to their full strictly lower spaces. Their normalized
+Gram matrix is the Schur complement
+\[
+ a^{-6}\begin{pmatrix}
+ \ip{p_\lambda}{p_\lambda}&\ip{p_\lambda}{p_\mu}\\
+ \ip{p_\mu}{p_\lambda}&\ip{p_\mu}{p_\mu}
+ \end{pmatrix}
+ =G_{AA}-G_{AB}G_{BB}^{-1}G_{BA}
+ =\frac1{24214816}
+       \begin{pmatrix}3854156&-790\\-790&7201587\end{pmatrix}.
+\]
+The off-diagonal entry proves the theorem. If every pair of the
+source's basis polynomials from the two distinct blocks were
+orthogonal, every linear combination from the first would be
+orthogonal to every linear combination from the second. The displayed
+strictly negative number rules this out. The argument therefore does
+not exploit the source's exception for equivalent indices.\qed
+
+\section*{Task 2. Locate the smallest examples}
+Determine the least number of matrix variables allowing failure at
+$m=3$ and total degree six. In particular, investigate two variables
+with $\tau_1=\tau_2=(2,1)$, whose product contains both target partition
+types. For $m\le2$, the source's partition order is total, so distinct
+non-equivalent indices are already comparable; this identifies a
+natural boundary for the search.
+
+\section*{Task 3. Classify the parameter dependence}
+For six identically distributed matrix beta variables, replace the
+ratio $b/a=-1/6$ by its general value. Determine the exact rational
+function obtained from \eqref{gram} and the same Schur complement,
+its zeros, and its sign throughout the admissible parameter region.
+This should quantify how the obstruction persists under perturbation.
+
+\section*{Task 4. Give individually labelled witnesses}
+Fix explicit standard-tableau matrix units in each multiplicity space
+and compute a particular pair of original Jacobi basis polynomials
+with nonzero pairing. Compare its coefficients and size with the
+basis-independent central certificate given here.
+
+\section*{Task 5. Formulate a corrected orthogonality statement}
+Determine which incomparable partition blocks must be grouped
+together to admit an orthogonal construction preserving the original
+individual matrix degrees. Study whether additional symmetric
+operators can separate the resulting blocks, and compare this with
+Gram--Schmidt for a total extension of dominance order.
+
+\begin{thebibliography}{1}
+\bibitem{K} T.~Kuijper,
+\emph{Jacobi polynomials on the simplex of Hermitian matrices and
+zonal spherical functions on partial flag manifolds},
+\href{https://arxiv.org/abs/2607.25760v1}{arXiv:2607.25760v1} (2026),
+equations (7), (8), (12), Definition 2.23 and Conjecture 2.25.
+\end{thebibliography}
+\noindent\textit{Verification and status.}
+The accompanying Python verifier reproduces the finite arithmetic
+certificate (SymPy and NumPy required).
+The full current 40-page source retains the conjecture; dated claim
+checks accompany this note. Mathematical writing and review were
+performed by the authoring agent, without independent peer review.
+\end{document}

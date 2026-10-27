@@ -1,0 +1,112 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,hyperref}
+\newtheorem{theorem}{Theorem}
+\newcommand{\fr}[1]{\left\{#1\right\}}
+\title{The Beatty logarithm bound by $\pi^2/6$}
+\author{Principia Math In Progress}
+\date{29 September 2026}
+\begin{document}
+\maketitle
+\noindent\textbf{Task 1 (MathDB 330197).}
+Polanco's Conjecture 1 \cite{polanco} asks whether, for all irrational
+$a,b>1$,
+\[
+ \left|\log(a/b)-\sum_{n=1}^{\infty}
+ \frac{a\fr{(n+1)/a}-b\fr{(n+1)/b}}{n(n+1)}\right|<\frac{\pi^2}{6}.
+\]
+We prove this directly from a finite summation identity.
+
+\begin{theorem}
+For irrational $a>1$, define
+\[
+ R(a)=\sum_{m=1}^{\infty}
+ \left(\frac{a}{\lfloor am\rfloor}-\frac1m\right).
+\]
+Then $0<R(a)<\pi^2/6$ and
+\begin{equation}\label{identity}
+ a\sum_{n=1}^{\infty}\frac{\fr{(n+1)/a}}{n(n+1)}
+ =\log a+1-R(a).
+\end{equation}
+Consequently the expression inside the conjectured absolute value is
+$R(a)-R(b)$, and the conjecture holds strictly.
+\end{theorem}
+\begin{proof}
+Since $\lfloor am\rfloor\ge m$ and $0<\fr{am}<1$,
+\begin{equation}\label{term}
+ 0<\frac{a}{\lfloor am\rfloor}-\frac1m
+ =\frac{\fr{am}}{m\lfloor am\rfloor}<\frac1{m^2}.
+\end{equation}
+The series therefore converges and is positive. Its sum is strictly less
+than $\sum_{m\ge1}m^{-2}=\pi^2/6$: preserve the positive gap in the first
+term and use a non-strict upper bound for the rest.
+
+Let $N\ge1$ and $M=\lfloor(N+1)/a\rfloor$.
+Because $a$ is irrational, for positive integers $m,n$,
+\[
+ m\le\left\lfloor\frac{n+1}{a}\right\rfloor
+ \quad\Longleftrightarrow\quad
+ am<n+1
+ \quad\Longleftrightarrow\quad \lfloor am\rfloor\le n.
+\]
+All sums in the following interchange are finite. Telescoping gives
+\begin{align*}
+ \sum_{n=1}^{N}\frac{\lfloor(n+1)/a\rfloor}{n(n+1)}
+ &=\sum_{m=1}^{M}\sum_{n=\lfloor am\rfloor}^{N}\frac1{n(n+1)}\\
+ &=\sum_{m=1}^{M}\left(\frac1{\lfloor am\rfloor}-\frac1{N+1}\right).
+\end{align*}
+Let $H_j=\sum_{n=1}^{j}1/n$, with $H_0=0$, and let $R_M(a)$ denote
+the first $M$ terms of $R(a)$. Expanding the fractional parts gives
+\begin{equation}\label{finite}
+ a\sum_{n=1}^{N}\frac{\fr{(n+1)/a}}{n(n+1)}
+ =H_N-H_M-R_M(a)+\frac{aM}{N+1}.
+\end{equation}
+As $N\to\infty$, we have $M\sim N/a$. Harmonic-number asymptotics
+therefore give $H_N-H_M\to\log a$. Also $aM/(N+1)\to1$ and
+$R_M(a)\to R(a)$. The series on the left
+converges absolutely by comparison with $a/[n(n+1)]$.
+This proves \eqref{identity}. Applying it to $a$ and $b$ cancels the
+logarithms and constants. Finally, the distance between two numbers
+strictly inside $(0,\pi^2/6)$ is strictly less than $\pi^2/6$.
+\end{proof}
+
+\noindent\textbf{Effective remainder.}
+For every integer $L\ge1$, \eqref{term} also gives
+\[
+ 0<R(a)-R_L(a)<\sum_{m>L}\frac1{m^2}<\frac1L.
+\]
+Thus the error in replacing $R(a)-R(b)$ by $R_L(a)-R_L(b)$ is
+less than $1/L$. This is an analytic error bound, not a numerical
+assumption.
+
+\medskip
+\noindent\textbf{Scope and verification.}
+Conjecture 1 appears on page 4 of arXiv:1503.08512v1 and on journal
+page 104 of the final article. Both versions allow arbitrary irrational
+$a,b>1$. Our proof establishes the signed identity directly from the
+defining series and does not require the source's other identities.
+The separate bound by one is false, as shown in the distinct package
+for MathDB 330198. Exact checks of \eqref{finite} accompany this proof;
+the argument above covers all irrational parameters and all indices.
+
+\medskip
+\noindent\textbf{Proposed follow-up tasks (not claimed solved).}
+\begin{enumerate}
+\setcounter{enumi}{1}
+\item Determine the sharp value of
+$\sup_{a,b>1,\ a,b\notin\mathbb Q}|R(a)-R(b)|$.
+\item Derive the corresponding finite summation and limiting formulas
+when $1/[n(n+1)]$ is replaced by $1/[n(n+r)]$ for a fixed integer $r>1$.
+\item Obtain parameter-dependent upper bounds for $R(a)$ that improve
+$\pi^2/6$ and remain effective uniformly on compact subintervals of $(1,\infty)$.
+\item Extend \eqref{identity} to rational $a>1$, accounting explicitly
+for all indices at which $(n+1)/a$ is integral.
+\end{enumerate}
+
+\begin{thebibliography}{1}
+\bibitem{polanco} G. Polanco, \emph{The logarithm of irrational numbers
+and Beatty sequences}, Acta Arithmetica \textbf{179} (2017), 101--123,
+\href{https://doi.org/10.4064/aa6695-1-2017}{doi:10.4064/aa6695-1-2017}.
+Preprint: \href{https://arxiv.org/abs/1503.08512}{arXiv:1503.08512v1} (2015).
+\end{thebibliography}
+\end{document}

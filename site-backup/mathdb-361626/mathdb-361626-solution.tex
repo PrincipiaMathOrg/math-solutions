@@ -1,0 +1,280 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,hyperref,enumitem}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\title{The first positive Mittag--Leffler zero near order one}
+\author{Principia Math In Progress}
+\date{21 September 2026}
+\begin{document}
+\maketitle
+\noindent\textbf{Task 1: MathDB 361626.}
+For $a>0$, put
+\[
+ f_a(t)=E_{a,1}(-t^a)=\sum_{k=0}^{\infty}
+             \frac{(-1)^k t^{ak}}{\Gamma(ak+1)},\qquad t\geq0,
+\]
+and let $Z_1(a)$ be its smallest positive zero, when one exists.
+Conjecture 3(b) of Chaudhary, Diethelm and Hashemishahraki
+\cite{CDH} proposes, as $a\downarrow1$,
+\[
+ Z_1(a)=(c\log(a-1)+d)(1+o(1)),
+ \qquad c\approx-0.275,\quad d\approx17.54.
+\]
+The following theorem disproves the proposed leading coefficient and
+gives the asymptotic with an additive error tending to zero.
+
+\begin{theorem}\label{main}
+For all sufficiently small $\varepsilon>0$, $f_{1+\varepsilon}$ has a
+smallest positive zero. With $L=\log(1/\varepsilon)$,
+\[
+ \boxed{Z_1(1+\varepsilon)=L+\log L+o(1).}
+\]
+In particular $Z_1(1+\varepsilon)/L\to1$.
+\end{theorem}
+
+The conjectured leading coefficient is therefore forced to be $c=-1$,
+far from its stated numerical fit. This is a disproof of part (b), and
+hence of the conjunction recorded in MathDB. The global positivity
+bound in part (a) and the endpoint expansion at $a=2$ in part (c) are
+not settled here. A constant $d$ is invisible at the conjecture's
+multiplicative $1+o(1)$ precision; no contradiction is based on $d$.
+
+\section*{A classical integral representation}
+Throughout the proof $a=1+\varepsilon$, $0<\varepsilon<1/4$, and
+$\theta=\pi\varepsilon$. Define the positive density
+\[
+ K_\varepsilon(r)=\frac{\sin\theta}{\pi}
+ \frac{r^{a-1}}{(r^a-1)^2+2r^a(1-\cos\theta)},\qquad r>0.
+\]
+The standard residue and branch-cut representation is
+\begin{equation}\label{representation}
+ f_a(t)=\frac2a e^{t\cos(\pi/a)}\cos(t\sin(\pi/a))
+             -\int_0^\infty e^{-tr}K_\varepsilon(r)\,dr
+ \quad(t>0).
+\end{equation}
+For completeness, termwise Laplace transformation of the defining
+series for real $s>1$ gives
+\[
+ \int_0^\infty e^{-st}f_a(t)\,dt
+ =\sum_{k\geq0}(-1)^k s^{-ak-1}
+ =\frac{s^{a-1}}{s^a+1}.
+\]
+Use the principal branch, cut along the negative real axis. There are
+two simple poles at $e^{\pm i\pi/a}$; their inverse-Laplace residues
+are $a^{-1}\exp(t e^{\pm i\pi/a})$. On the upper side of the cut,
+\[
+ \frac{s^{a-1}}{s^a+1}\bigg|_{s=-r+i0}
+ =\frac{r^{a-1}e^{i\theta}}{1-r^ae^{i\theta}},\qquad
+ \frac1\pi\operatorname{Im}\frac{r^{a-1}e^{i\theta}}
+                                     {1-r^ae^{i\theta}}
+ =K_\varepsilon(r).
+\]
+Deforming the inversion contour to the cut consequently gives the
+negative integral in \eqref{representation}. The small-circle
+contribution is $O(\rho^a)$ as its radius $\rho\downarrow0$;
+the large arcs vanish for $t>0$ since the transform is $O(1/s)$
+and the exponential decays on the left arcs. The cut integral is
+absolutely convergent at both endpoints.
+
+The exact total mass, obtained with $u=r^a$, is
+\begin{equation}\label{mass}
+ \int_0^\infty K_\varepsilon(r)\,dr
+ =\frac{\sin\theta}{\pi a}\int_0^\infty
+      \frac{du}{(u-\cos\theta)^2+\sin^2\theta}
+ =\frac{\pi-\theta}{\pi a}=\frac2a-1.
+\end{equation}
+The antiderivative used here is
+$(\pi a)^{-1}\arctan((u-\cos\theta)/\sin\theta)$.
+The representation and the exponential/algebraic decomposition are
+classical; see, for example, \cite{Hanneken,Paris02,Paris21}.
+Our argument below supplies the needed uniform bounds and identifies
+the \emph{first} zero in the simultaneous limit.
+
+\section*{Uniform expansion in a logarithmic window}
+\begin{lemma}\label{window}
+Uniformly for $L/4\leq t\leq3L/2$, as $\varepsilon\downarrow0$,
+\begin{equation}\label{uniform}
+ f_a(t)=e^{-t}(1+o(1))
+             -\varepsilon\Gamma(a)t^{-a}(1+o(1)).
+\end{equation}
+The two errors in this formula are separately uniform relative errors.
+\end{lemma}
+\begin{proof}
+All constants in the following estimates can be chosen independently
+of $\varepsilon$ and $t$ in this window. Put $h=t^{-2}$, so eventually
+$h<1/2$. Write $D(r)=1-2r^a\cos\theta+r^{2a}$.
+For $0\leq r\leq1/2$, $D(r)\geq(1-r^a)^2\geq1/4$ and
+$D(r)^{-1}=1+O(r^a)$. Thus
+\begin{align*}
+ \int_0^{1/2}e^{-tr}K_\varepsilon(r)\,dr
+ &=\frac{\sin\theta}{\pi}
+   \left\{\Gamma(a)t^{-a}
+       +O(t^{-2a})+O(t^{-a}(1+t)e^{-t/2})\right\}\\
+ &=\varepsilon\Gamma(a)t^{-a}(1+o(1)).
+\end{align*}
+Here the $O(t^{-2a})$ bound follows by extending the error integral
+to infinity; its factor $\Gamma(2a)$ is uniformly bounded. For the
+main gamma integral the omitted tail is bounded, after $u=tr$, by
+$t^{-a}\int_{t/2}^{\infty}(1+u)e^{-u}\,du$.
+
+Next, the unweighted $K_\varepsilon$ mass outside $[1/2,3/2]$ is
+$O(\varepsilon)$. The lower part follows from $D\geq1/4$; on the
+upper part $D\geq(r^a-1)^2\geq r^{2a}/9$, and integration of
+$O(\varepsilon r^{-a-1})$ gives the assertion. On $[1/2,3/2]$,
+$r^{a-1}$ is bounded and the mean value theorem gives
+$|r^a-1|\geq C_0|r-1|$ with a fixed $C_0>0$. Consequently
+\[
+ K_\varepsilon(r)\leq
+            \frac{C\varepsilon}{(r-1)^2}\quad(r\ne1).
+\]
+Combining this estimate with \eqref{mass} yields
+\[
+ \int_{1-h}^{1+h}K_\varepsilon(r)\,dr
+ =1+O(\varepsilon)+O(\varepsilon/h)=1+o(1),
+\]
+since $\varepsilon t^2\to0$ uniformly. On this central interval
+$e^{-tr}=e^{-t}(1+O(th))$; hence its weighted contribution is
+\[
+ \int_{1-h}^{1+h}e^{-tr}K_\varepsilon(r)\,dr
+ =e^{-t}(1+o(1)).
+\]
+On the rest of $[1/2,3/2]$ the contribution is at most
+$C\varepsilon h^{-2}e^{-t/2}=C\varepsilon t^4e^{-t/2}$.
+Dividing by $e^{-t}$ bounds it by
+\[
+ C\varepsilon(3L/2)^4 e^{3L/4}=O(L^4\varepsilon^{1/4})=o(1).
+\]
+The remaining tail $r\geq3/2$ contributes at most
+$C\varepsilon e^{-3t/2}=o(e^{-t})$.
+
+Finally, $\cos(\pi/a)=-1+O(\varepsilon^2)$ and
+$\sin(\pi/a)=O(\varepsilon)$. Since $\varepsilon t\to0$,
+the residue term in \eqref{representation} is $2e^{-t}(1+o(1))$.
+Subtracting the central contribution $e^{-t}(1+o(1))$ and the
+small-$r$ contribution proves \eqref{uniform}.
+\end{proof}
+
+\section*{Excluding earlier zeros}
+\begin{lemma}\label{early}
+For all sufficiently small $\varepsilon>0$, $f_a(t)>0$ for
+$0\leq t\leq L/4$.
+\end{lemma}
+\begin{proof}
+We compare directly with $f_1(t)=e^{-t}$. For $1\leq b\leq a$
+and $k\geq1$,
+\[
+ \frac{\partial}{\partial b}
+ \frac{t^{bk}}{\Gamma(bk+1)}
+ =\frac{k t^{bk}}{\Gamma(bk+1)}
+                         (\log t-\psi(bk+1)).
+\]
+The standard gamma bounds $\Gamma(bk+1)\geq k!$ and
+$0<\psi(bk+1)\leq\log(bk+1)\leq2k$ apply. The first uses
+monotonicity of $\Gamma$ on $[2,\infty)$; the digamma upper bound
+also follows from Jensen's inequality for the logarithm under a
+gamma density. These estimates justify differentiating the series
+on compact parameter and $t$ intervals.
+
+For $1\leq t\leq L/4$, eventually $t^\varepsilon\leq2$.
+Put $T=t^b\leq2t$. Summing absolute values of the derivatives gives
+\begin{align*}
+ |\partial_b f_b(t)|
+ &\leq\sum_{k\geq1}\frac{(k\log t+2k^2)T^k}{k!}\\
+ &=(T\log t+2T^2+2T)e^T
+ \leq C(1+t)^3e^{2t}.
+\end{align*}
+The fundamental theorem of calculus therefore implies
+\[
+ \frac{|f_a(t)-e^{-t}|}{e^{-t}}
+ \leq C\varepsilon(1+L)^3e^{3L/4}
+ =O(\varepsilon^{1/4}(1+L)^3)=o(1).
+\]
+For $0<t\leq1$, use
+$k t^{bk}|\log t|\leq1/(b\mathrm e)\leq1/\mathrm e$.
+The derivative series is then uniformly bounded by
+$\sum_{k\geq1}(1/\mathrm e+2k^2)/k!$, giving
+$|f_a(t)-e^{-t}|=O(\varepsilon)$ uniformly. Since $e^{-t}\geq e^{-1}$
+there and $f_a(0)=1$, positivity follows on the entire interval.
+\end{proof}
+
+\section*{Locating the first zero}
+Fix $0<\delta<1/2$. On $[L/4,(1-\delta)L]$ consider the ratio
+of the second leading term in \eqref{uniform} to the first:
+\[
+ R_\varepsilon(t)=\varepsilon\Gamma(a)e^t t^{-a}.
+\]
+For large $L$ this is increasing throughout the interval because
+its logarithmic derivative is $1-a/t>0$. At its upper endpoint
+it is $O(e^{-\delta L}L^{-a})=o(1)$. Lemma~\ref{window}
+therefore gives positivity throughout this interval. Together with
+Lemma~\ref{early} this rules out every zero up to $(1-\delta)L$.
+At $t=(1+\delta)L$, the ratio is
+$\Gamma(a)e^{\delta L}((1+\delta)L)^{-a}\to\infty$, so
+\eqref{uniform} gives a negative value. Continuity now supplies a
+zero, and the zero set has a least positive element since it is
+closed and bounded away from zero. It follows that
+\[
+ (1-\delta)L<Z_1(a)<(1+\delta)L.
+\]
+As $\delta$ was arbitrary, $Z_1(a)/L\to1$.
+
+At this first zero, both relative errors in \eqref{uniform} tend
+to zero. Taking logarithms of the equality of the two terms gives
+\[
+ Z_1(a)=L+a\log Z_1(a)-\log\Gamma(a)+o(1).
+\]
+Now $\log Z_1(a)=\log L+o(1)$,
+$\varepsilon\log Z_1(a)=o(1)$, and $\log\Gamma(a)=o(1)$.
+This proves Theorem~\ref{main}.
+\hfill$\square$
+
+\section*{Verification and scope}
+The proof is analytic and does not infer uniformity or first-zero
+minimality from numerical samples. The accompanying verifier checks
+the branch-cut algebra and mass antiderivative symbolically. It also
+performs supplemental 100-digit power-series calculations for five
+values of $\varepsilon$ from $10^{-2}$ to $10^{-20}$, checks the
+predicted sign transition, and compares two values against independent
+quadrature of \eqref{representation}. These computations are not
+interval certificates. Review is by the authoring agent only.
+The complete current preprint and the complete author-posted text
+of its journal final were read; the bounded priority audit is
+documented separately and does not certify exhaustive novelty.
+
+\section*{Four proposed follow-up tasks}
+\begin{enumerate}[label=\textbf{Task \arabic*:},start=2,leftmargin=*]
+\item Determine the next term after $L+\log L$, including whether
+it is $(\log L-2)/L+o(1/L)$.
+\item Give explicit constants and an explicit $\varepsilon_0$
+in a two-sided error bound for the first-zero asymptotic.
+\item Prove or refute the source's global bound
+$f_a(t)>0$ for $1<a\leq2$ and $0\leq t\leq1.559$.
+\item Derive a closed expression for the coefficient of $2-a$
+in $Z_1(a)$ at $a=2$ and rigorously compare it with the source's fit.
+\end{enumerate}
+
+\small
+\begin{thebibliography}{9}
+\bibitem{CDH} R. Chaudhary, K. Diethelm and S. Hashemishahraki,
+On the separation of solutions to fractional differential equations
+of order $\alpha\in(1,2)$, \emph{Applied Numerical Mathematics}
+\textbf{203} (2024), 84--96,
+\href{https://doi.org/10.1016/j.apnum.2024.05.020}{doi:10.1016/j.apnum.2024.05.020}.
+Current preprint: \href{https://arxiv.org/abs/2401.14771}{arXiv:2401.14771v3}.
+Conjecture 3(b), journal p.~95; preprint p.~17.
+\bibitem{Hanneken} J. W. Hanneken, B. N. N. Achar and D. M. Vaught,
+An alpha-beta phase diagram representation of the zeros and properties
+of the Mittag-Leffler function, \emph{Advances in Mathematical Physics}
+(2013), Article 421685,
+\href{https://doi.org/10.1155/2013/421685}{doi:10.1155/2013/421685}.
+\bibitem{Paris02} R. B. Paris, Exponential asymptotics of the
+Mittag--Leffler function, \emph{Proceedings of the Royal Society A}
+\textbf{458} (2002), 3041--3052,
+\href{https://doi.org/10.1098/rspa.2002.0977}{doi:10.1098/rspa.2002.0977}.
+\bibitem{Paris21} R. B. Paris, Asymptotics of the Mittag--Leffler
+function $E_a(z)$ on the negative real axis when $a\to1$,
+\href{https://arxiv.org/abs/2005.05737}{arXiv:2005.05737v2} (2021).
+This paper restricts $a<1$; its first-zero counterpart is not asserted.
+\end{thebibliography}
+\end{document}

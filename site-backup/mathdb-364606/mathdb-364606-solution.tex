@@ -1,0 +1,196 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,hyperref}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newtheorem{corollary}{Corollary}
+\newcommand{\E}{\mathbb E}
+\title{Positive coefficients in a centered exponential remainder\\
+MathDB 364606}
+\author{Research record in Principia Math in Progress}
+\date{12 September 2026}
+\begin{document}
+\maketitle
+
+\section*{Task 1: solve the nonnegative coefficient conjecture}
+For an integer $r\geq1$, set
+\[
+ B_r(x)=e^x-\sum_{j=0}^{r-1}\frac{x^j}{j!}.
+\]
+Conjecture 3.2 of Canfield, Helton and Hughes~\cite{CHH}, on published
+page 241, asserts that the Maclaurin coefficients of
+$e^{-x/(r+1)}B_r(x)$ are all nonnegative.
+
+\begin{theorem}\label{thm:main}
+The conjecture is true. For $r>1$, the coefficients below degree $r$
+and at degree $r+1$ vanish, the coefficient at degree $r$ is $1/r!$,
+and every coefficient of degree at least $r+2$ is strictly positive.
+For $r=1$,
+\[
+ e^{-x/2}B_1(x)=2\sinh(x/2),
+\]
+so precisely the positive odd degrees have positive coefficients.
+Moreover, for any real $c$,
+\[
+ e^{-cx}B_r(x)\ \hbox{has only nonnegative Maclaurin coefficients}
+ \quad\Longleftrightarrow\quad c\leq\frac1{r+1}.
+\]
+\end{theorem}
+
+\paragraph{Relation to existing work.}
+The proof identifies the coefficients with moments of a centered
+$\mathrm{Beta}(1,r)$ variable. Positivity of odd beta central moments
+when the second shape parameter exceeds the first is already known:
+see Skorski~\cite[Theorem 3 and Corollary 3]{Skorski}.
+Beta-moment representations for associated Stirling numbers also appear
+in Gismatullin and Tardivel~\cite{GT}. We claim no novelty for those
+probabilistic tools; the argument applies them to this centered
+coefficient conjecture.
+For completeness, the needed special case is proved below directly by
+comparing the density on the two sides of its mean.
+
+\begin{lemma}\label{lem:moments}
+Let $T$ have density $f(t)=r(1-t)^{r-1}$ on $[0,1]$, where $r\geq1$,
+and let $\mu=\E T=1/(r+1)$. Then
+$m_n=\E(T-\mu)^n$ satisfies $m_0=1$, $m_1=0$, and
+$m_{2k}>0$ for $k\geq1$.
+For $r>1$, also $m_{2k+1}>0$ for every $k\geq1$;
+for $r=1$, every odd moment vanishes.
+\end{lemma}
+
+\begin{proof}
+The density integrates to one and direct integration gives
+$\E T=1/(r+1)$. The even moment assertions follow from nondegeneracy.
+If $r=1$, reflection about $1/2$ proves the odd moment assertion.
+
+Suppose $r>1$, so that $\mu<1/2$ and $f$ is strictly decreasing on
+$(0,1)$. For $0<s<1-\mu$ define
+\[
+ q(s)=
+ \begin{cases}
+ f(\mu+s)-f(\mu-s),&0<s<\mu,\\
+ f(\mu+s),&\mu<s<1-\mu .
+ \end{cases}
+\]
+Values at the endpoints do not affect the integrals. Splitting at the
+mean and changing variables gives, for every odd positive integer $n$,
+\[
+ m_n=\int_0^{1-\mu}s^nq(s)\,ds.
+\]
+In particular $\int_0^{1-\mu}s q(s)\,ds=m_1=0$.
+We have $q(s)<0$ below $\mu$ and $q(s)>0$ above $\mu$.
+Consequently, for $k\geq1$,
+\[
+ m_{2k+1}
+ =\int_0^{1-\mu}s\bigl(s^{2k}-\mu^{2k}\bigr)q(s)\,ds>0.
+\]
+The integrand is positive on both open intervals $(0,\mu)$ and
+$(\mu,1-\mu)$, which have positive length.
+\end{proof}
+
+\begin{proof}[Proof of Theorem \ref{thm:main}]
+The integral remainder formula for the exponential gives, for every
+complex $x$,
+\[
+ B_r(x)=\frac{x^r}{(r-1)!}
+        \int_0^1(1-t)^{r-1}e^{xt}\,dt
+       =\frac{x^r}{r!}\E e^{xT}.
+\]
+The equality can also be checked term by term using
+$\E T^n=r!\,n!/(r+n)!$.
+Since $T$ is bounded, the exponential series converges uniformly for
+$x$ in compact subsets of $\mathbb C$ and $t\in[0,1]$. Thus
+\begin{equation}\label{eq:coefficients}
+ e^{-\mu x}B_r(x)=
+ \frac{x^r}{r!}\E e^{x(T-\mu)}
+ =\sum_{n=0}^{\infty}\frac{m_n}{r!\,n!}x^{r+n}.
+\end{equation}
+Lemma \ref{lem:moments} proves all the asserted signs and zeros.
+The expression for $r=1$ follows directly from $B_1(x)=e^x-1$.
+
+If $c\leq\mu$, write
+\[
+ e^{-cx}B_r(x)=e^{(\mu-c)x}
+              \bigl(e^{-\mu x}B_r(x)\bigr).
+\]
+Both factors have nonnegative coefficients. Conversely, the coefficient
+of $x^{r+1}$ in this product is $(\mu-c)/r!$, which is negative when
+$c>\mu$. This proves the equivalence.
+\end{proof}
+
+\paragraph{An independent recurrence check.}
+There is a second short way to obtain the moment signs. Put
+$w(t)=t(1-t)f(t)=rt(1-t)^r$. Its endpoint values vanish and
+$w'(t)=[1-(r+1)t]f(t)$. Integration by parts with
+$g(t)=(t-\mu)^{n-1}$, for $n\geq2$, gives
+\[
+ (r+1)m_n
+ =(n-1)\{\mu(1-\mu)m_{n-2}+(1-2\mu)m_{n-1}-m_n\},
+\]
+and hence
+\begin{equation}\label{eq:recurrence}
+ (r+n)m_n=(n-1)
+ \left\{\frac{r}{(r+1)^2}m_{n-2}
+       +\frac{r-1}{r+1}m_{n-1}\right\}.
+\end{equation}
+This is the $\mathrm{Beta}(1,r)$ specialization of the known recurrence
+in~\cite[Theorem 3]{Skorski}. Its nonnegative coefficients and the initial
+values $m_0=1,m_1=0$ supply another all-order proof.
+The accompanying exact-arithmetic script compares this recurrence,
+the binomial expansion of the moments, and the original product series.
+Those finite checks supplement the analytic proof.
+
+\section*{Follow-up tasks after the full solution}
+\paragraph{Task 2.}
+Obtain two-sided explicit bounds for
+$[x^{r+n}]e^{-x/(r+1)}B_r(x)=m_n/(r!\,n!)$ that are uniform in
+integers $r\geq2$ and $n\geq2$, with asymptotically sharp constants
+in both the fixed-$r$ and fixed-$n$ regimes.
+
+\paragraph{Task 3.}
+Find a uniform asymptotic expansion of $m_n$ when $r,n\to\infty$
+and $n/r$ remains in a compact subinterval of $(0,\infty)$.
+Identify the different contributions of the two sides of the mean,
+including any difference between even and odd $n$.
+
+\paragraph{Task 4.}
+Use the coefficient positivity proved here to simplify the estimate
+$|J|\to0$ singled out in Section 3.3.1 of~\cite{CHH}, and determine
+whether this yields an explicit uniform error estimate for the
+associated Stirling-number approximation.
+
+\paragraph{Task 5.}
+For $r\geq2$ and $u\geq0$, let $T_{r,u}$ have density proportional to
+$e^{ut}(1-t)^{r-1}$ on $[0,1]$. Determine exactly which pairs $(r,u)$
+make every coefficient of
+$\E\exp\{x(T_{r,u}-\E T_{r,u})\}$ nonnegative.
+
+\paragraph{Status and provenance.}
+The February 2026 published source retains the target as a conjecture.
+On 12 September 2026 the checked MathDB record was open with no claims
+or discussion, and searches of the current primary literature and
+public claim catalogues located no full claim for this coefficient
+conjecture. The known beta-moment theorem is explicitly acknowledged.
+The accompanying dated audit records the scope and limits of that
+search; no exhaustive novelty guarantee is intended.
+
+\begin{thebibliography}{9}
+\bibitem{CHH}
+E. R. Canfield, J. W. Helton and J. A. Hughes,
+\emph{Uniform convergence of an asymptotic approximation to associated
+Stirling numbers}, Contributions to Discrete Mathematics
+\textbf{21}(1) (2026), 227--244.
+\href{https://doi.org/10.55016/dptxws28}{doi:10.55016/dptxws28}.
+Preprint: \href{https://arxiv.org/abs/2409.01489}{arXiv:2409.01489}.
+\bibitem{Skorski}
+M. Skorski, \emph{Bernstein-type bounds for beta distribution},
+Modern Stochastics: Theory and Applications \textbf{10}(2) (2023),
+211--228.
+\href{https://doi.org/10.15559/23-VMSTA223}{doi:10.15559/23-VMSTA223}.
+\bibitem{GT}
+J. Gismatullin and P. Tardivel,
+\emph{Beta distribution and associated Stirling numbers of the second kind},
+Probability and Mathematical Statistics \textbf{44}(1) (2024), 119--132.
+\href{https://doi.org/10.37190/0208-4147.00156}{doi:10.37190/0208-4147.00156}.
+\end{thebibliography}
+\end{document}

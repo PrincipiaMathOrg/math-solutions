@@ -1,0 +1,207 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,hyperref,enumitem}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\title{A degree-three proof of Campbell's\newline Rogers--Ramanujan evaluation}
+\author{Principia Math In Progress}
+\date{18 September 2026}
+\begin{document}
+\maketitle
+\begin{abstract}
+We prove the conjectured value of $R^5(e^{-\pi\sqrt{16/15}})$.
+Campbell's proved evaluation at the cubed argument, the classical
+degree-three modular equation, and an explicit algebraic certificate
+give the result. A rational bound selects the positive branch.
+\end{abstract}
+
+\section*{Task 1: complete proof}
+For $0<q<1$, write
+\[
+ R(q)=\cfrac{q^{1/5}}{1+\cfrac{q}{1+\cfrac{q^2}{1+\cdots}}}.
+\]
+The following is Conjecture 1 on page 14 of \cite{preprint},
+recorded as MathDB 361714. The published version \cite{final}
+omits the concluding conjecture without reporting its resolution.
+
+\begin{theorem}
+Set
+\[
+ a=\frac{8472+4875\sqrt3-3770\sqrt5-2175\sqrt{15}}4.
+\]
+Then
+\[
+ R^5\bigl(e^{-\pi\sqrt{16/15}}\bigr)=\sqrt{a^2+1}-a.
+\]
+All radicals denote positive real roots.
+\end{theorem}
+
+We use two previously established inputs, explicitly credited here.
+The classical degree-three modular equation, displayed as equation (5)
+in both \cite{preprint} and \cite{final}, is
+\begin{equation}\label{modular}
+ (R(q^3)-R(q)^3)(1+R(q)R(q^3)^3)=3R(q)^2R(q^3)^2.
+\end{equation}
+Campbell's Theorem 4 in \cite{preprint}, or Theorem 5.2 in
+\cite{final}, proves
+\begin{equation}\label{known}
+ R^5\bigl(e^{-\pi\sqrt{48/5}}\bigr)=\sqrt{b^2+1}-b,
+ \qquad
+ b=\frac{8472+4875\sqrt3+3770\sqrt5+2175\sqrt{15}}4.
+\end{equation}
+Neither input is a new claim of this note.
+
+\subsection*{The algebraic certificate}
+Define
+\begin{align}
+ h&=\frac{81896+47125\sqrt3+36712\sqrt5+21025\sqrt{15}}{602},\label{h}\\
+ c&=\frac{-8983-3250\sqrt3+1651\sqrt5+100\sqrt{15}}{602},\label{c}\\
+ t&=\sqrt{a^2+1}-a,\qquad s=\sqrt{b^2+1}-b.\label{ts}
+\end{align}
+For indeterminates $T,S$, let
+\begin{align}
+ Q(T,S)={}&S^4T-S^3T^4-15S^3T^3-45S^3T^2+15S^3T\notag\\
+ &-45S^2T^3-528S^2T^2+45S^2T\notag\\
+ &+15ST^3+45ST^2-15ST+S-T^3.\label{Q}
+\end{align}
+
+\begin{lemma}\label{algebra}
+We have $s=ht+c$ and $Q(t,s)=0$.
+\end{lemma}
+\begin{proof}
+Exact expansion in $K=\mathbb Q(\sqrt3,\sqrt5)$ gives
+\begin{equation}\label{certificates}
+ c=ha-b,\qquad h^2(a^2+1)=b^2+1,\qquad
+ Q(T,hT+c)\equiv0\pmod{T^2+2aT-1}.
+\end{equation}
+These are finite polynomial identities in the displayed constants.
+To make the third identity reproducible without any root selection or
+numerical approximation, reduce each factor in the basis $1,T$ using
+\[
+ (x_0+x_1T)(y_0+y_1T)
+ =(x_0y_0+x_1y_1)
+ +(x_0y_1+x_1y_0-2ax_1y_1)T.
+\]
+Insert $(0,1)$ for $T$ and $(c,h)$ for $S$ in the thirteen terms of
+\eqref{Q}. In the basis $1,\sqrt3,\sqrt5,\sqrt{15}$ of $K$, the
+resulting constant and linear coefficients are respectively
+\[
+ (0,0,0,0),\qquad(0,0,0,0).
+\]
+Multiplication in $K$ uses only $(\sqrt3)^2=3$,
+$(\sqrt5)^2=5$, and $\sqrt{15}=\sqrt3\sqrt5$.
+The accompanying standard-library Python certificate implements
+exactly these operations and also verifies the first two identities.
+
+Every coefficient of $h$ in \eqref{h} is positive. Therefore the second
+identity in \eqref{certificates} gives
+$\sqrt{b^2+1}=h\sqrt{a^2+1}$. The first identity then gives
+$s=ht+c$. Since $t^2+2at-1=0$, the last identity proves $Q(t,s)=0$.
+\end{proof}
+
+\subsection*{From the norm equation to the correct branch}
+Put
+\[
+ F(V,U)=(U-V^3)(1+VU^3)-3V^2U^2
+       =-V^3+U-3V^2U^2-V^4U^3+VU^4.
+\]
+The following elementary resultant identity will be used:
+\begin{equation}\label{norm}
+ \prod_{\zeta^5=1}F(V,U\zeta)=Q(V^5,U^5).
+\end{equation}
+For completeness, multiplication by $F(V,z)$ in the basis
+$1,z,z^2,z^3,z^4$ of the algebra $z^5=S$ has matrix
+\[
+ \begin{pmatrix}
+ -V^3&VS&-V^4S&-3V^2S&S\\
+ 1&-V^3&VS&-V^4S&-3V^2S\\
+ -3V^2&1&-V^3&VS&-V^4S\\
+ -V^4&-3V^2&1&-V^3&VS\\
+ V&-V^4&-3V^2&1&-V^3
+ \end{pmatrix}.
+\]
+Its determinant expands to $Q(V^5,S)$; this is also checked by the
+120-term determinant expansion in the exact certificate. At $S=U^5>0$
+the algebra has the five distinct evaluations $z=U\zeta$, so its
+determinant is the product in \eqref{norm}.
+
+Take $v=t^{1/5}>0$ and $u=s^{1/5}>0$.
+Lemma~\ref{algebra} and \eqref{norm} show that
+$F(v,u\zeta)=0$ for some fifth root of unity $\zeta$.
+We now prove that $\zeta=1$.
+
+Rational squaring bounds for the three radicals give $15<a<16$ and
+$8000<b<9000$. For example, each radical lies strictly between the
+following lower endpoint and that endpoint plus $10^{-12}$:
+\[
+ \frac{1732050807568}{10^{12}},\quad
+ \frac{2236067977499}{10^{12}},\quad
+ \frac{3872983346207}{10^{12}}
+ \quad\text{for }\sqrt3,\sqrt5,\sqrt{15},\text{ respectively}.
+\]
+Hence
+\[
+ 0<t=\frac1{\sqrt{a^2+1}+a}<\frac1{30}<\left(\frac35\right)^5,
+ \qquad
+ 0<s<\frac1{16000}<\left(\frac15\right)^5.
+\]
+Thus $0<v<3/5$ and $0<u<1/5$.
+For a nontrivial fifth root of unity, $|\operatorname{Im}\zeta|>1/2$.
+The imaginary part of $F(v,u\zeta)=0$, followed by the triangle
+inequality and division by $u$, would imply
+\[
+ \frac12<|\operatorname{Im}\zeta|
+ \le vu^3+v^4u^2+3v^2u
+ <\frac{3531}{15625}<\frac12,
+\]
+which is impossible. Consequently $F(v,u)=0$.
+
+\subsection*{Identification with the continued fraction}
+Set $q=e^{-\pi\sqrt{16/15}}$. Then
+$q^3=e^{-\pi\sqrt{48/5}}$, so \eqref{known} identifies $u=R(q^3)$.
+For this fixed $u>0$, the polynomial
+\[
+ F(V,u)=-u^3V^4-V^3-3u^2V^2+u^4V+u
+\]
+has exactly one sign change in its nonzero coefficient sequence.
+Descartes' rule therefore gives at most one positive root.
+We have already proved that $v>0$ is such a root. The positive number
+$R(q)$ is also a root by \eqref{modular}. Thus $R(q)=v$ and
+$R(q)^5=t$, proving the theorem.\qed
+
+\section*{Tasks 2--5: proposed follow-up directions}
+These are further questions, not additional solved problems.
+\begin{enumerate}[start=2,label=\textbf{Task \arabic*:},leftmargin=*]
+\item Determine the irreducible minimal polynomial of
+$R(e^{-\pi\sqrt{16/15}})$ and the Galois group of its splitting field,
+including the role of the field $K(\sqrt{a^2+1})$ used above.
+\item Classify the pairs $a,b\in\mathbb Q(\sqrt3,\sqrt5)$ for which
+$\sqrt{b^2+1}-b=h(\sqrt{a^2+1}-a)+c$ with $h,c$ in the same field
+and the corresponding degree-three modular equation holds.
+\item Determine the full region of positive $(v,u)$ for which
+$Q(v^5,u^5)=0$ forces $F(v,u)=0$, sharpening the sufficient
+condition $vu^3+v^4u^2+3v^2u<\sin(\pi/5)$.
+\item Use the degree-two and degree-five modular equations to obtain
+explicit radical expressions at the arguments $q^2$ and $q^5$,
+starting from the value proved here, with exact branch certificates.
+\end{enumerate}
+
+\paragraph{Verification and attribution.}
+The proof uses the two credited published inputs \eqref{modular} and
+\eqref{known}. Its new algebra and branch selection are exact.
+The accompanying verifier checks four groups: radical correlation,
+polynomial reduction, the norm determinant, and rational branch bounds.
+The authoring agent reviewed this proof; independent peer review and
+proof-assistant certification are not claimed.
+
+\begin{thebibliography}{9}
+\bibitem{preprint} J. M. Campbell,
+\emph{Applications of the icosahedral equation for the Rogers--Ramanujan
+continued fraction}, arXiv:2402.02546v1 (2024),
+\url{https://arxiv.org/abs/2402.02546}.
+\bibitem{final} J. M. Campbell,
+\emph{Applications of the icosahedral equation for the Rogers--Ramanujan
+continued fraction}, J. Korean Math. Soc. \textbf{63} (2026),
+1013--1025, \url{https://doi.org/10.4134/JKMS.j250500}.
+\end{thebibliography}
+\end{document}

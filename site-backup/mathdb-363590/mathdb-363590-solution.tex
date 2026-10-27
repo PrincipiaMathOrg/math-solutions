@@ -1,0 +1,199 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,hyperref}
+\newtheorem{theorem}{Theorem}
+\newcommand{\Gr}{\operatorname{Gr}}
+\newcommand{\tr}{\operatorname{tr}}
+\newcommand{\diag}{\operatorname{diag}}
+\title{Gaussian counterexamples to benign non-convexity\newline
+in dimensional logarithmic Sobolev optimization}
+\author{Principia Math In Progress}
+\date{22 September 2026}
+\begin{document}
+\maketitle
+\begin{abstract}
+The dimensional logarithmic Sobolev majorant can have a strict local
+minimum which is not global, even for a centered Gaussian target in
+dimension two. We also give a separate Gaussian perturbation argument
+for the nonequivalent sign convention printed in equation (18) of the
+source. Thus the benign non-convexity conjecture fails under both readings.
+\end{abstract}
+
+\section*{Task 1: scope and the intended objective}
+Conjecture 2.6 of Li, Cui, Li, Marzouk and Zahm \cite{source} asserts
+benign non-convexity on $\Gr(d,r)$, meaning that every local minimum is
+global. We take the permitted reference measure $\mu=N(0,I_d)$.
+For a target $\pi$, let $M=\mathbb E_\pi[XX^{\mathsf T}]$ and
+$H=\mathbb E_\pi[\nabla\log\pi\,\nabla\log\pi^{\mathsf T}]$.
+The source's equation (20) gives the majorant
+\[
+ J(U)=\frac12\left\{\tr(U_\perp^{\mathsf T}MU_\perp)
+ -(d-r)+\log\det(U_\perp^{\mathsf T}HU_\perp)\right\},       \tag{1}
+\]
+where $[U,U_\perp]$ is orthogonal. This is also the expression derived
+in the source's Appendix D.2. In particular, its Proposition 4
+identifies (1) with the actual approximation KL divergence for Gaussian
+targets. We verify that identity directly in our example below.
+
+There is a source sign inconsistency. Appendix B correctly states
+\[
+ \det(U_\perp^{\mathsf T}HU_\perp)
+ =\det(H)\det(U^{\mathsf T}H^{-1}U).
+\]
+Consequently, the coefficient of $\log\det(U^{\mathsf T}H^{-1}U)$ in
+(1) is $+1/2$. The displayed equation (18) instead has coefficient
+$-1/2$. We first disprove the intended majorant landscape using (1),
+and then separately disprove the landscape assertion for (18) as printed.
+The resolution therefore does not rest on detecting the sign error.
+
+\section*{A strict nonglobal minimum for the intended majorant}
+\begin{theorem}
+For $d=2$, $r=1$, $\mu=N(0,I_2)$ and
+\[
+ \pi=N(0,C),\qquad C=\diag(1/2,2),
+\]
+both coordinate lines are strict local minima of $J$ on $\Gr(2,1)$.
+The line spanned by $e_1$ is not a global minimum.
+\end{theorem}
+\begin{proof}
+Here $M=C$, $H=C^{-1}=\diag(2,1/2)$, and $\det C=1$.
+For $u(\theta)=(\cos\theta,\sin\theta)^{\mathsf T}$ put
+\[
+ z(\theta)=u(\theta)^{\mathsf T}Cu(\theta)
+ =\frac12+\frac32\sin^2\theta.
+\]
+Its orthogonal complement is $v(\theta)=(-\sin\theta,\cos\theta)^{\mathsf T}$.
+Then $v^{\mathsf T}Cv=5/2-z$ and $v^{\mathsf T}Hv=z$, so (1) becomes
+\[
+ J(\theta)=\frac12\left(\frac32-z(\theta)+\log z(\theta)\right). \tag{2}
+\]
+The angle is a local coordinate on $\Gr(2,1)$, with period $\pi$.
+At $\theta=0$ and $\theta=\pi/2$, the first derivative vanishes, and
+direct differentiation gives
+\[
+ J''(0)=\frac32>0,\qquad J''(\pi/2)=\frac34>0.
+\]
+Thus both are strict local minima in the manifold itself. Their values are
+\[
+ J(0)=\frac{1-\log2}{2},\qquad
+ J(\pi/2)=\frac{-1/2+\log2}{2}.
+\]
+The difference is $3/4-\log2>0$. For an elementary exact sign proof,
+the graph of the strictly convex function $1/x$ lies strictly below its
+secant on $(1,2)$; hence
+\[
+ \log2=\int_1^2\frac{dx}{x}
+ <\int_1^2\frac{3-x}{2}\,dx=\frac34.
+\]
+The other coordinate line therefore has smaller value than the strict
+local minimum at $e_1$, disproving benign non-convexity.
+\end{proof}
+
+These are valid probability measures under the source assumptions.
+Their density ratio is the smooth positive function
+$d\pi/d\mu=\exp(-x_1^2/2+x_2^2/4)$, normalized under $\mu$.
+All second moments, Fisher information and KL quantities used above are finite.
+The source assumes a smooth positive ratio, not a bounded ratio or a
+target covariance dominated by $I_2$.
+
+To check the actual KL interpretation independently, the source's optimal
+profile preserves the $u$-marginal of $\pi$ and keeps a standard Gaussian
+in the complementary direction. Its covariance is
+\[
+ D=I_2+(z-1)uu^{\mathsf T},\qquad
+ D^{-1}=I_2+(z^{-1}-1)uu^{\mathsf T},\qquad \det D=z.
+\]
+The centered Gaussian KL formula yields
+\[
+ D_{\rm KL}(N(0,C)\Vert N(0,D))
+ =\tfrac12\{\log z-\log\det C-2+\tr(D^{-1}C)\}
+ =\tfrac12(3/2-z+\log z).
+\]
+Thus (2) is the intended approximation loss itself, independently of
+the inconsistent display (18).
+
+\section*{The literal equation (18) also has nonglobal local minima}
+For completeness, write the function actually printed in (18) as
+\[
+ J_{\rm lit}(u)=\frac{\tr M-2+\log\det H}{2}
+ -\frac{u^{\mathsf T}Mu-1+\log(u^{\mathsf T}H^{-1}u)}2.       \tag{3}
+\]
+This is again well defined on $\Gr(2,1)$.
+\begin{theorem}
+Let $C=\diag(1/2,2)$ and $m_\delta=(\sqrt3,\delta)^{\mathsf T}$.
+There exists $\delta_0>0$ such that, for every $0<\delta<\delta_0$,
+the target $\pi_\delta=N(m_\delta,C)$ gives two strict local minima of
+(3) with different values. In particular, (3) is not benignly non-convex.
+\end{theorem}
+\begin{proof}
+For these targets, $H=C^{-1}$ and $M=C+m_\delta m_\delta^{\mathsf T}$,
+so all matrices in (3) arise from actual Gaussian probability measures.
+Use the local chart
+\[
+ u(t)=\frac{(1,t)^{\mathsf T}}{\sqrt{1+t^2}},\qquad
+ z(t)=\frac{1/2+2t^2}{1+t^2}.
+\]
+Then (3), as a smooth function of $(t,\delta)$, is
+\[
+ F(t,\delta)=\frac{9/2+\delta^2}{2}
+ -\frac12\left\{
+ \frac{1/2+2t^2+(\sqrt3+\delta t)^2}{1+t^2}+\log z(t)\right\}.
+                                                               \tag{4}
+\]
+At $\delta=0$, set $w=(1+t^2)^{-1}$. Up to its additive constant,
+(4) equals
+\[
+ -\tfrac12\{2+\tfrac32 w+\log(2-\tfrac32w)\}.
+\]
+Its derivative in $w$ vanishes at $w=2/3$, where its second derivative
+is $9/8>0$. Accordingly, the two distinct lines with
+$t_+=1/\sqrt2$ and $t_-=-1/\sqrt2$ satisfy
+\[
+ F_t(t_\pm,0)=0,\qquad F_{tt}(t_\pm,0)=\frac49>0.
+\]
+The implicit function theorem applied separately to $F_t=0$ provides
+smooth critical points $t_\pm(\delta)$ for $|\delta|$ sufficiently small.
+They remain distinct strict local minima by continuity of $F_{tt}$.
+Let $v_\pm(\delta)=F(t_\pm(\delta),\delta)$ be their values.
+Stationarity eliminates the derivatives of $t_\pm(\delta)$, giving
+\[
+ v_\pm'(0)=F_\delta(t_\pm,0)
+ =-\frac{\sqrt3\,t_\pm}{1+t_\pm^2}
+ =\mp\frac{\sqrt6}{3}.
+\]
+At zero the two values are equal, whereas
+$(v_+-v_-)'(0)=-2\sqrt6/3<0$. It follows from the definition of the
+derivative that $v_+(\delta)<v_-(\delta)$ for every sufficiently small
+positive $\delta$. Thus the second local minimum is nonglobal, as claimed.
+\end{proof}
+
+Both the intended majorant and the literal printed function therefore
+fail the original landscape assertion. These are two readings of the
+same target, and receive only one problem credit.
+
+\section*{Proposed follow-up Tasks 2--5}
+These are proposed tasks, not additional completed results.
+\begin{enumerate}
+\setcounter{enumi}{1}
+\item Classify all local minima of the intended objective on
+$\Gr(d,r)$ for centered Gaussian targets with diagonal covariance.
+\item Determine whether covariance domination $C\preceq I_d$ suffices
+for benign non-convexity for every Gaussian target, including nonzero means.
+\item Give an explicit numerical threshold $\delta_0$ in the second
+theorem with certified lower bounds on both local Hessians.
+\item Characterize pairs of second-moment and Fisher-information
+matrices arising from probability measures for which (1) has no nonglobal
+local minima for any rank $r$.
+\end{enumerate}
+
+\begin{thebibliography}{9}
+\bibitem{source} M. T. C. Li, T. Cui, F. Li, Y. Marzouk and O. Zahm,
+\emph{Sharp detection of low-dimensional structure in probability
+measures via dimensional logarithmic Sobolev inequalities},
+Information and Inference: A Journal of the IMA 14(3) (2025), iaaf021,
+\href{https://doi.org/10.1093/imaiai/iaaf021}{doi:10.1093/imaiai/iaaf021}.
+Complete author's final manuscript read from
+\href{https://dspace.mit.edu/handle/1721.1/167023}{DSpace@MIT};
+byte-identical to \href{https://arxiv.org/abs/2406.13036v3}{arXiv:2406.13036v3}.
+\end{thebibliography}
+\end{document}

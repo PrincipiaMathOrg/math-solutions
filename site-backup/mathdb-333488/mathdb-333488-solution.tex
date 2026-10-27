@@ -1,0 +1,123 @@
+\documentclass[11pt]{article}
+\usepackage{amsmath,amssymb,amsthm,hyperref}
+\usepackage[margin=1in]{geometry}
+\newtheorem{theorem}{Theorem}
+\title{Every prescribed least period in a complex rational delay recurrence}
+\author{Principia Math In Progress}
+\date{29 September 2026}
+\begin{document}\maketitle
+\begin{abstract}
+For every integer $p\ge2$, we construct an everywhere-defined solution of
+least period $p$ of $z_{n+1}=(\alpha+\beta z_{n-k})/(\gamma-z_n)$, with
+$k=p-1$ and all three parameters nonzero and nonreal. The construction
+proves the higher-period existence conjecture in MathDB 333488.
+\end{abstract}
+
+\section*{Task 1: a full construction for every period}
+Conjecture 3.1 on page 14 of Hassan's manuscript \cite{Hassan} asks for
+arbitrarily high periods of this family of delay recurrences. Pages 1--2
+allow arbitrary complex parameters and initial conditions, and the
+examples immediately preceding the conjecture vary the delay and
+parameters. No fixed-delay or fixed-parameter restriction is stated.
+We prove the precise stronger existence statement that every prescribed
+integer $p\ge2$ occurs as a least period, with explicit parameters,
+delay, and initial history. This is an existence result in the family;
+it makes no claim that one fixed recurrence realizes all periods.
+
+\begin{theorem}
+Fix an integer $p\ge2$ and put
+\[
+ \theta=\frac{\pi}{p},\qquad t=2\cos\theta,\qquad s=1+i,
+ \qquad k=p-1,
+\]
+\[
+ \alpha=s^2=2i,\qquad \beta=s=1+i,\qquad
+ \gamma=s(1+t).
+\]
+Let $T(w)=1/(t-w)$, set $w_0=2i$, and define $w_j=T^j(w_0)$ for
+$j\ge0$. Then $w_j$ is periodic with least period $p$. Extend it
+periodically to all integer indices and set $z_j=s w_j$.
+The initial history $z_{-k},\ldots,z_0$ produces an everywhere-defined
+solution of
+\[
+ z_{n+1}=\frac{\alpha+\beta z_{n-k}}{\gamma-z_n}
+ \qquad(n\ge0)
+\]
+of least period $p$. All three parameters are nonzero and nonreal.
+\end{theorem}
+\begin{proof}
+First, every $w_j$ lies in the upper half-plane. Indeed, $t$ is real and
+\[
+ \operatorname{Im}T(w)=\frac{\operatorname{Im}w}{|t-w|^2}>0
+ \qquad(\operatorname{Im}w>0).
+\]
+Thus every iterate is finite and the denominator $t-w_j$ never vanishes.
+
+Set $u=e^{i\theta}$ and $v=e^{-i\theta}$. These are distinct, satisfy
+$u+v=t$ and $uv=1$, and are the fixed points of $T$. Direct subtraction
+gives
+\[
+ T(w)-u=\frac{u(w-u)}{t-w},\qquad
+ T(w)-v=\frac{v(w-v)}{t-w}.
+\]
+Consequently the injective fractional linear map
+$R(w)=(w-u)/(w-v)$ satisfies
+\[
+ R(T(w))=e^{2i\theta}R(w).
+\]
+This identity is defined throughout the orbit because $v$ lies in the
+lower half-plane. Also $R(w_0)\ne0$, since $|w_0|=2$ and $|u|=1$.
+It follows by induction that
+\[
+ R(w_j)=e^{2\pi i j/p}R(w_0).
+\]
+The multiplier is a primitive $p$th root of unity, so injectivity of
+$R$ gives $w_j=w_0$ if and only if $p$ divides $j$. In particular,
+$w_p=w_0$, and iteration gives $w_{j+p}=w_j$ for all $j\ge0$.
+This proves periodicity and minimality, not just an upper bound on
+the period. The periodic extension also satisfies $w_{j+1}=T(w_j)$
+for all integers $j$.
+
+Now $k=p-1$ implies $w_{n-k}=w_{n+1}$. The defining equation of $T$
+is $w_{n+1}(t-w_n)=1$, and hence
+\[
+ 1+w_{n-k}=1+w_{n+1}=(1+t-w_n)w_{n+1}.
+\]
+Because $w_n$ is nonreal, the factor $1+t-w_n$ is nonzero.
+Substituting the stated parameters therefore gives
+\[
+ \frac{\alpha+\beta z_{n-k}}{\gamma-z_n}
+ =\frac{s^2+s^2w_{n-k}}{s(1+t-w_n)}
+ =s w_{n+1}=z_{n+1}.
+\]
+No pole is introduced, since $s\ne0$. Multiplication by $s$ preserves
+least period. Finally $0\le t<2$, so $1+t>0$ and the imaginary parts
+of $\alpha,\beta,\gamma$ are respectively $2,1,1+t$, all positive.
+\end{proof}
+
+The use of $p$ as the least period agrees with the source's ``prime
+period'' definition. In particular the result supplies arbitrarily
+large periods without counting multiples of a shorter period. The
+construction does not assert attraction or chaos.
+
+\section*{Four proposed follow-up tasks}
+\begin{enumerate}
+\item[Task 2.] Classify the parameters for which the ansatz
+$z_{n-k}=z_{n+1}$ reduces the recurrence to a finite-order fractional
+linear transformation, retaining all pole exclusions.
+\item[Task 3.] For each prescribed period, determine the smallest
+positive delay that admits a solution of that least period.
+\item[Task 4.] Determine the stability of these periodic solutions
+under perturbations of the full initial history of length $k+1$.
+\item[Task 5.] Decide whether a single fixed parameter triple and
+fixed delay can admit periodic solutions of unbounded least period.
+\end{enumerate}
+
+\begin{thebibliography}{9}
+\bibitem{Hassan} Sk.~Sarif Hassan,
+\emph{Dynamics of the complex rational delay recursive sequence
+$z_{n+1}=(\alpha+\beta z_{n-k})/(\gamma-z_n)$},
+\href{https://arxiv.org/abs/1606.08887v1}{arXiv:1606.08887v1} (2016),
+pp.~1--2 and Conjecture~3.1, p.~14.
+\end{thebibliography}
+\end{document}

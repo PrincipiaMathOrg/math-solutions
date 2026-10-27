@@ -1,0 +1,122 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[hidelinks]{hyperref}
+\newcommand{\Tr}{\operatorname{tr}}
+\title{A positive definite counterexample to the\\
+nonlinear quantum-measurement monotone\\
+\large Complete solution of MathDB 359456}
+\author{Principia Math in Progress}
+\date{12 September 2026}
+\begin{document}
+\maketitle
+
+\paragraph{Task 1. Resolve the nonlinear monotone conjecture.}
+A blockwise probability vector $\boldsymbol P=(P_1,\ldots,P_n)^{\mathsf T}$
+consists of positive semidefinite $d\times d$ matrices summing to $I_d$.
+A blockwise bistochastic matrix $\boldsymbol B=(B_{ij})$ has positive
+semidefinite blocks, with every block row and block column summing to
+$I_d$. The source's sequential product is
+\[
+ Q_i=(\boldsymbol B*\boldsymbol P)_i
+       =\sum_{j=1}^n P_j^{1/2}B_{ij}P_j^{1/2}.
+\]
+Conjecture 1 of Rico and \.{Z}yczkowski asks whether, for every ordering
+of the $Q_i$, some ordering of the $P_i$ makes
+\[
+ \left\|\sum_{i=1}^k(P_i-I_d/n)\right\|_2
+ \geq
+ \left\|\sum_{i=1}^k(Q_i-I_d/n)\right\|_2
+ \quad(1\leq k\leq n),
+ \qquad \|X\|_2^2=\Tr(X^*X).
+\]
+The answer is negative, already for $n=d=3$ and diagonal positive
+definite effects and blocks.
+
+Let
+\[
+ P_1=\frac1{12}\operatorname{diag}(10,1,1),\quad
+ P_2=\frac1{12}\operatorname{diag}(1,10,1),\quad
+ P_3=\frac1{12}\operatorname{diag}(1,1,10),
+\]
+and take
+\[
+ \boldsymbol B=
+ \begin{pmatrix}
+  P_1&P_2&P_3\\
+  P_2&P_3&P_1\\
+  P_3&P_1&P_2
+ \end{pmatrix}.
+\]
+Each $P_j$ is positive definite, and $P_1+P_2+P_3=I_3$.
+Every block row and column of $\boldsymbol B$ is a permutation of
+this triple. Thus all hypotheses hold, with all nine blocks positive
+definite as well.
+
+All matrices involved are diagonal, so
+$P_j^{1/2}B_{ij}P_j^{1/2}=P_jB_{ij}$. Direct multiplication yields
+\[
+ Q_1=P_1^2+P_2^2+P_3^2=\frac{17}{24}I_3,\qquad
+ Q_2=Q_3=P_1P_2+P_2P_3+P_3P_1=\frac7{48}I_3.
+\]
+These output effects are also positive definite and sum to $I_3$.
+
+Consider the displayed output ordering, with $Q_1$ first.
+For every $j=1,2,3$, the diagonal entries of $P_j-I_3/3$
+are a permutation of $(1/2,-1/4,-1/4)$, whence
+\[
+ \|P_j-I_3/3\|_2^2
+ =\frac14+\frac1{16}+\frac1{16}
+ =\frac38=\frac{24}{64}.
+\]
+In contrast,
+\[
+ \|Q_1-I_3/3\|_2^2
+ =\left\|\frac38I_3\right\|_2^2
+ =\frac{27}{64}>\frac{24}{64}.
+\]
+No choice of the first input effect can satisfy the required inequality
+at $k=1$. Therefore no input ordering works for this output ordering,
+which disproves the conjecture. \hfill$\square$
+
+\paragraph{Scope and verification.}
+The counterexample uses three effects and lies outside the source's
+restricted class of sortable measurements: for instance,
+$P_1-P_2=\operatorname{diag}(3/4,-3/4,0)$ is indefinite.
+The conjecture explicitly concerns measurements beyond that class.
+All effects and blocks are positive definite, so the failure does not
+depend on zero effects or singularities.
+The accompanying script checks the sequential product, all
+normalizations, positivity and the squared-norm gap $3/64$ exactly.
+All thirteen checks pass, including all six input orderings.
+
+\paragraph{Task 2. Quantify the possible increase.}
+Bound the increase of
+$\max_i\|P_i-I_d/n\|_2$ under blockwise bistochastic dynamics, in terms
+of the number of effects and the dimension.
+
+\paragraph{Task 3. Find valid nonlinear monotones.}
+Identify nonlinear quantities that are monotone on all quantum
+measurements under the source's sequential product.
+
+\paragraph{Task 4. Characterize the diagonal case.}
+For simultaneously diagonal effects and blocks, determine when a
+single ordering of the input effects controls every required partial
+sum for a specified output ordering.
+
+\paragraph{Task 5. Determine conditions restoring the conjecture.}
+Find structural conditions beyond the source's sortable class that
+ensure the asserted inequalities, and determine whether they are
+preserved by blockwise bistochastic dynamics.
+
+\begin{thebibliography}{9}
+\bibitem{RZ}
+A. Rico and K. \.{Z}yczkowski,
+\emph{Discrete dynamics in the set of quantum measurements},
+Journal of Physics A: Mathematical and Theoretical \textbf{57} (2024),
+435302. Appendix C.1, Conjecture 1, equation (C.1);
+\href{https://doi.org/10.1088/1751-8121/ad7dc2}{published article},
+\href{https://arxiv.org/abs/2308.05835}{arXiv:2308.05835},
+version 2, p.~28.
+\end{thebibliography}
+\end{document}

@@ -1,0 +1,240 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,hyperref,enumitem}
+\hypersetup{colorlinks=true,urlcolor=blue,linkcolor=blue}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newcommand{\pos}[1]{[#1]_+}
+\newcommand{\Z}{\mathbb Z}
+\title{Positivity of mirror Markov polynomials}
+\author{Principia Math In Progress}
+\date{22 September 2026}
+\begin{document}
+\maketitle
+\noindent\textbf{MathDB 373161. Task 1: a proof of Conjecture 6.2 of \cite{mirror}.}
+For the mirror deformation defined by the initial segment and signed mutations
+of \cite[Definitions 4.1--4.2]{mirror}, we prove the following, including the
+absence of internal zero coefficients.
+\begin{theorem}\label{main}
+Every mirror Markov polynomial $m(q)$ has a strictly positive integer coefficient
+at each exponent $0,1,\ldots,\deg m$.
+\end{theorem}
+The input from surface cluster algebras is the established matching expansion
+of Musiker--Schiffler--Williams (MSW), together with coefficient specialization.
+We give explicitly the cluster realization needed for this application. The
+positivity theorem for the \emph{squared} deformation in \cite{mirror} alone
+does not imply the result for its factors.
+
+\section*{1. A paired cluster realization}
+Use six mutable indices $(i,s)$, where $i\in\{1,2,3\}$ and
+$s\in\{+1,-1\}$. Let $B$ have zero diagonal $2\times2$ blocks and all-one
+blocks in positions $(1,2),(2,3),(3,1)$, with the opposite blocks their
+negatives. Adjoin one frozen variable $q$ and the bottom row
+\[
+ c_{i,s}=-s. \tag{1}
+\]
+Initially specialize all six mutable variables to $1$. Ordinary geometric-type
+cluster mutation at an index $v$ uses
+\[
+ x_vx_v'=q^{\pos{c_v}}\prod_{B_{uv}>0}x_u^{B_{uv}}
+             +q^{\pos{-c_v}}\prod_{B_{uv}<0}x_u^{-B_{uv}},\qquad
+ [a]_+=\max(a,0). \tag{2}
+\]
+The extended matrix mutates by the usual matrix-mutation formula, as recalled
+in \cite[Section 2]{msw}. Define a \emph{paired step at $i$} to mutate both
+$(i,+1),(i,-1)$ and then interchange their labels. These two mutations commute.
+A direct block calculation shows that each paired step sends $B$ to $-B$:
+the two intermediate paths add two arrows against each arrow between the
+other two pairs, reversing it after cancellation.
+
+Here is the complete normalization calculation. At any paired seed let $j$
+be the other pair with $B_{(j,t),(i,s)}=1$, and let $k$ be the remaining pair.
+There are integers $m_i$ and half-integers $u_{i,s}$ such that
+\[
+ c_{i,s}=m_i-s,\quad z_{i,s}=q^{u_{i,s}}x_{i,s},\quad
+ D_i=u_{i,+1}+u_{i,-1},\quad m_i=D_j-D_k. \tag{3}
+\]
+Initially $m_i=u_{i,s}=D_i=0$. The last equation is
+imposed at each pair with its own positive-column neighbor. Put
+\[
+ a=\pos{m_i+1}+\pos{m_i-1},\qquad
+ b=\pos{-m_i-1}+\pos{-m_i+1};\qquad a-b=2m_i.
+\]
+Matrix mutation and the label interchange give
+\[
+ m_i'=-m_i,\qquad m_j'=m_j-b,\qquad m_k'=m_k+a. \tag{4}
+\]
+Before interchanging labels define
+\[
+ \widetilde u_{i,s}=D_j-\pos{m_i-s}-\frac{s}{2}-u_{i,s},
+ \qquad u_{i,s}'=\widetilde u_{i,-s}, \tag{5}
+\]
+and keep the other $u$'s unchanged. Then $D_i'=2D_j-a-D_i$.
+Since the block orientation reverses, the three required new identities in
+(3) follow respectively from
+\[
+ D_k-D_j=-m_i,\quad
+ D_i'-D_k=m_j-b,\quad D_j-D_i'=m_k+a.
+\]
+This proves (3)--(5) inductively for \emph{every} sequence of paired steps.
+No restriction on the size or sign of $m_i$ has been used.
+
+Write $A_i=z_{i,+1}z_{i,-1}$. Substituting (3) and (5) into (2), and using
+$\pos{v}-\pos{-v}=v$, gives precisely
+\[
+ z_{i,+1}'=\frac{q^{1/2}A_j+q^{-1/2}A_k}{z_{i,-1}},\qquad
+ z_{i,-1}'=\frac{q^{-1/2}A_j+q^{1/2}A_k}{z_{i,+1}}. \tag{6}
+\]
+Initially $z_{i,+1}=z_{i,-1}=1$. Consequently
+$z_{i,-1}(q)=z_{i,+1}(q^{-1})$ throughout. Multiplying the two equations in
+(6) gives
+\[
+ A_iA_i'=A_j^2+(q+q^{-1})A_jA_k+A_k^2. \tag{7}
+\]
+Equation (6), with the cyclic order reversed at every step, is exactly the
+geometric mirror mutation of \cite[Equation (4), Proposition 4.8]{mirror}.
+That proposition identifies it, up to powers of $q^{1/2}$, with the signed
+polynomial mutation on every branch. For example, the first normalized
+polynomials are $1+q$, $1+2q+2q^2$, $2+4q+5q^2+2q^3$, and
+$3+8q+10q^2+6q^3+2q^4$, with their reciprocal choices when the initial
+orientation is reversed. Thus every polynomial in the question is a monomial
+multiple of one of the specialized cluster variables in (2).
+
+\section*{2. The surface and the gap-free matching expansion}
+Realize the mutable matrix as the signed adjacency matrix of the tetrahedral
+triangulation of the four-punctured sphere. The opposite edge pairs are
+\[
+ (12,34),\qquad(13,24),\qquad(14,23).
+\]
+Choose the orientation giving the block matrix above. Each triangular face
+contributes one cyclic arrow between the three pairs. Flipping an opposite
+pair again gives a tetrahedral triangulation: after the first flip there are
+two different arcs between the opposite endpoints, and flipping the original
+opposite edge replaces it with an arc between the first endpoints. All four
+triangles still have three distinct vertices. In particular, all arcs reached
+by paired steps are ordinary arcs, all tagged plain. No notched-arc matching
+formula is needed.
+
+Use principal coefficients $y_{i,s}$ temporarily. The MSW expansion
+\cite[Theorem 4.9]{msw}, evaluated at all initial mutable variables equal to
+$1$, is
+\[
+ F_\gamma(y)=\sum_{P\in\mathcal M(G_\gamma)}
+                   \prod_{T\in H(P)} y_{\ell(T)}. \tag{8}
+\]
+Here $G_\gamma$ is the ordinary snake graph of the arc, $\mathcal M$ its perfect
+matchings, and $H(P)$ the tiles enclosed by the symmetric difference of $P$
+and the fixed minimal boundary matching. The label $\ell(T)$ is the initial
+arc crossed at that tile. The initial tetrahedral triangulation has no
+self-folded triangles, so there are no substitutions in these tile labels.
+For an initial arc the expansion is simply $1$.
+
+The coefficient specialization formula
+\cite[Theorem 2.13]{msw} identifies our frozen row (1) with
+$y_{i,s}=q^{-s}$. Its tropical denominator is a single monomial. It follows
+that every specialized $x_\gamma$ in (2) is a monomial multiple of
+\[
+ \sum_{P\in\mathcal M(G_\gamma)}q^{h(P)},\qquad
+ h(P)=\sum_{T\in H(P)}(-s(\ell(T))). \tag{9}
+\]
+Each tile therefore has height weight $+1$ or $-1$.
+
+\begin{lemma}\label{gaps}
+If every tile of an ordinary snake graph has weight $+1$ or $-1$, the
+matching sum in (9) has a positive integer coefficient at every integer
+between its smallest and largest exponents.
+\end{lemma}
+\begin{proof}
+The perfect matchings of a snake graph are connected by square-tile flips.
+For completeness, take an end tile. It adds two vertices to the preceding
+snake graph. A matching either contains the edge joining these two new
+vertices, or contains both edges joining them to the old vertices. In the
+second case, flip that tile, inserting the joining edge and the shared edge.
+Now remove the joining edge and the two new vertices. What remains is a
+perfect matching of the shorter snake. Induction connects all such matchings,
+and their flips lift while keeping the end joining edge fixed. The one-tile
+case is immediate.
+
+Under one tile flip the height sets relative to the minimal matching differ
+by adding or deleting that one tile. This also follows directly by taking
+symmetric differences with its boundary in the definition of $H(P)$.
+Consequently $h(P)$ changes by $1$ or $-1$. A path of flips from a matching
+of minimum height to one of maximum height visits every intermediate integer.
+Every summand has coefficient $1$, which proves the claim.
+\end{proof}
+
+\section*{3. Completion of Task 1}
+By (3), (6), (9), and Lemma \ref{gaps}, every mirror polynomial has positive
+integer coefficients throughout its support interval. The source already
+proves that these representatives are polynomials
+\cite[Theorem 4.4]{mirror}. We check that their constant terms do not vanish,
+to obtain exactly the interval in Theorem \ref{main}.
+
+After the initial segment, order a mirror triple $(a,b,c)$ by its classical
+values. Inductively its largest entry $c$ has strictly largest degree and all
+constant terms are nonzero. This starts at $(1,1+q,1+2q+2q^2)$.
+The corresponding squared Laurent polynomials have the same degrees.
+If those degrees are $r\le s<t$, (7) sends a forward mutation to degree
+$2t-r$ or $2t-s$, strictly larger than $t$; all numerator coefficients are
+nonnegative, so the leading terms cannot cancel. This is also the degree
+argument underlying \cite[Proposition 2.3]{mirror}. A new polynomial is,
+in the notation of the source,
+\[
+ c'=q^{\deg c}\frac{q^\varepsilon H+C}{\widetilde d},
+ \qquad \varepsilon\in\{-1,1\},\quad
+ H=h(q)h(q^{-1}),\quad C=c(q)c(q^{-1}), \tag{10}
+\]
+where $h$ is the retained smaller entry and $d$ the replaced entry.
+Because $\deg c>\deg h$, the lowest exponent of
+$q^{\deg c+\varepsilon}H$ is nonnegative. The other numerator term has a
+strictly positive constant term, and $\widetilde d$ has a strictly positive
+constant term. Thus the polynomial quotient in (10) has a strictly positive
+constant term. The initial entries $1,1,1+q$ and $1,1+q,1+2q+2q^2$ satisfy
+this explicitly. This closes the induction. The support interval consequently
+starts at zero and ends at the degree, proving Theorem \ref{main}.
+
+\paragraph{Attribution and scope.}
+The squared deformation, signed recursion, polynomiality, and equivalence
+with (6) are established in \cite{mirror}. The surface expansion and
+coefficient-specialization theorems are established in \cite{msw}; they are
+not new claims here. The explicit frozen row, the all-seed normalization
+(3)--(6), and its application to all mirror branches supply the link needed
+for the conjecture. Neither the mirror uniqueness conjecture nor the
+separate branch-constant conjecture is asserted here.
+
+\paragraph{Verification.}
+The accompanying exact verifier checks the tetrahedral matrix, 93 paired
+mutation paths of lengths at most five, the normalization and reciprocity at
+every step, the printed initial polynomials, and the tile-flip and gap claims
+on every north/east snake with at most six tiles and all $\pm1$ tile weights.
+These checks support the proof; the finite range is not its justification.
+Review is by the authoring agent only, without independent peer review or
+proof-assistant verification.
+
+\section*{Proposed follow-up tasks}
+\begin{enumerate}[label=Task \arabic*:,start=2,leftmargin=*]
+\item \textbf{PROPOSED.} Determine a direct construction of the labeled snake
+graph of $m_{a/b}(q)$ from the continued fraction of $a/b$, including its
+minimum-height normalization.
+\item \textbf{PROPOSED.} Prove or disprove unimodality of the full coefficient
+sequence of every mirror Markov polynomial.
+\item \textbf{PROPOSED.} Derive closed formulas for the constant and leading
+coefficients from the signed left/right mutation word.
+\item \textbf{PROPOSED.} Classify integer frozen rows on the tetrahedral quiver
+for which every paired mutation variable has a gap-free polynomial
+specialization after a monomial normalization.
+\end{enumerate}
+
+\begin{thebibliography}{9}
+\bibitem{mirror} L. Bittmann, P. Jouteur, E. Kantarc\i{} O\u{g}uz,
+M. Molander, and E. Y\i{}ld\i{}r\i{}m,
+\emph{A mirror deformation of Markov numbers},
+\href{https://arxiv.org/abs/2602.14802}{arXiv:2602.14802v1} (2026).
+\bibitem{msw} G. Musiker, R. Schiffler, and L. Williams,
+\emph{Positivity for cluster algebras from surfaces},
+Adv. Math. \textbf{227} (2011), 2241--2308,
+\href{https://doi.org/10.1016/j.aim.2011.04.018}{doi:10.1016/j.aim.2011.04.018}.
+Theorem numbering here follows the
+\href{https://people.math.harvard.edu/~williams/papers/MSW-July24v5.pdf}{author-hosted version}.
+\end{thebibliography}
+\end{document}

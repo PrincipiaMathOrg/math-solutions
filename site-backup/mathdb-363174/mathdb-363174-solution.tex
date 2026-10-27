@@ -1,0 +1,386 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[hidelinks]{hyperref}
+\newtheorem{theorem}{Theorem}
+\newcommand{\R}{\mathcal R}
+\title{All four exceptional Seiffert resultant-mean inequalities}
+\author{Principia Math In Progress}
+\date{18 September 2026}
+\begin{document}
+\maketitle
+\begin{abstract}
+We prove the exceptional-parameter sign conjecture for the generalized
+Seiffert mean, including both signs of the outer power-mean parameter.
+A mixed derivative reduces all four cases to a one-variable inequality.
+Rigorous Taylor enclosures, together with analytic bounds at zero and
+infinity, prove that inequality on the entire positive axis.
+\end{abstract}
+
+\section*{Task 1: the original problem}
+The mean in the source is
+\[
+ S_\alpha(a,b)=
+ \frac{\alpha(b-a)}
+ {2\arctan\!\bigl(\tanh(\alpha\log(b/a)/2)\bigr)}
+ \quad(a,b>0,\ a\ne b),\qquad S_\alpha(a,a)=a.
+\]
+It is symmetric, homogeneous, and unchanged on replacing \(\alpha\)
+by \(-\alpha\). We use the source's formula: the database calls this
+a Stolarsky mean, but it is the generalized Seiffert family in
+\cite[Eq.~(1.4)]{MR}.
+Set
+\[
+ B_r(a,b)=\left(\frac{a^r+b^r}{2}\right)^{1/r},\qquad
+ \R(B_p,S_\alpha,B_q)(a,b)
+ =B_p\bigl(S_\alpha(a,B_q(a,b)),S_\alpha(B_q(a,b),b)\bigr).
+\]
+
+\begin{theorem}\label{main}
+Let
+\[
+ \alpha_\pm=\frac12\sqrt{2\pm\sqrt3}.
+\]
+For each row in the following table, and for all distinct positive
+\(a,b\), one has
+\[
+ S_\alpha(a,b)<\R(B_p,S_\alpha,B_q)(a,b).
+\]
+\[
+\begin{array}{c|c|c}
+ |\alpha|&p&q\\ \hline
+ \alpha_-&\sqrt3-1&2-\sqrt3\\
+ \alpha_-&1-\sqrt3&1\\
+ \alpha_+&1+\sqrt3&1\\
+ \alpha_+&-1-\sqrt3&2+\sqrt3
+\end{array}
+\]
+\end{theorem}
+These are exactly all solutions of the source's conditions
+\[
+ q=\frac{1-p}{2}+2\alpha^2,\qquad
+ p^2=\frac{1-12\alpha^2+112\alpha^4-64\alpha^6}{1+4\alpha^2},
+ \qquad |\alpha|=\alpha_\pm.
+\]
+Thus the theorem proves the entire original Conjecture~4.4.
+The published Conjecture~34, p.~21, retains only the two positive-\(p\)
+rows; those are included. The diagonal has equality as usual.
+
+\section*{The mixed derivative}
+Assume \(\alpha>0\) and \(a<b\). All four \(q\)'s are positive.
+Put \(H(a,b)=(b^q-a^q)S_\alpha(a,b)^p\).
+For \(a<c<b\),
+\begin{equation}\label{rectangle}
+ H(a,c)+H(c,b)-H(a,b)
+ =\int_a^c\int_c^b H_{ab}(u,v)\,dv\,du.
+\end{equation}
+It suffices to prove that \(H_{ab}\) has the strict sign of \(p\).
+Indeed, take \(c=B_q(a,b)\). The increments \(c^q-a^q\) and
+\(b^q-c^q\) are equal, so \eqref{rectangle} says that
+\[
+ \frac{S_\alpha(a,c)^p+S_\alpha(c,b)^p}{2}
+       -S_\alpha(a,b)^p
+\]
+has the strict sign of \(p\). Taking the \(p\)-th root gives
+Theorem~\ref{main} for either sign.
+
+For \(t>0\), let
+\[
+ v(t)=\log\frac{\alpha\sinh(t/2)}
+                    {\arctan(\tanh(\alpha t/2))},\qquad
+ g(t)=\frac{\alpha}
+ {2\cosh(\alpha t)\arctan(\tanh(\alpha t/2))}.
+\]
+Then
+\begin{align}
+ v'&=\tfrac12\coth(t/2)-g,\label{v1}\\
+ v''&=-\frac1{4\sinh^2(t/2)}
+       +\alpha\tanh(\alpha t)g+g^2.\label{v2}
+\end{align}
+Define
+\begin{equation}\label{T}
+ T(t)=v''+p(v')^2+q\coth(qt/2)v'-\frac{p+2q}{4}.
+\end{equation}
+Write \(s=p+q\), \(t=\log(b/a)\), and
+\[
+ h(t)=e^{st/2}2\sinh(qt/2)e^{pv(t)}.
+\]
+Direct differentiation gives
+\[
+ H(a,b)=a^s h(t),\qquad
+ h''-s h'=p hT,\qquad
+ H_{ab}(a,b)=-\frac{a^s}{ab}p h(t)T(t).
+\]
+Here \(h(t)>0\). It remains to show \(T(t)<0\) for every \(t>0\).
+We prove this for each of the four rows, with \(F=-T\).
+
+\section*{The neighborhood of zero}
+Put \(A=\alpha^2\). Since
+\[
+ \mu(t)=\frac2\alpha\arctan(\tanh(\alpha t/2)),
+ \qquad \mu'(t)=\operatorname{sech}(\alpha t),
+\]
+we have \(v'=\tfrac12\coth(t/2)-\mu'/\mu\).
+Expansion at zero gives
+\begin{align*}
+ v'(t)={}&(1/12+A/3)t-(1/720+A^2/9)t^3\\
+ &+(1/30240+38A^3/945)t^5\\
+ &-(1/1209600+43A^4/2835)t^7+O(t^9).
+\end{align*}
+Substitution in \eqref{T} gives, for \(\alpha=\alpha_\sigma\),
+\begin{equation}\label{leading}
+ F(t)=\frac{97+\sigma56\sqrt3}{201600}t^6+O(t^8),
+ \qquad \sigma\in\{-1,1\},
+\end{equation}
+independently of the sign of \(p\). The coefficients of degrees
+zero, two and four vanish exactly. Both leading coefficients are
+positive, since \(97^2-3\cdot56^2=1\).
+The verifier checks these algebraic identities symbolically.
+
+Here is an explicit analytic remainder bound. For complex \(z\), set
+\[
+ \rho(z)=\frac{\mu(z)}z,\qquad
+ U(z)=\frac{\operatorname{sech}(\alpha z)}{\rho(z)},\qquad
+ D(w)=w\coth w.
+\]
+All three have removable value one at zero. The Taylor coefficients
+of \(\sec z\) are nonnegative, and those of \(\operatorname{sech}z\)
+have the same absolute values. This also follows directly from
+\((\tan z)'=1+\tan^2z\) and \((\sec z)'=\sec z\tan z\).
+Since \(0<\alpha<1\), for \(|z|\le1\) we obtain
+\[
+ |\rho(z)-1|
+ \le\int_0^1(\sec u-1)\,du
+ =\log(\sec1+\tan1)-1<\frac13,
+ \qquad |\operatorname{sech}(\alpha z)-1|<1.
+\]
+It follows that \(|U-1|<2\). Standard power-series estimates give
+\[
+ |D(z/2)-1|<\frac14\quad(|z|\le1),\qquad
+ |D(w)|<2\quad(|w|\le1).
+\]
+For completeness, these follow by bounding \(\cosh w\) and
+\(\sinh w/w-1\) by their absolute Taylor sums, using
+\[
+ \cosh(1/2)-1<1/7,\quad 2\sinh(1/2)-1<1/20,\quad
+ \cosh1<8/5,\quad \sinh1-1<1/5.
+\]
+The same estimates exclude denominator zeros. As
+\(v'(z)=(D(z/2)-U(z))/z\), parity and the maximum principle give
+\[
+ |v'(z)/z|<9/4\quad(|z|\le1).
+\]
+Cauchy's derivative estimate yields \(|v'|<9/8\) and
+\(|v''|<9/2\) on \(|z|\le1/2\).
+In all four cases \(|p|<3\), \(0<q<4\), and \(0<p+2q<5\).
+Consequently \(F\) is even and analytic on that disc, and
+\[
+ |F(z)|<\frac92+3(9/8)^2+9+\frac54<32.
+\]
+If \(F(t)=\sum c_k t^k\), then \(|c_k|\le32\,2^k\).
+Using parity and \eqref{leading}, for \(0<t\le1/4\) we have
+\begin{equation}\label{smalltail}
+ \left|\frac{F(t)-\sum_{k=3}^{30}c_{2k}t^{2k}}{t^6}\right|
+ \le\frac{32\,2^{62}t^{56}}{1-2t}\le2^{-44}.
+\end{equation}
+
+The accompanying verifier computes the coefficients through degree 60
+using rigorous formal ball series at 192-bit midpoint precision.
+For each of the four rows, Horner evaluation of
+\(\sum_{k=3}^{30}c_{2k}y^{k-3}\) on \(0\le y\le1/16\),
+minus \(2^{-44}\), is strictly greater than \(10^{-8}\).
+Thus \(F(t)>10^{-8}t^6>0\) throughout \(0<t\le1/4\).
+No truncation is used without the analytic bound \eqref{smalltail}.
+
+\section*{The compact interval}
+For \([l,u]\subset[1/4,20]\), put \(m=(l+u)/2\), \(r=(u-l)/2\).
+Taylor's theorem gives, with \(d=t-m\),
+\begin{equation}\label{taylor}
+ F(t)=\sum_{j=0}^7\frac{F^{(j)}(m)}{j!}d^j
+               +\frac{F^{(8)}(\xi)}{8!}d^8,
+ \qquad \xi\in[l,u].
+\end{equation}
+Evaluating \eqref{v1}--\eqref{T} on the formal series \(m+z\)
+encloses the first eight coefficients. Evaluating it on \(I+z\),
+where the constant coefficient \(I\) encloses all of \([l,u]\),
+encloses \(F^{(8)}(\xi)/8!\) for every possible \(\xi\).
+Interval Horner evaluation of \eqref{taylor} on \(d\in[-r,r]\)
+therefore covers every point of \([l,u]\).
+
+The algorithm starts with the 79 intervals
+\([j/4,(j+1)/4]\), \(1\le j\le79\), and bisects any interval
+whose enclosure is not strictly positive. Exact rational endpoints
+are used throughout. The computation terminates with:
+\[
+\begin{array}{c|c|r}
+ \alpha&p&\text{accepted intervals}\\ \hline
+ \alpha_-&1-\sqrt3&155\\
+ \alpha_-&\sqrt3-1&154\\
+ \alpha_+&-1-\sqrt3&554\\
+ \alpha_+&1+\sqrt3&139
+\end{array}
+\]
+Every leaf enclosure has lower endpoint greater than \(10^{-12}\).
+For each row, the leaves have disjoint interiors and their exact
+lengths sum to \(79/4\). Thus \(F>0\) on all of \([1/4,20]\).
+The certificate records derivative order, coefficient balls,
+partition hashes and counts. This is a whole-interval proof,
+not a finite sampling argument.
+
+\section*{The infinite tail}
+Set \(\epsilon=(e^t-1)^{-1}\),
+\(\delta=2q/(e^{qt}-1)\), \(d=\alpha\tanh(\alpha t)\), and \(s=p+q\).
+Equations \eqref{v1}--\eqref{T} give the exact identity
+\begin{equation}\label{expanded}
+\begin{split}
+ T={}&(d-s)g+(p+1)g^2+(s-1)\epsilon+(p-1)\epsilon^2\\
+    &-2p\epsilon g+\delta(1/2+\epsilon-g).
+\end{split}
+\end{equation}
+For \(t\ge20\), the following uniform bounds hold:
+\begin{equation}\label{basicbounds}
+ \frac54\alpha e^{-\alpha t}<g<
+ \frac43\alpha e^{-\alpha t},\qquad
+ \epsilon<10^{-6},\qquad
+ \epsilon<\frac{101}{100}e^{-t}.
+\end{equation}
+Indeed \(\alpha t>5\),
+\(\arctan(\tanh(5/2))>3/4\), and
+\[
+ \frac4{\pi(1+e^{-10})}>\frac54.
+\]
+These prove the bounds for \(g\) directly from its definition.
+Also \(d<\alpha\). Useful rational parameter bounds are
+\[
+ \frac{129}{500}<\alpha_-<\frac{13}{50},\quad
+ \frac14<2-\sqrt3<\frac{67}{250},\quad
+ 2-\sqrt3-\alpha_->\frac9{1000},
+\]
+\[
+ \frac{24}{25}<\alpha_+<\frac{97}{100},\qquad
+ \frac{37}{10}<2+\sqrt3<4.
+\]
+The certificate verifies these fixed comparisons with strict ball
+enclosures. All subsequent bounds are uniform in \(t\).
+
+\paragraph{The positive-\(p\), lower-\(\alpha\) case.}
+Here \(s=1\), \(0<p<1\), and \(q=2-\sqrt3\).
+Dropping negative terms in \eqref{expanded}, and using
+\(g<1/250\), gives
+\[
+ T<-\frac{73}{100}g+
+       \frac{203}{100}q(1/2+\epsilon)e^{-qt}.
+\]
+For the second term we used \(qt>5\) and
+\(2/(1-e^{-5})<203/100\). Thus
+\[
+ e^{\alpha t}T<
+ -\frac{73}{100}\frac54\frac{129}{500}
+ +\frac{203}{100}\frac{501}{1000}\frac{67}{250}\frac{21}{25}<0,
+\]
+where \(e^{-(q-\alpha)t}<e^{-9/50}<21/25\).
+In the first term, \(1-\alpha-(p+1)g>73/100\).
+
+\paragraph{The positive-\(p\), upper-\(\alpha\) case.}
+Here \(q=1\), \(s=2+\sqrt3\), and \(\delta=2\epsilon\).
+Combining the epsilon terms in \eqref{expanded} gives
+\[
+ T<-\frac{13}{5}g+\frac{401}{100}\epsilon.
+\]
+Indeed \(s-\alpha>27/10\), \(p+1<4\), and \(g<1/75\);
+also \(s\epsilon+(p+1)\epsilon^2<(401/100)\epsilon\).
+It follows that
+\[
+ e^{\alpha t}T<
+ -\frac{78}{25}+
+ \frac{401}{100}\frac{101}{100}\frac35<0,
+\]
+using \(1-\alpha>3/100\) and \(e^{-3/5}<3/5\).
+
+\paragraph{The negative-\(p\), lower-\(\alpha\) case.}
+Write \(R=-p=\sqrt3-1\). Here \(q=1\), \(s=2-\sqrt3\),
+and \(p+1=s\). From \eqref{expanded},
+\[
+ T<-\bigl(s-\alpha-sg-2R\epsilon\bigr)g
+              +2\epsilon(1/2+\epsilon)
+ <-\frac7{1000}g+3e^{-t}.
+\]
+The coefficient estimate follows from \(s-\alpha>9/1000\),
+\(s<27/100\), \(g<1/250\), \(R<1\), and
+\(\epsilon<10^{-6}\). Since \(1-\alpha>74/100\),
+\[
+ e^{\alpha t}T<
+ -\frac7{1000}\frac{129}{400}+\frac3{10000}<0.
+\]
+Here \(e^{-74/5}<10^{-4}\).
+
+\paragraph{The negative-\(p\), upper-\(\alpha\) case.}
+Now \(R=-p=1+\sqrt3<3\), \(q=2+\sqrt3\), and \(s=1\).
+The \(g^2\) and \(\epsilon^2\) terms in \eqref{expanded} are negative.
+Hence
+\[
+ T<-\bigl(1-\alpha-2R\epsilon\bigr)g
+              +\delta(1/2+\epsilon)
+ <-\frac{29}{1000}g+16e^{-qt}.
+\]
+Using \(q-\alpha>27/10\), we conclude
+\[
+ e^{\alpha t}T<
+ -\frac{29}{1000}\frac65+\frac{16}{10000}<0,
+\]
+since \(e^{-54}<10^{-4}\).
+
+All exponential comparisons just used admit elementary rational
+certificates: \(e^x>1+x+x^2/2\) gives the comparisons at \(9/50\)
+and \(3/5\); and
+\((74/5)^8/8!>10000\), \(54^4/4!>10000\) give the other two.
+The four final rational differences are checked exactly by the verifier.
+This proves \(T<0\) for every \(t\ge20\). Together with the earlier
+intervals, \(T<0\) on all of \((0,\infty)\), completing the proof
+of Theorem~\ref{main}. \(\square\)
+
+\paragraph{Proof status.}
+This is a computer-assisted proof. Its rigorous Taylor enclosures
+are substantive parts of the argument. The accompanying
+\texttt{verify\_inequality.py} uses python-flint's Arb arithmetic
+\cite{arb} and SymPy for exact coefficient identities; it recreates
+\texttt{exact-certificate.json}. The authoring agent audited the proof
+and executed the verifier. Independent peer review and
+proof-assistant formalization are not claimed.
+
+\section*{Proposed follow-up questions}
+These four questions are unproved directions, not additional solves.
+\paragraph{Task 2.}
+Find an analytic proof of the sign of \(T\) that eliminates the finite
+interval computation for all four parameter rows.
+\paragraph{Task 3.}
+Determine for which \(0<\alpha<1\) the source's asymptotically
+optimal parameter pairs give a global resultant-mean comparison.
+\paragraph{Task 4.}
+Determine the sharp normalized gap for arbitrary split weights
+\(0<\lambda<1\), replacing the equal \(q\)-power increments by
+\(\lambda,1-\lambda\), and find its asymptotics as a weight tends to zero.
+The qualitative comparison already follows from \eqref{rectangle}.
+\paragraph{Task 5.}
+Classify smooth homogeneous means \(M\) for which a constant sign of
+the mixed derivative of \((b^q-a^q)M(a,b)^p\) is necessary, as well
+as sufficient, for all weighted resultant comparisons.
+
+\begin{thebibliography}{9}
+\raggedright
+\bibitem{MR}
+L.~Mihokovi\'c and M.~Ra\"issouli,
+\emph{Results on comparison and sub/super-stabilizability of some new means},
+\href{https://arxiv.org/abs/2405.13618}{arXiv:2405.13618v2} (2024),
+Conjecture~4.4; Applicable Analysis and Discrete Mathematics
+\textbf{20} (2026), 1--23,
+\href{https://doi.org/10.2298/AADM240618001M}{doi:10.2298/AADM240618001M},
+Conjecture~34.
+Complete published text:
+\href{http://pefmath.etf.rs/vol20num1/AADM-Vol20-No1-1-23.pdf}{journal PDF}.
+\bibitem{arb}
+The python-flint developers, \emph{Arb real numbers},
+\href{https://python-flint.readthedocs.io/en/latest/arb.html}{official documentation}.
+The certificate records the installed software versions.
+\end{thebibliography}
+\end{document}

@@ -1,0 +1,218 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,hyperref}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\title{Logarithmic biorthogonal norms for the Gaussian Gabor system\\
+\large MathDB 375037}
+\author{Principia Math in Progress}
+\date{12 September 2026}
+\begin{document}
+\maketitle
+
+\paragraph{Task 1.}
+Prove Conjecture 4.1 of Zikkos \cite{Z}: after deleting the Gaussian Gabor
+atom indexed by $(0,0)$, the unique biorthogonal vectors satisfy
+\begin{equation}\label{eq:target}
+ \|\gamma_{m,n,0,0}\|_{L^2(\mathbb R)}^2
+ \asymp\log\!\left(e+\sqrt{m^2+n^2}\right),
+ \qquad (m,n)\in\mathbb Z^2\setminus\{(0,0)\}.
+\end{equation}
+Also prove the stated consequence for positive weights whose
+logarithmic squared-reciprocal sum is finite.
+All comparison constants below are independent of $(m,n)$.
+
+\begin{theorem}
+Estimate \eqref{eq:target} holds. If $c_{m,n}>0$ and
+\begin{equation}\label{eq:weights}
+ \sum_{(m,n)\ne(0,0)}
+ \frac{\log(e+\sqrt{m^2+n^2})}{c_{m,n}^2}<\infty,
+\end{equation}
+then the family
+\[
+ \left\{c_{m,n}e^{2\pi int}e^{-\pi(t-m)^2}:
+              (m,n)\in\mathbb Z^2\setminus\{(0,0)\}\right\}
+\]
+is a complete Riesz--Fischer sequence and a lower semi-frame for
+$L^2(\mathbb R)$.
+\end{theorem}
+
+\paragraph{The Zak transform and its zero.}
+Initially normalize the Gaussian as $\phi(t)=2^{1/4}e^{-\pi t^2}$.
+The Zak transform
+\[
+ Zf(x,\xi)=\sum_{j\in\mathbb Z}f(x-j)e^{2\pi ij\xi}
+\]
+is unitary from $L^2(\mathbb R)$ onto $L^2(Q)$, where $Q=[0,1)^2$.
+Write $\Theta=Z\phi$ and
+$E_{m,n}(x,\xi)=e^{2\pi i(nx-m\xi)}$. Changing the summation index gives
+\begin{equation}\label{eq:covariance}
+ Z\big(e^{2\pi int}\phi(t-m)\big)=E_{m,n}\Theta.
+\end{equation}
+
+The classical theta-function description gives a unique zero of $\Theta$
+in $Q$, at $q_0=(1/2,1/2)$. It is a nondegenerate zero:
+\begin{equation}\label{eq:zero}
+ c_0|u|\leq|\Theta(q_0+u)|\leq C_0|u|
+ \quad (|u|<\delta)
+\end{equation}
+for positive $c_0,C_0$ and $0<\delta<1/2$.
+For clarity, the published proof in \cite[Corollary 4.3, equation (11)]{HHKN}
+gives the expansion
+\[
+ \Theta(q_0+u)
+ =-2^{1/4}\pi\theta_1'(0,e^{-\pi})(u_1+iu_2)+O(|u|^2),
+ \qquad \theta_1'(0,e^{-\pi})\ne0.
+\]
+The derivative is nonzero also by the Jacobi triple product.
+The modulus of $\Theta$ is periodic in both coordinates and bounded away
+from zero on the complement of this disk in the closed unit square.
+In particular, $1/\Theta\notin L^2(Q)$.
+
+\paragraph{The biorthogonal formula.}
+For $(m,n)\ne(0,0)$ let
+\[
+ a_{m,n}=E_{m,n}(q_0)=(-1)^{n-m},\qquad
+ H_{m,n}=\frac{E_{m,n}-a_{m,n}}{\overline\Theta}.
+\]
+The numerator vanishes to at least first order at $q_0$. By
+\eqref{eq:zero}, this quotient is locally bounded for each fixed index,
+and it is bounded away from the zero as well. Thus $H_{m,n}\in L^2(Q)$.
+Let $h_{m,n}=Z^{-1}H_{m,n}$. For all nonzero $(r,s)$, Fourier
+orthogonality gives
+\begin{align}
+ \left\langle e^{2\pi ist}\phi(t-r),h_{m,n}\right\rangle
+ &=\int_Q E_{r,s}\Theta\,
+       \overline{\frac{E_{m,n}-a_{m,n}}{\overline\Theta}}\,dA\notag\\
+ &=\int_Q E_{r,s}\overline{E_{m,n}}\,dA
+   -\overline{a_{m,n}}\int_Q E_{r,s}\,dA
+ =\delta_{r,m}\delta_{s,n}.                    \label{eq:biorth}
+\end{align}
+The constant term disappears because the origin index was deleted.
+
+For completeness, if $F\in L^2(Q)$ is orthogonal to all
+$E_{r,s}\Theta$ with $(r,s)\ne(0,0)$, the function $F\overline\Theta$
+has only a constant Fourier coefficient. It is therefore constant
+almost everywhere. Since $1/\Theta\notin L^2(Q)$, the constant must be
+zero, and $F=0$ almost everywhere. Thus the deleted system is complete.
+The exhibited biorthogonal vectors imply minimality, and completeness
+implies uniqueness of the biorthogonal family.
+This recovers the known formula in \cite[Theorem 4.2]{HHKN}. In particular,
+\begin{equation}\label{eq:norm}
+ \|h_{m,n}\|_2^2
+ =\int_Q\frac{|E_{m,n}-a_{m,n}|^2}{|\Theta|^2}\,dA.
+\end{equation}
+
+\begin{lemma}\label{lem:integral}
+For fixed $\delta>0$, define
+\[
+ J_\delta(p)=\int_{|u|<\delta}
+       \frac{|e^{2\pi ip\cdot u}-1|^2}{|u|^2}\,dA(u).
+\]
+As $|p|\to\infty$, $J_\delta(p)\asymp\log|p|$, uniformly in the
+direction of $p\in\mathbb R^2$.
+\end{lemma}
+\begin{proof}
+Rotate polar coordinates so that $p$ points along the first axis and
+put $R=|p|$. With
+$J_0(s)=(2\pi)^{-1}\int_0^{2\pi}\cos(s\cos\theta)\,d\theta$,
+the angular integral gives
+\begin{equation}\label{eq:bessel}
+ J_\delta(p)=4\pi\int_0^{2\pi\delta R}\frac{1-J_0(s)}s\,ds.
+\end{equation}
+The inequality $1-\cos t\leq t^2/2$ implies
+$0\leq1-J_0(s)\leq s^2/4$ near zero.
+For every $s>0$, $J_0(s)<1$, since the cosine in its angular average
+is not identically one. Moreover,
+\[
+ J_0(s)=\frac1\pi\int_{-1}^{1}\frac{\cos(st)}{\sqrt{1-t^2}}\,dt
+ \longrightarrow0
+\]
+by the Riemann--Lebesgue lemma. Continuity and compactness therefore
+give a fixed $\eta>0$ such that
+$\eta\leq1-J_0(s)\leq2$ for every $s\geq1$.
+The integral over $(0,1)$ in \eqref{eq:bessel} is bounded, while that
+over $(1,2\pi\delta R)$ is comparable to $\log R$.
+The formula depends only on $R$, giving uniformity in direction.
+\end{proof}
+
+\paragraph{Completion of the estimate.}
+In the disk around $q_0$,
+\[
+ E_{m,n}(q_0+u)=a_{m,n}e^{2\pi i(nu_1-mu_2)}.
+\]
+Equations \eqref{eq:zero} and \eqref{eq:norm} sandwich the local norm
+contribution between fixed positive multiples of
+$J_\delta((n,-m))$. On the complement, the numerator is at most two in
+modulus and $|\Theta|$ is bounded below, so the remaining contribution
+is bounded uniformly in $(m,n)$.
+Lemma \ref{lem:integral} gives
+$\|h_{m,n}\|_2^2\asymp\log\sqrt{m^2+n^2}$ for large radius.
+There are only finitely many nonzero lattice points in a bounded disk,
+and each corresponding norm is positive. Adjusting the constants
+therefore proves the uniform bound with $\log(e+\sqrt{m^2+n^2})$.
+
+The source uses $e^{-\pi t^2}=2^{-1/4}\phi(t)$, so its biorthogonal
+vectors are $\gamma_{m,n,0,0}=2^{1/4}h_{m,n}$.
+Their squared norms differ by the fixed factor $\sqrt2$.
+This proves \eqref{eq:target}.
+
+Finally, \eqref{eq:weights} implies
+$\sum\|\gamma_{m,n,0,0}\|_2^2/c_{m,n}^2<\infty$.
+The deleted system is complete and minimal, as proved above.
+Theorem 1.2 of \cite{Z} now gives both the Riesz--Fischer and lower
+semi-frame assertions, including completeness.
+\hfill$\square$
+
+\paragraph{Prior results and verification.}
+The explicit biorthogonal formula and the simple Zak zero are known.
+Belov \cite[equation (3.1)]{B} already proved the logarithmic upper
+bound in Fock coordinates; \cite[Lemma 2.3]{BBB} repeats it.
+The argument here supplies the uniform matching lower bound and the
+complete two-sided estimate requested in the 2026 conjecture.
+Exact Fourier checks verify the index and phase conventions; supplementary
+numerical checks compare the Gaussian Zak series with the theta formula
+and independently check the angular integral. Finite computations are
+not used to infer the asymptotic statement.
+
+\paragraph{Task 2.}
+Determine the leading constant in the logarithmic norm asymptotic and
+prove a uniform bounded remainder using the local Taylor expansion
+of the Gaussian Zak transform.
+
+\paragraph{Task 3.}
+Find necessary and sufficient growth conditions for radial weights
+$c_{m,n}=c(\sqrt{m^2+n^2})$ to produce a lower semi-frame, beyond the
+sufficient summability condition \eqref{eq:weights}.
+
+\paragraph{Task 4.}
+Extend the norm-growth analysis to other windows whose Zak transforms
+have isolated zeros, including higher-order zeros and the deletion
+of an appropriate finite set of atoms.
+
+\paragraph{Task 5.}
+Obtain quantitative stability bounds for finite reconstruction from the
+weighted Gaussian system, relating the truncation radius and weight
+growth to the norms of the biorthogonal vectors.
+
+\begin{thebibliography}{9}
+\bibitem{Z}
+E. Zikkos, \emph{The Gaussian Gabor system at the critical density is a
+weighted lower semi frame}, 2026.
+\href{https://arxiv.org/abs/2606.00764}{arXiv:2606.00764}, Conjecture 4.1.
+\bibitem{HHKN}
+L. Hart, C. Heil, I. Katz, and M. Northington V,
+\emph{Overcomplete reproducing pairs},
+J. Fourier Anal. Appl. \textbf{31} (2025), article 58.
+\href{https://heil.math.gatech.edu/papers/reproducingpairs_journal.pdf}{Published text}.
+\bibitem{B}
+Y. Belov, \emph{Uniqueness of Gabor series},
+Appl. Comput. Harmon. Anal. \textbf{39} (2015), 545--551.
+\href{https://arxiv.org/abs/1409.5231}{arXiv:1409.5231}.
+\bibitem{BBB}
+A. Baranov, Y. Belov, and A. Borichev,
+\emph{Summability properties of Gabor expansions},
+J. Funct. Anal. \textbf{274} (2018), 2532--2552.
+\href{https://arxiv.org/abs/1706.05685}{arXiv:1706.05685}.
+\end{thebibliography}
+\end{document}

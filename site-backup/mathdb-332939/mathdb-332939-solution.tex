@@ -1,0 +1,137 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[hidelinks]{hyperref}
+\newcommand{\Tr}{\operatorname{Tr}}
+\newcommand{\lmin}{\lambda_{\min}}
+\title{A three-dimensional counterexample to Lin's\\
+additive majorization conjecture\\
+\large Complete solution of MathDB 332939}
+\author{Principia Math in Progress}
+\date{12 September 2026}
+\begin{document}
+\maketitle
+
+\paragraph{Task 1. Resolve the all-power majorization conjecture.}
+For positive semidefinite matrices $A,B$, let $|Z|=(Z^*Z)^{1/2}$ and
+write eigenvalues in decreasing order. Lin's Conjecture 4.3 asks whether
+\[
+ \lambda(A^2+|BA|^p)\succ\lambda(A^2+|AB|^p)
+ \qquad\text{for every }p>0.
+\]
+Here $\succ$ is ordinary majorization. The answer is negative, already
+for $p=4$ and real positive definite matrices of order three.
+
+Take
+\[
+ A=\operatorname{diag}(1,2,20),\qquad
+ B=\frac15 M,\qquad
+ M=\begin{pmatrix}6&-1&1\\-1&2&1\\1&1&1\end{pmatrix}.
+\]
+The leading principal minors of $M$ are $6,11,1$, so $B$ is positive
+definite by Sylvester's criterion. The same is immediate for $A$.
+Set
+\[
+ L=A^2+(AB^2A)^2=A^2+|BA|^4,\qquad
+ R=A^2+(BA^2B)^2=A^2+|AB|^4.
+\]
+We shall certify
+\begin{equation}\label{separation}
+ \lmin(R)\leq\frac{7027}{1250}
+ <\frac{142}{25}<\lmin(L).
+\end{equation}
+Since $L$ and $R$ have equal trace, this contradicts
+$\lambda(L)\succ\lambda(R)$: the inequality for the two largest
+eigenvalues would require $\lmin(L)\leq\lmin(R)$.
+
+\paragraph{An exact lower bound for \(\lmin(L)\).}
+Direct multiplication gives
+\[
+ X:=AM^2A=
+ \begin{pmatrix}38&-14&120\\-14&24&80\\120&80&1200\end{pmatrix}.
+\]
+Consequently
+\[
+ T:=625L-3550I
+ =625A^2+X^2-3550I
+ =\begin{pmatrix}
+ 13115&8732&147440\\
+ 8732&6122&96240\\
+ 147440&96240&1707250
+ \end{pmatrix}.
+\]
+The three leading principal minors of $T$ are exactly
+\[
+ 13115,\qquad 4042206,\qquad 152317908700.
+\]
+They are positive, so $T$ is positive definite. Hence
+$\lmin(L)>3550/625=142/25$.
+
+\paragraph{An exact upper bound for \(\lmin(R)\).}
+Put $v=(1,-1,0)^{\mathsf T}$ and $Y=MA^2M$. Then
+\[
+ Yv=\begin{pmatrix}54\\-31\\-5\end{pmatrix},\qquad
+ 625R=625A^2+Y^2.
+\]
+The Rayleigh quotient therefore gives
+\[
+ \lmin(R)\leq
+ \frac{v^{\mathsf T}Rv}{v^{\mathsf T}v}
+ =\frac{625\cdot5+54^2+31^2+5^2}{625\cdot2}
+ =\frac{7027}{1250}.
+\]
+The separation is strict because
+$142/25-7027/1250=73/1250>0$.
+Finally, cyclicity of the trace gives $\Tr X^2=\Tr Y^2$;
+in fact $\Tr(625L)=\Tr(625R)=1737137$.
+Thus \eqref{separation} proves the failure of the required majorization.
+\hfill$\square$
+
+\paragraph{Relation to the cited even-power result.}
+The earlier Corollary 2.3 of Lin and Wolkowicz proves an inequality
+involving the words
+$(AB)^k(BA)^k$ and $(BA)^k(AB)^k$.
+For $k>1$ these are different from $|BA|^{2k}$ and $|AB|^{2k}$.
+Our counterexample concerns the latter expressions, precisely as in
+Conjecture 4.3. Ghabries's 2022 thesis \cite{G}, Remark 2.5, also records this
+additive majorization question after proving its determinantal consequence.
+
+\paragraph{Verification.}
+The accompanying script checks all displayed products, positivity
+certificates, trace identities and Rayleigh bounds over the rationals.
+All thirteen checks pass. The proof uses no numerical eigenvalues.
+
+\paragraph{Task 2. Determine the valid exponent range.}
+Identify all $p>0$ for which the majorization statement holds for every
+pair of positive semidefinite matrices.
+
+\paragraph{Task 3. Construct systematic counterexample families.}
+Find parameterized positive definite pairs for which the least-eigenvalue
+inequality reverses, with explicit rational separation bounds.
+
+\paragraph{Task 4. Identify structural sufficient conditions.}
+Determine conditions beyond commutativity on $A$ and $B$ that guarantee
+the majorization for every positive exponent.
+
+\paragraph{Task 5. Determine surviving spectral inequalities.}
+Characterize which convex spectral functionals retain the asserted
+comparison even when full additive majorization fails.
+
+\begin{thebibliography}{9}
+\bibitem{Lin}
+M. Lin, \emph{On a determinantal inequality arising from diffusion tensor
+imaging}, Communications in Contemporary Mathematics \textbf{19} (2017),
+1650044. Conjecture 4.3 in
+\href{https://arxiv.org/abs/1604.04141}{arXiv:1604.04141}.
+\bibitem{LW}
+M. Lin and H. Wolkowicz, \emph{An eigenvalue majorization inequality for
+positive semidefinite block matrices}, Linear and Multilinear Algebra
+\textbf{60} (2012), 1365--1368. Corollary 2.3 in the
+\href{https://www.math.uwaterloo.ca/~hwolkowi/henry/reports/finalLAMAdec18.pdf}{author's final manuscript}.
+\bibitem{G}
+M. M. Ghabries, \emph{Contributions to Matrix Inequalities and Some
+Applications}, doctoral thesis, Universit\'e d'Angers, 2022,
+Remark 2.5, p.~50,
+\href{https://www.researchgate.net/publication/361793582_Contributions_to_Matrix_Inequalities_and_Some_Applications}{author-uploaded full text}.
+\end{thebibliography}
+\end{document}

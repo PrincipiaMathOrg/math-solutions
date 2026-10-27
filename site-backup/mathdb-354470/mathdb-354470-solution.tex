@@ -1,0 +1,138 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,hyperref}
+\newtheorem{proposition}{Proposition}
+\newcommand{\R}{\mathbb R}
+\newcommand{\Al}{A_{\bullet}}
+\newcommand{\Au}{A^{\bullet}}
+\title{Transition convex hulls can differ for planar similarities}
+\author{Principia Math in Progress}
+\date{12 September 2026}
+\begin{document}
+\maketitle
+\paragraph{Task 1. Resolve MathDB 354470.}
+Conjecture 6.2 of Le\'sniak, Snigireva, Strobin and Vince
+\cite{source}, p.~5425, proposes equality of the metric convex hulls
+of the lower and upper transition attractors when each map takes
+metrically convex sets onto metrically convex sets. We give a
+counterexample on the Euclidean plane satisfying (H1)--(H3).
+
+\begin{proposition}
+Let $e=(1,0)$ and $J(x,y)=(-y,x)$. For $0\leq t\leq1$ set
+\[
+ r=r_t=\frac{1+t}{2},\qquad \varepsilon=1-r,
+\]
+and define the two-map IFS $F_t=\{f_t,g_t\}$ by
+\begin{align*}
+ f_t(x)&=rJ(x-\varepsilon e)+\varepsilon e,\\
+ g_t(x)&=rJ^{-1}(x+\varepsilon e)-\varepsilon e.
+\end{align*}
+Its lower transition attractor is $\Al=\{0\}$. It has at least one
+upper transition attractor, and every upper transition attractor
+contains $(1,-1)$. Hence their metric convex hulls differ.
+\end{proposition}
+
+\begin{proof}
+The maps are distinct invertible similarities for every parameter,
+including both endpoints. Their coefficients depend continuously on
+$t$, proving (H1), and their Lipschitz constants are $r<1$ for $t<1$,
+proving (H2). Their respective unique fixed points are
+$\varepsilon e$ and $-\varepsilon e$, both tending to zero, proving
+(H3). Thus the limiting fixed-point set is $Q=\{0\}$.
+
+In the Euclidean metric, metric segments are ordinary line segments.
+Every invertible affine map $u$ satisfies
+$u([x,y])=[u(x),u(y)]$, so both maps send every metrically convex set
+onto a metrically convex set, as required in the conjecture.
+
+At $t=1$, we have $F_1=\{J,J^{-1}\}$. The singleton $\{0\}$ is
+invariant and contains $Q$, and every set containing $Q$ contains it.
+The lower-transition definition therefore gives $\Al=\{0\}$.
+
+We next verify that upper transition attractors exist. Since
+$J^{-1}=-J$, the translations in the two affine maps are
+\[
+ b_+=\varepsilon(e-rJe),\qquad
+ b_-=-\varepsilon(e+rJe).
+\]
+Their norms are $\varepsilon\sqrt{1+r^2}\leq2\varepsilon$.
+Consequently the closed Euclidean ball $B=\{x:\|x\|\leq2\}$ is
+invariant under both maps, because
+\[
+ \|f_t(x)\|,\ \|g_t(x)\|
+ \leq2r+2(1-r)=2\qquad(x\in B).
+\]
+For $t<1$ the contraction theorem gives a nonempty compact attractor
+$A_t\subset B$. The space of nonempty compact subsets of the compact
+set $B$ is compact in the Hausdorff metric. Starting, for example,
+with $t_n=1-1/n$, $n\geq1$, we may pass to a subsequence along which
+$A_{t_n}$ converges. This gives an upper transition attractor as in
+Definition 4.3 of the source.
+
+To distinguish every such limit from the lower transition set,
+consider the composition $P_t=f_t\circ g_t$. Direct calculation gives
+\begin{equation}\label{composition}
+ P_t(x)=r^2x+\varepsilon\bigl((1+r^2)e-2rJe\bigr).
+\end{equation}
+Its unique fixed point, for $t<1$, is
+\begin{equation}\label{fixed}
+ p_t=\frac{(1+r^2)e-2rJe}{1+r},
+ \qquad \lim_{t\uparrow1}p_t=e-Je=(1,-1).
+\end{equation}
+For any $a\in A_t$, invariance gives $P_t^n(a)\in A_t$ for every
+$n$. Since $P_t$ is a contraction, these points converge to $p_t$;
+closedness gives $p_t\in A_t$.
+
+Now let $\Au=\lim_n A_{t_n}$ be any upper transition attractor.
+Hausdorff convergence and~\eqref{fixed} imply
+\[
+ \operatorname{dist}((1,-1),\Au)
+ \leq\|(1,-1)-p_{t_n}\|+h(A_{t_n},\Au)\longrightarrow0.
+\]
+As $\Au$ is closed, $(1,-1)\in\Au$. In the source's notation,
+$\operatorname{conv}_d S=\bigcup_{x,y\in S}[x,y]$. In particular
+it contains $S$, because $[x,x]=\{x\}$. Hence
+\[
+ \operatorname{conv}_d\Al=\{0\},\qquad
+ (1,-1)\in\operatorname{conv}_d\Au,
+\]
+which disproves the conjectured equality.
+\end{proof}
+
+The same formulas extend to all $t\geq0$. For $t>1$, $f_t$ expands
+distances from its fixed point $\varepsilon e$ by the factor $r>1$,
+so a generic orbit is unbounded. Thus $F_t$ is not contractive in any
+equivalent complete metric, and cannot have an attractor with an open
+basin. At $t=1$, $J^4$ is the identity, also precluding contraction
+in any metric. The finite contractivity threshold required in
+Section 4 is exactly one.
+
+The centers vary with the parameter. Thus the construction meets the
+general conjecture while lying outside the older semilinear
+fixed-center hypothesis. It also works if one replaces the source's
+union-of-segments hull by the ordinary convex hull or its closure.
+
+\paragraph{Task 2. Determine the complete limiting set.}
+Establish whether this family's attractors have a unique Hausdorff
+limit, and calculate that limit explicitly.
+
+\paragraph{Task 3. Quantify the effect of moving fixed points.}
+For opposite rotations, characterize which rates and directions of
+center motion produce nonzero limiting fixed points of compositions.
+
+\paragraph{Task 4. Identify sufficient hypotheses for hull equality.}
+Determine which restrictions on moving centers extend the known
+fixed-center results to more general similarity families.
+
+\paragraph{Task 5. Compare metric convexity conventions.}
+Study equality of transition hulls defined by one union of segments,
+iterated segment closure and closed metric convexity in non-Euclidean
+spaces, under suitable additional hypotheses.
+
+\begin{thebibliography}{1}
+\bibitem{source} K. Le\'sniak, N. Snigireva, F. Strobin and A. Vince,
+\emph{Transition phenomena for the attractor of an iterated function
+system}, Nonlinearity \textbf{35} (2022), 5396--5426.
+\href{https://doi.org/10.1088/1361-6544/ac8af1}{doi:10.1088/1361-6544/ac8af1}.
+\end{thebibliography}
+\end{document}

@@ -1,0 +1,168 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,enumitem,hyperref}
+\hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue,citecolor=blue}
+\newtheorem{theorem}{Theorem}
+\newcommand{\HH}{\mathcal H}
+\title{Matching crossing polynomials fail third-order $q$-log-convexity\\\large MathDB 317480}
+\author{Principia Math In Progress}
+\date{September 21, 2026}
+\begin{document}
+\maketitle
+\begin{abstract}
+For $F_n(x)=M_{2n}(x)$, the generating polynomial for the
+maximum number of mutually crossing arcs in a perfect matching,
+the third centered log-convexity iterate at index $5$ has degree
+$34$ and leading coefficient $-14224$. This disproves Chen's
+Conjecture 1.8. The input polynomials are already tabulated in
+the source and are independently verified by exhaustive enumeration.
+\end{abstract}
+
+\section*{Task 1. Full disproof}
+A perfect matching on the ordered set $[2n]$ has crossing
+number $k$ if $k$ is the maximum number of mutually crossing
+arcs in its standard arc diagram. In particular, two arcs
+$(i,j)$ and $(a,b)$ with $i<j$ and $a<b$ cross precisely when
+$i<a<j<b$ or $a<i<b<j$. Let
+\[
+ F_n(x)=M_{2n}(x)=\sum_k M_{2n,k}x^k.
+\]
+We apply the source's centered operator across $n$:
+\[
+ (\HH A)_n=A_{n-1}A_{n+1}-A_n^2.
+\]
+Conjecture 1.8 of \cite{Chen} asserts that every iterate is
+coefficientwise nonnegative, and proposes a further
+log-concavity property for those nonnegative iterates.
+
+\begin{theorem}
+The matching polynomials satisfy
+\[
+ (\HH^3F)_5(x)=-14224x^{34}
+              +\text{a polynomial of degree at most }33.       \tag{1}
+\]
+They are therefore not infinitely $q$-log-convex.
+\end{theorem}
+
+\begin{proof}
+The initial polynomials printed on p.~6 of \cite{Chen} give
+\[
+ F_n(x)=x^n+a_nx^{n-1}+b_nx^{n-2}
+        +\text{lower-degree terms},
+\]
+with
+\[
+\begin{array}{c|rrrrrrr}
+n&2&3&4&5&6&7&8\\\hline
+a_n&2&9&20&35&54&77&104\\
+b_n&0&5&70&315&891&2002&3900
+\end{array}.                                                    \tag{2}
+\]
+The unique matching with all $n$ arcs mutually crossing has
+pairs $(1,n+1),\ldots,(n,2n)$, accounting for the leading $1$.
+The remaining entries in (2) are known source data; the complete
+independent enumeration certificate is described below.
+
+Put $B_n=(\HH F)_n$ and $C_n=(\HH^2F)_n$.
+The leading terms of degree $2n$ cancel in $B_n$. For
+$3\le n\le7$, table (2) gives
+\[
+ a_{n-1}+a_{n+1}-2a_n=4,
+\]
+so
+\[
+ B_n(x)=4x^{2n-1}+v_nx^{2n-2}+\text{lower-degree terms},
+\]
+where
+\[
+ v_n=b_{n-1}+b_{n+1}+a_{n-1}a_{n+1}-a_n^2-2b_n.
+\]
+Substitution yields
+\[
+\begin{array}{c|rrrrr}
+n&3&4&5&6&7\\\hline
+v_n&19&95&186&314&474
+\end{array}.                                                    \tag{3}
+\]
+In $C_n=B_{n-1}B_{n+1}-B_n^2$, the terms of degree $4n-2$
+cancel. The coefficient of the next power $x^{4n-3}$ is
+\[
+ c_n=4(v_{n-1}+v_{n+1}-2v_n).
+\]
+Hence
+\[
+ C_4=60x^{13}+\cdots,\qquad
+ C_5=148x^{17}+\cdots,\qquad
+ C_6=128x^{21}+\cdots.                                        \tag{4}
+\]
+It follows that $C_4C_6-C_5^2$ has degree $34$ and leading
+coefficient
+\[
+ 60\cdot128-148^2=7680-21904=-14224.
+\]
+This proves (1) and refutes infinite $q$-log-convexity.
+\end{proof}
+
+This is an interior counterexample: only $F_2,\ldots,F_8$,
+or $M_4,\ldots,M_{16}$, are involved. At an ordinary positive
+parameter it gives the stronger numerical witness
+\[
+ (\HH^3F)_5(10)=
+ -1584481155042307779051353803951488000000000<0.                \tag{5}
+\]
+
+\section*{Independent counting certificate}
+The verifier enumerates all $2173623$ matchings on the sets
+$[4],[6],\ldots,[16]$. At each recursive step it takes the
+smallest unmatched vertex $i$ and pairs it with every remaining
+vertex $j$. Induction on the number of unmatched vertices shows
+that every matching occurs once and only once.
+
+For each matching, it forms the graph whose vertices are its
+arcs and whose edges join pairs with alternating endpoints.
+Its maximum clique size is exactly the crossing number by
+definition. An exhaustive clique search therefore determines
+the entire coefficient row, not just the three coefficients
+used in (2). The row totals are $(2n-1)!!$, and every row agrees
+with the source. Independent hook-length sums over partitions
+with even row lengths give the same seven distributions.
+
+Two exact polynomial multiplication methods reproduce all
+three iterates, including the cancellations in (3)--(4).
+Direct integer evaluation checks (5). No floating point or
+asymptotic approximation enters the verification. Review is
+by the authoring agent only.
+
+The source's reported third-order positivity evidence is
+incompatible with (1), although its printed polynomials agree
+with the direct counts. The stronger regularity assertion on
+p.~7 explicitly starts with coefficientwise positivity, which
+already fails here. We do not claim that a quadratic
+log-concavity inequality must fail for the resulting signed
+coefficient list. Ordinary and second-order $q$-log-convexity,
+and log-concavity of each original coefficient row, remain
+separate questions.
+
+\section*{Tasks 2--5. Follow-up directions}
+\begin{enumerate}[start=2,leftmargin=*]
+\item Decide second-order $q$-log-convexity of the matching
+crossing polynomials.
+\item Determine all positive parameters $x$ for which
+$(M_{2n}(x))_{n\ge1}$ is infinitely log-convex.
+\item Determine whether each fixed iterate is eventually
+coefficientwise nonnegative as $n$ increases.
+\item Derive formulas for the coefficients nearest the highest
+power in $\HH^rF$, and classify the resulting sign changes.
+\end{enumerate}
+
+\begin{thebibliography}{9}
+\raggedright
+\bibitem{Chen} W. Y. C. Chen,
+\emph{Log-concavity and $q$-Log-convexity Conjectures on the
+Longest Increasing Subsequences of Permutations},
+\href{https://arxiv.org/abs/0806.3392v2}{arXiv:0806.3392v2},
+June 22, 2008. Conjecture 1.8 and pp.~5--7.
+\bibitem{DB} MathDB, \href{https://mathdb.com/p/317480}{Problem 317480},
+accessed September 21, 2026.
+\end{thebibliography}
+\end{document}

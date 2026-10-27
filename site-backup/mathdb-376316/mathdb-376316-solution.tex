@@ -1,0 +1,169 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,hyperref}
+\newtheorem{theorem}{Theorem}
+\newcommand{\tr}{\operatorname{tr}}
+\newcommand{\adj}{\operatorname{adj}}
+\newcommand{\G}{\mathcal G}
+\title{A quadratic counterexample to the product Hermitian Jacobi\linebreak eigenfunction conjecture\\\large MathDB 376316}
+\author{Principia Math In Progress}
+\date{17 September 2026}
+\begin{document}
+\maketitle
+
+\paragraph{Task 1: the original problem.}
+Conjecture 3.12 of \cite{K} asks whether every product polynomial defined
+by equation (21) is an eigenfunction of the Hermitian Jacobi operator
+on the matrix simplex (Definition 3.5). We give an interior counterexample
+for two $2\times2$ matrices. The result is independent of the nonzero
+normalization constants used for the Jacobi polynomials.
+
+\begin{theorem}\label{thm}
+Let $r,s>0$, $m=k=2$, and $\kappa=(r,s,s)$. The product polynomial with
+$\tau_1=(0,0)$ and $\tau_2=(1,0)$ is not an eigenfunction of $\G^2_\kappa$.
+In particular, Conjecture 3.12 is false for $\kappa=(1,1,1)$, which also
+belongs to the geometric parameter range $n_1=n_2=n_3=m=2$.
+\end{theorem}
+
+\section*{Identifying the prescribed polynomial}
+Write $A=\Lambda_1$, $B=\Lambda_2$, and $S=I_2-A$. The interior of the
+matrix simplex is given by $A>0$, $B>0$, and $I_2-A-B>0$.
+In equation (21) of \cite{K}, the chosen partitions give
+$a_1=2+2s$ and $a_2=s$. The first Jacobi factor has partition zero and
+is a nonzero constant. The second factor is, up to a nonzero constant,
+\[
+ P_{(1,0)}^{(s,s,2)}(Y)=\tr Y-1.
+\]
+Indeed, this is an invariant polynomial of degree one, orthogonal to
+constants for the positive beta weight
+$\det(Y)^{s-1}\det(I_2-Y)^{s-1}$ on $0<Y<I_2$. This weight is invariant
+under $Y\mapsto I_2-Y$, so its mean trace is $1$. This uniquely determines
+the affine polynomial up to a nonzero scalar. For $s=1$ the determinant
+in Definition 1.9 gives the same conclusion directly: the divided
+difference of $6u^2-6u+1$ at the two eigenvalues is
+$6(\tr Y-1)$.
+
+It follows that the specified product polynomial is a nonzero constant
+multiple of
+\begin{align}
+ F(A,B)&=\det(S)\bigl(\tr(S^{-1/2}BS^{-1/2})-1\bigr)\notag\\
+       &=\tr(\adj(S)B)-\det(S)\label{eq:F}\\
+       &=\tr A+\tr B-1-\det A-M(A,B),\notag\\
+ M(A,B)&=(\tr A)(\tr B)-\tr(AB).\notag
+\end{align}
+The last equality uses the elementary $2\times2$ identities
+$\adj(I_2-A)=(1-\tr A)I_2+A$ and
+$\det(I_2-A)=1-\tr A+\det A$. In particular, $F$ is a polynomial
+in all matrix entries, invariant under simultaneous unitary conjugation.
+
+\section*{Applying the full matrix operator}
+Set $N=r+2s+3$, $X_1=A$, and $X_2=B$. Definition 3.5 specializes to
+\begin{align}
+ \G f={}&\sum_{j=1}^2\sum_{a,b,c,d=1}^2
+ (I_2-X_j)_{ad}(X_j)_{cb}
+ \frac{\partial^2f}{\partial(X_j)_{ab}\partial(X_j)_{cd}}\notag\\
+ &-\frac12\sum_{j\ne\ell}\sum_{a,b,c,d=1}^2
+ \bigl((X_j)_{ad}(X_\ell)_{cb}+(X_j)_{cb}(X_\ell)_{ad}\bigr)
+ \frac{\partial^2f}{\partial(X_j)_{ab}\partial(X_\ell)_{cd}}\label{eq:G}\\
+ &+\sum_{j=1}^2\sum_{a,b=1}^2
+ \bigl((\kappa_j+1)\delta_{ab}-N(X_j)_{ab}\bigr)
+ \frac{\partial f}{\partial(X_j)_{ab}}.\notag
+\end{align}
+Derivatives here are taken before restricting to any special matrices.
+For example, when $A_{12}=u+iv$ and $A_{21}=u-iv$, they mean
+$\partial_{A_{12}}=(\partial_u-i\partial_v)/2$ and
+$\partial_{A_{21}}=(\partial_u+i\partial_v)/2$ on the Hermitian space.
+In particular, setting off-diagonal entries to zero before differentiation
+would give an incorrect operator calculation.
+
+Direct differentiation in \eqref{eq:G} gives
+\begin{align}
+ \G\tr A&=2(r+1)-N\tr A,&
+ \G\tr B&=2(s+1)-N\tr B,\label{eq:table}\\
+ \G\det A&=r\tr A-2(N-1)\det A,\notag\\
+ \G M&=(s+1)\tr A+(r+1)\tr B-2(N-1)M.\notag
+\end{align}
+Here the determinant identity follows by differentiating
+$A_{11}A_{22}-A_{12}A_{21}$. For the last line, the two intermediate
+identities are
+\begin{align*}
+ \G\bigl((\tr A)(\tr B)\bigr)
+ &=2(r+1)\tr B+2(s+1)\tr A
+   -2N(\tr A)(\tr B)-2\tr(AB),\\
+ \G\tr(AB)
+ &=(r+1)\tr B+(s+1)\tr A
+   -2N\tr(AB)-2(\tr A)(\tr B).
+\end{align*}
+Subtracting proves the formula for $M$. Substitution into \eqref{eq:F}
+now yields the polynomial identity
+\begin{equation}\label{eq:residual}
+ \boxed{\ \G F=-2(N-1)F+sL,\qquad
+ L(A,B)=\tr A+2\tr B-2.\ }
+\end{equation}
+
+\section*{An exact interior witness and the spectral correction}
+Take
+\[
+ A_0=\begin{pmatrix}1/3&0\\0&2/3\end{pmatrix},\qquad
+ B_0=\frac29 I_2,\qquad
+ I_2-A_0-B_0=\begin{pmatrix}4/9&0\\0&1/9\end{pmatrix}.
+\]
+All three matrices are positive definite. Also
+$\det(I_2-A_0)=2/9$ and
+$\tr(\adj(I_2-A_0)B_0)=2/9$, whence
+\[
+ F(A_0,B_0)=0,\qquad L(A_0,B_0)=-\frac19,\qquad
+ (\G F)(A_0,B_0)=-\frac{s}{9}\ne0.
+\]
+If $F$ were an eigenfunction, $\G F=\lambda F$ for some constant
+$\lambda$, the left side would vanish at every zero of $F$.
+This contradiction proves Theorem \ref{thm}, including the stated
+case $r=s=1$ with exact operator value $-1/9$.
+
+The obstruction can also be described explicitly. Equations
+\eqref{eq:table} imply $\G L=-NL$. Since $N>3$, the polynomial
+\[
+ Q=F-\frac{s}{N-2}L
+ \quad\hbox{satisfies}\quad \G Q=-2(N-1)Q.
+\]
+Thus the proposed product $F$ combines two nonzero eigenfunctions,
+$Q$ and $L$, with distinct eigenvalues $-2(N-1)$ and $-N$.
+An overall rescaling of the operator or of the Jacobi polynomials
+does not remove the counterexample. No boundary parameter, singular
+matrix, or omitted regularity assumption is involved.
+
+\paragraph{Verification scope.}
+The preceding identities are the proof. The accompanying exact checker
+independently differentiates the source operator in all eight formal
+matrix entries and then in eight real Hermitian coordinates. It also
+checks the rational witness, the affine Jacobi normalization, and the
+two-eigenfunction decomposition. No floating-point inference is used.
+The proof and source audit were performed by the authoring agent;
+independent peer review is not claimed.
+
+\section*{Four follow-up tasks}
+\paragraph{Task 2.}
+Classify which product indices of total polynomial degree at most four
+are genuine eigenfunctions for $m=k=2$, including exceptional parameter
+sets where distinct eigenvalues coincide.
+\paragraph{Task 3.}
+Develop a finite triangular procedure that decomposes each product
+polynomial into true Jacobi eigenfunctions, and determine whether its
+coefficients admit formulas in terms of partitions and the parameters.
+\paragraph{Task 4.}
+Resolve the separate strong-triangularity Conjecture 3.13, keeping track
+of multiplicity spaces of the multivariate Schur basis. The present
+counterexample does not decide that conjecture.
+\paragraph{Task 5.}
+For general matrix size $m$ and $k\ge2$, determine the first product
+indices that fail the eigenfunction property and construct explicit
+interior witnesses or prove any surviving families.
+
+\begin{thebibliography}{9}
+\bibitem{K} T. Kuijper, \emph{Jacobi polynomials on the simplex of Hermitian
+matrices and zonal spherical functions on partial flag manifolds},
+\href{https://arxiv.org/abs/2607.25760v1}{arXiv:2607.25760v1} (2026),
+Definition 1.9, equation (7), Definition 3.5, equation (21), and
+Conjecture 3.12 (pp.~10--11, 30, 34--35).
+\end{thebibliography}
+\end{document}

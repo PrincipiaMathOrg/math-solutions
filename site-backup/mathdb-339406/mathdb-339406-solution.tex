@@ -1,0 +1,189 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,hyperref}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\title{A sharp order bound for an integral of the modified Bessel function}
+\author{Principia Math In Progress}
+\date{11 September 2026}
+\begin{document}
+\maketitle
+\begin{abstract}
+We prove Gaunt's conjectured lower bound for an integral of the modified
+Bessel function of the second kind, including the boundary at which the
+optimal order is zero. The bound is sharp among all fixed real orders.
+The key observation is strict convexity of $s\mapsto K_{\sqrt{s}}(x)$.
+\end{abstract}
+
+\section*{Task 1: Resolve MathDB problem 339406}
+Conjecture 2.4, equation (2.17), page 7 of \cite{gaunt}, is the following
+theorem. We also prove its assertion about the best possible order.
+
+\begin{theorem}\label{thm:main}
+Let $n<1$ and $\nu\geq1-n+\sqrt{2(1-n)}$. Put
+\[
+ m=\nu+n,\qquad d=\sqrt{m^2-2\nu-1},\qquad
+ I(x)=\int_x^\infty t^{-\nu}K_m(t)\,dt.
+\]
+Then, for every $x>0$,
+\begin{equation}\label{eq:bound}
+ I(x)>x^{-\nu}K_d(x).
+\end{equation}
+For any real $\beta$, put $\rho=|m-\beta|$. If $\rho<d$, then
+$K_\rho(x)<K_d(x)$ for every $x>0$. If $\rho>d$, then
+$I(x)<x^{-\nu}K_\rho(x)$ for all sufficiently large $x$.
+Thus the optimal shifts are exactly $\beta=m-d$ and $\beta=m+d$,
+which give the same function and coincide when $d=0$.
+For $n=1$ the corresponding identity, valid for every real $\nu$, is
+\begin{equation}\label{eq:equality}
+ \int_x^\infty t^{-\nu}K_{\nu+1}(t)\,dt=x^{-\nu}K_\nu(x).
+\end{equation}
+\end{theorem}
+
+\subsection*{Convexity in the squared order}
+We use the standard real-order representation
+\begin{equation}\label{eq:representation}
+ K_a(x)=\int_0^\infty e^{-x\cosh u}\cosh(au)\,du,
+ \qquad a\in\mathbb R,\quad x>0.
+\end{equation}
+The recurrence and derivative identities used below are also recorded
+in Appendix B of \cite{gaunt}.
+
+\begin{lemma}\label{lem:convex}
+For fixed $x>0$, the function $F_x(s)=K_{\sqrt{s}}(x)$ is strictly
+increasing and strictly convex on $[0,\infty)$. Moreover,
+\begin{equation}\label{eq:tangent}
+ F_x'(1)=\frac{K_0(x)}{2x}.
+\end{equation}
+\end{lemma}
+\begin{proof}
+For $u>0$,
+\[
+ \cosh(u\sqrt{s})=\sum_{j=0}^\infty\frac{u^{2j}s^j}{(2j)!}
+\]
+is strictly increasing and strictly convex on $s\geq0$; its first and
+second derivatives are positive, including at zero. Integration against
+the positive weight in \eqref{eq:representation} preserves both strict
+inequalities. Differentiation is justified locally uniformly in $s$:
+on compact order intervals, every required order derivative is dominated
+by a constant times a polynomial in $u$ times
+$e^{-x\cosh u+A u}$ for some fixed $A$, an integrable function.
+Finally, integration by parts gives
+\[
+ 2F_x'(1)=\int_0^\infty u\sinh u\,e^{-x\cosh u}\,du
+ =\frac1x\int_0^\infty e^{-x\cosh u}\,du=\frac{K_0(x)}x.
+\]
+The boundary term $u e^{-x\cosh u}$ vanishes at both endpoints.
+\end{proof}
+
+\subsection*{The derivative comparison}
+The assumptions imply
+\begin{equation}\label{eq:domain}
+ d^2=(m-1)^2-2(1-n),\qquad 0\leq d<m-1<\nu.
+\end{equation}
+Indeed, $m-1\geq\sqrt{2(1-n)}>0$ and $n<1$.
+In particular,
+\[
+ m^2-(d+1)^2=2(\nu-d)>0.
+\]
+First suppose $d>0$. Apply strict convexity of $F_x$ to the three ordered
+points $a=(d-1)^2<b=(d+1)^2<c=m^2$. The strictly increasing secant slopes give
+\begin{align*}
+ K_m(x)
+ &>K_{d+1}(x)+\frac{\nu-d}{2d}
+             \bigl(K_{d+1}(x)-K_{d-1}(x)\bigr)\\
+ &=\frac{\nu+d}{2d}K_{d+1}(x)
+    -\frac{\nu-d}{2d}K_{d-1}(x)\\
+ &=K_{d-1}(x)+\frac{\nu+d}{x}K_d(x),
+\end{align*}
+where $K_{-a}=K_a$ and
+$K_{d+1}-K_{d-1}=2dK_d/x$ were used.
+If $d=0$, then $m^2=1+2\nu>1$. Strict convexity and
+\eqref{eq:tangent} instead give
+\[
+ K_m(x)>F_x(1)+2\nu F_x'(1)
+       =K_1(x)+\frac\nu x K_0(x).
+\]
+Consequently, in the full parameter range, including $d=0$,
+\begin{equation}\label{eq:comparison}
+ K_m(x)>K_{d-1}(x)+\frac{\nu+d}{x}K_d(x).
+\end{equation}
+This proves the derivative inequality proposed in equation (2.18) of
+\cite{gaunt}; at $d=0$ it gives its nonsingular form.
+
+\subsection*{Proof of the integral bound and sharpness}
+Let $D(x)=I(x)-x^{-\nu}K_d(x)$. The identity
+$K_d'=-K_{d-1}-dK_d/x$ and \eqref{eq:comparison} yield
+\[
+ D'(x)=x^{-\nu}\left(K_{d-1}(x)+\frac{\nu+d}{x}K_d(x)-K_m(x)\right)<0.
+\]
+Both terms defining $D$ tend to zero at infinity, by exponential decay
+of the Bessel functions. Thus
+\[
+ D(x)=\int_x^\infty t^{-\nu}
+ \left(K_m(t)-K_{d-1}(t)-\frac{\nu+d}{t}K_d(t)\right)dt>0,
+\]
+proving \eqref{eq:bound} with strictness.
+
+For completeness we supply the optimality calculation suggested in the
+source. For each fixed real $a$, the standard expansion is
+\[
+ K_a(x)=\sqrt{\frac\pi2}e^{-x}x^{-1/2}
+ \left(1+\frac{4a^2-1}{8x}+O(x^{-2})\right).
+\]
+Integration by parts for the first two terms, with the same order of
+remainder after integration, gives
+\begin{align*}
+ I(x)&=\sqrt{\frac\pi2}e^{-x}x^{-\nu-1/2}
+ \left(1+\frac{(4m^2-1)/8-\nu-1/2}{x}+O(x^{-2})\right)\\
+ &=\sqrt{\frac\pi2}e^{-x}x^{-\nu-1/2}
+ \left(1+\frac{4d^2-1}{8x}+O(x^{-2})\right).
+\end{align*}
+It follows that
+\begin{equation}\label{eq:sharp}
+ I(x)-x^{-\nu}K_\rho(x)
+ =\sqrt{\frac\pi2}e^{-x}x^{-\nu-1/2}
+   \left(\frac{d^2-\rho^2}{2x}+O(x^{-2})\right).
+\end{equation}
+If $\rho>d$, the expression is eventually negative. If $0\leq\rho<d$,
+Lemma \ref{lem:convex} gives $K_\rho<K_d$ pointwise. The only remaining
+orders are $\rho=d$, equivalent to the two stated shifts.
+
+Finally, for $n=1$, the identity
+$(x^{-\nu}K_\nu(x))'=-x^{-\nu}K_{\nu+1}(x)$ proves
+\eqref{eq:equality} after integration to infinity. It holds for all
+real $\nu$, without imposing the $n<1$ parameter condition.
+
+\section*{Task 2: Classify the parameter range for sharp order bounds}
+Determine all real pairs $(\nu,n)$ for which a fixed real order $r$
+gives $\int_x^\infty t^{-\nu}K_{\nu+n}(t)\,dt\geq x^{-\nu}K_r(x)$
+for every $x>0$. Identify when the large-$x$ obstruction
+$r^2\leq(\nu+n)^2-2\nu-1$ is sufficient outside the range proved here.
+
+\section*{Task 3: Quantify the positive remainder}
+Use the strictly positive convexity remainder in
+\eqref{eq:comparison} to obtain explicit two-sided bounds for $D(x)$.
+Seek estimates that remain useful as $d\downarrow0$ and $n\uparrow1$,
+and that recover the first nonzero large-$x$ term.
+
+\section*{Task 4: Extend the sharp bound to exponential weights}
+Determine optimal Bessel orders and prefactors in bounds for
+$\int_x^\infty e^{\gamma t}t^{-\nu}K_{\nu+n}(t)\,dt$ when $\gamma<1$.
+Establish which weighted analogues admit a convexity proof.
+
+\section*{Task 5: Develop a general squared-order comparison principle}
+Identify other special-function families admitting a positive
+$\cosh(\sqrt{s}\,u)$ representation and useful order recurrences.
+Derive sharp integral comparisons from their secant and tangent
+inequalities, including parameter values where the secant degenerates.
+
+\begin{thebibliography}{9}
+\bibitem{gaunt} R. E. Gaunt,
+\emph{Inequalities for some integrals involving modified Bessel functions},
+Proc. Amer. Math. Soc. \textbf{147} (2019), 2937--2951.
+\href{https://doi.org/10.1090/proc/14433}{doi:10.1090/proc/14433}.
+Author-linked manuscript:
+\href{https://arxiv.org/abs/1806.00524}{arXiv:1806.00524v2} (9 October 2018),
+Conjecture 2.4 and Remark 2.5, page 7; standard identities in Appendix B.
+\end{thebibliography}
+\end{document}

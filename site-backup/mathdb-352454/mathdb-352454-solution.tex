@@ -1,0 +1,238 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,hyperref}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\title{The polar-pentagon perimeter centroid has degree at least four}
+\author{Principia Math In Progress}
+\date{21 September 2026}
+\begin{document}
+\maketitle
+\begin{abstract}
+We give an exact finite certificate excluding every cubic from the
+perimeter-centroid locus of the polar pentagons in the
+focus-circle Poncelet family. Algebraicity follows from the tangent
+recurrence and the edge-length square roots. Together with the
+previous general polar-centroid theorem, this resolves the intended
+pentagon conjecture of Bellio, Garcia and Reznik.
+\end{abstract}
+
+\section*{Task 1: the original problem and its intended scope}
+Consider the convex Poncelet pentagons inscribed in a parabola of
+focal distance $f>0$ and circumscribed about a circle centered at its
+focus. Their polar polygons have as sides the tangents to the
+parabola at the five original vertices. The perimeter centroid is
+the centroid of their five segments with positive Euclidean
+length as mass, including overlapping segments with multiplicity.
+
+Conjecture 3 of \cite{BGR} asserts straight vertex- and area-centroid
+loci and perimeter-centroid degree at least four. Its word
+\emph{perpendicular} before \emph{directrix} is a direction error:
+the intended direction is parallel, as stated in its general
+Conjecture 5. We prove the substantive degree assertion, rather
+than count that wording error as a counterexample.
+
+\begin{theorem}
+The perimeter-centroid locus is an algebraic locus of degree at
+least four: it is contained in an algebraic plane curve, but no
+nonzero polynomial of total degree at most three vanishes on it.
+The vertex- and area-centroid loci are complete lines parallel
+to the directrix.
+\end{theorem}
+Here degree means the degree of the algebraic closure of the
+physical locus. The positive length convention selects real
+branches; as in the source's quadrilateral example, an implicit
+equation can have additional real points. We claim the lower bound,
+not an exact degree or an equation with no extraneous branches.
+
+The line assertions are the $N=5$ case of the previously established
+general theorem \cite{polar}; they receive no additional credit.
+In coordinates $y^2+4fx=0$, they are $x=h_0$ and
+$x=(8f^2-r^2)/(12f)$, respectively. The new proof below establishes
+the independent perimeter-degree assertion.
+
+\section*{Algebraic coordinates and the six samples}
+A similarity permits $f=1$. By \cite[Proposition 25]{BGR}, the
+required radius is the unique positive root $r$ of
+\begin{equation}\label{radius}
+ r^6+12r^5-28r^4+32r^3+112r^2-64r-64=0,
+ \qquad \frac{995}{1000}<r<\frac{996}{1000}.
+\end{equation}
+It is approximately $0.995219078669842$. Write
+$P(t)=(-t^2/4,t)$. The chord through $P(t),P(s)$ is tangent to the
+focus circle if and only if
+\begin{equation}\label{tangent}
+ (ts+4)^2=r^2\bigl(16+(t+s)^2\bigr).
+\end{equation}
+Indeed, the chord is $4x+(t+s)y-ts=0$ and the focus is $(-1,0)$.
+
+For a starting value $a$, put $t_0=a$ and define
+\begin{align}
+ A&=a^2-r^2,& B&=(8-2r^2)a,& C&=16-16r^2-r^2a^2,\nonumber\\
+ t_1&=\frac{-B+\sqrt{B^2-4AC}}{2A},\label{start}\\
+ t_{j+1}&=-\frac{(8-2r^2)t_j}{t_j^2-r^2}-t_{j-1},
+       &&j=1,2,3.\label{step}
+\end{align}
+The positive square root in \eqref{start} chooses one traversal
+direction. Equation \eqref{step} is Vieta's formula for the other
+root of \eqref{tangent}. The cited closure theorem makes the
+resulting five vertices a closed Poncelet pentagon.
+
+The intersection of the tangents at parameters $t_i,t_{i+1}$ is
+\begin{equation}\label{polar}
+ Q_i=\left(-\frac{t_it_{i+1}}4,\frac{t_i+t_{i+1}}2\right),
+ \qquad i\pmod5 .
+\end{equation}
+Consequently, with positive square roots throughout,
+\begin{equation}\label{center}
+ \ell_i=\sqrt{(Q_{i+1,x}-Q_{i,x})^2+
+                    (Q_{i+1,y}-Q_{i,y})^2},\qquad
+ (X,Y)=\frac{\sum_{i=0}^4\ell_i(Q_i+Q_{i+1})}
+                    {2\sum_{i=0}^4\ell_i}.
+\end{equation}
+These formulas show algebraicity. The two possible values of
+$t_1$ form a finite algebraic extension of $\mathbb R(a)$;
+the other parameters and polar vertices are rational in it.
+Adjoining the five square roots in \eqref{center} is again a
+finite algebraic extension. Its transcendence degree is one, so
+$X,Y$ satisfy a nonzero polynomial relation. There are only finitely
+many branches, so multiplying their relations gives one relation
+for the entire locus. Exceptional parameter values are covered by
+continuity whenever the polygon and its centroid are finite.
+
+Use the following six \emph{exact rational} starting values:
+\begin{equation}\label{samples}
+ a_1=\frac3{25},\quad a_2=\frac{27}{100},\quad
+ a_3=\frac{43}{100},\quad a_4=\frac{17}{25},\quad
+ a_5=\frac{131}{100},\quad a_6=\frac{12}{5}.
+\end{equation}
+Let $(X_i,Y_i)$ be defined exactly by
+\eqref{radius}--\eqref{center}. For orientation only, their
+approximate coordinates are
+\[
+\begin{array}{c|r|r}
+i&X_i&Y_i\\ \hline
+1&0.531703184427& 9.271732856495\\
+2&0.501537653846&-1.067231332343\\
+3&0.496287921973& 0.232794002460\\
+4&0.509767562441& 2.074695123461\\
+5&0.517049614999&-3.248106062772\\
+6&0.496610704943&-0.328686222928
+\end{array}
+\]
+The rounded entries in this table are not used in the certificate.
+
+\section*{An exact determinant certificate}
+Form the matrix with rows
+\[
+ M_i=(1,\ X_i,\ X_i^2,\ X_i^3,\ Y_i^2,\ X_iY_i^2).
+\]
+\begin{lemma}\label{certificate}
+All six sample polygons are finite, strictly convex members of the
+required family; all $Y_i$ are nonzero; and
+\begin{equation}\label{detbound}
+ -\frac{1769}{10^{18}}<\det M<-\frac{1768}{10^{18}}.
+\end{equation}
+\end{lemma}
+\begin{proof}
+The accompanying \texttt{verify.py} is an exact certificate evaluator
+using only integers and rational numbers from the Python standard
+library. The algorithm and its bounds are specified here so that
+the computation does not depend on floating-point behavior.
+
+Set $S=2^{512}$ and represent $[L/S,U/S]$ by the integers $(L,U)$.
+For addition and negation use the exact endpoint formulas.
+For multiplication or division, take the minimum and maximum
+of all four endpoint products or quotients and round outwards
+to multiples of $1/S$. Every division asserts that its denominator
+interval excludes zero. For a nonnegative interval, the square-root
+endpoints in integer units are
+\[
+ \left\lfloor\sqrt{LS}\right\rfloor,\qquad
+ \left\lceil\sqrt{US}\right\rceil .
+\]
+Integer square root and an exact square comparison implement them.
+Squaring uses zero as the lower endpoint when the input crosses zero.
+These rules preserve enclosure at every operation.
+
+The polynomial in \eqref{radius} has opposite signs at $995/1000$
+and $996/1000$. Evaluating its derivative by interval arithmetic on
+this whole interval gives a strictly positive lower bound, so
+the root there is unique. Exact rational bisection refines the
+root bracket to width below $2^{-520}$; its outward dyadic
+enclosure is used in every sample.
+
+Evaluate \eqref{start}--\eqref{center}, asserting nonzero
+denominators, positive radicands, distinct vertex parameters and
+$Y_i\ne0$. Exact signs of edge cross products show that every
+other original vertex and the focus lie strictly on the same
+side of each directed edge. Thus the original pentagons are
+strictly convex with the circle on their interior side.
+Closure uses Proposition 25, not a small numerical residual.
+All polar segment lengths are certified positive.
+
+Finally, evaluate the determinant as the signed sum of all $6!=720$
+permutation products with these same interval rules. The resulting
+enclosure, rounded outwards here to 35 decimal places, is
+\[
+ \bigl[-0.00000000000000176874062193541107867,\,
+       -0.00000000000000176874062193541107866\bigr].
+\]
+It lies strictly within \eqref{detbound}. The full enclosure,
+sample bounds and all assertions are recorded in
+\texttt{verification-results.json}. This proves the lemma by a
+finite exact calculation.
+\end{proof}
+
+\section*{Why the certificate excludes every cubic}
+Reflection in the parabola's axis preserves the Poncelet family,
+polarity, and positive Euclidean edge lengths. Hence the locus
+contains both $(X_i,Y_i)$ and $(X_i,-Y_i)$.
+
+Suppose a polynomial $H(X,Y)$ of total degree at most three
+vanishes on the entire locus. Its even part in $Y$ has the form
+\[
+ H_{\rm even}=c_0+c_1X+c_2X^2+c_3X^3+c_4Y^2+c_5XY^2 .
+\]
+Adding its values at the reflected samples gives $Mc=0$.
+Lemma \ref{certificate} makes $M$ invertible, so all six
+coefficients vanish. The remaining odd part is
+\[
+ H_{\rm odd}=Y(d_0+d_1X+d_2X^2+d_3Y^2).
+\]
+Since each $Y_i\ne0$, the six sample equations say that a linear
+combination of columns $1,2,3,5$ of $M$ is zero. Those columns
+are independent, again because $M$ is invertible. Thus all four
+$d_j$ vanish, and $H=0$.
+
+The algebraic locus therefore has degree at least four.
+This also proves it is nonconstant. Restoring $f$ applies an
+invertible similarity, which preserves degree and completes the
+perimeter assertion for every scale.
+
+\section*{Four proposed follow-up tasks}
+\begin{enumerate}
+ \item \textbf{Task 2.} Determine the exact degree and a minimal
+ implicit equation of this perimeter-centroid locus.
+ \item \textbf{Task 3.} Determine its real branches and which
+ parts are attained by finite polar pentagons.
+ \item \textbf{Task 4.} Find exact bounds for its horizontal
+ coordinate and identify all extremizing configurations.
+ \item \textbf{Task 5.} Determine the degree of the polar
+ perimeter-centroid locus for each convex period $N\geq6$.
+\end{enumerate}
+
+\begin{thebibliography}{9}
+\bibitem{BGR} F. Bellio, R. Garcia, D. Reznik,
+\emph{Parabola-Inscribed Poncelet Polygons Derived from the Bicentric Family},
+KoG \textbf{26} (2022), 3--15,
+\href{https://doi.org/10.31896/k.26.1}{doi:10.31896/k.26.1};
+\href{https://arxiv.org/abs/2111.00979}{arXiv:2111.00979v3}.
+\bibitem{polar} Principia Math In Progress,
+\emph{Straight centroid loci for polar Poncelet polygons},
+MathDB 352456, 21 September 2026.
+Repository directory \texttt{problems/352456}, with the full proof
+in \texttt{solution.tex} and \texttt{solution.pdf},
+commit \texttt{ece807501ca0}.
+\end{thebibliography}
+\end{document}

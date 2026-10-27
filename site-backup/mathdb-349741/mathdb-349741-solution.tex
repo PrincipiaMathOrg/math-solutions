@@ -1,0 +1,162 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[hidelinks]{hyperref}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\title{Semicompleteness of hypercube division sequences\\
+\large A solution to MathDB 349741}
+\author{Principia Math In Progress}
+\date{18 September 2026}
+\begin{document}
+\maketitle
+\begin{abstract}
+For every positive dimension, the hypercube division sequence has a
+stronger property than semicompleteness: every integer between zero and
+the sum of any finite prefix is a sum of distinct terms of that prefix.
+The proof applies the classical complete-sequence criterion to an exact
+binomial identity. This proves Hoelscher's Conjecture 1.3 in the published
+paper (Conjecture 1.0.3 in its arXiv version).
+\end{abstract}
+
+\section*{Task 1: the original problem and its full solution}
+For integers $M,N\geq1$, let $C_M^N$ denote the maximum number of pieces
+obtained by cutting an $M$-dimensional hypercube with $N-1$ hyperplanes.
+For a fixed $M$, Hoelscher asks whether, for every $j>2$ and every positive
+integer
+\[
+ k<\left\lfloor \frac{1}{j}\sum_{i=1}^j C_M^i\right\rfloor,
+\]
+one can express $k$ as a sum of distinct fractions chosen from
+$C_M^1/j,\ldots,C_M^j/j$. The cases $M=1,2,3,4$ are already proved in
+\cite[Theorem 1.2 and Section 3]{H}. We prove the assertion for all $M$.
+The subset-sum criterion used below is classical, due to Brown
+\cite{B}, and is also used in \cite[Section 3]{H}. We include its elementary
+proof; neither that criterion nor the region-count formula is claimed
+as new.
+
+\begin{theorem}\label{thm:main}
+Fix $M\geq1$ and $j\geq1$, and put $S_{M,j}=\sum_{i=1}^j C_M^i$.
+For every integer $t$ with $0\leq t\leq S_{M,j}$ there is a subset
+$I\subseteq\{1,\ldots,j\}$ such that
+\[
+ t=\sum_{i\in I}C_M^i.
+\]
+Consequently $\{C_M^N\}_{N\geq1}$ is semicomplete for every $M\geq1$.
+\end{theorem}
+
+\begin{lemma}[Finite-prefix form of the complete-sequence criterion]
+Let $a_1,\ldots,a_j$ be positive integers, with $a_1=1$. Suppose
+\[
+ a_{n+1}\leq 1+\sum_{i=1}^n a_i\qquad(1\leq n<j).
+\]
+Then every integer from $0$ to $\sum_{i=1}^j a_i$ is the sum of a
+subset of the indexed terms.
+\end{lemma}
+\begin{proof}
+For one term the possible sums are $0,1$. Suppose the first $n$ terms
+give every integer in $[0,S]$, where $S=\sum_{i=1}^n a_i$.
+Subsets omitting or including $a_{n+1}$ give, respectively, all integers
+in $[0,S]$ and $[a_{n+1},a_{n+1}+S]$. The hypothesis says that these
+two integer intervals overlap or are adjacent. Their union is every
+integer in $[0,S+a_{n+1}]$, proving the induction.
+\end{proof}
+
+\begin{proof}[Proof of Theorem \ref{thm:main}]
+Use $\binom{n}{r}=0$ for $r>n$. The standard hyperplane-region formula is
+\begin{equation}\label{eq:regions}
+ C_M^N=\sum_{r=0}^M\binom{N-1}{r}.
+\end{equation}
+For completeness, the maximal number $R_M(n)$ of regions of $n$
+hyperplanes in $\mathbb R^M$ satisfies
+$R_M(n)=R_M(n-1)+R_{M-1}(n-1)$, with $R_M(0)=R_0(n)=1$:
+the new hyperplane adds as many regions as the induced arrangement
+on it. General position attains the upper bound. Pascal's identity
+then gives $R_M(n)=\sum_{r=0}^M\binom nr$.
+The same maximum is attained in a hypercube: choose an interior point
+of each of the finitely many full-space regions and scale and translate
+the entire arrangement so all these points lie inside the hypercube.
+Convexity ensures that intersecting a region with the cube never
+creates more than one piece. This proves \eqref{eq:regions}.
+
+The hockey-stick identity gives, for every $N\geq1$,
+\begin{equation}\label{eq:sum}
+ S_{M,N}=\sum_{r=0}^M\sum_{i=1}^N\binom{i-1}{r}
+        =\sum_{r=0}^M\binom N{r+1}.
+\end{equation}
+Subtracting \eqref{eq:regions}, with $N+1$ in place of $N$, yields
+the exact identity
+\begin{equation}\label{eq:gap}
+ \boxed{\quad 1+S_{M,N}-C_M^{N+1}=\binom N{M+1}\geq0.\quad}
+\end{equation}
+Also $C_M^1=1$, so the lemma proves the asserted finite-prefix
+representation. The terms are positive and strictly increasing, since
+\[
+ C_M^{N+1}-C_M^N=\sum_{r=0}^{M-1}\binom{N-1}{r}\geq1.
+\]
+Thus distinct indices give distinct numerators, as required in the source.
+
+Finally, if $j>2$ and $0<k<\lfloor S_{M,j}/j\rfloor$, then
+$0<kj<S_{M,j}$. Apply the proved representation to $t=kj$ and divide
+by $j$. This gives precisely the required sum of distinct fractions.
+In fact the representation holds for every integer
+$0\leq k\leq\lfloor S_{M,j}/j\rfloor$.
+\end{proof}
+
+\paragraph{Constructive interpretation.}
+Consider the terms in descending order, selecting a term exactly when
+it does not exceed the current remainder. Suppose the remainder $t$
+is at most $S_{M,n}$. At $a_n=C_M^n$, either subtract $a_n$ or leave
+$t$ unchanged. The new remainder is at most $S_{M,n-1}$, because
+\[
+ t\geq a_n\ \Longrightarrow\ t-a_n\leq S_{M,n-1},
+ \qquad
+ t<a_n\ \Longrightarrow\ t\leq a_n-1\leq S_{M,n-1}.
+\]
+The final remainder is zero. No optimality in the number of selected
+terms is asserted.
+
+\section*{Tasks 2--5: proposed follow-up directions}
+These are proposed questions, not additional solved claims.
+\begin{description}
+\item[Task 2.] For a fixed $M$, classify the indices $r$ for which deleting
+the term $C_M^r$ and reindexing the remaining sequence preserves
+semicompleteness.
+\item[Task 3.] Let $a_N=\sum_{r=0}^d b_r\binom{N-1}{r}$, where
+$b_r$ are nonnegative integers, $b_0\geq1$, and $b_1\geq1$.
+Characterize the coefficient vectors for which $(a_N)$ is semicomplete,
+and distinguish them from those for which every finite prefix has all
+subset sums between zero and its total.
+\item[Task 4.] For fixed $M$, obtain a uniform asymptotic formula in the
+central range for the number of subsets $I\subseteq\{1,\ldots,j\}$
+with $\sum_{i\in I}C_M^i=t$, as $j\to\infty$.
+\item[Task 5.] For fixed $M$, determine the largest possible ratio,
+over positive representable targets in a prefix, between the number
+of terms selected by the descending algorithm above and the minimum
+number of distinct terms needed for that target.
+\end{description}
+
+\paragraph{Verification and status.}
+The accompanying exact verifier checks the region recurrence against
+the closed form, enumerates finite subset sums, and reconstructs
+representations. These finite checks supplement the proof for all
+parameters. The published nine-page source and the current eight-page
+arXiv version were read in full; both retain the general conjecture.
+The dated literature audit reports bounded checks for earlier claims.
+All verification is by the authoring agent; no independent peer review
+is claimed.
+
+\begin{thebibliography}{9}
+\raggedright
+\bibitem{H} Z. Hoelscher,
+\emph{Semicomplete Arithmetic Sequences, Division of Hypercubes,
+and the Pell Constant},
+The PUMP Journal of Undergraduate Research \textbf{4} (2021), 108--116.
+\href{https://doi.org/10.46787/pump.v4i0.2524}{doi:10.46787/pump.v4i0.2524};
+\href{https://arxiv.org/abs/2102.07083}{arXiv:2102.07083v1}.
+\bibitem{B} J. L. Brown, Jr.,
+\emph{Note on Complete Sequences of Integers},
+American Mathematical Monthly \textbf{68} (1961), 557--560.
+\href{https://doi.org/10.2307/2311150}{doi:10.2307/2311150}.
+\end{thebibliography}
+\end{document}

@@ -1,0 +1,527 @@
+\documentclass[11pt]{article}
+\usepackage{amsmath,amssymb,amsthm,geometry,hyperref}
+\geometry{margin=1in}
+\allowdisplaybreaks
+\setlength{\emergencystretch}{2em}
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}{Proposition}
+\newtheorem{lemma}{Lemma}
+\title{Stolarsky monotonicity under logarithmic-mean smoothing\\
+\large A solution of MathDB 376979}
+\author{Research notes in Principia Math In Progress}
+\date{11 September 2026}
+\begin{document}
+\maketitle
+\begin{abstract}
+We prove both inequalities in Conjecture 16 of Horwitz's \emph{Invariant Means}
+for every positive triple, with strictness unless all entries coincide.
+A fractional-linear normalization turns the question into two constrained
+extremum problems. Boundary estimates and signed-integral identities reduce
+both problems to triples with two equal entries. That remaining case follows
+from an explicit positive-coefficient certificate. The live MathDB record
+was checked on 11 September 2026 and reported open, with no posted claims.
+\end{abstract}
+
+\section{Task 1: the problem and its solution}
+For $a,b>0$ put $L(a,b)=(b-a)/(\log b-\log a)$, with $L(a,a)=a$, and set
+\[
+ T(a,b,c)=(L(b,c),L(c,a),L(a,b)).
+\]
+Let $W=(W_1,W_2,W_3)$ be uniform on the two-simplex
+$\{w_i\geq0:\sum w_i=1\}$, and define
+\[
+ F_q(a,b,c)=\mathbb E(W_1a+W_2b+W_3c)^{-q},\qquad
+ M_q=F_q^{-1/q}\quad(q>0).
+\]
+The source's means are $U_0=M_2$ and $U_1=M_1$.
+\begin{theorem}\label{main}
+For every $a,b,c>0$,
+\[
+ M_2(T(a,b,c))\geq M_2(a,b,c),\qquad
+ M_1(T(a,b,c))\leq M_1(a,b,c).
+\]
+Equality in either inequality holds if and only if $a=b=c$.
+\end{theorem}
+The theorem answers both assertions in the source's Conjecture 16, including
+coincident coordinates. It also implies Conjecture 15's bounds for the
+invariant logarithmic mean. We count the present record as one problem;
+the latter consequence is not counted as a separate solve here.
+
+\section{Integral formulation}
+Writing $P(t)=(a+t)(b+t)(c+t)$, direct integration gives
+\[
+ F_2(a,b,c)=2\int_0^\infty\frac{dt}{P(t)},\qquad
+ F_1(a,b,c)=2\int_0^\infty\frac{t\,dt}{P(t)}.
+\]
+These formulas remain nonsingular when coordinates coincide and are useful
+for both analysis and reliable numerical evaluation.
+For distinct coordinates they agree with the divided-difference formulas
+\[
+ F_2=-2[\log](a,b,c),\qquad F_1=2[x\log x](a,b,c).
+\]
+For completeness, integrating twice over the simplex gives
+$\mathbb E(X+t)^{-3}=1/P(t)$, where $X=W_1a+W_2b+W_3c$.
+Now use
+$2\int_0^\infty(X+t)^{-3}\,dt=X^{-2}$ and
+$2\int_0^\infty t(X+t)^{-3}\,dt=X^{-1}$ and Tonelli's theorem.
+
+\section{A fractional-linear reduction of the general problem}
+\begin{proposition}
+Put $A=F_1(a,b,c)$, $B=F_2(a,b,c)$, $d=A/B$, and
+$P(t)=(a+t)(b+t)(c+t)$. Then
+\[
+ T_i(a,b,c)=\frac{2}{A+B a_i}=\frac{2/B}{a_i+d}.
+\]
+The full pair of conjectured inequalities is equivalent to
+\begin{align}
+ P(d)\int_d^\infty\frac{dt}{P(t)}&\geq d,\label{tail-one}\\
+ \left(\int_0^\infty\frac{dt}{P(t)}\right)P(d)
+ \int_d^\infty\frac{t-d}{P(t)}\,dt&\leq1,\label{tail-two}
+\end{align}
+where $d=\int_0^\infty t/P(t)\,dt\big/\int_0^\infty1/P(t)\,dt$.
+\end{proposition}
+\begin{proof}
+For $\{i,j,k\}=\{1,2,3\}$, the integral formulas yield
+\[
+ A+a_iB=2\int_0^\infty\frac{dt}{(t+a_j)(t+a_k)}
+ =\frac{2}{L(a_j,a_k)}.
+\]
+The last identity also holds when $a_j=a_k$, by direct integration.
+For a positive triple $r$, substitution $t=1/u$ shows
+\[
+ F_1(r^{-1})=(r_1r_2r_3)F_2(r),\qquad
+ F_2(r^{-1})=(r_1r_2r_3)F_1(r).
+\]
+Homogeneity therefore gives
+\[
+ F_1(T)=\frac B2 P(d)F_2(a+d,b+d,c+d),\qquad
+ F_2(T)=\frac{B^2}{4}P(d)F_1(a+d,b+d,c+d).
+\]
+Insert the integral formulas and $A=dB$ to obtain
+\eqref{tail-one} from $F_1(T)\geq F_1(a,b,c)$ and
+\eqref{tail-two} from $F_2(T)\leq F_2(a,b,c)$.
+\end{proof}
+The next sections prove the general inequalities through a different
+normalization. The displayed tail inequalities are consequently true as well.
+
+\section{Complete proof when two coordinates coincide}
+\begin{proposition}\label{repeated}
+If at least two of $a,b,c>0$ coincide, both conjectured inequalities hold.
+Both are strict unless $a=b=c$.
+\end{proposition}
+\begin{proof}
+By symmetry and homogeneity it suffices to consider $(1,1,x)$, $x>0$.
+Write $s=\log x$ and $\ell=(e^s-1)/s$, with $\ell=1$ at $s=0$.
+Then $T(1,1,x)$ is a permutation of $(1,\ell,\ell)$. Direct integration gives
+\begin{align*}
+ F_1(1,1,x)&=\frac{2(x\log x-x+1)}{(x-1)^2},&
+ F_2(1,1,x)&=\frac{2(x-1-\log x)}{(x-1)^2},\\
+ F_1(1,\ell,\ell)&=\frac{2(\ell-1-\log\ell)}{(\ell-1)^2},&
+ F_2(1,\ell,\ell)&=\frac{2(\log\ell-1+1/\ell)}{(\ell-1)^2}.
+\end{align*}
+The two desired positive differences are identical:
+\[
+ F_1(1,\ell,\ell)-F_1(1,1,x)
+ =F_2(1,1,x)-F_2(1,\ell,\ell)
+ =\frac{2H(s)}{(\ell-1)^2},
+\]
+where
+\[
+ H(s)=\frac{(\ell-1)^3}{s\ell^2}-\log\ell+1-\frac1\ell.
+\]
+The apparent singularity at zero is removable and $H(0)=0$.
+Differentiation gives
+\[
+ H'(s)=\frac{N(s,e^s)}{s^3(e^s-1)^3},
+\]
+with the following polynomial in $E$:
+\begin{align*}
+ N(s,E)={}&(s-2)E^4+(-s^3+s^2+8)E^3\\
+ &+(s^4-2s^3-3s^2-6s-12)E^2\\
+ &+(s^4+3s^3+3s^2+8s+8)E-s^2-3s-2.
+\end{align*}
+We now certify that every nonzero Taylor coefficient of each entire function
+$N(s,e^s)$ and $-e^{4s}N(-s,e^{-s})$ is positive. It follows that
+$N(s,e^s)>0$ for $s>0$, and $N(s,e^s)<0$ for $s<0$.
+The denominator of $H'$ is positive on both half-lines. Thus $H$ decreases
+to zero on the negative half-line and increases from zero on the positive
+half-line. In particular $H(s)>0$ for $s\ne0$.
+
+Here are complete algebraic certificates for the coefficient assertion.
+Let $A_n$ and $B_n$ be the $n$th derivatives at zero of the respective
+entire functions. They vanish for $0\leq n\leq8$, and direct integer
+calculation gives
+\[
+\begin{array}{c|r|r}
+n&A_n&B_n\\\hline
+9&2520&2520\\
+10&46200&54600\\
+11&489720&674520\\
+12&3945480&6255480\\
+13&26865696&48487296\\
+14&163315152&332155824\\
+15&915554640&2079277200
+\end{array}
+\]
+For $n\geq5$, writing $(n)_j=n(n-1)\cdots(n-j+1)$, expansion of the
+four exponential terms gives
+\begin{align*}
+ A_n={}&4^{n-1}(n-8)
+ +3^{n-3}\{-n(n-1)(n-5)+216\}\\
+ &+2^{n-4}P_2(n)+(n)_4+3(n)_3+3(n)_2+8n+8,\\
+ P_2(n)={}&n^4-10n^3+11n^2-50n-192.
+\end{align*}
+For $n\geq16$, $P_2(n)>0$, since
+\[
+P_2(m+16)=m^4+54m^3+1067m^2+9006m+26400.
+\]
+Also
+\[
+4^{n-1}(n-8)>3^{n-3}n(n-1)(n-5)
+\]
+at $n=16$, with difference $4380921872$.
+The ratio of the left side to the right side increases
+thereafter: the required numerator is
+\[
+ 4(n-7)(n-1)(n-5)-3(n-8)(n+1)(n-4),
+\]
+whose coefficients in $m=n-16$ are $(1,29,288,1044)$.
+This proves $A_n>0$ for every $n\geq16$.
+
+For the second function the formula is
+\[
+ B_n=4^{n-2}P(n)-3^{n-4}Q(n)-2^{n-4}R(n)-S(n),
+\]
+where
+\begin{align*}
+P(n)&=n^2-13n+32,\\
+Q(n)&=n^4-15n^3+65n^2-267n+648,\\
+R(n)&=n^4-2n^3-13n^2+62n-192,\\
+S(n)&=n^3-2n^2+n+8.
+\end{align*}
+All four polynomials have positive coefficients after $n=m+16$.
+At $n=16$, the positive term exceeds the sum of the three subtracted
+terms by $12156288144$. Each ratio of a subtracted term to the positive
+term strictly decreases for $n\geq16$. To verify this last assertion,
+the coefficient lists in $m=n-16$ of
+\[
+4P(n+1)Q(n)-3P(n)Q(n+1),\quad
+4P(n+1)R(n)-2P(n)R(n+1),
+\]
+and $4P(n+1)S(n)-P(n)S(n+1)$, respectively, are
+\begin{align*}
+ &(1,64,1677,22884,169766,637568,912000),\\
+ &(2,162,5410,95486,940476,4905664,10598400),\\
+ &(3,200,5273,68572,438232,1094400).
+\end{align*}
+They are all positive. Hence $B_n>0$ for every $n\geq16$ as well.
+This completes the coefficient certificate and the proof.
+\end{proof}
+The companion script \texttt{verify\_repeated\_case.py} regenerates the
+derivative identity, the finite table, and all infinite-tail polynomial
+certificates using exact rational arithmetic. This restricted theorem is the
+input needed in the global extremum argument below; it is not counted separately.
+
+\section{Normalization to a constraint in the unit cube}
+For a positive triple $v$, abbreviate
+\[
+ A(v)=F_1(v),\qquad C(v)=F_2(v),\qquad
+ P_v(t)=\prod_{i=1}^3(t+v_i).
+\]
+For $p\in(0,1)^3$, set $q=\boldsymbol1-p$ and
+\[
+ K=\prod_i p_i,\quad
+ g(p)=C(p)-C(q),\quad D(p)=A(p)+A(q)+C(p),\quad
+ J(p)=K C(p)D(p).
+\]
+Let $\mathcal S=\{p\in(0,1)^3:g(p)=0\}$.
+
+\begin{lemma}\label{cube}
+For $v_i=(1-p_i)/p_i$ one has
+\[
+ A(v)=K D(p),\qquad
+ C(v)=K\{A(p)+A(q)+C(q)\}.
+\]
+Consequently Theorem~\ref{main} is equivalent to
+\[
+ A(p)\geq2,\qquad J(p)\leq4\quad(p\in\mathcal S).
+\]
+Both inequalities are strict except at
+$p=(1/2,1/2,1/2)$.
+\end{lemma}
+\begin{proof}
+For distinct coordinates, write $[f]_p$ for the second divided difference
+of $f$ at the three coordinates of $p$. The change of nodes gives
+\[
+ [f]_v=K\,[x f((1-x)/x)]_p.
+\]
+Since $A=2[x\log x]$ and $C=-2[\log x]$, substituting these functions
+and expanding $\log((1-x)/x)$ gives the two asserted identities.
+They extend to all coordinates by continuity. In particular
+$A(v)-C(v)=K g(p)$.
+
+For an arbitrary original triple $a$, let $d=A(a)/C(a)>0$ and $v=a/d$.
+Homogeneity gives $A(v)=C(v)=B$, say. Thus
+$p_i=1/(1+v_i)$ belongs to $\mathcal S$ and $B=K D(p)$.
+The fractional-linear formula proved earlier now reads
+$T(v)=(2/B)p$. Hence
+\[
+ F_1(T(v))=\frac B2 A(p),\qquad
+ F_2(T(v))=\frac{B^2}{4}C(p).
+\]
+The two desired inequalities are exactly $A(p)\geq2$ and $J(p)\leq4$.
+Conversely every $p\in\mathcal S$ comes from the normalized triple
+$v_i=(1-p_i)/p_i$. Equal coordinates correspond under this map, and the
+only constant triple on $\mathcal S$ is $(1/2,1/2,1/2)$.
+\end{proof}
+
+\section{Boundary estimates}
+\begin{lemma}\label{boundary}
+Along every sequence in $\mathcal S$ approaching the boundary of the unit cube,
+\[
+ \liminf A(p)\geq2,\qquad \limsup J(p)\leq4.
+\]
+\end{lemma}
+\begin{proof}
+Write $a=\min_i p_i$ and $c=\max_i p_i$. If $a\to0$, then
+\[
+ C(p)\geq\frac12\int_0^1\frac{dt}{a+t}\longrightarrow\infty,
+\]
+because the other two factors of $P_p(t)$ are at most $2$ on $[0,1]$.
+Since $C(q)=C(p)$, this forces $\min_i q_i=1-c\to0$; otherwise $C(q)$
+would stay bounded. The converse follows by interchanging $p$ and $q$.
+After passing to a convergent subsequence, every approach to the boundary
+therefore has $a\to0$, $c\to1$, and $C(p)=C(q)\to\infty$.
+
+Coordinate monotonicity gives $A(p)\geq A(a,1,1)\to2$, proving the first
+bound. Also $A(p)/C(p)\to0$: for each fixed $\varepsilon>0$, eventually
+$c\geq1/2$ and
+\[
+ \frac{A(p)}{C(p)}\leq\varepsilon+
+ \frac{2}{C(p)}\int_\varepsilon^\infty\frac{dt}{t(t+1/2)}.
+\]
+The tail integral is finite. First take the limit and then let
+$\varepsilon\downarrow0$. The same argument gives $A(q)/C(q)\to0$.
+Thus $D(p)/C(p)\to1$.
+
+If $a\leq b\leq c$ are the coordinates of $p$, then
+\[
+ C(p)\leq\frac2c\int_0^\infty\frac{dt}{(t+a)(t+b)}
+ =\frac{2}{c L(a,b)}\leq\frac{2}{c\sqrt{ab}}.
+\]
+Here $L(a,b)\geq\sqrt{ab}$ follows immediately from
+$\sinh u/u\geq1$. Consequently
+\[
+ K C(p)^2\leq\frac4c,
+ \qquad J(p)=K C(p)^2\frac{D(p)}{C(p)}
+ \quad\Longrightarrow\quad\limsup J(p)\leq4.
+\]
+The subsequence argument proves the assertions for arbitrary boundary
+approaches, not just approaches to a specified face.
+\end{proof}
+
+\section{Eliminating extrema with three distinct coordinates}
+\begin{lemma}\label{lower-extrema}
+No constrained local minimum of $A$ on $\mathcal S$ has three distinct
+coordinates.
+\end{lemma}
+\begin{proof}
+Fix an interior point of $\mathcal S$, and write
+$P(u)=\prod_i(u+p_i)$ and $Q(u)=\prod_i(u+q_i)$.
+Differentiation under the integrals gives
+\begin{align*}
+ \partial_i A(p)&=-2\int_0^\infty\frac{t\,dt}{(t+p_i)P(t)},\\
+ \partial_i g(p)&=-2\int_0^\infty
+ \left\{\frac1{(t+p_i)P(t)}+\frac1{(t+q_i)Q(t)}\right\}dt<0.
+\end{align*}
+Thus $\nabla g\ne0$, and a constrained extremum satisfies
+$\partial_i A=\lambda\partial_i g$, with $\lambda>0$ since both
+derivatives are negative. Equivalently,
+\[
+ \int_0^\infty\frac{(t-\lambda)\,dt}{(t+p_i)P(t)}
+ -\lambda\int_0^\infty\frac{dt}{(t+q_i)Q(t)}=0.
+\]
+In the second integral put $u=-1-t$. Its denominator becomes
+$(u+p_i)P(u)$, since both factors change sign. With
+$R_i(u)=P(u)/(u+p_i)$, the three equations become
+\[
+ \int R_i(u)\,d\mu(u)=0,
+\]
+where the signed measure, supported on $(-\infty,-1)\cup(0,\infty)$, has
+density
+\[
+ \frac{d\mu}{du}=
+ \begin{cases}
+ -\lambda/P(u)^2,&u<-1,\\
+ (u-\lambda)/P(u)^2,&u>0.
+ \end{cases}
+\]
+If the $p_i$ are distinct, the three polynomials $R_i$ span all polynomials
+of degree at most two: evaluation at $u=-p_j$ proves their linear independence.
+In particular $\int(u-\lambda)\,d\mu(u)=0$. But its integrand is strictly
+positive on $u<-1$ and nonnegative on $u>0$, with positive integral.
+All these integrals converge absolutely. This contradiction proves the lemma.
+\end{proof}
+
+\begin{lemma}\label{upper-extrema}
+No constrained local maximum of $J$ on $\mathcal S$ has three distinct
+coordinates.
+\end{lemma}
+\begin{proof}
+Use $f=\log J$ and the same $P,Q$ as above. The Lagrange equations give
+$\nabla f=\lambda\nabla g$. We first show $\lambda=0$.
+The homogeneity and uniform-shift derivative identities are
+\[
+ \sum_i v_i\partial_i A(v)=-A(v),\quad
+ \sum_i v_i\partial_i C(v)=-2C(v),\quad
+ \sum_i\partial_i A(v)=-C(v),\quad
+ \sum_i\partial_i C(v)=-\frac2{\prod_i v_i}.
+\]
+The last two identities also follow directly by integration by parts.
+Applying them to $q=\boldsymbol1-p$ gives, on $g=0$,
+\[
+ p\cdot\nabla D=-D,\qquad
+ p\cdot\nabla f=3-2-1=0,\qquad
+ p\cdot\nabla g=-\frac2{Q(0)}<0.
+\]
+Taking the scalar product of the Lagrange equations with $p$ therefore gives
+$\lambda=0$, so all three partial derivatives of $f$ vanish.
+
+Writing $C=C(p)$ and $D=D(p)$, these equations are
+\[
+ \frac1{p_i}
+ -2\int_0^\infty
+ \frac{1/C+(t+1)/D}{(t+p_i)P(t)}\,dt
+ +\frac2D\int_0^\infty\frac{t}{(t+q_i)Q(t)}\,dt=0.
+\]
+The substitution $u=-1-t$ in the last integral now expresses them as
+$\int R_i(u)\,d\nu(u)=0$, where
+\[
+ d\nu(u)=\frac1{P(0)}\,d\delta_0(u)
+ +\begin{cases}
+ \displaystyle\frac{2(-1-u)}{D P(u)^2}\,du,&u<-1,\\[4pt]
+ \displaystyle-\frac{2\{1/C+(u+1)/D\}}{P(u)^2}\,du,&u>0,
+ \end{cases}
+\]
+and $\delta_0$ denotes the unit point mass at zero. Indeed,
+$R_i(0)/P(0)=1/p_i$. If the coordinates are distinct, the polynomials
+$R_i$ span all polynomials of degree at most two. Thus $\int u\,d\nu(u)=0$.
+In fact the integrand is strictly negative on both open intervals, while
+the point mass contributes zero. The integral is absolutely convergent
+and negative, a contradiction.
+\end{proof}
+
+\section{Completion of the global proof}
+\begin{proof}[Proof of Theorem~\ref{main}]
+Suppose $A(p)<2$ somewhere on $\mathcal S$. A minimizing sequence for $A$
+has a subsequence converging in the closed cube. Lemma~\ref{boundary}
+excludes convergence to the boundary when the infimum is less than $2$.
+The infimum is therefore attained at an interior point of $\mathcal S$.
+Lemma~\ref{lower-extrema} forces two coordinates to coincide, contradicting
+Proposition~\ref{repeated} and the equivalence in Lemma~\ref{cube}.
+Hence $A(p)\geq2$ on $\mathcal S$.
+
+If $J(p)>4$ somewhere on $\mathcal S$, Lemma~\ref{boundary} similarly
+forces its supremum to be attained in the interior. For clarity, it also
+ensures this supremum is finite: unbounded values on a compactness sequence
+could accumulate neither at the boundary nor at an interior point where
+$J$ is continuous. Lemma~\ref{upper-extrema} then forces two equal
+coordinates, again contradicting Proposition~\ref{repeated}.
+Thus $J(p)\leq4$ throughout $\mathcal S$.
+
+An interior equality point for either established bound is itself a
+constrained extremum. The same lemmas force two equal coordinates there,
+and the strictness in Proposition~\ref{repeated} forces all three to equal
+$1/2$. Lemma~\ref{cube} and homogeneity transfer these conclusions to every
+positive original triple, proving both inequalities and their equality cases.
+\end{proof}
+
+\paragraph{Consequence for the invariant mean.}
+The source proves convergence of the logarithmic-mean iteration to
+$(L_3,L_3,L_3)$. Along that iteration, the theorem makes $U_0$ increasing
+and $U_1$ decreasing. Continuity therefore gives
+$U_0(a,b,c)\leq L_3(a,b,c)\leq U_1(a,b,c)$.
+If the original triple is nonconstant, the first step is strict, so both
+bounds are strict as well.
+
+\section{Local behavior for three distinct coordinates}
+\begin{proposition}
+For fixed $q>0$, put $a_i=1+u_i$, where $\sum_i u_i=0$. As $u\to0$,
+\begin{align*}
+ M_q(T(a))-M_q(a)
+ ={}&\frac{3q-5}{96}\sum_i u_i^2
+ +\frac{19-4q-3q^2}{480}\sum_i u_i^3
+ +O(\lVert u\rVert^4).
+\end{align*}
+Consequently the two conjectured strict inequalities hold throughout
+some neighborhood of the diagonal, except on the diagonal itself.
+At $q=5/3$, the difference takes both signs arbitrarily close to the diagonal.
+\end{proposition}
+\begin{proof}
+Uniform simplex moments satisfy
+\[
+ \mathbb E W_1^iW_2^jW_3^k=\frac{2i!j!k!}{(i+j+k+2)!}.
+\]
+In particular, for $Z=\sum_iW_i u_i$ we have
+$\mathbb EZ=0$, $\mathbb EZ^2=\sum_i u_i^2/12$, and
+$\mathbb EZ^3=\sum_i u_i^3/30$. Taylor expansion therefore gives
+\[
+ M_q(a)=1-\frac{q+1}{24}\sum_i u_i^2
+ +\frac{(q+1)(q+2)}{180}\sum_i u_i^3+O(\lVert u\rVert^4).
+\]
+For the logarithmic means, direct expansion of their reciprocal integral is
+\[
+ L(1+v,1+w)=1+\frac{v+w}{2}-\frac{(v-w)^2}{12}
+ +\frac{(v+w)(v-w)^2}{24}+O((|v|+|w|)^4).
+\]
+Write $\mu$ for the arithmetic mean of $T(a)$ and $v_i=T_i(a)-\mu$.
+Using $\sum_i u_i=0$, the preceding expansion yields
+\begin{align*}
+ \mu&=1-\frac1{12}\sum_i u_i^2+\frac1{24}\sum_i u_i^3
+ +O(\lVert u\rVert^4),\\
+ \sum_i v_i^2&=\frac14\sum_i u_i^2-\frac14\sum_i u_i^3
+ +O(\lVert u\rVert^4),\\
+ \sum_i v_i^3&=-\frac18\sum_i u_i^3+O(\lVert u\rVert^4).
+\end{align*}
+Apply the expansion of $M_q$ at mean $\mu$, using homogeneity, and subtract
+the expansion at $a$. This proves the asserted coefficients. Analyticity
+on the positive octant makes the remainder uniform in direction near zero.
+The quadratic coefficients at $q=1,2$ are nonzero with the required signs.
+At $q=5/3$, the cubic term is $\sum_i u_i^3/120$; taking
+$u=(t,t,-2t)$ and letting $t$ approach zero from either side proves
+the final assertion.
+\end{proof}
+The exact symbolic coefficients are independently regenerated from the
+defining integrals by \texttt{verify\_local\_expansion.py}.
+
+\section{Follow-up tasks 2--5}
+\begin{enumerate}
+\renewcommand{\labelenumi}{\textbf{Task \arabic{enumi}.}}
+\setcounter{enumi}{1}
+\item Classify the exponents $q>0$ for which $M_q\circ T-M_q$ has a fixed
+global sign. The local expansion proves that a positive sign requires
+$q>5/3$ and a negative sign requires $q<5/3$; the critical exponent has
+both signs locally. Determine the full admissible parameter ranges.
+\item Determine the best constants in quantitative versions of the two
+inequalities under $\max(a,b,c)/\min(a,b,c)\leq R$, normalizing each gap
+by $\sum_i(a_i-\bar a)^2/\bar a$. Find their asymptotic behavior as
+$R\downarrow1$ and $R\to\infty$.
+\item Extend the theorem to $n$ variables. Define $M_q^{(n)}$ using the
+uniform $(n-1)$-simplex and put
+$(T_n(a))_i=M_1^{(n-1)}(a_1,\ldots,\widehat{a_i},\ldots,a_n)$.
+Determine which exponents give global monotonicity under $T_n$, and
+whether the extremum reduction still reduces to repeated coordinates.
+\item Derive effective, certified error bounds for iteration of $T$ toward
+the invariant logarithmic mean. Determine the sharp asymptotic contraction
+rate of the interval with endpoints $U_0(T^k(a,b,c))$ and
+$U_1(T^k(a,b,c))$, and give a stopping rule for any prescribed accuracy.
+\end{enumerate}
+
+\begin{thebibliography}{9}
+\bibitem{horwitz} A. Horwitz, \emph{Invariant Means}, arXiv:math/0007095v1
+(2000), Conjecture 16; journal version, J. Math. Anal. Appl. 270 (2002),
+499--518. \url{https://arxiv.org/abs/math/0007095}.
+\bibitem{mathdb} MathDB, problem 376979, live record retrieved 11 September
+2026. \url{https://mathdb.com/p/376979}.
+\end{thebibliography}
+\end{document}

@@ -1,0 +1,184 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,hyperref,enumitem}
+\hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue}
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}{Proposition}
+\newcommand{\Corr}{\operatorname{Corr}}
+\title{The Euler-transform candidate need not optimize\\the generating-function correlation}
+\author{Principia Math In Progress}
+\date{22 September 2026}
+\begin{document}
+\maketitle
+\noindent\textbf{MathDB 356222. Full disproof of Conjecture 5.93.}
+
+\section*{Task 1: the intended optimization problem}
+For an invertible lower-triangular kernel \(D\), Schmidt [1,
+Notation 5.85 and Question 5.86, pp.~79--80] considers
+\[
+ \Corr(C,D)=\sum_{n\geq1}\frac1n
+ \frac{\sum_{k=1}^n|c_k D^{-1}(n,k)|}
+ {\left(\sum_{k=1}^nc_k^2\right)^{1/2}
+  \left(\sum_{k=1}^nD^{-1}(n,k)^2\right)^{1/2}},
+ \qquad c_k=[q^k]C(q).                                  \tag{1}
+\]
+The stated optimization ranges over rational formal power series with
+\(C(0)\ne0\), or normalized integer series with \(C(0)=1\), and
+requires a finite score. Conjecture 5.93 [1, p.~87] proposes
+the Euler-transform expression
+\[
+ C_D(q)=\exp\left(-\sum_{n\geq1}
+                    \frac{q^n}{n}\sum_{k=1}^n kD(n,k)\right)       \tag{2}
+\]
+as an optimal selection. We disprove its actual optimality:
+an admissible kernel gives a well-defined candidate with score
+strictly between the scores of two admissible integer polynomials.
+Thus the counterexample is independent of the additional product
+formula printed alongside (2).
+
+\begin{theorem}
+Let \(D(n,k)=\delta_{nk}\), so \(D^{-1}=D\), and write
+\[
+ E(q)=\exp\left(-\frac{q}{1-q}\right),\qquad
+ P_N(q)=1+\sum_{k=1}^N2^{k-1}q^k .
+\]
+Every \(P_N\) has a finite score, and
+\[
+ \Corr(P_N,D)>\frac{\sqrt3}{2}H_N,\qquad
+ H_N=\sum_{n=1}^N\frac1n.                                \tag{3}
+\]
+Consequently, finite scores are unbounded even on normalized
+integer polynomials, so no finite global maximum exists.
+The proposed candidate (2) is \(E\), belongs to
+\(\mathbb Q[[q]]\), and satisfies
+\[
+ 1=\Corr(1+q,D)<\Corr(E,D)<2
+      <\frac{49\sqrt3}{40}<\Corr(P_6,D).                 \tag{4}
+\]
+In particular, \(E\) is neither a maximum nor a minimum.
+\end{theorem}
+
+\begin{proof}
+The identity kernel is lower triangular, invertible, integral, and
+has diagonal entries one. The inner sum in (2) is \(n\), giving
+\(C_D=E\). Its constant and linear coefficients are \(1,-1\);
+its coefficients are rational by the formal exponential expansion.
+For any real coefficients with \(c_1\ne0\), (1) becomes
+\[
+ F(C):=\Corr(C,D)
+   =\sum_{n\geq1}\frac{|c_n|}
+      {n\left(\sum_{k=1}^n c_k^2\right)^{1/2}}.           \tag{5}
+\]
+All denominators used below are positive, including those in the
+zero tail of a polynomial. The first summand is one.
+
+For \(P_N\), only the first \(N\) summands can be nonzero and
+\[
+ \sum_{k=1}^n c_k^2=\frac{4^n-1}{3},\qquad
+ \frac{c_n}{\left(\sum_{k=1}^nc_k^2\right)^{1/2}}
+ =\frac{\sqrt3}{2\sqrt{1-4^{-n}}}>\frac{\sqrt3}{2}
+ \quad(1\leq n\leq N).
+\]
+This proves (3). Since the harmonic sums are unbounded, it also
+proves the nonexistence of a finite maximum, with every individual
+competitor satisfying the source's finiteness requirement.
+
+It remains to prove the finite upper bound for \(E\), without
+assuming any asymptotic formula for its coefficients.
+For \(|z|<1\),
+\[
+ \Re\frac{z}{1-z}
+    =-\frac12+\frac{1-|z|^2}{2|1-z|^2}>-\frac12,
+ \qquad |E(z)|^2<e.                                    \tag{6}
+\]
+Write \(E(z)=\sum_{n\geq0}e_nz^n\). For \(0<t<1\), uniform
+convergence of the power series on \(|z|=t\), followed by
+orthogonality of exponentials, gives
+\[
+ \sum_{n\geq0}e_n^2t^{2n}
+ =\frac1{2\pi}\int_0^{2\pi}|E(te^{i\theta})|^2\,d\theta
+ \leq e.
+\]
+Letting \(t\uparrow1\), monotone convergence and \(e_0=1\) show
+\(\sum_{n\geq1}e_n^2\leq e-1<2\).
+Here \(e<3\) follows directly from its factorial series.
+Also
+\[
+ \sum_{n\geq1}\frac1{n^2}
+ <1+\sum_{n\geq2}\frac1{n(n-1)}=2.
+\]
+Since \(e_1=-1\), every coefficient norm in (5) is at least one.
+Cauchy--Schwarz therefore proves absolute convergence and
+\[
+ F(E)\leq\sum_{n\geq1}\frac{|e_n|}{n}
+ \leq\left(\sum_{n\geq1}e_n^2\right)^{1/2}
+     \left(\sum_{n\geq1}n^{-2}\right)^{1/2}<2.            \tag{7}
+\]
+The expansion \(E(q)=1-q-\tfrac12q^2+O(q^3)\) implies
+\(F(E)\geq1+1/(2\sqrt5)>1\).
+Finally, \(H_6=49/20\), and
+\((49\sqrt3)^2=7203>6400=80^2\). Equations (3) and (7)
+give all the strict inequalities in (4).
+\end{proof}
+
+\section*{A sharp finite-degree statement}
+\begin{proposition}
+For \(N\geq1\), the supremum of (5) over normalized integer
+polynomials of degree at most \(N\), with \(c_1\ne0\), is \(H_N\).
+For \(N\geq2\) the supremum is not attained. The minimum is one,
+attained precisely when all \(c_n=0\) for \(n\geq2\).
+\end{proposition}
+\begin{proof}
+Each summand in (5) is at most \(1/n\). For \(n=2\) it is strictly
+less than \(1/2\) because \(c_1\ne0\), even if \(c_2=0\).
+For integers \(R\geq2\), the normalized integer polynomial
+\(1+\sum_{k=1}^N R^{k-1}q^k\) has \(n\)-th coefficient ratio
+\[
+ \frac{R^{n-1}}{\sqrt{1+R^2+\cdots+R^{2n-2}}}
+   =\sqrt{\frac{1-R^{-2}}{1-R^{-2n}}}\longrightarrow1 .
+\]
+The finite sum tends to \(H_N\). The minimum characterization
+follows from the first summand being one and all others nonnegative.
+\end{proof}
+
+\section*{Scope and attribution}
+The source explicitly allows all invertible lower-triangular kernels
+and finite-score rational OGFs; the identity kernel and all
+competitors above satisfy those conditions.
+No divergent-score series is used as a competitor.
+The printed infinite-product expression has a separate formal
+convergence issue; neither that issue nor a change in normalization
+is the basis of this disproof. The power series (2) is actually
+outperformed by a normalized integer polynomial.
+The specialized Lambert-series optimization problem is not resolved
+by this identity-kernel example. The common obstruction to general
+maximizer existence also bears on neighboring proposals, but only
+the selected Conjecture 5.93 receives a campaign credit.
+
+\section*{Tasks 2--5: proposed mathematical follow-ups}
+\begin{enumerate}[label=\textbf{Task \arabic*:},start=2,leftmargin=*]
+\item Characterize invertible lower-triangular kernels \(D\) for which
+the finite values of (1) are uniformly bounded over normalized
+integer polynomials with nonzero linear coefficient.
+\item For the Lambert kernel \(D(n,k)=\mathbf1_{k\mid n}\), determine
+whether a finite maximum exists over a precisely specified class
+of rational OGFs, and whether \((q;q)_\infty\) attains it.
+\item With fixed degree \(N\), \(c_1=1\), and coefficient bounds
+\(|c_k|\leq B\), determine the exact maximizers of the identity-kernel
+score and their behavior as \(N\) or \(B\) grows.
+\item Replace \(1/n\) in (1) by a positive summable weight sequence,
+and find coefficient-growth constraints giving both existence
+of a maximizer and a useful Euler-transform characterization.
+\end{enumerate}
+
+\begin{thebibliography}{9}
+\bibitem{schmidt}
+M.~D. Schmidt, \emph{Factorization theorems and canonical representations
+for generating functions of special sums}, Georgia Institute of
+Technology doctoral dissertation, August 2022, Chapter~5,
+pp.~78--89; \href{https://arxiv.org/abs/2209.12287}{arXiv:2209.12287v1}.
+Official final dissertation:
+\href{https://repository.gatech.edu/items/f6054390-aaa2-465a-85c2-403619d773ab}
+{Georgia Tech repository}.
+\end{thebibliography}
+\end{document}

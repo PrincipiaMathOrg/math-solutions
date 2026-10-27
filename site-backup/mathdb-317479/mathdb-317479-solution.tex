@@ -1,0 +1,155 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,enumitem,hyperref}
+\hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue,citecolor=blue}
+\newtheorem{theorem}{Theorem}
+\newcommand{\HH}{\mathcal H}
+\title{A negative leading coefficient in the third LIS iterate\\\large MathDB 317479}
+\author{Principia Math In Progress}
+\date{September 18, 2026}
+\begin{document}
+\maketitle
+\begin{abstract}
+The longest-increasing-subsequence polynomials are not infinitely
+$q$-log-convex. Their third log-convexity iterate at index $5$
+has degree $34$ and leading coefficient $-32$. Only the top
+three coefficients of $P_2,\ldots,P_8$ are needed, giving a short
+exact disproof of Chen's Conjecture 1.4.
+\end{abstract}
+
+\section*{Task 1. Full disproof}
+Let $P_{n,k}$ count permutations of $\{1,\ldots,n\}$ whose
+longest increasing subsequence has length $k$, and put
+\[
+ P_n(x)=\sum_{k=1}^nP_{n,k}x^k.
+\]
+Following \cite[p.~5]{Chen}, use the centered operator
+\[
+ (\HH A)_n=A_{n-1}A_{n+1}-A_n^2.
+\]
+Infinite $q$-log-convexity means coefficientwise nonnegativity
+of every iterate. The letter $x$ plays the role of $q$.
+
+\begin{theorem}
+The third iterate satisfies
+\[
+ (\HH^3P)_5(x)=-32x^{34}+\text{a polynomial of degree at most }33.
+                                                               \tag{1}
+\]
+Consequently Chen's infinite $q$-log-convexity conjecture is false.
+\end{theorem}
+
+\begin{proof}
+Write the top three coefficients as
+\[
+ P_n(x)=x^n+a_nx^{n-1}+b_nx^{n-2}
+        +\text{lower-degree terms}.
+\]
+The needed values, also printed in \cite[pp.~2--3]{Chen}, are
+\[
+\begin{array}{c|rrrrrrr}
+n&2&3&4&5&6&7&8\\\hline
+a_n&1&4&9&16&25&36&49\\
+b_n&0&1&13&61&181&421&841
+\end{array}                                                    \tag{2}
+\]
+These counts can be obtained without enumerating all permutations.
+The Robinson--Schensted correspondence gives
+$P_{n,k}=\sum_{\lambda\vdash n,\,\lambda_1=k}(f^\lambda)^2$,
+where $f^\lambda$ counts standard Young tableaux of shape $\lambda$.
+For $k=n-1$ there is just the shape $(n-1,1)$, so
+$a_n=(n-1)^2$. For $n\ge4$ and $k=n-2$ the shapes are
+$(n-2,2)$ and $(n-2,1,1)$. The hook-length formula gives
+\[
+ b_n=\left(\frac{n(n-3)}2\right)^2
+       +\left(\frac{(n-1)(n-2)}2\right)^2.
+\]
+The two smaller values are $b_2=0$ and $b_3=1$. This proves (2).
+
+Put $B_n=(\HH P)_n$ and $C_n=(\HH^2P)_n$.
+The leading terms of degree $2n$ cancel in $B_n$. The next
+coefficient is
+$a_{n-1}+a_{n+1}-2a_n=2$. Thus, for $3\le n\le7$,
+\[
+ B_n(x)=2x^{2n-1}+v_nx^{2n-2}+\text{lower-degree terms},
+\]
+where multiplication gives
+\[
+ v_n=b_{n-1}+b_{n+1}+a_{n-1}a_{n+1}-a_n^2-2b_n.
+\]
+The complete required table is
+\[
+ \begin{array}{c|rrrrr}
+ n&3&4&5&6&7\\\hline
+ v_n&4&19&41&71&109
+ \end{array}.                                                 \tag{3}
+\]
+In $C_n=B_{n-1}B_{n+1}-B_n^2$, the terms of degree $4n-2$
+again cancel. The coefficient of degree $4n-3$ is
+\[
+ c_n=2(v_{n-1}+v_{n+1}-2v_n).
+\]
+Using (3),
+\[
+ C_4=14x^{13}+\cdots,\qquad
+ C_5=16x^{17}+\cdots,\qquad
+ C_6=16x^{21}+\cdots.                                        \tag{4}
+\]
+Therefore $C_4C_6-C_5^2$ has degree $34$ and leading
+coefficient $14\cdot16-16^2=-32$, proving (1).
+\end{proof}
+
+The witness uses only $P_2,\ldots,P_8$; it involves no boundary
+convention for $P_0$. It also gives a failure at an ordinary
+positive parameter. Direct evaluation of the same polynomials yields
+\[
+ (\HH^3P)_5(6)=-8449005348498088692649082880000<0.              \tag{5}
+\]
+The exact numeric iterate table is included in the verification output.
+
+\section*{Verification and scope}
+The verifier enumerates all $46232$ permutations of sizes $2$ through
+$8$ and checks each longest-increasing-subsequence length by two
+algorithms. It independently reconstructs all seven polynomials by
+the hook-length formula, checks the full polynomial iterates by two
+exact multiplication methods, and verifies (5). No floating point
+is used. Review is by the authoring agent only.
+
+The source's reported computational evidence for third-order
+$q$-log-convexity on p.~5 is incompatible with (1).
+The definition and printed input polynomials themselves agree with
+the independent enumeration. This is a counterexample to the intended
+conjecture, not a result based on a missing endpoint or a transcription
+error. It does not decide ordinary $q$-log-convexity, second-order
+$q$-log-convexity, or infinite log-concavity of the coefficient
+sequence of each individual $P_n$.
+
+\section*{Tasks 2--5. Follow-up directions}
+\begin{enumerate}[start=2,leftmargin=*]
+\item Decide whether $(P_n(x))_{n\ge1}$ is second-order
+$q$-log-convex.
+\item Determine the positive parameters $x$ for which the numerical
+sequence $(P_n(x))_{n\ge1}$ is infinitely log-convex.
+\item Locate all negative coefficients in higher iterates and
+determine whether each fixed iterate is eventually coefficientwise
+nonnegative as $n$ increases.
+\item Derive formulas for the leading nonzero coefficients of
+$\HH^rP$ for general $r$, using tableaux close to a single row.
+\end{enumerate}
+
+\begin{thebibliography}{9}
+\raggedright
+\bibitem{Chen} W. Y. C. Chen,
+\emph{Log-concavity and $q$-Log-convexity Conjectures on the
+Longest Increasing Subsequences of Permutations},
+\href{https://arxiv.org/abs/0806.3392v2}{arXiv:0806.3392v2},
+June 22, 2008. Conjecture 1.4, pp.~1--5.
+\bibitem{BLS} M. B\'ona, M.-L. Lackner and B. E. Sagan,
+\emph{Longest Increasing Subsequences and Log Concavity},
+Ann. Comb. 21 (2017), 535--549,
+\href{https://doi.org/10.1007/s00026-017-0365-x}{doi:10.1007/s00026-017-0365-x}.
+Sections 6.3--6.4 distinguish related conjectures.
+\bibitem{DB} MathDB, \href{https://mathdb.com/p/317479}{Problem 317479},
+accessed September 18, 2026.
+\end{thebibliography}
+\end{document}

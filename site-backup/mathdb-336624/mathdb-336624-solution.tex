@@ -1,0 +1,161 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,hyperref}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newcommand{\Q}{\mathbb Q}
+\newcommand{\Z}{\mathbb Z}
+\newcommand{\R}{\mathbb R}
+\title{A rational counterexample to the nonreducibility characterization}
+\author{Principia Math In Progress}
+\date{27 September 2026}
+\begin{document}
+\maketitle
+
+\paragraph{Task 1: the source question.}
+Conjecture 5.3 of Kiss and Somlai \cite{KS} concerns associative,
+idempotent, strictly coordinatewise monotone operations on a totally
+ordered Abelian group $(X,+)$. It proposes that a nonreducible operation
+must have odd arity and be conjugate, by a monotone bijection $X\to X$,
+to the alternating sum formed using the given group addition.
+Here reducibility means iteration of an associative binary operation on
+the same set; no monotonicity of that binary operation is assumed.
+The printed sum starts with a minus sign. We refute the substantive
+interpretation starting with a plus sign, as in the source's Example 4.10.
+Thus the counterexample does not depend on that typographical issue.
+
+\begin{theorem}
+There is an associative, idempotent operation $F:\Q^3\to\Q$, strictly
+increasing in its first and third variables and strictly decreasing in its
+second variable, which is nonreducible and for which no bijection
+$g:\Q\to\Q$ satisfies
+\begin{equation}\label{eq:claimed}
+ F(x,y,z)=g^{-1}\bigl(g(x)-g(y)+g(z)\bigr).
+\end{equation}
+In particular, the characterization in Conjecture 5.3 fails for the
+usual ordered Abelian group $(\Q,+)$, even after correction of the sign.
+\end{theorem}
+
+\begin{lemma}\label{lem:order}
+Let $H=\Z+\sqrt2\Z\subset\R$ with its usual order. There exists an
+increasing bijection $h:\Q\to H$ with $h(0)=0$ and $h(1)=1$.
+However, $1/2\notin H$.
+\end{lemma}
+\begin{proof}
+The set $H$ is a countable additive subgroup, unbounded in both
+directions. To see that it is dense, divide $[0,1)$ into $N$ equal
+half-open intervals and consider the $N+1$ fractional parts of
+$j\sqrt2$, $0\le j\le N$. Two lie in the same interval; their nonzero
+difference, with sign chosen positive, gives $d\in H$ with $0<d<1/N$.
+For any real $a<b$, choose such a $d<b-a$. Then
+$(\lfloor a/d\rfloor+1)d$ lies in $(a,b)\cap H$.
+
+For completeness, construct $h$ by back-and-forth. Enumerate both
+countable sets and start with $0\mapsto0$, $1\mapsto1$. At alternate
+steps, take the first rational not yet in the finite domain and map it
+to an unused element of $H$ between the images of its nearest domain
+neighbors; when a neighbor is missing use the corresponding unbounded
+interval. At the other steps, take the first element of $H$ not yet in
+the range and choose an unused rational in the corresponding interval.
+Density and absence of endpoints make each choice possible. The union
+is increasing, defined on every rational, and onto $H$.
+
+Finally, $a+b\sqrt2=1/2$ with $a,b\in\Z$ would force $b=0$ by
+irrationality of $\sqrt2$, and then $a=1/2$, a contradiction.
+\end{proof}
+
+\begin{proof}[Proof of the theorem]
+Fix $h$ from Lemma~\ref{lem:order} and define
+\begin{equation}\label{eq:construction}
+ F(x,y,z)=h^{-1}\bigl(h(x)-h(y)+h(z)\bigr).
+\end{equation}
+Closure of $H$ under addition and subtraction makes this a total
+operation on $\Q$. Its strict monotonicity in each coordinate and its
+idempotency follow immediately from the increasing bijection $h$.
+Writing $T(u,v,w)=u-v+w$ on $H$, all three ternary associativity
+expressions
+\[
+ T(T(u_1,u_2,u_3),u_4,u_5),\quad
+ T(u_1,T(u_2,u_3,u_4),u_5),\quad
+ T(u_1,u_2,T(u_3,u_4,u_5))
+\]
+equal $u_1-u_2+u_3-u_4+u_5$. Transport through $h$ proves
+associativity of $F$ in the source's precise sense.
+
+Suppose an associative binary operation on $\Q$ reduced $F$.
+Transporting it through $h$ would give an associative operation $*$ on
+$H$ such that
+\[
+ (u*v)*w=u*(v*w)=u-v+w.
+\]
+Let $e=0*0$. For every $z\in H$,
+\[
+ e*z=(0*0)*z=T(0,0,z)=z,\qquad
+ z*e=z*(0*0)=T(z,0,0)=z.
+\]
+Thus $e$ is a two-sided identity. Consequently
+$T(e,x,e)=(e*x)*e=x$ for all $x\in H$. But the definition of $T$
+gives $T(e,x,e)=2e-x$. Hence $2(x-e)=0$ for every $x\in H$,
+contradicting, for instance, $x=e+1$. This proves nonreducibility
+without any assumptions on a proposed binary reduction except
+associativity.
+
+On the other hand, equation $F(x,0,x)=1$ has no solution: by
+\eqref{eq:construction} and the normalization of $h$, it is equivalent
+to $2h(x)=1$, impossible by Lemma~\ref{lem:order}.
+If a bijection $g:\Q\to\Q$ satisfied \eqref{eq:claimed}, the rational
+\[
+ x=g^{-1}\!\left(\frac{g(0)+g(1)}2\right)
+\]
+would solve precisely that equation. This contradiction excludes every
+bijection $g$, and therefore every monotone one.
+\end{proof}
+
+\paragraph{Scope.}
+The group addition in the conjecture is fixed. Formula
+\eqref{eq:construction} transports addition from the different ordered
+group $H$, which has the same order type as $\Q$ but different
+divisibility properties. The theorem disproves the universally
+quantified characterization at $n=3$. It makes no claim about the
+restricted case $X=\R$, or about a formulation allowing a different
+target group for the conjugating map. The original printed minus-first
+sum cannot represent an idempotent operation on $\Q$ either: on the
+diagonal it would require $-g(x)=g(x)$ for every $x$.
+
+\paragraph{Proposed follow-up tasks (not claimed solved here).}
+\begin{enumerate}
+\setcounter{enumi}{1}
+\item Extend the counterexample to every odd arity $n\ge3$, proving
+all associativity identities and nonreducibility without invoking
+the source's reducibility theorems.
+\item Classify when the ternary operations $u-v+w$ on two dense
+additive subgroups of $\R$ are conjugate by an increasing bijection;
+determine whether a translation followed by positive scaling is
+necessary and sufficient.
+\item Resolve the corrected Conjecture 5.3 for $X=\R$ under strict
+coordinatewise monotonicity alone, including the proposed automatic
+continuity conclusion.
+\item Construct infinitely many pairwise nonconjugate associative,
+idempotent, strictly monotone ternary operations on $\Q$, distinguishing
+them by explicit equations expressing prime divisibility.
+\end{enumerate}
+
+\paragraph{Verification.}
+The companion exact verifier checks the universal linear identities,
+the binary-reduction obstruction, and the midpoint calculation.
+Existence of the infinite bijection and its order properties are proved
+above, not inferred from finite experiments. Review is by the authoring
+agent; this is not independent peer review or a proof-assistant certificate.
+
+\begin{thebibliography}{1}
+\bibitem{KS} G. Kiss and G. Somlai,
+\emph{Associative idempotent nondecreasing functions are reducible},
+Semigroup Forum \textbf{98} (2019), 140--153.
+\href{https://doi.org/10.1007/s00233-018-9973-y}{doi:10.1007/s00233-018-9973-y}.
+Conjecture 5.3 and Example 4.10; also
+\href{https://arxiv.org/abs/1707.04341v3}{arXiv:1707.04341v3}.
+The 16-page postprint deposited at
+\href{https://orbilu.uni.lu/handle/10993/34510}{ORBilu 10993/34510}
+retains the conjecture on page 15.
+\end{thebibliography}
+\end{document}

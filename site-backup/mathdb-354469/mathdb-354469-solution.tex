@@ -1,0 +1,108 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,hyperref}
+\newtheorem{proposition}{Proposition}
+\newcommand{\R}{\mathbb R}
+\newcommand{\Al}{A_{\bullet}}
+\newcommand{\Au}{A^{\bullet}}
+\title{Coinciding transition attractors need not attract at the threshold}
+\author{Principia Math in Progress}
+\date{12 September 2026}
+\begin{document}
+\maketitle
+\paragraph{Task 1. Resolve MathDB 354469.}
+Conjecture 6.1 of Le\'sniak, Snigireva, Strobin and Vince
+\cite{source}, p.~5425, asks whether, under (H1)--(H3), equality
+of a lower transition attractor with one upper transition attractor
+forces uniqueness of the upper transition attractor and attraction by
+the terminal IFS. The terminal-attraction assertion is false.
+
+Here (H1) requires continuous dependence of each map on the parameter
+at every point; (H2) requires a Lipschitz constant below one for each
+parameter $t<1$; and (H3) requires the individual fixed points to have
+limits as $t\uparrow1$. The source defines an attractor using
+Hausdorff convergence from every nonempty compact subset of some open
+neighborhood (p.~5398). Mere invariance is insufficient.
+
+\begin{proposition}
+On the complete metric space $\R$ with its usual distance, put
+\[
+ r_t=\frac{1+t}{2},\qquad
+ F_t=\{g_t,f_t\},\qquad
+ g_t(x)=r_tx,\quad f_t(x)=\frac{r_t}{2}x
+ \quad(0\leq t\leq1).
+\]
+This family satisfies (H1)--(H3), has $\Al=\Au=\{0\}$ and a unique
+upper transition attractor, but $\{0\}$ is not an attractor of $F_1$.
+\end{proposition}
+
+\begin{proof}
+The two maps are distinct, invertible and continuously parameterized,
+including at $t=0$. For $0\leq t<1$, their maximal Lipschitz constant
+is $r_t<1$, and both have the unique fixed point zero. Thus (H1)--(H3)
+hold and the set $Q$ of limiting fixed points is $\{0\}$.
+
+For every nonempty compact $K\subset\R$ and integer $n\geq0$,
+\begin{equation}\label{iterate}
+ F_t^n(K)=\bigcup_{k=0}^{n} r_t^n2^{-k}K.
+\end{equation}
+Indeed, a word of length $n$ containing $k$ copies of $f_t$ multiplies
+every point by $r_t^n2^{-k}$, and every $k$ occurs. Writing
+$M_K=\max_{x\in K}|x|$, equation~\eqref{iterate} gives the exact formula
+\begin{equation}\label{distance}
+ h(F_t^n(K),\{0\})=r_t^n M_K.
+\end{equation}
+Consequently $A_t=\{0\}$ is the attractor for every $t<1$, with basin
+$\R$. In particular every increasing sequence of parameters tending
+to one has the same Hausdorff limit $\{0\}$.
+
+At the endpoint, $F_1=\{\operatorname{id},x\mapsto x/2\}$ and
+$F_1(\{0\})=\{0\}$. This is the smallest invariant set containing
+$Q$, so Definition 4.1 gives $\Al=\{0\}$. Definition 4.3 gives the
+unique upper transition attractor $\Au=\{0\}$.
+
+Let $U$ be any open neighborhood of zero. It contains a nonzero point
+$x$, and $K=\{x\}\subset U$ is compact. Formula~\eqref{distance}, now
+with $r_1=1$, says
+\[
+ h(F_1^n(\{x\}),\{0\})=|x|>0\qquad(n\geq0).
+\]
+Thus no such $U$ is a basin of attraction for $\{0\}$. This disproves
+the conjecture's conjunction, even though its uniqueness conclusion
+holds in this example.
+\end{proof}
+
+The source's finite-contractivity-threshold convention also causes
+no restriction: the same formulas extend to all $t\geq0$. For $t>1$,
+the orbit $g_t^n(x)=r_t^nx$ of any nonzero $x$ is unbounded, ruling out
+an attractor with an open basin. It also rules out contraction in an
+equivalent complete metric, since such a contraction would make every
+$g_t$ orbit converge to its fixed point zero. At $t=1$ the identity
+cannot be a contraction in any metric. Both thresholds are therefore
+one.
+
+\paragraph{Task 2. Characterize singleton attraction for linear IFSs.}
+Express strict attraction to a common fixed point in terms of uniform
+decay of all matrix products, and identify the role of the joint
+spectral radius in finite dimensions.
+
+\paragraph{Task 3. Settle the separate uniqueness implication.}
+Determine whether $\Al=\Au$ for one subsequential limit forces all
+upper transition attractors to agree under (H1)--(H3).
+
+\paragraph{Task 4. Formulate a sufficient terminal-attraction condition.}
+Find a quantitative condition on finite iterates near the common
+transition set that guarantees an open basin at $t=1$.
+
+\paragraph{Task 5. Construct examples with larger transition sets.}
+Extend the failure of terminal attraction to families whose coinciding
+transition attractors have positive dimension, and compare periodic
+and nonperiodic endpoint isometries.
+
+\begin{thebibliography}{1}
+\bibitem{source} K. Le\'sniak, N. Snigireva, F. Strobin and A. Vince,
+\emph{Transition phenomena for the attractor of an iterated function
+system}, Nonlinearity \textbf{35} (2022), 5396--5426.
+\href{https://doi.org/10.1088/1361-6544/ac8af1}{doi:10.1088/1361-6544/ac8af1}.
+\end{thebibliography}
+\end{document}

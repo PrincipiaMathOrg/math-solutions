@@ -1,0 +1,168 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[hidelinks]{hyperref}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\begin{document}
+\begin{center}
+{\Large The coefficient at the penultimate Markov-sail vertex}\\[0.5em]
+A proof of MathDB 366808\\
+September 12, 2026
+\end{center}
+
+\paragraph{Task 1.}
+Prove the Location of 4 conjecture of Evans, Veselov, and Winn
+\cite[Conjecture 8.4]{EVW}. We use their numerator convention
+\[
+ M_{a/b}(x,y,z)=
+ \frac{P_{a/b}(x^2,y^2,z^2)}{x^{a-1}y^{b-1}z^{a+b-1}},
+ \qquad
+ P_{a/b}(u,v,w)=\sum_{i,j} A_{ij}u^iv^jw^{a+b-1-i-j}.
+\]
+For coprime $2\leq a<b$, the conjecture specifies a coefficient in the
+interior of the critical triangle
+$i<a$, $j<b$, $bi+aj>ab$.
+If $b/a=[h_1,\ldots,h_n]$, with convergents $p_k/q_k$, its sail
+coordinates are
+\[
+ A_m^{\mathrm{sail}}=(q_{2m-1},b-p_{2m-1}),\qquad
+ B_m^{\mathrm{sail}}=(a-q_{2m},p_{2m}).
+\]
+The claimed coefficient is $4$ at $A_m^{\mathrm{sail}}$ when $n=2m$,
+and at $B_m^{\mathrm{sail}}$ when $n=2m+1$.
+The source defines sail coefficients only in that interior; for
+$a=1$ the critical triangle is empty, as it explicitly notes in
+Section 9.
+
+\begin{theorem}
+For every coprime pair $2\leq a<b$, there is a unique pair of integers
+$0<i<a$, $0<j<b$ satisfying
+\[
+ bi+aj=ab+1.
+\]
+The coefficient $A_{ij}$ of $P_{a/b}$ at this pair is $4$.
+Consequently Conjecture 8.4 holds in both parity cases.
+\end{theorem}
+
+\begin{proof}
+We first recall two established facts from
+\cite[Theorems 3.2 and 4.2]{EVW}. For coprime positive $r,s$, the
+Newton polygon of $P_{r/s}(u,v,1)$ is
+\[
+ \left\{(i,j):i,j\geq0,\quad \frac{i}{r}+\frac{j}{s}\geq1,
+                    \quad i+j\leq r+s-1\right\}.
+\]
+Its coefficients at $(r,0)$ and $(0,s)$ are both $1$.
+No assertion of saturation of the polygon is needed.
+
+Work in formal Laurent series in $t$, and set
+\[
+ \kappa(t)=\frac{1+t^{2a}+t^{2b}}{t^{a+b}},\qquad
+ F_{r/s}(t)=\kappa(t)M_{r/s}(t^b,t^a,1).
+\]
+The numerator convention gives the useful identity
+\[
+ F_{r/s}(t)
+ =(1+t^{2a}+t^{2b})\,t^{-(br+as)}
+                     P_{r/s}(t^{2b},t^{2a},1).
+ \tag{1}
+\]
+If $|br-as|=1$, the linear weight $bi+aj$ has a unique minimum
+$\min(br,as)$ on the Newton polygon, at one of its two lower
+endpoints. The minimum coefficient is $1$. All weight differences
+are integers, so (1) implies
+\[
+ F_{r/s}(t)=t^{-1}+O(t).
+ \tag{2}
+\]
+Here and below the $O$ notation denotes divisibility in the ring
+of formal Laurent series.
+
+Let $r/s$ and $u/v$ be the Farey parents of $a/b$, so that
+$r+u=a$, $s+v=b$, and $rv-su=\pm1$.
+Both parents have positive numerator and denominator since $a\geq2$.
+Then $|br-as|=|bu-av|=1$.
+The three associated Markov polynomials form a triple satisfying
+the generalized Markov equation. After multiplication by $\kappa$,
+the series
+\[
+ U=F_{r/s},\qquad V=F_{u/v},\qquad W=F_{a/b}
+\]
+therefore satisfy
+\[
+ U^2+V^2+W^2=UVW,\qquad
+ UV(W-2)=(U-V)^2+W^2.
+ \tag{3}
+\]
+
+For the target polygon, the minimum weight is $ab$ along the segment
+from $(a,0)$ to $(0,b)$. Coprimality implies that its only lattice
+points are its endpoints, each with coefficient $1$. Thus
+$W=2+O(t^2)$. By (2), $U-V=O(t)$ and
+$UV=t^{-2}(1+O(t^2))$. Substituting these facts into (3) yields
+\[
+ W-2=\frac{(U-V)^2+W^2}{UV}
+     =4t^2+O(t^4).
+ \tag{4}
+\]
+Because $a,b\geq2$, the factor $1+t^{2a}+t^{2b}$ in (1)
+does not change the coefficient of $t^2$ in $W$.
+That coefficient is therefore
+\[
+ \sum_{bi+aj=ab+1} A_{ij}=4.
+ \tag{5}
+\]
+
+There is exactly one nonnegative integer solution to
+$bi+aj=ab+1$. Indeed choose the unique $i\in\{1,\ldots,a-1\}$
+with $bi\equiv1\pmod a$ and put $j=(ab+1-bi)/a$.
+Then $0<j<b$, and any other integer solution differs by
+$(ka,-kb)$. Neither $k>0$ nor $k<0$ preserves nonnegativity.
+This point also satisfies $i+j\leq a+b-2$, so it lies in the
+critical triangle and in the stated Newton polygon.
+Equation (5) proves $A_{ij}=4$.
+
+Finally put $(p,q)=(p_{n-1},q_{n-1})$ for the penultimate convergent.
+With the source's indexing $p_0=1,q_0=0$, the continued-fraction
+determinant identity gives
+\[
+ bq-ap=(-1)^n.
+\]
+If $n$ is even, the point $(q,b-p)=A_m^{\mathrm{sail}}$ has
+weight $bq+a(b-p)=ab+1$.
+If $n$ is odd, the point $(a-q,p)=B_m^{\mathrm{sail}}$ has
+weight $b(a-q)+ap=ab+1$.
+Both are interior points, and uniqueness identifies each with the
+point in (5). This proves both assertions of the conjecture.
+\end{proof}
+
+\paragraph{Task 2.}
+Determine explicit formulas for the coefficients at lattice heights
+$bi+aj-ab=2,3,\ldots$ by expanding the same formal Markov identity
+to higher orders.
+
+\paragraph{Task 3.}
+Prove the Factor 4 conjecture for every coefficient in the critical
+triangle, extending the height-one result beyond the penultimate
+vertex.
+
+\paragraph{Task 4.}
+Use valuations adapted to other sail vertices to prove the
+Markov Sail Duality identities for arithmetic progressions of
+coefficients along sail segments.
+
+\paragraph{Task 5.}
+Give a direct perfect-matching interpretation of the four objects
+counted by the coefficient at the penultimate sail vertex.
+
+\begin{thebibliography}{9}
+\raggedright
+\bibitem{EVW}
+S. J. Evans, A. P. Veselov, and B. Winn,
+\emph{Arithmetic and geometry of Markov polynomials},
+arXiv:2501.14882v3 (2025); current 28-page journal-hosted manuscript,
+Theorems 3.2 and 4.2, and Conjecture 8.4.
+\url{https://armj.math.stonybrook.edu/Articles/250708-Winn/article.pdf}.
+\end{thebibliography}
+\end{document}

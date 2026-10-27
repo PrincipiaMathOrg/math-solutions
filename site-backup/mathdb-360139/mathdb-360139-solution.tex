@@ -1,0 +1,244 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[hidelinks]{hyperref}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\title{Positivity of the Fibonacci characteristic function\\
+\large A solution to MathDB 360139}
+\author{Principia Math In Progress}
+\date{18 September 2026}
+\begin{document}
+\maketitle
+\begin{abstract}
+The characteristic generating function of the letter $a$ in the
+Fibonacci fixed word is strictly positive on $(-1,1)$. We prove this
+by telescoping periodic-prefix approximants and bounding their negative
+increments using the spacing of Fibonacci numbers. An elementary
+instance of the source's even-block decomposition handles the remaining
+compact interval. This proves Conjecture 5.12 of Pouti, Ramsey, and
+Strungaru.
+\end{abstract}
+
+\section*{Task 1: the original problem and its full solution}
+Let $\sigma(a)=ab$, $\sigma(b)=a$, and let
+$w=w_0w_1\cdots=abaababa\cdots$ be its fixed word starting in $a$.
+The characteristic function in \cite[Sections 3--5]{PRS} is
+\[
+ C_a(z)=\sum_{j\geq0}{\bf1}_{\{w_j=a\}}z^j,\qquad |z|<1.
+\]
+In particular the constant coefficient is $1$. All series below
+are considered inside their disk of absolute convergence.
+
+\begin{theorem}\label{thm:main}
+For every real $x\in(-1,1)$, one has $C_a(x)>0$.
+Moreover, for $9/10\leq t<1$,
+\[
+ C_a(-t)>\frac{1}{1+t}-\frac{127(1+t)}{600t^2}
+ \geq\frac{2753}{48600(1+t)}>\frac{2753}{97200}.
+\]
+\end{theorem}
+
+\subsection*{An exact telescoping expansion}
+Write $A_{-1}=b$, $A_0=a$, and $A_{n+1}=A_nA_{n-1}$ for $n\geq0$.
+Then $A_n=\sigma^n(a)$ for $n\geq0$. Put
+$L_n=|A_n|=F_{n+2}$, where $F_0=0,F_1=1$, and set
+\[
+ P_n(z)=\sum_{\substack{0\leq j<L_n\\(A_n)_j=a}}z^j,
+ \qquad f_n(z)=\frac{P_n(z)}{1-z^{L_n}}\quad(n\geq0).
+\]
+Here $P_{-1}=0$, $P_0=1$, and
+\begin{equation}\label{eq:rec}
+ P_{n+1}=P_n+z^{L_n}P_{n-1}.
+\end{equation}
+Since the $A_n$ are increasing prefixes of $w$,
+$P_n(z)\to C_a(z)$ and $f_n(z)\to C_a(z)$ for $|z|<1$.
+
+Define
+\[
+ D_n=P_n(1-z^{L_{n-1}})-P_{n-1}(1-z^{L_n}),\qquad n\geq0.
+\]
+Equation \eqref{eq:rec} gives $D_0=1-z$ and
+$D_{n+1}=-z^{L_n}D_n$. Since
+$\sum_{j=0}^{n-1}L_j=L_{n+1}-2$, induction proves
+\begin{equation}\label{eq:D}
+ D_n=(-1)^nz^{L_{n+1}-2}(1-z).
+\end{equation}
+Let $a=L_n$, $b=L_{n-1}$, $c=2a+b=L_{n+2}$, and
+$d=3a+2b=L_{n+3}=2c-a$. The word identity
+$A_{n+3}=A_nA_{n-1}A_nA_nA_{n-1}$ gives
+\[
+ P_{n+3}=P_n(1+z^{a+b}+z^{2a+b})
+             +P_{n-1}(z^a+z^{3a+b}).
+\]
+Subtracting after a common denominator and using \eqref{eq:D} yields
+\begin{align}
+ P_{n+3}(1-z^a)-P_n(1-z^d)
+ &=-z^a(1+z^c)D_n \notag\\
+ &=(-1)^{n+1}z^{c-2}(1+z^c)(1-z).
+ \label{eq:triple}
+\end{align}
+
+For $n=3k$, all of $a,b,c,d$ are odd, because $F_m$ is even
+exactly when $3$ divides $m$. Thus, for $0<t<1$,
+\[
+ f_{3k+3}(-t)-f_{3k}(-t)=(-1)^k E_k(t),
+\]
+where
+\begin{equation}\label{eq:E}
+ E_k(t)=
+ \frac{(1+t)t^{c_k-2}(1-t^{c_k})}
+ {(1+t^{a_k})(1+t^{2c_k-a_k})}>0,\qquad
+ a_k=F_{3k+2},\quad c_k=F_{3k+4}.
+\end{equation}
+The bound $E_k(t)\leq2t^{c_k-2}$ makes the series of increments
+absolutely convergent for each fixed $t<1$: the strictly increasing
+integers $c_k$ satisfy $c_k\geq k+3$. Taking limits in the telescoping
+sum therefore gives the exact identity
+\begin{equation}\label{eq:series}
+ C_a(-t)=\frac{1}{1+t}+\sum_{k\geq0}(-1)^kE_k(t).
+\end{equation}
+
+\subsection*{A bound for widely spaced negative increments}
+\begin{lemma}\label{lem:spacing}
+Let $x_0,x_1,\ldots>0$ satisfy $x_{\ell+1}\geq16x_\ell$, and put
+$g(u)=u(1-u)/(1+u)^2$. Then
+\[
+ \sum_{\ell\geq0}g(e^{-x_\ell})<\frac{127}{600}.
+\]
+\end{lemma}
+\begin{proof}
+For $0<u<1$, the inequality $g(u)\leq1/8$ follows from
+\[
+ \frac18-g(u)=\frac{(1-3u)^2}{8(1+u)^2}\geq0.
+\]
+For $x>0$, also
+\[
+ g(e^{-x})=
+ \frac{e^{-x}}{1+e^{-x}}\tanh(x/2)\leq\frac{x}{4},
+ \qquad
+ g(e^{-x})\leq e^{-x}.
+\]
+Here $\tanh y\leq y$ for $y\geq0$, as follows by differentiating.
+Split the terms into $x<1/4$, $1/4\leq x<4$, and $x\geq4$.
+The first group is finite, and summing backwards from its largest
+element gives
+\[
+ \sum_{x_\ell<1/4}g(e^{-x_\ell})
+ <\frac14\,\frac{1/4}{1-1/16}=\frac1{15}.
+\]
+The same strict bound holds if this group is empty.
+The middle group contains at most one element, hence contributes
+at most $1/8$. In the last group, the successive arguments are at
+least $4\cdot16^r\geq4+60r$, so its contribution is at most
+\[
+ \sum_{r\geq0}e^{-4-60r}=\frac{e^{-4}}{1-e^{-60}}<\frac1{50}.
+\]
+Indeed, $e^4>\sum_{j=0}^7 4^j/j!=16319/315>51$ and $e^{60}>51$,
+which imply the last strict inequality. Adding the three bounds gives
+$1/15+1/8+1/50=127/600$.
+\end{proof}
+
+By the arithmetic--geometric mean inequality,
+\[
+ (1+t^a)(1+t^{2c-a})\geq(1+t^c)^2.
+\]
+Consequently \eqref{eq:E} implies
+\begin{equation}\label{eq:majorant}
+ E_k(t)\leq\frac{1+t}{t^2}g(t^{c_k}).
+\end{equation}
+The negative increments in \eqref{eq:series} have
+$c_{2\ell+1}=F_{6\ell+7}$. For $m\geq7$,
+\[
+ F_{m+6}=13F_m+8F_{m-1}>17F_m>16F_m,
+\]
+since $F_{m-1}>F_m/2$. Thus
+$x_\ell=-F_{6\ell+7}\log t$ meets Lemma \ref{lem:spacing}.
+Discarding the positive increments in \eqref{eq:series} gives
+\begin{equation}\label{eq:lower}
+ C_a(-t)>
+ \frac1{1+t}-\frac{127(1+t)}{600t^2}.
+\end{equation}
+For $9/10\leq t<1$, $(1+t)/t\leq19/9$ and
+\[
+ 1-\frac{127}{600}\left(\frac{19}{9}\right)^2
+ =\frac{2753}{48600}>0.
+\]
+This proves all the quantitative assertions of Theorem \ref{thm:main}.
+
+\subsection*{The remaining compact interval}
+We now reprove the needed low-order case of the even-block
+decomposition in \cite[Section 5]{PRS}; that decomposition is an
+established input, not a new claim.
+There is no occurrence of $bb$ in $w$: every substitution image starts
+in $a$, and a $b$ only occurs at the end of $\sigma(a)$.
+Since $w=\sigma^3(w)$, group the letters of the latter occurrence of
+$w$ into successive pairs, starting at its beginning, and apply
+$\sigma^3$. With $A=\sigma^3(a)=abaab$ and $B=\sigma^3(b)=aba$,
+this expresses $w$ as a concatenation of the blocks $AB,AA,BA$.
+Each block has even length. Their $a$-characteristic polynomials
+evaluated at $-t$ are, respectively,
+\begin{align*}
+ R(t)&=1+t^2-t^3-t^5-t^7,\\
+ S(t)&=(1+t^2-t^3)(1-t^5),\\
+ T(t)&=(1+t^2)(1-t^3)+t^6.
+\end{align*}
+The latter two are positive for $0\leq t<1$. Also
+\[
+ R'(t)=t(2-3t-5t^3-7t^5).
+\]
+The parenthesis is strictly decreasing on $[0,\infty)$; thus $R$
+first increases and then decreases, and its minimum on $[0,9/10]$
+occurs at an endpoint. Both endpoint values are positive:
+\[
+ R(0)=1,\qquad R(9/10)=\frac{122131}{10000000}.
+\]
+All offsets of the concatenated blocks are even. Hence their
+contributions to $C_a(-t)$ are nonnegative powers of $t$ times
+positive numbers for $0\leq t\leq9/10$. The first block already
+contributes a positive number. Absolute convergence permits this
+grouping, proving $C_a(-t)>0$ on this interval.
+
+Finally, $C_a(x)\geq1$ for $0\leq x<1$, because its coefficients
+are nonnegative and its constant term is $1$.
+Together with \eqref{eq:lower}, this proves Theorem \ref{thm:main}
+on the entire required interval.
+
+\section*{Tasks 2--5: proposed follow-up directions}
+These are questions for further work, not additional solved claims.
+\begin{description}
+\item[Task 2.] Determine the set of limit points of $C_a(-t)$ as
+$t\to1^-$, including exact or rigorously characterized values of
+its lower and upper limits.
+\item[Task 3.] Determine the optimal constant
+$c_*=\inf_{0\leq t<1}C_a(-t)$ and whether that infimum is attained
+at an interior point.
+\item[Task 4.] For each integer $m\geq2$, let $w^{(m)}$ be the fixed
+word starting in $a$ of $a\mapsto a^mb$, $b\mapsto a$.
+Classify the $m$ for which its $a$-characteristic generating
+function is positive throughout $(-1,1)$.
+\item[Task 5.] Determine the largest $\rho\in(0,1]$ for which
+$C_a(z)$ has no zero in $|z|<\rho$, and, if $\rho<1$, rigorously
+locate and count all zeros with modulus $\rho$.
+\end{description}
+
+\paragraph{Verification and status.}
+The accompanying verifier checks the polynomial identities against
+directly substituted words, the exact constants and block
+polynomials, and finite telescoping sums in rational arithmetic.
+These checks supplement the analytic proof for the infinite series.
+The current 23-page source was read in full; its authors list the
+paper as accepted or in press in 2026. The dated literature audit
+records the bounded prior-claim search. Verification is by the
+authoring agent only, without independent peer review.
+
+\begin{thebibliography}{9}
+\raggedright
+\bibitem{PRS} A. Pouti, C. Ramsey, and N. Strungaru,
+\emph{Generating functions of substitutions},
+\href{https://arxiv.org/abs/2309.16100}{arXiv:2309.16100v2},
+25 May 2026, 23 pp.; accepted/in press, Rocky Mountain Journal of
+Mathematics, according to the authors' publication lists checked
+18 September 2026. The target is Conjecture 5.12 on p.~21.
+\end{thebibliography}
+\end{document}

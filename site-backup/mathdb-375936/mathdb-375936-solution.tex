@@ -1,0 +1,187 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,enumitem,hyperref}
+\hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue,citecolor=blue}
+\newtheorem{theorem}{Theorem}
+\newcommand{\HH}{\mathcal H}
+\title{Infinitely many failures of binary Hankel monotonicity\\\large MathDB 375936}
+\author{Principia Math In Progress}
+\date{September 18, 2026}
+\begin{document}
+\maketitle
+\begin{abstract}
+Both monotonicity assertions in Sobolewski--Ulas's Conjecture 4.7
+are false. The adjacent values at indices $25,26$ contradict the
+increasing assertion, and those at $39,40$ contradict the decreasing
+assertion. We use the source's recurrence to propagate these
+violations to infinitely many intervals, with explicit signed formulas.
+The small determinant values already occur in OEIS A056886.
+\end{abstract}
+
+\section*{Task 1. Full disproof}
+Let $s(a)$ count the ones in the binary expansion of $a$, and define
+\[
+ H(n)=\det[s(i+j)]_{0\le i,j<n},\qquad
+ \nu_k=\left\lceil\frac{2^{k+2}}3\right\rceil.
+\]
+Thus $H(n)=\HH(n,1)$ in \cite{SU}. Conjecture 4.7 asserts that
+$|H(n)|$ is strictly increasing on $[\nu_k,2^{k+1}+1]$ and
+strictly decreasing on $[2^{k+1}+1,\nu_{k+1}]$, for every $k\ge0$.
+Already
+\[
+ H(25)=-738,\quad H(26)=351,\quad
+ H(39)=-432,\quad H(40)=-927                              \tag{1}
+\]
+give the required counterexamples. Indeed, $25<26$ lie inside
+$[\nu_4,33]=[22,33]$, but $738>351$. Likewise $39<40$ lie inside
+$[33,\nu_5]=[33,43]$, but $432<927$.
+The values (1) are independently certified below and are also
+tabulated in \cite{OEIS}; we do not claim their numerical discovery.
+
+\begin{theorem}
+For every $k\ge4$, set
+\[
+ a_k=\nu_k+3(-1)^k,\qquad b_k=\nu_k+4(-1)^k.
+\]
+Then
+\[
+ \begin{aligned}
+ H(a_k)&=(-1)^{\binom{k}{2}+1}(189k-18),\\
+ H(b_k)&=(-1)^{\binom{k+1}{2}}(81k+27).
+ \end{aligned}                                               \tag{2}
+\]
+Every even $k\ge4$ gives a violation in the increasing interval
+beginning at $\nu_k$. Every odd $k\ge5$ gives a violation in the
+decreasing interval ending at $\nu_k$.
+\end{theorem}
+
+\subsection*{Exact seed certificates}
+For $2^q<n\le2^{q+1}$, let $h(n,x)$ be the weighted digit-sum
+Hankel determinant with weights $1$ at positions $0,\ldots,q$ and
+$x$ at position $q+1$. Let $g(n,x)$ be the determinant whose first
+$n-1$ columns contain the first differences of that digit-sum
+sequence and whose last column is $1$. Thus $H(n)=h(n,1)$.
+Put $G(n)=g(n,1)$.
+The established source recurrence \cite[Proposition 4.3]{SU}, at $t=1$,
+reads
+\[
+ \begin{pmatrix}h(n,x)\\g(n,x)\end{pmatrix}
+ =\begin{cases}
+ (-1)^n(x-2)^{2n-2^{q+1}-1}
+ \begin{pmatrix}-1&\dfrac{(-1)^n}{x-2}\\0&1\end{pmatrix}
+ \begin{pmatrix}h(2^{q+1}-n+1,1)\\g(2^{q+1}-n+1,1)\end{pmatrix},
+ &n\le3\cdot2^{q-1},\\[6pt]
+ 2^{2n-3\cdot2^q-1}(x-2)^{2^q}
+ \begin{pmatrix}1&\dfrac{(-1)^n}{x-2}\\0&1\end{pmatrix}
+ \begin{pmatrix}h(n-2^q,x/2)\\g(n-2^q,x/2)\end{pmatrix},
+ &n>3\cdot2^{q-1}.
+ \end{cases}                                                  \tag{3}
+\]
+Here $n\ge5$. Direct determinants of order at most $4$ give
+\[
+ \begin{aligned}
+ h(3,x)&=3-x,&g(3,x)&=2-x,\\
+ h(4,x)&=(x-2)(3x-8),&g(4,x)&=(x-2)^2(x-4).
+ \end{aligned}
+\]
+These bases and (3) give the following exact table:
+\[
+ \begin{array}{c|c|r|r}
+ n&x&h(n,x)&g(n,x)\\\hline
+ 3&1/2&5/2&3/2\\
+ 4&1/2&39/4&-63/8\\
+ 7&1&8&3\\
+ 8&1&141&-63\\
+ 9&1/2&-549/2&-189/2\\
+ 10&1/2&135/4&-81/8\\
+ 25&1&-738&-189\\
+ 26&1&351&-81
+ \end{array}                                                  \tag{4}
+\]
+Each row after the first two uses only earlier rows. This proves
+the first two values in (1) by exact rational arithmetic.
+
+\subsection*{Propagation to infinitely many violations}
+Specializing the first branch of (3) to $x=1$ gives, for
+$2^q<N\le3\cdot2^{q-1}$ and $n=2^{q+1}-N+1$,
+\[
+ H(N)=(-1)^NH(n)+G(n),\qquad
+ G(N)=(-1)^{N+1}G(n).                                        \tag{5}
+\]
+Suppose $H(n),G(n)\ne0$ and
+\[
+ \operatorname{sgn}G(n)=(-1)^{n+1}\operatorname{sgn}H(n).        \tag{6}
+\]
+Since $N+n$ is odd, the two terms for $H(N)$ in (5) have the
+same sign. Therefore
+\[
+ |H(N)|=|H(n)|+|G(n)|,\qquad |G(N)|=|G(n)|,                   \tag{7}
+\]
+and (6) holds at $N$ as well. Condition (6) holds for both seeds
+$n=25,26$ in (4).
+
+The source's elementary identity
+$\nu_{k+1}=2^{k+2}-\nu_k+1$ gives
+\[
+ a_{k+1}=2^{k+2}-a_k+1,\qquad
+ b_{k+1}=2^{k+2}-b_k+1.                                     \tag{8}
+\]
+Both new indices lie in the first-branch range for $q=k+1$.
+For completeness, with $Q=2^{k+1}\ge32$, each new index lies
+between $4Q/3-4$ and $4Q/3+5$, hence strictly between $Q$ and
+$3Q/2$. Thus (5)--(7) apply at every step.
+Starting from (4), they prove
+\[
+ |H(a_k)|=738+189(k-4)=189k-18,\qquad
+ |H(b_k)|=351+81(k-4)=81k+27.                                \tag{9}
+\]
+The parity relation $\nu_k\equiv k\pmod2$, obtained from (8),
+and the signs in (5) give the signs displayed in (2).
+
+The difference of the magnitudes in (9) is $108k-45>0$.
+If $k\ge4$ is even, $a_k<b_k$ lie in
+$[\nu_k,2^{k+1}+1]$, contradicting increase. If $k\ge5$ is
+odd, $b_k<a_k$ lie in $[2^k+1,\nu_k]$, contradicting decrease.
+These interval inclusions follow directly from the formula for
+$\nu_k$; the distances $3,4$ fit for the stated bounds on $k$.
+At $k=5$, (2) also gives the last two values in (1).
+This disproves both universal monotonicity assertions.
+
+The separate record-maximum statement mentioned after the conjecture
+is weaker and is not decided by these counterexamples.
+
+\section*{Verification and attribution}
+The verifier independently computes all four determinants in (1)
+from their defining integer matrices using two exact algorithms.
+It also checks the auxiliary seed determinants, the rational table,
+and the signed formulas and interval inclusions at larger indices.
+The proof of the infinite family is (5)--(9), not finite testing.
+The source recurrence belongs to Sobolewski and Ulas, and the small
+values in (1) are prior OEIS data. The contribution here is their
+explicit application against Conjecture 4.7 and the infinite families.
+Review is by the authoring agent only.
+
+\section*{Tasks 2--5. Follow-up directions}
+\begin{enumerate}[start=2,leftmargin=*]
+\item Decide the weaker record-maximum assertion
+$|H(2^k+1)|=\max_{n\le2^k+1}|H(n)|$.
+\item Classify all adjacent increases and decreases in $|H(n)|$
+using the binary expansion of $n$ and the source recurrence.
+\item For every fixed offset $d$, determine eventual signed formulas
+for $H(\nu_k+(-1)^kd)$ and the corresponding auxiliary determinants.
+\item Quantify the number and density of monotonicity violations in
+each interval originally proposed in Conjecture 4.7.
+\end{enumerate}
+
+\begin{thebibliography}{9}
+\raggedright
+\bibitem{SU} B. Sobolewski and M. Ulas,
+\emph{Hankel determinants of weighted binary sums of digits},
+\href{https://arxiv.org/abs/2607.09376v1}{arXiv:2607.09376v1}, July 10, 2026.
+Proposition 4.3 and Conjecture 4.7.
+\bibitem{OEIS} OEIS Foundation, \href{https://oeis.org/A056886}{A056886}.
+Entry by J. Shallit; expanded table by A. P. Heinz.
+\bibitem{DB} MathDB, \href{https://mathdb.com/p/375936}{Problem 375936},
+accessed September 18, 2026.
+\end{thebibliography}
+\end{document}

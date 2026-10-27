@@ -1,0 +1,133 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[hidelinks]{hyperref}
+\newcommand{\LL}{\mathcal L}
+\title{A rational counterexample to infinite log-concavity\\
+\large Complete solution of MathDB 347493}
+\author{Principia Math in Progress}
+\date{12 September 2026}
+\begin{document}
+\maketitle
+
+\paragraph{Task 1. Resolve the infinite log-concavity conjecture.}
+For $n\geq0$, put
+\[
+ f_n(z)=\sum_{j=0}^n\binom nj z^{\binom j2},
+ \qquad
+ \LL(a)_n=a_n^2-a_{n-1}a_{n+1}.
+\]
+Dilcher and Ulas conjectured that $(f_n(z))_{n\geq0}$ is infinitely
+log-concave for every $0\leq z\leq1$.
+This is false: at $z=3/10$, the sixth iterate satisfies
+\begin{equation}\label{negative}
+  \LL^6(f)_6(3/10)<-\frac{63}{10^{36}}<0.
+\end{equation}
+Only $f_0,\ldots,f_{12}$ enter this counterexample, so no convention
+about negative indices is needed.
+
+\paragraph{A finite exact certificate.}
+Define rational numbers
+\[
+ a_{0,n}=\sum_{j=0}^n\binom nj(3/10)^{\binom j2}\quad(0\leq n\leq12),
+ \qquad
+ a_{r+1,n}=a_{r,n}^2-a_{r,n-1}a_{r,n+1}.
+\]
+At level $r$ we retain $r\leq n\leq12-r$. By induction,
+$a_{r,n}=\LL^r(f)_n(3/10)$.
+Exact rational calculation gives the following strict bounds:
+\[
+\begin{array}{c|ccc}
+n&5&6&7\\ \hline
+\text{lower bound for }10^{18}a_{5,n}&8&44&261\\
+\text{upper bound for }10^{18}a_{5,n}&9&45&262
+\end{array}
+\]
+In particular, the three entries are positive, and hence
+\[
+ a_{6,6}=a_{5,6}^2-a_{5,5}a_{5,7}
+ <\frac{45^2-8\cdot261}{10^{36}}
+ =-\frac{63}{10^{36}}.
+\]
+This proves \eqref{negative}.
+
+For completeness, the exact calculation establishing every bound in
+the table is reproduced below. This is a finite rational-arithmetic
+certificate; the code uses only Python's standard library, with no
+floating point operations.
+\par\noindent\begin{minipage}{\linewidth}\small
+\begin{verbatim}
+from fractions import Fraction as F
+from math import comb
+
+q = F(3, 10)
+a = [sum((F(comb(n,j))*q**comb(j,2)
+          for j in range(n+1)), F(0))
+     for n in range(13)]
+for r in range(5):
+    a = [a[i]**2-a[i-1]*a[i+1]
+         for i in range(1, len(a)-1)]
+
+for x, lo, hi in zip(a, (8,44,261), (9,45,262)):
+    assert lo < 10**18*x < hi
+assert a[1]**2-a[0]*a[2] < F(-63, 10**36)
+\end{verbatim}
+\end{minipage}
+
+\paragraph{An integer form of the certificate.}
+The accompanying verification also computes the same entries by a
+separate integer recurrence. Set
+\[
+ P_{0,n}=\sum_{j=0}^n\binom nj3^{\binom j2}
+                    10^{\binom n2-\binom j2},
+ \qquad
+ P_{r+1,n}=10^{2^r}P_{r,n}^{\,2}-P_{r,n-1}P_{r,n+1}.
+\]
+Define $d_{0,n}=\binom n2$ and, for $r\geq1$,
+$d_{r,n}=2^r\binom n2+r2^{r-1}$.
+The identities
+\[
+ d_{r+1,n}=2d_{r,n}+2^r
+          =d_{r,n-1}+d_{r,n+1}
+\]
+show inductively that $a_{r,n}=P_{r,n}/10^{d_{r,n}}$.
+All 49 entries in the triangular calculation agree between the two
+recurrences, and all ten verification groups pass.
+The terminal rational value and the three preceding values are saved
+in full in the verification record.
+
+\paragraph{Consequence for the stronger coefficient conjecture.}
+The same source's Conjecture 3.9 asserts positivity of the coefficients
+of $\LL^k(f)_n(z)/(1-z)^{2^k-1}$.
+At $k=n=6$ its value at $z=3/10$ is negative, because the denominator
+$(7/10)^{63}$ is positive. Thus that stronger assertion fails as well.
+This is a consequence of the present counterexample, with no additional
+solve counted here.
+
+\paragraph{Task 2. Determine the parameter set.}
+Characterize those $z\in[0,1]$ for which $(f_n(z))$ is infinitely
+log-concave.
+
+\paragraph{Task 3. Determine the first failing iteration.}
+For each parameter where infinite log-concavity fails, determine the
+least iteration and the first index witnessing failure.
+
+\paragraph{Task 4. Study the normalized coefficient signs.}
+Determine when the normalized iterates
+$\LL^k(f)_n(z)/(1-z)^{2^k-1}$ have nonnegative coefficients, and explain
+the onset of negative coefficients.
+
+\paragraph{Task 5. Find sufficient conditions for binomial transforms.}
+Identify useful hypotheses on a nonnegative sequence $(b_j)$ ensuring
+infinite log-concavity of $\bigl(\sum_j\binom nj b_j\bigr)_{n\geq0}$.
+
+\begin{thebibliography}{9}
+\bibitem{DU}
+K. Dilcher and M. Ulas, \emph{Some properties of a class of sparse
+polynomials}, Journal of Mathematical Analysis and Applications
+\textbf{505} (2022), 125449.
+Conjectures 3.8 and 3.9, published p.~10; preprint p.~9,
+\href{https://arxiv.org/abs/2008.01480}{arXiv:2008.01480}.
+\href{https://doi.org/10.1016/j.jmaa.2021.125449}{Published article}.
+\end{thebibliography}
+\end{document}

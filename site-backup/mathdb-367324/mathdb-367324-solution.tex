@@ -1,0 +1,292 @@
+\documentclass[10pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,hyperref}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\title{MathDB 367324: exact boundary values\ for all nonmultiples of three}
+\author{Principia Math In Progress}
+\date{18 September 2026}
+\begin{document}
+\maketitle
+
+\section*{Task 1: Complete corrected classification}
+Let $M(z)=1+zM(z)+z^2M(z)^2$ and put
+\[
+ H_N^{(r)}=\det([z^{i+j}]M(z)^r)_{0\le i,j<N},\qquad H_0^{(r)}=1.
+\]
+Wang and Zhang's Conjecture 7
+(\href{https://arxiv.org/abs/2502.21050}{arXiv:2502.21050}, p.~4)
+contains sign errors. In particular, its proposed nonzero sum next
+to a pair of zero determinants is actually zero. We determine both
+summands individually, as well as every other family singled out
+by the conjecture, for all exponents and block indices.
+
+\begin{theorem}\label{classification}
+Let $r\ge2$, $3\nmid r$, and $n\ge0$. Set
+\[
+ L=3rn,\qquad \epsilon_r=(-1)^{\binom r2},\qquad
+ \eta_r=\begin{cases}1,&r\equiv1\pmod3,\\(-1)^r,&r\equiv2\pmod3.\end{cases}
+\]
+Then
+\begin{align}
+ H_L^{(r)}=H_{L+1}^{(r)}&=\epsilon_r^n,\label{c1}\\
+ H_{L+r}^{(r)}=H_{L+r+1}^{(r)}&=(-1)^{r-1}\epsilon_r^{n+1},\label{c2}\\
+ H_{L+2r}^{(r)}=H_{L+2r+1}^{(r)}&=0,\label{c3}\\
+ H_{L+2r-1}^{(r)}=-H_{L+2r+2}^{(r)}
+ &=\eta_r\epsilon_r^n[2r(n+1)]^{r-2},\label{c4}\\
+ H_{L-1}^{(r)}+H_{L+2}^{(r)}&=-\frac{r(r-3)}2\epsilon_r^n.\label{c5}
+\end{align}
+For $n=0$, \eqref{c5} uses $H_{-1}^{(r)}=0$; otherwise take $n\ge1$.
+For the remaining exponent $r=1$, $H_N^{(1)}=1$ for all $N\ge0$.
+\end{theorem}
+Thus the source's claimed magnitude $[2r(n+1)]^{r-2}$ is the
+magnitude of \emph{each} of the two neighbors in \eqref{c4}, whose
+signs are opposite. For example, $r=4,n=0$ gives $H_7^{(4)}=64$
+and $H_{10}^{(4)}=-64$. Their sum is zero, not $\pm64$.
+Also $H_0^{(4)}=1$ and $H_4^{(4)}=-1$, so the single common sign
+printed for all four nonzero boundary values is not valid.
+The proof below establishes the complete formulas; the result does
+not rely merely on pointing out these discrepancies.
+
+The weighted boundary identities below were established in the
+companion solution to
+\href{https://github.com/antoshashakov/Principia-Math-In-Progress/blob/mathdb-results/mathdb-open-problems/problems/367323/solution.tex}{MathDB 367323}.
+We reproduce their proof and then evaluate the additional minor at
+the zero boundaries to obtain the individual values in \eqref{c4}.
+For a real parameter $a$, let
+$M_a=1+azM_a+z^2M_a^2$, and write its convolution determinants as
+$H_N^{(r)}(a)$. Define
+\[
+ P_j(t)=U_j((t-a)/2),\qquad A(t)=P_{r-1}(t),\qquad
+ B_k(t)=U_k\!\left(T_r((t-a)/2)\right).
+\]
+Here $T_j(\cos\theta)=\cos(j\theta)$ and
+$U_j(\cos\theta)=\sin((j+1)\theta)/\sin\theta$; $P_j$ and $B_k$
+are monic, of degrees $j$ and $rk$.
+
+\begin{theorem}[Weighted boundary identities]\label{weighted}
+For $r\ge2$, $k\ge0$, $N=rk$, and every real or complex $a$,
+\begin{align}
+ H_N^{(r)}(a)=H_{N+1}^{(r)}(a)&=\epsilon_r^k B_k(0)^{r-1},\label{weighted1}\\
+ H_{N-1}^{(r)}(a)+H_{N+2}^{(r)}(a)
+ &=\left(r-\binom r2a^2\right)H_N^{(r)}(a).\label{weighted2}
+\end{align}
+\end{theorem}
+
+\subsection*{The convolution functional and its determinant}
+
+For real $a$, let $\mu_a$ be the translated semicircle measure
+\[
+ d\mu_a(t)=\frac{\sqrt{4-(t-a)^2}}{2\pi}\,dt\quad(a-2\le t\le a+2).
+\]
+Its moments are $[z^j]M_a(z)$, and its monic orthogonal polynomials
+are $P_j$, with $\int P_iP_j\,d\mu_a=\delta_{ij}$. Both statements
+follow by $t=a+2\cos\theta$: the centered moments are the Catalan
+numbers and the orthogonality integral is the sine integral.
+Set $Q(t)=t^{r-1}A(t)$ and $L(f)=\int f(t)Q(t)\,d\mu_a(t)$.
+Then
+\begin{equation}\label{functional}
+ [z^j]M_a(z)^r=L(t^j).
+\end{equation}
+Indeed $G(w)=w^{-1}M_a(w^{-1})$ satisfies $G^2=(w-a)G-1$,
+so induction gives $G^r=P_{r-1}(w)G-P_{r-2}(w)$. Multiplication
+by $w^{r-1}$ and extraction of $w^{-j-1}$ gives \eqref{functional}.
+The functional $L$ need not be positive.
+
+We use the following classical Christoffel identity in an algebraic
+form. Its evaluation form is Theorem 1 of Krattenthaler,
+\href{https://arxiv.org/abs/2101.04225}{arXiv:2101.04225}, with
+repeated roots covered by Proposition 5. A proof is included to make
+the argument self-contained.
+
+\begin{lemma}\label{remainder}
+If $Q$ is monic of even degree $d$, the determinant of the moments
+of $Q\,d\mu_a$ of order $m$ is the determinant of the $d\times d$
+matrix whose $j$th column is the coefficient vector of
+$P_{m+j}\bmod Q$, for $0\le j<d$.
+\end{lemma}
+\begin{proof}
+First suppose $Q$ has distinct roots $\alpha_1,\ldots,\alpha_d$.
+Expansion of determinants gives the moment determinant as
+\[
+ \frac1{m!}\int\cdots\int\Delta(x)^2\prod_{i=1}^m Q(x_i)
+ \prod_{i=1}^m d\mu_a(x_i).
+\]
+The mixed Vandermonde satisfies
+$\Delta(x,\alpha)=\Delta(x)\Delta(\alpha)\prod_{i,j}(\alpha_j-x_i)$.
+Replace monomials in both Vandermondes by the monic $P_j$.
+Orthogonality leaves only columns $0,\ldots,m-1$ for the $x$ rows,
+with integral $m!$. Hence the determinant is
+\[
+ (-1)^{md}\frac{\det(P_{m+j}(\alpha_i))_{1\le i\le d,\,0\le j<d}}
+ {\det(\alpha_i^j)_{1\le i\le d,\,0\le j<d}}.
+\]
+The sign is one. Evaluation of remainders factors the numerator
+matrix as the denominator matrix times the coefficient matrix.
+The identity extends to repeated roots because both sides are
+polynomials in the coefficients of the monic $Q$; polynomial
+division introduces no denominators. It also includes $m=0$.
+\end{proof}
+
+\subsection*{Exact evaluation at a block boundary}
+Put $N=rk$ and $c=N+r-1$. The sine formula gives
+\begin{equation}\label{composition}
+ P_c=A B_k.
+\end{equation}
+In the remainder determinant of Lemma~\ref{remainder}, retain its
+first $r-1$ columns $P_N,\ldots,P_{N+r-2}$. For each
+$1\le j\le r-2$, add column $P_{c-j}$ to column $P_{c+j}$.
+The last $r-1$ columns then become
+\[
+ A B_k S_0,\ldots,A B_k S_{r-2},\qquad
+ S_0=1,\quad S_j(t)=2T_j((t-a)/2)\ (j\ge1).
+\]
+Here $P_{c+j}+P_{c-j}=S_jP_c$, and each $S_j$ is monic of degree $j$.
+
+Use the following monic basis of $\mathbb C[t]/(t^{r-1}A)$:
+\[
+ P_0,\ldots,P_{r-2},\quad A S_0,\ldots,A S_{r-2}.
+\]
+Its change-of-basis determinant from the monomials is one. Reduction
+modulo $A$ gives an upper block with the first $r-1$ columns and zero
+in the last columns. At the simple roots
+$\rho_j=a+2\cos(j\pi/r)$ of $A$,
+\[
+ P_{N+h}(\rho_j)=(-1)^{kj}P_h(\rho_j)\qquad(0\le h\le r-2).
+\]
+Thus the upper block determinant is
+$\prod_{j=1}^{r-1}(-1)^{kj}=\epsilon_r^k$.
+The lower right block represents multiplication by $B_k$ in
+$\mathbb C[t]/(t^{r-1})$. In its monomial basis this matrix is
+triangular, with diagonal $B_k(0)$, so its determinant is
+$B_k(0)^{r-1}$. This proves the formula for $H_N$ in
+\eqref{weighted1}. No coprimality of $A$ and $t$ was assumed.
+
+\subsection*{The adjacent determinant and the paired sum}
+Temporarily choose a real $a$ for which $B_k(0)\ne0$.
+This excludes only finitely many values. Equation~\eqref{composition}
+gives
+\[
+ L(t^j B_k)=\int t^{j+r-1}P_{N+r-1}(t)\,d\mu_a(t)=0\qquad(0\le j<N).
+\]
+Consequently $q_N=B_k$ is the unique monic polynomial of degree $N$
+orthogonal to lower degrees for $L$, since $H_N\ne0$.
+The elementary identity $U_k(x)^2=\sum_{h=0}^k U_{2h}(x)$ yields
+\begin{equation}\label{squared}
+ A B_k^2=\sum_{h=0}^k P_{(2h+1)r-1}.
+\end{equation}
+For $j=0,1,2$, every $h\ge1$ term is orthogonal to $t^{r-1+j}$,
+because $r\ge2$. Therefore
+\begin{equation}\label{three}
+ L(q_N^2)=1,\qquad L(tq_N^2)=ra,\qquad
+ L(t^2q_N^2)=r+\binom{r+1}{2}a^2.
+\end{equation}
+For completeness, the last two values are the coefficients of
+$P_{r-1}$ in $t^r$ and $t^{r+1}$. The recurrence
+$tP_j=P_{j+1}+aP_j+P_{j-1}$, with $P_{-1}=0$, gives respectively
+$ra$ and $\binom{r+1}{2}a^2+r$: in the latter coefficient there
+are two level steps or one down step among the otherwise up steps.
+
+The Gram determinant identity
+$L(q_N^2)=H_{N+1}/H_N$ now proves $H_{N+1}=H_N$.
+In particular $q_{N+1}$ also exists. Suppose first that $N\ge1$.
+Let $G_N=(L(t^{i+j}))_{0\le i,j<N}$ and write
+\[
+ tq_N=q_{N+1}+ra\,q_N+v,\qquad \deg v<N.
+\]
+For $j<N-1$, $L(t^jv)=0$, whereas $L(t^{N-1}v)=1$.
+Thus the coefficient vector of $v$ is $G_N^{-1}e_{N-1}$, and
+\[
+ L(v^2)=(G_N^{-1})_{N-1,N-1}=\frac{H_{N-1}}{H_N}.
+\]
+The three summands in the displayed decomposition are mutually
+orthogonal. Taking squared norms and using \eqref{three} gives
+\[
+ r+\binom{r+1}{2}a^2
+ =\frac{H_{N+2}}{H_{N+1}}+r^2a^2+\frac{H_{N-1}}{H_N},
+\]
+which is \eqref{weighted2}. This argument never divides by
+$H_{N-1}$ or $H_{N+2}$, which are allowed to vanish.
+For $N=0$, the same identity is directly
+$H_2=L(t^2)-L(t)^2=r-\binom r2a^2$.
+Finally, the asserted identities are polynomial identities in $a$,
+so they extend from the generic real values to every complex value,
+including $B_k(0)=0$. This proves Theorem~\ref{weighted}.
+
+\subsection*{The missing minor at a zero boundary}
+Now put $a=1$, $k=3n+2$, and $N=rk$, with $3\nmid r$.
+Write $B=B_k$ and $D=B_{k-1}$. Since $T_r(-1/2)=-1/2$,
+\begin{equation}\label{zerovalues}
+ B(0)=0,\qquad D(0)=-1,\qquad
+ b:=B'(0)=\begin{cases}-2r(n+1),&r\equiv1\pmod3,\\
+                         2r(n+1),&r\equiv2\pmod3.\end{cases}
+\end{equation}
+To verify the derivative, set $t=1+2\cos\theta$. Then
+\[
+ B(t)=\frac{\sin((k+1)r\theta)}{\sin(r\theta)},\qquad
+ \theta\big|_{t=0}=\frac{2\pi}{3},\qquad
+ \frac{d\theta}{dt}\bigg|_{t=0}=-\frac1{\sqrt3}.
+\]
+At this point the numerator is zero and its cosine is one, while
+$\sin(2\pi r/3)$ equals $\sqrt3/2$ or $-\sqrt3/2$.
+This proves \eqref{zerovalues} and, in particular, $b\ne0$.
+
+Apply Lemma~\ref{remainder} to $H_{N-1}^{(r)}$. Its columns are
+\[
+ P_{N-1},P_N,\ldots,P_{N+2r-4}.
+\]
+Move the first column past the next $r-1$ columns, contributing the
+sign $(-1)^{r-1}$. As before, use
+$P_{c+j}+P_{c-j}=S_jP_c$, now for $1\le j\le r-3$, where
+$c=N+r-1$. Since $P_{N-1}=A D$, the reordered, transformed columns are
+\[
+ P_N,\ldots,P_{N+r-2},\quad A D,\quad
+ A B S_0,\ldots,A B S_{r-3}.
+\]
+For $r=2$ the last list and the corresponding column additions are
+empty. In the same monic quotient basis used above, the upper block
+again has determinant $\epsilon_r^k$. The lower block is represented
+modulo $t^{r-1}$ by
+\[
+ D,\quad B S_0,\ldots,B S_{r-3}.
+\]
+Replacing the monic $S_j$ by monomials uses column operations of
+determinant one. Because $B(t)=bt+O(t^2)$, the resulting matrix is
+triangular with diagonal $D(0),b,\ldots,b$. Hence
+\begin{equation}\label{minor}
+ H_{N-1}^{(r)}=(-1)^{r-1}\epsilon_r^k D(0)b^{r-2}
+              =(-1)^r\epsilon_r^k b^{r-2}.
+\end{equation}
+Since $H_N=H_{N+1}=0$, the polynomial identity
+\eqref{weighted2} gives $H_{N+2}=-H_{N-1}$, with no division by
+these zero determinants. For $r\equiv1\pmod3$, the signs from
+$(-1)^r$ and $b^{r-2}$ cancel. For $r\equiv2\pmod3$, they give
+$(-1)^r$. Also $\epsilon_r^k=\epsilon_r^n$. These observations prove
+\eqref{c4} with exactly the stated $\eta_r$.
+
+\subsection*{The other boundary values}
+At $a=1$ and $3\nmid r$, the sequence $B_k(0)=U_k(-1/2)$ repeats
+$1,-1,0$ with period three. Substitute $k=3n,3n+1,3n+2$ in
+\eqref{weighted1} to obtain \eqref{c1}--\eqref{c3}.
+Substitution of $k=3n$ into \eqref{weighted2} gives \eqref{c5}.
+Finally, when $r=1$, the original semicircle moments have monic
+orthogonal polynomials of squared norm one, so every Hankel
+determinant is one. This completes the classification and deals
+with that separately known exponent explicitly.
+
+\section*{Task 2: Closed formulas inside each block}
+Find direct formulas for the residue classes not listed in
+Theorem~\ref{classification}, refining the general polynomial-block theorem.
+
+\section*{Task 3: Rank and nullspaces at the zero boundaries}
+Determine the exact ranks and explicit nullspace bases of the two
+singular Hankel matrices at indices $3rn+2r$ and $3rn+2r+1$.
+
+\section*{Task 4: Least possible block lengths}
+Determine the smallest block length for which all residue classes
+are polynomial up to a parity factor, and classify exceptional exponents.
+
+\section*{Task 5: Combinatorial cancellation and boundary signs}
+Construct an involution on path families that explains both the two
+successive zeros and the opposite neighboring signs in \eqref{c4}.
+\end{document}

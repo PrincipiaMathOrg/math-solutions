@@ -1,0 +1,178 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,hyperref,verbatim}
+\newtheorem{theorem}{Theorem}
+\title{An exact counterexample to the\\Catalan--Larcombe--French ratio conjecture}
+\author{Principia Math In Progress}
+\date{11 September 2026}
+\begin{document}
+\maketitle
+\begin{abstract}
+We refute Conjecture 5.2 of Sun and Zhao. At the twelfth ratio iteration,
+the terms with indices $12,13,14$ violate log-convexity, although all
+three remain after the prescribed deletion of the first twelve terms.
+A finite integer-product certificate establishes the strict violation;
+no floating-point inequality is used in the proof.
+\end{abstract}
+
+\section*{Task 1: Resolve MathDB problem 332483}
+The Catalan--Larcombe--French numbers are given by $P_0=1$, $P_1=8$,
+and
+\begin{equation}\label{eq:rec}
+ n^2P_n=8(3n^2-3n+1)P_{n-1}-128(n-1)^2P_{n-2}\qquad(n\geq2).
+\end{equation}
+For a positive sequence $a$, define
+$(\mathcal Ra)_n=a_{n+1}/a_n$.
+The published conjecture \cite[Conjecture 5.2, p.~601]{source} asserts
+that, for each integer $k\geq1$, the sequence
+$(\mathcal R^kP)_n$, after deleting its first $k$ terms, is
+log-concave for odd $k$ and log-convex for even $k$.
+Since its indexing begins at zero, the retained terms have $n\geq k$.
+
+\begin{theorem}\label{thm:counter}
+Put $b_n=(\mathcal R^{12}P)_n$. Then
+\begin{equation}\label{eq:main}
+ \frac{999999999814}{10^{12}}
+ <\frac{b_{12}b_{14}}{b_{13}^2}
+ <\frac{999999999815}{10^{12}}<1.
+\end{equation}
+Thus $b_{13}^2>b_{12}b_{14}$, contrary to the required log-convexity
+of $(b_n)_{n\geq12}$. The conjecture is false.
+\end{theorem}
+
+\subsection*{Converting the inequality to integer arithmetic}
+Let $(\Delta f)_n=f_{n+1}-f_n$. Induction gives
+\[
+ \log(\mathcal R^ka)_n=\Delta^k\log a_n.
+\]
+Consequently
+\begin{align}
+ \log\frac{b_{12}b_{14}}{b_{13}^2}
+ &=\Delta^{14}\log P_{12}
+   =\sum_{j=0}^{14}(-1)^j\binom{14}j\log P_{12+j}.
+ \label{eq:diff}
+\end{align}
+Define the positive integers
+\begin{equation}\label{eq:products}
+ A=\prod_{\substack{0\leq j\leq14\\j\ \mathrm{even}}}
+       P_{12+j}^{\binom{14}j},\qquad
+ B=\prod_{\substack{0\leq j\leq14\\j\ \mathrm{odd}}}
+       P_{12+j}^{\binom{14}j}.
+\end{equation}
+Equation \eqref{eq:diff} says exactly that
+$b_{12}b_{14}/b_{13}^2=A/B$.
+
+\subsection*{The finite certificate}
+The following table lists every input to \eqref{eq:products}.
+Each value follows by the recurrence \eqref{eq:rec}; the signed
+exponent is $(-1)^{n-12}\binom{14}{n-12}$.
+\begin{center}
+\begin{tabular}{r|r|r}
+ $n$ & $P_n$ & signed exponent\\\hline
+12 & 15008466534400 & 1\\
+13 & 221460239482880 & $-14$\\
+14 & 3287994183188480 & 91\\
+15 & 49074667327062016 & $-364$\\
+16 & 735814252604162048 & 1001\\
+17 & 11076827875597352960 & $-2002$\\
+18 & 167338264534131408896 & 3003\\
+19 & 2535936220929779040256 & $-3432$\\
+20 & 38539148242634697342976 & 3003\\
+21 & 587172319637401677856768 & $-2002$\\
+22 & 8966541774166044673310720 & 1001\\
+23 & 137211561613401637284478976 & $-364$\\
+24 & 2103704833567570984242774016 & 91\\
+25 & 32310152363853898923615715328 & $-14$\\
+26 & 497042117469860910740195508224 & 1
+\end{tabular}
+\end{center}
+Direct integer arithmetic gives the certificate
+\begin{equation}\label{eq:integer}
+ 999999999814\,B<10^{12}A<999999999815\,B.
+\end{equation}
+For complete reproducibility, the following Python program evaluates
+only integers, computes all the recurrence inputs, and verifies both
+comparisons. Python integers have arbitrary precision.
+\begin{verbatim}
+from math import comb, prod
+
+P = [1, 8]
+for n in range(2, 27):
+    q = 8*(3*n*n-3*n+1)*P[n-1] - 128*(n-1)**2*P[n-2]
+    assert q % (n*n) == 0
+    P.append(q // (n*n))
+A = prod(P[12+j]**comb(14,j) for j in range(0,15,2))
+B = prod(P[12+j]**comb(14,j) for j in range(1,15,2))
+assert 999999999814*B < 10**12*A < 999999999815*B
+assert 999999999815 < 10**12
+\end{verbatim}
+Both $A$ and $B$ have binary length $582535$. The accompanying
+\texttt{verify\_counterexample.py} retains hashes, the table, and
+certificate results in \texttt{certificate.json}; the proof depends
+on the exact integer comparisons, not on the hashes.
+
+\begin{proof}[Proof of Theorem \ref{thm:counter}]
+All the table entries are positive, so all ratios used in the argument
+are defined. Divide \eqref{eq:integer} by the positive integer
+$10^{12}B$ and use \eqref{eq:diff}--\eqref{eq:products}.
+This gives \eqref{eq:main}. Since $k=12$ is even and the offending
+triple has indices $12,13,14$, the source's required cutoff leaves
+the entire triple in the sequence. It therefore violates the exact
+published assertion.
+\end{proof}
+
+\subsection*{Verification and scope}
+The integer certificate is part of the proof. As additional checks,
+the verifier compares the recurrence values through $n=26$ with the
+independent finite sum
+\[
+ P_n=\sum_{j=0}^{\lfloor n/2\rfloor}
+       \binom n{2j}\binom{2j}j^2 2^{3n-4j},
+\]
+and verifies all fifteen exponents by convolving the twelfth-difference
+coefficients with $(1,-2,1)$. These checks pass exactly.
+The initial numerical search is retained separately as an experiment.
+No claim that $k=12$ is the smallest possible failure is needed or made.
+The counterexample does not address a modified conjecture with a
+larger, order-dependent cutoff.
+
+\section*{Task 2: Determine the correct eventual cutoff}
+For each $k\geq1$, determine the least integer $N(k)$, if it exists,
+such that $(-1)^k\Delta^{k+2}\log P_n\geq0$ for all $n\geq N(k)$.
+Prove effective bounds for $N(k)$ and obtain its growth as $k\to\infty$.
+The counterexample requires $N(12)\geq13$.
+
+\section*{Task 3: Classify failures at the proposed cutoff}
+Determine all $k$ for which
+$(-1)^k\Delta^{k+2}\log P_k<0$.
+Prove or refute that infinitely many such $k$ exist, and develop exact
+certificates whose size remains practical as the iteration order grows.
+
+\section*{Task 4: Explain the failure through the moment density}
+Use the arcsine-product representation
+$P_n/16^n=\int_0^1u^nw(u)\,du$, where
+$w(u)=4K(4u(1-u))/\pi^2$ and $K$ uses its parameter convention.
+Derive uniform asymptotics for $\Delta^{k+2}\log P_n$ when $n/k$
+approaches a positive constant. Identify how the logarithmic
+singularity of $w$ at $u=1/2$ affects the sign near $n=k$.
+
+\section*{Task 5: Classify cutoffs for symmetric beta products}
+Let $X,Y$ be independent with densities proportional to
+$(1-x^2)^{a-1}$ and $(1-y^2)^{b-1}$ on $(-1,1)$, where $a,b>0$,
+and set $p_n=\mathbb E[((1+XY)/2)^n]$.
+Determine which parameter pairs admit constants $c,d$ such that
+$(-1)^k\Delta^{k+2}\log p_n\geq0$ for every $k\geq1$
+and every integer $n\geq ck+d$. Find the sharp slope where it exists.
+
+\begin{thebibliography}{9}
+\bibitem{source}
+B. Y. Sun and J. J. Y. Zhao, \emph{Log-behavior of Two Sequences Related
+to the Elliptic Integrals}, Acta Mathematicae Applicatae Sinica,
+English Series \textbf{36} (2020), 590--602,
+Conjecture 5.2, p.~601.
+\url{https://doi.org/10.1007/s10255-020-0952-1}.
+Full publisher PDF:
+\url{https://applmath.cjoe.ac.cn/jweb_yysxxb_en/EN/PDF/10.1007/s10255-020-0952-1}.
+Current preprint: \url{https://arxiv.org/abs/1602.04359}.
+\end{thebibliography}
+\end{document}

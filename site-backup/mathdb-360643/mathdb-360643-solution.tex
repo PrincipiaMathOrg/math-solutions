@@ -1,0 +1,256 @@
+\documentclass[11pt]{article}
+\usepackage[margin=0.9in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,hyperref,enumitem,booktabs}
+\hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue}
+\setlength{\emergencystretch}{1em}
+\newtheorem{theorem}{Theorem}
+\newcommand{\bin}[2]{\binom{#1}{#2}}
+\title{All nine four-variable quadratic monomial Hilbert series}
+\author{Principia Math In Progress}
+\date{22 September 2026}
+\begin{document}
+\maketitle
+\noindent\textbf{MathDB 360643. Complete intended all-power result.}
+All nine conjectured Hilbert series are proved over every field.
+We also compute every Hilbert coefficient with the source's sign
+convention. Two resulting negative third coefficients disprove the
+broader nonnegativity conjecture, MathDB 360640. This consequence
+belongs to the same theorem and receives no separate campaign credit.
+
+\section*{Task 1: the theorem and complete coefficient table}
+Let \(S=k[x_1,x_2,x_3,x_4]\), let \(G\) be a graph on
+\(V=\{1,2,3,4\}\), and set
+\[
+ I_G=(x_1^2,x_2^2,x_3^2,x_4^2,\ x_ix_j:\{i,j\}\in E(G)).
+\]
+In tables, \(ij\) denotes the edge \(\{i,j\}\), and \(s\geq1\)
+is an integer. We use \(\bin ab=0\) when \(0\leq a<b\).
+
+\begin{theorem}
+For each of the following nine graphs and every \(s\geq1\),
+\[
+ \operatorname{Hilb}(S/I_G^s;t)
+ =\sum_{d=0}^{2s-1}\bin{d+3}{3}t^d
+             +A_G(s)t^{2s}+B_G(s)t^{2s+1},                  \tag{1}
+\]
+where \(A_G,B_G\) are given in Table 1. The complete Hilbert
+coefficient vectors are those in Table 2, with convention
+\[
+ \ell(S/I_G^s)=\sum_{j=0}^4(-1)^je_j(I_G)
+                             \bin{s+3-j}{4-j}.             \tag{2}
+\]
+These formulas hold for all positive powers, not only eventually.
+\end{theorem}
+
+\begin{center}
+\renewcommand{\arraystretch}{1.18}
+\begin{tabular}{c l c c}
+\toprule
+Row&\(E(G)\)&\(A_G(s)\)&\(B_G(s)\)\\\midrule
+1&\(12\)&\(s(s+1)(2s+3)/2\)&\(2\bin{s+2}{3}\)\\
+2&\(12,13\)&\(4\bin{s+2}{3}\)&\(\bin{s+1}{2}\)\\
+3&\(12,34\)&\(4\bin{s+2}{3}\)&0\\
+4&\(12,13,23\)&\(s(s+1)(4s+5)/6\)&0\\
+5&\(12,13,14\)&\(s(2s+1)\)&\(\bin{s+1}{2}\)\\
+6&\(12,23,34\)&\(s(2s+1)\)&0\\
+7&\(12,23,34,14\)&\(2s\)&0\\
+8&\(12,13,14,23\)&\(s(s+1)\)&0\\
+9&\(12,13,14,23,24\)&\(s\)&0\\\bottomrule
+\end{tabular}
+\par\smallskip Table 1. All nine source Hilbert-series formulas.
+\end{center}
+
+\begin{center}
+\begin{tabular}{c rrrrr c rrrrr}
+\toprule
+Row&\(e_0\)&\(e_1\)&\(e_2\)&\(e_3\)&\(e_4\)&
+Row&\(e_0\)&\(e_1\)&\(e_2\)&\(e_3\)&\(e_4\)\\\midrule
+1&16&4&0&0&0&6&16&12&5&1&0\\
+2&16&8&2&0&0&7&16&12&1&\(-2\)&0\\
+3&16&8&1&0&0&8&16&12&3&0&0\\
+4&16&8&0&0&0&9&16&12&1&\(-1\)&0\\
+5&16&12&6&1&0&&&&&&\\\bottomrule
+\end{tabular}
+\par\smallskip Table 2. Complete coefficient vectors in convention (2).
+\end{center}
+Compared with the source, \(e_1\) in rows 2 and 3 is 8, the omitted
+\(e_3\)'s in rows 5 and 6 are 1, and the signs of \(e_3\) in rows
+7 and 9 are negative. The main result is the proof of every series
+for every power. These arithmetic corrections alone earn no credit.
+
+\section*{Monomial membership and the degree bound}
+Write \(a_i=2b_i+\epsilon_i\), where \(b_i\geq0\) and
+\(\epsilon_i\in\{0,1\}\), for a monomial \(x^a\).
+Let \(O=\{i:\epsilon_i=1\}\), and let
+\(U=\{i:a_i>0\}\) be its support. A product of quadratic
+generators can be regarded as pairs of tokens: equal-index pairs
+use squares and distinct-index pairs must be edges of \(G\).
+Thus \(x^a\in I_G^s\) exactly when at least \(s\) such pairs
+can be chosen within its exponent capacities.
+
+All monomials of degree below \(2s\) survive, giving the first
+sum of (1). Every monomial of degree \(2s+2\) lies in the ideal.
+Indeed \(|O|\) is 0, 2 or 4. If it is 0 or 2, the squares alone
+give at least \(s\) pairs. If it is 4, use any edge of \(G\)
+(all nine graphs are nonempty); after removing its two tokens,
+the remaining squares give \(s-1\) more pairs. Every higher-degree
+monomial is a multiple of a degree-\(2s+2\) monomial, so it also
+lies in \(I_G^s\).
+
+\section*{Counting degree \(2s\)}
+When \(|O|=0\), squares give an exact pairing, so there are no
+survivors. Suppose \(O=\{u,v\}\). We claim that
+\[
+ x^a\notin I_G^s\quad\Longleftrightarrow\quad
+ u,v\hbox{ lie in different components of }G[U].             \tag{3}
+\]
+For necessity of connectivity, an exact pairing uses only edges
+inside support components; each such component must contain an
+even total number of tokens. If \(u,v\) are separated, their two
+components have odd totals, making a pairing impossible.
+Conversely, if they are connected, choose a simple path from \(u\)
+to \(v\) in \(G[U]\), using each path edge once. Every internal
+vertex has a positive even exponent, hence at least two available
+tokens. The endpoints have at least one. The remaining exponents
+are all even and can be paired using squares. This proves (3).
+
+Fix \(O\) and a set \(T\subseteq V\setminus O\) of the positive
+even-exponent vertices. Then \(U=O\cup T\),
+\(\sum b_i=s-1\), \(b_i\geq1\) on \(T\), and
+\(b_i=0\) outside \(O\cup T\). Stars and bars gives
+\(\bin{s}{|T|+1}\) choices; it gives zero automatically if there
+are too few tokens. Let \(c_t(G)\) count those pairs \((O,T)\)
+with \(|O|=2\), \(|T|=t\) and separated odd vertices. Thus
+the two-odd-exponent contribution is
+\[
+            c_0\bin{s}{1}+c_1\bin{s}{2}+c_2\bin{s}{3}.      \tag{4}
+\]
+These small graph counts can be obtained without ideal computations.
+For any induced graph \(H\) on \(m\) vertices, its number of
+separated pairs is \(\bin m2-\sum_C\bin{|C|}{2}\), summing over
+its components. Consequently \(c_0=6-|E(G)|\), \(c_1\) is the
+sum of this count over the four induced triples, and \(c_2\) is
+the count on \(G\) itself.
+
+It remains to count \(|O|=4\), when \(\sum b_i=s-2\).
+Rows 1, 2 and 4 have an odd-size support component, so no exact
+pairing is possible. All \(\bin{s+1}{3}\) monomials survive.
+Rows 3, 6, 7, 8 and 9 have a perfect matching; use that matching
+and then squares, so no monomial survives.
+In row 5 the graph is a star centered at 1. The three odd leaves
+each require an odd, hence positive, number of incident edges in
+an exact pairing. Thus at least three center tokens are necessary.
+They suffice: use each star edge once, and pair the rest by squares.
+The survivors therefore have \(a_1=1\), equivalently \(b_1=0\),
+and there are \(\bin{s}{2}\) of them.
+Let \(F_G(s)\) be this four-odd contribution. We have proved
+\[
+ A_G(s)=c_0\bin{s}{1}+c_1\bin{s}{2}+c_2\bin{s}{3}+F_G(s).  \tag{5}
+\]
+
+\begin{center}
+\renewcommand{\arraystretch}{1.18}
+\begin{tabular}{c rrr c rr}
+\toprule
+Row&\(c_0\)&\(c_1\)&\(c_2\)&\(F_G(s)\)&\(d_0\)&\(d_1\)\\\midrule
+1&5&10&5&\(\bin{s+1}{3}\)&2&0\\
+2&4&7&3&\(\bin{s+1}{3}\)&0&1\\
+3&4&8&4&0&0&0\\
+4&3&6&3&\(\bin{s+1}{3}\)&0&0\\
+5&3&3&0&\(\bin{s}{2}\)&0&1\\
+6&3&4&0&0&0&0\\
+7&2&0&0&0&0&0\\
+8&2&2&0&0&0&0\\
+9&1&0&0&0&0&0\\\bottomrule
+\end{tabular}
+\par\smallskip Table 3. Counts used in (5) and (6).
+\end{center}
+
+\section*{Counting degree \(2s+1\)}
+There are either one or three odd exponents. One odd exponent
+leaves \(s\) square pairs, so gives no survivor. With three odd
+exponents, squares initially give only \(s-1\) pairs. An edge
+between two odd vertices supplies the missing pair. If the odd
+set \(O\) is independent, only the fourth vertex \(v\) can
+connect two odd vertices. If \(v\) has at least two neighbors
+in \(O\) and \(a_v\geq2\), the length-two path through \(v\)
+does supply \(s\) pairs, leaving the third odd token unpaired.
+
+In the other cases the three odd vertices lie in three distinct
+support components. A pairing leaving only one token would have
+to leave a token in each of these three odd components, which is
+impossible. This proves the necessity as well as the sufficiency
+of the preceding criterion.
+
+Let \(d_0\) count independent triples whose remaining vertex has
+at most one neighbor in the triple, and \(d_1\) those whose remaining
+vertex has at least two neighbors. In the first case all four
+\(b_i\)'s are free with sum \(s-1\), giving \(\bin{s+2}{3}\)
+survivors. In the second, survival forces \(b_v=0\), giving
+\(\bin{s+1}{2}\). Hence
+\[
+ B_G(s)=d_0\bin{s+2}{3}+d_1\bin{s+1}{2}.                    \tag{6}
+\]
+Row 1 has two such independent triples of the first type. Rows 2
+and 5 each have the single triple \(\{2,3,4\}\) of the second
+type. The other rows have no independent triple. This gives the
+last two columns of Table 3. Substitution into (5)--(6) gives
+every entry of Table 1, completing the proof of (1).
+
+\section*{Hilbert coefficients and the positivity counterexample}
+Summing (1) gives the exact polynomial
+\[
+          \ell(S/I_G^s)=\bin{2s+3}{4}+A_G(s)+B_G(s).         \tag{7}
+\]
+The five binomial polynomials in (2) have distinct degrees, so their
+coefficients are unique. Expanding (7) in that basis gives Table 2.
+For example, direct polynomial expansion gives
+\[
+ \bin{2s+3}{4}=16\bin{s+3}{4}-12\bin{s+2}{3}+\bin{s+1}{2}.
+\]
+Thus row 7, the four-cycle, has
+\[
+ \ell(S/I_G^s)=16\bin{s+3}{4}-12\bin{s+2}{3}
+                         +\bin{s+1}{2}+2s,
+\]
+so \(e_3(I_G)=-2\) in the source's convention. This ideal is
+Artinian because it contains every square, and is generated
+entirely in degree two. It therefore disproves Conjecture 1 in
+the preprint, Conjecture 1.1 in the final (MathDB 360640), with
+all its hypotheses satisfied. Row 9 likewise gives \(e_3=-1\).
+These are consequences of the proved full series, not inferences
+from the source's unproved formulas or from a sign typo alone.
+
+\section*{Tasks 2--5: four proposed follow-ups}
+\begin{enumerate}[label=\textbf{Task \arabic*:},start=2,leftmargin=*]
+\item Extend the parity and support-graph classification to all
+five-variable ideals generated by squares and graph edges.
+\item Characterize the graphs for which all Hilbert coefficients
+of the corresponding quadratic ideal are nonnegative.
+\item Determine the depths of the associated graded rings for
+the nine ideals in Table 1.
+\item Compare their ordinary-power coefficients with those of the
+integral-closure filtrations, explaining when the negative signs disappear.
+\end{enumerate}
+These are proposed directions, not additional claimed solutions.
+
+\section*{Sources and verification}
+R. Fr\"oberg, \emph{Hilbert coefficients of quadratic algebras},
+\href{https://arxiv.org/abs/2311.02860}{arXiv:2311.02860v1},
+6 November 2023, Conjecture 4, p.~6; all seven pages read.
+Final: \emph{Journal of Experimental Mathematics} 1(2) (2025),
+315--321, \href{https://doi.org/10.56994/JXM.001.002.007}{DOI
+10.56994/JXM.001.002.007}, Conjecture 3.2, pp.~319--320;
+all seven article pages and both front-matter pages read.
+
+The source supplies the nine conjectured series. Elementary monomial
+membership and stars and bars are the inputs to our all-power proof.
+Negative third coefficients for general ideals were already known;
+the counterexamples here satisfy the additional quadratic hypothesis.
+
+Three supplementary exact groups check 89,856 monomials, 216 graded
+counts, the graph counts, and coefficient recovery from lengths.
+One combined result earns one campaign credit. Review by the
+authoring agent only, without independent peer review or a proof
+assistant; bounded source and claim checks are recorded in the audit.
+\end{document}

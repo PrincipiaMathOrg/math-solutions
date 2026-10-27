@@ -1,0 +1,204 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[hidelinks]{hyperref}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\DeclareMathOperator{\Lip}{Lip}
+\title{A unique upper transition attractor for bounded similarity families}
+\author{Principia Math in Progress\\MathDB 344775}
+\date{12 September 2026}
+\begin{document}
+\maketitle
+\begin{abstract}
+We prove Vince's Conjecture 8.1 for every bounded one-parameter family in
+the source's sense, in every finite dimension. The powers of the distinguished
+isometry need not be periodic. Damped powers converge as a compact set of
+operators, and regrouping the original maps gives a contraction constant
+bounded strictly below one throughout the limiting process.
+\end{abstract}
+
+\paragraph{Task 1. Prove uniqueness of the upper transition attractor.}
+Here ``bounded'' has the technical meaning of Definition 8.1 in \cite{V}:
+the family consists of similarities, each map has a fixed point independent
+of the parameter, and exactly one underlying similarity has the largest
+scaling ratio. It is not an assumption merely about bounded sets for an
+arbitrary affine family.
+
+By rescaling the parameter so that the threshold is $1$ and translating
+the special fixed point to $0$, the source's Proposition 5.4 gives the form
+\begin{equation}\label{normal}
+ \mathcal F_t=\{g_t,f_{1,t},\ldots,f_{m,t}\},\quad
+ g_t(x)=tUx,\quad f_{i,t}(x)=tL_i(x-q_i)+q_i,
+\end{equation}
+where $U\in O(d)$, $q_i\in\mathbb R^d$, and
+$\rho:=\max_i\|L_i\|<1$. For the original problem each $L_i$ is a similarity;
+the proof below only uses its displayed norm bound. Let $A_t$ be the unique
+attractor for $0\le t<1$, with distances between compact sets measured by
+the Hausdorff metric $h$.
+
+\begin{theorem}\label{main}
+For the family \eqref{normal}, $A_t$ has a limit $A_*$ as $t\uparrow1$.
+Consequently it has a unique upper transition attractor, and the map
+$t\mapsto A_t$ is uniformly continuous on $(0,1)$.
+\end{theorem}
+
+We first isolate the compactness step. Operator norms are Euclidean norms,
+and $h_{\rm op}$ is the resulting Hausdorff metric on compact sets of matrices.
+
+\begin{lemma}\label{powers}
+For $U\in O(d)$ set
+\[
+ H=\overline{\{U^n:n\ge0\}},\quad
+ E_t=\{0\}\cup\{t^nU^n:n\ge0\}\quad(0<t<1),\quad
+ D=\{rQ:0\le r\le1,\ Q\in H\}.
+\]
+Then $H$ is a compact group, $E_t$ and $D$ are compact, and
+$h_{\rm op}(E_t,D)\to0$ as $t\uparrow1$.
+\end{lemma}
+\begin{proof}
+The set $H$ is a closed subsemigroup of the compact group $O(d)$.
+Choose an increasing sequence $n_k$ such that $U^{n_k}$ converges. Then
+$U^{n_{k+1}-n_k}\to I$, so $U^{n_{k+1}-n_k-1}\to U^{-1}$, and $U^{-1}\in H$.
+Thus all integral powers belong to $H$, and continuity of inversion shows
+that $H$ is a group. Compactness of $D$ follows from its parametrization
+by $[0,1]\times H$. For fixed $t<1$, the only possible accumulation point
+of $t^nU^n$ as $n\to\infty$ is $0$, so $E_t$ is compact.
+
+Fix $\varepsilon>0$. Density of the nonnegative powers and compactness give
+an integer $L\ge0$ such that $I,U,\ldots,U^L$ is an $\varepsilon$-net of $H$.
+For every $N\ge0$, the list $U^N,\ldots,U^{N+L}$ is also an
+$\varepsilon$-net, since left multiplication by $U^N$ is an isometry of $H$.
+
+Given $rQ\in D$ with $r>0$, choose
+$N=\lfloor\log r/\log t\rfloor$, so $t^{N+1}<r\le t^N$.
+Some $j\in\{0,\ldots,L\}$ satisfies $\|U^{N+j}-Q\|\le\varepsilon$.
+It follows that
+\begin{align*}
+ \|t^{N+j}U^{N+j}-rQ\|
+ &\le \varepsilon+|t^{N+j}-r|\\
+ &\le \varepsilon+(1-t^L)+(1-t).
+\end{align*}
+The case $r=0$ is exact, since $0\in E_t$. Conversely $E_t\subseteq D$.
+Thus
+\begin{equation}\label{netbound}
+ h_{\rm op}(E_t,D)\le\varepsilon+(1-t^L)+(1-t).
+\end{equation}
+First let $t\uparrow1$ with $\varepsilon,L$ fixed, then let $\varepsilon$
+decrease to zero. No periodicity assumption has been used.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{main}]
+Choose $C\ge\sup_{i,\,0\le t\le1}\|f_{i,t}(0)\|$ and a radius
+$R>\max\{1,C/(1-\rho)\}$. The closed ball $B=\overline B(0,R)$ is
+invariant under all the maps in \eqref{normal}, including at $t=1$:
+\[
+ \|f_{i,t}(x)\|\le\rho R+C\le R,\qquad \|g_t(x)\|\le R
+ \quad(x\in B).
+\]
+In particular $A_t\subseteq B$. Define compact families of maps on $B$ by
+\[
+ \mathcal M_t=\{x\mapsto M f_{i,t}(x):M\in E_t,\ 1\le i\le m\},\qquad
+ \mathcal M_* =\{x\mapsto M f_{i,1}(x):M\in D,\ 1\le i\le m\}.
+\]
+Each family includes the constant-zero map. Every map in these families
+has Lipschitz constant at most $\rho$, uniformly in $t$ and $M$.
+Their Hutchinson operators $\Phi_t,\Phi_*$ on the complete metric space
+$\mathcal K(B)$ of nonempty compact subsets of $B$ are therefore
+$\rho$-contractions. Their values are compact because the parameter
+sets and the input sets are compact. The contraction theorem gives a unique
+fixed compact set for each operator; denote the fixed set of $\Phi_*$ by $A_*$.
+
+We claim that the fixed set of $\Phi_t$ is exactly $A_t$. Put
+$F_t(K)=\bigcup_i f_{i,t}(K)$. Iterating the original invariance equation gives
+\begin{equation}\label{unfold}
+ A_t=\bigcup_{n=0}^{k-1}g_t^n(F_t(A_t))\ \cup\ g_t^k(A_t)
+ \qquad(k\ge1).
+\end{equation}
+Also $0\in A_t$, since repeated application of $g_t$ to any point of $A_t$
+converges to $0$. Every set in the union on the right lies in $A_t$.
+Conversely, if a point of $A_t$ lies in none of these sets for any $n$,
+then \eqref{unfold} places it in $g_t^k(A_t)$ for every $k$, so its norm is
+at most $t^kR$ for every $k$ and it is zero. Since $g_t^n(x)=t^nU^nx$,
+\[
+ A_t=\{0\}\cup\bigcup_{n\ge0,\,i}g_t^n(f_{i,t}(A_t))=\Phi_t(A_t).
+\]
+This proves the claim, including the required infinite tails.
+
+Let
+\[
+ \eta_t=h_{\rm op}(E_t,D),\qquad
+ e_t=\max_i\sup_{x\in B}\|f_{i,t}(x)-f_{i,1}(x)\|.
+\]
+Lemma~\ref{powers} gives $\eta_t\to0$. Formula \eqref{normal} gives
+$e_t\le(1-t)\max_i\sup_{x\in B}\|L_i(x-q_i)\|\to0$.
+Pairing close matrices in the two coefficient sets, using
+$f_{i,1}(B)\subseteq B$ and $\|M\|\le1$, shows that for every
+$K\in\mathcal K(B)$,
+\[
+ h(\Phi_t(K),\Phi_*(K))\le e_t+R\eta_t.
+\]
+The fixed-point equations now imply
+\[
+ h(A_t,A_*)\le \rho h(A_t,A_*)+e_t+R\eta_t,
+ \qquad
+ \boxed{\ h(A_t,A_*)\le\frac{e_t+R\eta_t}{1-\rho}\ \longrightarrow\ 0.\ }
+\]
+Hence the upper transition attractor is unique.
+
+For completeness, on every interval $[0,b]$ with $b<1$, the original
+Hutchinson operators have a common contraction factor at most $b$ and depend
+uniformly continuously on $t$ on $B$. The same fixed-point estimate proves
+continuity of $A_t$ there, including at $0$, where the attractor is the
+finite set of constant-map values. Together with the established limit at
+$1$, this extends $t\mapsto A_t$ continuously to $[0,1]$ and thus proves
+uniform continuity. Rescaling back gives the assertion on $(0,t_0)$.
+\end{proof}
+
+If the original family has only the distinguished map, its attractor is
+the special fixed point for every $t<1$, so the conclusion holds immediately.
+The limiting set above need not be an attractor of the original threshold
+IFS $\mathcal F_1$; only uniqueness of the upper transition attractor is asserted.
+
+The final 2022 article \cite{LSSV}, p.~5418, explicitly describes its
+periodic-isometry theorem as a partial answer to Vince's conjecture. Its
+Question 6.2 on p.~5425 leaves the nonperiodic case open. The compact
+operator-set limit in Lemma~\ref{powers} supplies that missing step for
+the finite-dimensional source problem.
+
+\paragraph{Task 2. Quantify convergence for nonperiodic rotations.}
+Use covering times of $\{U^n\}$ in $H$ and \eqref{netbound} to derive
+rates for $h(A_t,A_*)$. Determine the sharp rates under Diophantine
+conditions on the rotation angles and contrast them with the linear bound
+available when $U$ is periodic.
+
+\paragraph{Task 3. Determine useful infinite-dimensional hypotheses.}
+Extend the argument to Banach spaces under compactness assumptions on the
+isometry powers. Determine whether compactness of the relevant point
+orbits can replace compactness in operator norm.
+
+\paragraph{Task 4. Treat several maps at the critical scaling ratio.}
+Determine when multiple distinguished similarities admit a unique limiting
+attractor. Analyze the roles of a common fixed point, the group they
+generate, and boundedness of the attractors near the threshold.
+
+\paragraph{Task 5. Analyze the geometry of the limiting set.}
+Use the explicit family $\mathcal M_*$ to characterize the radial,
+symmetry and interior properties of $A_*$. Determine when this set agrees
+with the lower transition attractor and when the containment is strict.
+
+\begin{thebibliography}{9}
+\bibitem{V}
+A. Vince, \emph{Thresholds for one-parameter families of affine iterated
+function systems}, Nonlinearity \textbf{33} (2020), 6541--6563.
+\href{https://people.clas.ufl.edu/avince/files/Vince_2020_Nonlinearity.pdf}{Final journal PDF};
+\href{https://arxiv.org/abs/1912.03220}{arXiv:1912.03220}.
+Definition 8.1 and Conjecture 8.1 appear on pp.~6557--6558.
+\bibitem{LSSV}
+K. Le\'{s}niak, N. Snigireva, F. Strobin and A. Vince,
+\emph{Transition phenomena for the attractor of an iterated function system},
+Nonlinearity \textbf{35} (2022), 5396--5426.
+\href{https://doi.org/10.1088/1361-6544/ac8af1}{doi:10.1088/1361-6544/ac8af1}.
+Theorem 5.2, p.~5418, and Question 6.2, p.~5425.
+\end{thebibliography}
+\end{document}

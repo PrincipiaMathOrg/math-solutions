@@ -1,0 +1,127 @@
+\documentclass[11pt]{article}
+\usepackage{amsmath,amssymb,amsthm,geometry,hyperref}
+\geometry{margin=1in}
+\newtheorem{theorem}{Theorem}
+\setlength{\emergencystretch}{2em}
+\title{A positive-power counterexample for Taylor intersection roots\\
+\large A solution of MathDB 328557}
+\author{Research notes in Principia Math In Progress}
+\date{11 September 2026}
+\begin{document}
+\maketitle
+
+\section{Task 1: the problem and its resolution}
+For $f(z)=z^n$ and a positive integer $r<n$, let
+\[
+ P_c(z)=\sum_{k=0}^r\frac{f^{(k)}(c)}{k!}(z-c)^k
+\]
+be the order-$r$ Taylor polynomial at $c$. Conjecture 2 in Section 5.2 of
+Horwitz's paper \cite{horwitz} asserts that, when $0<a<b$, every nonreal
+root of $P_b-P_a$ has real part strictly between $a$ and $b$.
+The following refutes that assertion for a positive integer power.
+
+\begin{theorem}\label{counterexample}
+Take $r=5$, $n=24$, $a=1$, and $b=2$. Then $P_2-P_1$ has a conjugate pair
+of nonreal roots $z_+,z_-$ satisfying
+\[
+ 2.00042<\operatorname{Re}z_\pm<2.00044,
+ \qquad 0.29417<|\operatorname{Im}z_\pm|<0.29419.
+\]
+In particular, their real parts are greater than $b$.
+\end{theorem}
+All source hypotheses hold: $0<a<b$, $r>3$, $n\geq r+1$, and
+$f^{(r+1)}$ is continuous and strictly positive on $[a,b]$.
+The source's examples for negative powers concern a different extension.
+The counterexample here uses the positive power explicitly required by
+Conjecture 2. It does not refute the weaker Conjecture 1, which asks only
+for at least one conjugate pair with real part between the nodes.
+
+\section{The exact polynomial}
+Put $y=z-2$. Directly from the binomial coefficients,
+\begin{align*}
+ P_2(2+y)&=\sum_{k=0}^5\binom{24}{k}2^{24-k}y^k,\\
+ P_1(2+y)&=\sum_{k=0}^5\binom{24}{k}(1+y)^k.
+\end{align*}
+Their difference is $7Q(y)$, where
+\begin{align*}
+ Q(y)={}&3183470664y^5+1591706490y^4+606309440y^3\\
+        &+165304680y^2+28723560y+2388823.
+\end{align*}
+Thus it suffices to isolate a nonreal zero of $Q$ in the right half-plane.
+
+\section{An exact rational root certificate}
+Let
+\[
+ c=\frac{43+29418i}{100000},\qquad \rho=\frac1{100000},\qquad
+ d_k=\frac{Q^{(k)}(c)}{k!}.
+\]
+Every $d_k$ has rational real and imaginary parts. For a complex number $v$
+write $U(v)=|\operatorname{Re}v|+|\operatorname{Im}v|$ and
+$D(v)=\max(|\operatorname{Re}v|,|\operatorname{Im}v|)$; then
+$D(v)\leq|v|\leq U(v)$. Exact substitution gives the following rational
+inequalities, with deliberately loose integer bounds:
+\[
+\begin{array}{c|r}
+ k&\text{upper bound for }U(d_k)\\\hline
+ 0&89\\
+ 2&937000000\\
+ 3&4028000000\\
+ 4&6282000000\\
+ 5&3184000000
+\end{array}
+\qquad D(d_1)>65000000.
+\]
+These are finite integer-arithmetic claims: the companion verifier evaluates
+each rational real and imaginary part exactly and checks the displayed
+inequalities. They can also be checked directly from the displayed $Q$ and $c$.
+
+Since every upper bound in rows $2$ through $5$ is less than $10^{10}$,
+\[
+ \sum_{k=2}^5 |d_k|\rho^k
+ <10^{10}\frac{\rho^2}{1-\rho}<2.
+\]
+On the circle $|y-c|=\rho$ it follows that
+\[
+ |Q(y)-d_1(y-c)|
+ \leq |d_0|+\sum_{k=2}^5|d_k|\rho^k
+ <91<650<|d_1(y-c)|.
+\]
+Rouch\'e's theorem therefore gives exactly one zero of $Q$ in
+$|y-c|<\rho$, counted with multiplicity, because the comparison polynomial
+$d_1(y-c)$ has one. The disk lies entirely in
+\[
+ 0.00042<\operatorname{Re}y<0.00044,
+ \qquad 0.29417<\operatorname{Im}y<0.29419.
+\]
+The coefficients of $Q$ are real, so its conjugate disk contains the
+conjugate root. Adding $2$ gives the assertions of Theorem~\ref{counterexample}.
+This closes the proof; decimal root approximations are not used.
+
+\section{Follow-up tasks 2--5}
+\begin{enumerate}
+\setcounter{enumi}{1}
+\renewcommand{\labelenumi}{\textbf{Task \arabic{enumi}.}}
+\item Determine all pairs $(r,n)$ for which every nonreal intersection root
+lies in $a<\operatorname{Re}z<b$ for every $0<a<b$. In particular, find the
+least positive exponent producing failure for each fixed Taylor order.
+\item For fixed $(r,n)$, classify the ratios $b/a>1$ at which a root crosses
+either boundary of the vertical strip. Obtain exact algebraic criteria and
+locate every transition for the case $(r,n)=(5,24)$.
+\item Prove a precise limit theorem for the roots as $n\to\infty$ with $r$
+and $b/a$ fixed. Determine how the zeros of truncated exponential series
+control the number and size of excursions beyond $b$.
+\item Resolve the weaker assertion that at least one nonreal conjugate pair
+has real part in $(a,b)$ whenever $f^{(r+1)}$ is continuous and nonvanishing
+there and $r\geq4$. Identify sharp hypotheses if this assertion also fails.
+\end{enumerate}
+
+\begin{thebibliography}{9}
+\bibitem{horwitz} A. Horwitz, \emph{Means and nonreal intersection points of
+Taylor polynomials}, Journal of Classical Analysis 6 (2015), 1--28,
+Conjecture 2 in Section 5.2, p.~26.
+\url{https://doi.org/10.7153/jca-06-01}.
+Preprint: \url{https://arxiv.org/abs/1408.2573}.
+\bibitem{mathdb} MathDB 328557, live record retrieved 11 September 2026.
+\url{https://mathdb.com/p/328557}.
+\end{thebibliography}
+\end{document}

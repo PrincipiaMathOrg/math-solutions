@@ -1,0 +1,141 @@
+\documentclass[10pt]{article}
+\usepackage[margin=0.85in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,booktabs,hyperref}
+\newtheorem{lemma}{Lemma}
+\newtheorem{theorem}{Theorem}
+\newcommand{\SDR}{\mathrm{SDR}}
+\title{Failure of inverse closure for Star of David matrices}
+\author{Principia Math in Progress}
+\date{13 September 2026}
+\begin{document}
+\maketitle
+
+\paragraph{Task 1. Resolve Sun's inverse-closure conjecture.}
+Conjecture 2.6 of \cite{Sun} asks whether every invertible \(A\in\SDR_m\) has \(A^{-1}\in\SDR_m\). We give a counterexample simultaneously for every \(m\ge3\), even with \(A\in\SDR_\infty\).
+We use Sun's source definition: \(\SDR\) means \emph{Star of David rule}.
+The added phrase ``sign-determined Riordan matrices'' in MathDB is
+inconsistent with that definition. No Riordan-array restriction is
+imposed in the source conjecture; our result resolves that original
+assertion, and makes no assertion about a separately restricted class.
+
+For an infinite lower triangular matrix \(X\), with zero entries above
+the diagonal, put
+\begin{align*}
+ L_{p,r}(n,k;X)&=
+ \prod_{i=0}^{r}X_{n+i,k+r-i}
+ \prod_{i=0}^{p-r-1}X_{n+p-i,k+r+i+1},\\
+ R_{p,r}(n,k;X)&=
+ \prod_{i=0}^{r}X_{n+p-i,k+p-r+i}
+ \prod_{i=0}^{p-r-1}X_{n+i,k+p-r-i-1}.
+\end{align*}
+Definition 1.1 in \cite{Sun} requires \(L_{p,r}=R_{p,r}\) for all
+\(n\ge k\ge0\), \(2\le p\le m-1\), and \(0\le r\le p-1\).
+Membership in \(\SDR_\infty\) means these identities hold for every
+\(p\ge2\).
+
+\begin{lemma}\label{extension}
+Let \(M\) be a lower triangular \(d\times d\) matrix satisfying all
+the displayed identities whose row indices lie in \(\{0,\ldots,d-1\}\).
+Then \(M\oplus I\in\SDR_\infty\), where \(I\) is the infinite identity.
+\end{lemma}
+\begin{proof}
+Each product uses every row \(n,\ldots,n+p\) and every column
+\(k,\ldots,k+p\) exactly once. If \(n>k\) and \(n+p\ge d\),
+row \(n+p\) belongs to the identity tail. Its only nonzero entry is
+in column \(n+p\), exceeding all the columns in either product.
+Consequently both products vanish. If \(n+p<d\), the assumed
+finite identities apply.
+
+It remains to handle \(n=k\). For \(r\ge1\), the first factor
+\(X_{n,k+r}\) of \(L\) is above the diagonal; for \(r=0\),
+the factor with \(i=p-1\) in its second product is
+\(X_{n+1,k+p}=0\). In \(R\), if \(r\le p-2\), its second
+product contains \(X_{n,k+p-r-1}=0\); if \(r=p-1\), its first
+product contains \(X_{n+1,k+p}=0\). Thus both sides vanish here too.
+\end{proof}
+
+Consider
+\[
+ M=\begin{pmatrix}
+ 1&0&0&0&0\\1&1&0&0&0\\0&1&1&0&0\\0&0&1&1&0\\0&1&0&2&1
+ \end{pmatrix},\qquad A=M\oplus I.
+\]
+All identities within \(M\) hold. To check this without any unbounded
+computation, cases \(n=k\) were proved in the lemma. For \(n>k\)
+and \(n+p\le4\), the only possibilities are the following:
+\[
+\begin{array}{cccll}
+\toprule
+p&(n,k)&r&L&R\\
+\midrule
+2&(1,0)&0&1\cdot0\cdot1=0&1\cdot1\cdot0=0\\
+2&(2,0)&0&0\cdot1\cdot1=0&0\cdot1\cdot0=0\\
+2&(2,1)&0&1\cdot0\cdot1=0&2\cdot1\cdot0=0\\
+3&(1,0)&0&0\quad(M_{2,3}=0)&0\quad(M_{1,2}=0)\\
+3&(1,0)&1&0\quad(M_{2,0}=0)&0\quad(M_{2,0}=0)\\
+\bottomrule
+\end{array}
+\]
+For \(p=2,r=1\), the two sides are the \(r=0\) sides interchanged.
+For \(p=3,r=2\), they are the \(r=0\) sides interchanged.
+There are no further cases with \(n>k\). The lemma proves
+\(A\in\SDR_\infty\).
+
+\begin{theorem}
+The matrix \(A\) belongs to every \(\SDR_m\), but \(A^{-1}\) belongs
+to none of them, for \(m\ge3\).
+\end{theorem}
+\begin{proof}
+The matrix is unit lower triangular and
+\[
+ M^{-1}=\begin{pmatrix}
+ 1&0&0&0&0\\-1&1&0&0&0\\1&-1&1&0&0\\-1&1&-1&1&0\\3&-3&2&-2&1
+ \end{pmatrix}.
+\]
+Direct multiplication on both sides gives the identity.
+Thus \(B=A^{-1}=M^{-1}\oplus I\) exists as an infinite row-finite
+matrix. But with \((p,n,k,r)=(2,2,0,0)\),
+\[
+ L=B_{2,0}B_{4,1}B_{3,2}=1(-3)(-1)=3,
+ \qquad
+ R=B_{4,2}B_{2,1}B_{3,0}=2(-1)(-1)=2.
+\]
+This violates the order-three rule, which is included in every
+\(\SDR_m\) with \(m\ge3\).
+\end{proof}
+
+\paragraph{Verification and scope.}
+The supplied script checks all 25 finite identities, the displayed
+matrix operations, and the exact failed identity. It also checks a
+larger truncation as a diagnostic. Lemma~\ref{extension} supplies the
+proof for the entire infinite matrix; the diagnostic is not used to
+infer an infinite assertion. Zero entries are allowed in Definition 1.1
+and in the selected conjecture. The source explicitly imposes a
+nonzero-entry hypothesis in other theorems, including Theorem 2.10,
+but not here.
+The same matrix also supplies a counterexample to the distinct contiguous-minor closure question, treated separately as MathDB 317354. The operations and failed identities are different.
+
+\paragraph{Task 2. Minimize the counterexample.}
+Determine the smallest leading block size permitting failure of inverse
+closure, and classify examples of that size up to diagonal rescaling.
+
+\paragraph{Task 3. Classify support patterns.}
+Find conditions on the zero pattern of an invertible Star of David
+matrix that guarantee its inverse satisfies the same rules.
+
+\paragraph{Task 4. Study nonvanishing arrays.}
+Determine whether every nowhere-zero Star of David matrix admits a
+row--column--diagonal factorization, and derive consequences for inversion.
+
+\paragraph{Task 5. Analyze the Riordan intersection.}
+Investigate inverse closure within the intersection of Sun's
+\(\SDR_m\) and the ordinary Riordan group.
+
+\begin{thebibliography}{1}
+\bibitem{Sun} Y.~Sun, \emph{The Star of David rule}, Linear Algebra
+Appl. \textbf{429} (2008), 1954--1961,
+\href{https://doi.org/10.1016/j.laa.2008.05.027}{doi:10.1016/j.laa.2008.05.027};
+\href{https://arxiv.org/abs/0805.1277}{arXiv:0805.1277v1}.
+Source references in this note use the actual seven-page arXiv PDF.
+\end{thebibliography}
+\end{document}

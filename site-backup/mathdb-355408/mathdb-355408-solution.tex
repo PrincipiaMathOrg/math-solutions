@@ -1,0 +1,186 @@
+\documentclass[10pt]{article}
+\usepackage[margin=0.9in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,hyperref}
+\newtheorem{theorem}{Theorem}
+\newcommand{\rise}[2]{(#1)_{#2}}
+\newcommand{\step}[2]{(#1)_{#2,2}}
+\title{A proof of Maier's Bessel-number formula}
+\author{Principia Math in Progress}
+\date{13 September 2026}
+\begin{document}
+\maketitle
+\paragraph{Task 1. Prove the generalized Eulerian identity.}
+Write \(\rise an=a(a+1)\cdots(a+n-1)\) and
+\(\step an=a(a+2)\cdots(a+2n-2)\), with both empty products equal to one.
+The generalized Stirling numbers satisfy
+\[
+ S_{n+1,j}(a,b;r)=(-an+bj+r)S_{n,j}(a,b;r)+S_{n,j-1}(a,b;r),
+ \qquad S_{0,0}=1,
+\]
+and vanish outside \(0\le j\le n\). Put
+\(B_{n,j}=S_{n,j}(1,2;0)\) and \(B^{(r)}_{n,j}=S_{n,j}(1,2;r)\).
+The generalized Eulerian numbers \(E_{n,k}(a,b;c_0,c_\infty)\)
+are similarly normalized and satisfy
+\[
+ E_{n+1,k}=(-an+bk+c_0)E_{n,k}
+             +((a+b)n-b(k-1)+c_\infty)E_{n,k-1}.
+ \tag{1}
+\]
+We prove Conjecture 4.20 of \cite{Maier}, including all its parameters.
+
+\begin{theorem}
+Let \(p\ge0\) be an integer, \(\zeta\in\{0,1\}\), and \(m=2p+\zeta\).
+For \(0\le k\le n\),
+\[
+ E_{n,k}(-1,2;c+m,m)=
+ \frac{\rise{c+m}n}{\step{c+2p+2\zeta}p}
+ \sum_{\ell=0}^p
+ \frac{\step{c+1}p}{\step{c+1}{k+\ell}}\,
+ B_{m,m-\ell}B^{(m-2\ell)}_{n,n-k}.
+ \tag{2}
+\]
+The equality holds as a rational-function identity in \(c\).
+Its right side has removable singularities wherever its displayed
+denominators vanish, with polynomial continuation equal to the left side.
+\end{theorem}
+
+\begin{proof}
+We first work at generic \(c\), so every denominator used below is nonzero.
+The Stirling recurrence, or direct coefficient comparison, gives
+\[
+ \sum_{n\ge j}B^{(r)}_{n,j}\frac{z^n}{n!}
+   =\frac{(1+z)^r}{j!}(z+z^2/2)^j.
+\]
+Consequently
+\[
+ B_{m,m-\ell}=\frac{m!}{2^\ell\ell!(m-2\ell)!},\qquad
+ B^{(r)}_{n,n-k}=\frac{n!}{(n-k)!}
+        [z^k](1+z)^r(1+z/2)^{n-k}.                \tag{3}
+\]
+Let
+\[
+ P_k(y)=\sum_{\ell=0}^p
+   \frac{B_{m,m-\ell}}{\step{c+1}{k+\ell}}\,y^{m-2\ell},
+ \quad
+ H_{n,k}=\frac{n!}{(n-k)!}[z^k](1+z/2)^{n-k}P_k(1+z),
+ \quad
+ q=\frac{\step{c+1}p}{\step{c+2p+2\zeta}p}.        \tag{4}
+\]
+Define \(H_{n,k}=0\) outside \(0\le k\le n\).
+The proposed right side of (2) is \(F_{n,k}=q\rise{c+m}n H_{n,k}\).
+
+We record two polynomial identities. Set
+\(\alpha=c+2k+m-1\), \(\beta=2m+c+2k-2\), and \(\gamma=m\alpha\).
+Then
+\[
+ \mathcal D_kP_k:=(y^2-1)P_k''-\beta yP_k'+\gamma P_k=0, \tag{5}
+\]
+and, when \(k\ge1\),
+\[
+ P_{k-1}=\alpha P_k-yP_k'.                       \tag{6}
+\]
+To verify (5), write the coefficient of \(y^{m-2\ell}\) in \(P_k\)
+as \(a_\ell\). Formula (3) gives
+\[
+ 2(\ell+1)(c+2k+2\ell+1)a_{\ell+1}
+    =(m-2\ell)(m-2\ell-1)a_\ell .
+\]
+These are exactly the coefficient equations in (5);
+the top and terminal terms also vanish because \(m-2p\in\{0,1\}\).
+For (6), the coefficient multiplier is
+\(\alpha-(m-2\ell)=c+2k+2\ell-1\), the ratio of the two
+step-two denominators.
+
+We now show
+\[
+ (n+c+m)H_{n+1,k}
+ =(n+2k+c+m)H_{n,k}+(n-2k+2+m)H_{n,k-1}.
+ \tag{7}
+\]
+For \(k=0\), this is immediate from \(H_{n,0}=P_0(1)\).
+For \(1\le k\le n+1\), put
+\[
+ N=n-k+1\ge0,\quad A=n+c+m,\quad d=n-2k+2+m,\quad
+ U=1+z/2,\quad y=1+z .
+\]
+A coefficient calculation using (4) and (6) gives
+\begin{align}
+ &\frac{N!}{n!}
+ \{A H_{n+1,k}-(A+2k)H_{n,k}-dH_{n,k-1}\}\notag\\
+ &\hspace{25mm}=-[z^{k-1}]U^N(\mathcal D_kP_k)(1+z)=0.       \tag{8}
+\end{align}
+Here is an explicit verification of the calculation, to keep (8) self-contained.
+For any formal series \(h,P\),
+\begin{align*}
+ [z^{k-1}]hP'&=k[z^k]hP-[z^{k-1}]h'P,\\
+ [z^{k-1}]hP''&=k(k+1)[z^{k+1}]hP
+                    -2k[z^k]h'P+[z^{k-1}]h''P.
+\end{align*}
+Substituting \(P_{k-1}=\alpha P-yP'\), the first expression
+in (8) becomes \([z^k]U^{N-1}KP\), where
+\[
+ K=A(N+k)U-(A+2k)N-d\alpha zU+dkUy-dz(Ny/2+U).
+\]
+Moving derivatives off \(P\) in \([z^{k-1}]U^N\mathcal D_kP\)
+gives \([z^k]U^{N-1}LP\), where
+\begin{align*}
+ L={}&2k(k-1)U^2-2k(N+1)zU+2(N+1)zU
+          +\tfrac12N(N+1)z^2\\
+    &-\beta kUy+\beta z(Ny/2+U)+\gamma zU.
+\end{align*}
+In these expressions \(A=N+k-1+c+m\) and \(d=N-k+1+m\).
+Expansion gives \(K+L=0\), proving (8).
+This verification also covers \(N=0\), or \(k=n+1\):
+the \(H_{n,k}\) term has multiplier \(N=0\), while \(U^{-1}\)
+is a well-defined formal series. Thus no undefined factorial is used
+at this edge. Equation (5) proves (7).
+
+It remains to check the apex normalization. Using (3),
+\begin{align*}
+ P_0(1)
+ &=\sum_{\ell=0}^p
+   \frac{\rise{-p}\ell\,\rise{\frac12-p-\zeta}\ell}
+        {\rise{(c+1)/2}\ell\,\ell!}\\
+ &=\frac{\rise{c/2+p+\zeta}p}{\rise{(c+1)/2}p}
+ =q^{-1}.                                                   \tag{9}
+\end{align*}
+The middle equality is the finite Chu--Vandermonde identity.
+It follows, for example, by expanding \((1-t)^p\) in the beta
+integral and then continuing the resulting rational identity in
+its parameters. Hence \(F_{0,0}=1\).
+Multiplying (7) by \(q\rise{c+m}n\) shows that \(F\) satisfies (1)
+with \(a=-1,b=2,c_0=c+m,c_\infty=m\).
+The triangular recurrence and its apex determine every entry uniquely,
+so \(F=E\) by induction on \(n\).
+Finally, this equality at generic \(c\) is an identity of rational
+functions. The recurrence makes \(E\) a polynomial in \(c\), proving
+the claimed cancellation and continuation at every exceptional value.
+\end{proof}
+
+\newpage
+\paragraph{Task 2. Find a combinatorial interpretation.}
+For parameter values that make all terms nonnegative, explain (2) by
+a weighted counting model and interpret the summation index \(\ell\).
+
+\paragraph{Task 3. Study the auxiliary polynomial family.}
+Identify \(P_k\) within classical polynomial families, and use its
+differential equation to obtain useful connection formulas or zero information.
+
+\paragraph{Task 4. Extend the parameter range of finite formulas.}
+Determine which additional pairs \((a,b)\) admit analogous finite
+Bessel-type expansions for \(E_{n,k}(a,b;c_0,c_\infty)\).
+
+\paragraph{Task 5. Remove apparent singularities explicitly.}
+Derive formulas with manifest polynomial dependence on \(c\), including
+efficient evaluations at negative integer and negative odd integer values.
+
+\begin{thebibliography}{1}
+\bibitem{Maier}
+R.~S.~Maier, \emph{Triangular recurrences, generalized Eulerian numbers,
+and related number triangles}, \emph{Advances in Applied Mathematics}
+\textbf{146} (2023), 102485.
+\href{https://arxiv.org/abs/2207.10224v2}{Accepted manuscript,
+arXiv:2207.10224v2}, Definition 4.4, Definition 4.6,
+and Conjecture 4.20 (page 44).
+\end{thebibliography}
+\end{document}

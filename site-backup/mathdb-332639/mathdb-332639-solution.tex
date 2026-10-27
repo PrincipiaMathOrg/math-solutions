@@ -1,0 +1,148 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,hyperref,enumitem}
+\hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue}
+\newtheorem{theorem}{Theorem}
+\newcommand{\tr}{\operatorname{tr}}
+\title{The next-to-leading trace coefficient\\of a two-peg web world}
+\author{Principia Math In Progress}
+\date{22 September 2026}
+\begin{document}
+\maketitle
+\noindent\textbf{MathDB 332639. Full all-size enumeration, with the source index corrected.}
+
+\section*{Task 1: the intended trace enumeration}
+Following Dukes and White [1, Section~7], let \(W_n\) be the web world
+on two pegs with \(n\) edges. Its diagrams are
+\[
+ D_\pi=\{(1,2,i,\pi_i):1\leq i\leq n\},\qquad \pi\in S_n.
+\]
+A \(k\)-colouring is a surjection from the edges to \([k]\).
+Reconstruction retains the relative endpoint orders within each
+colour and stacks the colour classes in increasing colour order.
+The coefficient \([x^k]M^{(W_n)}_{D_\pi,D_\sigma}(x)\) counts
+colourings of \(D_\pi\) whose reconstruction is \(D_\sigma\).
+Thus the trace counts pairs consisting of a diagram and a
+colouring reconstructing that same diagram.
+
+Conjecture~29 asks for the next-to-leading coefficient
+\[
+ a_n=[x^{n-1}]\tr M^{(W_n)}(x),\qquad n\geq2.
+\]
+The source's Figure~7 gives \(2,8,42,264,1920,15840\) for
+\(n=2,\ldots,7\) and identifies them with the sequence A121635.
+Its displayed formula has a one-place index shift. The theorem
+below proves the intended enumeration for every \(n\), including
+the precise relation to that sequence.
+
+\begin{theorem}
+For every integer \(n\geq2\),
+\[
+ \boxed{\displaystyle
+ a_n=(n-1)!\left(\binom n2+1\right)
+      =\frac{(n-1)!(n^2-n+2)}2.}                         \tag{1}
+\]
+More precisely, if \(\mathrm{id}_n=(1,2,\ldots,n)\) and
+\(\tau_j=(1,\ldots,j-1,j+1,j,j+2,\ldots,n)\), then
+\[
+ [x^{n-1}]M^{(W_n)}_{D_\pi,D_\pi}(x)=
+ \begin{cases}
+  \binom n2(n-1)!, & \pi=\mathrm{id}_n,\\
+  (n-2)!, & \pi=\tau_j,\quad 1\leq j<n,\\
+  0, & \text{otherwise}.
+ \end{cases}                                            \tag{2}
+\]
+\end{theorem}
+
+\begin{proof}
+An onto colouring of \(n\) edges with \(n-1\) colours has
+exactly one class of size two; every other class is a singleton.
+A singleton reconstructs to one edge. The two-edge class
+reconstructs either to the permutation \(12\), when its endpoints
+have the same relative order on the two pegs, or to \(21\),
+when their relative orders are opposite.
+
+Stacking these blocks gives either \(\mathrm{id}_n\) or a single
+adjacent transposition. Hence no other permutation can be equal
+to its reconstruction, proving the last case of (2).
+
+For \(D_{\mathrm{id}_n}\), every pair has the same endpoint order,
+so every surjective colouring reconstructs the identity.
+There are \(\binom n2\) choices of the two-edge class, followed
+by \((n-1)!\) bijections from the resulting \(n-1\) classes
+to the labelled colours. This is the first case of (2).
+
+For \(D_{\tau_j}\), the unique pair with opposite endpoint orders
+consists of the edges whose left endpoints are \(j,j+1\).
+They must be the two-edge class: any other choice reconstructs
+the identity. If that class has colour \(h\), exactly \(h-1\)
+singleton blocks precede it, so the reconstructed transposition
+is \(\tau_h\). Thus reconstruction equals \(\tau_j\) exactly
+when the two-edge class has colour \(j\).
+The other \(n-2\) edges may receive the remaining \(n-2\) colours
+in any bijective order, giving \((n-2)!\) colourings.
+This proves the second case of (2), including \(n=2\) with \(0!=1\).
+
+There are \(n-1\) adjacent transpositions. Summing (2) gives
+\[
+ a_n=\binom n2(n-1)!+(n-1)(n-2)!
+    =(n-1)!\left(\binom n2+1\right),
+\]
+as claimed.
+\end{proof}
+
+\section*{The index and the sequence identification}
+The known formula recorded for the polyomino sequence [2] is
+\[
+ B_m=\frac{(m-2)!(m^2-3m+4)}2\quad(m\geq2),\qquad B_1=1.
+\]
+Equation (1) proves \(a_n=B_{n+1}\) for every \(n\geq2\).
+Equivalently, for every \(m\geq3\),
+\[
+ [x^{m-2}]\tr M^{(W_{m-1})}(x)
+       =\frac{(m-2)!(m^2-3m+4)}2.                         \tag{3}
+\]
+The unshifted printed formula gives \(1\) at \(n=2\),
+whereas the source itself gives \(2\). Merely observing that
+discrepancy would not solve the intended counting question.
+The proof above instead determines all diagonal contributions
+and proves the source's intended sequence identification at
+every size. The polyomino enumeration formula is attributed
+to the existing sequence record; no new polyomino theorem is claimed.
+
+This proof uses the definition of reconstruction directly.
+Theorem~28 of the source gives a broader reduction to words;
+the general enumeration in Problem~25 remains outside this result.
+
+\section*{Tasks 2--5: proposed mathematical follow-ups}
+\begin{enumerate}[label=\textbf{Task \arabic*:},start=2,leftmargin=*]
+\item Determine a closed formula for \([x^{n-2}]\tr M^{(W_n)}(x)\)
+for all \(n\geq3\), treating the cases of one three-edge class
+and two two-edge classes.
+\item For each fixed deficit \(d\), express
+\([x^{n-d}]\tr M^{(W_n)}(x)\) by a finite classification of
+non-singleton blocks, and determine its dependence on \(n\).
+\item Construct an explicit bijection from the pairs counted
+in (1) to deco polyominoes of height \(n+1\) with no two-cell
+column starting at level zero, explaining the index shift.
+\item Determine the next trace coefficients refined by the
+number of inversions of the reconstructed permutation, and
+derive recurrences for the resulting bivariate polynomials.
+\end{enumerate}
+
+\begin{thebibliography}{9}
+\bibitem{dw}
+M.~Dukes and C.~D.~White, \emph{Web matrices: structural properties
+and generating combinatorial identities},
+Electronic Journal of Combinatorics \textbf{23}(1) (2016), P1.45,
+Section~7, pp.~21--23.
+\href{https://emis.de/ft/29232}{Final journal version};
+\href{https://arxiv.org/abs/1603.01589}{arXiv:1603.01589v1}.
+\bibitem{oeis}
+E.~Deutsch and subsequent contributors,
+\href{https://oeis.org/A121635}{OEIS A121635},
+sequence and formula for deco polyominoes; accessed
+22 September 2026. The web-matrix references in this entry
+are the conjectural papers in [1].
+\end{thebibliography}
+\end{document}

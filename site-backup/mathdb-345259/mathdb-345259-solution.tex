@@ -1,0 +1,156 @@
+\documentclass[10pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,booktabs,hyperref}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newcommand{\coeff}[1]{[#1]}
+\title{A nonunimodal line in a colored-partition coefficient array}
+\author{Principia Math in Progress}
+\date{12 September 2026}
+\begin{document}
+\maketitle
+
+\paragraph{Task 1.}
+MathDB 345259.
+Keith's multicolor extension of a conjecture of Dousse and Kim asserts
+that, after fixing the partition weight and setting one color variable
+equal to \(1\), every lattice-line cut of the remaining coefficient array
+is unimodal \cite[Conjecture 1]{Keith}. A color is assigned to each
+\emph{distinct part size}; all copies of that size have the same color.
+We disprove this extension with four colors.
+
+\begin{theorem}
+Take partitions of \(120\) with at most \(15\) parts, each at most \(15\).
+Let \(H(x,y,z)\) be their four-color generating polynomial after setting
+the fourth color variable equal to \(1\).
+The coefficients at the consecutive lattice points
+\[
+ (11,1,1),\qquad(10,2,2),\qquad(9,3,3)
+\]
+on a line of primitive direction \((-1,1,1)\) are respectively
+\[
+ \boxed{95004,\qquad 90090,\qquad 100100.}
+\]
+In particular the line cut is not unimodal.
+\end{theorem}
+
+\begin{proof}
+Write \(f_r\) for the number of uncolored partitions in this box and of
+this weight with exactly \(r\) distinct part sizes. Assigning one of four
+colors independently to each distinct size gives
+\begin{equation}\label{H}
+ H(x,y,z)=\sum_{r=0}^{15} f_r(1+x+y+z)^r.
+\end{equation}
+Only \(f_{13},f_{14},f_{15}\) can contribute to the three coefficients
+in the theorem. We establish
+\begin{equation}\label{f}
+ f_{13}=504,\qquad f_{14}=0,\qquad f_{15}=1.
+\end{equation}
+
+The sum of the integers from \(1\) to \(15\) is \(120\). Thus there is
+exactly one partition with \(15\) distinct sizes, namely
+\(1+2+\cdots+15\).
+For \(14\) distinct sizes, let \(a\) be the missing size.
+The sum of one copy of each available size is \(120-a\).
+At most one extra part is allowed. To recover weight \(120\), that part
+would have to be \(a\), contrary to its being a missing size. Hence
+\(f_{14}=0\).
+
+For \(13\) distinct sizes, let \(1\leq a<b\leq15\) be the two missing
+sizes. The base weight is \(120-a-b\); one or two additional parts
+must have sum \(a+b\), and neither may be a missing size.
+For \(3\leq s\leq29\), put
+\[
+ L_s=\#\{(a,b):1\leq a<b\leq15,\ a+b=s\}
+ =\left\lfloor\frac{s-1}{2}\right\rfloor-\max(1,s-15)+1.
+\]
+If there is one extra part, it must be \(s=a+b\leq15\).
+It is automatically different from \(a,b\), giving
+\[
+ \sum_{s=3}^{15}L_s
+ =2(1+2+3+4+5+6)+7=49
+\]
+partitions of length \(14\).
+
+For two extra parts \(c\leq d\), the number of pairs in
+\(\{1,\ldots,15\}\) summing to \(s\) is
+\(L_s+\mathbf 1_{2\mid s}\). A pair sharing a value with
+\(\{a,b\}\) must be \((a,b)\) itself, so exactly one pair is forbidden.
+Consequently the number of partitions of length \(15\) is
+\[
+ \sum_{s=3}^{29}L_s\bigl(L_s-1+\mathbf 1_{2\mid s}\bigr)=455.
+\]
+For completeness, reflection gives \(L_s=L_{32-s}\), \(L_{16}=7\),
+and the sum over \(3\leq s\leq15\) is \(203\); thus the last
+sum is \(2\cdot203+7^2=455\).
+The missing pair and extra multiset recover each partition uniquely,
+so no partition is counted twice. This proves \(f_{13}=49+455=504\).
+
+By the multinomial theorem, for \(u+v+w\leq15\),
+\begin{equation}\label{coeff}
+ \coeff{x^uy^vz^w}H
+ =\sum_{r=u+v+w}^{15}
+   f_r\,\frac{r!}{u!\,v!\,w!\,(r-u-v-w)!}.
+\end{equation}
+Equations \eqref{f} and \eqref{coeff} now give
+\begin{align*}
+ \coeff{x^{11}yz}H
+   &=504\,\frac{13!}{11!}
+     +\frac{15!}{11!\,2!}
+     =78624+16380=95004,\\
+ \coeff{x^{10}y^2z^2}H
+   &=\frac{15!}{10!\,2!\,2!}=90090,\\
+ \coeff{x^9y^3z^3}H
+   &=\frac{15!}{9!\,3!\,3!}=100100.
+\end{align*}
+The integer points of the relevant line have the form
+\((12-j,j,j)\), with consecutive integers \(j\). The displayed points
+correspond to \(j=1,2,3\). All are in the support.
+Every contiguous subsequence of a unimodal sequence is unimodal, whereas
+\(95004>90090<100100\). This proves the theorem.
+\end{proof}
+
+\paragraph{Scope.}
+This disproves the universal multicolor statement. The original
+two-color overpartition conjecture is a narrower question and is not
+settled by this example. The argument uses the intended number of
+remaining variables, \(k-1\); the source's dimensional typo plays
+no role.
+
+\paragraph{Verification.}
+The accompanying standard-library Python verifier independently computes
+the partition counts by a finite generating-function recurrence and
+enumerates the missing-size constructions. All arithmetic is integral.
+The proof above supplies the complete counting argument without relying
+on a numerical search or on the verifier's output.
+
+\paragraph{Task 2.}
+Determine whether the multicolor conjecture holds with three colors,
+so that the remaining array is two-dimensional.
+
+\paragraph{Task 3.}
+Determine the least partition weight and the smallest box admitting a
+counterexample with four colors, specifying the ordering used to compare
+boxes.
+
+\paragraph{Task 4.}
+Construct an infinite family of nonunimodal line cuts for four colors,
+using partitions near the staircase weight in square boxes.
+
+\paragraph{Task 5.}
+Identify classes of line directions for which unimodality survives;
+in particular, investigate coordinate lines and directions whose
+nonzero coordinates all have the same sign.
+
+\begin{thebibliography}{9}
+\bibitem{Keith}
+W.~J. Keith, \emph{Restricted \(k\)-color partitions, II},
+International Journal of Number Theory \textbf{17} (2021), 591--601,
+\href{https://doi.org/10.1142/S1793042120400151}
+{doi:10.1142/S1793042120400151}.
+Conjecture 1 and Theorem 3 are on page 2 of
+\href{https://arxiv.org/abs/2001.08351}{arXiv:2001.08351v1};
+the author's revised manuscript uploaded on 26 July 2021 also retains
+that conjecture.
+\end{thebibliography}
+\end{document}

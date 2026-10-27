@@ -1,0 +1,232 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,booktabs,hyperref}
+\hypersetup{colorlinks=true,urlcolor=blue,linkcolor=blue,citecolor=blue}
+\newtheorem{theorem}{Theorem}
+\newcommand{\R}{\mathbb R}
+\title{The sharp index for sums of arithmetic and geometric means}
+\author{Principia Math In Progress\\MathDB 347947}
+\date{18 September 2026 (UTC)}
+\begin{document}
+\maketitle
+
+\section*{Task 1: the complete maximal-index problem}
+For a probability vector $p=(p_1,\ldots,p_d)$, form the two lists
+of $d^2$ entries
+\[
+ a_{ij}=\frac{p_i+p_j}{2},\qquad g_{ij}=\sqrt{p_ip_j}.
+\]
+Let $A_h(p)$ and $G_h(p)$ denote the sums of the $h$ largest
+entries in the respective lists, each sorted independently.
+Set $A_0=G_0=0$, and define
+\[
+ H(d)=\max\{h\in\{0,\ldots,d^2\}: A_h(p)+G_h(p)\le d
+              \text{ for every probability vector }p\}.
+\]
+Caro and Graswald conjectured the value $2d-5$ in
+Conjecture IV.19 of their published paper \cite{CG}, numbered
+4.19 in the current preprint. We prove that value throughout
+its intended large-dimension range and determine all small cases.
+
+\begin{theorem}\label{main}
+The exact values are
+\[
+ \boxed{H(1)=0,\quad H(2)=1,\quad H(3)=2,\quad H(4)=4,
+ \qquad H(d)=2d-5\quad(d\ge5).}
+\]
+For $d\ge5$, the inequality at $h=2d-5$ is strict for every $p$.
+For every such $d$, an explicit rational probability vector
+violates the inequality at $h=2d-4$.
+\end{theorem}
+
+The unrestricted printed formula needs the small-dimension
+qualifications above. The substance of the result is the
+uniform proof and sharpness for all $d\ge5$, beyond that correction.
+
+\subsection*{1. Two elementary tools}
+For every $h$, $A_h$ is convex in $p$: it is the maximum over all
+$h$-element sets $S\subseteq\{1,\ldots,d\}^2$ of the linear functions
+$\sum_{(i,j)\in S}(p_i+p_j)/2$. It is also invariant under
+permuting the coordinates of $p$.
+
+Moreover,
+\begin{equation}\label{frobenius}
+ \sum_{i,j}g_{ij}^2=\sum_{i,j}p_ip_j=1,
+ \qquad G_h\le\sqrt h.
+\end{equation}
+If $x=\max_i p_i$, then the largest entry of $g$ is $x$.
+Applying Cauchy--Schwarz to the other $h-1$ selected entries gives
+\begin{equation}\label{refined}
+ G_h\le x+\sqrt{(h-1)(1-x^2)}\qquad(h\ge1).
+\end{equation}
+These arguments make no assumption that the two entry lists
+have the same ordering.
+
+\subsection*{2. Sufficiency in every dimension $d\ge5$}
+Fix $h=2d-5$ and order $p_1\ge\cdots\ge p_d$. Put $x=p_1$.
+
+\paragraph{Case $x\le2/3$.}
+Consider the polytope
+\[
+ P=\{p\in[0,2/3]^d:\ \textstyle\sum_i p_i=1\}.
+\]
+At a vertex of $P$, at most one coordinate lies strictly between
+$0$ and $2/3$. Indeed, if two coordinates did, a sufficiently small
+transfer between them in either direction would express the point
+as the midpoint of two distinct points of $P$. The sum constraint
+therefore forces every vertex to be a permutation of
+$v=(2/3,1/3,0,\ldots,0)$.
+Every point of this bounded polytope is a convex combination of
+its vertices, so convexity and symmetry give $A_h(p)\le A_h(v)$.
+
+The largest arithmetic entries at $v$ are $2/3,1/2,1/2$,
+followed by $1/3$ repeated $2d-3$ times. In particular,
+\[
+ A_h(p)\le\frac23+2\frac12+\frac{h-3}{3}
+            =\frac{h+2}{3}=\frac{2d-3}{3}.
+\]
+Combining this with \eqref{frobenius},
+\begin{equation}\label{diffuse}
+ A_h(p)+G_h(p)\le\frac{2d-3}{3}+\sqrt{2d-5}<d.
+\end{equation}
+For the strict inequality, both sides of
+$\sqrt{2d-5}<(d+3)/3$ are nonnegative and
+\[
+ (d+3)^2-9(2d-5)=(d-6)^2+18>0.
+\]
+
+\paragraph{Case $x\ge2/3$.}
+Every arithmetic entry outside the first row and column is at
+most $1-x$, whereas every entry in that row or column is at least
+$x/2$. Since $1-x\le x/2$, the top $h$ arithmetic entries may
+be chosen within that row and column, including ties.
+Because $h=1+2(d-3)$, they consist of $a_{11}=x$ and the
+$d-3$ largest symmetric pairs. Hence
+\[
+ A_h(p)=(d-2)x+\sum_{j=2}^{d-2}p_j
+             \le1+(d-3)x.
+\]
+By \eqref{refined} and Cauchy--Schwarz in $\R^2$,
+\begin{align}
+ A_h(p)+G_h(p)
+ &\le1+(d-2)x+\sqrt{2(d-3)(1-x^2)}\notag\\
+ &\le1+\sqrt{(d-2)^2+2(d-3)}\notag\\
+ &=1+\sqrt{d^2-2d-2}<d.\label{concentrated}
+\end{align}
+The last step follows from $(d-1)^2-(d^2-2d-2)=3>0$.
+Together, the cases prove $H(d)\ge2d-5$, including strictness.
+
+\subsection*{3. Sharpness in every dimension $d\ge5$}
+Write $k=d-3\ge2$ and $D=(k+2)^2+k$. Take
+\begin{equation}\label{counter}
+ p=\frac1D\big((k+2)^2,\underbrace{1,\ldots,1}_{k\text{ entries}},0,0\big),
+ \qquad x=\frac{(k+2)^2}{D}.
+\end{equation}
+At $h=2d-4=2k+2$, select for the arithmetic sum the entry
+$(1,1)$, the $2k$ entries $(1,j),(j,1)$ with $2\le j\le k+1$,
+and one entry joining coordinate $1$ to a zero coordinate. Their sum is
+\[
+ \left(k+\frac32\right)x+\frac{k}{D}.
+\]
+For the geometric sum, select $(1,1)$ and the same $2k$ entries,
+and then $(2,2)$. Their sum is
+\[
+ x+\frac{2k(k+2)}D+\frac1D.
+\]
+The largest-entry sums dominate these selected sums, so
+\begin{equation}\label{gap}
+ A_{2d-4}(p)+G_{2d-4}(p)-d
+ \ge\frac{k^2-2}{2D}>0.
+\end{equation}
+This calculation does not require identifying either full ordering.
+Since all entries are nonnegative, failure at this index implies
+failure at every larger index. Thus $H(d)=2d-5$ for every $d\ge5$.
+
+\subsection*{4. The four small dimensions}
+For $d=1$, the only vector is $(1)$ and the sum at $h=1$ is $2>1$,
+so $H(1)=0$. For $d=2$, the sum at $h=1$ is $2\max_i p_i\le2$;
+at $h=2$, $p=(1,0)$ gives $A_2+G_2=5/2>2$.
+
+For $d=3$, convexity on the full probability simplex gives
+$A_2(p)\le A_2(1,0,0)=3/2$. Therefore
+$A_2+G_2\le3/2+\sqrt2<3$. At $h=3$, the vector $(4/5,1/5,0)$
+has $A_3=9/5$ and $G_3=8/5$, whose sum exceeds $3$.
+This proves $H(2)=1$ and $H(3)=2$.
+
+For $d=4$, order the coordinates decreasingly. Directly identifying
+the first four entries in each list yields
+\begin{align*}
+ A_4+G_4={}&3p_1+p_2+2\sqrt{p_1p_2}
+ +\max\left(p_2,\frac{p_1+p_3}{2}\right)
+ +\max\left(p_2,\sqrt{p_1p_3}\right).
+\end{align*}
+Indeed, the first three entries in either list consist of $(1,1)$
+and the pair $(1,2),(2,1)$; the next entry is the larger of
+$(2,2)$ and $(1,3)$. Ties cause no change in the sum.
+With $u=(\sqrt{p_1},\sqrt{p_2},\sqrt{p_3})^T$, this expression
+is the maximum of $u^TM_i u$, for the following four matrices:
+\[
+ M_1=\begin{pmatrix}3&1&0\\1&3&0\\0&0&0\end{pmatrix},\quad
+ M_2=\begin{pmatrix}3&1&1/2\\1&2&0\\1/2&0&0\end{pmatrix},\quad
+ M_3=\begin{pmatrix}7/2&1&0\\1&2&0\\0&0&1/2\end{pmatrix},\quad
+ M_4=\begin{pmatrix}7/2&1&1/2\\1&1&0\\1/2&0&1/2\end{pmatrix}.
+\]
+All four satisfy $M_i\le4I$ in the positive-semidefinite order.
+For $M_1$ and $M_3$, the complementary quadratic forms are
+$(u_1-u_2)^2+4u_3^2$ and
+$\tfrac12(u_1-2u_2)^2+\tfrac72u_3^2$, respectively.
+For $4I-M_2$ the leading principal minors are $1,1,7/2$;
+for $4I-M_4$ they are $1/2,1/2,1$, all positive.
+Consequently $A_4+G_4\le4\|u\|^2\le4$.
+
+Finally, at $h=5$, the vector $(3/4,1/12,1/12,1/12)$ gives
+\[
+ A_5=\frac{29}{12},\qquad G_5=\frac74,\qquad
+ A_5+G_5=\frac{25}{6}>4.
+\]
+This proves $H(4)=4$ and completes Theorem~\ref{main}.
+The index-four bound is attained, for example, at
+$(1/2,1/2,0,0)$ and $(4/5,1/5,0,0)$.
+
+\subsection*{Verification and scope}
+The accompanying \texttt{verify\_index.py} checks five general
+symbolic identities, the four quadratic-form identities and all
+28 principal minors, the four small counterexamples, two
+index-four equality cases, and the independently sorted rational
+counterexamples in dimensions 5 through 60. It also checks 7,997
+vectors of the form $p_i=r_i^2/\sum_jr_j^2$, with sorted integer
+$r_i\in\{0,\ldots,5\}$, in dimensions 1 through 10.
+These finite checks are diagnostics; the proof for all dimensions
+and all real probability vectors is the argument above.
+Convexity, polytope vertices, Cauchy--Schwarz, and the
+positive-semidefinite criterion are classical tools.
+This is an authoring-agent proof audit, not independent peer review.
+
+\section*{Tasks 2--5: proposed follow-up questions}
+These are unproved directions, proposed after the full solution
+of Task 1; they earn no additional solution credit.
+\begin{enumerate}
+\setcounter{enumi}{1}
+\item Determine the exact value of
+$\sup_p[A_{2d-5}(p)+G_{2d-5}(p)]$ for each $d\ge5$,
+and classify all maximizing probability vectors.
+\item Determine the sharp asymptotic size of
+$d-\sup_p[A_{2d-5}(p)+G_{2d-5}(p)]$ as $d\to\infty$,
+and establish stability estimates for vectors near that supremum.
+\item Determine the optimal index in the original Ky Fan norm
+inequality of Remark IV.18 of \cite{CG}, exploiting the full
+operator expression before the triangle-inequality reduction.
+\item For each $\lambda>0$, determine the largest $h$ such that
+$A_h(p)+\lambda G_h(p)\le d$ for every probability vector,
+including the transition values of $\lambda$.
+\end{enumerate}
+
+\begin{thebibliography}{9}
+\bibitem{CG} M. C. Caro and B. R. Graswald,
+\emph{Necessary criteria for Markovian divisibility of linear maps},
+J. Math. Phys. \textbf{62}, 042203 (2021),
+\href{https://doi.org/10.1063/5.0031760}{doi:10.1063/5.0031760}.
+Current preprint: \href{https://arxiv.org/abs/2009.06666v3}{arXiv:2009.06666v3}
+(30 October 2022), Conjecture 4.19.
+\end{thebibliography}
+\end{document}

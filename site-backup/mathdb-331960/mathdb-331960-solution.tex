@@ -1,0 +1,251 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,booktabs}
+\usepackage[colorlinks=true,urlcolor=blue,linkcolor=blue]{hyperref}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newcommand{\R}{\mathbb R}
+\title{Strict ratio log-concavity of Sun's \(R\)-sequence}
+\author{Independent working note --- MathDB 331960}
+\date{12 September 2026 (UTC)}
+\begin{document}
+\maketitle
+
+\paragraph{Task 1: solve the published conjecture.}
+Define
+\[
+ R_n=\sum_{k=0}^n\binom nk\binom{n+k}k\frac1{2k-1},
+ \qquad r_n=\frac{R_{n+1}}{R_n}\quad(n\ge1).
+\]
+Conjecture 4.7 of Brian Yi Sun's published paper \cite{sun} asserts that
+\(\{r_n\}_{n\ge4}\) is log-concave. We prove the strict assertion, with
+an exact finite algebraic certificate for the induction.
+
+\begin{theorem}\label{main}
+For every integer \(n\ge5\),
+\[
+ r_n^2>r_{n-1}r_{n+1},
+ \quad\text{equivalently}\quad
+ R_{n+1}^3R_{n-1}-R_n^3R_{n+2}>0.
+\]
+Consequently the published Conjecture 4.7 is true, and its starting
+index \(4\) cannot be decreased.
+\end{theorem}
+
+\paragraph{Indexing.}
+The MathDB transcription defines its ratio as \(R_n/R_{n-1}\) while
+retaining the starting index \(4\). In that notation the correct
+starting index is \(5\). This note proves the original published
+conjecture; it does not count the transcription error as a refutation.
+
+\paragraph{A recurrence derived from the definition.}
+For \(n\ge1\), the terms \(k=0,1\) give \(R_n\ge n(n+1)-1>0\).
+Formal power series give
+\[
+ \sum_{n\ge0}R_nz^n
+ =\frac1{1-z}\sum_{k\ge0}\frac{\binom{2k}k}{2k-1}
+                  \left(\frac{z}{(1-z)^2}\right)^k
+ =-\frac{\sqrt{1-6z+z^2}}{(1-z)^2}=:G(z).
+\]
+Here the middle identity follows from the binomial expansion
+\(\sum_{k\ge0}\binom{2k}k\,u^k/(2k-1)=-\sqrt{1-4u}\).
+Differentiating gives
+\[
+ (1-z)(1-6z+z^2)G'(z)=(z^2-8z-1)G(z).
+\]
+Comparison of coefficients yields, for \(n\ge0\),
+\begin{equation}\label{rec}
+ (n+3)R_{n+3}-(7n+13)R_{n+2}
+       +(7n+15)R_{n+1}-(n+1)R_n=0.
+\end{equation}
+
+\paragraph{Explicit bounds.}
+Put \(w=\sqrt2\), \(\rho=3+2w\), and
+\begin{align*}
+ P_\pm(x)&=64x^4-96x^3+(168-78w)x^2+(273w-537)x\pm640,\\
+ L(x)&=\frac{P_-(x)}{64x^4},\qquad
+ U(x)=\frac{P_+(x)}{64x^4}.
+\end{align*}
+Equivalently,
+\[
+ L(x),U(x)=1-\frac3{2x}
+   +\frac{21/8-39w/32}{x^2}
+   +\frac{-537/64+273w/64}{x^3}
+   \mp\frac{10}{x^4}.
+\]
+For \(q_n=r_n/\rho\), recurrence \eqref{rec} becomes
+\begin{equation}\label{T}
+ q_{n+2}=T_n(q_n,q_{n+1}),\qquad
+ T_x(a,b)=\frac{7x+13}{(x+3)\rho}
+ -\frac{7x+15}{(x+3)\rho^2b}
+ +\frac{x+1}{(x+3)\rho^3ab}.
+\end{equation}
+
+\begin{lemma}\label{bounds}
+For every integer \(n\ge20\), \(L(n)<q_n<U(n)\).
+Moreover, for every real \(x\ge20\),
+\begin{align}
+ &L(x)>0,\qquad (7x+15)\rho L(x)>x+1,\label{pos}\\
+ &T_x(U(x),L(x+1))>L(x+2),\label{lower}\\
+ &T_x(L(x),U(x+1))<U(x+2),\label{upper}\\
+ &L(x)^2>U(x-1)U(x+1).\label{lc}
+\end{align}
+\end{lemma}
+
+\begin{proof}
+We first verify the four real-variable assertions by exact polynomial
+arithmetic. The following five expressions are polynomials in
+\(\mathbb Z[w][x]\):
+\begin{align*}
+ H_P(x)&=P_-(x),\\
+ H_M(x)&=(7x+15)\rho P_-(x)-64(x+1)x^4,\\
+ H_L(x)&=64(x+3)\rho^3(x+2)^4P_+(x)P_-(x+1)\\
+ &\hspace{15mm}\cdot\bigl[T_x(U(x),L(x+1))-L(x+2)\bigr],\\
+ H_U(x)&=64(x+3)\rho^3(x+2)^4P_-(x)P_+(x+1)\\
+ &\hspace{15mm}\cdot\bigl[U(x+2)-T_x(L(x),U(x+1))\bigr],\\
+ H_C(x)&=4096x^8(x-1)^4(x+1)^4
+                  \bigl[L(x)^2-U(x-1)U(x+1)\bigr].
+\end{align*}
+Cancellation of the displayed denominators proves polynomiality.
+Write
+\[
+ H_J(20+y)=\sum_{k=0}^{d_J}(a_{J,k}+b_{J,k}w)y^k.
+\]
+All \(a_{J,k},b_{J,k}\) are integers. Expansion using \(w^2=2\) gives
+the following coefficient certificate:
+\[
+\begin{array}{c|r|r}
+ J&d_J&
+ \displaystyle\min_{0\le k\le d_J}
+ \min\{a_{J,k}+\tfrac75b_{J,k},
+       a_{J,k}+\tfrac32b_{J,k}\}\\ \hline
+ P&4&64\\
+ M&5&12672/5\\
+ L&9&1574064128/5\\
+ U&9&2525868032/5\\
+ C&13&12288
+\end{array}
+\]
+Since \(7/5<w<3/2\), every coefficient in each shifted polynomial is
+strictly positive. Hence all five \(H_J(x)\) are positive for \(x\ge20\).
+The first two give \eqref{pos}. Since \(P_+=P_-+1280\), the multipliers
+defining \(H_L,H_U,H_C\) are positive on this range. The other three
+give \eqref{lower}--\eqref{lc}.
+
+For clarity, the coefficient table is a finite exact certificate,
+not an asymptotic estimate. Its complete integer coefficient pairs
+are recorded in \texttt{exact-certificate.json}.
+Two independent implementations check them:
+\texttt{verify\_proof.py} uses quadratic-field polynomial arithmetic,
+and \texttt{verify\_independent.py} expands the products using only
+integer and rational pairs and polynomial convolution.
+The latter needs only Python's standard library.
+
+It remains to propagate the bounds along the actual sequence.
+Direct evaluation of the defining binomial sums gives
+\[
+ L(j)<q_j<U(j)\qquad(j=20,21).
+\]
+The same certificate records all four positive gaps.
+For \(a\ge L(n)>0\) and \(b>0\), differentiation in \eqref{T} shows
+\[
+ \frac{\partial T_n}{\partial a}<0,\qquad
+ \frac{\partial T_n}{\partial b}
+ =\frac{(7n+15)\rho a-(n+1)}
+       {(n+3)\rho^3ab^2}>0,
+\]
+where the second sign follows from \eqref{pos}.
+If the bounds hold at \(n,n+1\), these signs imply
+\[
+ T_n(U(n),L(n+1))\le q_{n+2}
+                  \le T_n(L(n),U(n+1)).
+\]
+Equations \eqref{lower} and \eqref{upper} therefore give the strict
+bounds at \(n+2\). Induction starting with \(20,21\) completes the proof.
+\end{proof}
+
+\begin{proof}[Proof of Theorem \ref{main}]
+For \(n\ge21\), all three indices \(n-1,n,n+1\) lie in the range of
+Lemma \ref{bounds}. Thus
+\[
+ q_n^2>L(n)^2>U(n-1)U(n+1)>q_{n-1}q_{n+1}.
+\]
+Multiplication by \(\rho^2\) proves the desired inequality.
+For \(5\le n\le20\), direct integer evaluation gives
+\[
+ \min_{5\le n\le20}
+  \bigl(R_{n+1}^3R_{n-1}-R_n^3R_{n+2}\bigr)=4658935984>0.
+\]
+Every one of these sixteen exact integers is recorded in the
+certificate. They are computed independently from the binomial sum
+and from \eqref{rec}, starting with \(R_0=-1,R_1=1,R_2=7\).
+This covers all \(n\ge5\).
+Finally \(R_3=25,R_4=87,R_5=329,R_6=1359\), and
+\[
+ R_5^3R_3-R_4^3R_6=-4623352<0.
+\]
+Hence the ratio sequence cannot be extended back from index \(4\)
+to index \(3\) while preserving log-concavity.
+\end{proof}
+
+\paragraph{Status and verification.}
+The published full text retains Conjecture 4.7.
+Current MathDB discussion and solution fields, focused literature
+searches, and public claim catalogues were checked; no matching
+solution claim was located. The separate literature audit records
+the sources, timestamps, scope correction, and search limits.
+The proof above covers the complete published statement; the
+computations certify only its explicitly stated finite algebraic
+obligations.
+
+\begin{thebibliography}{9}
+\bibitem{sun}
+Brian Yi Sun,
+\emph{On a ratio monotonicity conjecture of a new kind of numbers},
+Journal of Inequalities and Applications \textbf{2018}, article 24.
+\href{https://doi.org/10.1186/s13660-018-1614-1}{doi:10.1186/s13660-018-1614-1}.
+Conjecture 4.7.
+Earlier version: \href{https://arxiv.org/abs/1512.01008}{arXiv:1512.01008}.
+\end{thebibliography}
+
+\newpage
+\paragraph{Task 2: determine the onset for the parameter family.}
+For \(t>0\), define
+\[
+ R_n(t)=\sum_{k=0}^n\binom nk\binom{n+k}k\frac{t^k}{2k-1}.
+\]
+Determine the least \(N(t)\) for which the terms and consecutive
+ratios are positive and the sequence
+\[
+ \{R_{n+1}(t)/R_n(t)\}_{n\ge N(t)}
+\]
+is log-concave.
+Locate the parameter values at which \(N(t)\) changes.
+
+\paragraph{Task 3: find sharp constants in the ratio bounds.}
+With
+\[
+ B(n)=1-\frac3{2n}
+   +\frac{21/8-39\sqrt2/32}{n^2}
+   +\frac{-537/64+273\sqrt2/64}{n^3},
+\]
+determine the infimum and supremum of
+\(n^4(q_n-B(n))\) over integers \(n\ge20\).
+Prove where the extrema occur, including any limiting extremum.
+
+\paragraph{Task 4: quantify higher orders of log-monotonicity.}
+For each integer \(k\ge2\), determine the least threshold \(N_k\)
+such that
+\[
+ (-1)^k\Delta^k\log R_n>0\qquad(n\ge N_k),
+ \qquad \Delta f(n)=f(n+1)-f(n).
+\]
+Obtain effective bounds for \(N_k\) as \(k\) grows.
+
+\paragraph{Task 5: find a structural proof of the ratio inequality.}
+Develop an integral representation, a continued fraction, or a
+positivity-preserving operation that explains the strict ratio
+log-concavity directly. Determine which other sequences with
+generating functions
+\(-\sqrt{1-az+z^2}/(1-z)^b\) admit the same argument.
+\end{document}

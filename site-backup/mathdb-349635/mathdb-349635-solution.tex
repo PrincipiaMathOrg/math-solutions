@@ -1,0 +1,205 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,booktabs,hyperref}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\title{Extremal rows in Castronuovo's matrix construction}
+\author{Principia Math In Progress}
+\date{28 September 2026}
+\begin{document}
+\maketitle
+\begin{abstract}
+We prove the extremal-row conjecture, Conjecture 6.5 of Castronuovo
+\cite{C}, by determining the entire coordinatewise maximal frontier
+of each positive generation. This gives the two claimed integer
+sequences and the exact multiplicities in their extremal rows.
+The initial seed and the offset of the odd sequence are stated explicitly.
+\end{abstract}
+
+\section*{Task 1: the original problem and its precise indexing}
+In row--column coordinates the two construction maps are
+\[
+ G(n,k)=(n+k,k),\qquad S(n,k)=(3n+1-2k,2n+1-k).
+\]
+The positive tree begins at $(1,1)$ in Step 1. Let $C_i$ be its
+generation at Step $i$, so $C_1=\{(1,1)\}$ and
+$C_{i+1}=G(C_i)\cup S(C_i)$. Put
+$r_i=\max\{n:(n,k)\in C_i\}$ and set $r_0=0$ for the initial
+seed $(0,0)$. This is the positive-orbit interpretation used in
+Sections 2 and 3 of \cite{C}.
+
+There are two harmless indexing conventions to make explicit.
+The current OEIS sequence A061278 begins $0,1,5,20,76,\ldots$;
+the odd rows begin $1,5,20,76,\ldots$. Also, the multiplicity-two
+assertion concerns positive even steps: Step 0 consists of one seed.
+These conventions do not supply a counterexample to the intended
+question. We prove the positive-step assertions in full.
+
+\begin{theorem}\label{thm:main}
+For $j\geq0$,
+\[
+ r_{2j}=\mathrm{A001571}(j),\qquad
+ r_{2j+1}=\mathrm{A061278}(j+1),
+\]
+with the OEIS sequences indexed from zero. Equivalently,
+\[
+ r_0=0,\quad r_1=1,\quad r_2=2,\quad r_3=5,\qquad
+ r_{i+4}=4r_{i+2}-r_i+1\quad(i\geq0).
+\]
+For every $i\geq1$, exactly two distinct elements of $C_i$ lie in
+row $r_i$ when $i$ is even, and exactly one when $i$ is odd.
+\end{theorem}
+
+\section*{A two-point frontier}
+Change coordinates by
+\[
+ a=2k,\qquad b=2n+1-2k,\qquad n=\frac{a+b-1}{2}.
+\]
+The seed is $(a,b)=(2,1)$, and the maps become
+\[
+ G(a,b)=(a,a+b),\qquad S(a,b)=(a+2b,b).
+\]
+Both coordinates stay positive. We say $x$ strictly dominates $y$
+when both coordinates of $x$ are at least those of $y$ and at least
+one inequality is strict. Both shears preserve strict domination:
+they have nonnegative entries and are injective. A strictly
+dominated point has strictly smaller coordinate sum.
+
+The two image cones are disjoint: a $G$ image has $b>a$, whereas an
+$S$ image has $a>2b$. Moreover, the seed lies in neither cone.
+Reading the final letter and applying its inverse therefore shows
+that two different words, including words of different lengths,
+cannot have the same image of the seed. Consequently the tree
+indeed enumerates distinct entries, with $|C_i|=2^{i-1}$.
+
+\begin{lemma}\label{lem:frontier}
+At Step $2j$, $j\geq1$, the coordinatewise maximal points are precisely
+\[
+ A=(u,v),\qquad B=(2v-u,2u-v),\qquad 0<u<v<2u,
+\]
+where
+\[
+ \binom{u}{v}=
+ \begin{pmatrix}1&2\\1&3\end{pmatrix}^{j-1}\binom{2}{3}.
+\]
+Every other point is strictly dominated by one of these two points.
+At Step $2j+1$ the maximal points are precisely
+\[
+ D=(2v-u,u+v),\qquad E=(u+2v,v),
+\]
+and all other points are strictly dominated by one of them.
+\end{lemma}
+
+\begin{proof}
+Step 2 consists of $(2,3)$ and $(4,1)$, proving the initial case.
+Suppose the asserted even frontier is known. Its four children are
+\[
+ GA=(u,u+v),\quad GB=(2v-u,u+v),\quad
+ SA=(u+2v,v),\quad SB=(3u,2u-v).
+\]
+The point $GB$ strictly dominates $GA$, since their first-coordinate
+difference is $2(v-u)>0$. The point $SA$ strictly dominates $SB$,
+since both coordinate differences are $2(v-u)>0$.
+Thus the surviving points are $D=GB$ and $E=SA$.
+They are incomparable: $E$ has the larger first coordinate and
+$D$ the larger second coordinate. Children of previously dominated
+points remain strictly dominated, so no other maximal points occur.
+
+The four children of $D,E$ at the next even step are
+\[
+ GD=(2v-u,3v),\quad SD=(u+4v,u+v),\quad
+ GE=(u+2v,u+3v),\quad SE=(u+4v,v).
+\]
+Here $GE$ strictly dominates $GD$, with differences $(2u,u)$;
+$SD$ strictly dominates $SE$, with differences $(0,u)$.
+The remaining pair $GE,SD$ is incomparable. Put
+$u'=u+2v$ and $v'=u+3v$. Then
+\[
+ GE=(u',v'),\qquad SD=(2v'-u',2u'-v'),
+\]
+and $0<u'<v'<2u'$ because $v'-u'=v>0$ and
+$2u'-v'=u+v>0$. Strict domination again discards all other
+children. This proves the induction and the matrix formula.
+\end{proof}
+
+\section*{Rows, multiplicities, and the recurrence}
+At even Step $2j$ the two frontier sums are both $u+v$.
+Every other point has a smaller sum. Hence
+\[
+ r_{2j}=\frac{u+v-1}{2},\qquad
+ \text{maximizing columns }\frac u2,\ \frac{2v-u}{2}.
+\]
+At the following odd step the two frontier sums are $3v$ and
+$u+3v$. Since $u>0$, only $E$ maximizes the sum, and
+\[
+ r_{2j+1}=\frac{u+3v-1}{2},\qquad
+ \text{maximizing column }\frac{u+2v}{2}.
+\]
+The two even points are distinct since $v>u$; all these column
+indices are integral since $u$ is even and $v$ odd, as follows
+inductively from the update. Step 1 has a single point, as required.
+
+The update matrix $P$ satisfies $P^2-4P+I=0$. Therefore every
+linear form in its iterates satisfies $z_{j+2}=4z_{j+1}-z_j$.
+Subtracting 1 and dividing by 2 in the displayed row formulas gives
+the asserted inhomogeneous recurrence for each parity, initially
+for $i\geq2$. Directly, $r_4=9=4r_2-r_0+1$ and
+$r_5=20=4r_3-r_1+1$, which supplies the two missing cases.
+The OEIS entries \cite{even,odd} give this same recurrence with
+initial values $(0,2)$ and $(0,1)$ respectively. Uniqueness of
+recurrence solutions proves the sequence identifications in
+Theorem~\ref{thm:main}.
+
+For example, at Step 6, $(u,v)=(30,41)$, so the maximal row is 35
+and its two new entries have columns 15 and 26. This recovers
+Example 6.6 in \cite{C}.
+
+\paragraph{The origin self-loop.}
+If the introductory rule in \cite{C} is applied literally to the
+origin at every step, then $G(0,0)=(0,0)$ repeatedly propagates old
+positions. The set of positions changed at Step $i$ is then
+$\{(0,0)\}\cup C_1\cup\cdots\cup C_i$.
+This does not change the extremal-row answer: on the positive tree
+$1\leq k\leq n$, and both maps strictly increase the row
+($n+k>n$ and $3n+1-2k>n$). Thus $r_{i+1}>r_i$ and none of
+the older generations reaches the new maximum. The same maxima
+and multiplicities hold under that reading as well.
+
+\section*{Proposed follow-up Tasks 2--5}
+These are further questions, not claims established here.
+\begin{enumerate}
+\setcounter{enumi}{1}
+\item For an arbitrary positive integer seed $(a_0,b_0)$, classify
+the coordinatewise maximal frontiers under $G(a,b)=(a,a+b)$ and
+$S(a,b)=(a+2b,b)$, and determine the maximal coordinate sum at
+each word length.
+\item Replace $S$ by $S_d(a,b)=(a+db,b)$ for an integer $d\geq1$.
+Starting from $(2,1)$, determine for which $d$ the maximal sums
+obey a linear recurrence and determine their multiplicities.
+\item For the original construction, determine the second-largest
+distinct row in every positive generation and the number of entries
+of that generation in that row, including all small-step exceptions.
+\item Choose the letters $G,S$ independently with probability $1/2$.
+For the resulting row $N_i$ at Step $i$, prove or disprove a central
+limit theorem for $\log N_i$ and, if it holds, characterize its drift
+and asymptotic variance.
+\end{enumerate}
+
+\paragraph{Verification and status.}
+The accompanying exact program enumerates the original row--column
+tree through Step 18 and checks every frontier, extremal row, column,
+and multiplicity against the formulas. These finite checks supplement
+the proof. Current-source and bounded public-claim checks are recorded
+separately. Review is by the authoring agent, not independent peer review.
+
+\begin{thebibliography}{3}
+\bibitem{C} N. Castronuovo, \emph{On the number of fixed points of the
+map $\gamma$}, arXiv:2102.02739v4, 25 October 2023,
+Conjecture 6.5 and Example 6.6, pp. 13--14.
+\url{https://arxiv.org/abs/2102.02739}.
+\bibitem{even} OEIS Foundation, \emph{A001571}, accessed 28 September 2026.
+\url{https://oeis.org/A001571}.
+\bibitem{odd} OEIS Foundation, \emph{A061278}, accessed 28 September 2026.
+\url{https://oeis.org/A061278}.
+\end{thebibliography}
+\end{document}

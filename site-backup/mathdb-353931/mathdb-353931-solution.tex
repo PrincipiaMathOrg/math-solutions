@@ -1,0 +1,208 @@
+\documentclass[11pt]{article}
+\usepackage[margin=0.9in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[hidelinks]{hyperref}
+\newtheorem{theorem}{Theorem}
+\newcommand{\meas}{\operatorname{meas}}
+\newcommand{\Li}{\operatorname{Li}_2}
+\title{The limiting nonunimodular-root ratio for $P_{m,1}$\\
+\large A solution to MathDB 353931}
+\author{Principia Math In Progress}
+\date{18 September 2026}
+\begin{document}
+\maketitle
+\begin{abstract}
+We prove Stankov's conjecture that the limit ratios associated with
+$P_{m,1}$ tend to approximately $0.209$. Starting from the published
+fixed-$m$ root-counting formula, a cellwise comparison proves convergence
+with error at most $2/(3m)$. The limit is
+$2\bigl(\Li(1/2)-\Li(-1/2)\bigr)/\pi^2
+=0.20885431502703392737\ldots$.
+\end{abstract}
+
+\section*{Task 1: the original problem and its full solution}
+Write $\Phi_m(x)=\sum_{j=0}^{m-1}x^j$. The family in the source is
+\[
+ P_{m,1}(x,y)=x^{m-1}\Phi_m(x)+x^{m-1}y+\Phi_m(x)y^2.
+\]
+For integers $m\geq2$ and $n\geq1$, set
+\begin{align*}
+ H_{n,m}(x)
+ &=\Phi_m(x)\bigl(x^{2n+m-1}+1\bigr)+x^{n+m-1}\\
+ &=x^{n+m-1}\left(1+\sum_{j=0}^{m-1}
+                 (x^{n+j}+x^{-n-j})\right).
+\end{align*}
+This is the source's $H_{2n+2m-2}$, of degree $2n+2m-2$, and
+$P_{m,1}(x,x^{n+m-1})=x^{m-1}H_{n,m}(x)$.
+Let $C(H)$ be the number of roots of $H$ off the unit circle,
+counted with multiplicity, divided by $\deg H$, and put
+\[
+ L_m=\lim_{n\to\infty}C(H_{n,m}).
+\]
+The fixed-$m$ limit and its following measure representation are
+\emph{prior results of Stankov}, not claims of this note:
+\begin{equation}\label{measure}
+ L_m=\frac1\pi\meas\{t\in[0,\pi]:2|\sin(mt)|<\sin t\}.
+\end{equation}
+See Theorem 1 and the proof of Theorem 9 in the published paper
+\cite{S}, especially page 429. Its envelope is
+$\sin(mT/2)/\sin(T/2)$ and its central coefficient is $1$;
+substitution $T=2t$ gives \eqref{measure}.
+The monomial factor $x^{m-1}$ changes the root count and degree
+by a fixed amount for fixed $m$, so it does not change this limit.
+Thus $L_m$ is precisely the $LC(P_{m,1})$ of Conjecture 11
+on page 431 (Conjecture 2.1 in the arXiv version).
+The conjecture asks whether $L_m$ converges to approximately $0.209$.
+
+\begin{theorem}\label{main}
+For every integer $m\geq2$,
+\begin{equation}\label{error}
+ |L_m-L|\leq\frac{2}{3m},
+\end{equation}
+where
+\begin{align}
+ L&=\frac{4}{\pi^2}\int_0^{\pi/2}
+                    \arcsin\!\left(\frac{\sin t}{2}\right)\,dt
+       \label{integral}\\
+  &=\frac{2}{\pi^2}\bigl(\Li(1/2)-\Li(-1/2)\bigr)
+   =\frac{2}{\pi^2}\sum_{k=0}^{\infty}
+                    \frac{4^{-k}}{(2k+1)^2}.
+       \label{value}
+\end{align}
+In particular, the conjectured limit exists and equals
+\[
+ L=0.2088543150270339273715943563264722403065\ldots.
+\]
+\end{theorem}
+
+\begin{proof}
+Define $h(s)=2\arcsin(s/2)/\pi$ for $0\leq s\leq1$ and
+$g(t)=h(\sin t)$ for $0\leq t\leq\pi$.
+Partition $[0,\pi]$ into the $m$ intervals
+\[
+ I_j=[j\pi/m,(j+1)\pi/m],\qquad 0\leq j<m.
+\]
+For a constant threshold $s\in[0,1]$, the substitution
+$u=mt-j\pi$ shows that
+\begin{equation}\label{frozen}
+ \frac{m}{\pi}\meas\{t\in I_j:2|\sin(mt)|<s\}=h(s).
+\end{equation}
+Indeed, the set of $u\in[0,\pi]$ with $2\sin u<s$ has length
+$2\arcsin(s/2)$, also when $s=0$.
+
+Let $u_j$ and $v_j$ be respectively the minimum and maximum of
+$\sin t$ on $I_j$. Monotonicity in the threshold and
+\eqref{frozen} give
+\[
+ h(u_j)\leq A_j:=\frac{m}{\pi}\meas
+ \{t\in I_j:2|\sin(mt)|<\sin t\}\leq h(v_j).
+\]
+The cell average $B_j=(m/\pi)\int_{I_j}g(t)\,dt$ lies in the
+same interval. Consequently
+\begin{align*}
+ \left|L_m-\frac1\pi\int_0^\pi g(t)\,dt\right|
+ &\leq\frac1m\sum_{j=0}^{m-1}|A_j-B_j|\\
+ &\leq\frac1m\sum_{j=0}^{m-1}
+                  \bigl(\max_{I_j}g-\min_{I_j}g\bigr)
+ \leq\frac{\operatorname{Var}_{[0,\pi]}g}{m}.
+\end{align*}
+Here each oscillation is at most the variation on its cell,
+and variations add over a partition. The function $g$ increases
+from $0$ to $h(1)=1/3$ on $[0,\pi/2]$ and decreases to $0$
+on $[\pi/2,\pi]$. Its total variation is therefore $2/3$.
+This proves \eqref{error}; reflection about $\pi/2$ gives
+\eqref{integral}. It also proves convergence without assuming
+independence of $t$ and $mt$ or interchanging the two root-counting
+limits.
+
+It remains to evaluate the integral. For $0\leq a\leq1/2$, let
+$J(a)=\int_0^{\pi/2}\arcsin(a\sin t)\,dt$.
+The derivative of the integrand is uniformly bounded by
+$2/\sqrt3$ on this rectangle, so differentiation under the integral
+is justified. For $0<a\leq1/2$, substitution $u=\cos t$ gives
+\[
+ J'(a)=\int_0^1\frac{du}{\sqrt{1-a^2+a^2u^2}}
+      =\frac{\operatorname{arctanh}a}{a}
+      =\sum_{k=0}^{\infty}\frac{a^{2k}}{2k+1}.
+\]
+The last series converges uniformly for $0\leq a\leq1/2$.
+Since $J(0)=0$, termwise integration yields
+\[
+ J(a)=\sum_{k=0}^{\infty}\frac{a^{2k+1}}{(2k+1)^2}
+     =\frac{\Li(a)-\Li(-a)}2,
+ \qquad \Li(z)=\sum_{r=1}^{\infty}\frac{z^r}{r^2}.
+\]
+Putting $a=1/2$ proves \eqref{value}.
+\end{proof}
+
+\paragraph{Endpoints and numerical value.}
+All sets above are measured by Lebesgue length, so shared cell
+endpoints have no effect. Equality in the threshold also has
+measure zero: the analytic functions $2\sin(mt)\pm\sin t$ have
+only finitely many zeros on this compact interval and are not
+identically zero. The positive series in \eqref{value} has the
+explicit tail bound
+\[
+ 0<\sum_{k=N}^{\infty}\frac{4^{-k}}{(2k+1)^2}
+ \leq\frac{4^{1-N}}{3(2N+1)^2}.
+\]
+The accompanying script uses $N=80$ and rational bounds on $\pi$
+from Machin's formula to certify the displayed forty decimal
+digits. Numerical root-location checks are supplementary only.
+
+\section*{Task 2: the sharp rate of convergence}
+Determine the optimal order of $|L_m-L|$, and the leading term
+of $L_m-L$. In particular, establish or refute an $O(m^{-2})$
+bound and decide whether even and odd $m$ have different leading
+coefficients. The estimate in Theorem~\ref{main} does not answer
+these questions.
+
+\section*{Task 3: monotonicity and finite-$m$ inequalities}
+Determine whether $L_m$ is strictly increasing for every $m\geq2$
+and whether $L_m<L$ always holds. Seek explicit finite-$m$ bounds
+that improve both the source's estimates and \eqref{error}.
+
+\section*{Task 4: a variable central coefficient}
+Replace $x^{n+m-1}$ in $H_{n,m}$ by $\lambda x^{n+m-1}$, with
+$\lambda\geq0$. Determine the outer limit as a function of
+$\lambda$, including the transition when the threshold
+$\lambda\sin t/2$ exceeds $1$. Obtain exact expressions and
+regularity statements at the transition.
+
+\section*{Task 5: simultaneous growth of the two parameters}
+Find quantitative conditions on $n=n(m)$ ensuring that
+$C(H_{n(m),m})\to L$. This requires bounds for the inner
+root-counting limit that are uniform in $m$. Investigate the
+regime where $n/m$ tends to a finite positive constant as well
+as the regime $n/m\to\infty$.
+
+\paragraph{Verification and attribution.}
+The fixed-$m$ formula \eqref{measure} is credited to \cite{S};
+related general counting and averaging methods occur in
+\cite{BM,S25a,S25b}. This note proves the particular outer limit,
+its explicit value, and \eqref{error}. The documented bounded
+search found no prior full claim for that target. All four
+followups are proposed questions, not claimed results. Review
+was by the authoring agent only.
+
+\begin{thebibliography}{9}
+\raggedright
+\small
+\setlength{\itemsep}{0pt}
+\bibitem{S} D. Stankov, \emph{The number of nonunimodular roots
+of a reciprocal polynomial}, Comptes Rendus Math\'ematique
+\textbf{361} (2023), 423--435.
+\href{https://doi.org/10.5802/crmath.422}{doi:10.5802/crmath.422}.
+Earlier version: \href{https://arxiv.org/abs/2203.07710}{arXiv:2203.07710v1} (2022).
+\bibitem{BM} D. W. Boyd and M. J. Mossinghoff,
+\emph{Small limit points of Mahler's measure}, Experimental
+Mathematics \textbf{14}(4) (2005), 403--414, Section 6.
+\href{https://doi.org/10.1080/10586458.2005.10128936}{doi:10.1080/10586458.2005.10128936}.
+\bibitem{S25a} D. Stankov, \emph{The alternative to Mahler measure
+of a multivariate polynomial},
+\href{https://arxiv.org/abs/2502.02803}{arXiv:2502.02803v1} (2025).
+\bibitem{S25b} D. Stankov, \emph{Approximation of the number of
+nonunimodular zeros of a self-reciprocal polynomial},
+\href{https://arxiv.org/abs/2509.01015}{arXiv:2509.01015v1} (2025).
+\end{thebibliography}
+\end{document}

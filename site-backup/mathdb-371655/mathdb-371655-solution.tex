@@ -1,0 +1,175 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,booktabs,hyperref,enumitem}
+\newtheorem{theorem}{Theorem}
+\title{Counterexamples to both Bernoulli--Toda denominator claims}
+\author{Principia Math In Progress}
+\date{21 September 2026}
+\begin{document}
+\maketitle
+\noindent\textbf{Task 1: MathDB 371655.}
+For an even positive integer $N$, let
+\[
+ P(N)=\{p\text{ prime}:p-1\mid N\},\qquad
+ D_N=\prod_{p\in P(N)}p,
+ \qquad F(d)=\min\{N>0:N\text{ even},\ D_N=d\}.
+\]
+The formula for the denominator $D_N$ of the Bernoulli number $B_N$
+is the classical von Staudt--Clausen theorem, used in the source
+\cite[Section 5.1]{M}. Its Toda primes are
+\[
+ T(n)=\left\{p\text{ odd prime}:p-1\mid4n,
+        \ \gcd\left(p,\frac{4n}{p-1}\right)=1\right\},
+ \qquad t(n)=|T(n)|.
+\]
+Conjecture 5.6 of \cite{M} asserts that, for a Bernoulli denominator $d$,
+(i) if $F(d)=4a$ and $D_{4am}=D_{4a}=d$, then $T(am)=T(a)$;
+and (ii) if $D_{4am}\ne D_{4a}=d$, then $t(am)\geq t(a)$.
+Our second example also satisfies $F(d)=4a$, whether or not that
+condition is carried over to clause (ii).
+
+\begin{theorem}
+Both clauses of Conjecture 5.6 are false.
+\begin{align*}
+ \textup{(i)}\quad &a=23,\ m=47,\ d=1410:\qquad
+ F(d)=92,\quad D_{4324}=D_{92}=1410,\\
+ &T(23)=\{3,5,47\},\qquad T(1081)=\{3,5\};\\[3pt]
+ \textup{(ii)}\quad &a=58,\ m=13747=59\cdot233,\ d=412410:\qquad
+ F(d)=232,\\
+ &D_{3189304}=192595470=467D_{232}>D_{232},\\
+ &T(58)=\{3,5,59,233\},\qquad
+ T(797326)=\{3,5,467\}.
+\end{align*}
+\end{theorem}
+
+\paragraph{An elementary reduction.}
+For an odd prime $p$ with $p-1\mid4n$, the condition
+$p\mid4n/(p-1)$ is equivalent to $p\mid n$, since
+$\gcd(p,p-1)=\gcd(p,4)=1$. Thus, writing $\Omega(n)$ for the prime
+divisors of $n$,
+\begin{equation}\label{T}
+ T(n)=P(4n)\setminus\bigl(\{2\}\cup\Omega(n)\bigr).
+\end{equation}
+This equivalent definition already appears in the source and in
+the 2018 MathOverflow discussion \cite{MO}. We use it only to simplify
+the finite arithmetic.
+
+\paragraph{Proof of (i).}
+Since $92=4\cdot23$, its even divisors are $2,4,46,92$.
+Adding one gives $3,5,47,93$, of which exactly the first three are prime.
+An odd divisor plus one is an even number, prime only for divisor one.
+Consequently $P(92)=\{2,3,5,47\}$ and $D_{92}=1410$.
+If $D_N=1410$, both $5$ and $47$ divide $D_N$, so $4\mid N$ and
+$46\mid N$. Hence $92=\operatorname{lcm}(4,46)\mid N$, proving
+$F(1410)=92$.
+
+Now $4324=4\cdot23\cdot47$. Relative to $92$, the additional even
+divisors are $94,188,2162,4324$. Each gives a composite successor:
+\[
+ 95=5\cdot19,\quad 189=3\cdot63,\quad
+ 2163=3\cdot721,\quad 4325=5\cdot865.
+\]
+The old composite successor is $93=3\cdot31$. These exhaust all even
+divisors, so $P(4324)=P(92)$ and $D_{4324}=D_{92}$.
+Equation \eqref{T}, with $1081=23\cdot47$, gives
+$T(23)=\{3,5,47\}$ but $T(1081)=\{3,5\}$, disproving (i).
+
+\paragraph{Proof of (ii).}
+We have $232=8\cdot29$. Its even divisors are
+$2,4,8,58,116,232$, whose successors are
+$3,5,9,59,117,233$. Hence
+\[
+ P(232)=\{2,3,5,59,233\},\qquad
+ D_{232}=2\cdot3\cdot5\cdot59\cdot233=412410.
+\]
+Any $N$ with this denominator has $233-1=232\mid N$.
+Thus $F(412410)=232$.
+
+Set $n=58\cdot59\cdot233=797326$, so
+$4n=2^3\cdot29\cdot59\cdot233$. Every even divisor of $4n$ is
+$2^j u$ with $j\in\{1,2,3\}$ and
+\[
+ u\in\{1,29,59,233,1711,6757,13747,398663\}.
+\]
+The following table lists \emph{every} such divisor's successor.
+A bold entry is prime; every other entry has an explicit proper factor.
+\begin{center}
+\small
+\begin{tabular}{rlll}
+\toprule
+$u$ & $2u+1$ & $4u+1$ & $8u+1$\\
+\midrule
+1 & $\mathbf{3}$ & $\mathbf{5}$ & $9=3\cdot3$\\
+29 & $\mathbf{59}$ & $117=3\cdot39$ & $\mathbf{233}$\\
+59 & $119=7\cdot17$ & $237=3\cdot79$ & $473=11\cdot43$\\
+233 & $\mathbf{467}$ & $933=3\cdot311$ & $1865=5\cdot373$\\
+1711 & $3423=3\cdot1141$ & $6845=5\cdot1369$ & $13689=3\cdot4563$\\
+6757 & $13515=3\cdot4505$ & $27029=151\cdot179$ & $54057=3\cdot18019$\\
+13747 & $27495=3\cdot9165$ & $54989=11\cdot4999$ & $109977=3\cdot36659$\\
+398663 & $797327=41\cdot19447$ & $1594653=3\cdot531551$ & $3189305=5\cdot637861$\\
+\bottomrule
+\end{tabular}
+\end{center}
+For the entries declared prime, trial division by primes at most
+$\sqrt{467}<22$ suffices; none of $2,3,5,7,11,13,17,19$ divides
+$467$, and the same test up to the appropriate square root proves
+primality of $59$ and $233$. The odd divisors contribute only prime 2.
+We have therefore proved
+\[
+ P(3189304)=\{2,3,5,59,233,467\},\qquad
+ D_{3189304}=467D_{232}=192595470.
+\]
+Since $\Omega(58)=\{2,29\}$ and
+$\Omega(797326)=\{2,29,59,233\}$, equation \eqref{T} now gives
+the two claimed Toda sets. In particular $t(797326)=3<4=t(58)$,
+disproving (ii), even with the minimum-index condition imposed.
+\hfill$\square$
+
+\paragraph{Scope and verification.}
+These examples disprove both clauses of the stated denominator
+conjecture. They do not refute the separate conjecture $t(n)\geq2$
+for every positive integer, or the source's restricted conjecture
+about multiples of 3. All displayed numbers and hypotheses are exact;
+no transcription or omitted-hypothesis issue is used.
+The elementary characterization of Toda primes, von Staudt--Clausen,
+and minimum-index divisibility are classical or source material,
+not claimed as new.
+
+The verifier checks all divisor successors and proper factors,
+independently sieves every prime up to the largest possible candidate
+and applies the original gcd definition, checks both minimum indices,
+and computes three smaller-index Bernoulli numbers exactly with FLINT.
+The large-index denominator is certified by the exhaustive prime
+and divisor calculations, without computing its enormous numerator.
+All 15 pages of the current target source were read; the author's
+15-page copy has identical extracted text except for the arXiv stamp.
+No target journal final or earlier full target claim was identified
+in the recorded bounded audit. Review is by the authoring agent only.
+
+\begin{enumerate}[label=\textbf{Task \arabic*:},start=2,leftmargin=*]
+\item Classify the Bernoulli denominators $d$ with $4\mid F(d)$ for
+which the Toda set is constant on all indices $N$ satisfying $D_N=d$.
+\item Determine whether clause (i) has infinitely many counterexamples
+with both $a$ and $m$ prime.
+\item Determine whether $t(am)-t(a)$ is unbounded below when
+$F(D_{4a})=4a$ and $D_{4am}>D_{4a}$.
+\item Find sufficient arithmetic conditions on $a,m$ that recover
+$t(am)\geq t(a)$ despite the loss of primes dividing $m$.
+\end{enumerate}
+\small
+\begin{thebibliography}{9}
+\raggedright
+\bibitem{M} S. McKean, Toda primes,
+\href{https://arxiv.org/abs/2511.19744}{arXiv:2511.19744v1} (2025),
+Definition 1.1; Conjecture 5.6, p.~8.
+\bibitem{PW} C. Pomerance and S. S. Wagstaff Jr.,
+The denominators of the Bernoulli numbers,
+Acta Arith. 209 (2023), 1--15,
+\href{https://doi.org/10.4064/aa210601-16-11}{doi:10.4064/aa210601-16-11}.
+Proposition 1 gives the general identity $F(d)=\operatorname{lcm}_{p\mid d}(p-1)$.
+\bibitem{MO} A. Milovanov, Number theory question from Homotopy groups
+of spheres, MathOverflow (15 April 2018),
+\href{https://mathoverflow.net/q/297915}{question 297915},
+including G. Martin's answer.
+\end{thebibliography}
+\end{document}

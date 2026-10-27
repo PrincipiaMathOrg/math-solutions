@@ -1,0 +1,203 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,booktabs,hyperref,listings}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newcommand{\Q}{\mathbb Q}
+\title{Four roots of Yuster's entropy polynomial at $k=50$}
+\author{Principia Math In Progress}
+\date{18 September 2026}
+\begin{document}
+\maketitle
+\begin{abstract}
+An exact rational sign certificate disproves Conjecture 3.9 of Yuster:
+$p_{50}$ has at least four distinct roots in $(0,1)$. The certificate uses
+integer arithmetic and a standard multisection formula, also appearing in
+Wakhare's work. It concerns the polynomial root conjecture; the associated
+entropy inequality has already been proved by Ho.
+\end{abstract}
+
+\section*{Task 1: complete disproof}
+For an integer $k\ge2$, let $\varphi_k\in(0,1)$ satisfy
+$\varphi_k^k+\varphi_k=1$, and put
+$\alpha_k=\varphi_k^{k-1}=\varphi_k^{-1}-1$.
+Equivalently, $\alpha_k$ is the unique positive solution of
+\begin{equation}\label{alpha}
+ \alpha_k(1+\alpha_k)^{k-1}=1.
+\end{equation}
+Set $h(x)=-x\log x-(1-x)\log(1-x)$ and
+$f_k(x)=\alpha_k h(x^k)-x^{k-1}h(x)$ on $(0,1)$.
+Yuster's polynomial is characterized by his Corollary 3.7 \cite{Y}:
+\begin{equation}\label{source}
+ f_k^{(k+1)}(x)=\frac{(k-1)!p_k(x)}{x(x^k-1)^k}.
+\end{equation}
+This is exactly the normalization in the original conjecture.
+
+\begin{theorem}\label{main}
+The polynomial $p_{50}$ has a root in each of
+\[
+ (0,1/4),\qquad(1/4,1/2),\qquad(1/2,3/5),\qquad(3/5,1).
+\]
+In particular, the assertion that every $p_k$ has at most two roots in
+$(0,1)$, counting multiplicity, is false.
+\end{theorem}
+
+\subsection*{A convenient exact polynomial formula}
+Define
+\[
+ S_k(x)=\sum_{i=0}^{k-1}x^i,\quad
+ B_k(x)=\sum_{i=0}^{k-1}(1-x)^i,\quad
+ H_k(y)=\sum_{j=0}^{k-1}a_{k,j}y^j,
+\]
+where
+\begin{equation}\label{coef}
+ a_{k,j}=[z^{kj}]S_k(z)^k
+ =\sum_{v=0}^{j}(-1)^v\binom{k}{v}
+          \binom{k(j-v)+k-1}{k-1}.
+\end{equation}
+Every $a_{k,j}$ is positive: $kj$ can be written as a sum of $k$ integers
+between $0$ and $k-1$. In particular $H_k(y)>0$ for $y\ge0$.
+These coefficients and the following derivative identities are known;
+see Wakhare's Corollaries 13 and 14 \cite{W}. We include the derivation
+to fix all signs and normalizing factors.
+
+\begin{lemma}\label{formula}
+One has the polynomial identity
+\begin{equation}\label{p}
+ p_k(x)=(-1)^k\bigl(B_k(x)S_k(x)^k-\alpha_k k^2H_k(x^k)\bigr).
+\end{equation}
+\end{lemma}
+\begin{proof}
+Taking coefficients at multiples of $k$ in
+$(1-z)^{-k}=S_k(z)^k/(1-z^k)^k$ gives
+\begin{equation}\label{section}
+ \sum_{n\ge0}\binom{kn+k-1}{k-1}x^{kn}
+       =\frac{H_k(x^k)}{(1-x^k)^k}.
+\end{equation}
+The convergent expansion
+$h(u)=-u\log u+u-\sum_{n\ge1}u^{n+1}/(n(n+1))$
+may be differentiated term by term on compact subintervals of $(0,1)$.
+It yields
+\begin{align*}
+ \frac{d^{k+1}}{dx^{k+1}}h(x^k)
+   &=-\frac{k\,k!}{x}\sum_{n\ge0}\binom{kn+k-1}{k-1}x^{kn},\\
+ \frac{d^{k+1}}{dx^{k+1}}\bigl(x^{k-1}h(x)\bigr)
+   &=\frac{(k-1)!}{x^2}\bigl(1-(1-x)^{-k}\bigr).
+\end{align*}
+Combining these equations with \eqref{section}, using
+$B_k(x)=(1-(1-x)^k)/x$ and
+$S_k(x)=(1-x^k)/(1-x)$ on $(0,1)$, gives
+\[
+ f_k^{(k+1)}(x)=\frac{(k-1)!}{x(1-x^k)^k}
+ \bigl(B_k(x)S_k(x)^k-\alpha_k k^2H_k(x^k)\bigr).
+\]
+Comparison with \eqref{source} proves \eqref{p} on $(0,1)$, hence
+identically as a polynomial.
+\end{proof}
+
+\subsection*{Exact signs}
+For $0\le x\le1$, put
+\[
+ R_k(x)=\frac{B_k(x)S_k(x)^k}{k^2H_k(x^k)}.
+\]
+The denominator is positive. For even $k$, the sign of $p_k(x)$ is
+the sign of $R_k(x)-\alpha_k$.
+Since $t(1+t)^{49}$ is strictly increasing for $t>0$, the integer
+inequalities
+\[
+ 59\cdot1059^{49}<1000^{50},\qquad
+ 3\cdot53^{49}>50^{50}
+\]
+give
+\begin{equation}\label{bracket}
+ \frac{59}{1000}<\alpha_{50}<\frac{3}{50}.
+\end{equation}
+The following rational bounds follow directly from \eqref{coef}:
+\begin{center}
+\begin{tabular}{ccc}
+\toprule
+$x$ & Exact value or strict rational enclosure of $R_{50}(x)$
+ & $\operatorname{sgn}p_{50}(x)$\\
+\midrule
+$0$ & $1/50$ & $-$\\
+$1/4$ & $(2717,2718)$ & $+$\\
+$1/2$ & $(1/50,21/1000)$ & $-$\\
+$3/5$ & $(31/500,63/1000)$ & $+$\\
+$1$ & $1/50$ & $-$\\
+\bottomrule
+\end{tabular}
+\end{center}
+For completeness, the entire arithmetic certificate for this table is
+reproducible by the following Python code, using exact fractions only.
+Thus none of the strict signs depends on a numerical root finder.
+\begin{lstlisting}[basicstyle=\ttfamily\small,frame=single]
+from fractions import Fraction as Q
+from math import comb
+k = 50
+a = [sum((-1)**v*comb(k,v)*comb(k*(j-v)+k-1,k-1)
+         for v in range(j+1)) for j in range(k)]
+def R(x):
+    S = sum(x**i for i in range(k))
+    B = sum((1-x)**i for i in range(k))
+    H = sum(Q(c)*x**(k*j) for j,c in enumerate(a))
+    return B*S**k/(k*k*H)
+assert 59*1059**49 < 1000**50
+assert 3*53**49 > 50**50
+assert R(Q(0)) == R(Q(1)) == Q(1,50)
+assert 2717 < R(Q(1,4)) < 2718
+assert Q(1,50) < R(Q(1,2)) < Q(21,1000)
+assert Q(31,500) < R(Q(3,5)) < Q(63,1000)
+\end{lstlisting}
+The accompanying \texttt{exact-certificate.json} stores the coefficients
+and exact fractions. The separate \texttt{verify.py} additionally
+reconstructs the coefficients by bounded-composition convolution and
+checks the original $C$ recurrence and $\rho_k,\sigma_k$ sums from
+\cite{Y} at all five points, including $k=50$.
+
+\begin{proof}[Proof of Theorem~\ref{main}]
+The table and \eqref{bracket} give the strict sign sequence
+$-,+,-,+,-$. The intermediate value theorem, applied on each of the
+four adjacent closed intervals, gives a root in its interior. The four
+open intervals are disjoint. These are therefore four distinct roots
+of the polynomial specified by \eqref{source}, proving the assertion.
+\end{proof}
+
+\subsection*{Scope and prior results}
+Yuster proved the root claim for $k=2,3,4$ and used it as a sufficient
+condition for an entropy inequality. Ho \cite{H} later proved that
+entropy inequality for every real $k>1$ by a different argument.
+The present counterexample concerns the sufficient root condition.
+The derivative and multisection identities used above are explicitly
+credited to the prior literature. No claim is made here that $50$ is
+the least counterexample or that $p_{50}$ has exactly four roots.
+Wakhare's polynomial with parameters $(k,r)=(50,1)$ differs from
+$p_{50}$ by the nonzero factor $-(1-x)^{50}/50$ on $(0,1)$; thus the
+same witness also refutes his broader Conjecture 2. This consequence
+receives no separate campaign credit.
+
+\section*{Tasks 2--5: proposed follow-up work}
+\begin{enumerate}
+\setcounter{enumi}{1}
+\item Determine the least integer $k\ge2$ for which $p_k$ has more than
+two roots in $(0,1)$, with an exact certificate for every smaller $k$.
+\item Prove that the number of distinct roots of $p_k$ in $(0,1)$ is
+unbounded as $k\to\infty$.
+\item Find asymptotic locations of the successive root pairs, using the
+multisection sum in \eqref{section}.
+\item Classify the coprime integer pairs $k>r\ge1$ for which Wakhare's
+entropy polynomial $p_{k,r}$ has exactly two roots in $(0,1)$.
+\end{enumerate}
+
+\begin{thebibliography}{9}
+\bibitem{Y} R. Yuster, \emph{Almost $k$-union closed set systems},
+arXiv:2302.12276v1 (2023), especially Corollary 3.7 and Conjecture 3.9.
+\url{https://arxiv.org/abs/2302.12276}.
+\bibitem{W} T. Wakhare, \emph{Iterated entropy derivatives and binary
+entropy inequalities}, Journal of Approximation Theory \textbf{307}
+(2025), 106143. Complete arXiv version read:
+\url{https://arxiv.org/abs/2312.14743}, v2, Corollaries 13--14.
+\bibitem{H} B. S. Ho, \emph{A generalization of Boppana's entropy
+inequality}, arXiv:2601.19327v1 (2026).
+\url{https://arxiv.org/abs/2601.19327}.
+\end{thebibliography}
+\end{document}

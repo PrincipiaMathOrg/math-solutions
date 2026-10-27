@@ -1,0 +1,182 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[hidelinks]{hyperref}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\title{Strict convexity of the pendulum time map\\{\large MathDB 343384}}
+\author{Principia Math In Progress}
+\date{12 September 2026}
+\begin{document}
+\maketitle
+
+\section*{Task 1. Resolve the time-map convexity conjecture}
+For \(0<\phi<\pi/2\) and \(0<z<2\), put
+\[
+ \beta(z)=\tfrac12\arccos(1-z),\qquad
+\]
+\[
+ T_B(z,\phi)=
+ \int_0^\phi\frac{dx}{\sqrt{z-\cos(2\phi)+\cos(2x)}}
+ +\int_0^{\beta(z)}
+       \frac{dx}{\sqrt{z-\cos(2\phi)+\cos(2x)}}.
+\]
+Conjecture 1 of \cite{original}, retained as Conjecture 1 in the authors'
+postpublication manuscript of \cite{later}, asks whether this is convex in
+\(z\) for every fixed \(\phi\).
+
+\begin{theorem}
+The conjecture holds. In fact, throughout the stated parameter rectangle,
+\[
+ \boxed{\displaystyle
+ \frac{\partial^2 T_B}{\partial z^2}(z,\phi)
+       \geq \frac{\sin\phi}{16z^{3/2}}>0.}
+\]
+\end{theorem}
+
+\begin{proof}
+Fix \(w=1-\cos(2\phi)=2\sin^2\phi\in(0,2)\), and write \(s=z+w\).
+In both integrals use \(v=2\sin^2x\). Since
+\(dx=dv/(2\sqrt{v(2-v)})\), this gives
+\begin{equation}\label{transform}
+ T_B(z,\phi)=\frac12
+ \left(\int_0^w+\int_0^z\right)
+ \frac{dv}{\sqrt{v(2-v)(s-v)}}.
+\end{equation}
+For each integer \(n\geq0\), define
+\[
+ F_n(z,w)=
+ \int_0^w\frac{v^{n-1/2}}{\sqrt{z+w-v}}\,dv+
+ \int_0^z\frac{v^{n-1/2}}{\sqrt{z+w-v}}\,dv.
+\]
+The binomial series and its nonnegative terms yield
+\begin{equation}\label{series}
+ T_B(z,\phi)=\frac1{2\sqrt2}
+       \sum_{n=0}^{\infty}\frac{\binom{2n}{n}}{8^n}F_n(z,w).
+\end{equation}
+This passage follows either by monotone convergence or by uniform
+convergence of the binomial series on
+\(0\leq v\leq\max\{z,w\}<2\).
+
+We prove that \(F_0\) is constant and every \(F_n\), \(n\geq1\), is
+convex as a function of \(z>0\) with \(w>0\) fixed.
+Indeed,
+\[
+ F_0(z,w)=2\arcsin\sqrt{\frac{w}{s}}
+             +2\arcsin\sqrt{\frac{z}{s}}=\pi.
+\]
+For \(n\geq1\), the first integral in \(F_n\) has positive second
+derivative
+\[
+ \frac34\int_0^w
+       v^{n-1/2}(z+w-v)^{-5/2}\,dv>0.
+\]
+Differentiation under this fixed integral is justified locally by
+\(z+w-v\geq z>0\).
+In its second integral substitute \(v=zt\), obtaining
+\[
+ \int_0^1 t^{n-1/2}
+       \frac{z^{n+1/2}}{\sqrt{w+(1-t)z}}\,dt.
+\]
+For \(b\geq0\), direct differentiation gives
+\begin{align}
+ \frac{d^2}{dz^2}\frac{z^{n+1/2}}{\sqrt{w+bz}}
+ &=\frac{z^{n-3/2}}{(w+bz)^{5/2}}P_n(w,bz),\label{kernel}\\
+ P_n(w,u)&=
+ (n^2-\tfrac14)w^2+(2n+1)(n-1)wu+n(n-1)u^2.\notag
+\end{align}
+All coefficients in this polynomial are nonnegative for integer
+\(n\geq1\), and its first term is positive. Thus the second integral
+is also convex. Its local differentiability follows from \(w>0\) and
+the integrable weight \(t^{n-1/2}\).
+
+Consequently the series \eqref{series} is a finite-valued pointwise
+limit of convex functions. Convexity passes to this limit by passing
+to the limit in the defining convexity inequality.
+To get the advertised quantitative conclusion, elementary integration gives
+\[
+ F_1(z,w)=\frac{\pi}{2}(z+w)-2\sqrt{zw},
+ \qquad
+ \partial_z^2F_1(z,w)=\frac{\sqrt w}{2z^{3/2}}.
+\]
+The function
+\[
+ T_B(z,\phi)-\frac1{8\sqrt2}F_1(z,w)
+  =\frac1{2\sqrt2}
+       \left(\pi+\sum_{n=2}^{\infty}
+                  \frac{\binom{2n}{n}}{8^n}F_n(z,w)\right)
+\]
+is convex by the same reasoning. It is \(C^2\): the original two
+integrals have smooth endpoints and strictly positive radicands on
+every compact subset of the parameter rectangle. Its second derivative
+is therefore nonnegative. Hence
+\[
+ \partial_z^2T_B(z,\phi)\geq
+       \frac{\sqrt w}{16\sqrt2\,z^{3/2}}
+       =\frac{\sin\phi}{16z^{3/2}},
+\]
+as required.
+\end{proof}
+
+\paragraph{Consequence.}
+The derivative is strictly increasing. The source proves
+\(\partial_zT_B\to-\infty\) as \(z\downarrow0\).
+As \(z\uparrow2\), differentiation of the original formula gives
+\[
+ 2\partial_zT_B=
+ -\left(\int_0^\phi+\int_0^{\beta(z)}\right)
+       (z-\cos2\phi+\cos2x)^{-3/2}\,dx
+ +\frac1{\sqrt{z(2-z)w}}\longrightarrow+\infty:
+\]
+the integrals remain bounded for fixed \(w>0\).
+Thus there is exactly one stationary point, a nondegenerate global
+minimum. This establishes the single-minimum consequence for the
+type \(B\) branch as well.
+
+\paragraph{Verification and status.}
+The accompanying verifier checks the algebraic identity
+\eqref{kernel}, the first coefficient, the changes of variables, and
+the series against direct quadrature. These numerical checks are
+supplementary; the proof above covers the entire open rectangle.
+The separate literature audit records the live open status, empty
+claim fields, current source checks, and the scope of the claim search.
+
+\section*{Task 2. Locate the unique minimum}
+Determine asymptotic expansions for its location \(z_*(\phi)\) and
+value \(T_B(z_*(\phi),\phi)\) as \(\phi\downarrow0\) and
+\(\phi\uparrow\pi/2\), with explicit error estimates.
+
+\section*{Task 3. Resolve the branches with additional turns}
+Use the convex expansion together with the complete-period contribution
+to settle uniqueness and nondegeneracy of the minima on the higher
+turning branches described in \cite{later}, on their full domains.
+
+\section*{Task 4. Extend the convexity mechanism}
+Characterize potential functions whose analogous change of variables
+produces a positive power-series weight, and establish a time-map
+convexity theorem for that class.
+
+\section*{Task 5. Separate the boundary parameters}
+Allow the prescribed terminal velocity and initial angle to vary
+independently. Determine the parameter region in which the corresponding
+mixed-boundary time map is convex and has a unique minimum.
+
+\begin{thebibliography}{9}
+\bibitem{original}
+F.\ P.\ da Costa, M.\ Grinfeld, J.\ T.\ Pinto, and K.\ Xayxanadasy,
+\emph{Bifurcating solutions in a non-homogeneous boundary value problem
+for a nonlinear pendulum equation}, arXiv:1907.13009 (2019),
+equation (14) and Conjecture 1.
+\url{https://arxiv.org/abs/1907.13009}.
+
+\bibitem{later}
+F.\ P.\ da Costa, M.\ Grinfeld, N.\ J.\ Mottram, J.\ T.\ Pinto, and
+K.\ Xayxanadasy,
+\emph{Steady state solutions in a model of a cholesteric liquid crystal
+sample}, Afrika Matematika \textbf{32} (2021), 645--672,
+doi:10.1007/s13370-020-00851-9.
+The authors' postpublication manuscript, including Conjecture 1,
+is archived at
+\url{https://strathprints.strath.ac.uk/79201/1/da_Costa_etal_AM_2021_Steady_state_solutions_in_a_model.pdf}.
+\end{thebibliography}
+\end{document}

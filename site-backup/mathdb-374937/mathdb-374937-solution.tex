@@ -1,0 +1,133 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[hidelinks]{hyperref}
+\newtheorem{proposition}{Proposition}
+\newcommand{\cSM}{c^{\mathrm{SM}}}
+\title{Failure of stable CSM positivity at the empty partition\\
+\large MathDB 374937}
+\author{}
+\date{September 12, 2026}
+\begin{document}
+\maketitle
+\vspace{-2em}
+
+\paragraph{Task 1.}
+Resolve the shifted-binomial positivity and log-concavity assertion for
+stable CSM--Schur coefficients in \cite[Conjecture 6.7]{BF}.
+For a partition $\lambda$ whose parts are at least $2$, put
+$c=|\lambda|-\ell(\lambda)$ and write
+\[
+ \cSM(Y_\lambda(d))_f
+ =\sum_{i=0}^{\lfloor f/2\rfloor}
+ C_{\lambda,f,i}(d)s_{f-i,i}(a,b),\qquad f\geq c.
+\]
+Here $Y_\lambda(d)$ is the \emph{open} coincident-root stratum.
+With $\widetilde C_{\lambda,f,i}=(-1)^{f-c}C_{\lambda,f,i}$, the
+assertion requires all coefficients $\gamma_j$ in
+\[
+ \widetilde C_{\lambda,f,i}\bigl(y+|\lambda|+2(f-c)\bigr)
+       =\sum_{j\geq0}\gamma_j\binom yj
+\]
+to be nonnegative, with the resulting sequence log-concave.
+As formulated, this includes the empty partition: it has no forbidden
+parts, and the source explicitly discusses it immediately before the
+conjecture. This case already contradicts the positivity requirement.
+
+\begin{proposition}
+For the empty partition, $f=1$, and $i=0$, the stable coefficient is
+\[
+ C_{\varnothing,1,0}(d)=\frac{d(3-d)}2.
+\]
+Consequently the conjecture's shifted signed polynomial is
+\[
+ \widetilde C_{\varnothing,1,0}(y+2)
+   =\frac{(y+2)(y-1)}2
+   =-\binom y0+\binom y1+\binom y2 .
+\]
+In particular, $\gamma_0=-1<0$.
+\end{proposition}
+
+\begin{proof}
+Let $V_d=\operatorname{Pol}^d(\mathbb C^2)$, using the source's
+positive-weight convention. Its weights are $ja+(d-j)b$ for
+$0\leq j\leq d$, and therefore
+\[
+ c_1(V_d)=\sum_{j=0}^d(ja+(d-j)b)
+          =\frac{d(d+1)}2(a+b).
+\]
+For every $d\geq2$, the open stratum $Y_\varnothing(d)$ is the
+complement of the binary discriminant hypersurface $D_d$.
+The discriminant has character $(\det)^{d(d-1)}$, so
+\[
+ [D_d]=d(d-1)(a+b).
+\]
+For completeness, write a split form as $\prod_{r=1}^d\ell_r$.
+Its discriminant is, up to a nonzero constant,
+$\prod_{r<s}\det(\ell_r,\ell_s)^2$. A linear change of variables
+multiplies each determinant by $\det$, which proves the stated
+character. The discriminant hypersurface is irreducible, being the
+closure of the forms $\ell^2g$ with one double root. It is reduced:
+along $(X^2-tY^2)g(X,Y)$ with the roots of $g$ distinct and away
+from $X=0$, its discriminant is $t$ times a function nonzero at $t=0$.
+
+The normalization and additivity of equivariant CSM classes give
+\[
+ \cSM(V_d)=c(V_d),\qquad
+ \cSM(Y_\varnothing(d))=\cSM(V_d)-\cSM(D_d).
+\]
+The codimension-one part of $\cSM(D_d)$ is its fundamental class.
+Thus
+\[
+ \cSM(Y_\varnothing(d))_1
+   =c_1(V_d)-[D_d]=\frac{d(3-d)}2(a+b).
+\]
+Since $s_{1,0}(a,b)=a+b$, this identifies the Schur coefficient for
+every $d\geq2$, and hence identifies its stable polynomial.
+Now $c=0$, the sign is $-1$, and the prescribed shift is $y=d-2$.
+Substitution gives the displayed binomial expansion.
+Alternatively, evaluation at $y=0$ already forces its constant
+binomial coefficient to be $-1$.
+\end{proof}
+
+This is a counterexample to the universal formulation, not a resolution
+of the conjecture after imposing $\lambda\ne\varnothing$.
+The distinction between the open stratum and its closure is essential:
+$\overline{Y_\varnothing(d)}=V_d$, whereas $Y_\varnothing(d)$ consists
+of squarefree forms. The source also distinguishes these objects after
+Conjecture 6.7. No assertion about classes of closures is used here.
+
+\paragraph{Task 2.}
+Determine whether both conclusions of Conjecture 6.7 hold for every
+nonempty partition $\lambda$ with parts at least $2$.
+
+\paragraph{Task 3.}
+For $\lambda=\varnothing$, determine the stable Schur coefficient
+polynomials in all homogeneous degrees and the least integer shifts
+that make their signed binomial coefficients nonnegative.
+
+\paragraph{Task 4.}
+For those corrected empty-partition shifts, determine which coefficient
+sequences are log-concave and classify any exceptions.
+
+\paragraph{Task 5.}
+Formulate and test a separate binomial positivity and log-concavity
+statement for CSM classes of coincident-root stratum closures, keeping
+their normalization distinct from that of open strata.
+
+\begin{thebibliography}{9}
+\raggedright
+\bibitem{BF}
+G. B\'erczi and L. M. Feh\'er,
+\emph{Positivity in classical enumerative geometry: a case study in
+synchronized AI-assisted mathematics}, arXiv:2605.25271v1 (2026),
+Section 6.2, pp.~26--27.
+\url{https://arxiv.org/abs/2605.25271}.
+\bibitem{J}
+A. Juh\'asz, \emph{Equivariant classes of coincident root strata and
+related invariants of varieties of tangent lines},
+doctoral dissertation, Central European University (2023),
+Chapter 3, in particular Theorem 3.6.1.
+\url{https://hdl.handle.net/20.500.14018/29523}.
+\end{thebibliography}
+\end{document}

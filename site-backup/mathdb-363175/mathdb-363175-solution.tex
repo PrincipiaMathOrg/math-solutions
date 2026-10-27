@@ -1,0 +1,291 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,booktabs}
+\usepackage[hidelinks]{hyperref}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newcommand{\asinh}{\operatorname{arsinh}}
+\newcommand{\R}{\mathcal R}
+\title{The strict \(M_4\) resultant-mean inequality}
+\author{Principia Math In Progress}
+\date{18 September 2026}
+\begin{document}
+\maketitle
+\begin{abstract}
+We prove both parameter branches of Mihokovi\'c--Ra\"issouli's
+\(M_4\) sign conjecture. A mixed derivative reduces the assertion to
+positivity of one explicit function. Analytic estimates cover a
+neighborhood of zero and the entire infinite tail; a reproducible
+interval-arithmetic certificate covers the intervening compact interval.
+The finite computation encloses whole intervals, rather than sampling
+points.
+\end{abstract}
+
+\section*{Task 1: the original problem}
+For \(a,b>0\), define
+\[
+ M(a,b)=M_4(a,b)=
+ \frac{b-a}{\sqrt2\,\asinh((\log b-\log a)/\sqrt2)}
+ \quad(a\ne b),\qquad M(a,a)=a.
+\]
+For \(r\ne0\), let \(B_r(a,b)=((a^r+b^r)/2)^{1/r}\), and put
+\[
+ \R(B_p,M,B_q)(a,b)
+ =B_p\bigl(M(a,B_q(a,b)),M(B_q(a,b),b)\bigr).
+\]
+The intended strict comparison is for distinct positive inputs; the
+diagonal has equality. This is Conjecture~4.10 of the preprint
+\cite{MR}, and Conjecture~40, p.~22, of its complete published version.
+
+\begin{theorem}\label{main}
+If \(p=\sqrt{21}\) or \(p=-\sqrt{21}\), and \(q=(3-p)/2\), then
+\[
+ M(a,b)>\R(B_p,M,B_q)(a,b)\qquad(a,b>0,\ a\ne b).
+\]
+Thus both choices \(q=(3\pm\sqrt{21})/2\), \(p=3-2q\), in the
+conjecture are valid.
+\end{theorem}
+
+\section*{A mixed-derivative reduction}
+By symmetry, assume \(a<b\), and set
+\[
+ H(a,b)=(b^q-a^q)M(a,b)^p,\qquad H(a,a)=0.
+\]
+We will prove \(H_{ab}>0\) for \(a<b\).
+For any \(a<c<b\), the fundamental theorem of calculus then gives
+\begin{equation}\label{rectangle}
+ H(a,c)+H(c,b)-H(a,b)
+   =\int_a^c\int_c^b H_{ab}(u,v)\,dv\,du>0.
+\end{equation}
+Take \(c=B_q(a,b)\), so that
+\(c^q-a^q=b^q-c^q=(b^q-a^q)/2\).
+If \(q>0\), \eqref{rectangle} gives
+\(M(a,b)^p<(M(a,c)^p+M(c,b)^p)/2\); here \(p<0\), giving the
+claimed strict comparison. If \(q<0\), the first inequality reverses
+on division by \(b^q-a^q\); now \(p>0\), giving the same conclusion.
+
+Here is an explicit test for the mixed derivative. For \(t>0\), write
+\[
+ v(t)=\log\frac{\sqrt2\sinh(t/2)}{\asinh(t/\sqrt2)},\quad
+ g(t)=\frac1{\sqrt{t^2+2}\,\asinh(t/\sqrt2)},\quad s=p+q.
+\]
+Then
+\begin{align}
+ v'(t)&=\tfrac12\coth(t/2)-g(t),\label{vprime}\\
+ v''(t)&=-\frac1{4\sinh^2(t/2)}
+              +\frac{t}{t^2+2}g(t)+g(t)^2.\label{vsecond}
+\end{align}
+Define
+\begin{equation}\label{T}
+ T_p(t)=v''(t)+p\,v'(t)^2+q\coth(qt/2)v'(t)-\frac34.
+\end{equation}
+With \(t=\log(b/a)\), we have
+\[
+ H(a,b)=a^s h(t),\qquad
+ h(t)=e^{st/2}\,2\sinh(qt/2)e^{pv(t)}.
+\]
+Since \(p+2q=3\), direct differentiation gives
+\[
+ h''-s h'=p h T_p,\qquad
+ H_{ab}(a,b)=-\frac{a^s}{ab}\,p h(t)T_p(t).
+\]
+Indeed, the constant in the first identity is
+\((q^2-s^2)/4=-3p/4\).
+The sign of \(h(t)\) is the sign of \(q\), and \(pq<0\).
+It remains to prove \(T_p(t)>0\) for \(t>0\), for both values of \(p\).
+
+\section*{A rigorous certificate for \(T_p>0\)}
+All interval computations below use outward enclosures in Arb, through
+python-flint \cite{arb}, at 160-bit midpoint precision. The accompanying
+\texttt{verify\_inequality.py} recomputes the coefficients, partitions,
+and strict enclosures, and writes \texttt{exact-certificate.json}.
+The analytic estimates below supply the two infinite families of
+arguments outside the compact computation.
+
+\subsection*{1. An analytic Taylor remainder at zero}
+The function \(v'\) is odd and analytic near zero. Its expansion begins
+\[
+ v'(t)=\frac t4-\frac{t^3}{16}+\frac{17t^5}{672}+O(t^7).
+\]
+Consequently \(T_p\) is even and analytic, and, using \(p^2=21\),
+\begin{equation}\label{leading}
+ T_p(t)=\frac{13}{480}t^4+O(t^6).
+\end{equation}
+For explicit verification, the coefficients of \(t^2\) and \(t^4\) are
+\[
+ \frac{-15+3p+2q^2}{48}=0,\qquad
+ \frac{255-15q^2-q^4-45p}{1440}=\frac{13}{480}.
+\]
+The constant coefficient is zero as well.
+
+We need a uniform, proved bound on all omitted coefficients. Define
+\[
+ \rho(z)=\frac{\asinh(z/\sqrt2)}{z/\sqrt2},\qquad
+ U(z)=\frac1{\sqrt{1+z^2/2}\,\rho(z)},\qquad
+ D(w)=w\coth w.
+\]
+The removable values at zero are one. For \(|z|\le1\), the binomial
+series gives
+\[
+ |\rho(z)-1|\le\frac13,\qquad
+ |(1+z^2/2)^{-1/2}-1|\le\sqrt2-1<\frac12.
+\]
+Thus \(|U-1|<5/4\). Also, on \(|z|\le1\),
+\[
+ |D(z/2)-1|
+ \le\frac{(\cosh(1/2)-1)+(\sinh(1/2)/(1/2)-1)}
+ {1-(\sinh(1/2)/(1/2)-1)}<\frac14.
+\]
+For example, the two numerator terms are less than \(1/7\) and \(1/20\).
+The denominators in these formulas have no zeros in the specified
+discs. Since \(v'(z)=(D(z/2)-U(z))/z\), the maximum principle gives
+\[
+ |v'(z)/z|<\frac32\quad(|z|\le1).
+\]
+Cauchy's derivative estimate therefore implies, on \(|z|\le1/2\),
+\[
+ |v'(z)|<\frac34,\qquad |v''(z)|<3.
+\]
+Furthermore, \(|q|<4\), and for \(|w|\le1\),
+\[
+ |D(w)|\le\frac{\cosh1}{1-(\sinh1-1)}<2.
+\]
+Here \(\cosh1<8/5\) and \(\sinh1-1<1/5\).
+Writing \(q\coth(qz/2)v'(z)=2D(qz/2)v'(z)/z\), we obtain
+\[
+ |T_p(z)|<3+5(3/4)^2+6+3/4<16\qquad(|z|\le1/2).
+\]
+These estimates also establish analyticity throughout that disc.
+If \(T_p(t)=\sum a_k t^k\), Cauchy's bound is
+\(|a_k|\le16\,2^k\).
+Parity and \eqref{leading} now give, for \(0<t\le1/4\),
+\begin{equation}\label{tailzero}
+ \left|\frac{T_p(t)-\sum_{k=2}^{20}a_{2k}t^{2k}}{t^4}\right|
+ \le\frac{16\,2^{42}t^{38}}{1-2t}\le 2^{-29}.
+\end{equation}
+
+The verifier computes the coefficients through degree 40 by formal
+ball-series arithmetic on the displayed formulas. Horner evaluation
+of \(\sum_{k=2}^{20}a_{2k}y^{k-2}\) on the single interval
+\(0\le y\le1/16\), followed by subtraction of \(2^{-29}\), gives a
+lower bound greater than \(1/40\), for each branch. It follows that
+\[
+ T_p(t)>\frac{t^4}{40}>0\qquad(0<t\le1/4).
+\]
+Formal-series division by \(t\) removes only the exact zero terms
+justified by parity and the displayed removable values.
+
+\subsection*{2. The compact interval}
+Start with the exact rational interval \([1/4,20]\). For each interval
+\([l,u]\), evaluate \eqref{vprime}--\eqref{T} on the Arb ball centered
+at \((l+u)/2\) with radius \((u-l)/2\). Accept the interval only when
+the entire resulting enclosure is strictly positive; otherwise bisect
+it at its exact rational midpoint and repeat. The computation terminates:
+\[
+\begin{array}{c|r|c}
+ p&\text{accepted subintervals}&\text{certified lower bound on every leaf}\\
+ \hline
+ -\sqrt{21}&186338&10^{-12}\\
+ \sqrt{21}&173452&10^{-12}
+\end{array}
+\]
+The code checks that the exact sum of accepted lengths is \(79/4\).
+The binary subdivision preserves a cover with disjoint interiors;
+thus this is a certificate for every point of \([1/4,20]\).
+The JSON certificate records partition hashes and depth counts.
+No unverified decimal approximation of \(p\), \(q\), or an endpoint
+is used.
+
+\subsection*{3. The whole tail \(t\ge20\)}
+Let \(r=\sqrt{21}\), \(k=(r-3)/2\), and
+\(\epsilon=(e^t-1)^{-1}\). We have
+\[
+ \frac{3}{4}<k<1,\quad 4<r<5,\quad
+ v'=\frac12-g+\epsilon,\quad
+ v''=g^2+\frac{t}{t^2+2}g-\epsilon(1+\epsilon).
+\]
+For \(t\ge20\),
+\[
+ \frac1{2t\log(2t)}<g<\frac1t\le\frac1{20},
+ \qquad 0<\epsilon<2e^{-t}.
+\]
+The first lower bound follows from
+\(\sqrt{t^2+2}<2t\) and \(\asinh(t/\sqrt2)<\log(2t)\).
+In particular \(v'>0\).
+
+For \(p=-r\), \(q=(3+r)/2\), use \(\coth(qt/2)>1\) in \eqref{T}
+and expand. Dropping positive terms gives
+\begin{align*}
+ T_{-r}
+ &\ge kg-(r-1)g^2-(k+1)\epsilon-(r+1)\epsilon^2\\
+ &>\frac12g-2\epsilon-6\epsilon^2\\
+ &>\frac1{4t\log(2t)}-4e^{-t}-24e^{-2t}\\
+ &\ge\frac1{4t^2}-28e^{-t}>0.
+\end{align*}
+Here \(k-(r-1)g>3/4-4/20>1/2\), and
+\(\log(2t)<t\). For the final strict inequality,
+\(t^2e^{-t}\) decreases for \(t\ge20\), while
+\[
+ e^{20}>\frac{20^8}{8!}>44800=112\cdot20^2.
+\]
+
+For \(p=r\), \(q=-k\), we instead have
+\(q\coth(qt/2)>k\) and \(v'>9/20\). Consequently
+\[
+ T_r>-\epsilon(1+\epsilon)
+       +4(9/20)^2+\frac34(9/20)-\frac34
+ =-\epsilon(1+\epsilon)+\frac{159}{400}>0.
+\]
+Indeed \(\epsilon<2e^{-20}<1/100\), so its negative contribution
+is less than \(101/10000\).
+This completes the proof that \(T_p>0\) for every \(t>0\).
+The mixed-derivative reduction and \eqref{rectangle} prove
+Theorem~\ref{main}. \(\square\)
+
+\paragraph{Scope of the proof and audit.}
+This is a computer-assisted proof: its compact and near-zero
+polynomial enclosures are substantive proof components.
+The script is independently rerunnable and supplies rigorous
+enclosures, not merely high-precision samples.
+The authoring agent checked the algebra, analytic tails, source scope,
+and executed the certificate. Independent peer review and
+proof-assistant formalization are not claimed.
+
+\section*{Proposed follow-up questions}
+The following four questions are unproved directions, not additional solves.
+\paragraph{Task 2.}
+Find an elementary analytic proof of \(T_{\pm\sqrt{21}}(t)>0\)
+that removes the interval computation.
+\paragraph{Task 3.}
+Determine the complete region of real parameter pairs \((p,q)\) for
+which the inequality
+\(M_4>\R(B_p,M_4,B_q)\) holds for every distinct positive pair.
+\paragraph{Task 4.}
+Prove or disprove the analogous \(M_2\) inequality in Conjecture~37
+of the published source, for both prescribed power-mean pairs.
+\paragraph{Task 5.}
+For each branch here, determine the largest constant \(C_p>0\) such that
+\[
+ \frac{M_4(a,b)-\R(B_p,M_4,B_q)(a,b)}{M_4(a,b)}
+ \ge C_p\left(\frac{|\log(b/a)|}{1+|\log(b/a)|}\right)^6
+\]
+for every distinct positive pair, and determine whether the infimum
+is approached on the diagonal.
+
+\begin{thebibliography}{9}
+\raggedright
+\bibitem{MR}
+L.~Mihokovi\'c and M.~Ra\"issouli,
+\emph{Results on comparison and sub/super-stabilizability of some new means},
+Applicable Analysis and Discrete Mathematics \textbf{20} (2026), 1--23,
+\href{https://doi.org/10.2298/AADM240618001M}{doi:10.2298/AADM240618001M}.
+Complete published text:
+\href{http://pefmath.etf.rs/vol20num1/AADM-Vol20-No1-1-23.pdf}{journal PDF}.
+Preprint: \href{https://arxiv.org/abs/2405.13618}{arXiv:2405.13618v2}.
+\bibitem{arb}
+The python-flint developers,
+\emph{Arb real numbers and rigorous ball arithmetic},
+\href{https://python-flint.readthedocs.io/en/latest/arb.html}{official documentation}.
+The accompanying certificate records the exact installed version.
+\end{thebibliography}
+\end{document}

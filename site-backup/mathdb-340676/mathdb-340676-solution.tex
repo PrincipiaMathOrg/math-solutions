@@ -1,0 +1,203 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,hyperref}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newcommand{\res}{\operatorname{Res}}
+\title{Gamma positivity of the diagonal numerators of the blade array}
+\author{Principia Math In Progress}
+\date{18 September 2026}
+\begin{document}
+\maketitle
+
+\section*{Task 1: Complete solution of MathDB 340676}
+The target is Conjecture 8.4 of Early's current preprint~\cite{Early}.
+Its symmetry and coefficient-sum assertions were already proved by Donghyun
+Kim in Appendix A of that paper. The remaining unimodality assertion follows
+from the stronger gamma positivity proved below. We use Early's established
+enumeration formula, Proposition 8.3:
+\[
+ T_{n,k}=\sum_{i=1}^n S(n,i)c(i-1,k-1) \qquad(1\leq k\leq n),
+\]
+where $S$ and $c$ are the Stirling numbers of the second and unsigned first
+kinds. To fix the diagonal indexing precisely, put
+\[
+ H_j(x)=\sum_{r\geq0}T_{j+r+1,r+1}x^r,
+ \qquad P_j(x)=(1-x)^{2j+1}H_j(x),\quad j\geq0.
+\]
+This gives the source's numerators $1$, $1+x$, $1+10x+x^2$, and so on.
+
+\begin{theorem}\label{main}
+For every $j\geq0$ there are nonnegative integers $q_{j,r}$ such that
+\begin{equation}\label{gamma}
+ P_j(x)=\sum_{r=0}^{\lfloor j/2\rfloor}
+           4^r q_{j,r}x^r(1+x)^{j-2r},\qquad q_{j,0}=1.
+\end{equation}
+Consequently $P_j$ has symmetric, unimodal, nonnegative integer
+coefficients, and
+\[
+ P_j(1)=\frac{(2j)!}{j!}.
+\]
+Its coefficients strictly increase up to the middle, apart from the
+necessary pair of equal central coefficients when $j$ is odd.
+\end{theorem}
+
+All series manipulations in the proof are formal, over fields of
+characteristic zero; no analytic convergence is required.
+
+\subsection*{The row series and a formal inverse}
+Set
+\[
+ R_m(y)=\sum_{k=0}^m T_{m+1,k+1}y^k,\qquad
+ G(z)=-\log(2-e^z).
+\]
+The established row exponential generating function is
+\begin{equation}\label{row}
+ \sum_{m\geq0}R_m(y)\frac{z^m}{m!}=e^z(2-e^z)^{-y}=e^ze^{yG(z)}.
+\end{equation}
+This formula is also recorded by Skirrow in OEIS A320280~\cite{OEIS}.
+For completeness, it follows directly from Early's formula: since
+$\sum_k c(i-1,k)y^k=y^{\overline{i-1}}$ and
+$\sum_{n\geq i}S(n,i)z^n/n!=(e^z-1)^i/i!$, differentiation in $z$ gives
+\[
+ \sum_{m\geq0}R_m(y)\frac{z^m}{m!}
+ =e^z\sum_{i\geq1}y^{\overline{i-1}}
+                    \frac{(e^z-1)^{i-1}}{(i-1)!}.
+\]
+The binomial theorem proves~\eqref{row}. In particular,
+\begin{equation}\label{entry}
+ T_{j+r+1,r+1}=\frac{(j+r)!}{r!}[z^{j+r}]e^zG(z)^r.
+\end{equation}
+
+Let $w=w(u,x)$ be the unique series with $w(0,x)=0$ satisfying
+\begin{equation}\label{inverse}
+ u=w-xG(w)=w+x\log(2-e^w).
+\end{equation}
+The linear coefficient $1-x$ is invertible in $\mathbb Q[[x]]$, so this
+inverse exists as a formal series in $u$. We claim that
+\begin{equation}\label{residue}
+ H_j(x)=j![u^j]\frac{d}{du}e^{w(u,x)}.
+\end{equation}
+Indeed, changing variables in a formal residue and expanding in $x$ gives
+\begin{align*}
+ j![u^j]\frac{d}{du}e^{w(u,x)}
+ &=j!\res_{z=0}\frac{e^z}{(z-xG(z))^{j+1}}\,dz\\
+ &=\sum_{r\geq0}\frac{(j+r)!}{r!}x^r
+             [z^{j+r}]e^zG(z)^r=H_j(x).
+\end{align*}
+The formal change of variables is valid for an invertible series with zero
+constant term. Expansion in $x$ makes each displayed residue coefficient
+well defined, and the last equality is~\eqref{entry}.
+
+\subsection*{A differential equation with nonnegative coefficients}
+Write $A=1+x$, $B=1-x$, and $V=e^{w(u,x)}$. Differentiating~\eqref{inverse},
+with $V(0,x)=1$, yields
+\[
+ \frac{dV}{du}=\frac{V(2-V)}{2-(1+x)V}.
+\]
+Introduce a new variable $s$ and a parameter $h$ by
+\[
+ s=\frac{A}{B^2}u,\qquad
+ V=1+\frac BA Y,\qquad h=\frac{4x}{A^2}.
+\]
+Since $A^2-B^2=4x$, the resulting initial-value problem is
+\begin{equation}\label{positiveODE}
+ \frac{dY}{ds}=f_h(Y),\quad Y(0,h)=0,\qquad
+ f_h(y)=1+y+\frac{hy^2}{1-y}.
+\end{equation}
+Define, first with $h$ an independent indeterminate,
+\[
+ Q_j(h)=\left.\left(f_h(y)\frac{d}{dy}\right)^j f_h(y)\right|_{y=0}.
+\]
+Repeated differentiation of~\eqref{positiveODE} shows that
+$Q_j(h)=\partial_s^{j+1}Y(0,h)$. Since
+$V_u=B^{-1}Y_s$ and $s_u=A/B^2$, equation~\eqref{residue} becomes
+\begin{equation}\label{Qidentity}
+ H_j(x)=\frac{A^j}{B^{2j+1}}Q_j\!\left(\frac{4x}{A^2}\right).
+\end{equation}
+
+\begin{lemma}\label{positive}
+$Q_j(h)\in\mathbb Z_{\geq0}[h]$, $\deg Q_j\leq\lfloor j/2\rfloor$, and
+$Q_j(0)=1$.
+\end{lemma}
+\begin{proof}
+Expand $f_h(y)=1+y+h\sum_{a\geq2}y^a$. Multiplication by $f_h$ and
+differentiation in $y$ preserve nonnegative integer coefficients.
+At each fixed $j$ only finitely many terms contribute at $y=0$.
+
+For the degree bound, assign the monomial $h^r y^a$ weight $a-2r$.
+Every monomial of $f_h$ has weight at least zero. Differentiation lowers
+weight by one, and multiplication by $f_h$ cannot lower it. Thus every
+monomial of $(f_h\,d/dy)^j f_h$ has weight at least $-j$.
+After evaluation at $y=0$, a surviving $h^r$ must satisfy $-2r\geq-j$.
+Finally, at $h=0$, the operator is $(1+y)d/dy$ and fixes $1+y$,
+giving $Q_j(0)=1$.
+\end{proof}
+
+Writing $Q_j(h)=\sum_rq_{j,r}h^r$ in~\eqref{Qidentity} and multiplying
+by $B^{2j+1}$ proves~\eqref{gamma}. Each polynomial
+$x^r(1+x)^{j-2r}$ is symmetric about $j/2$ and unimodal when its
+coefficient vector is padded with zeros to length $j+1$. Nonnegative sums
+preserve these two properties because all summands have the same center.
+The $r=0$ summand $(1+x)^j$ has coefficient one and gives strict growth
+to the middle. This proves the new unimodality assertion.
+
+For an additional derivation of the already established coefficient sum,
+specialize~\eqref{positiveODE} at $h=1$. Then $Y_s=1/(1-Y)$, so
+$Y=1-\sqrt{1-2s}$ and $Y_s=(1-2s)^{-1/2}$. Therefore
+\[
+ Q_j(1)=(2j-1)!!,\qquad
+ P_j(1)=2^jQ_j(1)=\frac{(2j)!}{j!},
+\]
+including $j=0$ with $(-1)!!=1$. This completes the theorem.
+
+\subsection*{Examples, verification, and scope}
+The first polynomials $Q_j$ are
+\[
+ 1,\quad1,\quad1+2h,\quad1+14h,\quad
+ 1+88h+16h^2,\quad1+628h+316h^2.
+\]
+The accompanying exact verifier compares the original Stirling sums with
+the gamma formula, checks a separate row recurrence, solves the cleared
+differential equation independently at six integer parameters, and checks
+the source tables and coefficient properties. These finite checks support
+reproducibility; the proof above treats every diagonal.
+
+Early's enumeration formula, Kim's symmetry and factorial-sum proofs, and
+Skirrow's recorded row generating function are prior inputs and are not
+claimed as new. The contribution here is the positive differential-operator
+formula for the diagonal gamma coefficients and the resulting all-diagonal
+unimodality. Review is by the authoring agent only, without independent
+peer review or formal proof-assistant certification.
+
+\section*{Task 2: A combinatorial interpretation of the gamma coefficients}
+Find a direct statistic on the canonical blade objects whose distribution
+gives $q_{j,r}$, or explain the factor $4^r$ by a decoration of those objects.
+Equation~\eqref{positiveODE} suggests increasing trees with $r$ vertices
+having at least two children, but a correspondence with blades is still needed.
+
+\section*{Task 3: Zeros and interlacing}
+Determine whether every $Q_j(h)$ has only real negative zeros, and whether
+the nonconstant successive polynomials satisfy an interlacing relation.
+The proof establishes coefficient positivity, not these stronger properties.
+
+\section*{Task 4: A limiting coefficient distribution}
+For $\Pr(X_j=a)=[x^a]P_j(x)/P_j(1)$, symmetry gives
+$\mathbb E X_j=j/2$. Determine the variance asymptotics and whether the
+centered, normalized variables satisfy a central limit theorem.
+
+\section*{Task 5: Refine the branching degrees}
+Replace $hy^2/(1-y)$ by $\sum_{a\geq2}h_a y^a$ in~\eqref{positiveODE}.
+Interpret the resulting nonnegative multivariate coefficients and identify
+a refinement of the blade enumeration that specializes back to $P_j$.
+These four followups are questions, not additional solved MathDB problems.
+
+\begin{thebibliography}{9}
+\bibitem{Early} N. Early, with an appendix by D. Kim,
+\emph{Honeycomb Tessellations and Graded Permutohedral Blades},
+\href{https://arxiv.org/abs/1810.03246v4}{arXiv:1810.03246v4},
+3 February 2025, Proposition 8.3, Conjecture 8.4, and Appendix A.
+\bibitem{OEIS} OEIS Foundation, \href{https://oeis.org/A320280}{A320280},
+row generating functions recorded by N. L. Skirrow, 22 December 2025.
+\end{thebibliography}
+\end{document}

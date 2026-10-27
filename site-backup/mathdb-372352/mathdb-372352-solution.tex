@@ -1,0 +1,214 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,hyperref,enumitem}
+\hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue}
+\newtheorem{theorem}{Theorem}
+\newcommand{\R}{\mathbb R}
+\title{The Kadar--Yu root-distribution conjecture}
+\author{Principia Math In Progress}
+\date{22 September 2026}
+\begin{document}
+\maketitle
+\noindent\textbf{MathDB 372352. A proof of Morris--Martin Conjecture 4.5.1.}
+
+\section*{Task 1: all heights and all partitions}
+Fix an integer \(l\ge-1\) and a partition \(\lambda\vdash l+2\).
+Let \(P_n^{(\lambda)}\) be the reduced monic polynomial sequence
+of [1, Theorem 3.19], defined by the one-cup Gram determinants
+and extended backwards by its Chebyshev recurrence. Put
+\[
+ N=l+4,\qquad p_k(x)=P_{N+k}^{(\lambda)}(x),\qquad
+ p_{k+1}(x)=xp_k(x)-p_{k-1}(x).                         \tag{1}
+\]
+Here ``reduced'' means that consecutive polynomials are coprime.
+The minus sign in (1) is the determinant recurrence
+[1, (3.2.7)]; it also appears in [2, slide 17].
+The isolated plus sign in [1, (3.1.1)] is inconsistent with
+these determinants and with its own classical examples.
+
+\begin{theorem}
+For every such \(l,\lambda\), each \(p_k\), \(k\ge-1\), has
+only simple real roots. The numbers of roots in
+\(( -\infty,-2)\) and \((2,\infty)\) are separately
+nondecreasing for \(k\ge0\), bounded, and eventually constant.
+Moreover, the union of the roots of \(p_k\), \(k\ge0\),
+that lie in \([-2,2]\) is dense in that interval.
+\end{theorem}
+
+We prove this using the established Gram-matrix structure,
+without assuming the explicit partition-family formulae
+conjectured elsewhere in [1].
+
+\section*{A positive resolvent from one tail}
+Choose the real orthonormal Specht-module basis used in
+[1, Section 3.2]. At rank \(N\), the Gram matrix has the form
+\[
+                         G(x)=xI-A,\qquad A=A^T\in M_s(\R).
+                                                               \tag{2}
+\]
+This is [1, (3.2.3)], with the constant matrix negated.
+Choose one terminal basis vector, corresponding to
+\(u_{l+3,l+4}b_j\), and let \(e\in\R^s\) be its unit
+coordinate vector. Extending just this tail by one vertex gives
+the partial Gram matrix
+\[
+                  \begin{pmatrix}G(x)&e\\e^T&x\end{pmatrix}.
+                                                               \tag{3}
+\]
+The other tails remain at rank \(N\). The proved one-tail
+factorization [1, Lemma 3.24 and (3.2.16)--(3.2.17)] says
+that the ratio of the determinant of (3) to \(\det G(x)\)
+equals \(p_1(x)/p_0(x)\). Its Schur complement therefore yields
+\[
+ \frac{p_1(x)}{p_0(x)}=x-e^T(xI-A)^{-1}e,
+ \qquad
+ \frac{p_{-1}(x)}{p_0(x)}=e^T(xI-A)^{-1}e.             \tag{4}
+\]
+These are identities of rational functions, so no invertibility
+assumption at particular real values is imposed.
+
+By the spectral theorem, the last rational function is
+\[
+ m(x)=\sum_{j=1}^{q}\frac{w_j}{x-\theta_j},\qquad
+ \theta_1<\cdots<\theta_q,\quad w_j>0,\quad
+ \sum_{j=1}^{q}w_j=1.                                  \tag{5}
+\]
+Only eigenvalues with a nonzero projection of \(e\) are included.
+Thus (5) has exactly \(q\) distinct poles. Since \(p_0,p_1\)
+are coprime, so are \(p_0,p_{-1}=xp_0-p_1\).
+Monicity and (4)--(5) identify
+\[
+ p_0(x)=\prod_{j=1}^{q}(x-\theta_j),\qquad
+ \deg p_{-1}=q-1,
+                                                               \tag{6}
+\]
+with \(p_{-1}\) monic. In particular \(q\ge1\).
+On each interval \((\theta_j,\theta_{j+1})\),
+\[
+ m'(x)=-\sum_{i=1}^{q}\frac{w_i}{(x-\theta_i)^2}<0.
+\]
+The endpoint limits are \(+\infty\) and \(-\infty\).
+Consequently \(p_{-1}\) has one simple root in each of those
+\(q-1\) intervals and no other roots. When \(q=1\),
+\(p_{-1}=1\), which is square free. This proves the
+otherwise exceptional index \(k=-1\), as well as \(k=0\).
+
+\section*{A finite matrix with an arbitrary path attached}
+Let
+\[
+ \mathcal K=\operatorname{span}\{e,Ae,A^2e,\ldots\},\qquad
+ H=A|_{\mathcal K}.
+\]
+This is a reducing subspace for \(A\). Its dimension is \(q\),
+and \(e\) is cyclic for \(H\). Indeed, its spectral projections
+are the \(q\) nonzero mutually orthogonal vectors in (5);
+polynomial interpolation in the distinct \(\theta_j\) produces
+each projection from \(e\).
+
+Define \(H_k\) by attaching a path of \(k\) new vertices to
+\(e\) in \(H\). Every new diagonal entry is zero and every
+path edge, including the attachment, has weight one.
+Thus \(H_0=H\) and \(H_1=\left(\begin{smallmatrix}H&e\\e^T&0
+\end{smallmatrix}\right)\).
+Equation (4), followed by expansion at each new terminal vertex,
+gives
+\[
+                         \det(xI-H_k)=p_k(x),\qquad k\ge0.
+                                                               \tag{7}
+\]
+For the initial step, \(\det(xI-H)=p_0\) by (6), and
+\(\det(xI-H_1)=p_0(x)(x-m(x))=p_1(x)\).
+All subsequent determinants obey (1).
+
+The terminal vector of the attached path is cyclic for \(H_k\).
+Successive applications of \(H_k\), subtracting already recovered
+coordinates, recover the whole path and then \(e\). Continuing
+recovers every \(H^je\), hence the entire core \(\mathcal K\).
+For \(k=0\), cyclicity was already established.
+A real symmetric matrix with a cyclic vector has simple spectrum:
+an eigenspace of dimension at least two would contain a nonzero
+vector perpendicular to the cyclic vector, and therefore to all
+its matrix iterates. Equation (7) now proves squarefreeness
+and reality for every \(k\ge0\).
+
+\section*{Exterior roots and density}
+Let \(L_k\) and \(R_k\) count the eigenvalues of \(H_k\)
+strictly below \(-2\) and strictly above \(2\), respectively.
+The matrix \(H_k\) is a principal submatrix of \(H_{k+1}\).
+Cauchy interlacing consequently gives
+\[
+ L_{k+1}\ge L_k,\qquad R_{k+1}\ge R_k.                 \tag{8}
+\]
+Deleting the \(q\) core coordinates from \(H_k\) leaves the
+ordinary \(k\)-vertex path matrix \(T_k\). Its eigenvalues are
+\[
+                  2\cos\frac{j\pi}{k+1},\qquad 1\le j\le k,
+                                                               \tag{9}
+\]
+as follows by substituting the sine vectors into its three-term
+difference equation. They all lie in \((-2,2)\).
+Interlacing for this deletion implies
+\(L_k\le q\) and \(R_k\le q\).
+Bounded nondecreasing integer sequences are eventually constant.
+This also accounts for possible roots exactly at the endpoints:
+the counts throughout are on the two open exterior intervals.
+
+For completeness, interlacing gives a quantitative density result.
+Let \(F_B(t)\) count the eigenvalues of \(B\) that are at most \(t\).
+Deleting \(q\) coordinates yields
+\[
+                   F_{T_k}(t)\le F_{H_k}(t)\le F_{T_k}(t)+q.
+                                                               \tag{10}
+\]
+Define the arcsine distribution function
+\[
+ F(t)=\begin{cases}
+ 0,&t\le-2,\\
+ 1-\pi^{-1}\arccos(t/2),&-2<t<2,\\
+ 1,&t\ge2.
+ \end{cases}
+\]
+The explicit grid (9) shows
+\(\lvert F_{T_k}(t)-kF(t)\rvert\le1\). Combining with
+(10), and using \(\deg p_k=q+k\), gives
+\[
+ \sup_{t\in\R}\left|
+ \frac{F_{H_k}(t)}{q+k}-F(t)\right|
+ \le\frac{q+1}{q+k},\qquad k\ge1.                    \tag{11}
+\]
+Every nonempty open interval inside \((-2,2)\) has positive
+arcsine measure. By (11), it contains roots of \(p_k\) for
+all sufficiently large \(k\). Intervals arbitrarily near either
+endpoint give density in the closed interval \([-2,2]\).
+Together with (6)--(8), this proves all clauses of the conjecture.
+
+\section*{Tasks 2--5: proposed mathematical follow-ups}
+\begin{enumerate}[label=\textbf{Task \arabic*:},start=2,leftmargin=*]
+\item Express the spectral points and weights in (5) directly
+from the Young diagram of \(\lambda\), without constructing the
+full one-cup Gram matrix.
+\item Determine the eventual values of \(L_k,R_k\) and an
+explicit stabilization index in terms of \(l,\lambda\).
+\item Determine the limits and convergence rates of the exterior
+roots, and characterize bounded generalized eigenvectors of the
+infinite path extension at \(-2\) and \(2\).
+\item Derive a phase-shift formula for individual interior roots
+and sharp spacing estimates, refining the distribution bound (11).
+\end{enumerate}
+
+\begin{thebibliography}{9}
+\bibitem{MM}
+B.~Morris and P.~P.~Martin,
+\emph{On semisimplicity criteria and non-semisimple representation
+theory for the Kadar--Yu algebras},
+\href{https://arxiv.org/abs/2512.24535}{arXiv:2512.24535v1}
+(31 December 2025), 66 pages.
+The Gram structure and one-tail factorization in Section 3
+are established input; the target is Conjecture 4.5.1 on p.~35.
+\bibitem{talk}
+B.~Morris, \emph{Interpolating between Temperley--Lieb and Brauer
+representation theory: generalised roots of unity},
+\href{https://drive.google.com/file/d/1awcjFlsm4D7ApgIJ7WjTw_CcWoHwmTMp/view}
+{ARTIN slides}, Newcastle University, 11 September 2026.
+\end{thebibliography}
+\end{document}

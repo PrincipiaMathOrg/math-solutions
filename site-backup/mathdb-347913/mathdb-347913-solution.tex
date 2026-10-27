@@ -1,0 +1,207 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,hyperref,enumitem}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newcommand{\E}{\mathbb E}
+\newcommand{\R}{\mathbb R}
+\title{Convexity of hypergraph polynomials from exponential minima}
+\author{Principia Math In Progress}
+\date{21 September 2026}
+\begin{document}
+\maketitle
+\noindent\textbf{Task 1: MathDB 347913.}
+Let $E=\binom{[n]}L$, $m=|E|$, and
+\begin{equation}\label{definition}
+ f_d(x)=\sum_{(e_1,\ldots,e_d)\in E^d}
+         \prod_{k=1}^d\frac{x_{e_k}}{|e_1\cup\cdots\cup e_k|}.
+\end{equation}
+Conjecture 1 of Brosch, Laurent and Steenkamp \cite{BLS} asks whether
+$f_d$ is convex on $\Delta_m=\{x\geq0:\sum_e x_e=1\}$ for every
+$n,L,d\geq2$ (with $L\leq n$, so the simplex is nonempty).
+We prove this, and in fact prove strict convexity on the whole
+nonnegative orthant for any family of distinct nonempty hyperedges.
+
+\begin{theorem}\label{main}
+Let $V$ be a finite set and $E$ a nonempty family of distinct nonempty
+subsets of $V$. Define $f_d$ by \eqref{definition}, with $d\geq2$.
+Let $(T_v)_{v\in V}$ be independent exponential random variables
+of rate one, and set $Y_e=\min_{v\in e}T_v$. Then
+\begin{equation}\label{moment}
+ \boxed{\displaystyle f_d(x)=\frac1{d!}\E\left[
+                      \left(\sum_{e\in E}x_eY_e\right)^d\right]}
+ \qquad (x\in\R^E).
+\end{equation}
+Consequently $f_d$ is strictly convex on $\R_+^E$. Its Hessian is
+positive definite at every nonzero $x\in\R_+^E$; for $d=2$ it is
+positive definite at the origin as well. When $E=\binom{[n]}L$,
+the uniform vector is the unique minimizer on $\Delta_m$.
+\end{theorem}
+
+\begin{lemma}\label{mixed}
+For any ordered tuple $(e_1,\ldots,e_d)$ of nonempty edges, including
+tuples with repeated edges,
+\begin{equation}\label{joint}
+ \E\prod_{i=1}^dY_{e_i}
+ =\sum_{\pi\in S_d}\prod_{k=1}^d
+       \frac1{|e_{\pi(1)}\cup\cdots\cup e_{\pi(k)}|}.
+\end{equation}
+\end{lemma}
+\begin{proof}
+By the tail-integral formula and Tonelli's theorem, the left side is
+\[
+ \int_{[0,\infty)^d}\mathbb P(Y_{e_i}>s_i\text{ for all }i)\,ds
+ =\int_{[0,\infty)^d}
+    \exp\left(-\sum_{v\in V}\max_{i:v\in e_i}s_i\right)\,ds,
+\]
+where an empty maximum is zero. This probability formula follows
+because $T_v$ must exceed every $s_i$ for which $v\in e_i$.
+Partition the integration region, up to measure-zero ties, into the
+$d!$ chambers $s_{\pi(1)}\geq\cdots\geq s_{\pi(d)}\geq0$.
+In one chamber put $u_k=s_{\pi(k)}-s_{\pi(k+1)}$ and
+$s_{\pi(d+1)}=0$. The Jacobian is one, and
+\[
+ \sum_{v\in V}\max_{i:v\in e_i}s_i
+ =\sum_{k=1}^d |e_{\pi(1)}\cup\cdots\cup e_{\pi(k)}|\,u_k.
+\]
+Indeed, a vertex first covered at position $j$ contributes
+$s_{\pi(j)}=u_j+\cdots+u_d$.
+Integrating the $u_k$ separately gives the product in \eqref{joint}.
+Permutations here order labeled positions, even when some $e_i$
+coincide; all $d!$ chambers must still be included.
+\end{proof}
+
+\begin{proof}[Proof of Theorem \ref{main}]
+All required moments are finite: $0<Y_e\leq\sum_{v\in V}T_v$
+almost surely, and a finite sum of exponentials has all integer
+moments. Expand $(\sum_e x_eY_e)^d$ as a sum over ordered edge
+tuples and use Lemma \ref{mixed}. For each fixed $\pi\in S_d$,
+the relabeling $(e_1,\ldots,e_d)\mapsto(e_{\pi(1)},\ldots,e_{\pi(d)})$
+is a bijection of $E^d$ and leaves the monomial unchanged.
+Thus every one of the $d!$ summands equals $f_d(x)$, proving
+\eqref{moment}. This is a polynomial identity, including signed $x$.
+
+Differentiating this finite polynomial identity gives
+\begin{equation}\label{hessian}
+ \nabla^2 f_d(x)=\frac1{(d-2)!}
+            \E\big[(x\mathbin{\cdot}Y)^{d-2}YY^{\mathsf T}\big].
+\end{equation}
+For $d=2$ the power is identically one. For $x\geq0$ the weight
+is nonnegative, so the right side is positive semidefinite.
+This already proves the conjectured convexity, including the
+boundary, by restriction to line segments.
+
+For strictness we prove that the functions
+$t\mapsto\min_{v\in e}t_v$, $e\in E$, are linearly independent
+on $(0,\infty)^V$. If a linear combination with coefficients $a_e$
+vanishes there, continuity extends the identity to $[0,\infty)^V$.
+At the indicator vector $t=\mathbf1_S$, for $S\subseteq V$, it reads
+\[
+                 \sum_{e\in E:\ e\subseteq S}a_e=0.
+\]
+Extend $a_e$ by zero to subsets outside $E$. Induction on $|S|$
+(equivalently, Boolean-lattice M\"obius inversion) shows every
+$a_e=0$. Since the exponential joint density is positive throughout
+$(0,\infty)^V$, continuity implies that for every nonzero $a$,
+$\mathbb P(a\mathbin{\cdot}Y\neq0)>0$.
+For nonzero $x\geq0$, we have $x\mathbin{\cdot}Y>0$ almost surely.
+Equation \eqref{hessian} is therefore positive definite.
+Alternatively, strict convexity on the entire orthant, including
+segments from the origin, follows directly from the strict convexity
+of $t\mapsto t^d$ on $[0,\infty)$: for distinct $x,z\geq0$,
+$x\mathbin{\cdot}Y\neq z\mathbin{\cdot}Y$ with positive probability.
+
+Finally take $E=\binom{[n]}L$. Permuting vertices preserves
+\eqref{definition} and acts transitively on the edge set.
+Averaging any $x\in\Delta_m$ over all vertex permutations gives
+$x^*=(1/m,\ldots,1/m)$. Convexity and invariance imply
+$f_d(x^*)\leq f_d(x)$, and strict convexity gives uniqueness.
+This last symmetry argument is the one already used in \cite{BLS}.
+\end{proof}
+
+\paragraph{The coefficient matrices in the source.}
+Write $f_d(x)=\sum_{|\alpha|=d}b_\alpha x^\alpha$ and
+$\alpha!=\prod_e\alpha_e!$. Formula \eqref{moment} implies
+$b_\alpha=\E[Y^\alpha]/\alpha!$. Thus the matrices in
+\cite[Lemmas 4.1 and 4.3]{BLS} satisfy
+\begin{equation}\label{gram}
+ \nabla^2f_d(x)=\sum_{|\gamma|=d-2}x^\gamma Q_\gamma,
+ \qquad Q_\gamma=\frac1{\gamma!}\E[Y^\gamma YY^{\mathsf T}].
+\end{equation}
+They are positive definite, since $Y^\gamma>0$ almost surely and
+the independence argument above applies. This proves the stronger
+coefficientwise positivity question posed in the source as well.
+For a single edge of size $L$, \eqref{moment} gives
+$f_d(x)=x^d/L^d$, confirming the factor $d!$.
+
+\paragraph{Independent finite verification.}
+The supplied standard-library Python verifier uses exact rational
+arithmetic. One algorithm evaluates the original ordered-edge sum
+by merging prefixes with the same union. A second integrates over
+the $|V|!$ chambers of ordered \emph{vertex} lifetimes. To describe
+the second algorithm, put $N=|V|$, let
+$T_{\sigma(1)}\leq\cdots\leq T_{\sigma(N)}$, and define
+$S_j=\{\sigma(j),\ldots,\sigma(N)\}$,
+$h_j=\sum_{e\subseteq S_j}x_e$, $r_j=N-j+1$. Then
+\[
+ f_d(x)=\frac1{N!}\sum_{\sigma\in S_N}
+ [z^d]\prod_{j=1}^N\frac1{1-z h_j/r_j}.
+\]
+Indeed, on this chamber, successive spacings $u_j\geq0$ have
+density $\exp(-\sum_jr_ju_j)$ and $x\cdot Y=\sum_jh_ju_j$.
+Expanding its $d$th power and integrating uses
+$\int_0^\infty u^k e^{-ru}\,du=k!/r^{k+1}$;
+the product of the $r_j$ is $N!$.
+
+The two algorithms agree in 585 exact value comparisons through
+degree 12 and in 596 symbolic coefficients, including repeated
+edges, mixed edge sizes, signed inputs, and simplex vertices.
+All 84 sampled Hessian coefficient matrices have exact positive
+elimination pivots. Separate checks verify the single-edge
+normalization and the Boolean inversion used for strictness.
+These finite checks supplement the unrestricted proof above.
+
+\paragraph{Scope and attribution.}
+The source proves convexity for $d=2$ and for $(d,L)=(3,2)$;
+Polak \cite{Polak} proves $L=2$, $d\leq9$.
+The present contribution is the moment representation and its
+application for arbitrary $d$ and nonempty edge families.
+Tail integration, exponential survival probabilities, permutation
+chambers, and Gram positivity are classical tools.
+Both the complete current target preprint and its journal final
+were read. The bounded prior-claim audit and its limits are recorded
+separately. Review is by the authoring agent only. The minimum
+corollary and matrix positivity are included in this one result;
+they receive no separate campaign credit.
+
+\begin{enumerate}[label=\textbf{Task \arabic*:},start=2,leftmargin=*]
+\item Find useful explicit lower bounds for the smallest eigenvalue
+of $Q_\gamma$ in terms of the hypergraph and $\gamma$.
+\item Determine sharp quantitative gaps between $f_d(x)$ and its
+uniform minimum for complete uniform hypergraphs.
+\item Use the moment representation to study generating functions
+in $d$ and their relation to queue stability and occupancy.
+\item For unequal vertex service rates, characterize the minimizing
+edge distribution and the symmetries that force its coordinates.
+\end{enumerate}
+
+\small
+\begin{thebibliography}{9}
+\raggedright
+\bibitem{BLS} D. Brosch, M. Laurent and A. Steenkamp,
+Optimizing hypergraph-based polynomials modeling job-occupancy in
+queuing with redundancy scheduling,
+\emph{SIAM Journal on Optimization} \textbf{31}(3) (2021), 2227--2254.
+\href{https://doi.org/10.1137/20M1369592}{doi:10.1137/20M1369592}.
+Conjecture 1, journal p.~2242; source matrices on pp.~2243--2244.
+\href{https://arxiv.org/abs/2009.04510}{arXiv:2009.04510v1},
+Conjecture 1 on preprint p.~20.
+\bibitem{Polak} S. C. Polak, Symmetry reduction to optimize a
+graph-based polynomial from queueing theory,
+\emph{SIAM Journal on Applied Algebra and Geometry}
+\textbf{6} (2022), 243--266.
+\href{https://doi.org/10.1137/21M1413298}{doi:10.1137/21M1413298}.
+\href{https://arxiv.org/abs/2104.08264}{arXiv:2104.08264v2},
+Theorem 1.1.
+\end{thebibliography}
+\end{document}

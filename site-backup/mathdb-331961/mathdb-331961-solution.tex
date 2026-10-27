@@ -1,0 +1,122 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[colorlinks=true,urlcolor=blue]{hyperref}
+\newtheorem{theorem}{Theorem}
+\title{A counterexample to the \(R\)-difference\\infinite log-concavity conjecture}
+\author{Independent working note --- MathDB 331961}
+\date{12 September 2026 (UTC)}
+\begin{document}
+\maketitle
+\paragraph{Task 1: resolve the conjecture.}
+Let
+\[
+ R_n=\sum_{k=0}^n\binom nk\binom{n+k}k\frac1{2k-1},
+ \qquad a_n=R_n^2-R_{n-1}R_{n+1}\quad(n\ge6).
+\]
+Conjecture 4.8 in the published paper \cite{sun} asserts that
+\(\{a_n\}_{n\ge6}\) is infinitely log-concave.
+For the log-concavity operator
+\[
+ (\mathcal L a)_n=a_n^2-a_{n-1}a_{n+1},
+\]
+we give an exact negative value at the first available center.
+
+\begin{theorem}
+The published Conjecture 4.8 is false. In fact,
+\[
+ (\mathcal L a)_7=-343413129984<0.
+\]
+Both \(\{-a_n\}_{n\ge6}\) and \(\{|a_n|\}_{n\ge6}\) fail the same
+log-concavity test.
+\end{theorem}
+\begin{proof}
+Direct evaluation of the defining finite binomial sums gives
+\[
+\begin{array}{c|rrrrr}
+ n&5&6&7&8&9\\ \hline
+ R_n&329&1359&6001&27759&132689.
+\end{array}
+\]
+Consequently
+\begin{align*}
+ a_6&=1359^2-329\cdot6001=-127448,\\
+ a_7&=6001^2-1359\cdot27759=-1712480,\\
+ a_8&=27759^2-6001\cdot132689=-25704608.
+\end{align*}
+All three indices are within the stated subsequence. Thus
+\begin{align*}
+ a_7^2-a_6a_8
+ &=1712480^2-127448\cdot25704608\\
+ &=-343413129984<0.
+\end{align*}
+The sequence is not even log-concave, so it cannot be infinitely
+log-concave. Reversing every sign does not change this quadratic
+expression. Taking absolute values likewise leaves it unchanged
+because the three displayed terms have the same sign.
+\end{proof}
+
+\paragraph{Iteration convention.}
+Even if one tests log-concavity only after first applying \(\mathcal L\),
+the assertion fails. Writing \(b=\mathcal L a\), direct calculation gives
+\[
+ b_7=-343413129984,\quad b_8=-78797107789056,\quad
+ b_9=-18331042187598528,
+\]
+and hence
+\[
+ b_8^2-b_7b_9=-86136377591851264277692416<0.
+\]
+Only terms of \(a\) with indices at least \(6\) occur. These
+calculations also use \(R_{10}=649815\) and \(R_{11}=3242377\).
+
+\paragraph{Verification and scope.}
+The standard-library script \texttt{verify\_counterexample.py} evaluates
+the binomial sums with rational arithmetic and independently checks
+them against the source recurrence
+\[
+ (n+3)R_{n+3}-(7n+13)R_{n+2}+(7n+15)R_{n+1}-(n+1)R_n=0,
+\]
+starting from \(R_0=-1,R_1=1,R_2=7\).
+The complete exact certificate includes the individual summands.
+The counterexample matches both the current arXiv source and
+the published Conjecture 4.8. It does not depend on a negative-term
+convention, a reversed sign, or an endpoint outside the sequence.
+The dated source and public-claim audit is saved separately.
+
+\begin{thebibliography}{9}
+\bibitem{sun} Brian Yi Sun,
+\emph{On a ratio monotonicity conjecture of a new kind of numbers},
+Journal of Inequalities and Applications \textbf{2018}, article 24,
+Conjecture 4.8.
+\href{https://doi.org/10.1186/s13660-018-1614-1}{doi:10.1186/s13660-018-1614-1}.
+Earlier version: \href{https://arxiv.org/abs/1512.01008}{arXiv:1512.01008}.
+\end{thebibliography}
+
+\newpage
+\paragraph{Task 2: determine the actual log-convexity range.}
+Set \(d_n=R_{n-1}R_{n+1}-R_n^2\).
+Determine the least \(N\) for which \(\{d_n\}_{n\ge N}\) is positive
+and strictly log-convex. Give a proof covering every subsequent index.
+
+\paragraph{Task 3: test infinite log-convexity as a replacement.}
+For \((\mathcal C d)_n=d_{n-1}d_{n+1}-d_n^2\), determine whether
+there is one finite starting index such that every iterate
+\(\mathcal C^j d\) is positive at all of its remaining indices.
+If each order instead requires its own starting index, determine
+how the least such index grows with \(j\).
+
+\paragraph{Task 4: investigate higher Hankel determinants.}
+For \(m\ge2\), determine the signs and eventual nonvanishing of
+\[
+ \det\bigl(R_{n+i+j}\bigr)_{0\le i,j<m}.
+\]
+Obtain effective thresholds in terms of \(m\), and determine whether
+any fixed shift of the \(R\)-sequence has all Hankel minors nonnegative.
+
+\paragraph{Task 5: classify normalizations of the difference.}
+Determine the real parameters \(\alpha\) for which the positive
+sequence \(\{n^\alpha|a_n|\}_{n\ge6}\) is log-concave.
+Distinguish the exact range for this fixed starting index from the
+range giving eventual log-concavity.
+\end{document}

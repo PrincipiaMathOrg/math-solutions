@@ -1,0 +1,120 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,hyperref}
+\newtheorem{theorem}{Theorem}
+\title{A bounded strictly starlike domain with a nonstarlike Cassinian ball}
+\author{Principia Math in Progress}
+\date{12 September 2026}
+\begin{document}
+\maketitle
+\section*{Task 1. Resolve MathDB 331705}
+For a proper domain $G\subset\mathbb R^n$, its Cassinian metric is
+\[
+ c_G(x,y)=\sup_{p\in\partial G}\frac{|x-y|}{|x-p||p-y|},
+ \qquad B_{c_G}(x,r)=\{y\in G:c_G(x,y)<r\}.
+\]
+Conjecture 4.7 of \cite{KMS} asserts that if $G$ is starlike with respect to
+$x$, then $B_{c_G}(x,r)$ is starlike with respect to $x$ for every $r>0$.
+The following counterexample also satisfies the stricter boundary-segment
+definition of starlikeness used in \cite{Klen}.
+
+\begin{theorem}
+In $\mathbb R^2$, set
+\[
+ K=\{(u,v):u\ge1,\ 4|v|\le u-1\},\qquad
+ G=B(0,10)\setminus K.
+\]
+Then $G$ is a bounded domain, strictly starlike with respect to $0$, but
+$B_{c_G}(0,5/4)$ is not starlike with respect to $0$.
+\end{theorem}
+\begin{proof}
+The set $K$ is closed, so $G$ is open, bounded, and contains $0$.
+For any $w=(u,v)\in\overline G$ and $0\le\tau<1$, we have
+$|\tau w|<10$. If $\tau u<1$, then $\tau w\notin K$.
+Otherwise $u\ge1$ and $w\notin\operatorname{int}K$ imply
+$4|v|\ge u-1$, whence
+\[
+ 4|\tau v|\ge\tau(u-1)=\tau u-\tau>\tau u-1.
+\]
+Again $\tau w\notin K$. Thus $[0,w)\subset G$ for all $w\in\overline G$;
+in particular $G$ is path connected and strictly starlike about $0$.
+
+Take $y=(4,4)$ and $z=(1,1)=y/4$. Both points lie in $G$.
+We compute their exact Cassinian distances from $0$.
+Every boundary point belongs either to the circle $|p|=10$ or to one of
+the truncated rays
+\[
+ p_\pm(t)=(1+t,\,\pm t/4),\qquad t\ge0.
+\]
+For $w=(a,a)$ with $a\ge0$, the squared distances satisfy
+\[
+ |p_-(t)-w|^2-|p_+(t)-w|^2=at\ge0,
+ \qquad |p_-(t)|=|p_+(t)|.
+\]
+It suffices to bound the denominator on the upper ray. Put
+\[
+ P_a(t)=|p_+(t)|^2|p_+(t)-(a,a)|^2
+ =\left((1+t)^2+\frac{t^2}{16}\right)
+  \left((1+t-a)^2+\left(\frac t4-a\right)^2\right).
+\]
+Direct expansion and completion of the square give
+\begin{align*}
+ P_4(t)-25&=42t+t^2\left[
+    \frac{289}{256}\left(t-\frac{48}{17}\right)^2+\frac{21}{8}\right]\ge0,\\
+ P_1(t)-1&=\frac32t+\frac98t^2+\frac{51}{32}t^3+
+                \frac{289}{256}t^4\ge0.
+\end{align*}
+Equality holds at $t=0$, the actual boundary point $p=(1,0)$.
+Therefore the supremum over the ray portions is $4\sqrt2/5$ for $y$,
+and $\sqrt2$ for $z$.
+
+The circular portion cannot increase either value. Indeed, for $|p|=10$,
+\[
+ \frac{|w|}{|p||p-w|}\le\frac{|w|}{10(10-|w|)}.
+\]
+Since $|y|=4\sqrt2<6$ and $|z|=\sqrt2<2$, this upper bound is respectively
+less than $3/20<4\sqrt2/5$ and $1/40<\sqrt2$. Consequently
+\[
+ c_G(0,y)=\frac{4\sqrt2}{5}<\frac54,
+ \qquad c_G(0,z)=\sqrt2>\frac54.
+\]
+The squared comparisons are $32/25<25/16<2$.
+Thus $y\in B_{c_G}(0,5/4)$ while the point $z=y/4$ of the segment
+$[0,y]$ is outside that ball, proving the assertion.
+\end{proof}
+
+\paragraph{Scope.}
+This refutes the universal claim in dimension two, even with a bounded
+strictly starlike domain whose removed set has positive interior. It does
+not resolve the separate convex-domain conjecture adjacent to the selected
+statement in \cite{KMS}.
+
+\paragraph{Task 2. Smooth the domain.}
+Construct a counterexample with a smooth strictly starlike boundary,
+using quantitative control of the two strict Cassinian inequalities.
+
+\paragraph{Task 3. Determine the sharp universal small-radius guarantee.}
+Determine the largest universal constant $a$, if one exists, such that
+$r\,\operatorname{dist}(x,\partial G)\le a$ guarantees starlikeness of
+$B_{c_G}(x,r)$ for every starlike domain $G$ centered at $x$.
+
+\paragraph{Task 4. Characterize centers with radial monotonicity.}
+Characterize geometric conditions on $(G,x)$ that ensure
+$t\mapsto c_G(x,x+tv)$ is nondecreasing along every segment in $G$.
+
+\paragraph{Task 5. Classify the cone family.}
+For $G=B(0,R)\setminus\{(u,v):u\ge1,\ |v|\le b(u-1)\}$,
+determine the parameter and radius ranges producing nonstarlike
+Cassinian balls about $0$.
+
+\begin{thebibliography}{9}
+\bibitem{KMS} R. Kl\'en, M. R. Mohapatra and S. K. Sahoo,
+\emph{Geometric properties of the Cassinian metric},
+\href{https://arxiv.org/abs/1511.01298}{arXiv:1511.01298v1} (2015),
+Definition on page 2 and Conjecture 4.7 on page 8.
+Published in Math. Nachr. 290 (2017), 1531--1543,
+\href{https://doi.org/10.1002/mana.201600117}{doi:10.1002/mana.201600117}.
+\bibitem{Klen} R. Kl\'en, \emph{Hyperbolic type distances in starlike domains},
+\href{https://arxiv.org/abs/1603.00590}{arXiv:1603.00590v1} (2016), page 3.
+\end{thebibliography}
+\end{document}

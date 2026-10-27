@@ -1,0 +1,177 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage[T1]{fontenc}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue,citecolor=blue}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newcommand{\lcmop}{\operatorname{lcm}}
+\newcommand{\Sph}{\widehat R_G}
+\title{A determinant criterion for extending generalized splines\\
+\large MathDB 372959: a reduction to ordinary graph splines}
+\author{Principia Math In Progress}
+\date{18 September 2026}
+\begin{document}
+\maketitle
+
+\paragraph{Task 1: the original problem, solved.}
+Conjecture 1.3 of Dilaver--Alt\i nok~\cite{DA} asks whether every basis
+of the extending spline module has determinant associated to its
+specified element $\widehat Q_G$. We prove this for every GCD domain,
+without the coprimality or PID restrictions in the source. The input
+is the existing ordinary-spline theorem of Fi\c sekci--Sar\i o\u glan~\cite{FS};
+the reduction and the exact identification of its determinant factors
+are given below.
+
+Let $G$ have ordered vertices $v_1,\ldots,v_n$. In the source's setting,
+vertex and edge modules are $m_iR$ and $R/r_eR$, with the natural quotient
+maps. Thus
+\[
+ \Sph=\{f\in R^n:m_i\mid f_i\text{ for every }i,
+       \quad r_{ij}\mid f_i-f_j\text{ for every }v_iv_j\in E(G)\}.
+\]
+The labels are nonzero. In fact, the existence of an $n$-element basis
+already excludes a zero vertex label or a zero label on an edge between
+distinct vertices: either imposes a nontrivial linear relation over the
+fraction field, giving rank less than $n$. Loops impose no condition and
+may be omitted. Empty graphs and disconnected graphs are allowed.
+All gcds, lcms and equalities between their products are understood up
+to units; the lcm of an empty family is $1$.
+
+For distinct vertices put
+\[
+ d_{ij}=\lcmop_{P:v_i\leadsto v_j\text{ in }G}\gcd(r_e:e\in P).
+\]
+One may use all trails, as in the source, or just simple paths: removing
+a closed subwalk increases the path gcd in the divisibility order, and
+every simple path is a trail. If there is no path, set $d_{ij}=1$.
+Definition 3.2 of~\cite{DA} is precisely
+\begin{equation}\label{eq:Q}
+ q_i=\lcmop\bigl(m_i,\{\gcd(m_j,d_{ij}):j>i\},
+                         \{d_{is}:s<i\}\bigr),\qquad
+ \widehat Q_G=\prod_{i=1}^n q_i.
+\end{equation}
+
+\begin{theorem}\label{thm:main}
+For any $F_1,\ldots,F_n\in\Sph$ over a GCD domain $R$, these splines
+form an $R$-basis if and only if
+\[
+ \det(F_1,\ldots,F_n)=u\widehat Q_G\qquad(u\in R^\times).
+\]
+In particular, the conjectured necessary condition holds in full.
+\end{theorem}
+
+Add a new vertex $v_0$, join it to each $v_i$ by an edge labelled $m_i$,
+and retain every edge and label of $G$. Denote the resulting ordinary
+edge-labelled graph by $H$, ordered $v_0<v_1<\cdots<v_n$.
+Let $S_H\subseteq R^{n+1}$ be its ordinary spline module.
+
+\begin{lemma}\label{lem:split}
+The map
+\[
+ R\oplus\Sph\longrightarrow S_H,\qquad
+ (a,f)\longmapsto(a,a+f_1,\ldots,a+f_n)
+\]
+is an isomorphism. Moreover, the columns
+$\mathbf1,(0,F_1),\ldots,(0,F_n)$ have determinant
+$\det(F_1,\ldots,F_n)$ in the ascending row order.
+\end{lemma}
+\begin{proof}
+For $g\in S_H$, the spoke conditions give $m_i\mid g_i-g_0$,
+and the old edge conditions are unchanged by subtracting $g_0$ from
+each coordinate. The inverse is therefore
+$g\mapsto(g_0,(g_i-g_0)_{i=1}^n)$.
+The asserted matrix has first row $(1,0,\ldots,0)$; expand along that row.
+\end{proof}
+
+\begin{lemma}\label{lem:factors}
+Let $L_0=1$, and for $i\geq1$ let $L_i$ be the lcm of path gcds in $H$
+from $v_i$ to any earlier vertex in $\{v_0,\ldots,v_{i-1}\}$.
+Then $L_i=q_i$ up to a unit, and the ordinary determinant element
+$Q_H=\prod_{i=0}^n L_i$ equals $\widehat Q_G$ up to a unit.
+\end{lemma}
+\begin{proof}
+The direct spoke gives $m_i\mid L_i$. Every old path to $v_s$, $s<i$,
+is still a path in $H$, giving $d_{is}\mid L_i$.
+For $j>i$, append the spoke $v_jv_0$ to each simple path in $G$
+from $v_i$ to $v_j$. These are paths to an earlier vertex. Gcd/lcm
+distributivity in a GCD domain gives
+\[
+ \gcd(m_j,d_{ij})
+ =\lcmop_{P:v_i\leadsto v_j\text{ in }G}
+       \gcd(m_j,\{r_e:e\in P\})\mid L_i.
+\]
+The same assertion is vacuous when the path family is empty.
+Consequently $q_i\mid L_i$.
+
+Conversely, take any simple path in $H$ from $v_i$ to an earlier vertex
+and truncate it at its first visit to $\{v_0,\ldots,v_{i-1}\}$.
+The gcd of the original path divides that of this prefix.
+If the prefix ends at $v_s$ with $1\leq s<i$, it stays entirely in $G$,
+so its gcd divides $d_{is}$. If it ends at $v_0$, its last edge is a
+spoke $v_jv_0$. A direct spoke has gcd $m_i$. Otherwise $j>i$, and
+the preceding segment lies in $G$, so the prefix gcd divides
+$\gcd(m_j,d_{ij})$. Each case gives a divisor of $q_i$.
+Taking the lcm over all paths proves $L_i\mid q_i$.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:main}]
+The ordinary determinant criterion~\cite[Theorem 4.5, p.~367]{FS}
+states that on any finite edge-labelled graph over a GCD domain,
+a set of as many splines as vertices is a basis exactly when its
+determinant is a unit times the product of these earlier-vertex path
+factors. This is Theorem 5.3 in the arXiv version of that paper.
+
+By Lemma~\ref{lem:split}, the proposed $F_1,\ldots,F_n$ form a basis of
+$\Sph$ exactly when $\mathbf1,(0,F_1),\ldots,(0,F_n)$ form a basis of
+$S_H$. Apply the cited theorem on $H$, use its block determinant,
+and then use Lemma~\ref{lem:factors}. Reversing the row order, as in
+the primary source, changes only a sign, which is a unit.
+\end{proof}
+
+\paragraph{Scope and verification.}
+No flow-up basis, Bezout identity, prime factorization, or Noetherian
+assumption is used. In particular, gcd $1$ is never mistaken for
+comaximality. The source's PID and pairwise-coprime cases are existing
+results, and the ordinary-spline theorem is explicitly credited.
+The accompanying exact verifier compares independently enumerated
+path factors, counts finite residue lattices over $\mathbb Z$, and
+checks polynomial-labelled examples. These finite computations are
+regression checks; the two lemmas prove the assertion for all graphs
+and GCD domains.
+
+\paragraph{Task 2 (proposed, not solved here).}
+Find an order-independent expression for $\widehat Q_G$ in terms of
+rooted spanning forests of $G$ that remains valid when $\Sph$ is not free,
+and compare its arithmetic complexity with direct path enumeration.
+
+\paragraph{Task 3 (proposed, not solved here).}
+For a cycle $G$ over $k[x,y,z]$, with every vertex and edge label a
+nonzero linear form, characterize exactly when $\Sph$ is free in terms
+of the linear dependencies among the labels.
+
+\paragraph{Task 4 (proposed, not solved here).}
+Over a Dedekind domain, replace the principal vertex modules $m_iR$
+by invertible ideals $I_i$. Determine the determinant ideal and the
+Steinitz class of the resulting spline module from the labelled graph.
+
+\paragraph{Task 5 (proposed, not solved here).}
+Replace the edge congruence by
+$a_{ij}f_i-b_{ij}f_j\in r_{ij}R$, where $a_{ij},b_{ij}$ are units.
+Characterize when multiplication of vertex coordinates by units turns
+this system into an ordinary augmented graph, and obtain the determinant
+criterion in the remaining cases with nontrivial cycle holonomy.
+
+\begin{thebibliography}{9}
+\bibitem{DA} G. Dilaver and S. Alt\i nok,
+\emph{Basis Criteria for Extending Generalized Splines},
+\href{https://arxiv.org/abs/2602.04440v1}{arXiv:2602.04440v1} (2026),
+Conjecture 1.3 and Definition 3.2.
+\bibitem{FS} S. Fi\c sekci and S. Sar\i o\u glan,
+\emph{Basis condition for generalized spline modules},
+J. Algebraic Combin. \textbf{59} (2024), 359--369,
+\href{https://doi.org/10.1007/s10801-023-01290-y}{doi:10.1007/s10801-023-01290-y};
+\href{https://arxiv.org/abs/2301.12529}{arXiv:2301.12529}.
+\end{thebibliography}
+\end{document}

@@ -1,0 +1,158 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,hyperref}
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}{Proposition}
+\newcommand{\Gq}{\Gamma_q}
+\title{A negative-parameter counterexample to the\\
+unrestricted q-gamma extension\\
+\large MathDB 335285}
+\author{Principia Math in Progress}
+\date{12 September 2026}
+\begin{document}
+\maketitle
+
+\paragraph{Task 1: resolve the stated extension.}
+Conjecture 1 of Kalmykov--Karp \cite[p.~344]{KK} proposes extending
+all conclusions of their Theorem 3 to every $\alpha>0$, retaining
+the other hypotheses. For a nontrivial nonnegative log-concave sequence
+$(g_n)$ with no internal zeros, that theorem concerns
+\[
+ g(\mu;x)=\sum_{n\ge0}\frac{g_nx^n}{\Gq(\mu+n)},\qquad
+ \Delta_g=g(\mu+\alpha;x)g(\mu+\beta;x)
+             -g(\mu;x)g(\mu+\alpha+\beta;x).
+\]
+The retained parameter condition is
+$\beta>0$ and $\mu\ge\max(-\beta,-1)$
+\cite[p.~342]{KK}.
+The proposed positivity is false on this full domain.
+The counterexample below does not decide the separately restricted
+problem with $\mu\ge0$.
+
+\begin{theorem}
+Set
+\[
+ q=\frac{256}{625},\qquad
+ \mu=-\frac34,\qquad \alpha=\frac14,\qquad \beta=2,
+ \qquad g_0=1,\quad g_n=0\quad(n\ge1).
+\]
+This sequence satisfies the hypotheses of Theorem 3, its series has
+radius of convergence infinity, and for every $x>0$,
+\[
+ \boxed{\displaystyle
+ \Delta_g=-\frac{95}{576\,\Gq(1/4)\Gq(1/2)}<0.}
+\]
+In particular, both the value-positivity and coefficient-positivity
+conclusions of the proposed unrestricted extension fail.
+\end{theorem}
+
+\begin{proof}
+For $0<q<1$, write $[z]_q=(1-q^z)/(1-q)$.
+The defining product
+\[
+ \Gq(z)=(1-q)^{1-z}\frac{(q;q)_\infty}{(q^z;q)_\infty},
+ \qquad (a;q)_\infty=\prod_{j\ge0}(1-aq^j),
+\]
+gives $\Gq(z+1)=[z]_q\Gq(z)$ wherever both sides are finite.
+For positive real $z$ its product is positive and finite: every factor
+is positive, and the geometric tails have finite sums.
+Put $A=1/\Gq(1/4)>0$ and $B=1/\Gq(1/2)>0$.
+The four arguments in $\Delta_g$ are
+$-3/4,-1/2,5/4,3/2$, so none is a pole.
+The recurrence gives
+\[
+ g(-3/4;x)=[-3/4]_q A,\quad
+ g(-1/2;x)=[-1/2]_q B,\quad
+ g(5/4;x)=\frac{A}{[1/4]_q},\quad
+ g(3/2;x)=\frac{B}{[1/2]_q}.
+\]
+Consequently,
+\[
+ \frac{\Delta_g}{AB}
+ =\frac{[-1/2]_q}{[1/4]_q}
+  -\frac{[-3/4]_q}{[1/2]_q}
+ =\frac{1-25/16}{1-4/5}
+  -\frac{1-125/64}{1-16/25}
+ =-\frac{45}{16}+\frac{1525}{576}
+ =-\frac{95}{576}.
+\]
+Here $q^{1/4}=4/5$ was used. The sequence has support $\{0\}$,
+is nontrivial, and satisfies $g_n^2\ge g_{n-1}g_{n+1}$ for every
+$n\ge1$; its zeros are all terminal. Moreover,
+$\mu=-3/4>-1=\max(-2,-1)$ and $\alpha>0$.
+Thus every retained hypothesis holds, with a strictly negative conclusion.
+\end{proof}
+
+\paragraph{The obstruction persists for positive infinite sequences.}
+Take instead $g_n=1$ for all $n\ge0$. This is a strictly positive
+log-concave sequence. For each of the four parameter values above,
+the product formula gives
+\[
+ \lim_{n\to\infty}\left|
+ \frac{1/\Gq(\nu+n+1)}{1/\Gq(\nu+n)}\right|=1-q,
+\]
+so the radius of convergence is $1/(1-q)=625/369$.
+The constant coefficient of $\Delta_g$ is the same negative number
+as in the theorem. Analyticity at $x=0$ therefore gives
+$\Delta_g<0$ for all sufficiently small positive $x$.
+The refutation thus also applies with no zero coefficients and with
+$x$ strictly inside the convergence interval.
+
+\paragraph{An additional finite check.}
+For $g_0=g_1=1$ and $g_n=0$ for $n\ge2$, the same calculation gives
+\[
+ \frac{\Delta_g}{AB}
+ =-\frac{95}{576}
+  +\frac{3051749269}{3176712000}x
+  +\frac{86127716}{67284525}x^2.
+\]
+At $x=1/100$ this equals
+$-15036888769351/96889716000000<0$.
+The accompanying exact-arithmetic verifier checks this polynomial
+using the four shifted q-gamma recurrences.
+
+\paragraph{Scope and status.}
+The parameter restrictions above were checked in both the current
+arXiv source and the full published paper, rather than inferred from
+MathDB's abbreviated theorem references. The failure occurs inside
+the retained negative-$\mu$ range and does not rely on a pole or on
+setting $x=0$. It identifies a necessary repair to the domain of the
+extension. A current literature and public-claim audit found no
+matching full solution claim; its sources and limitations are recorded
+in the accompanying audit. This manuscript has not received external
+peer review.
+
+\begin{thebibliography}{9}
+\bibitem{KK}
+S.~I. Kalmykov and D.~B. Karp,
+\emph{Inequalities for series in q-shifted factorials and q-gamma
+functions}, J. Math. Anal. Appl. \textbf{460} (2018), 332--351.
+\href{https://doi.org/10.1016/j.jmaa.2017.11.041}
+{doi:10.1016/j.jmaa.2017.11.041}.
+Preprint: \href{https://arxiv.org/abs/1702.03788}{arXiv:1702.03788}.
+\end{thebibliography}
+
+\clearpage
+\paragraph{Task 2: resolve the nonnegative-parameter version.}
+Determine whether the full value and coefficient conclusions hold for
+every $\alpha,\beta>0$ when $\mu\ge0$ and $(g_n)$ is doubly positive.
+Begin by checking later claims for this restricted version.
+
+\paragraph{Task 3: determine an admissible negative-parameter range.}
+Find sharp additional restrictions on $\mu,\alpha,\beta$ below
+$\mu=0$ that can hold uniformly over all doubly positive coefficient
+sequences. Assess whether adding $\mu+\min(\alpha,\beta)\ge0$
+is sufficient before attempting a general theorem.
+
+\paragraph{Task 4: classify the two-term case.}
+For $g_0,g_1>0$ and $g_n=0$ for $n\ge2$, classify when the
+quadratic $\Delta_g(x)$ is nonnegative throughout $x>0$.
+Compare the resulting domain with the conditions needed for
+nonnegative coefficients.
+
+\paragraph{Task 5: quantify persistence under positive tails.}
+For the counterexample parameters, find the maximal interval adjacent
+to zero on which $\Delta_g(x)<0$ for $g_n=1$.
+Develop explicit bounds that remain valid for a specified class of
+positive log-concave perturbations of this sequence.
+\end{document}

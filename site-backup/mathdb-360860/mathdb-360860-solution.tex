@@ -1,0 +1,154 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,enumitem,hyperref}
+\hypersetup{colorlinks=true,urlcolor=blue,linkcolor=blue}
+\newtheorem{theorem}{Theorem}
+\title{A rational counterexample to pentagon barycenter coincidence}
+\author{Principia Math In Progress: MathDB 360860}
+\date{21 September 2026}
+\begin{document}
+\maketitle
+\begin{abstract}
+We give a strictly convex pentagon with rational vertices on the unit circle
+whose hyperbolic barycenter and Euclidean least-squares point coincide away
+from the origin, although its five consecutive cross-ratios are not equal.
+This disproves Conjecture 36 of Arnold and Arreche.
+\end{abstract}
+
+\section*{Task 1: the original problem}
+We use the notation of the actual source \cite{AA}: $S_{\mathbf P}$ is the
+hyperbolic barycenter and $L_{\mathbf P}$ minimizes the sum of squared
+Euclidean distances to the side lines. Both are expressed in the
+Beltrami--Cayley--Klein unit-disc coordinates. Conjecture 7.8 of the preprint,
+retained as Conjecture 36 of the journal final, asserts that
+$S_{\mathbf P}=L_{\mathbf P}$ for a pentagon if and only if its five
+consecutive cross-ratios are equal or $S_{\mathbf P}=(0,0)$.
+
+\begin{theorem}
+Let the vertices of $\mathbf P$, in cyclic order, be
+\[
+ P_1=(1,0),\quad P_2=\left(\frac7{25},\frac{24}{25}\right),\quad
+ P_3=\left(-\frac45,\frac35\right),\quad
+ P_4=\left(-\frac45,-\frac35\right),\quad
+ P_5=\left(\frac7{25},-\frac{24}{25}\right).
+\]
+Then $\mathbf P$ is strictly convex and
+\[
+                     S_{\mathbf P}=L_{\mathbf P}
+                        =\left(-\frac1{62},0\right),
+\]
+but its five consecutive cross-ratios are not all equal.
+\end{theorem}
+
+\section*{The polygon and the source barycenter formula}
+The source's stereographic parameters give
+\[
+ P(p)=\left(\frac{1-p^2}{1+p^2},\frac{2p}{1+p^2}\right),\qquad
+ (p_1,p_2,p_3,p_4,p_5)=\left(0,\frac34,3,-3,-\frac34\right).
+\]
+These are five distinct points on the unit circle in counterclockwise order,
+so their polygon is strictly convex. With indices modulo five, the source
+defines
+\[
+ I=\sum_i\frac1{p_i-p_{i+1}},\qquad
+ J=\frac12\sum_i\frac{p_i+p_{i+1}}{p_i-p_{i+1}},\qquad
+ K=\sum_i\frac{p_ip_{i+1}}{p_i-p_{i+1}}.
+\]
+Its equation (3.3) and Theorem 5 in the journal final give
+\[
+ S_{\mathbf P}=\left(\frac{I-K}{I+K},\frac{2J}{I+K}\right).
+\]
+Direct substitution gives $I=-61/18$, $J=0$, $K=-7/2$, and hence
+$I+K=-62/9$ and $I-K=1/9$. Therefore $S_{\mathbf P}=(-1/62,0)$.
+
+\section*{The Euclidean least-squares point}
+The five side lines, in order, are
+\[
+ 4x+3y=4,\quad -5x+15y=13,\quad 5x=-4,\quad
+ -5x-15y=13,\quad 4x-3y=4.
+\]
+Thus their squared-distance sum is
+\begin{align*}
+ F(x,y)&=\frac{(4x+3y-4)^2+(4x-3y-4)^2}{25}
+          +\frac{(5x+4)^2}{25}\\
+ &\quad+\frac{(-5x+15y-13)^2+(-5x-15y-13)^2}{250}\\
+ &=\frac{62}{25}x^2+\frac{63}{25}y^2+\frac2{25}x+\frac{409}{125}.
+\end{align*}
+Its Hessian is $\operatorname{diag}(124/25,126/25)$, which is positive
+definite. Its unique global minimum is consequently at $(-1/62,0)$.
+This proves $L_{\mathbf P}=S_{\mathbf P}\ne(0,0)$.
+
+\section*{The unequal cross-ratios}
+To test equality, fix the ordered convention
+\[
+ R(a,b,c,d)=\frac{(a-c)(b-d)}{(a-d)(b-c)},\qquad
+ R_i=R(p_i,p_{i+1},p_{i+2},p_{i+3}).
+\]
+The five values are
+\[
+ (R_1,R_2,R_3,R_4,R_5)
+       =\left(\frac53,\frac{25}{16},\frac53,\frac85,\frac85\right).
+\]
+In particular $R_1\ne R_2$. Changing a fixed ordered cross-ratio convention
+applies an injective fractional-linear function (possibly with a change
+of sign) to each value, so it does not affect whether the five values
+are equal. This disproves the necessary direction of the conjecture.
+\hfill$\square$
+
+\section*{An independent hyperbolic check}
+For a chord line $ax+by=c$ in the unit-disc model, the hyperbolic distance
+$d_H$ satisfies
+\[
+ \sinh d_H((x,y),\{ax+by=c\})
+ =\frac{|ax+by-c|}{\sqrt{a^2+b^2-c^2}\sqrt{1-x^2-y^2}}.
+\]
+This follows directly from the polar and hyperboloid formulas (2.5)--(2.7)
+of \cite{AA}. Choose the inward linear forms
+\[
+ q_1=4-4x-3y,\quad q_2=13+5x-15y,\quad q_3=4+5x,\quad
+ q_4=13+5x+15y,\quad q_5=4-4x+3y.
+\]
+The corresponding normalizing factors are $(3,9,3,9,3)$, so throughout
+the open disc the hyperbolic objective $G=\sum_i\sinh d_{H,i}$ obeys
+\[
+ G(x,y)\ge \frac{62+x}{9\sqrt{1-x^2-y^2}}
+             \ge\frac{\sqrt{3843}}9.
+\]
+The second inequality, including its equality case, follows from
+\[
+ (62+x)^2-3843(1-x^2-y^2)=(62x+1)^2+3843y^2
+\]
+and $62+x>0$. At $(-1/62,0)$ all five $q_i$ are positive and both
+inequalities are equalities. This independently certifies the same unique
+hyperbolic minimum, with no appeal to a numerical optimizer.
+
+\section*{Scope and verification}
+The example satisfies convexity, cyclic order, distinctness, and the unit
+circumcircle normalization. It refutes the source statement itself; the
+abbreviated MathDB names for the two centers are not used as a loophole.
+The companion verifier uses exact arithmetic for the geometry, both center
+calculations, the hyperbolic minimum certificate, and the cross-ratios.
+Review is by the authoring agent only, without independent peer review or
+a proof-assistant certificate.
+
+\section*{Proposed follow-up Tasks 2--5}
+\begin{enumerate}[label=Task \arabic*:,start=2,leftmargin=4.6em]
+\item Classify coincidence in the reflection-symmetric family
+$p=(0,a,b,-b,-a)$ with $0<a<b$.
+\item Determine the connected components of all strictly convex pentagons
+with $S_{\mathbf P}=L_{\mathbf P}\ne0$, modulo rotations of the unit disc.
+\item Characterize which strictly convex ideal pentagons with
+$S_{\mathbf P}=0$ also have $L_{\mathbf P}=0$.
+\item For every $n\ge6$, determine whether a strictly convex rational
+unit-circle $n$-gon exists with coincident nonzero centers and unequal
+consecutive cross-ratios.
+\end{enumerate}
+
+\begin{thebibliography}{1}
+\bibitem{AA} M. Arnold and C. E. Arreche,
+\emph{Symmedians as Hyperbolic Barycenters},
+Comptes Rendus Math\'ematique \textbf{362} (2024), 1743--1762.
+\href{https://doi.org/10.5802/crmath.677}{Journal version (DOI)}.
+Preprint: \href{https://arxiv.org/abs/2311.14194}{arXiv:2311.14194v1}.
+\end{thebibliography}
+\end{document}

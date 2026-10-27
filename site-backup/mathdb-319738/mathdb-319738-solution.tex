@@ -1,0 +1,295 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,enumitem,hyperref}
+\hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newcommand{\norm}[1]{\left\lVert #1\right\rVert}
+\title{The limiting shift in Nemes's Gamma-function expansion\\
+\large MathDB 319738: full solution}
+\author{}
+\date{12 September 2026}
+\begin{document}
+\maketitle
+
+\paragraph{Task 1.}
+Let \(g_n,v_n\) be determined by matching successive powers of \(x^{-1}\) in
+\begin{equation}\label{original}
+\frac{\Gamma(x+1)e^x}{x^x\sqrt{2\pi(x+1/6)}}
+\sim 1+\sum_{n\ge1}\frac{g_n}{(x+v_n)^{2n}}.
+\end{equation}
+Prove that \(v_n\to1/4\). This is Conjecture 2.2 in Nemes's published
+paper \cite{Nemes}, p.~24; its defining recurrences are (2.11)--(2.12)
+on that page. The first shifts are \(23/90\) and \(1792627/7289730\).
+
+\begin{theorem}\label{main}
+The coefficient matching in \eqref{original} determines real \(g_n,v_n\)
+for every \(n\ge1\), with \(g_n\ne0\), and
+\[
+ \lim_{n\to\infty}v_n=\frac14.
+\]
+In fact, for every \(n\ge1\),
+\[
+ \left|v_n-\frac14\right|<\frac1{40\pi},
+ \qquad
+ \frac14\le\frac{(2\pi)^{2n}|g_n|}{(2n-1)!}\le\frac9{25}.
+\]
+Moreover,
+\[
+ g_n\sim\frac{(-1)^{n+1}(2n-1)!}{\pi(2\pi)^{2n}}.
+\]
+\end{theorem}
+
+All series manipulations below are formal manipulations of asymptotic
+coefficients. Convergence of the asymptotic series is not required.
+The norm introduced below controls their factorial growth.
+
+\paragraph{Centering at \(1/4\).}
+Put \(y=x+1/4\), \(\rho=2\pi\), and let
+\[
+ F(y)=\frac{\Gamma(y+3/4)e^{y-1/4}}
+ {(y-1/4)^{y-1/4}\sqrt{2\pi(y-1/12)}}
+ \sim 1+\sum_{m\ge2}a_m y^{-m}.
+\]
+Write \(\log F(y)\sim\sum_{m\ge2}\lambda_m y^{-m}\).
+The shifted Stirling expansion \cite[Eq.~5.11.8]{DLMF} gives
+\begin{equation}\label{lambda}
+ \lambda_m=
+ \frac{(-1)^{m+1}B_{m+1}(3/4)-4^{-(m+1)}}{m(m+1)}
+ +\frac{12^{-m}}{2m}\qquad(m\ge1).
+\end{equation}
+Here \(B_j(u)\) is the Bernoulli polynomial. To check the elementary
+terms, subtract the shifted Stirling expansion from \(\log F(y)\);
+the difference is
+\[
+ -(y-1/4)\log(1-1/(4y))-\tfrac12\log(1-1/(12y))-\tfrac14.
+\]
+In particular, \(\lambda_1=0,\lambda_2=1/144,\lambda_3=-1/12960\).
+Define normalized coefficients
+\[
+ \ell_m=\frac{\rho^m\lambda_m}{(m-1)!},
+ \qquad A_m=\frac{\rho^m a_m}{(m-1)!}\quad(m\ge2).
+\]
+
+\begin{lemma}\label{logbounds}
+For \(n\ge1\),
+\[
+ \frac{27}{100}<|\ell_{2n}|<\frac13,\qquad
+ |\ell_{2n+1}|<\frac1{100}.
+\]
+Also \(\ell_{2n+1}\to0\) and
+\(\ell_{2n}-(-1)^{n+1}/\pi\to0\).
+\end{lemma}
+\begin{proof}
+The Bernoulli Fourier series \cite[Eqs.~24.8.1--24.8.2]{DLMF}
+give, with \(\beta(s)=\sum_{j\ge0}(-1)^j(2j+1)^{-s}\),
+\begin{align}
+ \ell_{2n}&=\frac{(-1)^{n+1}}{\pi}\beta(2n+1)+e_{2n},
+ \label{evenfourier}\\
+ \ell_{2n-1}&=\frac{(-1)^n}{\pi\,2^{2n}}
+       (1-2^{1-2n})\zeta(2n)+e_{2n-1},\label{oddfourier}\\
+ e_m&=-\frac{(\pi/2)^m}{4(m+1)!}
+             +\frac{(\pi/6)^m}{2m!}.\label{elementary}
+\end{align}
+For \(m\ge2\), \(e_m\le0\) and
+\[
+ |e_m|\le R_m:=\frac{(\pi/2)^m}{4(m+1)!}.
+\]
+Indeed, the ratio of the positive term to the negative term in
+\eqref{elementary} is \(2(m+1)/3^m\le1\).
+The sequence \(R_m\) is decreasing.
+
+For \(m=2\), \(\ell_2=\pi^2/36\), which has the asserted bounds.
+For even \(m\ge4\), use \(1-3^{-(m+1)}<\beta(m+1)<1\)
+and \(157/50<\pi<22/7\). The following rational bounds suffice:
+\[
+ \frac7{22}(1-3^{-5})-\frac{(11/7)^4}{480}>
+ \frac{27}{100},\qquad
+ \frac{50}{157}+\frac{(11/7)^4}{480}<\frac13.
+\]
+For \(m=3\), \(\ell_3=-\pi^3/3240\), of absolute value less than
+\(1/100\). For odd \(m\ge5\), the estimate
+\(\zeta(m+1)\le1+1/m\), obtained by integral comparison, gives
+\[
+ |\ell_m|\le
+ \frac{1+1/m}{\pi\,2^{m+1}}+R_m
+ \le\frac{50}{157}\frac6{5\cdot64}
+        +\frac{(11/7)^5}{2880}<\frac1{100}.
+\]
+The same formulas prove both limits.
+\end{proof}
+
+\paragraph{Passing from the logarithm to the function.}
+For a formal series \(P(z)=\sum_{m\ge2}p_mz^m\), set
+\[
+ \norm{P}=\sup_{m\ge2}\frac{\rho^m|p_m|}{(m-1)!}.
+\]
+If \(P,Q\) have finite norm, then
+\begin{equation}\label{product}
+ \frac{\rho^m|[z^m]PQ|}{(m-1)!}
+ \le W_m\norm{P}\norm{Q},
+ \qquad
+ W_m=\sum_{j=2}^{m-2}\frac{(j-1)!(m-j-1)!}{(m-1)!}.
+\end{equation}
+Empty sums are zero. Directly,
+\(W_4=W_5=1/6\) and \(W_6=2/15\).
+For \(m\ge7\),
+\[
+ W_m=\frac1{m-1}\sum_{j=2}^{m-2}
+          \binom{m-2}{j-1}^{-1}\le\frac1{m-1}\le\frac16.
+\]
+Consequently, \(W_m\to0\) and
+\begin{equation}\label{normproduct}
+ \norm{PQ}\le\tfrac16\norm{P}\norm{Q}.
+\end{equation}
+
+\begin{lemma}\label{functionbounds}
+For every \(n\ge1\),
+\[
+ \frac{13}{50}<|A_{2n}|<\frac7{20},\qquad
+ |A_{2n+1}|<\frac{11}{1000}.
+\]
+Furthermore, \(A_{2n+1}\to0\) and
+\(A_{2n}-(-1)^{n+1}/\pi\to0\).
+\end{lemma}
+\begin{proof}
+Let \(L(z)=\sum_{m\ge2}\lambda_m z^m\).
+Since \(\norm{L}\le1/3\), \eqref{normproduct} gives
+\[
+ \norm{e^L-1-L}\le
+ 6(e^{1/18}-1-1/18)\le\frac1{106}<\frac1{100}.
+\]
+The penultimate bound follows by bounding the tail of the exponential
+series by a geometric series with ratio \(1/54\).
+Together with Lemma~\ref{logbounds}, this proves the even bounds.
+
+For the sharper odd bound, split \(L=E+O\) into its even and odd parts.
+Then \(\norm{E}\le1/3\), \(\norm{O}\le1/100\).
+The odd coefficients of \(e^L\) are those of
+\(e^E(e^O-1)\). By \eqref{normproduct},
+\[
+ \norm{e^E(e^O-1)}
+ \le6e^{1/18}(e^{1/600}-1)
+ \le\frac{216}{20383}<\frac{11}{1000}.
+\]
+For the rational estimate, use \(e^{1/18}\le18/17\) and
+\(e^{1/600}-1\le2/1199\), again by geometric majorants.
+
+Finally, applying \eqref{product} once and \eqref{normproduct}
+to the remaining factors in each \(L^k\) shows that
+\[
+ |A_m-\ell_m|\le
+ W_m\sum_{k\ge2}\frac{(1/3)^k(1/6)^{k-2}}{k!}
+ \le\frac{W_m}{18}e^{1/18}\longrightarrow0.
+\]
+Lemma~\ref{logbounds} now gives the limits.
+\end{proof}
+
+\paragraph{The normalized triangular recurrence.}
+Set
+\[
+ c_n=\frac{\rho^{2n}g_n}{(2n-1)!},\qquad
+ t_n=\rho(v_n-1/4),\qquad q=\frac1{20}.
+\]
+Expanding each term of \eqref{original} in powers of \(y^{-1}\)
+and dividing the coefficients by their factorials gives exactly
+\begin{align}
+ c_n&=A_{2n}-\sum_{j=1}^{n-1}
+             c_j\frac{t_j^{\,2n-2j}}{(2n-2j)!},\label{rec-even}\\
+ c_nt_n&=-A_{2n+1}-\sum_{j=1}^{n-1}
+             c_j\frac{t_j^{\,2n+1-2j}}{(2n+1-2j)!}.\label{rec-odd}
+\end{align}
+For clarity, the elementary cancellation behind these formulas is
+\[
+ \frac{\rho^{2j+r}}{(2j+r-1)!}
+ \binom{2j+r-1}{r}g_j(v_j-1/4)^r
+ =c_j\frac{t_j^r}{r!}.
+\]
+The sign in \eqref{rec-odd} comes from the odd exponent in
+\((1+(v_j-1/4)/y)^{-2j}\).
+
+We prove simultaneously by induction that the recurrence is defined
+and that
+\begin{equation}\label{box}
+ \frac14\le |c_n|\le\frac9{25},\qquad |t_n|<q
+ \quad(n\ge1).
+\end{equation}
+Assume these assertions for \(j<n\); the same estimates apply when
+\(n=1\), with empty sums. From \eqref{rec-even},
+\[
+ |c_n-A_{2n}|\le\frac9{25}(\cosh q-1)
+ <\frac9{25\cdot790}<\frac1{100}.
+\]
+Lemma~\ref{functionbounds} therefore puts \(|c_n|\) between \(1/4\)
+and \(9/25\); in particular, division by \(c_n\) is legitimate.
+Now \eqref{rec-odd} gives
+\[
+ |t_n|\le
+ 4\left(\frac{11}{1000}+\frac9{25}(\sinh q-q)\right)
+ <4\left(\frac{11}{1000}+\frac9{25\cdot47000}\right)<q.
+\]
+The elementary estimates used here are
+\[
+ \cosh(1/20)-1\le\frac6{4799}<\frac1{790},
+ \qquad
+ \sinh(1/20)-1/20\le\frac1{47994}<\frac1{47000}.
+\]
+They follow by bounding the respective positive series tails
+by geometric series. This completes the induction and proves
+existence of every shift, as well as the global bounds.
+
+\paragraph{Convergence.}
+Using \eqref{box} in \eqref{rec-odd}, with \(r=n-j\), yields
+\begin{equation}\label{contraction}
+ |t_n|\le4|A_{2n+1}|+
+ \frac{36}{25}\sum_{r=1}^{n-1}
+           \frac{q^{2r}}{(2r+1)!}|t_{n-r}|.
+\end{equation}
+The weights on the right have total mass
+\[
+ \kappa=\frac{36}{25}
+       \left(\frac{\sinh q}{q}-1\right)
+ \le\frac{36}{25}(\cosh q-1)<1.
+\]
+Let \(M=\limsup_n|t_n|\), which is finite by \eqref{box}.
+Lemma~\ref{functionbounds} and \eqref{contraction} imply \(M\le\kappa M\).
+One can justify this last passage by first retaining finitely many
+weights, taking the limsup, and then bounding the omitted tail
+using \(|t_j|\le q\). Hence \(M=0\), and \(v_n\to1/4\).
+
+For the final assertion of Theorem~\ref{main}, \eqref{rec-even}
+and dominated convergence for the summable majorant
+\((9/25)q^{2r}/(2r)!\) give \(c_n-A_{2n}\to0\).
+The even limit in Lemma~\ref{functionbounds} proves
+\(c_n-(-1)^{n+1}/\pi\to0\), completing the proof.
+\qed
+
+\paragraph{Task 2.}
+Determine the first nonzero asymptotic correction to \(v_n=1/4\),
+including its sign and an explicit remainder bound.
+
+\paragraph{Task 3.}
+Extend the argument to suitably normalized shifted Gamma functions
+\(\Gamma(x+a)\), and determine which limiting shifts occur.
+
+\paragraph{Task 4.}
+Derive a useful bound for \(|v_n-1/4|\) in terms of \(n\), with explicit
+constants valid for every \(n\ge1\).
+
+\paragraph{Task 5.}
+Combine the coefficient bounds with asymptotic remainder estimates
+for \eqref{original} to obtain a certified evaluation algorithm.
+
+\begin{thebibliography}{9}
+\bibitem{Nemes}
+G.~Nemes, \emph{More accurate approximations for the Gamma function},
+Thai J. Math. \textbf{9} (2011), 21--28.
+\url{https://thaijmath.in.cmu.ac.th/index.php/thaijmath/article/view/222}.
+Preprint: \url{https://arxiv.org/abs/1003.6020}.
+\bibitem{DLMF}
+NIST Digital Library of Mathematical Functions,
+\url{https://dlmf.nist.gov/5.11.E8},
+\url{https://dlmf.nist.gov/24.8.E1}, and
+\url{https://dlmf.nist.gov/24.8.E2}.
+\end{thebibliography}
+\end{document}

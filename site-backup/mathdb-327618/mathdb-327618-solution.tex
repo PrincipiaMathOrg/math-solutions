@@ -1,0 +1,183 @@
+\documentclass[11pt]{article}
+\usepackage{amsmath,amssymb,amsthm,geometry,hyperref}
+\geometry{margin=1in}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newtheorem{corollary}{Corollary}
+\setlength{\emergencystretch}{2em}
+\title{The osculating mean of the polynomial--logarithmic curve\\
+\large A solution of MathDB 327618}
+\author{Research notes in Principia Math In Progress}
+\date{11 September 2026}
+\begin{document}
+\maketitle
+
+\section{Task 1: the problem and its solution}
+Fix $n\geq2$ and distinct positive numbers $a_1,\ldots,a_n$. For
+\[
+ \alpha(t)=(t,t^2,\ldots,t^{n-1},\log t),\qquad t>0,
+\]
+let $O_a$ be the affine hyperplane through $\alpha(a)$ whose direction
+contains $\alpha'(a),\ldots,\alpha^{(n-1)}(a)$. If their intersection is
+$P=(i_1,\ldots,i_n)$, the last coordinate mean is $M_n=\exp(i_n)$.
+Horwitz's final conjecture in \cite{horwitz} asserts that this equals the
+multivariate identric mean $I_Z$ defined below. The MathDB title calls this
+a logarithmic mean conjecture; the formula to be identified is identric.
+
+Put $N=n-1$, $H_N=\sum_{k=1}^N1/k$, and
+\[
+ w_i=\frac{a_i^N}{\prod_{k\ne i}(a_i-a_k)}.
+\]
+\begin{theorem}\label{main}
+The hyperplanes $O_{a_1},\ldots,O_{a_n}$ have a unique intersection, and
+\[
+ i_n=\sum_{i=1}^n w_i\log a_i-H_N,
+ \qquad
+ M_n=\exp\left(\sum_{i=1}^n w_i\log a_i-H_N\right)=I_Z(a_1,\ldots,a_n).
+\]
+Thus the source's conjecture holds in every dimension $n\geq2$.
+\end{theorem}
+The alternating Vandermonde formula in the source is exactly this expression:
+if $V(a)=\prod_{j<i}(a_i-a_j)$ and $V_i$ is the same Vandermonde product
+after deleting $a_i$, then
+\[
+ \frac{(-1)^{n+i}V_i(a)}{V(a)}
+ =\frac1{\prod_{k\ne i}(a_i-a_k)}.
+\]
+This identity holds in the displayed input ordering, without a sorting
+assumption.
+
+\section{Osculating hyperplanes from Taylor polynomials}
+\begin{lemma}\label{plane}
+For $a>0$ the hyperplane $O_a$ has equation
+\[
+ z=\log a-H_N+
+ \sum_{j=1}^N\frac{(-1)^{j-1}}{j}\binom Nj a^{-j}x_j.
+\]
+\end{lemma}
+\begin{proof}
+The first $N$ coordinates of the vectors
+$\alpha'(a),\ldots,\alpha^{(N)}(a)$ form a triangular $N\times N$
+matrix with diagonal $1!,2!,\ldots,N!$. They are independent. Hence an
+osculating hyperplane exists uniquely and can be expressed as a graph in $z$.
+
+The degree-$N$ Taylor polynomial of $\log t$ about $a$ is
+\[
+ Q_a(t)=\log a+\sum_{k=1}^N\frac{(-1)^{k-1}}{k a^k}(t-a)^k.
+\]
+Its constant coefficient is $\log a-H_N$. For $1\leq j\leq N$,
+its coefficient of $t^j$ is
+\begin{align*}
+ \frac{(-1)^{j-1}}{a^j}\sum_{k=j}^N\frac1k\binom kj
+ &=\frac{(-1)^{j-1}}{j a^j}\sum_{k=j}^N\binom{k-1}{j-1}\\
+ &=\frac{(-1)^{j-1}}{j a^j}\binom Nj.
+\end{align*}
+The last equality is the elementary telescoping binomial identity.
+Replace each $t^j$ in $Q_a$ by the coordinate $x_j$. The resulting graph
+has contact through derivative order $N$ with $\alpha$ at $a$, because
+$\log t-Q_a(t)$ and its first $N$ derivatives vanish there.
+By uniqueness it is $O_a$.
+\end{proof}
+
+\section{Interpolation at reciprocal nodes}
+\begin{proof}[Proof of Theorem~\ref{main}]
+Set $r_i=1/a_i$ and $c_j=(-1)^{j-1}\binom Nj/j$. Define a polynomial
+of degree at most $N$ by
+\[
+ R(r)=z-\sum_{j=1}^N c_j x_j r^j.
+\]
+All the $c_j$ are nonzero, so specifying its coefficients is equivalent to
+specifying $(x_1,\ldots,x_N,z)$. Lemma~\ref{plane} says that membership in
+all the $O_{a_i}$ is equivalent to
+\[
+ R(r_i)=\log a_i-H_N,\qquad 1\leq i\leq n.
+\]
+The $n=N+1$ nodes $r_i$ are distinct. Ordinary polynomial interpolation
+therefore gives exactly one such $R$, proving existence and uniqueness
+of the intersection, not merely a formula conditional on its existence.
+
+Its constant coefficient is obtained by evaluating the Lagrange formula
+at zero:
+\[
+ z=R(0)=\sum_{i=1}^n(\log a_i-H_N)
+ \prod_{k\ne i}\frac{-r_k}{r_i-r_k}.
+\]
+Each product is
+\[
+ \prod_{k\ne i}\frac{-1/a_k}{1/a_i-1/a_k}
+ =\prod_{k\ne i}\frac{a_i}{a_i-a_k}=w_i.
+\]
+The Lagrange basis polynomials sum to one, so $\sum_iw_i=1$.
+Consequently $z=\sum_iw_i\log a_i-H_N$, as claimed.
+Taking the inverse of the last coordinate function, namely exponentiation,
+proves the identity of means.
+\end{proof}
+
+\section{Internality and coinciding inputs}
+Although the conjecture assumes distinct inputs, the following also checks
+that the constructed value is a mean and has the expected continuous extension.
+\begin{corollary}\label{internal}
+For all positive inputs, including repetitions, the continuous extension is
+\[
+ M_n(a)=\exp\left(\mathbb E\log\Bigl(\sum_{i=1}^n W_i a_i\Bigr)\right),
+\]
+where $W$ is uniform on the $(n-1)$-simplex. It is symmetric, continuous,
+strictly increasing in each coordinate, and homogeneous of degree one.
+It equals $a$ on $(a,\ldots,a)$ and lies strictly between the smallest
+and largest input for every nonconstant tuple.
+\end{corollary}
+\begin{proof}
+For $f(t)=t^N\log t$, the sum in Theorem~\ref{main} is the divided
+difference $[f](a_1,\ldots,a_n)$. Repeated differentiation gives
+\[
+ f^{(N)}(t)=N!(\log t+H_N).
+\]
+The Hermite--Genocchi formula, obtained by repeatedly applying the fundamental
+theorem of calculus to divided differences, is
+\[
+ [f](a_1,\ldots,a_n)=\frac1{N!}
+ \mathbb E f^{(N)}\Bigl(\sum_iW_i a_i\Bigr).
+\]
+This proves the integral formula for distinct inputs. Its right side is
+continuous for all positive inputs and therefore gives the unique continuous
+extension. Permutation invariance and scaling follow directly. Since
+$W_i>0$ almost surely, increasing any one input increases the logarithm
+almost surely. For a nonconstant tuple the convex combination lies strictly
+between its extreme inputs almost surely, proving strict internality.
+\end{proof}
+The assertion about repeated inputs concerns the continuous mean. Identical
+hyperplanes by themselves do not determine a unique intersection point.
+
+\section{Follow-up tasks 2--5}
+\begin{enumerate}
+\setcounter{enumi}{1}
+\renewcommand{\labelenumi}{\textbf{Task \arabic{enumi}.}}
+\item Replace the last coordinate $\log t$ by $t^p$, with real
+$p\notin\{0,1,\ldots,n-1\}$. Determine the intersection formula and
+classify the parameters for which its last coordinate defines a strict
+mean after taking the inverse coordinate function. Recover the logarithmic
+case through the limit of $(t^p-1)/p$ as $p\to0$.
+\item Construct a geometric analogue for the weighted mean
+$\exp(\mathbb E\log\sum_iW_i a_i)$ when $W$ has a prescribed Dirichlet
+distribution. Determine which weights can be realized by confluent
+osculating conditions and extend the construction beyond integer parameters.
+\item Develop an algorithm for the complete intersection point that stays
+accurate when the input nodes almost coincide. Prove error bounds and
+compare its conditioning and cost with direct Vandermonde inversion.
+\item Determine sharp constants bounding
+$\log(\bar a/M_n(a))$ by multiples of
+$n^{-1}\sum_i(a_i-\bar a)^2/\bar a^2$ under
+$\max_i a_i/\min_i a_i\leq R$. Identify extremizers and the asymptotics
+as $R\downarrow1$, $R\to\infty$, and $n\to\infty$.
+\end{enumerate}
+
+\begin{thebibliography}{9}
+\bibitem{horwitz} A. Horwitz, \emph{A logarithmic mean and intersections of
+osculating hyperplanes in $\mathbb R^n$}, Journal of Classical Analysis 4
+(2014), 41--61, final conjecture on p.~61.
+\url{https://doi.org/10.7153/jca-04-02}.
+Preprint: \url{https://arxiv.org/abs/1404.1489}.
+\bibitem{mathdb} MathDB 327618, live record retrieved 11 September 2026.
+\url{https://mathdb.com/p/327618}.
+\end{thebibliography}
+\end{document}

@@ -1,0 +1,351 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=24mm]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage[hidelinks]{hyperref}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newcommand{\CF}{\mathop{\mathrm K}}
+\title{A proof of the four-pair gamma-ratio\\continued-fraction conjecture\\MathDB 352751}
+\author{Principia Math In Progress}
+\date{18 September 2026}
+\begin{document}
+\maketitle
+\begin{abstract}
+We prove Conjecture 9.3 of Cao--Tanigawa--Zhai. A single
+Bauer--Muir transformation, with a constant adjoint factor, gives
+a shift by two combined with a sign change of one parameter.
+The resulting gamma identity follows from a periodic quotient
+and its limit at infinity. An elementary tail convergence argument
+justifies the entire stated complex half-plane; termination handles
+the remaining cases.
+\end{abstract}
+
+\section*{Task 1: statement and conventions}
+Write
+\begin{align}
+P(x,l,n,\eta)
+={}&
+\frac{\Gamma(\frac{x+l+n+\eta+1}{4})
+      \Gamma(\frac{x+l-n-\eta+1}{4})}
+     {\Gamma(\frac{x+l+n-\eta+3}{4})
+      \Gamma(\frac{x+l-n+\eta+3}{4})}
+\notag\\[-2pt]
+&{}\times
+\frac{\Gamma(\frac{x-l+n-\eta+3}{4})
+      \Gamma(\frac{x-l-n+\eta+3}{4})}
+     {\Gamma(\frac{x-l+n+\eta+1}{4})
+      \Gamma(\frac{x-l-n-\eta+1}{4})}.
+\label{P}
+\end{align}
+For \(m\ge1\), set
+\begin{align}
+a_{2m}&=(2m)^2-l^2,&
+a_{2m-1}&=\frac{((2m-1)^2-n^2)((2m-1)^2-\eta^2)}
+                    {(2m-1)^2},\label{a}\\
+b_{2m}&=x-\frac{n\eta}{2m+1},&
+b_{2m-1}&=x+\frac{n\eta}{2m-1},\qquad b_0=x-n\eta.
+\label{b}
+\end{align}
+Define \(F=b_0+\CF_{k=1}^{\infty}(a_k/b_k)\), using ordinary
+finite convergents. A zero partial numerator terminates the fraction.
+As usual for gamma identities with complex parameters, the displayed
+formulas are meromorphic identities and give ordinary values wherever
+the expressions are defined. Poles and removable singularities are
+understood by continuation.
+
+\begin{theorem}\label{main}
+For arbitrary \(l,n,\eta\in\mathbb C\) and \(\Re x>0\),
+\begin{equation}
+ \frac{1-P(x,l,n,\eta)}{1+P(x,l,n,\eta)}
+     =\frac{l}{F(x,l,n,\eta)}.
+\label{answer}
+\end{equation}
+The nonterminating continued fraction converges in the extended
+complex plane, locally uniformly away from its poles.
+If \(n\) or \(\eta\) is an odd integer, or \(l\) is an even integer,
+the identity extends to arbitrary complex \(x\) with the same
+meromorphic convention. This proves the full domain asserted in
+\cite[Conjecture 9.3, p.~30]{CTZ}.
+\end{theorem}
+
+\subsection*{An elementary convergence lemma}
+The following lemma supplies the analytic justification, rather
+than treating continuation of the answer as convergence of its
+continued fraction.
+
+\begin{lemma}\label{convergence}
+Suppose the coefficients of a continued fraction depend
+holomorphically on finitely many parameters and, uniformly on compact
+parameter sets, satisfy
+\[
+ a_k=k^2+O(1),\qquad b_k=x+O(k^{-1}),\qquad \Re x>0.
+\]
+Where no partial numerator vanishes, its convergents have a
+meromorphic limit, with ordinary convergence in the extended
+complex plane and local uniform convergence away from poles.
+\end{lemma}
+\begin{proof}
+Work on a relatively compact parameter polydisc with \(\Re x>0\).
+For sufficiently large \(k\), the analytic logarithm
+\[
+ L_k=\log(a_k/k^2)=O(k^{-2})
+\]
+is unambiguously the branch near zero. Define
+\[
+ t_k=\sum_{j=1}^{\infty}(-1)^j L_{k+j},\qquad s_k=e^{t_k}.
+\]
+This series converges absolutely and locally uniformly,
+\(t_k=O(k^{-1})\), and \(t_{k-1}+t_k=-L_k\).
+The equivalence transformation
+\[
+ \widetilde a_k=s_{k-1}s_ka_k=k^2,\qquad
+ \beta_k=\widetilde b_k=s_kb_k=x+O(k^{-1})
+\]
+therefore gives \(\Re\beta_k\ge\delta>0\) for all \(k\ge K\),
+after increasing \(K\). The transformation multiplies the tail
+starting at \(b_K\) by \(s_K\) and is exact for every finite truncation.
+
+Consider that transformed tail through \(N\). Let \(T_N\) be its
+tridiagonal matrix on indices \(K,\ldots,N\), with diagonal
+\(\beta_k\) and entries \(i(k+1)\) in both positions connecting
+\(k\) to \(k+1\). Its off-diagonal part is skew-Hermitian. Thus
+\[
+ \Re\langle T_Nv,v\rangle
+       =\sum_{k=K}^N\Re\beta_k\,|v_k|^2
+       \ge\delta\|v\|_2^2.
+\]
+In particular \(T_N\) is invertible and the vector
+\(v^{(N)}=T_N^{-1}e_K\), extended by zeros, satisfies
+\(\|v^{(N)}\|_2\le\delta^{-1}\). Schur complementation gives
+\[
+ v_K^{(N)}
+ =\frac{1}{\beta_K+
+       \dfrac{(K+1)^2}{\beta_{K+1}+\cdots+
+       \dfrac{N^2}{\beta_N}}}.
+\tag{*}
+\]
+Every weakly convergent subsequence has an \(\ell^2\) limit solving
+the infinite tridiagonal equation \(Tv=e_K\), since each coordinate
+equation uses only three coordinates.
+
+There is at most one such \(\ell^2\) solution. Indeed, if \(Tw=0\)
+and \(w\ne0\), summing the real parts of its equations through \(N\)
+gives
+\[
+ \delta\sum_{k=K}^N|w_k|^2
+ \le (N+1)|w_Nw_{N+1}|.
+\]
+The left side is bounded below by a positive constant for every
+sufficiently large \(N\). Hence
+\[
+ |w_N|^2+|w_{N+1}|^2\ge\frac{c}{N+1}
+\]
+for some \(c>0\), contradicting square summability. This also shows
+that all weak subsequential limits of \(v^{(N)}\) coincide.
+Consequently every coordinate, in particular \((*)\), converges.
+The limiting vector is nonzero because it solves \(Tv=e_K\).
+Moreover the finite energy identity implies
+\[
+ \Re v_K\ge\delta\|v\|_2^2>0,
+\]
+by taking limits of any fixed finite subsum. Thus the limiting
+reciprocal tail is nonzero.
+
+The functions \(v_K^{(N)}\) are holomorphic on the polydisc and
+uniformly bounded by \(\delta^{-1}\). Normal-family compactness and
+the pointwise uniqueness just proved yield locally uniform
+holomorphic convergence. Undo the equivalence transformation and
+attach the finite initial segment. This applies a finite
+nondegenerate linear fractional transformation, and proves the
+claimed meromorphic and extended-plane convergence.
+\end{proof}
+
+For \eqref{a}--\eqref{b}, both asymptotic hypotheses hold uniformly
+on compact subsets of \(\{\Re x>0\}\times\mathbb C^3\).
+If a partial numerator vanishes, the finite terminated expression
+is meromorphic directly. The tail construction above also provides
+meromorphic dependence near such parameter values after attaching
+the finite prefix, with the usual removals wherever defined.
+
+\subsection*{One Bauer--Muir transformation}
+Initially take real parameters
+\[
+ x>3,\qquad 0<l<\tfrac14,\qquad
+ |n|<\tfrac14,\quad |\eta|<\tfrac14.
+\tag{D}
+\]
+All \(a_k,b_k,b_0\) are then positive. The lemma gives convergence,
+and positivity gives the useful bound
+\begin{equation}
+ x-n\eta\le F(x,l,n,\eta)
+      \le x-n\eta+\frac{(1-n^2)(1-\eta^2)}{x+n\eta}.
+\label{bound}
+\end{equation}
+Put
+\begin{align}
+ u&=\frac{l^2-(n+\eta)^2-x^2+1}{2(x+1)},&
+ c&=x+u=\frac{(x+1)^2+l^2-(n+\eta)^2}{2(x+1)},\label{uc}\\
+ r_{2m}&=2m+u+\frac{n\eta}{2m+1}\quad(m\ge0),&
+ r_{2m-1}&=2m-u-x\quad(m\ge1).\label{r}
+\end{align}
+The adjoint factors are all the same:
+\begin{equation}
+ a_k-r_{k-1}(b_k+r_k)=c^2-l^2=:D.
+\label{adjoint}
+\end{equation}
+To check this without induction, for even \(k\) the left side is
+\[
+ k^2-l^2-(k-u-x)(k+u+x)=(u+x)^2-l^2.
+\]
+For odd \(k\) it is
+\[
+ \frac{(k^2-n^2)(k^2-\eta^2)}{k^2}
+ -(k-1+u+n\eta/k)(k+1-u+n\eta/k)
+ =(u-1)^2-(n+\eta)^2.
+\]
+These expressions agree by \eqref{uc}; \(D\ne0\) on (D).
+The transformed denominators satisfy
+\begin{align}
+ b_0+r_0&=c,&
+ b_1+r_1&=b_0(x+2,l,n,-\eta)-c,\notag\\
+ b_k+r_k-r_{k-2}&=b_{k-1}(x+2,l,n,-\eta)\quad(k\ge2).
+\label{denominators}
+\end{align}
+Since the ratios of consecutive adjoint factors equal one,
+the classical Bauer--Muir identity
+\cite[Lemma 3.1, p.~8]{CTZ} consequently gives
+\begin{equation}
+ F(x,l,n,\eta)
+   =c+\frac{c^2-l^2}{F(x+2,l,n,-\eta)-c}.
+\label{BM}
+\end{equation}
+
+For completeness, the limiting step in this use of the transformation
+is justified directly. If \(A_N/B_N\) are the original convergents,
+the finite transformed fraction is
+\[
+ \frac{A_N+r_NA_{N-1}}{B_N+r_NB_{N-1}}
+ =c+\frac{D}{F_{N-1}(x+2,l,n,-\eta)-c}.
+\]
+This finite identity follows from the continuant recurrence and
+\eqref{adjoint}. On (D), \(B_N>0\), and \(r_N>0\) for all sufficiently
+large \(N\). Its left side is therefore a convex combination of two
+successive convergents and tends to \(F\). The transformed tail
+converges by Lemma~\ref{convergence}; this proves \eqref{BM}, or its
+cross-multiplied version if necessary. No assumption about arbitrary
+modified approximants sharing a limit is being made.
+
+\subsection*{Identification of the gamma quotient}
+Suppress \(l,n\) from the notation and set
+\[
+ Q(x,\eta)=\frac{F(x,l,n,\eta)-l}{F(x,l,n,\eta)+l}.
+\]
+Equation \eqref{BM} says
+\[
+ FF'-c(F+F')+l^2=0,\qquad F'=F(x+2,l,n,-\eta).
+\]
+Consequently
+\begin{equation}
+ Q(x,\eta)Q(x+2,-\eta)
+ =\frac{c-l}{c+l}
+ =\frac{(x+1-l)^2-(n+\eta)^2}
+        {(x+1+l)^2-(n+\eta)^2}
+ =:R(x,\eta).
+\label{Qrec}
+\end{equation}
+All the quantities used in division are nonzero on (D).
+
+The gamma quotient in \eqref{P} satisfies precisely the same identity:
+\begin{equation}
+ P(x,l,n,\eta)P(x+2,l,n,-\eta)=R(x,\eta).
+\label{Prec}
+\end{equation}
+Indeed, multiply the eight gamma factors in the two numerators and
+denominators. Four pairs cancel directly. The remaining four ratios use
+\(\Gamma(A+1)/\Gamma(A)=A\), giving
+\[
+ \frac{(x+1-l+n+\eta)(x+1-l-n-\eta)}
+      {(x+1+l+n+\eta)(x+1+l-n-\eta)}.
+\]
+The standard gamma-ratio asymptotic
+\(\Gamma(y+a)/\Gamma(y+b)\sim y^{a-b}\), or Euler's gamma limit,
+gives \(P(x,l,n,\eta)\to1\) as real \(x\to+\infty\):
+the sums of the shifts in its numerator and denominator agree.
+Also \eqref{bound} gives \(F=x-n\eta+O(x^{-1})\), hence \(Q\to1\).
+
+Now \(H(x,\eta)=Q(x,\eta)/P(x,l,n,\eta)\) obeys
+\[
+ H(x,\eta)H(x+2,-\eta)=1,\qquad
+ H(x+2,-\eta)H(x+4,\eta)=1.
+\]
+Thus \(H(x,\eta)=H(x+4,\eta)\). For any positive integer \(j\),
+\[
+ H(x,\eta)=H(x+4j,\eta)\longrightarrow1,
+\]
+so \(Q=P\) on (D). The relation
+\((1-Q)/(1+Q)=l/F\) proves \eqref{answer} there.
+
+\subsection*{All complex parameters and termination}
+Lemma~\ref{convergence} makes the continued-fraction side meromorphic
+on the connected domain
+\(\{\Re x>0\}\times\mathbb C^3\). The gamma side is meromorphic there
+as well. Applying the one-variable identity theorem successively
+to the four variables extends equality from the real open box (D)
+to this whole domain. This step also includes the removable cases
+where \(D=0\) or an intermediate expression in the proof vanishes.
+
+If \(n\) or \(\eta\) is an odd integer, then \(a_{|n|}=0\) or
+\(a_{|\eta|}=0\), respectively. If \(l\) is a nonzero even integer,
+then \(a_{|l|}=0\). In each case \(l/F\) is a finite rational
+function of \(x\); its equality to the meromorphic gamma expression
+on \(\Re x>0\) extends to all \(x\). Finally, \(l=0\) makes
+\(P=1\) directly, and both sides of \eqref{answer} are identically
+zero as meromorphic functions. This proves Theorem~\ref{main}.
+\qed
+
+\subsection*{Verification and attribution}
+The attached verifier checks the two adjoint identities, the
+transformed denominators, the gamma shift cancellation, and the
+M\"obius identity symbolically. It also checks finite transformed
+convergents exactly at rational parameter points and records
+numerical consistency checks. The analytic convergence proof above,
+not the finite checks, establishes the infinite assertion.
+
+The Bauer--Muir method and gamma recurrence are classical inputs.
+The source itself proves other formulas using that method, but
+leaves the present formula as Conjecture 9.3. Our specific constant
+adjoint factor and sign-changing shift supply the missing argument.
+
+\section*{Task 2: sharp convergence rates}
+Determine the leading error of the ordinary convergents for
+\(\Re x>0\), uniformly on compact parameter sets away from poles.
+Identify the parameter loci on which the leading term vanishes
+and analyze the transition as \(\Re x\downarrow0\).
+
+\section*{Task 3: certified accelerated evaluation}
+Iterate the sign-changing Bauer--Muir shift to construct accelerated
+approximants. Prove computable error bounds that remain useful near
+the imaginary axis, and compare their cost with direct gamma evaluation.
+
+\section*{Task 4: explicit continuants}
+Find hypergeometric formulas for the numerator and denominator
+continuants and identify their recurrence with an appropriate
+polynomial family. Use those formulas to locate zeros in the
+terminating cases and describe pole cancellation.
+
+\section*{Task 5: a basic hypergeometric analogue}
+Construct a \(q\)-continued fraction and a quotient of \(q\)-gamma
+functions that tend to \eqref{answer} as \(q\uparrow1\).
+Determine a convergence domain and an analogue of the sign-changing
+shift \((x,\eta)\mapsto(x+2,-\eta)\).
+
+\begin{thebibliography}{9}
+\bibitem{CTZ}
+X. Cao, Y. Tanigawa and W. Zhai,
+\emph{Continued fraction formulae involving ratios of three gamma functions},
+arXiv:2111.14143v1 (2021), 32 pp.
+\url{https://arxiv.org/abs/2111.14143v1}.
+The source of Conjecture 9.3 and the classical Bauer--Muir formulation
+used above.
+\end{thebibliography}
+\end{document}

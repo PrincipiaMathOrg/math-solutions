@@ -1,0 +1,262 @@
+\documentclass[10pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,hyperref}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newtheorem{corollary}{Corollary}
+\DeclareMathOperator{\Log}{Log}
+\DeclareMathOperator{\Impart}{Im}
+\DeclareMathOperator{\Repart}{Re}
+\title{MathDB 332617: a principal-log counterexample\ and the complete continuous-log formula}
+\author{Principia Math In Progress}
+\date{18 September 2026}
+\begin{document}
+\maketitle
+
+\section*{Task 1: Full resolution and proof}
+The source is Conjecture 3.2 of Ariad, Segal, Avishai and Grosfeld,
+\emph{Minimal multi-vortex configurations on a flat torus and cylinder},
+\href{https://arxiv.org/abs/1603.00840v1}{arXiv:1603.00840v1}, p.~9.
+Its notation (p.~8) is
+\[
+ z_m=\frac{x+m q_x+iy}{q_y},\qquad x,y\in\mathbb R,\quad q_x,q_y>0,
+\]
+and it asks whether the sum and integral of
+\[
+ \Log R_A(m),\qquad
+ R_A(m)=\frac{\Gamma(A+1+i\overline z_m)\Gamma(A+1-i\overline z_m)}
+ {\Gamma(A+1+iz_m)\Gamma(A+1-iz_m)}
+\]
+over $[-A,A]$ have equal limits as the integer $A\to\infty$.
+Appendix A.1 calls $\Log$ the principal value. We use its standard
+convention $\Impart\Log\in(-\pi,\pi]$; the printed interval
+$(\pi,\pi]$ is an evident sign typo. We disprove the principal-value
+assertion by explicit unequal subsequential limits. We also prove the
+full all-parameter assertion with the continuous logarithm normalized
+at $\Repart z=0$, including its claimed common value. Thus the result
+does not consist solely of a branch-convention objection.
+
+Write $a=A+1$, $b=x/q_y$, $c=q_x/q_y>0$, and $v=y/q_y$.
+Let $\ell$ be the holomorphic logarithm of $\Gamma$ on the right
+half-plane which is real on the positive axis. For $a>|v|$ define
+\begin{align}
+ L_A(u)={}&\ell(a+v+iu)+\ell(a-v-iu)\notag\\
+          &-\ell(a-v+iu)-\ell(a+v-iu).                 \label{lift}
+\end{align}
+Then $\exp L_A(b+cm)=R_A(m)$, and $L_A(0)=0$.
+
+\begin{theorem}[Continuous logarithm, all parameters]\label{general}
+For every fixed $b,v\in\mathbb R$ and $c>0$, both limits exist and
+\begin{equation}\label{limit}
+ \lim_{A\to\infty}\sum_{m=-A}^{A}L_A(b+cm)
+ =\lim_{A\to\infty}\int_{-A}^{A}L_A(b+cm)\,dm
+ =\frac{8ibv}{c}\arctan c
+ =\frac{8ixy}{q_xq_y}\arctan\frac{q_x}{q_y}.
+\end{equation}
+For $B=A+1-|v|\ge1$, the absolute difference between the finite sum
+and integral is at most
+\begin{equation}\label{bound}
+ 4|bv|(B^{-1}+B^{-2})
+ +Ac^2|v|(B^{-2}+2B^{-3})=O(A^{-1}).
+\end{equation}
+\end{theorem}
+
+\begin{proof}
+Put $\psi=\ell'$. The usual locally uniformly convergent digamma
+series on $\Repart w>0$ is
+\begin{equation}\label{psi}
+ \psi(w)=-\gamma+\sum_{n=0}^{\infty}
+ \left(\frac1{n+1}-\frac1{n+w}\right).
+\end{equation}
+It follows, for example, by logarithmic differentiation of Euler's
+limit product for $\Gamma$; subtract the harmonic sum before taking
+the limit. Local uniform convergence follows by bounding the paired
+terms by $O(n^{-2})$, and permits differentiation. Consequently
+\[
+ \psi'(w)=\sum_{n=0}^{\infty}(n+w)^{-2},\qquad
+ \psi''(w)=-2\sum_{n=0}^{\infty}(n+w)^{-3}.
+\]
+For $\Repart w\ge B>0$, comparison with the corresponding positive
+real integrals gives
+\begin{equation}\label{derivpsi}
+ |\psi'(w)|\le B^{-2}+B^{-1},\qquad
+ |\psi''(w)|\le2B^{-3}+B^{-2}.
+\end{equation}
+Conjugation symmetry of $\ell$ gives
+\begin{equation}\label{intpsi}
+ L_A(u)=2i\int_{-v}^{v}\Impart\psi(a+t+iu)\,dt.
+\end{equation}
+All integrals with reversed endpoints are oriented. In particular,
+$L_A$ is odd in $u$ and purely imaginary, including when $v<0$.
+Differentiating twice and applying \eqref{derivpsi} yields the bounds
+\begin{equation}\label{derivL}
+ \sup_{u\in\mathbb R}|L_A'(u)|\le4|v|(B^{-1}+B^{-2}),\qquad
+ \sup_{u\in\mathbb R}|L_A''(u)|\le4|v|(B^{-2}+2B^{-3}).
+\end{equation}
+
+For a twice continuously differentiable complex function $f$ on an
+integer interval, two integrations by parts on each unit interval
+give the composite trapezoidal identity
+\[
+ T_A(f)-\int_{-A}^{A}f(t)\,dt
+ =\frac12\sum_{m=-A}^{A-1}\int_m^{m+1}
+ (t-m)(m+1-t)f''(t)\,dt,
+\]
+where $T_A$ has half weights at the two endpoints. Its absolute value
+is at most $\frac18\int_{-A}^{A}|f''(t)|\,dt$.
+Take $f(t)=L_A(b+ct)$. Oddness gives
+\[
+ f(A)+f(-A)=L_A(cA+b)-L_A(cA-b),
+\]
+whose absolute value is at most $2|b|\sup|L_A'|$.
+The full sum differs from $T_A$ by half this endpoint sum. Thus its
+error is bounded by
+$|b|\sup|L_A'|+(Ac^2/4)\sup|L_A''|$, proving \eqref{bound}.
+
+It remains to evaluate the integral, without interchanging a
+nonuniform sum and a limit. Taking imaginary parts in \eqref{psi},
+for $s>0$ and real $u$, gives
+\[
+ \Impart\psi(s+iu)=\sum_{n=0}^{\infty}
+ \frac{u}{(s+n)^2+u^2}.
+\]
+For $u>0$ the summand is decreasing in $n$. Its integral from zero to
+infinity is $\arctan(u/s)$, so
+\begin{equation}\label{approx}
+ \left|\Impart\psi(s+iu)-\arctan(u/s)\right|
+ \le\frac{|u|}{s^2+u^2}\le\frac1{2s}.
+\end{equation}
+Oddness proves the same bound for $u\le0$.
+For bounded real $h$ and $|t|\le|v|$, it follows uniformly that
+\[
+ \Impart\psi(a+t+i(cA+h))\longrightarrow\arctan c,
+ \qquad L_A(cA+h)\longrightarrow4iv\arctan c.
+\]
+Using oddness once again,
+\[
+ \int_{-A}^{A}L_A(b+cm)\,dm
+ =\frac1c\int_{cA-b}^{cA+b}L_A(u)\,du
+ \longrightarrow\frac{8ibv}{c}\arctan c.
+\]
+This identity also holds for negative $b$ by orientation and for
+$b=0$. Together with \eqref{bound} it proves \eqref{limit}.
+\end{proof}
+
+\begin{theorem}[Explicit principal-value counterexample]\label{counter}
+Set $q_x=2$, $q_y=1$, $x=1/2$, and $y=1$. If
+\[
+ S_A=\sum_{m=-A}^{A}\Log R_A(m),\qquad
+ I_A=\int_{-A}^{A}\Log R_A(m)\,dm,
+\]
+with principal $\Log$, then
+\begin{align*}
+ \lim_{n\to\infty}S_{2n}&=2i\arctan2-2\pi i,\\
+ \lim_{n\to\infty}S_{2n+1}&=2i\arctan2,\\
+ \lim_{A\to\infty}I_A&=2i\arctan2-\pi i.
+\end{align*}
+In particular the conjectured sum limit does not exist. Even modulo
+$2\pi i$, its subsequential limits disagree with the integral limit.
+\end{theorem}
+
+\begin{proof}
+Let $u=2m+1/2$. Gamma recurrence, valid here for every $A\ge1$, gives
+\begin{equation}\label{rational}
+ R_A(m)=\frac{(A+iu)(A+1+iu)}{(A-iu)(A+1-iu)}
+       =e^{i\phi_A(u)},\qquad
+ \phi_A(u)=2\arctan\frac uA+2\arctan\frac u{A+1}.
+\end{equation}
+This is the lift \eqref{lift} for $v=1$, since it is continuous in
+$u$ and vanishes at zero. The phase is odd, strictly increasing,
+and takes values in $(-2\pi,2\pi)$. Its two crossings of the
+principal cut occur at $u=\pm h_A$, where
+$h_A=\sqrt{A(A+1)}$: indeed the two positive arctangents sum to
+$\pi/2$ exactly when their arguments have product one.
+Away from these crossings,
+\begin{equation}\label{wrap}
+ \Log R_A(m)=i\phi_A(u)-2\pi i\,\mathbf1_{u>h_A}
+                               +2\pi i\,\mathbf1_{u<-h_A}.
+\end{equation}
+No integer sample lies on the cut: $u$ is a half-integer whereas
+$h_A^2$ is an integer. The two cut values do not affect the integral.
+
+Since $A<h_A<A+1/2$, the cut locations in the $m$ variable,
+\[
+ r_A=(h_A-1/2)/2,\qquad l_A=(-h_A-1/2)/2,
+\]
+belong to $(-A,A)$ for $A\ge1$ and satisfy $r_A+l_A=-1/2$.
+For $A=2n$, the positive cut has $r_A\in(n-1/4,n)$ and the negative
+cut has $l_A\in(-n-1/2,-n-1/4)$. There are $n+1$ integers above
+$r_A$ and $n$ below $l_A$ in $[-A,A]$.
+For $A=2n+1$, the corresponding intervals are
+$(n+1/4,n+1/2)$ and $(-n-1,-n-3/4)$; both counts are $n+1$.
+Writing
+\[
+ U_A=\sum_{m=-A}^{A}i\phi_A(2m+1/2),\qquad
+ V_A=\int_{-A}^{A}i\phi_A(2m+1/2)\,dm,
+\]
+equation \eqref{wrap} therefore gives the exact identities
+\[
+ S_A=\begin{cases}U_A-2\pi i,&A\text{ even},\\U_A,&A\text{ odd},\end{cases}
+ \qquad
+ I_A=V_A-2\pi i\big((A-r_A)-(l_A+A)\big)=V_A-\pi i.
+\]
+Theorem~\ref{general}, with $(b,c,v)=(1/2,2,1)$, gives
+$U_A,V_A\to2i\arctan2$, proving every asserted limit.
+\end{proof}
+
+\begin{corollary}[A sufficient principal-branch range]
+If $4|y/q_y|\arctan(q_x/q_y)<\pi$, the original principal-log
+sum and integral both converge to the value in \eqref{limit}.
+In particular this holds throughout $|y|\le q_y/2$.
+\end{corollary}
+\begin{proof}
+Equations \eqref{intpsi} and \eqref{approx} give, uniformly for
+$|u|\le cA+|b|$,
+\[
+ |L_A(u)|\le4|v|\arctan\frac{cA+|b|}{A+1-|v|}
+             +\frac{2|v|}{A+1-|v|}.
+\]
+Its limiting upper bound is strictly less than $\pi$ under the
+hypothesis. For all sufficiently large $A$ the lift is consequently
+the principal logarithm throughout the integration interval, and
+Theorem~\ref{general} applies.
+\end{proof}
+
+\paragraph{Scope and attribution.}
+The continuous-log value above reproduces the gamma contribution
+used in the source (multiplication by $i/2$ gives its
+$-4xy\arctan(q_x/q_y)/(q_xq_y)$). It is not a claim about all later
+physical conclusions. The current six-page arXiv version and the
+six-page journal final, \emph{Physical Review B} \textbf{98} (2018),
+104511, present the phase formula without the conjecture's proof.
+The author's thesis, \emph{Geometric phases in topological
+superconductors} (2018), Appendix C, p.~115 (PDF p.~125), still
+assumes the equality. Complete original and current preprints,
+the complete embedded journal final, and the complete relevant
+thesis appendix were read. No earlier full target claim was found
+in the bounded checks documented alongside this proof. These are
+authoring-agent checks, not independent peer review or formal
+certification. One problem is credited; the following are proposed
+research directions, not additional solutions.
+
+\section*{Task 2: Classify principal-log convergence}
+Determine necessary and sufficient conditions on $(b,c,v)$ for
+the principal-log sum to converge, accounting for every cut
+crossing and for arithmetic properties of the moving cut locations.
+
+\section*{Task 3: Determine the full error expansion}
+Find successive powers of $A^{-1}$ in the continuous-log sum and
+integral, with uniform remainder bounds on compact parameter sets,
+and determine when the leading discrepancy vanishes.
+
+\section*{Task 4: Treat oblique complex sampling}
+Extend the continuous-log theorem to the complex lattice directions
+used for an oblique torus, specifying domains which avoid gamma
+poles and proving uniform control as directions approach a boundary.
+
+\section*{Task 5: Track the phase through the original derivation}
+Reconstruct the full vortex-phase calculation with explicitly
+chosen logarithm lifts and cut corrections. Determine precisely
+which equalities hold in the complex plane and which only in the
+phase quotient, including their behavior across fundamental cells.
+\end{document}

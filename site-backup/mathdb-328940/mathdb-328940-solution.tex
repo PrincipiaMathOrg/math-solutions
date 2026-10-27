@@ -1,0 +1,237 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=25mm]{geometry}
+\usepackage{amsmath,amssymb,amsthm,hyperref}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newtheorem{corollary}{Corollary}
+\title{Consecutive attraction for augmented happy functions}
+\author{Principia Math In Progress}
+\date{28 September 2026}
+\begin{document}
+\maketitle
+\begin{abstract}
+For every odd base $b>2$ and odd augmenting constant $c>0$, each cycle
+basin of the augmented square-digit function contains a translate of
+every finite set of positive integers. In particular there are arbitrarily
+long consecutive runs attracted to any specified periodic point, proving
+Conjecture 3.3 of Baker Swart et al. The new step constructs an adjacent
+pair in every basin using a congruence modulo $(b-1)^2$ and an explicit
+base-$b$ carry pattern. A pair-reduction and digit-prefix lifting
+argument then gives all finite lengths.
+\end{abstract}
+
+\section*{Task 1: the complete consecutive-attraction theorem}
+
+Fix odd integers $b>2$ and $c>0$. Put $B=b-1$, let $\sigma(n)$ denote
+the sum of the squares of the base-$b$ digits of $n$, with $\sigma(0)=0$,
+and put $S(n)=c+\sigma(n)$ for $n>0$. A cycle $C$ means a periodic orbit
+of $S$. Its basin $A_C$ consists of the positive integers whose iterates
+eventually enter $C$. In particular every point of $A_C$ eventually
+visits every prescribed $u\in C$.
+
+We prove the following strengthening of Conjecture 3.3 of Baker Swart
+et al., \emph{Augmented generalized happy functions},
+\href{https://arxiv.org/abs/1410.0297}{arXiv:1410.0297v2}; Rocky Mountain
+J. Math. 47 (2017), 403--417.
+\begin{theorem}
+For each cycle $C$ and each finite $T\subset\mathbb Z_{>0}$, there is
+$n\ge0$ such that $T+n\subset A_C$. Consequently, for every $u$ on any
+cycle, there are arbitrarily long sequences of consecutive $u$-attracted
+integers.
+\end{theorem}
+The even-difference reduction and digit-prefix lifting below reproduce
+the mechanisms behind the source's Theorem 3.7 and Lemmas 3.5 and 4.3.
+The opposite-parity reduction and the construction of adjacent points
+in each basin supply the missing odd-$c$, odd-$b$ case.
+
+\section*{Reduction of a pair}
+Let $I(n)=n+1$. An admissible map is a finite composition of $S$ and
+nonnegative integer powers of $I$.
+Since $b,c$ are odd,
+\begin{equation}\label{parity}
+S(n)\equiv n+1\pmod2.
+\end{equation}
+Thus an admissible map changes the parity of every input in the same way.
+
+\begin{lemma}\label{pair}
+For distinct positive integers $a<a+w$, an admissible map takes this
+pair to two values whose difference in absolute value is
+$\varepsilon=w\bmod2\in\{0,1\}$.
+\end{lemma}
+\begin{proof}
+The integer $\sigma(w-1)+1+\varepsilon$ is even. Hence we can choose
+$0\le j<B/2$ such that
+\[
+2j\equiv-\sigma(w-1)-1-\varepsilon\pmod B.
+\]
+Choose $r\ge1$ so large that
+\[
+b^r>w-1,\qquad (j+1)b^r-1\ge a,\qquad
+rB^2>2j+1+\sigma(w-1).
+\]
+Translate $a$ to $(j+1)b^r-1$ and then apply $S$. The translated pair
+has the digit expansions
+\[
+j b^r+(b^r-1),\qquad (j+1)b^r+(w-1),
+\]
+so its image difference, second minus first, is
+\[
+\Delta=2j+1+\sigma(w-1)-rB^2<0,
+\qquad \Delta\equiv-\varepsilon\pmod B.
+\]
+After ordering the images write them as $q,q+W$, where
+$W=-\Delta=Bv+\varepsilon$ with $v\ge0$. Choose $R\ge1$ large enough
+that $b^R+v\ge q$ and $b^R>bv+\varepsilon$. Translate this pair to
+\[
+b^R+v,\qquad b^R+bv+\varepsilon.
+\]
+There are no carries between the displayed parts, and
+$\sigma(bv+\varepsilon)=\sigma(v)+\varepsilon$.
+One more application of $S$ therefore leaves difference $\varepsilon$.
+Every translation used was nonnegative.
+\end{proof}
+
+\begin{corollary}\label{collapse}
+An admissible map sends any nonempty finite set to a singleton or a
+pair of consecutive integers. A set of one parity can be sent to a
+singleton.
+\end{corollary}
+\begin{proof}
+While two distinct members have the same parity, apply Lemma~\ref{pair}
+to that pair and apply its map to the whole set. The cardinality drops.
+Equation~\eqref{parity} ensures that the only possible terminal sets
+have at most one point of each parity. If two remain, apply the odd
+case of Lemma~\ref{pair}.
+\end{proof}
+
+\section*{Lifting translations back through digit sums}
+Fix a cycle $C$. Call a finite set $T$ $C$-good if some nonnegative
+translate of $T$ is contained in $A_C$.
+
+\begin{lemma}\label{lift}
+If $F$ is admissible and $F(T)$ is $C$-good, then $T$ is $C$-good.
+Every singleton is $C$-good. Every finite set of one parity is $C$-good.
+\end{lemma}
+\begin{proof}
+For $F=I$ the assertion follows by increasing the translation by one.
+For $F=S$, suppose $S(T)+n\subset A_C$. Choose $r$ with $b^r>\max T$
+and let $H$ be the integer whose base-$b$ expansion consists of $n$
+ones (take $H=0$ for $n=0$). With $M=Hb^r$ the digit blocks are disjoint,
+and
+\[
+S(t+M)=S(t)+\sigma(H)=S(t)+n\in A_C\quad(t\in T).
+\]
+Thus $T+M\subset A_C$. Induction proves the assertion for compositions.
+
+For a singleton $\{t\}$ take $z\in C$ and $r\ge0$ with $zb^r\ge t$.
+Since $S(zb^r)=S(z)\in C$, translation by $zb^r-t$ works. The final
+assertion follows from Corollary~\ref{collapse} and the first assertion.
+\end{proof}
+
+\section*{An adjacent pair in every basin}
+\begin{lemma}\label{seed}
+For each cycle $C$, there are arbitrarily large $N$ such that both
+$N$ and $N+1$ belong to $A_C$.
+\end{lemma}
+\begin{proof}
+Apply Lemma~\ref{lift} to a set of $B/2$ consecutive terms of an
+arithmetic progression of difference two. We obtain $B/2$ such terms
+in $A_C$, covering all residues of one parity modulo $B$. If that
+parity is odd, choose a term $x\equiv1\pmod B$; if it is even, choose
+$x\equiv2\pmod B$. Put $y=S(x)$. Then $x,y\in A_C$ have opposite
+parities, and
+\begin{equation}\label{gcd}
+\gcd(x,y,B)=1:
+\end{equation}
+in the first case $\gcd(x,B)=1$, and in the second $\gcd(x,B)=2$
+while $y$ is odd. This also covers $B=2$.
+
+Let $w$ be the unique odd integer in $\{1,3,\ldots,B-1\}$ congruent
+to $x-y$ modulo $B$, and put $j=(w-1)/2$. By \eqref{gcd} there are
+$r_0,s_0\in\{0,\ldots,B-1\}$ solving
+\[
+xr_0-ys_0\equiv\frac{w-x+y}{B}\pmod B.
+\]
+For any $r\equiv r_0\pmod B$ and $s\equiv s_0\pmod B$, the binomial
+identity $b^t=(1+B)^t\equiv1+tB\pmod{B^2}$ gives
+\begin{equation}\label{scaled}
+X-Y:=xb^r-yb^s\equiv w\pmod{B^2}.
+\end{equation}
+First increase $r$ by a multiple of $B$ until
+$h=X-c-(j+1)^2$ is positive and as large as desired. Then increase
+$s$ by a multiple of $B$ until $Y>X$. This preserves \eqref{scaled}.
+Set
+\[
+k=\frac{Y-X+w}{B^2}\in\mathbb Z_{>0}.
+\]
+Let $H$ have exactly $h$ base-$b$ digits, all equal to one, and set
+\[
+N=Hb^{k+1}+jb^k+(b^k-1).
+\]
+Because $0\le j<b-1$, the displayed digits give exactly
+\begin{align*}
+S(N)&=c+h+j^2+kB^2=X-w+kB^2=Y,\\
+S(N+1)&=c+h+(j+1)^2=X.
+\end{align*}
+Multiplication by a power of $b$ preserves basin membership, since
+$S(tb^m)=S(t)$. Thus $X,Y\in A_C$, whence $N,N+1\in A_C$.
+As $h$ can be made arbitrarily large, so can $N$.
+\end{proof}
+
+\section*{Completion of the argument}
+Given nonempty finite $T$, Corollary~\ref{collapse} supplies an admissible
+$F$ such that $F(T)$ is a singleton or a consecutive pair. Singletons
+are $C$-good by Lemma~\ref{lift}. A pair $\{a,a+1\}$ is $C$-good by
+Lemma~\ref{seed}: choose $N\ge a$ there and translate by $N-a$.
+Lemma~\ref{lift} now shows that $T$ is $C$-good. Empty $T$ is trivial.
+Taking $T=\{1,\ldots,L\}$ proves the required assertion for every
+length $L$ and every $u\in C$. The iterate at which each number visits
+$u$ may depend on that number, exactly as the source definition allows.
+\qed
+
+\section*{Verification and source scope}
+The proof is uniform in $b,c,L$ and independent of computational bounds.
+The standard-library verifier checks 20,000 explicit pair reductions,
+135 reductions of finite sets, 1,125 digit-prefix identities, and 259
+cycle seed constructions across 110 parameter pairs. Of these seeds,
+42 are expanded as actual integers; the others are checked using exact
+digit-run lengths because their expansions are enormous. There is no
+floating-point arithmetic.
+
+All 14 pages of the current author manuscript, arXiv:1410.0297v2
+(14 September 2016), were read. A coauthor's institutional CV, created
+9 February 2016, identifies this arXiv manuscript as accepted by the
+Rocky Mountain Journal of Mathematics, so the current revision is a
+post-acceptance author version. The typeset 2017 article could not be
+retrieved through the checked public links. These access limits and the
+bounded public-claim search are recorded in the accompanying literature
+audit. This work has author-agent review, without independent peer review.
+
+\section*{Proposed Tasks 2--5}
+\begin{enumerate}
+\setcounter{enumi}{1}
+\item Derive an explicit computable upper bound, in $b,c,u,L$, for the
+least starting point of a length-$L$ consecutive $u$-attracted run by
+tracking all translations, exponents and prefix lengths in this proof.
+\item For augmented $e$th-power digit sums with $e\ge3$, characterize
+the triples $(e,b,c)$ for which every cycle basin contains arbitrarily
+long consecutive intervals, including all congruence obstructions.
+\item For fixed odd $b,c$, characterize the finite words in cycle-basin
+labels that occur on arbitrarily large intervals of consecutive integers.
+The present theorem settles constant words only.
+\item For each cycle basin with odd $b,c$, determine its lower and upper
+natural densities and characterize when those two values coincide.
+\end{enumerate}
+
+\begin{thebibliography}{9}
+\bibitem{source} B.~Baker Swart, K.~A.~Beck, S.~Crook,
+C.~Eubanks-Turner, H.~G.~Grundman, M.~Mei and L.~Zack,
+\emph{Augmented generalized happy functions}, Rocky Mountain J. Math.
+\textbf{47} (2017), no.~2, 403--417.
+\href{https://doi.org/10.1216/RMJ-2017-47-2-403}{DOI:10.1216/RMJ-2017-47-2-403};
+\href{https://arxiv.org/abs/1410.0297}{arXiv:1410.0297v2}.
+\bibitem{mathdb} \href{https://mathdb.com/p/328940}{MathDB 328940},
+\emph{Arbitrarily long consecutive sequences of attracted numbers for
+augmented generalized happy functions}. Status checked 28 September 2026.
+\end{thebibliography}
+\end{document}

@@ -1,0 +1,124 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,hyperref,enumitem}
+\hypersetup{colorlinks=true,urlcolor=blue,linkcolor=blue}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\title{Monotonicity of the signature of a mixed graph matrix}
+\author{Principia Math In Progress}
+\date{22 September 2026}
+\begin{document}
+\maketitle
+\noindent\textbf{MathDB 364187. Task 1: a full proof.}
+We prove Conjecture 1 of Bonetto and Jard\'on Kojakhmetov
+\cite[p.~7]{source}, also retained as Conjecture 3.1.1 in
+\cite[p.~55]{thesis}. The proof applies to the more general symmetric
+matrix family proposed immediately after their conjecture.
+
+For a real symmetric matrix $Q$, let $n_+(Q)$, $n_0(Q)$ and $n_-(Q)$
+be its positive, zero and negative eigenvalue counts, with multiplicity.
+Its signature is $s(Q)=n_+(Q)-n_-(Q)$. Write $X\preceq Y$ if
+$Y-X$ is positive semidefinite.
+
+\begin{theorem}\label{main}
+Let $A,B$ be real symmetric $n\times n$ matrices, with $A\succeq0$.
+For $M(t)=A+tB$ and $0<u<v$,
+\[
+ n_+(M(v))\le n_+(M(u)),\qquad
+ n_-(M(v))\ge n_-(M(u)).                              \tag{1}
+\]
+Consequently $s(M(v))\le s(M(u))$, including at singular parameter values.
+\end{theorem}
+
+\begin{lemma}\label{order}
+If $X,Y$ are real symmetric matrices and $X\preceq Y$, then
+$n_+(X)\le n_+(Y)$ and $n_-(X)\ge n_-(Y)$.
+\end{lemma}
+\begin{proof}
+The number $n_+(Q)$ is the largest dimension of a linear subspace on
+which $x^TQx$ is strictly positive for every nonzero $x$. Indeed, the
+positive eigenspace has that dimension. Any subspace of larger dimension
+intersects the span of the nonpositive eigenvectors nontrivially, so
+cannot be positive definite. The analogous statement holds for $n_-(Q)$.
+
+If $x^TXx>0$ on a subspace away from zero, then
+$x^TYx\ge x^TXx>0$ there. This proves the assertion for $n_+$.
+If $x^TYx<0$ on a subspace away from zero, then
+$x^TXx\le x^TYx<0$ there, proving the assertion for $n_-$.
+Zero eigenvalues cause no change to either argument.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{main}]
+Positive scalar multiplication preserves all three inertia counts.
+Normalize the matrix by its parameter:
+\[
+ N(t)=\frac{M(t)}t=B+\frac At.
+\]
+For $0<u<v$ we have
+\[
+ N(u)-N(v)=\left(\frac1u-\frac1v\right)A\succeq0.     \tag{2}
+\]
+Thus $N(v)\preceq N(u)$. Lemma~\ref{order} gives (1), since
+$N(t)$ and $M(t)$ have the same inertia. Subtracting the two count
+inequalities proves the signature inequality.
+\end{proof}
+
+\section*{Application to the source conjecture}
+In Definition 3 of \cite{source}, a simple undirected graph $F$ has
+its edges partitioned between spanning subgraphs $G$ and $H$, and
+\[
+ M(\epsilon)=L_G+\epsilon A_H,\qquad \epsilon>0.
+\]
+Here $A_H$ is real symmetric, and the graph Laplacian satisfies
+\[
+ x^TL_Gx=\sum_{\{i,j\}\in E_G}(x_i-x_j)^2\ge0.
+\]
+Theorem~\ref{main} with $A=L_G$ and $B=A_H$ therefore proves the
+conjecture for every permitted graph and every positive parameter.
+In the associated gradient system $\dot q=-M(\epsilon)q$, the unstable
+eigenspace has dimension $n_-(M(\epsilon))$, which is nondecreasing.
+The stable dimension $n_+(M(\epsilon))$ is nonincreasing.
+
+As in the source's step-function plots, decreasing means nonincreasing;
+constant intervals are allowed. The theorem includes the exact values at
+zero crossings and allows a common kernel for every parameter. It does
+not assert that each unnormalized eigenvalue is a decreasing real-valued
+function. The positive-parameter domain is precisely that of the source.
+
+\section*{Verification and attribution}
+Lemma~\ref{order} is the standard order property of inertia, with an
+elementary proof included. The only further step is the normalization (2).
+The exact verifier checks all graph partitions through four vertices,
+general symmetric pencils, and singular and repeated crossings with a
+permanent kernel. Independent characteristic-root isolation checks the
+inertia routine. These finite tests supplement the unrestricted proof.
+Review is by the authoring agent only.
+
+\section*{Proposed follow-up Tasks 2--5}
+\begin{enumerate}[label=\textbf{Task \arabic*.},start=2,leftmargin=*]
+\item Determine the positive crossing parameters and their multiplicities
+from a canonical decomposition of the pencil $(A,B)$, allowing a
+nontrivial common kernel.
+\item Characterize graph partitions $(G,H)$ attaining each possible total
+increase of $n_-(L_G+\epsilon A_H)$ on $(0,\infty)$.
+\item Extend the inertia monotonicity statement to families
+$a(t)A+b(t)B$ with $b(t)>0$, and characterize the coefficient functions
+that guarantee it for every $A\succeq0$ and symmetric $B$.
+\item Determine hypotheses for an analogous monotonicity theorem for
+self-adjoint operator pencils, including domains and finiteness of
+negative spectral subspaces.
+\end{enumerate}
+
+\begin{thebibliography}{9}
+\raggedright
+\bibitem{source} R. Bonetto and H. Jard\'on Kojakhmetov,
+\emph{On the Eigenvalues of Graphs with Mixed Algebraic Structure},
+\href{https://arxiv.org/abs/2408.00487}{arXiv:2408.00487v1}, 2024,
+Definition 3, Definition 8 and Conjecture 1.
+\bibitem{thesis} R. Bonetto,
+\emph{Oscillations and diffusion in dynamic networks models},
+University of Groningen PhD thesis, 2025,
+\href{https://doi.org/10.33612/diss.1329052104}{doi:10.33612/diss.1329052104},
+Section 3.1, pp. 47--58, especially Conjecture 3.1.1 on p. 55.
+\end{thebibliography}
+\end{document}

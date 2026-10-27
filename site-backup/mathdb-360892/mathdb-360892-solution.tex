@@ -1,0 +1,262 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,hyperref}
+\hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue}
+\newcommand{\sech}{\operatorname{sech}}
+\newcommand{\Res}{\operatorname{Res}}
+\newtheorem{theorem}{Theorem}
+\title{The first-moment Berndt integral of order three\\MathDB 360892}
+\author{Research note}
+\date{17 September 2026}
+\begin{document}
+\maketitle
+
+\section*{Task 1. Prove the exact integral evaluation}
+Write $G=\Gamma(1/4)$. We prove Conjecture 4.3 of Rui--Xu--Zhao
+\cite{RXZ,RS}, with precisely its stated integrand and constants.
+Theorem 4.1 of those sources treats numerators $x^{4m+1}$ for $m>0$;
+the present numerator $x$ is outside that range.
+
+\begin{theorem}
+\[
+ \boxed{\displaystyle
+ \int_0^\infty\frac{x\,dx}{(\cos x+\cosh x)^3}
+ =-\frac{G^4}{2^7\pi^2}+\frac{G^4}{2^9\pi}
+                         +\frac{G^{12}}{2^{13}\pi^7}.}
+\]
+\end{theorem}
+
+\subsection*{1. A convergent residue formula}
+Denote the integral by $I$, and put
+\[
+ a=\frac{1+i}{2},\qquad b=\frac{1-i}{2},\qquad
+ t_n=\pi(n+\tfrac12),\qquad h(t)=\sech^3t.
+\]
+The integral converges: the integrand is $O(x)$ at zero and
+$O(xe^{-3x})$ at infinity. Use
+\[
+ F(z)=\frac{z}{(\cos z+\cosh z)^3},\qquad
+ \cos z+\cosh z=2\cosh(az)\cosh(bz).
+\]
+On the positively oriented triangle with vertices $0,R,iR$, take
+$R=2\pi N$, $N$ a positive integer. For the oblique edge $x+y=R$,
+$\operatorname{Im}(az)=\pi N$ and $\operatorname{Re}(bz)=R/2$.
+Consequently $|\cosh(az)|\ge1$ and
+$|\cosh(bz)|\ge\sinh(R/2)$. Its integral is therefore
+$O(R^2e^{-3R/2})$. Also $F(iy)=iF(y)$, so the two axial integrals
+sum to $2\int_0^R F(x)\,dx$. The first-quadrant poles are exactly
+$z_n=(1+i)t_n$, of order three. Thus
+\begin{equation}\label{res-sum}
+ I=\pi i\sum_{n\ge0}\Res_{z=z_n}F(z).
+\end{equation}
+
+To evaluate a residue, write $z=z_n+v$. Then
+\[
+ F(z_n+v)=\frac{i(-1)^n}{8a^3v^3}
+       (z_n+v)h(t_n+bv)\left(\frac{av}{\sinh(av)}\right)^3,
+ \qquad
+ \left(\frac{av}{\sinh(av)}\right)^3
+             =1-\frac{a^2v^2}{2}+O(v^4).
+\]
+The coefficient of $v^{-1}$, multiplied by $\pi i$, is
+\[
+ \pi i\Res_{z=z_n}F(z)
+ =\frac{\pi(-1)^n}{8}
+       \{t_n h''(t_n)+2h'(t_n)+t_n h(t_n)\}.
+\]
+These terms decay exponentially, which also justifies the limiting
+sum in \eqref{res-sum}. If $s(t)=\sech t$, then $s''=s-2s^3$.
+Replacing $h$ by $(s-s'')/2$ gives the particularly useful formula
+\begin{equation}\label{reduced}
+ I=\frac{\pi}{16}\sum_{n\ge0}(-1)^n
+ \{t_n(s-s^{(4)})(t_n)+2(s'-s^{(3)})(t_n)\}.
+\end{equation}
+
+\subsection*{2. Interchange the divisor variables}
+For nonnegative integers $P,Q$ and $|q|<1$, define
+\[
+ \Phi_{P,Q}(q)=\sum_{k,v\ge1}k^P v^Q q^{kv},\qquad
+ q_*=e^{-\pi/2},\qquad
+ T_{P,Q}=\frac{\Phi_{P,Q}(iq_*)-\Phi_{P,Q}(-iq_*)}{2i}.
+\]
+Let $\chi_4(j)$ be zero for even $j$ and $(-1)^{(j-1)/2}$ for odd
+$j$. Since $\chi_4(kv)=\chi_4(k)\chi_4(v)$, we have
+\[
+ T_{P,Q}=\sum_{k,v\ge1}\chi_4(k)\chi_4(v)k^Pv^Qq_*^{kv}.
+\]
+The absolutely convergent expansion
+$s(t)=2\sum_{v\ge1}\chi_4(v)e^{-vt}$ now yields, for every
+nonnegative derivative order $d$,
+\begin{equation}\label{twist}
+ \sum_{n\ge0}(-1)^nt_n^P s^{(d)}(t_n)
+       =2^{1-P}\pi^P(-1)^d T_{P,d}.
+\end{equation}
+All rearrangements and differentiations here are justified by
+absolute convergence; for example $e^{-\pi kv/2}$ dominates every
+fixed polynomial weight. Applying \eqref{twist} to \eqref{reduced},
+\begin{equation}\label{four-sums}
+ I=\frac{\pi^2}{16}(T_{1,0}-T_{1,4})
+                   -\frac{\pi}{4}(T_{0,1}-T_{0,3}).
+\end{equation}
+
+Use the normalization $q=e^{2\pi i\tau}$ and $D=q\,d/dq$.
+For $r\ge1$ put
+$L_r(q)=\sum_{k,v\ge1}v^r q^{kv}=\sum_{n\ge1}\sigma_r(n)q^n$.
+The standard Eisenstein series satisfy
+\[
+ E_2=1-24L_1,\qquad E_4=1+240L_3,\qquad E_6=1-504L_5.
+\]
+Interchanging $k$ and $v$, and differentiating absolutely convergent
+series, proves
+\begin{align}
+ \Phi_{1,0}=\Phi_{0,1}&=\frac{1-E_2}{24},
+ &\Phi_{0,3}&=\frac{E_4-1}{240},\label{Phi}\\
+ \Phi_{1,4}=DL_3&=\frac{E_2E_4-E_6}{720}.
+ &&\label{Phi14}
+\end{align}
+The last equality is Ramanujan's differential identity
+$DE_4=(E_2E_4-E_6)/3$ \cite[Section 5.1]{Z}.
+In particular, no series with a negative power of its divisor
+variable has to be evaluated.
+
+\subsection*{3. The required modular values}
+Put
+\[
+ u=\frac{G^4}{4\pi^3},\qquad \tau_+=\frac{1+i}{4},\qquad
+ \tau_- =\frac{-1+i}{4}.
+\]
+We will establish
+\begin{equation}\label{cm}
+ E_2(\tau_+)=\frac{12}{\pi}-3iu,\qquad
+ E_4(\tau_+)=-33u^2,\qquad E_6(\tau_+)=189iu^3.
+\end{equation}
+Here are the details, including the weight-two correction.
+
+Use the standard theta constants
+\[
+ \theta_2(\tau)=\sum_{n\in\mathbb Z}e^{\pi i\tau(n+1/2)^2},\quad
+ \theta_3(\tau)=\sum_{n\in\mathbb Z}e^{\pi i\tau n^2},\quad
+ \theta_4(\tau)=\sum_{n\in\mathbb Z}(-1)^ne^{\pi i\tau n^2}.
+\]
+The classical values are $E_2(i)=3/\pi$ and $E_4(i)=3u^2/4$
+\cite[p.~85]{Z}. Theta transformation and Jacobi's identity give
+$\theta_2(i)^4=\theta_4(i)^4=\theta_3(i)^4/2$.
+Together with the standard identities \cite[pp.~28--29]{Z}
+\begin{align*}
+ E_4&=\tfrac12(\theta_2^8+\theta_3^8+\theta_4^8),\\
+ E_6&=\tfrac12(\theta_2^4+\theta_3^4)
+                 (\theta_3^4+\theta_4^4)(\theta_4^4-\theta_2^4),
+\end{align*}
+and positivity on the imaginary axis, these imply
+$\theta_3(i)^4=u$.
+
+The theta duplication identities \cite[Section 20.7]{DLMF} are
+\[
+ \theta_2(2\tau)^2=\frac{\theta_3(\tau)^2-\theta_4(\tau)^2}{2},
+ \quad
+ \theta_3(2\tau)^2=\frac{\theta_3(\tau)^2+\theta_4(\tau)^2}{2},
+ \quad
+ \theta_4(2\tau)^4=\theta_3(\tau)^2\theta_4(\tau)^2.
+\]
+Thus, at $2i$,
+\[
+ (\theta_2^4,\theta_3^4,\theta_4^4)
+  =u\left(\frac{3-2\sqrt2}{8},\frac{3+2\sqrt2}{8},
+                                  \frac1{\sqrt2}\right),
+ \qquad
+ E_4(2i)=\frac{33u^2}{64},\quad E_6(2i)=\frac{189u^3}{512}.
+\]
+For $E_2$, the elementary level-two identity is
+\begin{equation}\label{level-two}
+ 2E_2(2\tau)-E_2(\tau)
+                    =\frac{\theta_3(\tau)^4+\theta_4(\tau)^4}{2}.
+\end{equation}
+To see its normalization directly, the coefficient of $q^n$ on the
+right is the number $r_4(2n)$ of representations as four squares.
+Jacobi's formula \cite[Proposition 11]{Z} gives
+\[
+ r_4(2n)=8\sum_{d\mid2n,\,4\nmid d}d
+       =24\{\sigma_1(n)-2\sigma_1(n/2)\},
+\]
+where $\sigma_1(n/2)=0$ for odd $n$. These are exactly the
+coefficients on the left, and both constant terms are one.
+At $\tau=i$, \eqref{level-two} therefore gives
+$E_2(2i)=3/(2\pi)+3u/8$.
+
+Finally set $z=2i-2$, so that $\tau_+=-1/z$.
+Integer translation leaves the three Eisenstein series unchanged.
+Their inversion laws are
+\[
+ E_2(-1/z)=z^2E_2(z)+\frac{6z}{\pi i},\qquad
+ E_4(-1/z)=z^4E_4(z),\qquad E_6(-1/z)=z^6E_6(z).
+\]
+Substitution of the three values at $2i$ proves \eqref{cm}.
+
+\subsection*{4. Finish the evaluation}
+The numbers $iq_*$ and $-iq_*$ correspond to $\tau_+$ and $\tau_-$.
+The Fourier coefficients of $E_2,E_4,E_6$ are real, so their values
+at $\tau_-$ are the complex conjugates of those in \eqref{cm}.
+Consequently \eqref{Phi}--\eqref{Phi14} give
+\[
+ T_{1,0}=T_{0,1}=\frac{u}{8},\qquad T_{0,3}=0,\qquad
+ T_{1,4}=\frac{\operatorname{Im}\{(12/\pi-3iu)(-33u^2)
+                                      -189iu^3\}}{720}
+          =-\frac{u^3}{8}.
+\]
+Formula \eqref{four-sums} becomes
+\[
+ I=\frac{\pi^2}{128}(u+u^3)-\frac{\pi u}{32}.
+\]
+Replacing $u$ by $G^4/(4\pi^3)$ gives exactly the three terms in
+the theorem. This is an identity obtained by convergent analytic
+operations and classical modular identities; no numerical fitting
+or algebraic-independence assumption is used.\qed
+
+\section*{Task 2. Evaluate all first moments}
+Extend the residue and divisor-interchange calculation to
+$\int_0^\infty x(\cos x+\cosh x)^{-M}\,dx$ for every positive
+integer $M$. Determine the exact period support and resolve the
+all-power first-moment conjecture of Xu--Zhao, arXiv:2401.01385v2,
+Conjecture 5.8, including the smallest powers.
+
+\section*{Task 3. Resolve the auxiliary series questions}
+Evaluate the half-integer hyperbolic sums proposed after Conjecture
+4.3 in the Research Square version. Check their printed numerators
+and denominator powers against the contour formula, and identify
+which individual evaluations are necessary for that alternative proof.
+
+\section*{Task 4. Vary the modular parameter}
+For $q_*=e^{-y/2}$ with $y>0$, retain the four twisted sums as functions
+of $y$. Classify imaginary quadratic values for which their
+Eisenstein evaluations lead to explicit gamma-value formulas, and
+find contour integrals that realize these other parameters.
+
+\section*{Task 5. Compute an exact recurrence in the power}
+Combine the recurrence for $\sech^M t$ with Ramanujan's differential
+equations to obtain a recurrence for the first-moment coefficients.
+Determine whether it avoids reconstructing every individual residue
+and whether it yields useful sign or growth information.
+
+\begin{thebibliography}{4}
+\bibitem{RXZ} H.~Rui, C.~Xu and J.~Zhao,
+\emph{Berndt-Type Integrals of Order Three and Series Associated with
+Jacobi Elliptic Functions},
+\href{https://arxiv.org/abs/2311.15666v2}{arXiv:2311.15666v2}
+(28 November 2023), Conjecture 4.3, p.~17.
+\bibitem{RS} H.~Rui, C.~Xu and J.~Zhao, same title,
+\href{https://doi.org/10.21203/rs.3.rs-3969711/v1}{Research Square version 1}
+(22 February 2024), Conjecture 4.3, printed pp.~18--19.
+\bibitem{Z} D.~Zagier, \emph{Elliptic Modular Forms and Their Applications},
+in \emph{The 1-2-3 of Modular Forms}, Springer (2008), pp.~1--103;
+\href{https://people.mpim-bonn.mpg.de/zagier/files/doi/10.1007/978-3-540-74119-0_1/fulltext.pdf}{author-hosted chapter}.
+\bibitem{DLMF} NIST Digital Library of Mathematical Functions,
+\href{https://dlmf.nist.gov/20.7}{Section 20.7, theta identities}.
+\end{thebibliography}
+\noindent\textit{Verification and status.}
+The accompanying \texttt{verify\_evaluation.py} checks the exact
+residue algebra, modular values, and final constants. Independent
+numerical diagnostics are reported separately. Both complete source
+versions and dated public-claim checks accompany the note. The
+authoring agent performed the audit; independent peer review has not
+occurred. Tasks 2--5 are proposed directions, not additional solutions.
+\end{document}

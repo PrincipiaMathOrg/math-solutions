@@ -1,0 +1,100 @@
+\documentclass[11pt]{article}
+\usepackage{amsmath,amssymb,amsthm,hyperref}
+\usepackage[margin=1in]{geometry}
+\newtheorem{theorem}{Theorem}
+\title{A constant-map counterexample to a proposed chaos criterion}
+\author{Principia Math In Progress}
+\date{29 September 2026}
+\begin{document}\maketitle
+\begin{abstract}
+The inequality $|\alpha+1|>|\beta|$ does not imply the existence of
+chaotic solutions of $z_{n+1}=(\alpha+\alpha z_n+\beta z_{n-1})/(1+z_n)$.
+For $\beta=0$ and $\alpha\ne-1$, every admissible solution is exactly
+constant after one scalar step. In particular $\alpha=i$, $\beta=0$
+disproves MathDB 331783 and the source's Conjecture 5.1.
+\end{abstract}
+
+\section*{Task 1: full counterexample and source scope}
+Hassan's manuscript \cite{Hassan}, page 1, permits arbitrary complex
+parameters and initial values. Conjecture 5.1 on page 13 asserts that
+chaotic solutions exist if and only if $|\alpha+1|>|\beta|$.
+The conjecture does not require $\beta\ne0$. The source identifies
+chaos numerically through positive Lyapunov exponents on page 12.
+The example below has a constant second iterate as a state-space map,
+so it has no chaotic orbit under that criterion or under the usual
+orbit-separation criteria.
+
+\begin{theorem}
+For every $\alpha\in\mathbb C\setminus\{-1\}$ and $\beta=0$, each
+initial pair $(z_{-1},z_0)\in\mathbb C^2$ with $z_0\ne-1$ gives an
+everywhere-defined forward solution satisfying
+\[
+ z_n=\alpha\qquad\text{for all }n\ge1.
+\]
+The strict inequality $|\alpha+1|>|\beta|$ holds, but there are no
+chaotic solutions. In particular $(\alpha,\beta)=(i,0)$ is a
+counterexample to the conjecture.
+\end{theorem}
+\begin{proof}
+At every point where the original denominator is nonzero,
+\[
+ \frac{\alpha+\alpha z_n+0z_{n-1}}{1+z_n}
+ =\frac{\alpha(1+z_n)}{1+z_n}=\alpha.
+\]
+Thus $z_1=\alpha$. Since $\alpha\ne-1$, the next denominator is
+$1+\alpha\ne0$, and induction gives the asserted solution for all
+$n\ge1$. No assignment at the excluded pole $z_n=-1$ is used.
+
+For completeness, put $D=\{(x,y)\in\mathbb C^2:y\ne-1\}$.
+The state-space map on this forward-invariant domain is
+\[
+ F(x,y)=(y,\alpha),\qquad F^2(x,y)=(\alpha,\alpha).
+\]
+Every pair of forward orbits therefore agrees exactly after two
+iterations. In particular there is no persistent separation of nearby
+orbits and no Li--Yorke scrambled pair: the distance between any two
+iterated states is zero for every $n\ge2$.
+The complex Jacobian is
+\[
+ DF=\begin{pmatrix}0&1\\0&0\end{pmatrix},\qquad
+ D(F^n)=0\quad(n\ge2).
+\]
+Viewed as a real four-dimensional map, the same nilpotence holds.
+All infinitesimal perturbations are annihilated in two steps, so no
+Lyapunov exponent can be positive (with the usual extended-real
+convention their growth rates are $-\infty$). This also directly
+excludes the source's numerical notion of chaos.
+
+Finally $|\alpha+1|>0=|\beta|$ because $\alpha\ne-1$.
+For the explicit nonreal choice $\alpha=i$, the squared left-hand
+side is $|1+i|^2=2$, and all admissible solutions have constant tail
+$i,i,i,\ldots$. Thus the sufficiency direction, and hence the
+claimed equivalence, is false.
+\end{proof}
+
+The counterexample concerns every admissible initial pair at the chosen
+parameters, rather than merely a single fixed-point initial condition.
+Undefined initial data at $z_0=-1$ do not generate solutions of the
+original recurrence and cannot supply a chaotic orbit.
+
+\section*{Four proposed follow-up tasks}
+\begin{enumerate}
+\item[Task 2.] Determine whether any sufficient chaos criterion depending
+only on $|\alpha+1|$ and $|\beta|$ survives after imposing $\beta\ne0$.
+\item[Task 3.] Find explicit nonzero parameter regions admitting a
+forward-invariant domain on which all trajectories converge to one
+fixed point, and compare them with the proposed inequality.
+\item[Task 4.] Give rigorous invariant sets and certified Lyapunov
+bounds for the numerical parameter pairs in the source's Table 4.
+\item[Task 5.] Classify parameter pairs for which some iterate of the
+state-space map is constant or has lower-dimensional image.
+\end{enumerate}
+
+\begin{thebibliography}{9}
+\bibitem{Hassan} Sk.~Sarif Hassan,
+\emph{Dynamics of $z_{n+1}=(\alpha+\alpha z_n+\beta z_{n-1})/(1+z_n)$
+in Complex Plane},
+\href{https://arxiv.org/abs/1511.04363v1}{arXiv:1511.04363v1} (2015),
+p.~1 and Conjecture~5.1, p.~13.
+\end{thebibliography}
+\end{document}

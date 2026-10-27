@@ -1,0 +1,170 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,enumitem,hyperref}
+\hypersetup{colorlinks=true,urlcolor=blue,linkcolor=blue}
+\newtheorem{theorem}{Theorem}
+\title{Increasing minima of the normalized Bessel Tur\'anian}
+\author{Principia Math In Progress}
+\date{21 September 2026}
+\begin{document}
+\maketitle
+\noindent\textbf{Task 1.} Resolve Baricz's minimum-value conjecture
+\cite[Conjecture 4.2]{B}, repeated in \cite[Conjecture 2.3]{BP} and recorded as
+\href{https://mathdb.com/p/321003}{MathDB 321003}.
+The database attributes the conjecture to B\'ar\'any; the primary sources
+attribute it to Baricz. The printed strict bound must allow equality at its
+defining minimizer. We prove the intended sharp bound and strict increase
+of all its constants; neither transcription issue is the mathematical result.
+Review is by the authoring agent only.
+
+Fix $\nu>0$, let $j_{\nu,n}$ be the positive zeros of $J_\nu$, and put
+\[
+ \Phi_\nu(x)=1-\frac{J_{\nu-1}(x)J_{\nu+1}(x)}{J_\nu(x)^2},
+ \qquad x>0,\quad J_\nu(x)\ne0.
+\]
+\begin{theorem}
+Each interval $(j_{\nu,n},j_{\nu,n+1})$, $n\ge1$, contains exactly one
+critical point $\alpha_{\nu,n}$ of $\Phi_\nu$, its strict global minimum on
+that interval. With $\beta_{\nu,n}=\Phi_\nu(\alpha_{\nu,n})$ and
+$\beta_{\nu,0}=1/(\nu+1)$, one has
+\[
+ \frac1{\nu+1}<\beta_{\nu,1}<\beta_{\nu,2}<\cdots<1,
+ \qquad \lim_{n\to\infty}\beta_{\nu,n}=1.
+\]
+For $x\in(j_{\nu,n},j_{\nu,n+1})$,
+\[
+ J_\nu(x)^2-J_{\nu-1}(x)J_{\nu+1}(x)
+ \ge \beta_{\nu,n}J_\nu(x)^2,
+\]
+with equality exactly at $x=\alpha_{\nu,n}$. On $(0,j_{\nu,1})$ the
+corresponding bound with $\beta_{\nu,0}$ is strict.
+\end{theorem}
+
+\paragraph{Existence and uniqueness, using the known zero sum.}
+The classical identity recorded in \cite[Section 4.2]{B} and
+\cite[Section 2.8]{BP} is
+\begin{equation}\label{sum}
+ \Phi_\nu(x)=4\sum_{k\ge1}\frac{j_{\nu,k}^2}{(x^2-j_{\nu,k}^2)^2}.
+\end{equation}
+Baricz already proves strict convexity in $x$ on every zero gap in
+\cite[p.~262]{B}; thus the convexity ingredient is prior work.
+For completeness, write $a_k=j_{\nu,k}^2$ and $H(t)=\Phi_\nu(\sqrt t)$.
+Then
+\begin{equation}\label{convex}
+ H'(t)=8\sum_{k\ge1}\frac{a_k}{(a_k-t)^3},\qquad
+ H''(t)=24\sum_{k\ge1}\frac{a_k}{(a_k-t)^4}>0.
+\end{equation}
+The standard zero asymptotic $j_{\nu,k}\sim\pi k$ makes the series and these
+derivatives locally uniformly convergent away from poles: their tails are
+respectively $O(k^{-2})$, $O(k^{-4})$, and $O(k^{-6})$ termwise.
+
+\newpage
+On $(a_n,a_{n+1})$, $H'$ tends to $-\infty$ at the left endpoint and
+$+\infty$ at the right endpoint. The other terms are bounded near either
+fixed endpoint. Hence \eqref{convex} gives exactly one zero, with $H'$
+negative before it and positive afterward. Since $x\mapsto x^2$ is
+strictly increasing for $x>0$, this proves the asserted minimum and its
+equality case. On $(0,a_1)$ all terms in $H'$ are positive. The Bessel
+series at zero, or the Rayleigh sum in \cite{B}, gives
+$\Phi_\nu(0+)=1/(\nu+1)$, proving the first-interval assertion.
+
+\paragraph{A scalar relation orders the minimum values.}
+On any zero-free interval define
+\[
+ r(x)=\frac{xJ_\nu'(x)}{J_\nu(x)}.
+\]
+The usual adjacent-order recurrences and Bessel differential equation give
+\begin{equation}\label{riccati}
+ \Phi_\nu(x)=1+\frac{r(x)^2-\nu^2}{x^2},\qquad
+ r'(x)=\frac{\nu^2-x^2-r(x)^2}{x}=-x\Phi_\nu(x).
+\end{equation}
+These are classical identities; compare \cite[Eqs.~(17) and following]{BPS}.
+Differentiating the first identity and substituting the second yields
+\begin{equation}\label{stationary}
+ \Phi_\nu'(x)=-\frac2x\bigl((1+r(x))\Phi_\nu(x)-1\bigr).
+\end{equation}
+Fix $n\ge1$ and abbreviate $\alpha=\alpha_{\nu,n}$, $b=\beta_{\nu,n}$,
+and $s=r(\alpha)$. By \eqref{sum}, $b>0$. Rolle's theorem supplies a
+$c\in(j_{\nu,n},j_{\nu,n+1})$ with $J_\nu'(c)=0$. Since $J_\nu(c)\ne0$,
+\eqref{riccati} gives $\Phi_\nu(c)=1-\nu^2/c^2<1$. Therefore $b<1$.
+At the minimum, \eqref{stationary} now implies
+\[
+ b(1+s)=1,\qquad s=b^{-1}-1>0.
+\]
+Substituting $b=1/(1+s)$ into \eqref{riccati} gives
+\begin{equation}\label{curve}
+ \alpha^2=F_\nu(s):=\frac{(\nu^2-s^2)(1+s)}s
+ =\nu^2+\frac{\nu^2}s-s-s^2.
+\end{equation}
+Positivity of $\alpha^2$ implies $s<\nu$. Moreover,
+\begin{equation}\label{slope}
+ F_\nu'(s)=-\frac{\nu^2}{s^2}-1-2s<0\qquad(s>0).
+\end{equation}
+The points $\alpha_{\nu,n}$ strictly increase with $n$, because they lie
+in consecutive disjoint zero gaps. Equations \eqref{curve}--\eqref{slope}
+therefore force $s_n=r(\alpha_{\nu,n})$ to strictly decrease, so
+$\beta_{\nu,n}=1/(1+s_n)$ strictly increases. The bound $s_n<\nu$ gives
+$\beta_{\nu,n}>1/(\nu+1)$. Finally $\alpha_{\nu,n}\to\infty$ and
+\eqref{curve} force $s_n\to0$: otherwise the decreasing positive sequence
+$s_n$ would have a positive limit at which $F_\nu$ is finite. Thus
+$\beta_{\nu,n}\to1$, completing the proof.\hfill$\square$
+
+\newpage
+\paragraph{Scope and attribution.}
+The complete 16-page current preprint of \cite{BP}, its complete 28-page
+typeset publisher author copy (marked ``Ahead of Print'' with the journal
+DOI), and all 11 pages of the original journal paper \cite{B} were read.
+The later 11-page journal paper \cite{BPS} was also read completely; its
+extrema theorem concerns the unnormalized Tur\'anian and does not assert
+the present increase of normalized minima. Its logarithmic-derivative
+identities are credited above. The zero sum, convexity, first-interval
+bound, and the known bound $\beta_{\nu,n}<1$ are prior ingredients.
+The contribution of this proof is their completion by the stationary
+relation \eqref{curve}, which orders every minimum for every $\nu>0$.
+
+The printed strict inequality at $\alpha_{\nu,n}$ in both conjecture
+statements is inconsistent with the definition of $\beta_{\nu,n}$.
+The theorem gives the sharp intended version, including the exact
+equality set, and settles the substantive monotonicity assertion.
+No additional credit is assigned for this correction or for the limit.
+
+\paragraph{Verification.}
+The companion script checks the differential identities by exact
+substitution of the Bessel equation, the zero-sum derivative and scalar
+curve identities symbolically, and their order implications on rational
+parameters. Direct high-precision Bessel evaluations independently check
+representative minima, the source's four numerical locations at $\nu=2$,
+and the derivative signs on both sides. These finite computations support
+the written proof; they do not establish its universal quantifiers.
+Initial and refreshed MathDB and bounded public-claim checks are archived.
+No independent peer review or proof-assistant verification is claimed.
+
+\paragraph{Tasks 2--5 (proposed, not solved here).}
+\begin{enumerate}[label=Task \arabic*.,start=2,leftmargin=4.8em]
+\item Derive an asymptotic expansion for $\alpha_{\nu,n}$ and
+$\beta_{\nu,n}$ as $n\to\infty$, with explicit error bounds uniform for
+$\nu$ in a prescribed compact subset of $(0,\infty)$.
+\item Determine whether $\nu\mapsto\beta_{\nu,n}$ is strictly decreasing
+on $(0,\infty)$ for each fixed $n\ge1$.
+\item Classify the corresponding sequences of normalized minima for
+$C_\nu=\cos\theta\,J_\nu-\sin\theta\,Y_\nu$, including the first interval
+and the admissible parameter range.
+\item Obtain explicit two-sided bounds for
+$\beta_{\nu,n+1}-\beta_{\nu,n}$ in terms of $\nu$ and adjacent Bessel
+zeros, with asymptotically matching leading terms.
+\end{enumerate}
+
+\begin{thebibliography}{9}\small
+\bibitem{B} \'A. Baricz, Tur\'an type inequalities for modified Bessel
+functions, \emph{Bull. Aust. Math. Soc.} \textbf{82} (2010), 254--264.
+\href{https://doi.org/10.1017/S000497271000002X}{doi:10.1017/S000497271000002X}.
+\bibitem{BP} \'A. Baricz and T. K. Pog\'any, Tur\'an determinants of
+Bessel functions, \emph{Forum Math.} \textbf{26} (2014), 295--322.
+\href{https://doi.org/10.1515/form.2011.160}{doi:10.1515/form.2011.160};
+\href{https://arxiv.org/abs/1101.4624v2}{arXiv:1101.4624v2}.
+\bibitem{BPS} \'A. Baricz, S. Ponnusamy, and S. Singh, Tur\'an type
+inequalities for general Bessel functions, \emph{Math. Inequal. Appl.}
+\textbf{19} (2016), 709--719.
+\href{https://doi.org/10.7153/mia-19-51}{doi:10.7153/mia-19-51}.
+\end{thebibliography}
+\end{document}

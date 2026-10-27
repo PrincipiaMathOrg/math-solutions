@@ -1,0 +1,164 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,hyperref}
+\hypersetup{colorlinks=true,urlcolor=blue}
+\setlength{\emergencystretch}{2em}
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}[theorem]{Proposition}
+\title{Parameter concavity of the generalized inverse hyperbolic sine}
+\author{Research record: MathDB 325512}
+\date{12 September 2026}
+\begin{document}
+\maketitle
+
+\section*{Task 1. Resolve the parameter-concavity assertion}
+For $p>0$ and $x>0$, put
+\[
+ F_x(p)=\operatorname{arcsinh}_p(x)
+       =\int_0^x(1+t^p)^{-1/p}\,dt.
+\]
+The MathDB assertion is that $F_x$ is strictly concave on $(0,\infty)$
+for each $0<x<1$. This is also the domain in the published
+Conjecture 2.4 of Baricz, Bhayo and Vuorinen \cite{BBV}.
+A later survey \cite{survey}, Conjecture 5.1, states the narrower
+domain $(1,\infty)$. We distinguish these two versions explicitly:
+the published global assertion is false, and the narrower assertion
+is true.
+
+\begin{theorem}[An exact midpoint counterexample]\label{thm:counter}
+At $x=1/4$, $p_-=1/32$, $p_0=1/16$, and $p_+=3/32$,
+\[
+ F_{1/4}(p_0)<\frac1{65536}
+ <\frac1{16384}
+ <\frac{F_{1/4}(p_-)+F_{1/4}(p_+)}2.
+\]
+Since $p_0=(p_-+p_+)/2$, this contradicts concavity.
+\end{theorem}
+\begin{proof}
+The arithmetic--geometric mean inequality gives, for $t>0$,
+\[
+ 1+t^p\ge2t^{p/2},\qquad
+ (1+t^p)^{-1/p}\le 2^{-1/p}t^{-1/2}.
+\]
+Equality requires $t=1$, so integration gives
+\begin{equation}\label{eq:flatbound}
+ 0<F_x(p)<2\sqrt{x}\,2^{-1/p}.
+\end{equation}
+For $x=1/4$ and $p=p_0$ this is $F_{1/4}(p_0)<2^{-16}$.
+On $0<t<1/4$, we also have $1+t^{3/32}<2$. Consequently
+\[
+ (1+t^{3/32})^{-32/3}
+ >2^{-32/3}>2^{-11},
+\]
+and therefore $F_{1/4}(p_+)>2^{-13}$.
+Since $F_{1/4}(p_-)>0$, the midpoint average exceeds $2^{-14}$.
+All bounds are strict and use only the stated rational parameters.
+\end{proof}
+
+\begin{proposition}[Failure for every fixed argument]
+For every $x>0$, $F_x$ cannot be concave on any interval $(0,b)$
+with $b>0$.
+\end{proposition}
+\begin{proof}
+By \eqref{eq:flatbound}, $F_x(p)\to0$ and $F_x(p)/p\to0$ as
+$p\downarrow0$. If $F_x$ were concave on $(0,b)$, then for
+$0<r<s<b$, taking the limit of the concavity inequality with
+one endpoint tending to zero would give
+$F_x(r)\ge(r/s)F_x(s)$. Thus
+$F_x(s)/s\le\lim_{r\downarrow0}F_x(r)/r=0$, contradicting positivity.
+\end{proof}
+
+\begin{theorem}[A positive range, including the survey conjecture]
+\label{thm:positive}
+For each $x>0$, $F_x$ is strictly increasing on $(0,\infty)$ and
+strictly concave on $[\tfrac12\log2,\infty)$.
+In particular, the conjecture restricted to $p>1$ is true.
+\end{theorem}
+\begin{proof}
+For fixed $t>0$ set $h(p,t)=(1+t^p)^{-1/p}$,
+$s=-p\log t$, and
+\[
+ A(s)=\log(1+e^{-s})+\frac{s}{1+e^s},
+ \qquad B(s)=\frac{e^s}{(1+e^s)^2}.
+\]
+Direct differentiation gives
+\[
+ A'(s)=-sB(s),\qquad A(-s)=A(s),\qquad
+ 0<A(s)\le A(0)=\log2.
+\]
+The positivity and the limit $A(s)\to0$ as $|s|\to\infty$
+also follow directly from the definition.
+Since $\partial_p\log h=A(s)/p^2$, we have $\partial_p h>0$ and
+\begin{equation}\label{eq:second}
+ \frac{\partial_p^2h}{h}
+ =\frac{A(s)^2-p\{2A(s)+s^2B(s)\}}{p^4}.
+\end{equation}
+If $p\ge\tfrac12\log2$, then
+\[
+ A(s)^2-2pA(s)\le A(s)\{A(s)-\log2\}\le0.
+\]
+Together with the nonpositive remaining term $-ps^2B(s)$,
+this proves $\partial_p^2h\le0$. Equality can occur only when
+$p=\tfrac12\log2$ and $t=1$. Integration over any interval
+$(0,x)$ therefore gives $F_x''(p)<0$ throughout the stated range.
+
+For completeness, differentiation under the integral is justified on
+every compact parameter interval in $(0,\infty)$: $0<h\le1$,
+$A$ is bounded, and $s^2B(s)$ is bounded on the real line.
+The displayed first and second derivatives consequently have a
+uniform integrable constant bound on the finite interval $(0,x)$.
+\end{proof}
+
+\paragraph{Scope.}
+The counterexample settles the global ordinary-concavity question
+actually listed in MathDB and the published paper. Theorem
+\ref{thm:positive} also proves the narrower conjecture retained in
+the later survey, so the result does not depend solely on a discrepancy
+in the lower parameter endpoint. The survey's consequent
+Tur\'an inequality for $p>2$ follows from strict concavity and the
+arithmetic--geometric mean inequality.
+The separate published Tur\'an assertion for every $p>1$ is not
+refuted by the ordinary-concavity counterexample and is not needed
+for the MathDB question.
+
+\paragraph{Eligibility.}
+The accompanying literature audit records fresh open/empty-claim
+MathDB checks, the published source, the later survey, relevant
+citing papers and public claim catalogues. No matching full public
+claim was located in that bounded search.
+
+\section*{Task 2. Determine the sharp concavity threshold}
+For fixed $x>0$, determine the least $p_x$ such that $F_x$ is concave
+on $[p_x,\infty)$. Find the best threshold uniform for $0<x<1$.
+
+\section*{Task 3. Locate and count the inflection points}
+Determine whether $F_x''$ has exactly one zero on $(0,\infty)$ for
+each $x>0$, and describe how such zeros depend on $x$.
+
+\section*{Task 4. Obtain uniform small-parameter asymptotics}
+Derive a full asymptotic expansion of $2^{1/p}F_x(p)$ as $p\downarrow0$,
+with explicit remainder bounds uniform on specified ranges of $x$,
+including regimes in which $x$ also tends to zero.
+
+\section*{Task 5. Analyze affine parameter paths}
+For $\operatorname{arcsinh}_{p,q}(x)=
+\int_0^x(1+t^q)^{-1/p}\,dt$, classify ordinary concavity along
+$q=\alpha p+\beta$ on intervals where $p,q>0$, and identify sharp
+conditions on $(\alpha,\beta)$ and $x$.
+
+\begin{thebibliography}{9}
+\bibitem{BBV}
+\'A. Baricz, B. A. Bhayo and M. Vuorinen,
+\emph{Tur\'an type inequalities for generalized inverse trigonometric functions},
+Filomat \textbf{29}(2) (2015), 303--313.
+\href{https://doi.org/10.2298/FIL1502303B}{doi:10.2298/FIL1502303B}.
+Conjecture 2.4, p.~306.
+
+\bibitem{survey}
+L. Yin, L.-G. Huang, Y.-L. Wang and X.-L. Lin,
+\emph{A survey for generalized trigonometric and hyperbolic functions},
+Journal of Mathematical Inequalities \textbf{13}(3) (2019), 833--854.
+\href{https://doi.org/10.7153/jmi-2019-13-58}{doi:10.7153/jmi-2019-13-58}.
+Conjecture 5.1.
+\end{thebibliography}
+\end{document}

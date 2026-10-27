@@ -1,0 +1,114 @@
+\documentclass[11pt]{article}
+\usepackage[margin=0.9in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[colorlinks=true,urlcolor=blue,linkcolor=blue]{hyperref}
+\newtheorem{theorem}{Theorem}
+\title{Unimodality for one occurrence of the pattern 112\\\large MathDB 345816, Task 1}
+\author{Principia Math In Progress}
+\date{22 September 2026}
+\begin{document}
+\maketitle
+\noindent Dorward's Conjecture 4.1 \cite{D} follows by identifying its generating
+polynomial with that of a parabolic quotient of the Weyl group of type $B$.
+The required unimodality theorem is Stanley's classical Theorem 3.1 \cite{S}.
+
+\begin{theorem}
+For every $n\geq3$, the polynomial $\operatorname{LS}_{n,1}(112)$ is unimodal.
+More precisely, put $m=n-2$ and $[r]_q=1+q+\cdots+q^{r-1}$. Then
+\[
+ q^{-1}\operatorname{LS}_{n,1}(112)
+ =[m]_q\prod_{i=2}^m(1+q^i)
+\]
+is symmetric and unimodal of degree $d=(m^2+3m-4)/2$.
+\end{theorem}
+\begin{proof}
+The displayed product formula is Dorward's Theorem 3.3, proved in
+Proposition 3.5 \cite{D}; we use it as an attributed input. If $m=1$,
+the product is $1$ and the assertion is immediate. Assume $m\geq2$.
+
+Let $W$ be the Weyl group of type $B_m$. Number its simple reflections
+$s_1,\ldots,s_m$ along the Dynkin diagram, with $s_m$ at the short-root
+end, and set
+\[
+ J=\{s_1,\ldots,s_{m-2},s_m\}.
+\]
+Deleting $s_{m-1}$ separates the diagram into types $A_{m-2}$ and $A_1$.
+Here $A_0$ is the trivial group when $m=2$.
+Consequently the standard parabolic subgroup $W_J$ has type
+$A_{m-2}\times A_1$.
+
+For a finite Weyl group $U$, write $F_U(q)=\sum_{w\in U}q^{\ell(w)}$,
+where $\ell$ is Coxeter length. The classical length products, with the
+empty-product convention, are
+\[
+ F_W(q)=\prod_{i=1}^m[2i]_q,\qquad
+ F_{W_J}(q)=[2]_q\prod_{i=1}^{m-1}[i]_q.
+\]
+These are the type $B$ and type $A$ formulas in \cite[\S\S3--5]{S}.
+Each right coset has a unique element $v$ of minimum length, and every
+$w\in W$ has a unique factorization $w=vu$, $u\in W_J$, with
+$\ell(w)=\ell(v)+\ell(u)$. Thus the minimum-length representatives
+$W^J$ have generating polynomial
+\begin{align*}
+ F_{W^J}(q)
+ &=\frac{\prod_{i=1}^m[2i]_q}
+ {[2]_q\prod_{i=1}^{m-1}[i]_q}\\
+ &=\frac{[m]_q}{[2]_q}\prod_{i=1}^m(1+q^i)
+ =[m]_q\prod_{i=2}^m(1+q^i).
+\end{align*}
+The cancellation uses $[2i]_q=[i]_q(1+q^i)$ and $[2]_q=1+q$.
+Stanley's Theorem 3.1 states that the length coefficients of $W^J$ are
+symmetric and unimodal for every parabolic quotient of a finite Weyl
+group. This proves the assertion for the displayed product. Its degree is
+\[
+ (m-1)+\sum_{i=2}^m i=\frac{m^2+3m-4}{2}.
+\]
+Multiplication by $q$ prepends a zero coefficient, which preserves
+unimodality since all coefficients are nonnegative.
+\end{proof}
+
+\noindent\textbf{Why the classical theorem applies.}
+The quotient above corresponds to the smooth complex projective homogeneous
+space $\mathrm{SO}(2m+1,\mathbb C)/P$, where the Levi Weyl group of $P$ is
+$W_J$. Its Schubert cells give
+$F_{W^J}(q)=\sum_{r=0}^d\dim H^{2r}(G/P,\mathbb C)q^r$.
+Hard Lefschetz makes multiplication by an ample class injective from
+$H^{2r}$ to $H^{2r+2}$ for $r<d/2$; Poincar\'e duality gives symmetry.
+This is Stanley's argument, not a new proof of hard Lefschetz.
+
+\noindent\textbf{Scope and verification.}
+For $n<3$ there are no such restricted growth functions, so the polynomial
+is zero. We prove the coefficient assertion in Conjecture 4.1. Equality
+of rank polynomials does not identify Dorward's poset $M^1(m)$ with
+$W^J$, and no Sperner or symmetric-chain result for $M^1(m)$ is claimed.
+The accompanying exact verifier independently enumerates restricted growth
+functions of lengths $0$ through $9$ and minimum-length signed coset
+representatives for $2\leq m\leq10$. Those finite checks support the
+identification; the all-parameter proof is the argument above.
+
+\subsection*{Tasks 2--5: proposed follow-ups}
+These are proposals, not additional solutions or campaign credits.
+\begin{enumerate}
+\item \textbf{Task 2.} Decide the Sperner assertion for Dorward's poset
+$M^1(m)$, which is not determined by its rank polynomial.
+\item \textbf{Task 3.} Construct an explicit statistic-preserving bijection
+between the restricted growth functions and the signed coset representatives,
+with the one-unit shift in degree included.
+\item \textbf{Task 4.} Construct symmetric chain decompositions of $M^1(m)$,
+or identify an obstruction to their existence.
+\item \textbf{Task 5.} Determine which exact-$k$ occurrence generating
+polynomials admit homogeneous-space interpretations or other Lefschetz
+operators, starting with $k=2$.
+\end{enumerate}
+
+\begin{thebibliography}{9}\raggedright
+\bibitem{D} R. Dorward, \emph{Combinatorial statistics on restricted growth
+functions containing a pattern exactly $k$ times}, undergraduate thesis
+(internally published 2017), arXiv:2003.05073v1 (2020), Theorem 3.3 and
+Conjecture 4.1. \url{https://arxiv.org/abs/2003.05073}.
+\bibitem{S} R. P. Stanley, \emph{Weyl groups, the hard Lefschetz theorem,
+and the Sperner property}, SIAM J. Algebraic Discrete Methods \textbf{1}
+(1980), 168--184, Theorem 3.1 and \S\S3--5.
+\url{https://math.mit.edu/~rstan/pubs/pubfiles/42.pdf}.
+\end{thebibliography}
+\end{document}

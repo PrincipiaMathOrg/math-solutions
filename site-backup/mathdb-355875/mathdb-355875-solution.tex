@@ -1,0 +1,170 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,hyperref}
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}[theorem]{Proposition}
+\title{Common positive zeros of the derivative-polynomial combinations}
+\author{Principia Math In Progress}
+\date{11 September 2026}
+\begin{document}
+\maketitle
+\begin{abstract}
+Conjecture 2.8 of Erd\'elyi, Rosenblatt, and Rosenblatt is false already
+at derivative order two. With coefficients $(18,30,25)$ the two polynomials
+have the common positive zero $1/2$. More generally, every prescribed
+positive point is a common zero for suitable strictly positive coefficients.
+The counterexample is minimal in derivative order.
+\end{abstract}
+
+\section*{Task 1: Resolve MathDB problem 355875}
+In the notation of \cite{source}, define
+\[
+ A_0(x)=\frac{x}{(1+x^2)^{3/2}},\qquad
+ B_0(x)=\frac1{(1+x^2)^{3/2}},
+\]
+and write the ordinary derivatives as
+\[
+ A_0^{(l)}(x)=\frac{P_l(x)}{(1+x^2)^{(2l+3)/2}},\qquad
+ B_0^{(l)}(x)=\frac{Q_l(x)}{(1+x^2)^{(2l+3)/2}}.
+\]
+Given real coefficients $\gamma_0,\ldots,\gamma_L$, not all zero, put
+\begin{align*}
+ F_\gamma(x)&=\sum_{l=0}^L
+ \gamma_l(1+x^2)^{L-l}x^lP_l(x),\\
+ G_\gamma(x)&=\sum_{l=0}^L
+ \gamma_l(1+x^2)^{L-l}x^lQ_l(x).
+\end{align*}
+Conjecture 2.8, page 11, asserts that their positive real zero sets are
+disjoint. The surrounding discussion of common zeros and interlacing
+specifies this meaning of distinctness.
+
+\begin{theorem}\label{thm:example}
+For $L=2$ and $(\gamma_0,\gamma_1,\gamma_2)=(18,30,25)$,
+\begin{align}
+ F_\gamma(x)&=3x(4x^2-1)(9x^2-16),\label{eq:F}\\
+ G_\gamma(x)&=3(4x^2-1)(19x^2-6).\label{eq:G}
+\end{align}
+Both polynomials are nonzero and have a simple zero at $x=1/2$.
+Thus the conjecture fails with strictly positive coefficients and a common
+zero strictly between zero and one.
+\end{theorem}
+
+\begin{proof}
+Direct differentiation gives the following table:
+\[
+\begin{array}{c|cc}
+ l&P_l(x)&Q_l(x)\\\hline
+ 0&x&1\\
+ 1&1-2x^2&-3x\\
+ 2&6x^3-9x&12x^2-3.
+\end{array}
+\]
+For example, each numerator sequence satisfies
+\[
+ R_{l+1}(x)=(1+x^2)R_l'(x)-(2l+3)xR_l(x),
+\]
+with its respective initial value. Substitution of the table and the
+three coefficients yields
+\begin{align*}
+ F_\gamma(x)
+ &=18x(1+x^2)^2+30x(1+x^2)(1-2x^2)
+       +25x^2(6x^3-9x)\\
+ &=48x-219x^3+108x^5
+ =3x(4x^2-1)(9x^2-16),\\
+ G_\gamma(x)
+ &=18(1+x^2)^2-90x^2(1+x^2)+25x^2(12x^2-3)\\
+ &=18-129x^2+228x^4
+ =3(4x^2-1)(19x^2-6).
+\end{align*}
+The factor $4x^2-1$ vanishes simply at $1/2$. At that point the remaining
+factors are nonzero: $x=1/2$, $9x^2-16=-55/4$, and
+$19x^2-6=-5/4$. This proves the theorem.
+\end{proof}
+
+\begin{proposition}\label{prop:family}
+For every $r>0$, let $u=r^2$ and take $L=2$ with
+\[
+ (\gamma_0,\gamma_1,\gamma_2)
+ =\bigl(3u(2u+1),\ 6u(1+u),\ (1+u)^2\bigr).
+\]
+All three coefficients are strictly positive, and
+\begin{align*}
+ F_\gamma(x)&=3x(x^2-u)\bigl((u+2)x^2-4u-3\bigr),\\
+ G_\gamma(x)&=3(x^2-u)\bigl((3u+4)x^2-2u-1\bigr).
+\end{align*}
+In particular, $r$ is a common zero. Conversely, for $L=2$, all nonzero
+coefficient vectors giving a common zero at $r$ are scalar multiples of
+this vector. There is no counterexample at $L=0$ or $L=1$.
+\end{proposition}
+
+\begin{proof}
+The displayed factorizations follow by substitution in the derivative
+table. For completeness, at a common zero $r>0$ the equations obtained
+by dividing $F_\gamma(r)$ by $r$ and setting $G_\gamma(r)=0$ are
+\begin{align*}
+ \gamma_0(1+u)^2+\gamma_1(1+u)(1-2u)
+       +\gamma_2u(6u-9)&=0,\\
+ \gamma_0(1+u)^2-3\gamma_1u(1+u)
+       +\gamma_2u(12u-3)&=0.
+\end{align*}
+Their difference gives
+$\gamma_1(1+u)^2=6\gamma_2u(1+u)$.
+Substitution in the second equation then gives
+$\gamma_0(1+u)^2=3\gamma_2u(2u+1)$.
+If $\gamma_2=0$, all coefficients vanish, which is forbidden.
+These relations prove the classification.
+
+For $L=0$, the pair is $(\gamma_0x,\gamma_0)$ and has no common
+positive zero. For $L=1$, write
+\[
+ F_\gamma(x)/x=\gamma_0(1+x^2)+\gamma_1(1-2x^2),\qquad
+ G_\gamma(x)=\gamma_0(1+x^2)-3\gamma_1x^2.
+\]
+At a common positive zero, subtraction gives
+$\gamma_1(1+x^2)=0$, hence $\gamma_1=0$ and then $\gamma_0=0$.
+This again contradicts the hypothesis.
+\end{proof}
+
+\paragraph{Scope and evidence.}
+The explicit conjecture permits arbitrary real coefficients. Our example
+also satisfies strict positivity, and the common zero is neither the origin
+nor the value one. Both individual zeros at $1/2$ are simple; the failure is
+that the two zero sets intersect. No conclusion about the finiteness of
+physical electrical-field equilibria follows from this polynomial
+counterexample alone.
+
+The same-agent proof audit, exact symbolic verifier, and dated literature
+audit accompany this file. The current arXiv and author-hosted manuscripts
+retain Conjecture 2.8. MathDB was checked open with no posted claims on
+11 September 2026, and no existing resolution was found in the documented
+searches. No external peer review is claimed.
+
+\section*{Task 2: Relate the coefficients to point charges}
+Determine whether the positive coefficient examples above can arise from
+the source's leading moment data for a finite point-charge configuration;
+for realizable examples, determine whether actual zero branches have a
+common asymptotic direction.
+
+\section*{Task 3: Characterize coefficients with disjoint zero sets}
+For each $L\geq3$, characterize the coefficient vectors for which
+$F_\gamma$ and $G_\gamma$ have no common positive real zero, and identify
+useful explicit conditions ensuring that property.
+
+\section*{Task 4: Bound the number of common positive zeros}
+Determine the largest possible number of distinct common positive zeros
+for nonzero $F_\gamma,G_\gamma$ of order $L$, and classify coefficient
+vectors attaining that bound.
+
+\section*{Task 5: Analyze perturbations of the common zeros}
+For coefficient vectors near the family in Proposition~\ref{prop:family},
+derive the first-order splitting of the two roots near $r$ and obtain
+uniform separation estimates away from parameters producing multiple zeros.
+
+\begin{thebibliography}{9}
+\bibitem{source} T. Erd\'elyi, J. Rosenblatt, and R. Rosenblatt,
+\emph{Asymptotic Directions for the Zero Sets of the Components of an
+Electrical Field from a Finite Number of Point Charges on the Plane Part II},
+\href{https://arxiv.org/abs/2208.12857}{arXiv:2208.12857v1}, 26 August 2022,
+Section 2.7, Conjecture 2.8, p.~11.
+\end{thebibliography}
+\end{document}

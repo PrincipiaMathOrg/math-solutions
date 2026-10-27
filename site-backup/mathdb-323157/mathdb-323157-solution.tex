@@ -1,0 +1,162 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,booktabs}
+\usepackage[colorlinks=true,urlcolor=blue,linkcolor=blue]{hyperref}
+\newtheorem{proposition}{Proposition}
+\title{A counterexample to rising-factorial Toeplitz stability\\
+\large MathDB 323157}
+\author{Principia Math In Progress}
+\date{11 September 2026}
+\begin{document}
+\maketitle
+
+\section*{Task 1. Resolve the Hurwitz-stability conjecture}
+
+For $(x)_k=x(x+1)\cdots(x+k-1)$, $(x)_0=1$, Karp~\cite{K}
+defines
+\[
+ Q_n^{\alpha,\beta}(x)=
+ \sum_{k=0}^n f_kf_{n-k}\binom nk
+ \bigl[(x+\alpha)_k(x+\beta)_{n-k}
+       -(x+\alpha+\beta)_k(x)_{n-k}\bigr].
+\]
+Conjecture 2 asserts that, for $\alpha,\beta>0$ and $n\geq3$,
+the inequalities $f_k^2>f_{k-1}f_{k+1}$, $1\leq k<n$, imply
+that every zero of $Q_n^{\alpha,\beta}$ has negative real part.
+
+\begin{proposition}
+The conjecture is false. Take $n=12$, $\alpha=1$, $\beta=40$ and
+\[
+ (f_0,\ldots,f_{12})
+ =(1,45,46,47,48,49,50,49,48,47,46,45,1).
+\]
+Then $Q_{12}^{1,40}$ has exactly one zero in
+\[
+       |z-(1+22i)|<\frac14.
+\]
+In particular that zero has real part greater than $3/4$.
+\end{proposition}
+
+\begin{proof}
+All entries are positive. The eleven strict log-concavity differences are
+\[
+ (f_k^2-f_{k-1}f_{k+1})_{k=1}^{11}
+       =(1979,1,1,1,1,99,1,1,1,1,1979).
+\]
+The hypotheses are therefore satisfied, including strictness at every
+required index.
+
+Direct polynomial multiplication gives
+\begin{equation}
+ Q_{12}^{1,40}(x)=5280P(x),\qquad P(x)=\sum_{j=0}^{10}p_jx^j,
+ \label{eq:poly}
+\end{equation}
+with the integer coefficients in the table below.
+We supply an exact Rouch\'e certificate for the stated disk.
+Let $c=1+22i$ and write
+\[
+ P(c+w)=\sum_{k=0}^{10}d_kw^k,\qquad
+ d_k=\sum_{j=k}^{10}\binom jk p_jc^{j-k}\in\mathbb Z[i].
+\]
+Define
+\[
+ U_k=1+\left\lfloor\sqrt{(\Re d_k)^2+(\Im d_k)^2}\right\rfloor,
+ \qquad
+ L=\left\lfloor\sqrt{(\Re d_1)^2+(\Im d_1)^2}\right\rfloor.
+\]
+Thus $|d_k|<U_k$ and $L\leq|d_1|$. All the quantities involved
+are integers, and each floor is checked by squaring adjacent integers.
+
+\begin{center}
+\begin{tabular}{rrr}
+\toprule
+$k$ & $p_k$ & $U_k$\\
+\midrule
+0 & 8850973475178928800 & 816065210715919818\\
+1 & 2242108441860414480 & 4713796926694788092\\
+2 & 269652359703530916 & 1088281691451296882\\
+3 & 20855984967227000 & 110502641723796844\\
+4 & 1180285415416015 & 6548680002689171\\
+5 & 51443738871420 & 250999762004696\\
+6 & 1706782696773 & 6478398028259\\
+7 & 40875054000 & 112919703186\\
+8 & 653614185 & 1283564680\\
+9 & 6181900 & 8631961\\
+10 & 26111 & 26112\\
+\bottomrule
+\end{tabular}
+\end{center}
+For example, the first two Taylor coefficients are
+\begin{align*}
+ d_0&=189742720030323200-793700276134708800i,\\
+ d_1&=4623392455279316640+918762031531300000i,
+\end{align*}
+and
+\[
+ L=4713796926694788091>0.
+\]
+With $r=1/4$, the exact rational calculation from the table is
+\begin{equation}
+ \frac{U_0+\sum_{k=2}^{10}U_kr^k}{Lr}
+ =\frac{232216395171843963627545}{308923395387869632331776}
+ <\frac45<1. \label{eq:certificate}
+\end{equation}
+On $|w|=r$, this proves
+\[
+ |P(c+w)-d_1w|
+ \leq |d_0|+\sum_{k=2}^{10}|d_k|r^k
+ <Lr\leq |d_1w|.
+\]
+Rouch\'e's theorem implies that $P(c+w)$ and $d_1w$ have the same
+number of zeros, with multiplicity, in $|w|<r$, namely one.
+The disk is contained in $\{\Re z>3/4\}$.
+Equation~\eqref{eq:poly} now gives the desired contradiction.
+\end{proof}
+
+\paragraph{Certificate reproducibility.}
+The accompanying standard-library Python verifier constructs
+\eqref{eq:poly} by integer convolution and independently checks the
+identity at thirteen distinct integers (enough for degree at most twelve).
+It computes the Gaussian integer $d_k$ in two independent ways: the
+binomial formula above and Horner substitution. Integer square roots
+then verify every table entry and the rational bound~\eqref{eq:certificate}.
+No floating-point zero location is used in the proof.
+
+\paragraph{Scope.}
+The example has a positive input sequence with no internal zeros, and
+all eleven coefficients of $P$ are positive. It refutes the universal
+Hurwitz-stability assertion, while leaving the separate coefficient-positivity
+assertion untouched. Complex conjugation also gives a zero in the reflected
+disk centered at $1-22i$. No claim of minimal degree is made.
+
+\section*{Task 2. Find the first possible failure}
+Determine the smallest $n$ for which the conjecture fails, and prove
+stability for all smaller degrees or exhibit a smaller counterexample.
+
+\section*{Task 3. Classify the stable parameter range}
+Determine the pairs $(\alpha,\beta)$ for which $Q_n^{\alpha,\beta}$
+is Hurwitz stable for every strictly log-concave positive input and every
+$n\geq3$, including the special case $\alpha=\beta=1$.
+
+\section*{Task 4. Settle coefficient positivity}
+Determine whether strict log-concavity always forces every coefficient
+of $Q_n^{\alpha,\beta}$ to be positive, and identify the exact hypotheses
+needed if this weaker assertion fails.
+
+\section*{Task 5. Strengthen the input hypotheses}
+Find verifiable stronger conditions on the input sequence that restore
+Hurwitz stability, and determine how those conditions depend on
+$n$, $\alpha$ and $\beta$.
+
+\begin{thebibliography}{9}
+\bibitem{K}
+D. B. Karp,
+\emph{Positivity of Toeplitz determinants formed by rising factorial series
+and properties of related polynomials},
+Zap. Nauchn. Sem. POMI \textbf{404} (2012), 184--198,
+Conjecture 2, p.~185; translated in
+J. Math. Sci. \textbf{193} (2013), 106--114.
+\url{https://www.mathnet.ru/eng/znsl5267}.
+Preprint: \url{https://arxiv.org/abs/1203.1482}.
+\end{thebibliography}
+\end{document}

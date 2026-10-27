@@ -1,0 +1,244 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=25mm]{geometry}
+\usepackage{amsmath,amssymb,amsthm,hyperref}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newcommand{\Q}{\mathbb Q}
+\newcommand{\G}{\Gamma(1/4)}
+\newcommand{\D}{\mathcal D}
+\title{Coefficient cancellations in mixed Berndt integrals\\
+\large MathDB 367221 --- Task 1}
+\author{Principia Math in Progress}
+\date{12 September 2026}
+\begin{document}
+\maketitle
+
+Put $G=\G$ and define
+\[
+ I_\delta^\epsilon(s)=\int_0^\infty
+ \frac{x^s(\sinh x+\epsilon\sin x)}
+ {(\sinh^2x+\sin^2x)(\cosh x+\delta\cos x)}\,dx,
+ \qquad \epsilon,\delta\in\{1,-1\}.
+\]
+The four coefficient pairs in Zhou's Theorems 5.1 and 5.4
+\cite{Zhou} are specified by
+\begin{align}
+ I_+^-(4m)&=c_{1,m}\frac{G^{8m}}{\pi^{2m}}
+                  +c_{2,m}\frac{G^{8m+4}}{\pi^{2m+2}},\label{c}\\
+ I_-^+(4m)&=e_{1,m}\frac{G^{8m}}{\pi^{2m}}
+                  +e_{2,m}\frac{G^{8m+4}}{\pi^{2m+2}},\label{e}\\
+ I_+^+(4m-2)&=d_{1,m}\frac{G^{8m-4}}{\pi^{2m-1}}
+                  +d_{2,m}\frac{G^{8m}}{\pi^{2m+1}},\label{d}\\
+ I_-^-(4m-2)&=f_{1,m}\frac{G^{8m-4}}{\pi^{2m-1}}
+                  +f_{2,m}\frac{G^{8m}}{\pi^{2m+1}}.\label{f}
+\end{align}
+All coefficients are rational. Equations \eqref{c}--\eqref{d} hold for
+$m\geq1$; \eqref{f} holds for $m\geq2$. These are the source's
+proved structural evaluations, not additional conjectural assumptions.
+
+\begin{theorem}\label{main}
+For every $m\geq1$, $c_{2,m}+e_{2,m}=0$. For every $m\geq2$,
+$d_{1,m}+f_{1,m}=0$. At $m=1$, the second cancellation also holds
+with $f_{1,1}$ interpreted as the coefficient of $G^4/\pi$
+in the exceptional formula of Zhou's Remark 5.5.
+\end{theorem}
+This resolves Conjecture 5.8, with its first-index convention made
+explicit. In particular, the exceptional formula is treated directly;
+it is not an instance of \eqref{f}.
+
+\section*{An alternating series and its symmetry}
+For even $k\geq2$ and $y>0$, put
+\[
+ F_k(y)=\sum_{n=1}^\infty
+ \frac{(-1)^{n-1}n^{k-1}}{\sinh(ny)}.
+\]
+This series and its first derivative converge locally uniformly for
+$y>0$, since their summands are bounded by a polynomial in $n$
+times $e^{-ny}$. For even $k\geq4$ write
+\[
+ E_k(\tau)=1-\frac{2k}{B_k}\sum_{n=1}^\infty
+ \frac{n^{k-1}q^n}{1-q^n},\qquad q=e^{2\pi i\tau},
+\]
+where $B_k$ is the Bernoulli number. Define
+\[
+ H_k(\tau)=-E_k(\tau/2)+(1+2^k)E_k(\tau)-2^kE_k(2\tau).
+\]
+Splitting the Lambert series into even and odd indices gives
+\begin{equation}
+ F_k(y)=\frac{B_k}{k}H_k(iy/\pi).                 \label{lambert}
+\end{equation}
+For clarity, if $L(t)=\sum_{n\geq1}n^{k-1}t^n/(1-t^n)$,
+the corresponding identity is
+$F_k(y)=2\{L(e^{-y})-(1+2^k)L(e^{-2y})+2^kL(e^{-4y})\}$.
+
+The usual modular transformation $E_k(-1/\tau)=\tau^kE_k(\tau)$
+implies
+\begin{equation}
+ H_k(-1/\tau)=\tau^kH_k(\tau),\qquad
+ F_k(\pi^2/y)=(-1)^{k/2}(y/\pi)^kF_k(y).          \label{symmetry}
+\end{equation}
+Indeed the terms at $\tau/2$ and $2\tau$ interchange, with factors
+$2^k$ and $2^{-k}$. At $y=\pi$, \eqref{symmetry} gives
+\begin{align}
+ F_k'(\pi)&=-\frac{k}{2\pi}F_k(\pi)
+                       &&(k\equiv0\pmod4),       \label{even}\\
+ F_k(\pi)&=0            &&(k\equiv2\pmod4).       \label{odd}
+\end{align}
+The derivative identity follows by differentiating
+\eqref{symmetry} before substituting $y=\pi$.
+
+\section*{The two possible weights}
+Set
+\[
+ A=\frac{G^4}{4\pi^3},\qquad
+ \D=\frac{1}{2\pi i}\frac{d}{d\tau}.
+\]
+We use standard Eisenstein-series facts: $E_k$ is a weighted
+homogeneous polynomial over $\Q$ in $E_4,E_6$, and
+\begin{equation}
+ \D E_k-\frac{k}{12}E_2E_k
+ \text{ is a modular form of weight }k+2
+ \text{ with rational Fourier coefficients}.       \label{serre}
+\end{equation}
+Thus the form in \eqref{serre} is also in $\Q[E_4,E_6]$.
+The relevant special values are
+\begin{equation}\label{cm}
+\begin{array}{c|ccc}
+ \tau&E_2(\tau)&E_4(\tau)&E_6(\tau)\\ \hline
+ i/2&6/\pi-3A/2&33A^2/4&-189A^3/8\\
+ i&3/\pi&3A^2/4&0\\
+ 2i&3/(2\pi)+3A/8&33A^2/64&189A^3/512 .
+\end{array}
+\end{equation}
+These facts and values are recorded, with the derivative method,
+in Wang \cite[Sections 2 and 4]{Wang}. They also follow from the
+classical theta-constant formulas and the quadratic transformation.
+
+Weighted homogeneity first gives
+\begin{equation}
+ H_k(i)\in\Q A^{k/2}.                                \label{value}
+\end{equation}
+By the chain rule,
+\[
+ \D H_k(i)=-\tfrac12(\D E_k)(i/2)
+          +(1+2^k)(\D E_k)(i)-2^{k+1}(\D E_k)(2i).
+\]
+Inserting \eqref{serre} and \eqref{cm}, every term not involving $1/\pi$
+belongs to $\Q A^{k/2+1}$. The $1/\pi$ contribution is precisely
+$kH_k(i)/(4\pi)$: the three chain-rule factors multiply
+$6/\pi,3/\pi,3/(2\pi)$ to the common value $3/\pi$.
+Consequently
+\begin{equation}
+ \D H_k(i)-\frac{k}{4\pi}H_k(i)\in\Q A^{k/2+1}.
+                                                               \label{derivative}
+\end{equation}
+Since $dH_k(iy/\pi)/dy=-2\D H_k(iy/\pi)$,
+\eqref{lambert}--\eqref{derivative} prove
+\begin{equation}
+ \begin{cases}
+ F_{4m}'(\pi)\in\Q A^{2m}/\pi,&m\geq1,\\
+ F_{4m-2}'(\pi)\in\Q A^{2m},&m\geq2.
+ \end{cases}                                                   \label{purity}
+\end{equation}
+For the first line use \eqref{even} and \eqref{value};
+for the second use \eqref{odd} and \eqref{derivative}.
+
+\section*{Return to the four integrals}
+Let
+\[
+ \overline C_{s,2}(y)=\sum_{n\geq1}\frac{(-1)^{n-1}n^s}{\cosh^2(ny)},
+ \qquad
+ \overline S_{s,2}(y)=\sum_{n\geq1}\frac{(-1)^{n-1}n^s}{\sinh^2(ny)}.
+\]
+The elementary identity
+\[
+ \frac1{\cosh^2t}+\frac1{\sinh^2t}
+       =\frac{4\cosh(2t)}{\sinh^2(2t)}
+\]
+and termwise differentiation give
+\begin{equation}
+ \overline C_{k,2}(\pi/2)+\overline S_{k,2}(\pi/2)
+                  =-4F_k'(\pi).                     \label{sum}
+\end{equation}
+Zhou's contour evaluations
+\cite[(5.15), (5.16), (5.33), (5.34)]{Zhou} yield
+\begin{align}
+ I_+^-(4m)+I_-^+(4m)
+   &=\frac{(-1)^{m-1}\pi^{4m+1}}{2\,4^m}
+       \bigl(\overline C_{4m,2}(\pi/2)+
+                        \overline S_{4m,2}(\pi/2)\bigr),
+                                                       \label{firstsum}\\
+ I_+^+(4m-2)+I_-^-(4m-2)
+   &=\frac{(-1)^{m-1}\pi^{4m-1}}{4^m}
+       \bigl(\overline C_{4m-2,2}(\pi/2)+
+                        \overline S_{4m-2,2}(\pi/2)\bigr)
+                       \quad(m\geq2).                 \label{secondsum}
+\end{align}
+It follows from \eqref{purity} and \eqref{sum} that
+\begin{align}
+ I_+^-(4m)+I_-^+(4m)&\in\Q G^{8m}/\pi^{2m},\label{pure1}\\
+ I_+^+(4m-2)+I_-^-(4m-2)&\in\Q G^{8m}/\pi^{2m+1}
+                                                  \quad(m\geq2).\label{pure2}
+\end{align}
+The powers simplify as follows:
+\[
+ \frac{\pi^{4m+1}A^{2m}}{\pi}
+       =\frac{G^{8m}}{4^{2m}\pi^{2m}},
+ \qquad
+ \pi^{4m-1}A^{2m}=\frac{G^{8m}}{4^{2m}\pi^{2m+1}}.
+\]
+
+The known algebraic independence of $G$ and $\pi$ implies the
+linear independence over $\Q$ of each pair of monomials in
+\eqref{c}--\eqref{f}; this is also explicitly recalled in
+\cite[Section 3, after equations (101)--(103)]{XuZhao}.
+Comparing \eqref{pure1} with \eqref{c}+\eqref{e} gives
+$c_{2,m}+e_{2,m}=0$. Comparing \eqref{pure2} with
+\eqref{d}+\eqref{f} gives $d_{1,m}+f_{1,m}=0$ for $m\geq2$.
+
+Finally, Zhou's Example 5.3 and Remark 5.5 state
+\[
+ I_+^+(2)=\frac{G^8}{512\pi^3}-\frac{G^4}{64\pi},
+ \qquad
+ I_-^-(2)=\frac{G^4}{64\pi}-\frac{\pi}{8}.
+\]
+Thus $d_{1,1}=-1/64$ and $f_{1,1}=1/64$ in the stated convention.
+The extra term $-\pi/8$ explains why \eqref{secondsum} was only
+used for $m\geq2$. This completes the proof of Theorem \ref{main}.
+
+\section*{Tasks 2--5}
+The following tasks are directions for further work, not claims
+proved in Task 1.
+\begin{enumerate}
+\setcounter{enumi}{1}
+\item Derive recurrences or closed formulas for the surviving
+coefficients $c_{1,m}+e_{1,m}$ and $d_{2,m}+f_{2,m}$ from the
+polynomial expressions for Eisenstein series.
+\item Determine the coefficient cancellations at rectangular
+complex multiplication points, replacing the self-dual value
+$y=\pi$ by $y=\pi\sqrt r$ with positive rational $r$.
+\item Classify rational linear combinations of
+$E_k(\tau/d)$ and $E_k(d\tau)$ whose derivative at an elliptic
+fixed point has only one of the two possible weights.
+\item Extend the cancellation argument to higher powers of the
+hyperbolic denominators, keeping explicit account of the
+exceptional small-index terms.
+\end{enumerate}
+
+\begin{thebibliography}{9}
+\bibitem{Zhou} J. Zhou, \emph{Mixed Berndt-Type Integrals and
+Generalized Barnes Multiple Zeta Functions},
+\href{https://arxiv.org/abs/2502.15173v4}{arXiv:2502.15173v4},
+3 February 2026. Journal DOI:
+\href{https://doi.org/10.1016/j.aam.2025.103027}
+{10.1016/j.aam.2025.103027}.
+The proof uses the current author manuscript.
+\bibitem{Wang} W. Wang, \emph{Evaluation of reciprocal sums of
+hyperbolic functions using quasimodular forms},
+\href{https://arxiv.org/abs/2312.16929v2}{arXiv:2312.16929v2},
+31 March 2025; J. Math. Anal. Appl. 549 (2025), 129526.
+\bibitem{XuZhao} C. Xu and J. Zhao, \emph{Reciprocal Hyperbolic
+Series of Ramanujan Type}, Mathematics 12 (2024), 2974,
+\href{https://doi.org/10.3390/math12192974}{doi:10.3390/math12192974}.
+\end{thebibliography}
+\end{document}

@@ -1,0 +1,128 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage[colorlinks=true,urlcolor=blue,citecolor=blue]{hyperref}
+\title{A counterexample to Fisk's totally stable matrix conjecture}
+\author{Principia Math in Progress}
+\date{12 September 2026}
+\begin{document}
+\maketitle
+
+\paragraph{Task 1. Resolve the totally stable matrix conjecture.}
+Fisk's Conjecture 21.84 in \cite{book}, printed page 648, asserts that
+if \(f(x,y)=\sum_{j\ge0}f_j(x)y^j\) is a real polynomial with positive
+coefficients, nonvanishing when both variables lie in the open upper
+half-plane, then every minor of
+\[
+ T_f(x)=
+ \begin{pmatrix}
+ f_0&f_1&f_2&f_3&\cdots\\
+ 0&f_0&f_1&f_2&\cdots\\
+ 0&0&f_0&f_1&\cdots\\
+ \vdots&\vdots&\vdots&\ddots&\ddots
+ \end{pmatrix}
+\]
+is stable. The same assertion appears as Question 10 of \cite{questions}.
+Here a univariate polynomial is \emph{stable} if it has no zero in the
+open right half-plane. The conjecture is false.
+
+\paragraph{An admissible input.}
+Take
+\begin{align*}
+ f(x,y)&=(10x+y+1)(x+y+10)\\
+       &=10x^2+11xy+y^2+101x+11y+10.
+\end{align*}
+Every displayed coefficient is positive. If
+\(\operatorname{Im}x,\operatorname{Im}y>0\), the imaginary parts of the
+two factors are \(10\operatorname{Im}x+\operatorname{Im}y>0\) and
+\(\operatorname{Im}x+\operatorname{Im}y>0\), respectively.
+Neither factor vanishes. Thus \(f\) belongs to the source's class
+\(\mathbf P^{\mathrm{pos}}_2\).
+It is also nonvanishing when both variables lie in the open right
+half-plane, directly from the real parts of its factors.
+
+\paragraph{The offending minor.}
+Write
+\[
+ a(x)=11x+11,\qquad b(x)=10x^2+101x+10.
+\]
+Using zero-based indices, choose rows \(0,1,2,3\) and columns \(1,2,3,4\)
+of \(T_f\). This gives the genuine minor
+\[
+ M(x)=
+ \begin{pmatrix}
+ a&1&0&0\\
+ b&a&1&0\\
+ 0&b&a&1\\
+ 0&0&b&a
+ \end{pmatrix}.
+\]
+Expansion of these tridiagonal determinants gives \(D_0=1\), \(D_1=a\)
+and \(D_k=aD_{k-1}-bD_{k-2}\). Consequently,
+\begin{align}
+ D(x):=\det M(x)
+ &=a^4-3a^2b+b^2 \notag\\
+ &=11111x^4+16661x^3+17661x^2+16661x+11111. \label{eq:D}
+\end{align}
+
+\paragraph{An exact certificate of failure.}
+Define
+\[
+ G(t)=11111t^2+16661t-4561.
+\]
+For \(x\ne0\), equation \eqref{eq:D} gives the identity
+\begin{equation}\label{eq:reciprocal}
+ D(x)=x^2G(x+x^{-1}).
+\end{equation}
+The exact evaluations
+\[
+ G(1/5)=-\frac{19609}{25}<0,\qquad
+ G(1/4)=\frac{4779}{16}>0
+\]
+show that \(G\) has a real zero \(t_0\in(1/5,1/4)\).
+Set
+\[
+ z_0=\frac{t_0+i\sqrt{4-t_0^2}}2.
+\]
+Then \(|z_0|=1\), \(z_0+z_0^{-1}=t_0\), and
+\[
+ \frac1{10}<\operatorname{Re}z_0<\frac18.
+\]
+Equation \eqref{eq:reciprocal} proves \(D(z_0)=0\).
+Thus this minor has a zero strictly in the forbidden half-plane.
+Its conjugate is another such zero. The input satisfies every hypothesis,
+so the universal assertion is disproved. This proof uses exact integer
+identities and the intermediate value theorem; no approximate root
+calculation or boundary convention is needed.
+
+\paragraph{Task 2. Determine the smallest failing minor order.}
+Decide whether every minor of order at most three is stable for every
+\(f\in\mathbf P^{\mathrm{pos}}_2\), or construct a smaller counterexample.
+The example above gives an upper bound of four on the minimum order.
+
+\paragraph{Task 3. Classify the two-factor case.}
+For \(f(x,y)=(a_1x+b_1y+c_1)(a_2x+b_2y+c_2)\) with positive parameters,
+characterize when every minor of \(T_f(x)\) is stable. Identify how the
+first failing order depends on the parameter ratios.
+
+\paragraph{Task 4. Test the weaker coefficient assertion.}
+Determine whether every minor of \(T_f(x)\) has nonnegative coefficients
+for arbitrary \(f\in\mathbf P^{\mathrm{pos}}_2\). The present counterexample
+retains coefficient positivity, so it does not decide that weaker claim.
+
+\paragraph{Task 5. Find valid preservation hypotheses.}
+Find structural conditions on polynomial matrices under which
+multiplication preserves stability of every minor, and use them to
+identify subclasses for which Fisk's original conclusion does hold.
+
+\begin{thebibliography}{9}
+\bibitem{book}
+S.~Fisk, \emph{Polynomials, roots, and interlacing}, version 2,
+\href{https://arxiv.org/abs/math/0612833}{arXiv:math/0612833},
+2008, \S21.1--21.2 and Conjecture 21.84.
+\bibitem{questions}
+S.~Fisk, \emph{Questions about determinants and polynomials},
+\href{https://arxiv.org/abs/0808.1850}{arXiv:0808.1850}, 2008,
+Definition 1 and Question 10.
+\end{thebibliography}
+\end{document}

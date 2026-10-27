@@ -1,0 +1,187 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[hidelinks]{hyperref}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newcommand{\E}{\mathbb E}
+\newcommand{\Pp}{\mathbb P}
+\title{The Laplace-transform threshold for \texorpdfstring{$(1+mse^s)^{-1}$}{(1+m s exp(s)) inverse}}
+\author{MathDB problem 350435}
+\date{12 September 2026}
+\begin{document}
+\maketitle
+
+\section*{Task 1. Solve the Laplace-transform criterion}
+
+Kesidis, Konstantopoulos and Zazanis conjectured the following classification
+in Conjecture 1 of \cite[p.~18]{KKZ}. Their probabilistic construction already
+established the sufficient range. We prove the missing necessity and give
+a direct construction for sufficiency.
+
+\begin{theorem}
+For a real parameter $m\geq0$, the function
+\[
+ L_m(s)=\frac{1}{1+mse^s},\qquad s\geq0,
+\]
+is the Laplace transform of a probability distribution if and only if
+$m=0$ or $m\geq e$. The conclusion holds even if the putative random
+variable is initially allowed to take negative values.
+\end{theorem}
+
+We use the following elementary form of the nonnegative-coefficient
+singularity principle, often called Pringsheim's theorem. Its proof
+is included to make the argument self-contained.
+
+\begin{lemma}\label{lem:pringsheim}
+Let $f(z)=\sum_{n\geq0}a_nz^n$, where $a_n\geq0$, have radius of
+convergence $R$ with $0<R<\infty$. Then $f$ has no holomorphic
+continuation to a neighborhood of $R$ agreeing with the series just
+to the left of $R$.
+\end{lemma}
+\begin{proof}
+Suppose such a continuation exists on $|z-R|<\delta$, where
+$0<\delta<R$. Set $b=R-\delta/4$ and $h=\delta/3$.
+The disc $|z-b|<\delta/2$ is contained in $|z-R|<\delta$.
+Consequently the Taylor series at $b$ converges at $b+h$.
+Since $0<b<R$, termwise differentiation of the original series gives
+\[
+ \frac{f^{(k)}(b)}{k!}
+   =\sum_{n\geq k}a_n\binom{n}{k}b^{n-k}\geq0.
+\]
+All terms in the next double series are nonnegative, so summation
+can be interchanged:
+\[
+ \infty>
+ \sum_{k\geq0}\frac{f^{(k)}(b)}{k!}h^k
+ =\sum_{n\geq0}a_n\sum_{k=0}^n\binom{n}{k}b^{n-k}h^k
+ =\sum_{n\geq0}a_n(b+h)^n .
+\]
+But $b+h=R+\delta/12>R$, contradicting the radius of convergence.
+\end{proof}
+
+\begin{proof}[Proof of the theorem: necessity]
+Suppose $0<m<e$ and $L_m(s)=\E e^{-sX}$ for every $s\geq0$.
+As $s\to\infty$, $L_m(s)\to0$. If $\Pp(X<0)>0$, then
+$\Pp(X\leq-\varepsilon)>0$ for some $\varepsilon>0$, and hence
+$\E e^{-sX}\geq e^{s\varepsilon}\Pp(X\leq-\varepsilon)\to\infty$.
+Thus $X\geq0$ almost surely.
+
+Differentiating its Laplace transform at $s>0$ gives
+\[
+ (-1)^nL_m^{(n)}(s)=\E[X^ne^{-sX}]\geq0.
+\]
+Differentiation is justified locally by boundedness of
+$x^ne^{-cx}$ on $x\geq0$ for each $c>0$.
+The explicit expression for $L_m$ is analytic at zero, so its
+derivatives extend continuously there. It follows that
+\[
+ F(z):=L_m(-z)=\frac{1}{1-mze^{-z}}
+       =\sum_{n\geq0}a_nz^n
+ \quad\hbox{near }0,\qquad
+ a_n=\frac{(-1)^nL_m^{(n)}(0)}{n!}\geq0.
+ \tag{1}
+\]
+In particular, $a_0=1$ and $a_1=m>0$.
+
+For every real $t\geq0$, the elementary inequality $te^{-t}\leq1/e$
+shows that
+\[
+ 1-mte^{-t}\geq1-m/e>0,\qquad
+ 0<F(t)\leq\frac{1}{1-m/e}.                 \tag{2}
+\]
+The displayed quotient therefore provides a holomorphic continuation
+of the germ in (1) to a neighborhood of every point of the positive
+real axis. If the Taylor radius in (1) were finite, its positive
+endpoint would contradict Lemma~\ref{lem:pringsheim}. Thus the radius
+is infinite. The series then equals the quotient on the positive
+axis by analytic continuation. Nonnegativity of its coefficients
+implies
+\[
+ F(t)=\sum_{n\geq0}a_nt^n\geq1+mt\qquad(t\geq0),
+\]
+which contradicts the uniform bound in (2). This excludes the whole
+interval $0<m<e$.
+\end{proof}
+
+\begin{proof}[Proof of the theorem: sufficiency]
+For $m=0$, take $X=0$ almost surely. If $m\geq e$, choose
+$\lambda\in(0,1]$ so that
+\[
+ m=\frac{e^\lambda}{\lambda}.
+\]
+Such a choice exists because $e^\lambda/\lambda$ is continuous,
+decreases from infinity to $e$ on $(0,1]$, and equals $e$ at $1$.
+Put $p=e^{-\lambda}$. Let $Z$ be exponential with rate $\lambda$,
+let $J$ have distribution
+\[
+ \Pp(J=j)=p(1-p)^j,\qquad j=0,1,\ldots,
+\]
+and let $Y_1,Y_2,\ldots$ have common density
+\[
+ q(y)=\frac{\lambda e^{-\lambda y}}{1-p}
+             \boldsymbol{1}_{(0,1)}(y).
+\]
+Take all these variables independent and define
+$T=1+Z+\sum_{i=1}^JY_i$. This is a finite nonnegative random
+variable almost surely. The common transform of the $Y_i$ is
+\[
+ \phi(s)=\frac{\lambda(1-e^{-(\lambda+s)})}
+                    {(\lambda+s)(1-p)},\qquad s\geq0 .
+\]
+In particular, $(1-p)\phi(s)\leq1-p<1$, so the geometric series
+for the transform of the random sum converges. Independence yields
+\begin{align*}
+ \E e^{-sT}
+ &=e^{-s}\frac{\lambda}{\lambda+s}
+           \frac{p}{1-(1-p)\phi(s)}\\
+ &=\frac{\lambda e^{-(\lambda+s)}}
+             {s+\lambda e^{-(\lambda+s)}}
+  =\frac{1}{1+(e^\lambda/\lambda)se^s}
+  =L_m(s).
+\end{align*}
+This includes the endpoint $m=e$, with $\lambda=1$.
+\end{proof}
+
+\paragraph{Scope.}
+The argument establishes the complete parameter classification,
+not just a finite collection of derivative-sign tests. In fact,
+the necessity proof shows that for every $0<m<e$ at least one
+Taylor coefficient of $L_m(-z)$ is negative. The sufficiency proof
+constructs an absolutely continuous probability law supported in
+$[1,\infty)$ for every $m\geq e$.
+
+\section*{Task 2. Quantify the first failed derivative sign}
+For $0<m<e$, determine or sharply bound
+\[
+ n_*(m)=\min\{n\geq0:[z^n](1-mze^{-z})^{-1}<0\}.
+\]
+In particular, obtain its asymptotic behavior as $m\uparrow e$.
+The proof above guarantees finiteness but gives no effective bound.
+
+\section*{Task 3. Locate the sign changes of the inverse transform}
+For $0<m<e$, study the piecewise polynomial inverse Laplace transform
+of $L_m$. Determine its first negative interval and obtain rigorous
+large-time asymptotics, including the transition as $m\uparrow e$.
+
+\section*{Task 4. Classify fractional-power variants}
+For $m,\tau>0$ and $0<\alpha\leq1$, determine precisely when
+\[
+ (1+m s^\alpha e^{\tau s})^{-1}
+\]
+is a probability Laplace transform. Find stochastic constructions
+throughout the admissible parameter region.
+
+\section*{Task 5. Determine the shape of the admissible distributions}
+For the probability laws $T_m$, $m\geq e$, determine whether their
+densities are log-concave and classify the monotonicity of their hazard
+rates. Obtain sharp bounds that remain valid at the critical value $m=e$.
+
+\begin{thebibliography}{9}
+\bibitem{KKZ}
+G. Kesidis, T. Konstantopoulos and M. A. Zazanis,
+\emph{Age of information without service preemption},
+\href{https://arxiv.org/abs/2104.08050v3}{arXiv:2104.08050v3}
+(2021), Conjecture 1, p.~18.
+\end{thebibliography}
+\end{document}

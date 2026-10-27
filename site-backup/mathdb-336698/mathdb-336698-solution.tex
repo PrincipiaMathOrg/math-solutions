@@ -1,0 +1,137 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,hyperref}
+\hypersetup{colorlinks=true,urlcolor=blue}
+\newtheorem{theorem}{Theorem}
+\newtheorem{corollary}[theorem]{Corollary}
+\newcommand{\dd}{\,dt}
+\title{A gamma quotient with strict logarithmic complete monotonicity}
+\author{Research record: MathDB 336698}
+\date{12 September 2026}
+\begin{document}
+\maketitle
+
+\section*{Task 1. Resolve the gamma-quotient conjecture}
+Arora and Sahoo, \emph{Interpolation on Gauss hypergeometric functions
+with an application}, Involve \textbf{11}(4) (2018), 625--641,
+\href{https://doi.org/10.2140/involve.2018.11.625}{doi:10.2140/involve.2018.11.625},
+pose Conjecture 3.14 on page 635: for every $0\le a\le1$, prove that
+\[
+ Q_a(c)=\frac{\Gamma(c)\Gamma(c-4)}
+ {\Gamma(c-a)\Gamma(c+a-1)}
+\]
+decreases on $c>4$. The answer is affirmative, and strict.
+
+\begin{theorem}\label{thm:main}
+For every $-3\le a\le4$, $c>4$, and integer $m\ge1$,
+\[
+ (-1)^m\frac{d^m}{dc^m}\log Q_a(c)>0.
+\]
+In particular, $Q_a'(c)<0$ throughout the conjectured domain, including
+the parameter endpoints $a=0,1$.
+\end{theorem}
+
+\begin{proof}
+Write $\psi=\Gamma'/\Gamma$. The classical digamma difference formula is
+\[
+ \psi(u)-\psi(v)
+ =\int_0^\infty
+ \frac{e^{-vt}-e^{-ut}}{1-e^{-t}}\dd,\qquad u,v>0.
+\]
+For example, it follows by subtraction from DLMF
+\href{https://dlmf.nist.gov/5.9.E16}{5.9.16}; equivalently,
+expand $(1-e^{-t})^{-1}$ and integrate the usual digamma series.
+All four gamma arguments here are positive. Consequently
+\begin{equation}\label{eq:kernel}
+ -\frac{d}{dc}\log Q_a(c)
+ =\int_0^\infty e^{-ct}
+ \frac{1+e^{4t}-e^{at}-e^{(1-a)t}}{1-e^{-t}}\dd.
+\end{equation}
+Fix $t>0$. The function
+$a\mapsto e^{at}+e^{(1-a)t}$ is convex and takes the same value
+$e^{-3t}+e^{4t}$ at the endpoints of $[-3,4]$. It is therefore at most
+that value throughout the interval. Thus
+\[
+ 1+e^{4t}-e^{at}-e^{(1-a)t}
+ \ge 1-e^{-3t}>0.
+\]
+At $t=0$, the numerator in \eqref{eq:kernel} is $3t+O(t^2)$,
+so the quotient is bounded. At infinity it is $O(e^{4t})$.
+For $c>4$, the integral therefore converges absolutely, and it may be
+differentiated any number of times, locally uniformly in $c$, by
+exponential domination. For every $m\ge1$ this gives
+\[
+ (-1)^m(\log Q_a)^{(m)}(c)
+ =\int_0^\infty t^{m-1}e^{-ct}
+ \frac{1+e^{4t}-e^{at}-e^{(1-a)t}}{1-e^{-t}}\dd>0.
+\]
+Finally $Q_a>0$, so $Q_a'=Q_a(\log Q_a)'<0$.
+\end{proof}
+
+\paragraph{A short independent proof on the requested range.}
+The classical series
+$\psi'(x)=\sum_{k=0}^\infty(x+k)^{-2}$ shows that $\psi$ is increasing
+and strictly concave on $(0,\infty)$
+(DLMF \href{https://dlmf.nist.gov/5.15.E1}{5.15.1}).
+For $0\le a\le1$, the concave function
+$a\mapsto\psi(c-a)+\psi(c+a-1)$ has equal endpoint values.
+Hence
+\[
+ \psi(c-a)+\psi(c+a-1)\ge\psi(c)+\psi(c-1),
+\]
+and therefore
+\[
+ (\log Q_a)'(c)
+ \le\psi(c-4)-\psi(c-1)<0.
+\]
+This also proves the entire original conjecture directly.
+
+\begin{corollary}[Sharp parameter interval]
+On the domain where all four gamma arguments are positive,
+\[
+ c>b_a:=\max\{4,a,1-a\},
+\]
+$Q_a$ is decreasing everywhere if and only if $-3\le a\le4$.
+For precisely these parameters it is strictly logarithmically
+completely monotone.
+\end{corollary}
+\begin{proof}
+Sufficiency is Theorem \ref{thm:main}. If $a>4$, then $b_a=a$ and
+$Q_a(c)\to0$ as $c\downarrow a$, because $\Gamma(c-a)\to\infty$
+while the other three factors have finite positive limits.
+A positive decreasing function cannot have left-endpoint limit zero.
+If $a<-3$, the same argument at $c=1-a$ uses
+$\Gamma(c+a-1)\to\infty$. Thus global decrease fails outside the
+stated interval, and so does logarithmic complete monotonicity.
+\end{proof}
+
+\paragraph{Status and scope.}
+The published source retains the conjecture, and the live MathDB
+record was open with no solution or discussion entries at the dated
+checks recorded in the accompanying literature audit. No matching
+full public claim was located in that bounded search.
+The proof uses classical digamma formulas and elementary convexity;
+it does not claim those general tools as new.
+
+\section*{Task 2. Find a positive inverse Laplace representation}
+For each $a\in[-3,4]$, derive an explicit positive measure representing
+$Q_a(4+x)$ as a Laplace transform. Determine how the measure's density
+and endpoint behavior depend on $a$.
+
+\section*{Task 3. Determine generalized Stieltjes orders}
+For each $a\in[-3,4]$, determine the least $\alpha>0$, if one exists,
+for which $Q_a(4+x)$ has a representation
+$\int_0^\infty(x+t)^{-\alpha}\,d\mu_a(t)$ with $\mu_a\ge0$.
+Include the rational endpoint cases as exact benchmarks.
+
+\section*{Task 4. Sharpen the interpolation error bounds}
+Use the positive kernel to obtain optimal uniform bounds for
+$-(\log Q_a)'(c)$ on $0\le a\le1$, and propagate these bounds into
+the quadratic hypergeometric interpolation errors in the source.
+
+\section*{Task 5. Compare decrease with logarithmic complete monotonicity}
+For quotients of three gamma factors by three gamma factors with fixed
+total shift difference, find explicit parameter families that are
+decreasing on their positive-argument domain but fail logarithmic
+complete monotonicity, or prove their equivalence on a specified family.
+\end{document}

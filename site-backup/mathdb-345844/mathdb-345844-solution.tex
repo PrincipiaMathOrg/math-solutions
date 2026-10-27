@@ -1,0 +1,188 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[hidelinks]{hyperref}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newcommand{\HM}{\mathscr H}
+\usepackage{mathrsfs}
+\title{Discontinuity of the weighted harmonic Hardy constant\\
+\large A counterexample to MathDB problem 345844}
+\author{Principia Math in Progress}
+\date{September 12, 2026}
+\begin{document}
+\maketitle
+
+\paragraph{Task 1. Resolve the continuity conjecture.}
+Conjecture 1 of Pasteczka \cite[p.~1061]{P} asserts that a symmetric,
+monotone weighted mean, continuous in its weights and having the
+Hardy property, has a Hardy constant continuous for pointwise
+convergence of positive weight sequences. We refute this with the
+weighted harmonic mean on \(I=(0,\infty)\).
+
+For positive weights \(w=(w_n)_{n\ge1}\), put \(W_n=\sum_{i=1}^n w_i\) and
+\[
+ M_n(x;w)=\frac{W_n}{\sum_{i=1}^n w_i/x_i}.
+\]
+Write \(\HM(w)\) for the least \(C\in[0,\infty]\) such that
+\[
+ \sum_{n\ge1}w_nM_n(x;w)\le C\sum_{n\ge1}w_nx_n
+ \quad\text{whenever }x_n>0,\quad \sum_{n\ge1}w_nx_n<\infty.
+ \tag{1}
+\]
+This is the source's Definition 2.3. The harmonic mean is symmetric
+under simultaneous permutation of inputs and weights, monotone in
+each input, and continuous in the nonnegative weights when their
+sum is positive. Its formula also gives weight homogeneity, reduction,
+zero-weight elimination, and the minimum--maximum bounds required
+of a weighted mean.
+
+\begin{lemma}\label{lem:upper}
+For every positive weight sequence \(w\), one has \(\HM(w)\le9/2\).
+\end{lemma}
+\begin{proof}
+The Cauchy--Schwarz inequality and a right-endpoint integral bound give
+\[
+ \left(\sum_{i=1}^n w_i\sqrt{W_i}\right)^2
+ \le\left(\sum_{i=1}^n\frac{w_i}{x_i}\right)
+       \left(\sum_{i=1}^n w_iW_ix_i\right),\qquad
+ \sum_{i=1}^n w_i\sqrt{W_i}\ge\int_0^{W_n}\sqrt t\,dt
+ =\frac23W_n^{3/2}.
+\]
+Consequently,
+\[
+ M_n(x;w)\le\frac{9}{4W_n^2}\sum_{i=1}^n w_iW_ix_i.
+ \tag{2}
+\]
+Since \(t^{-2}\) decreases, for every \(i\ge1\),
+\[
+ \sum_{n=i}^{\infty}\frac{w_n}{W_n^2}
+ \le\frac{w_i}{W_i^2}
+   +\sum_{n=i+1}^{\infty}\int_{W_{n-1}}^{W_n}\frac{dt}{t^2}
+ \le\frac2{W_i}.
+ \tag{3}
+\]
+Tonelli's theorem, (2), and (3) show that the left side of (1) is at most
+\[
+ \frac94\sum_{i\ge1}w_iW_ix_i
+             \sum_{n\ge i}\frac{w_n}{W_n^2}
+ \le\frac92\sum_{i\ge1}w_ix_i.
+\]
+In particular the harmonic mean satisfies the conjecture's Hardy
+hypothesis, even in the formulation requiring every positive
+weight sequence to have a finite Hardy constant.
+\end{proof}
+
+\begin{lemma}\label{lem:lower}
+If \(0<w_n\le B<\infty\) and \(W_n\to\infty\), then \(\HM(w)\ge2\).
+\end{lemma}
+\begin{proof}
+Put \(Q_n=\sum_{i=1}^n w_i^2\). The identity
+\[
+ \sum_{i=1}^n w_iW_i=\frac{W_n^2+Q_n}{2}
+ \tag{4}
+\]
+follows by separating diagonal and off-diagonal terms in \(W_n^2\).
+Fix \(L\ge1\) and \(\delta>0\), and use the strictly positive input
+\[
+ x_i=\frac1{W_i}\ (i\le L),\qquad
+ x_i=\frac{\delta\,2^{-(i-L)}}{w_i}\ (i>L).
+\]
+Its weighted sum is \(D_L+\delta\), where \(D_L=\sum_{n=1}^Lw_n/W_n\).
+By (4), its first \(L\) output terms have weighted sum
+\[
+ T_L=\sum_{n=1}^L\frac{2w_nW_n}{W_n^2+Q_n}.
+\]
+Thus \(\HM(w)\ge T_L/(D_L+\delta)\), and letting \(\delta\downarrow0\)
+gives \(\HM(w)\ge T_L/D_L\).
+
+For \(t\in[W_{n-1},W_n]\) we have \(t+B\ge W_n\). Hence
+\[
+ D_L\ge\int_0^{W_L}\frac{dt}{t+B}
+      =\log(1+W_L/B)\longrightarrow\infty.
+\]
+On the other hand \(Q_n\le BW_n\), so (3) with \(i=1\) yields
+\[
+ 0\le2D_L-T_L
+ =\sum_{n=1}^L\frac{2w_nQ_n}{W_n(W_n^2+Q_n)}
+ \le2B\sum_{n=1}^L\frac{w_n}{W_n^2}
+ \le\frac{4B}{w_1}.
+\]
+It follows that \(T_L/D_L\to2\), proving the assertion.
+\end{proof}
+
+\begin{theorem}
+The conjectured continuity fails, even among strictly positive
+integer weight sequences with infinite total mass.
+\end{theorem}
+\begin{proof}
+For \(n,K\ge1\), define
+\[
+ \lambda_n=4^{\,n-1},\qquad
+ \mu_n^{(K)}=
+ \begin{cases}
+ 4^{\,n-1},&n\le K,\\
+ 4^{\,K-1},&n>K.
+ \end{cases}
+\]
+Both sequences have infinite total mass, and
+\(\mu^{(K)}\to\lambda\) pointwise: each fixed coordinate agrees
+exactly once \(K\ge n\). Each \(\mu^{(K)}\) is bounded, so
+Lemma \ref{lem:lower} gives \(\HM(\mu^{(K)})\ge2\).
+For the limiting sequence,
+\[
+ M_n(x;\lambda)
+ \le\frac{\Lambda_n}{\lambda_n}x_n
+ =\frac{4-4^{\,1-n}}3x_n\le\frac43x_n.
+\]
+Multiplication by \(\lambda_n\) and summation give
+\(\HM(\lambda)\le4/3\). Thus
+\[
+ \HM(\mu^{(K)})-\HM(\lambda)\ge\frac23
+ \quad\text{for every }K,
+\]
+which contradicts continuity. Lemma \ref{lem:upper} and the stated
+properties of the harmonic mean verify every hypothesis.
+\end{proof}
+
+\paragraph{Sharper values and verification.}
+The proof above is self-contained and needs no sharp Hardy theorem.
+As a consistency check, the source's Lemma 4.1, with Gini parameters
+\((p,q)=(-1,0)\), gives \(\HM(\lambda)=5/4\) and
+\(\HM(\mu^{(K)})=2\): the respective nonincreasing ratios
+\(w_n/W_n\) tend to \(3/4\) and \(0\).
+The accompanying exact rational checker verifies finite positive-input
+witnesses, identity (4), and the stated bounds. Finite tests are
+supplementary; the proof covers every \(K\) and infinite sequences.
+
+\paragraph{Task 2. Classify weights attaining the maximal constant.}
+Find explicit necessary and sufficient conditions on a positive
+weight sequence for its harmonic Hardy constant to equal \(2\),
+including irregular sequences outside the monotone-ratio setting.
+
+\paragraph{Task 3. Determine constants for oscillating weight growth.}
+Compute the harmonic Hardy constant when \(w_n/W_n\) has two or
+more accumulation points, and determine which features beyond those
+points affect the answer.
+
+\paragraph{Task 4. Find useful topologies restoring continuity.}
+Identify a topology stronger than coordinatewise convergence that
+permits meaningful infinite-tail perturbations and makes weighted
+Hardy constants continuous for broad classes of Hardy means.
+
+\paragraph{Task 5. Quantify the effect of a tail replacement.}
+For harmonic and other power means, bound the change in the Hardy
+constant under controlled perturbations of all weights after a
+specified index, with explicit dependence on the perturbation size.
+
+\begin{thebibliography}{9}
+\bibitem{P}
+P.~Pasteczka, \emph{On properties of weighted Hardy constant for means},
+Mathematical Inequalities \& Applications \textbf{25}(4) (2022),
+1047--1068.
+\href{https://doi.org/10.7153/mia-2022-25-65}{doi:10.7153/mia-2022-25-65};
+\href{https://files.ele-math.com/articles/mia-25-65.pdf}{published text};
+\href{https://arxiv.org/abs/2003.06025}{arXiv:2003.06025}.
+Definitions: pp.~1051--1052. Conjecture 1 and Lemma 4.1: p.~1061.
+\end{thebibliography}
+\end{document}

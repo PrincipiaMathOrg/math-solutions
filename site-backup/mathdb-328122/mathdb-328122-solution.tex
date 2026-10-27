@@ -1,0 +1,138 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,hyperref}
+\newtheorem{theorem}{Theorem}
+\newcommand{\rank}{\operatorname{rank}}
+\title{Reality of the common zeros for centrohermitian Toeplitz matrices}
+\author{Principia Math in Progress}
+\date{12 September 2026}
+\begin{document}
+\maketitle
+
+\section*{Task 1. Resolve the common-zero reality conjecture}
+For $m\geq1$ and $n\geq0$, let $I_k$ be the $m\times(m+n)$ matrix
+whose $(i,j)$ entry is $1$ if $j-i=k$ and $0$ otherwise, with indices
+starting at zero. For $A\in\mathbb C^{m\times(m+n)}$, put
+\[
+ B(z)=A+\sum_{k=0}^n z_k I_k.
+\]
+Its generalized characteristic polynomials are all $m\times m$ minors
+of $B(z)$. Their common zeros are exactly the points where $\rank B(z)<m$.
+A matrix is centrohermitian when
+$A_{i,j}=\overline{A_{m-1-i,m+n-1-j}}$.
+We prove Conjecture 3.2 of Xu \cite{Xu}, corresponding to the reality
+conjecture of Alexandersson and Shapiro \cite{AS}.
+
+\begin{theorem}
+If $A\in\mathbb C^{m\times(m+n)}$ is Toeplitz and centrohermitian,
+then every common zero $z$ of its generalized characteristic polynomials
+satisfies
+\[
+ z_j=\overline{z_{n-j}}\qquad(0\leq j\leq n).
+\]
+There is no genericity, bandwidth, simplicity, or corank-one assumption.
+\end{theorem}
+
+\begin{proof}
+Write $A_{i,j}=a_{j-i}$. Centrohermitian symmetry says precisely that
+\begin{equation}\label{a}
+ a_q=\overline{a_{n-q}}
+ \quad (-(m-1)\leq q\leq m+n-1).
+\end{equation}
+Let $z$ be a common zero. Choose a nonzero column vector
+$v\in\mathbb C^m$ such that $v^*B(z)=0$. For $0\leq j,k\leq n$, define
+\[
+ u_j=I_j^*v,\qquad
+ H_{jk}=v^*I_kI_j^*v=u_k^*u_j,\qquad
+ b_j=v^*AI_j^*v.
+\]
+Multiplying $v^*B(z)=0$ by $I_j^*v$ gives the linear system
+\begin{equation}\label{system}
+ Hz=-b.
+\end{equation}
+
+We first check that $H$ is invertible. The vectors $u_0,\ldots,u_n$
+are linearly independent: if the first nonzero coordinate of $v$ is
+$v_r$, then the submatrix of $[u_0\ \cdots\ u_n]$ on rows
+$r,r+1,\ldots,r+n$ is lower triangular with diagonal $v_r$.
+All those rows exist because $r+n\leq m+n-1$.
+Moreover, for $c\in\mathbb C^{n+1}$,
+\[
+ c^*Hc=\left\|\sum_{j=0}^n\overline{c_j}u_j\right\|^2.
+\]
+Thus $H$ is positive definite. The conjugates in this formula account
+for the fact that $H$ is the transpose of the usual Gram matrix.
+
+Extend $v_i$ by zero outside $0\leq i<m$. Directly from the shift
+matrices,
+\begin{equation}\label{H}
+ H_{jk}=\sum_{i\in\mathbb Z}\overline{v_i}v_{i+k-j}.
+\end{equation}
+Consequently $H$ is Hermitian Toeplitz and
+\begin{equation}\label{Hsym}
+ H_{jk}=\overline{H_{n-j,n-k}}.
+\end{equation}
+The right-hand side has the same conjugate-reversal symmetry.
+Indeed,
+\[
+ b_j=\sum_{i,l=0}^{m-1}\overline{v_i}\,a_{l+j-i}\,v_l,
+\]
+and, by interchanging $i,l$ and using \eqref{a},
+\begin{align*}
+ \overline{b_{n-j}}
+ &=\sum_{i,l=0}^{m-1}\overline{v_i}\,
+      \overline{a_{i+n-j-l}}\,v_l\\
+ &=\sum_{i,l=0}^{m-1}\overline{v_i}\,a_{l+j-i}\,v_l=b_j.
+\end{align*}
+
+Let $J$ reverse the $n+1$ coordinates. Equations \eqref{Hsym} and
+the identity for $b$ say $H=J\overline HJ$ and $b=J\overline b$.
+Conjugating \eqref{system} and multiplying by $J$ therefore gives
+\[
+ H(J\overline z)=-b.
+\]
+Since $H$ is invertible, \eqref{system} has only one solution.
+Hence $z=J\overline z$, as required.
+\end{proof}
+
+The proof uses only a nonzero left null vector and finite-dimensional
+linear algebra. In particular, it applies to every common zero, including
+multiple zeros and points where the rank drops by more than one.
+The sign convention $A-\sum z_kI_k$ used in \cite{AS} gives the same
+conclusion after replacing $z$ by $-z$.
+
+\section*{Task 2. Quantify stability under structured perturbations}
+Obtain explicit bounds on the distance from an approximate common zero
+to $\{z:z=J\overline z\}$ in terms of a left-kernel residual and the
+defect of Toeplitz and centrohermitian symmetry. Determine sharp
+dimension-dependent lower bounds for the smallest eigenvalue of
+$H(v)$ when $\|v\|=1$.
+
+\section*{Task 3. Determine the geometry of the real eigenvalue locus}
+Use $z=-H(v)^{-1}b(v)$ to obtain location bounds and to study the
+limiting support of the common zeros of growing finite sections.
+Identify when this parametrization describes the boundary of that support.
+
+\section*{Task 4. Characterize simple and multiple common zeros}
+Find conditions on the Toeplitz coefficients that make all common zeros
+simple, and relate higher multiplicities to the left-kernel dimension
+and to the local determinantal equations.
+
+\section*{Task 5. Classify matrix-valued extensions}
+Determine which adjoint symmetries on block Toeplitz coefficients and
+which choices of parameter matrices preserve an analogous reality
+theorem. Compare scalar parameters multiplying identity blocks with
+independent matrix-valued parameters.
+
+\begin{thebibliography}{9}
+\bibitem{Xu} Y. Xu, \emph{Generalized characteristic polynomials and
+Gaussian cubature rules}, SIAM J. Matrix Anal. Appl. \textbf{36} (2015),
+1129--1142. \href{https://arxiv.org/abs/1406.3329}{arXiv:1406.3329v2},
+Conjecture 3.2, manuscript p. 7.
+\bibitem{AS} P. Alexandersson and B. Shapiro,
+\emph{Around a multivariate Schmidt--Spitzer theorem},
+Linear Algebra Appl. \textbf{446} (2014), 356--368.
+\href{https://arxiv.org/abs/1302.3716}{arXiv:1302.3716};
+Conjecture 10 in the author-hosted revised manuscript.
+\end{thebibliography}
+\end{document}

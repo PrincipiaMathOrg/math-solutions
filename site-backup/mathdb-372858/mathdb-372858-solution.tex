@@ -1,0 +1,208 @@
+\documentclass[11pt]{article}
+\usepackage[margin=0.85in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,booktabs,hyperref}
+\hypersetup{colorlinks=true,urlcolor=blue,linkcolor=blue}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\title{The full Burnside--Stirling--Gautschi bound\\
+\large MathDB 372858: solution of Schmidlin's Conjecture 37}
+\author{Principia Math In Progress}
+\date{12 September 2026}
+\begin{document}
+\maketitle
+
+\section*{Task 1. Prove the bound on its full stated domain}
+For \(x\geq0\) and \(0\leq\alpha\leq1\), put
+\[
+ \widehat\Pi(x,\alpha)=\Gamma(x+1)(x+1)^\alpha,\qquad
+ S_{1/2}(y)=\sqrt{2\pi}(y+\tfrac12)^{y+1/2}e^{-y-1/2},
+\]
+and \(\widehat m_{1/2}(x,\alpha)=
+\log\bigl(\widehat\Pi(x,\alpha)/S_{1/2}(x+\alpha)\bigr)\).
+These are the definitions of \cite{Schmidlin}, pp.~3--4 and 10.
+The domain \(\widehat D_{1/2}\) is exactly
+\([0,\infty)\times[0,1]\). Conjecture 37, pp.~28--29, asks
+to remove the restriction \(x\geq1\) in Corollary 32.
+
+\begin{theorem}
+For every \(x\geq0\) and \(\alpha\in[0,1]\),
+\begin{equation}\label{target}
+ \widehat m_{1/2}(x,\alpha)
+ < \frac{1}{12(x+\alpha)+18-12e^{1/48}}.
+\end{equation}
+In particular, Conjecture 37 holds, with strict inequality.
+\end{theorem}
+
+We first record the only special-function estimate needed.
+\begin{lemma}\label{binet}
+For every \(u>0\), the Stirling remainder
+\[
+ r(u)=\log\Gamma(u)-(u-\tfrac12)\log u+u-\tfrac12\log(2\pi)
+\]
+satisfies
+\begin{equation}\label{remainder}
+ r(u)<B(u):=\frac1{12u}-\frac1{360u^3}+\frac1{1260u^5}.
+\end{equation}
+\end{lemma}
+\begin{proof}
+Binet's formula \cite[Eq.~5.9.10]{DLMF} gives
+\[
+ r(u)=2\int_0^\infty\frac{\arctan(t/u)}{e^{2\pi t}-1}\,dt.
+\]
+The exact identity
+\[
+ z-\frac{z^3}{3}+\frac{z^5}{5}-\arctan z
+ =\int_0^z\frac{s^6}{1+s^2}\,ds>0\qquad(z>0)
+\]
+holds on the whole positive axis. Also,
+\[
+ \int_0^\infty\frac{t^j}{e^{2\pi t}-1}\,dt
+ =\frac{j!\,\zeta(j+1)}{(2\pi)^{j+1}}
+ =\begin{cases}1/24&j=1,\\1/240&j=3,\\1/504&j=5.\end{cases}
+\]
+The first equality follows by expanding the positive geometric series
+and integrating termwise. Integrating the strict arctangent bound proves
+\eqref{remainder}; every integral involved is finite.
+\end{proof}
+
+\newpage
+\begin{proof}[Proof of the theorem]
+Set \(u=x+1\geq1\), \(\delta=\alpha-\tfrac12\in[-\tfrac12,\tfrac12]\),
+and \(d=12(e^{1/48}-1)\). The elementary inequalities
+\(1+t<e^t<(1-t)^{-1}\), for \(0<t<1\), imply
+\begin{equation}\label{d}
+ \frac14<d<\frac{12}{47}<\frac13.
+\end{equation}
+Direct substitution in the definitions gives
+\[
+ \widehat m_{1/2}(x,\alpha)
+ =r(u)+\delta-(u+\delta)\log(1+\delta/u).
+\]
+Thus we must show that
+\[
+ F_u(\delta):=r(u)+\delta-(u+\delta)\log(1+\delta/u)
+             -\frac1{12(u+\delta)-d}<0.
+\]
+All denominators are positive, since \(u+\delta\geq\tfrac12\).
+Differentiation yields
+\begin{align}
+ F'_u(\delta)&=-\log(1+\delta/u)+\frac{12}{[12(u+\delta)-d]^2},
+                                                        \label{first}\\
+ F''_u(\delta)&=-\frac1{u+\delta}
+               -\frac{288}{[12(u+\delta)-d]^3}<0.         \label{second}
+\end{align}
+In particular \(F'_u(\delta)>0\) when \(\delta\leq0\). At
+\(\delta=1/12\), use \(\log(1+t)>t/(1+t)\) for \(t>0\).
+For \(u=1+y\), \(y\geq0\), one has
+\[
+ (12u+\tfrac23)^2-12(12u+1)
+ =\frac{40}{9}+160y+144y^2>0.
+\]
+Together with \(d<1/3\), this shows
+\[
+ \frac{12}{(12u+1-d)^2}
+ <\frac{12}{(12u+2/3)^2}
+ <\frac1{12u+1}
+ <\log(1+1/(12u)).
+\]
+Hence \(F'_u(1/12)<0\). Strict concavity now places the global
+maximum of \(F_u\) on \([-\tfrac12,\tfrac12]\) inside \((0,1/12)\).
+
+On \(0\leq\delta\leq1/12\), let
+\[
+ v=u+\tfrac1{12},\qquad
+ K(u)=\frac1v+\frac1{6v^3}
+     =\frac{12(144u^2+24u+25)}{(12u+1)^3}>0.
+\]
+Because \(d>0\) and \(u+\delta\leq v\), \eqref{second} implies
+\(F''_u(\delta)\leq-K(u)\). Integrating twice and completing a square,
+\[
+ F_u(\delta)\leq F_u(0)+F'_u(0)\delta-\tfrac12K(u)\delta^2
+ \leq F_u(0)+\frac{F'_u(0)^2}{2K(u)}.
+\]
+Lemma \ref{binet} and \eqref{d} give
+\[
+ F_u(0)<B(u)-\frac1{12u-1/4},\qquad
+ 0<F'_u(0)<\frac{12}{(12u-1/3)^2}.
+\]
+Consequently the global maximum of \(F_u\) is strictly less than
+\(-R(u)\), where
+\begin{equation}\label{rational}
+ R(u)=\frac1{12u-1/4}-\frac1{12u}+\frac1{360u^3}
+      -\frac1{1260u^5}-\frac{72}{(12u-1/3)^4K(u)}.
+\end{equation}
+
+\newpage
+It remains to prove one rational inequality, \(R(u)>0\) for \(u\geq1\).
+Write \(Q(u)=144u^2+24u+25\). Exact simplification gives
+\[
+ R(u)=\frac{N(u)}
+ {2520u^5(36u-1)^4(48u-1)Q(u)},
+\]
+where the numerator can be formed without any division:
+\begin{align*}
+ N(u)={}&210u^4(36u-1)^4Q(u)
+       +7u^2(36u-1)^4(48u-1)Q(u)\\
+       &-2(36u-1)^4(48u-1)Q(u)
+       -1224720u^5(48u-1)(12u+1)^3.
+\end{align*}
+For an explicit positivity certificate, write
+\(N(1+y)=\sum_{j=0}^{10}c_jy^j\). Its integer coefficients are
+\[
+\begin{array}{r|r@{\qquad}r|r}
+j&c_j&j&c_j\\ \hline
+0&2417815645&6&8758379206944\\
+1&130284291970&7&5353548256512\\
+2&968629141445&8&2115822352896\\
+3&3398691532320&9&490420998144\\
+4&7091567419890&10&50791587840\\
+5&9614662445664&&
+\end{array}
+\]
+Every coefficient is strictly positive, so \(N(u)>0\) for \(u\geq1\).
+The denominator is positive there as well. This proves \(R(u)>0\),
+then \(F_u(\delta)<0\) on the full required interval, and finally
+\eqref{target}.
+\end{proof}
+
+\noindent\textbf{Certificate and scope.}
+The accompanying \texttt{verify\_polynomial.py} builds the numerator
+from its four displayed summands using exact integers, checks the
+translation \(u=1+y\) by both binomial expansion and Horner substitution,
+and verifies the rational identity at exact rational points.
+The displayed polynomial identity and positive coefficients certify
+the infinite range; numerical sampling is not used as a proof.
+The argument includes \(x=0\), both endpoints of \([0,1]\), and
+arbitrarily large \(x\).
+
+\section*{Tasks 2--5. Further directions after the full solve}
+These are proposed tasks, not additional solved claims; each should
+receive a fresh literature and public-claim check before being attacked.
+\begin{description}
+\item[Task 2.] Determine the largest constant \(C\) for which
+\(\widehat m_{1/2}(x,\alpha)\leq[12(x+\alpha)+C]^{-1}\)
+holds on the full domain, with a positive denominator, and identify
+all extremizers or limiting extremizers.
+\item[Task 3.] For the constant in \eqref{target}, analyze the unique
+maximizing \(\delta\) of \(F_u\): determine its monotonicity in \(u\)
+and derive an asymptotic expansion with an explicit remainder.
+\item[Task 4.] Extend the same inequality, wherever its denominator is
+positive, to as much of the natural Gamma-function domain
+\(x>-1,\ 0\leq\alpha\leq1,\ x+\alpha>-\tfrac12\) as possible.
+\item[Task 5.] Find a simpler positive expression below \(R(u)\) for
+all \(u\geq1\), preserving its leading asymptotic term, to replace
+the degree-ten coefficient certificate by a shorter quantitative bound.
+\end{description}
+
+\begin{thebibliography}{9}
+\bibitem{Schmidlin}
+M. Schmidlin, \emph{On Gautschi \& Stirling Identities, Asymptotics
+and Inequalities for the Pi (or Gamma) Function},
+arXiv:2601.21906v1 (2026),
+\url{https://arxiv.org/abs/2601.21906}.
+\bibitem{DLMF}
+NIST Digital Library of Mathematical Functions,
+Binet's formula, Eq.~5.9.10,
+\url{https://dlmf.nist.gov/5.9#E10}.
+\end{thebibliography}
+\end{document}

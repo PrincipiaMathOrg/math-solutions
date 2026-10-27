@@ -1,0 +1,117 @@
+\documentclass[11pt]{article}
+\usepackage{amsmath,amssymb,amsthm,hyperref}
+\usepackage[margin=1in]{geometry}
+\newtheorem{theorem}{Theorem}
+\DeclareMathOperator{\tr}{tr}
+\title{Scalar counterexamples to the signed polynomial trace inequality}
+\author{Principia Math In Progress}
+\date{29 September 2026}
+\begin{document}\maketitle
+\begin{abstract}
+The polynomial clause of the signed mean value trace conjecture of
+Paulin, Mackey, and Tropp fails for every integer degree $q\ge2$, even
+for real scalar matrices. At degree three it would assert $7\le3$.
+This refutes the joint conjecture recorded as MathDB 325507.
+The separate exponential clause is not resolved here.
+\end{abstract}
+
+\section*{Task 1: counterexample to the joint conjecture}
+For a Hermitian matrix $X$, let $X_+$ and $X_-$ be its positive and
+negative parts, so $X=X_+-X_-$ and $|X|=X_++X_-$. Put $D=A-B$.
+Conjecture 7.3 of \cite{PMT13}, page 17, and Conjecture 13.4 of
+\cite{PMT16}, pages 3465--3466, assert two inequalities for arbitrary
+Hermitian $A,B,C$, every integer $q\ge1$, and every $s>0$.
+The polynomial clause is
+\begin{equation}\label{P}
+\tr[C(A^q-B^q)]\le\frac q2\tr\!\left[
+ (sD_+^2+s^{-1}C_+^2)|A|^{q-1}
+ +(sD_-^2+s^{-1}C_-^2)|B|^{q-1}\right].
+\end{equation}
+The other clause replaces $A^q,B^q$ by $e^A,e^B$, replaces the two
+absolute-power weights by $e^A,e^B$, and replaces $q/2$ by $1/2$.
+Neither source restricts $A$ or $B$ to be positive semidefinite.
+The final article separately asserts validity for scalars; the examples
+below also contradict that assertion for the polynomial clause.
+
+\begin{theorem}
+Inequality \eqref{P} holds universally when $q=1$, but fails for each
+integer $q\ge2$. In particular, $A=-2$, $B=-1$, $C=-1$, $q=3$, $s=1$
+is a scalar counterexample.
+\end{theorem}
+\begin{proof}
+For this explicit example, $D=-1$, $D_+=C_+=0$, and $D_-=C_-=1$.
+The left side of \eqref{P} is
+\[
+ (-1)((-2)^3-(-1)^3)=7,
+\]
+whereas the right side is $(3/2)(1+1)\cdot1=3$.
+All five inputs satisfy the hypotheses, and $7>3$.
+
+The same choice $A=-2$, $B=-1$, $C=-1$, $s=1$ gives left side
+$2^q-1$ and right side $q$ for every odd $q\ge3$.
+The binomial theorem gives
+$2^q=1+q+\sum_{j=2}^q\binom qj>1+q$, so each such degree fails.
+
+For even $q\ge2$, take instead
+\[
+ A=-4,\qquad B=-1,\qquad C=1,\qquad s=\frac{2^{q-1}}3.
+\]
+Now $D_+=C_-=0$, $D_-=3$, and $C_+=1$. The two sides are
+\[
+ L=4^q-1,\qquad
+ R=\frac q2\left(s^{-1}4^{q-1}+9s\right)=3q2^{q-1}.
+\]
+The $q$ positive numbers $1,4,\ldots,4^{q-1}$ are not all equal.
+The strict arithmetic--geometric mean inequality therefore yields
+\[
+ 4^q-1=3\sum_{j=0}^{q-1}4^j
+ >3q\left(\prod_{j=0}^{q-1}4^j\right)^{1/q}
+ =3q2^{q-1}=R.
+\]
+This proves failure for every even degree.
+
+Finally, for $q=1$ the weights are identity matrices and
+$D_+^2+D_-^2=D^2$, $C_+^2+C_-^2=C^2$. Since the trace of the square
+of a Hermitian matrix is nonnegative,
+\[
+ 0\le\tr\!\left[(\sqrt{s}D-s^{-1/2}C)^2\right]
+ =s\tr D^2+s^{-1}\tr C^2-2\tr(CD),
+\]
+which is precisely \eqref{P}.
+\end{proof}
+
+These scalar examples can also be multiplied by the identity matrix
+of any fixed positive dimension; both sides are then multiplied by
+that dimension. Thus the obstruction does not depend on permitting
+dimension one. Failure of the polynomial clause is enough to refute
+the conjunction of the two displayed universal inequalities. It does
+not refute the exponential inequality by itself, and no conclusion
+about its validity is claimed here. The unsigned inequalities proved
+elsewhere in the source are different statements.
+
+\section*{Four proposed follow-up tasks}
+\begin{enumerate}
+\item[Task 2.] Prove or refute the exponential clause for arbitrary
+Hermitian $A,B,C$ and all $s>0$.
+\item[Task 3.] Determine whether the polynomial clause holds when
+$A$ and $B$ are positive semidefinite, with arbitrary Hermitian $C$.
+\item[Task 4.] Determine which differentiable real functions $f$ obey
+the corresponding scalar signed inequality with weights $f'(a)$ and
+$f'(b)$ for all real $a,b,c$ and $s>0$.
+\item[Task 5.] Find a valid signed replacement for the polynomial
+clause that yields one-sided matrix moment bounds in the intended
+exchangeable-pair application.
+\end{enumerate}
+
+\begin{thebibliography}{9}
+\bibitem{PMT13} D.~Paulin, L.~Mackey, and J.~A.~Tropp,
+\emph{Deriving Matrix Concentration Inequalities from Kernel Couplings},
+\href{https://arxiv.org/abs/1305.0612v1}{arXiv:1305.0612v1} (2013),
+Conjecture 7.3, p.~17.
+\bibitem{PMT16} D.~Paulin, L.~Mackey, and J.~A.~Tropp,
+\emph{Efron--Stein inequalities for random matrices},
+Ann. Probab. \textbf{44} (2016), 3431--3473,
+\href{https://doi.org/10.1214/15-AOP1054}{doi:10.1214/15-AOP1054},
+Conjecture 13.4, pp.~3465--3466.
+\end{thebibliography}
+\end{document}

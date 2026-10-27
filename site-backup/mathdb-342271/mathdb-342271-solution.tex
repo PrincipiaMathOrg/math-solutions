@@ -1,0 +1,217 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,enumitem,hyperref}
+\hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue,citecolor=blue}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newcommand{\Z}{\mathbb Z}
+\newcommand{\saw}[1]{\left(\!\left(#1\right)\!\right)}
+\title{Divisibility of Shibukawa's elliptic Dedekind sum\\\large MathDB 342271}
+\author{Principia Math In Progress}
+\date{September 18, 2026}
+\begin{document}
+\maketitle
+\begin{abstract}
+We prove Conjecture 13 of Shibukawa: for coprime even $a$ and positive
+odd $b$, the integer $bQ(a;b)=4bs_i(a;b)$ is divisible by $4$, and by
+$12$ when $3\nmid b$. The proof uses Shibukawa's established expression
+in classical Dedekind sums and the classical Meyer inversion formula.
+A square multiplier has positive permutation sign, which gives the
+factor $4$. A separate elementary denominator argument gives the
+factor $3$. We prove a more general three-term congruence for every
+modulus, including even moduli.
+\end{abstract}
+
+\section*{Task 1. Full solution}
+The domain inherited from \cite{S} is $a\in\Z\setminus\{0\}$,
+$b\in\Z_{>0}$, $\gcd(a,b)=1$, and $a+b$ odd. We retain these
+hypotheses in interpreting the question. Write $s_i(a;b)$ for the
+elliptic sum in \cite{S} evaluated at $\tau=i=\sqrt{-1}$ and $Q(a;b)$
+for its rational part. In the normalization of that paper,
+\[
+ s_\tau(a;b)=Q(a;b)\left(\frac13-\frac16\lambda(\tau)\right),
+ \qquad \lambda(i)=\frac12,\qquad 4s_i(a;b)=Q(a;b).                 \tag{1}
+\]
+\begin{theorem}\label{target}
+For every even integer $a\ne0$ and positive odd integer $b$ with
+$\gcd(a,b)=1$,
+\[
+ \boxed{\ bQ(a;b)=4bs_i(a;b)\in4\Z.\ }
+\]
+If $3\nmid b$, then $bQ(a;b)\in12\Z$. In particular the latter
+conclusion holds for every positive modulus $b=6m\pm1$.
+\end{theorem}
+This is the full divisibility conjecture, including its stronger
+claim for the moduli $6m\pm1$, in both the preprint and the published
+final of \cite{S}.
+
+Define the sawtooth function by
+\[
+ \saw{x}=\begin{cases}x-\lfloor x\rfloor-\tfrac12,&x\notin\Z,\\
+                              0,&x\in\Z,\end{cases}
+ \qquad
+ s(h;b)=\sum_{j=1}^{b-1}\saw{\frac jb}\saw{\frac{hj}b}.             \tag{2}
+\]
+Here $b\ge1$, $h$ is any integer, and an empty sum is zero. In
+particular (2) gives the usual extension to noncoprime arguments.
+
+\subsection*{Reduction to three classical Dedekind sums}
+Shibukawa's formula \cite[(4.3)]{S}, obtained using
+Sitaramachandra Rao's Hardy-sum identity \cite{R}, is
+\[
+ Q(a;b)=6\bigl(s(a;2b)+s(2a;b)-2s(a;b)\bigr).                    \tag{3}
+\]
+This identity is an established input. Put $a=2c$. Directly from (2),
+\[
+ s(2c;2b)=s(c;b).                                                \tag{4}
+\]
+Indeed, for $1\le j<b$ the terms indexed by $j$ and $j+b$ have the
+same second sawtooth factor, whereas their first factors satisfy
+\[
+ \saw{\frac{j}{2b}}+\saw{\frac{j+b}{2b}}
+       =\frac jb-\frac12=\saw{\frac jb}.
+\]
+The term indexed by $b$ vanishes. Thus (3) becomes
+\[
+ bQ(2c;b)=6b\bigl(s(c;b)+s(4c;b)-2s(2c;b)\bigr).                 \tag{5}
+\]
+
+\subsection*{A congruence for every unit multiplier}
+\begin{theorem}\label{general}
+Let $b\ge1$ and $h,t\in\Z$ satisfy $\gcd(ht,b)=1$. Then
+\[
+ D_b(h,t):=6b\bigl(s(h;b)+s(ht^2;b)-2s(ht;b)\bigr)\in4\Z.
+                                                                    \tag{6}
+\]
+If $3\nmid b$, then $D_b(h,t)\in12\Z$.
+\end{theorem}
+We give a self-contained proof of the classical inversion identity
+used in this theorem. It is Meyer's formula \cite{M}; see also
+\cite[Theorem 1.2]{T} for its attribution.
+
+\begin{lemma}[Meyer's inversion formula]\label{meyer}
+Let $\gcd(h,b)=1$, and let $I(h,b)$ be the inversion number of
+the permutation $\sigma_h:j\mapsto hj\pmod b$ of
+$\{0,\ldots,b-1\}$, using least nonnegative residues. Then
+\[
+ I(h,b)=\frac{(b-1)(b-2)}4-3b\,s(h;b).                            \tag{7}
+\]
+\end{lemma}
+\begin{proof}
+The case $b=1$ is immediate. Suppose $b\ge2$ and let $r_j$ be the
+least nonnegative residue of $hj$. The values $r_1,\ldots,r_{b-1}$
+permute $1,\ldots,b-1$. For $0\le i<j\le b-1$,
+\[
+ r_{j-i}=r_j-r_i+b\,\boldsymbol{1}_{\{r_i>r_j\}}.
+\]
+Summing this equality over all such pairs gives
+\begin{align*}
+ bI(h,b)
+  &=\sum_{k=1}^{b-1}(b-k)r_k
+       -\sum_{k=1}^{b-1}(2k-b+1)r_k\\
+  &=\frac{b(2b-1)(b-1)}2-3\sum_{k=1}^{b-1}k r_k.
+\end{align*}
+On the other hand, expanding (2) gives
+\[
+ s(h;b)=\frac1{b^2}\sum_{k=1}^{b-1}k r_k-\frac{b-1}{4}.           \tag{8}
+\]
+Eliminating the residue sum proves (7).
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{general}]
+For $b=1$ all sums vanish, so assume $b\ge2$. Multiplication of
+residue classes gives
+\[
+ \sigma_{ht^2}=\sigma_t\circ\sigma_t\circ\sigma_h.
+\]
+Since a square of a permutation has positive sign,
+$(-1)^{I(ht^2,b)}=(-1)^{I(h,b)}$. Consequently
+\[
+ I(ht^2,b)\equiv I(h,b)\pmod2.                                   \tag{9}
+\]
+In (6), Meyer's identity cancels the constant term and yields
+\[
+ D_b(h,t)=4I(ht,b)-2I(h,b)-2I(ht^2,b).                             \tag{10}
+\]
+The last two inversion numbers have even sum by (9). Thus (10)
+is an integer divisible by $4$.
+
+For the additional factor $3$, suppose $3\nmid b$. For any
+$u$ coprime to $b$, let $r_j$ now be the residue of $uj$. The identity
+\[
+ 2\sum_{j=1}^{b-1}j^2=\frac{b(b-1)(2b-1)}3
+\]
+and $3\mid(b-1)(2b-1)$ imply $b\mid2\sum j^2$.
+Since $r_j\equiv uj\pmod b$, also $b\mid2\sum j r_j$. By (8),
+\[
+ 2b\,s(u;b)=\frac2b\sum_{j=1}^{b-1}j r_j-\frac{b(b-1)}2\in\Z.
+                                                                    \tag{11}
+\]
+It follows that each of $6b\,s(h;b)$, $6b\,s(ht;b)$, and
+$6b\,s(ht^2;b)$ belongs to $3\Z$, so $3\mid D_b(h,t)$.
+Together with the factor $4$ already proved, this proves the theorem.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{target}]
+For $a=2c$ and odd $b$ with $\gcd(a,b)=1$, both $c$ and $2$ are
+units modulo $b$. Take $h=c$ and $t=2$ in Theorem~\ref{general}
+and use (5). Equation (1) identifies the elliptic formulation.
+The proof uses residue classes and therefore also covers negative
+$a$. For $b=1$, (3)--(4) give $Q(a;1)=0$.
+\end{proof}
+
+The uniform factors cannot be increased: exact values are
+\[
+ 3Q(2;3)=4,\qquad 5Q(4;5)=12,\qquad 7Q(2;7)=12.
+\]
+Thus the factor $4$ is sharp over all odd moduli, and the factor
+$12$ is sharp even within each of the two classes $6m-1$ and $6m+1$.
+The contribution here is the application of permutation-sign
+multiplicativity to (3), with the denominator calculation (11).
+Formula (3) and Meyer's identity are explicitly credited prior work.
+
+\section*{Tasks 2--5. Proposed follow-ups}
+\begin{enumerate}[label=\textbf{Task \arabic*.},start=2,leftmargin=*]
+\item For nonzero $bQ(a;b)$, determine its exact $2$-adic valuation
+from the Euclidean algorithm for $(a/2,b)$, and obtain a useful
+criterion for divisibility by $8$ or higher powers of $2$.
+\item When $3\mid b$, determine the precise condition for
+$12\mid bQ(a;b)$ and the higher $3$-adic valuations of its nonzero
+values.
+\item For each fixed odd $b>1$, determine the greatest common
+divisor of the values $bQ(2c;b)$ over all units $c$ modulo $b$,
+including any exceptional moduli at which all these values vanish.
+\item Study denominator and divisibility bounds for the higher
+elliptic sums introduced by Shibukawa. Determine whether analogous
+permutation statistics control the rational coefficients in these
+Dedekind--Apostol sums.
+\end{enumerate}
+
+\paragraph{Verification.}
+Four exact arithmetic groups pass. An independent Hardy-sum formula
+checks 8,151 eligible pairs; 1,736 permutations and 61,854 unit pairs
+check inversions and signs directly; 140,390 triples check the general
+theorem, supplemented by 26 larger cases; and 3,157 signed pairs check
+negative arguments and period, with the boundary and sharp values.
+These finite checks support the proof and do not replace it.
+Review is by the authoring agent only.
+
+\begin{thebibliography}{9}
+\bibitem{S} G. Shibukawa,
+\emph{Some arithmetic properties of an elliptic Dedekind sum},
+JP J. Algebra Number Theory Appl. \textbf{46}(1) (2020), 35--54,
+\href{https://doi.org/10.17654/NT046010035}{doi:10.17654/NT046010035};
+\href{https://arxiv.org/abs/1903.12200}{arXiv:1903.12200v2} (2019).
+Conjecture 13 is on page 52 of the final, page 13 of the preprint.
+\bibitem{R} R. Sitaramachandra Rao,
+\emph{Dedekind and Hardy sums}, Acta Arith. \textbf{48}(4) (1987),
+325--340. Identity quoted as Lemma 7 in \cite{S}.
+\bibitem{M} C. Meyer,
+\emph{\"Uber einige Anwendungen Dedekindscher Summen},
+J. Reine Angew. Math. \textbf{198} (1957), 143--203.
+\bibitem{T} E. Tsukerman,
+\emph{Equality of Dedekind sums mod $\Z,2\Z$ and $4\Z$},
+\href{https://arxiv.org/abs/1408.3225}{arXiv:1408.3225v2} (2014),
+Theorem 1.2.
+\end{thebibliography}
+\end{document}

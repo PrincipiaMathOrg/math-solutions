@@ -1,0 +1,278 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=25mm]{geometry}
+\usepackage{amsmath,amssymb,amsthm,booktabs,hyperref}
+\hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue,citecolor=blue}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newcommand{\invGamma}{\operatorname{inv}\Gamma_0}
+\newcommand{\HH}{\mathbb H}
+\title{Convergence of the inverse-gamma Newton series\\
+\large MathDB 357309: proof with an explicit remainder bound}
+\author{Principia Math In Progress}
+\date{17 September 2026}
+\begin{document}
+\maketitle
+
+\section*{Task 1: the full conjecture}
+Let $\alpha$ be the unique positive zero of the digamma function
+$\psi=\Gamma'/\Gamma$, let $\beta=\Gamma(\alpha)$, and let
+$\invGamma$ denote the inverse of $\Gamma$ on $[\alpha,\infty)$.
+Thus $0<\beta<1$. For $n\geq1$, set
+\begin{equation}\label{coeff}
+ c_n=\sum_{k=0}^n
+ \frac{k}{
+ \displaystyle
+ \left(\prod_{i=1}^k\log\frac{(k+1)!}{i!}\right)
+ \left(\prod_{i=1}^{n-k}\log\frac{(k+1)!}{(k+1+i)!}\right)}.
+\end{equation}
+Empty products equal $1$.
+
+\begin{theorem}\label{main}
+For every real $x>\beta$,
+\begin{equation}\label{series}
+ \boxed{\displaystyle
+ \invGamma(x)=2+\sum_{n=1}^\infty c_n
+                    \prod_{i=1}^n\log\frac{x}{i!}.}
+\end{equation}
+The series converges absolutely and locally uniformly on
+$(\beta,\infty)$, with the finite inner sums in \eqref{coeff}
+performed before the outer summation.
+
+More explicitly, put $t=\log x$, $a=\log\beta<0$,
+$u_0=-a$, $b_j=\log((j+1)!)$, and
+\[
+ P_N(t)=2+\sum_{n=1}^Nc_n\prod_{j=0}^{n-1}(t-b_j).
+\]
+For every $N\geq1$,
+\begin{equation}\label{bound}
+ \left|\invGamma(e^t)-P_N(t)\right|
+ \leq
+ \frac{|t(t-b_1)|}{b_1(t+u_0)}
+       \prod_{j=2}^N\frac{|t-b_j|}{u_0+b_j}.
+\end{equation}
+The product in this bound is empty when $N=1$.
+\end{theorem}
+
+This proves exactly \cite[Conjecture 3.1]{Ulgenes}. Its displayed
+sum starts at $n=0$; that term is zero, so \eqref{series} has the
+same coefficients and summation convention.
+
+\subsection*{The analytic input}
+Define, for real $t>a$,
+\[
+ F(t)=\invGamma(e^t).
+\]
+We first justify an integral representation of this particular
+inverse of $\log\Gamma$.
+
+We use the classical conformal mapping theorem for $\log\Gamma$
+\cite[\S2, equation (2)]{PedersenInverse}, also proved in
+\cite[Proposition 6.4]{PedersenSurvey}. For the branch of $\log\Gamma$
+real on the positive axis, the upper half-plane $\HH$ is mapped
+conformally onto
+\[
+ \mathcal V=\mathbb C\setminus
+       \bigcup_{j=0}^\infty
+       \bigl([\log|\Gamma(\alpha_j)|,\infty)-ij\pi\bigr).
+\]
+Here $\alpha_0=\alpha$, and for $j\geq1$ the point
+$\alpha_j\in(-j,-j+1)$ is the unique zero of $\psi$ in that interval.
+Every removed ray has nonpositive imaginary part, so
+$\HH\subset\mathcal V$. It follows that the inverse of $\log\Gamma$
+restricted to $\HH$ maps $\HH$ into $\HH$: it is a Pick function.
+
+For real $t>a$, this inverse has the real boundary value
+$F(t)>\alpha$. Indeed, $\log\Gamma$ is strictly increasing on
+$(\alpha,\infty)$ and its derivative there is positive; its local
+inverse therefore takes nearby points above the real axis to points
+above the real axis. Uniqueness of the conformal inverse identifies
+the branches. The local inverse theorem and Schwarz reflection
+extend $F$ analytically across all of $(a,\infty)$, with real values.
+
+The Herglotz representation and its support characterization
+\cite[p.~90]{PedersenSurvey} consequently give
+\begin{equation}\label{repr}
+ F(t)=A t+B+
+       \int_{u_0}^\infty
+       \left(\frac{u}{1+u^2}-\frac1{t+u}\right)\,d\rho(u),
+ \quad t>a,
+\end{equation}
+where $A\geq0$, $B\in\mathbb R$, $\rho$ is a positive measure,
+and $\int_{u_0}^\infty(1+u^2)^{-1}\,d\rho(u)<\infty$.
+The support follows from real analytic continuation across
+$(a,\infty)$, followed by the change of variable $u=-s$.
+Both the conformal mapping theorem and the Herglotz theorem are
+established inputs, explicitly credited here.
+
+Since $b_0=0$, $b_1=\log2$, $F(0)=2$, and $F(b_1)=3$,
+subtracting \eqref{repr} at these two points yields
+\begin{equation}\label{moment}
+ \frac1{b_1}
+   =A+\int_{u_0}^\infty\frac{d\rho(u)}{u(u+b_1)}.
+\end{equation}
+In particular the integral on the right is at most $1/b_1$.
+
+\subsection*{Identifying all coefficients}
+Let $I_NF$ be the polynomial of degree at most $N$ interpolating
+$F$ at $b_0,\ldots,b_N$. These are distinct nodes, and
+\[
+ F(b_j)=j+2.
+\]
+The Newton coefficient of order $n\geq1$ is the divided difference
+\[
+ F[b_0,\ldots,b_n]
+   =\sum_{k=0}^n\frac{k+2}{\prod_{\substack{0\leq j\leq n\\j\ne k}}(b_k-b_j)}
+   =\sum_{k=0}^n\frac{k}{\prod_{\substack{0\leq j\leq n\\j\ne k}}(b_k-b_j)}.
+\]
+The constant $2$ contributes zero because a constant has zero
+divided differences of positive order; equivalently, compare the
+leading coefficient in its Lagrange interpolation formula.
+For $j<k$ and $j>k$, respectively, the denominator factors are
+\[
+ b_k-b_j=\log\frac{(k+1)!}{(j+1)!}.
+\]
+Reindexing the first group by $i=j+1$ and the second by $i=j-k$
+gives exactly \eqref{coeff}. Thus $I_NF=P_N$, not merely a formal
+series with matching first coefficients.
+
+\subsection*{The exact remainder}
+For fixed $u\geq u_0$ let $h_u(t)=-1/(t+u)$. Its interpolation
+remainder has the rational identity
+\begin{equation}\label{kernel}
+ h_u(t)-I_Nh_u(t)
+   =\frac{(-1)^N\prod_{j=0}^N(t-b_j)}
+          {(t+u)\prod_{j=0}^N(u+b_j)}.
+\end{equation}
+To verify it, multiply the left side by $t+u$.
+The result is a polynomial of degree at most $N+1$ vanishing at
+every $b_j$ and taking the value $-1$ at $t=-u$.
+These conditions give precisely the right-hand numerator and sign.
+
+For $N\geq1$, interpolation reproduces the affine part of
+\eqref{repr}, as well as the constant term in each regularized
+integrand. A finite Lagrange sum can be interchanged with the
+convergent regularized integrals. It follows that
+\begin{equation}\label{remainder}
+ F(t)-P_N(t)=(-1)^N\prod_{j=0}^N(t-b_j)
+       \int_{u_0}^\infty
+       \frac{d\rho(u)}{(t+u)\prod_{j=0}^N(u+b_j)}.
+\end{equation}
+No separately divergent constant integral has been split off.
+
+For $t>a$ all the denominator factors in \eqref{remainder}
+are positive. Extract the factors with $j=0,1$ and use
+$u\geq u_0$, $t+u\geq t+u_0>0$, and \eqref{moment}.
+This proves \eqref{bound}:
+\[
+ |F(t)-P_N(t)|
+ \leq
+ \frac{|t(t-b_1)|}{t+u_0}
+ \left(\prod_{j=2}^N\frac{|t-b_j|}{u_0+b_j}\right)
+ \int_{u_0}^\infty\frac{d\rho(u)}{u(u+b_1)}.
+\]
+It also proves the one-sided remainder rule
+\begin{equation}\label{signerror}
+ (-1)^N\prod_{j=0}^N(t-b_j)\,
+       (F(t)-P_N(t))\geq0.
+\end{equation}
+
+\subsection*{Convergence throughout the stated interval}
+Fix $t>a$. Once $b_j>t$, the product factor in \eqref{bound} is
+\[
+ \frac{|t-b_j|}{u_0+b_j}
+   =1-\frac{t+u_0}{u_0+b_j}\quad\hbox{in }(0,1).
+\]
+Furthermore,
+\begin{equation}\label{divergence}
+ \sum_{j=2}^\infty\frac1{u_0+b_j}=\infty,
+\end{equation}
+because $b_j=\log((j+1)!)\leq(j+1)\log(j+1)$ and
+$\sum_{j\geq2}1/(j\log j)$ diverges. The inequality
+$1-v\leq e^{-v}$ now shows that the product in \eqref{bound}
+tends to zero. If $t$ is a node, interpolation is already exact
+once that node is included. This proves $P_N(t)\to F(t)$ for
+every $t>a$, including negative $t$.
+
+The convergence is uniform on a compact interval $K\subset(a,\infty)$.
+Choose $J$ such that $b_j>\max K$ for $j\geq J$.
+The finitely many initial factors and the prefactor in
+\eqref{bound} are uniformly bounded on $K$. In the remaining
+factors, replace $t+u_0$ by $\min K+u_0>0$ and apply
+\eqref{divergence}. This proves local uniform convergence.
+
+For $n\geq2$, taking divided differences in \eqref{repr} gives
+\begin{equation}\label{signcoef}
+ c_n=(-1)^{n-1}
+       \int_{u_0}^\infty\frac{d\rho(u)}
+                              {\prod_{j=0}^n(u+b_j)}.
+\end{equation}
+Thus the coefficient signs alternate weakly. For fixed real $t$,
+all sufficiently late Newton terms have the same sign, since
+$t-b_j<0$ for all sufficiently large $j$. The already established
+convergence is therefore absolute. This is also locally uniform
+absolute convergence: after an index independent of $t\in K$,
+the absolute tail at each $t$ equals $|F(t)-P_N(t)|$, which
+tends uniformly to zero. Finally, the substitution $t=\log x$
+proves Theorem \ref{main} in full.
+
+\subsection*{Verification and scope}
+The exact verifier checks the rational-kernel base case,
+divided-difference induction, remainder update, and regularization
+cancellation, as well as independent Lagrange constructions at
+six finite node sets. There are sixteen exact symbolic identities.
+Independent recursive and printed-product coefficients agree in
+24 cases, and 128 computed coefficients have the predicted signs.
+
+Eleven real test points, including four factorial nodes, are checked
+at degrees $8,32,128$ against a separately computed principal
+inverse and the bound \eqref{bound}, using 220-digit arithmetic
+with a 160-digit precision comparison. All 33 bound diagnostics pass.
+These checks do not prove convergence; the all-$x$ argument is above.
+Convergence can be slow: at $x=0.89$, the degree-128 error is about
+$0.182$. The theorem asserts convergence, not rapid numerical accuracy.
+
+The complete published source and its latest arXiv version both
+retain Conjecture 3.1 on page 9. Dated bounded status and literature
+checks accompany this note. The authoring agent performed the audit;
+no independent peer review is claimed.
+
+\newpage
+\section*{Tasks 2--5: proposed follow-up work}
+These are four proposed tasks, not additional solved problems.
+\begin{enumerate}
+ \setcounter{enumi}{1}
+ \item \textbf{Task 2.} Determine the leading asymptotic of
+ $F(t)-P_N(t)$ for each fixed nonnode $t>a$, using the behavior
+ of the representing measure near $u_0$; compare it with
+ the product bound \eqref{bound}.
+ \item \textbf{Task 3.} Determine convergence on the boundary
+ $\Re t=a$ for the corresponding complex Newton series, including
+ its value at the real endpoint $t=a$.
+ \item \textbf{Task 4.} Construct a numerically stable accelerated
+ evaluation of \eqref{series}, with a certified error tolerance
+ on any prescribed compact subinterval of $(\beta,\infty)$.
+ \item \textbf{Task 5.} Determine the limit, if it exists, of the
+ Newton interpolation series for $\invGamma(x)$ at the unlogged
+ factorial nodes $(j+1)!$, and compare that limit with $\invGamma$.
+\end{enumerate}
+
+\begin{thebibliography}{9}
+\bibitem{Ulgenes} D. P. H. Ulgenes,
+\emph{Series and Product Representations of Gamma, Pseudogamma and
+Inverse Gamma Functions}, Maple Transactions \textbf{5}(1),
+Article 16090 (2025), 10 pp.,
+\href{https://doi.org/10.5206/mt.v5i1.16090}{doi:10.5206/mt.v5i1.16090}.
+Also \href{https://arxiv.org/abs/2301.09699v4}{arXiv:2301.09699v4}.
+\bibitem{PedersenInverse} H. L. Pedersen,
+\emph{Inverses of gamma functions},
+\href{https://arxiv.org/abs/1309.2167}{arXiv:1309.2167}, 2013,
+\S2, equation (2).
+Published in Constructive Approximation \textbf{41} (2015), 251--267.
+\bibitem{PedersenSurvey} H. L. Pedersen,
+\emph{Pick Functions as a Tool in the Theory of Special Functions},
+RIMS K\^oky\^uroku \textbf{1893} (2014), 89--101,
+\href{https://www.kurims.kyoto-u.ac.jp/~kyodo/kokyuroku/contents/pdf/1893-12.pdf}{complete published survey}.
+See p.~90 for Herglotz representation and support, and
+pp.~99--100 for the conformal mapping theorem.
+\end{thebibliography}
+\end{document}

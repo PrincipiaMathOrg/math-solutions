@@ -1,0 +1,219 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,hyperref}
+\newtheorem{theorem}{Theorem}
+\newcommand{\G}{\mathcal G}
+\newcommand{\E}{\mathcal E}
+\newcommand{\C}{\mathcal C}
+\title{Strong triangularity of the Hermitian Jacobi operator\\\large MathDB 376317: a Casimir proof}
+\author{Principia Math In Progress}
+\date{17 September 2026}
+\begin{document}
+\maketitle
+
+\paragraph{Task 1: the original problem.}
+We prove Kuijper's Conjecture 3.13 \cite{K}, with strong triangularity
+understood exactly as in Definition 2.12 and with the ordering on
+pp.~19--20. The diagonal coefficient is independent of every choice
+within a multiplicity space.
+
+\begin{theorem}\label{thm}
+Let $m,k\ge1$ and $\kappa_j>m/2-1$ for $1\le j\le k+1$. Put
+\[
+ N=\sum_{j=1}^{k+1}\kappa_j+\frac{(k+1)m}{2}.
+\]
+For every multivariate Schur basis element
+$s_\theta=s^{\tau_1,\ldots,\tau_k}_\phi$, including any allowed
+multiplicity label, the operator of Definition 3.5 satisfies
+\begin{equation}\label{eq:result}
+ \G^m_\kappa s_\theta
+ =-\left(\sum_{i=1}^m\phi_i(\phi_i+N+1-2i)\right)s_\theta
+   +\sum_{\eta<\theta}a_{\theta\eta}s_\eta.
+\end{equation}
+Consequently it is strongly triangular for every choice of the
+multivariate Schur basis within the specified multiplicity spaces.
+\end{theorem}
+
+\section*{An identity for the entire differential operator}
+Complexify the real vector space of Hermitian matrix tuples and write
+$x_{j,ab}$ for the entries of $X_j$. Thus all $km^2$ entries are independent
+polynomial coordinates for the calculation; restriction to the Hermitian
+space recovers the original operator. Write
+$\partial_{j,ab}=\partial/\partial x_{j,ab}$ and define
+\[
+ \E=\sum_{j,a,b}x_{j,ab}\partial_{j,ab},\qquad
+ R_{ab}=\sum_{j,c}x_{j,ca}\partial_{j,cb},\qquad
+ L_{ab}=\sum_{j,c}x_{j,ac}\partial_{j,bc}.
+\]
+The $R_{ab}$ and $L_{ab}$ are the column and row actions of
+$\mathfrak{gl}_m$, respectively. They commute with one another, and each
+family satisfies the standard matrix-unit commutation relations. Set
+\[
+ \C_R=\sum_{a,b}R_{ab}R_{ba},\qquad
+ \C_L=\sum_{a,b}L_{ab}L_{ba}.
+\]
+The product rule, including differentiation of the coefficient in the
+inner vector field, gives
+\begin{align}
+ \C_R&=m\E+\sum_{j,\ell,a,b,c,d}
+ x_{j,ad}x_{\ell,cb}\partial_{j,ab}\partial_{\ell,cd},\label{eq:CR}\\
+ \C_L&=m\E+\sum_{j,\ell,a,b,c,d}
+ x_{j,cb}x_{\ell,ad}\partial_{j,ab}\partial_{\ell,cd}.\label{eq:CL}
+\end{align}
+For instance, in $R_{ab}R_{ba}$, differentiation of $x_{\ell,db}$
+contributes $\sum_{j,c}x_{j,ca}\partial_{j,ca}$, and summing over
+$a,b$ gives $m\E$.
+
+Define the operators that decrease degree by one,
+\begin{equation}\label{eq:K}
+ K_j=\sum_{a,b,c,d}\delta_{ad}x_{j,cb}
+          \partial_{j,ab}\partial_{j,cd}
+       +\left(\kappa_j+\frac m2\right)\sum_a\partial_{j,aa}.
+\end{equation}
+The source operator consists of the within-matrix second-order terms
+$(\delta_{ad}-x_{j,ad})x_{j,cb}\partial_{j,ab}\partial_{j,cd}$,
+the mixed terms
+\[
+ -\frac12\sum_{j\ne\ell,a,b,c,d}
+ (x_{j,ad}x_{\ell,cb}+x_{j,cb}x_{\ell,ad})
+ \partial_{j,ab}\partial_{\ell,cd},
+\]
+and the drift
+$\sum_{j,a,b}((\kappa_j+m/2)\delta_{ab}-Nx_{j,ab})\partial_{j,ab}$.
+The two quadratic coefficients coincide when $j=\ell$.
+Combining them with \eqref{eq:CR}--\eqref{eq:CL} therefore proves the
+exact identity, on the full polynomial ring,
+\begin{equation}\label{eq:operator}
+ \boxed{\quad
+ \G^m_\kappa=-\frac12(\C_R+\C_L)-(N-m)\E+\sum_{j=1}^k K_j.
+ \quad}
+\end{equation}
+Both Casimirs are retained here: they need not agree on noninvariant
+polynomials. They have the same scalar action on the invariant
+components used below.
+
+\section*{The Casimir scalar, including multiplicities}
+For either family of matrix units $T_{ab}$, the element
+$\sum_{a,b}T_{ab}T_{ba}$ is central; this follows by substituting
+$[T_{ab},T_{cd}]=\delta_{bc}T_{ad}-\delta_{ad}T_{cb}$ and cancelling
+terms in its commutator with $T_{cd}$.
+On the irreducible polynomial representation of highest weight
+$\phi=(\phi_1,\ldots,\phi_m)$ it acts by
+\begin{equation}\label{eq:casvalue}
+ c_m(\phi)=\sum_{i=1}^m\phi_i(\phi_i+m+1-2i).
+\end{equation}
+To verify the normalization, take a highest-weight vector $v$, so that
+$T_{ab}v=0$ for $a<b$ and $T_{aa}v=\phi_av$. Then
+\[
+ \sum_{a,b}T_{ab}T_{ba}v
+ =\left(\sum_a\phi_a^2+\sum_{a<b}(\phi_a-\phi_b)\right)v
+ =c_m(\phi)v.
+\]
+Centrality extends this equality to the whole irreducible representation.
+
+Recall the Cauchy and tensor-product decompositions defining the source's
+multivariate Schur spaces (pp.~7 and 16--17). For fixed individual
+partitions $\boldsymbol\tau=(\tau_1,\ldots,\tau_k)$, each matrix contributes
+a row and a column Schur factor of type $\tau_j$. Decomposing the
+tensor product of row factors and the tensor product of column factors
+under their respective diagonal $GL_m$ actions gives types $\phi$ and
+$\psi$. Invariance under simultaneous unitary conjugation selects equal
+types $\phi=\psi$. This is precisely the construction of the spaces
+$S^{\boldsymbol\tau}_\phi$ in the source.
+
+If $\phi$ has tensor-product multiplicity $d$, the corresponding invariant
+space can have dimension $d^2$. Nevertheless \emph{each} copy of the
+row representation has Casimir scalar $c_m(\phi)$, and the same is true
+for each column copy. A Casimir belongs to the acting enveloping algebra
+and acts as this scalar times the identity on the entire isotypic
+component, including its multiplicity factor. Thus
+\begin{equation}\label{eq:copies}
+ \C_R s=c_m(\phi)s,\qquad
+ \C_L s=c_m(\phi)s
+ \quad\text{for every }s\in S^{\boldsymbol\tau}_\phi.
+\end{equation}
+This asserts more than preservation of an isotypic component by an
+arbitrary intertwiner; no mixing of equivalent copies is possible.
+Also $\E s=|\phi|s$, because
+$|\phi|=\sum_j|\tau_j|$. The degree-preserving part of
+\eqref{eq:operator} therefore acts on this entire space as
+\[
+ -c_m(\phi)-(N-m)|\phi|
+ =-\sum_{i=1}^m\phi_i(\phi_i+N+1-2i).
+\]
+
+\section*{Every remaining term is strictly lower}
+It remains to check the exact source ordering, not merely total degree.
+The operator $K_j$ acts only on the entries of $X_j$, decreases their
+degree by one, and is invariant under simultaneous unitary conjugation.
+The last assertion follows directly from the contracted indices in
+\eqref{eq:K}, or by conjugating its matrix coordinates by a unitary matrix.
+
+Let $W_\tau$ denote the single-matrix Cauchy summand with individual
+partition $\tau$. A basis element $s_\theta$ belongs to
+$\bigotimes_{\ell=1}^kW_{\tau_\ell}$. If $|\tau_j|=0$, then
+$K_js_\theta=0$. Otherwise
+\[
+ K_js_\theta\in
+ \left(\bigotimes_{\ell\ne j}W_{\tau_\ell}\right)
+ \otimes\mathcal P_{|\tau_j|-1}(\operatorname{Mat}_m),
+\]
+with factors placed in their original order. Decomposing the last
+polynomial space into Cauchy summands shows that every output index
+$\eta=(\rho_1,\ldots,\rho_k;\psi)$ satisfies
+\[
+ \rho_\ell=\tau_\ell\ (\ell\ne j),\qquad
+ |\rho_j|=|\tau_j|-1.
+\]
+Because the source uses \emph{graded} dominance for each partition,
+$\rho_j<\tau_j$, regardless of its shape. Since all the other individual
+partitions agree, the source's reverse lexicographic combination gives
+$\eta<\theta$, regardless of $\psi$ or its multiplicity label.
+The invariant output expands in the multivariate Schur basis, so this
+accounts for every term in $K_js_\theta$.
+
+Combining this observation with \eqref{eq:operator} and
+\eqref{eq:copies} proves \eqref{eq:result}. The diagonal coefficient
+depends only on $\phi$, and in particular is identical on equivalent
+indices. This proves strong triangularity in Definition 2.12 and
+completes the proof of Theorem \ref{thm}.
+
+\paragraph{Scope and verification.}
+The argument is algebraic and establishes all matrix sizes, all numbers
+of variables, all partition degrees, and all multiplicities. In fact,
+the operator identity and triangularity hold for arbitrary complex
+parameters; the theorem states the parameter range of the question.
+The companion exact checker tests the operator identity on a basis of
+quadratic polynomials in a nontrivial matrix case and verifies a
+four-dimensional repeated-type invariant space. These tests check
+conventions; the proof for arbitrary dimensions is above.
+The review was performed by the authoring agent, without independent
+peer review. This theorem is separate from the product-eigenfunction
+assertion of Conjecture 3.12.
+
+\section*{Four follow-up tasks}
+\paragraph{Task 2.}
+Compute the lower coefficients $a_{\theta\eta}$ explicitly in a fixed
+multivariate Schur basis, starting with the first tensor-product
+multiplicity greater than one, and express the general coefficients
+through branching maps.
+\paragraph{Task 3.}
+Construct a commuting family of symmetric differential operators that
+separates the partition and multiplicity labels left indistinguishable
+by the single quadratic Casimir.
+\paragraph{Task 4.}
+Classify coincidences between the values
+$\sum_i\phi_i(\phi_i+N+1-2i)$ for admissible $N$ and determine how they
+affect canonical choices of orthogonal eigenpolynomials.
+\paragraph{Task 5.}
+Use tensor product multiplicities to compute a generating function for
+the multiplicities in the Jacobi spectrum. Derive corresponding
+heat-trace asymptotics in the geometric parameter range.
+
+\begin{thebibliography}{9}
+\bibitem{K} T. Kuijper, \emph{Jacobi polynomials on the simplex of Hermitian
+matrices and zonal spherical functions on partial flag manifolds},
+\href{https://arxiv.org/abs/2607.25760v1}{arXiv:2607.25760v1} (2026),
+Definitions 2.5, 2.12, and 3.5, and Conjecture 3.13.
+\end{thebibliography}
+\end{document}

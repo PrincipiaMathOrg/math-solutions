@@ -1,0 +1,199 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,hyperref}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newcommand{\Mat}{\operatorname{Mat}}
+\newcommand{\GL}{\operatorname{GL}}
+\newcommand{\rank}{\operatorname{rank}}
+\title{Filling matrix spaces by transformed sets of arbitrary positive density exponent}
+\author{Principia Math In Progress}
+\date{22 September 2026}
+\begin{document}
+\maketitle
+\begin{abstract}
+We prove the matrix-set filling conjecture of Gill, Lifshitz, Pyber and
+Szab\'o for every positive size exponent, every finite field and every
+matrix dimension. The many-rank point-mass theorem proved in the companion
+note, together with the source's additive-energy and growth lemmas,
+gives an explicit number of summands depending only on the size exponent.
+All small ambient spaces are included.
+\end{abstract}
+
+\section*{Task 1: the matrix-set filling theorem}
+Write $A=\Mat_{n\times n}(\mathbb F_q)$ and $Q=|A|=q^{n^2}$, where
+$q$ is a prime power and $n\ge1$. For subsets, sums denote Minkowski sums.
+The following proves Conjecture 5.4 of \cite{source}.
+
+\begin{theorem}\label{main}
+For every $c>0$ there is an integer $\mu(c)$ such that for any
+$X_1,\ldots,X_{\mu(c)}\subseteq A$ with $|X_i|\ge Q^c$, there exist
+$a_i,b_i\in\GL(n,q)$ satisfying
+\[
+ a_1X_1b_1+\cdots+a_{\mu(c)}X_{\mu(c)}b_{\mu(c)}=A.
+\]
+For $0<c\le1$ one may take
+\[
+ \begin{gathered}
+ D=2^{\max\{15,\lceil8/c\rceil\}},\qquad
+ \ell=\lceil16/c\rceil,\qquad h=\ell+\lfloor4/c\rfloor,\\
+ \nu=h2^{h+1},\qquad \mu(c)=2D\nu.
+ \end{gathered}
+\]
+For $c>1$ the hypotheses are impossible, so $\mu(c)=1$ suffices.
+\end{theorem}
+
+The sets may be different and need not contain zero or be symmetric.
+The source's established exponent $c=9/10$ is its Theorem 5.2,
+equivalently Theorem 5.28; that case and the two lemmas used below are
+prior results, not new claims of this note.
+
+\section*{The inputs and their exact scope}
+Let $T=\GL(n,q)\times\GL(n,q)$ act on the additive group $A$ by
+$(g,h)x=gxh^{-1}$. This is an action by group automorphisms.
+We use the following two results from the completely read primary source.
+
+\begin{lemma}[\cite{source}, Corollary 5.13]\label{growth}
+Let $B$ be a finite abelian group and $T\le\operatorname{Aut}(B)$.
+For any nonempty subsets $Y_1,\ldots,Y_L$ there exist $s_i\in T$ such that
+either
+\[
+ \left|\sum_{i=1}^L s_iY_i\right|\ge\frac L2\min_i|Y_i|,
+\]
+or that sum is a union of cosets of a $T$-invariant subgroup $N$
+with $|N|\ge\min_i|Y_i|$.
+\end{lemma}
+
+\begin{lemma}[\cite{source}, Corollary 5.17]\label{energy}
+Suppose $B$ is finite abelian, $T\le\operatorname{Aut}(B)$ is finite,
+$\alpha,\beta\ge1$, and $V\subseteq B$ has $|V|\le\beta$.
+Suppose for every $a\in B$ and $b_1,\ldots,b_\ell\notin V$,
+\[
+ \#\{(t_1,\ldots,t_\ell)\in T^\ell:
+               a=t_1b_1+\cdots+t_\ell b_\ell\}\le |T|^\ell/\alpha.
+\]
+For $\delta>0$, set $h=\ell+\lfloor1/\delta\rfloor$ and $\nu=h2^{h+1}$.
+If $Y_1,\ldots,Y_\nu$ have size at least $\alpha^\delta\beta$, then
+there exist $s_i\in T$ such that their transformed sum either has size
+at least $\alpha$, or contains a coset of a $T$-invariant subgroup $N$
+with $|N|\ge\min_i|Y_i|$.
+\end{lemma}
+
+These inputs are proved in the source using Olson's growth theorem
+and additive energy. In particular, they apply to unequal sets and to
+cosets, and their parameters have no dependence on $|B|$.
+
+The new input is the companion point-mass theorem \cite{rankbound}:
+independent uniform matrices of ranks $r_1,\ldots,r_k$ have each point
+probability at most $C/Q$, where $C=32768$, whenever $\sum_i r_i\ge2n$.
+For clarity, its mechanism is rectangular factorization: the probability
+that an $n\times r$ uniform factor is full rank is at least $4^{-r/n}$.
+Choose a rank prefix with total $2n\le R<3n$. Conditioning both factors
+in each block costs at most $16^3$, while the unconditioned product
+of an $n\times R$ and an $R\times n$ uniform matrix has point mass
+at most $8/Q$. Further independent summands do not increase the maximum.
+The full proof, exact verification, and fixed publication version of
+this dependency are linked in \cite{rankbound} and the accompanying audit.
+
+\section*{Invariant subgroups and the exceptional ranks}
+The only $T$-invariant additive subgroups of $A$ are $\{0\}$ and $A$.
+Indeed, a nonzero invariant subgroup contains, by left-right equivalence,
+$J_r=\operatorname{diag}(I_r,0)$ for some $r\ge1$.
+When $n\ge2$, invariance and subtraction give
+\[
+ (I_n+E_{21})J_r-J_r=E_{21}.
+\]
+Its left-right orbit consists of every rank-one matrix. These include all
+scalar multiples of matrix units and additively generate $A$.
+When $n=1$, the orbit of any nonzero element already contains all
+nonzero field elements. This also proves the assertion over nonprime fields
+without assuming in advance that an additive subgroup is field-linear.
+
+Set $\eta=c/8$ and let $V$ consist of matrices of rank less than $\eta n$.
+The elementary rank-ball estimate in Fact 5.23(d) of \cite{source} gives
+\[
+ |V|\le4q^{2\eta n^2}=4Q^{c/4}.
+\]
+For completeness, if $s$ is the largest integer less than $\eta n$,
+every rank-at-most-$s$ matrix has image in some $s$-dimensional subspace.
+There are at most $4q^{s(n-s)}$ such subspaces and at most $q^{ns}$
+maps into each, giving at most $4q^{s(2n-s)}\le4q^{2\eta n^2}$.
+Here $s\ge0$ because $c>0$, and $\eta<1$ for the range under consideration.
+
+For fixed $b_i\notin V$, independently uniform $t_i\in T$ send $b_i$
+to independent uniform matrices of ranks at least $\eta n$.
+Since $\ell=\lceil16/c\rceil$ gives $\ell\eta\ge2$, the point-mass
+theorem implies
+\[
+ \#\{(t_i)\in T^\ell:\sum_i t_ib_i=a\}\le C|T|^\ell/Q.
+                                                               \tag{1}
+\]
+Uniformity here is the elementary orbit-stabilizer fact; no independence
+of matrix entries within a fixed rank class is assumed.
+
+\section*{The two size regimes}
+\begin{proof}[Proof of Theorem \ref{main}]
+It remains to consider $0<c\le1$. Every $X_i$ has at least two elements,
+since $Q^c>1$ and its cardinality is an integer.
+
+First suppose $Q\ge D$. Apply Lemma \ref{energy} with
+\[
+ \alpha=Q/D\ge1,\qquad \beta=4Q^{c/4}\ge1,\qquad \delta=c/4.
+\]
+Its orbit-count hypothesis follows from (1), because $D\ge C$.
+The size condition holds since $D^{c/4}\ge4$ and
+\[
+ \alpha^\delta\beta
+ =4D^{-c/4}Q^{c/2}\le Q^{c/2}\le Q^c\le |X_i|.
+\]
+Partition the $\mu=2D\nu$ sets into $2D$ blocks of $\nu$ sets each.
+Lemma \ref{energy} transforms each block into a sum $Y_j$ of size at
+least $\alpha$. In its subgroup alternative, the subgroup has at least
+two elements and therefore equals $A$, so that block already fills $A$.
+In either case $|Y_j|\ge\alpha$, and also $|Y_j|\ge2$ because a
+nonempty sumset contains a translate of each summand.
+
+Now apply Lemma \ref{growth} to $Y_1,\ldots,Y_{2D}$.
+Its first alternative gives size at least
+$D\min_j|Y_j|\ge D\alpha=Q$. Its subgroup alternative also gives all
+of $A$, since the subgroup has size at least two. Thus transformed
+block sums fill $A$. Composing their outer transformations with the
+inner transformations gives one element of $T$ for each original set.
+Writing these as $a_iX_ib_i$ yields the required form, since an inverse
+of an invertible right multiplier is again an allowed right multiplier.
+
+If $Q<D$, apply Lemma \ref{growth} directly to the $\mu$ original sets.
+The size alternative gives at least $\mu\ge Q$ elements, while the
+subgroup alternative again forces the whole group because
+$\min_i|X_i|\ge2$. This proves the result in every remaining dimension
+and field, including all small ambient spaces.
+\end{proof}
+
+This is a separate set-filling assertion. Its proof explicitly uses the
+point-mass theorem of \cite{rankbound}; that dependency is not claimed
+as a second new point-mass result.
+
+\section*{Proposed follow-up Tasks 2--5}
+These are proposed tasks, not additional completed results.
+\begin{enumerate}
+\setcounter{enumi}{1}
+\item Determine the optimal growth rate of the least admissible $\mu(c)$
+as $c\downarrow0$, and compare it with the explicit bound above.
+\item Give an algorithm for constructing the left and right multipliers,
+with a complexity bound in terms of the input sets and field size.
+\item Establish the corresponding filling theorem for rectangular matrix
+spaces, with constants uniform in both dimensions and their ratio.
+\item Characterize the subsets for which left multipliers alone suffice,
+and identify all invariant-subspace obstructions to a uniform theorem.
+\end{enumerate}
+\begin{thebibliography}{9}
+\bibitem{source} N. Gill, N. Lifshitz, L. Pyber and E. Szab\'o,
+\emph{Initiating the proof of the Liebeck--Nikolov--Shalev conjecture},
+\href{https://arxiv.org/abs/2408.07800v2}{arXiv:2408.07800v2}, 2024.
+Conjecture 5.4, Corollaries 5.13 and 5.17, and Theorem 5.28.
+\bibitem{rankbound} Principia Math In Progress,
+\emph{A uniform point-mass bound for sums of prescribed-rank matrices},
+22 September 2026, MathDB 364356, Theorem 1.
+\href{https://github.com/antoshashakov/Principia-Math-In-Progress/blob/b01f62e992fc0a2038c41c3a728bbe8c928c1896/mathdb-open-problems/problems/364356/solution.pdf}{Fixed published proof version}.
+\end{thebibliography}
+\end{document}

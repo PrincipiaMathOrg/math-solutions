@@ -1,0 +1,156 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=25mm]{geometry}
+\usepackage{amsmath,amssymb,amsthm,hyperref}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\title{Prime periods of the chocolate numbers\\MathDB 331410}
+\author{Principia Math In Progress}
+\date{28 September 2026}
+\begin{document}
+\maketitle
+\begin{abstract}
+For every prime $p\equiv2,3\pmod5$ with $p\ne2$, the chocolate
+numbers have eventual period $p(p-1)$ modulo $p$. More precisely,
+the shift $p(p-1)/2$ multiplies the sequence by the quadratic character
+of $-5$, starting at index $(p+1)/2$. The proof uses integer divided
+powers, so no factorial is inverted in characteristic $p$.
+\end{abstract}
+
+\section*{Task 1: the source question and its resolution}
+Let $B_n$ count the ways of breaking a $2$ by $n$ chocolate bar into
+unit squares, with the order of the breaks recorded. The source
+\cite{chocolate} gives $B_1=1$ and, for $n\ge2$,
+\begin{equation}\label{rec}
+B_n=(2n-2)!+\sum_{i=1}^{n-1}\binom{2n-2}{2i-1}B_iB_{n-i}.
+\end{equation}
+Its Conjecture 23 (Conjecture 3 in the preprint) asks for an eventual
+period divisible by $p(p-1)$ when $p\ne2,5$ and $p\not\equiv\pm1\pmod5$.
+The following identifies $p(p-1)$ itself as such a period.
+
+\begin{theorem}\label{main}
+Let $p$ be an odd prime for which $5$ is a quadratic nonresidue. Put
+$T=p(p-1)/2$ and $\epsilon=\left(\frac{-5}{p}\right)\in\{1,-1\}$.
+For every $n\ge(p+1)/2$,
+\begin{equation}\label{half}
+B_{n+T}\equiv\epsilon B_n\pmod p.
+\end{equation}
+Consequently $B_{n+p(p-1)}\equiv B_n\pmod p$ throughout this range.
+\end{theorem}
+Quadratic reciprocity gives $\left(\frac5p\right)=\left(\frac p5\right)$,
+so these are exactly the primes in the source question.
+The theorem specifies a period, without asserting that it is the
+least period. For example, the source already proves period $3$ modulo
+$3$ for $n\ge2$; our formula recovers it with $T=3$.
+
+\section*{Divided powers and the auxiliary series}
+For a commutative ring $R$, let $\mathcal H(R)$ be the ring of sequences
+$A=(a_0,a_1,\ldots)$, written $A=\sum_{j\ge0}a_jt^{[j]}$, with product
+\[
+(AB)_j=\sum_{i=0}^j\binom ji a_i b_{j-i}.
+\]
+Over $\mathbb Q$, $t^{[j]}$ is $t^j/j!$. The operator $D$ is the shift
+$(DA)_j=a_{j+1}$. Pascal's identity proves that $D$ is a derivation.
+A series with constant coefficient $1$ has a unique inverse, recursively
+in the same coefficient ring.
+
+Define integers $d_j$ by
+\begin{equation}\label{drec}
+d_0=1,\qquad d_1=0,\qquad
+d_{j+2}=(j^2-j-1)d_j\quad(j\ge0),
+\end{equation}
+and put $U=\sum d_jt^{[j]}\in\mathcal H(\mathbb Z)$. All odd $d_j$ vanish.
+Writing $t=t^{[1]}$, recurrence \eqref{drec} is equivalent to
+\[
+(1-t^2)D^2U+U=0.
+\]
+Indeed, the $j$th coefficient of $t^2D^2U$ is $j(j-1)d_j$.
+Let $H=(1-t^2)^{-1}$; its coefficient is $j!$ for even $j$ and zero
+for odd $j$. Set $Y=-(DU)U^{-1}$. Then $Y_0=0$ and
+\begin{equation}\label{riccati}
+DY=H+Y^2.
+\end{equation}
+The coefficients of \eqref{riccati} determine $Y$ uniquely from $Y_0$.
+Comparing them with \eqref{rec}, including the zero even coefficients,
+gives the identity
+\begin{equation}\label{Y}
+Y=\sum_{n\ge1}B_nt^{[2n-1]}=-(DU)U^{-1}
+\quad\hbox{in }\mathcal H(\mathbb Z).
+\end{equation}
+This is the source's auxiliary logarithmic derivative in integral form.
+All these identities may therefore be reduced coefficientwise modulo $p$.
+
+\section*{Proof of Theorem \ref{main}}
+We now work in $\mathcal H(\mathbb F_p)$. Iterating \eqref{drec} $p$ times
+and using that $j,j+2,\ldots,j+2(p-1)$ run through $\mathbb F_p$ yields
+\[
+d_{j+2p}=d_j\prod_{r\in\mathbb F_p}(r^2-r-1).
+\]
+Let $\alpha,\beta\in\mathbb F_{p^2}$ be the roots of $X^2-X-1$.
+The nonresidue hypothesis implies $\alpha^p=\beta$ and $\beta^p=\alpha$.
+Since $\prod_{r\in\mathbb F_p}(X-r)=X^p-X$, we obtain
+\[
+\prod_r(r^2-r-1)
+=(\alpha^p-\alpha)(\beta^p-\beta)
+=-(\alpha-\beta)^2=-5.
+\]
+Thus, on putting $\delta=D^p$,
+\begin{equation}\label{delta}
+\delta^2U=-5U,\qquad
+\delta^pU=(-5)^{(p-1)/2}\delta U=\epsilon\delta U.
+\end{equation}
+The last equality is Euler's criterion; $p\ne5$ ensures
+$\epsilon^2=1$.
+
+For every derivation in characteristic $p$, its $p$th iterate is also
+a derivation: in the iterated Leibniz rule all intermediate binomial
+coefficients $\binom pi$ vanish. Hence both $D^p$ and $D^{p^2}$, and
+therefore
+\[
+L=D^{p^2}-\epsilon D^p,
+\]
+are derivations. Equation \eqref{delta} gives $LU=0$. As $L$ commutes
+with $D$, it also gives $L(DU)=0$. Applying $L$ to $UU^{-1}=1$ gives
+$L(U^{-1})=-U^{-2}LU=0$. Identity \eqref{Y} now implies $LY=0$.
+
+Writing $y_j$ for the coefficients of $Y$, we have proved
+\[
+y_{r+p^2}=\epsilon y_{r+p}\qquad(r\ge0).
+\]
+Choose $r=2n-1-p$, which is nonnegative exactly when $n\ge(p+1)/2$.
+Both subscripts are odd, and \eqref{Y} turns the last identity into
+\eqref{half}. Applying it twice proves the stated period because
+$\epsilon^2=1$. This proves the theorem for every admissible prime.
+\qed
+
+\section*{Proposed follow-up tasks}
+\begin{enumerate}
+\setcounter{enumi}{1}
+\item Determine the least eventual period modulo each admissible prime,
+including a criterion for when it is smaller than the period above.
+\item Determine the least starting index for \eqref{half}, and characterize
+the primes for which the bound $(p+1)/2$ is optimal.
+\item Establish explicit eventual periods modulo $p^e$ for $e\ge2$,
+including the dependence on $e$ and on the residue class of $p$.
+\item For $c\in\mathbb Z$, replace \eqref{drec} by
+$d_{j+2}=(j^2-j-c)d_j$ and classify the prime periods of the
+coefficients of $-(DU)U^{-1}$ in terms of $1+4c$.
+\end{enumerate}
+
+\paragraph{Verification and scope.}
+The proof is uniform in $p$ and $n$. The accompanying integer program
+checks independent recurrence coefficients and sample congruences;
+these finite checks do not replace the proof. All 16 pages of the
+current preprint and all 17 pages of the final article were read.
+The dated literature audit records the checked public sources and
+does not claim exhaustive knowledge of all prior work. Review here
+is author-agent self-review, not independent peer review.
+
+\begin{thebibliography}{1}
+\bibitem{chocolate}
+C.~Ji, T.~Khovanova, R.~Park and A.~Song,
+\emph{Chocolate Numbers}, Journal of Integer Sequences \textbf{19}
+(2016), Article 16.1.7.
+\href{https://cs.uwaterloo.ca/journals/JIS/VOL19/Khovanova/khova9.pdf}{Final article};
+\href{https://arxiv.org/abs/1509.06093}{arXiv:1509.06093v1}.
+\end{thebibliography}
+\end{document}

@@ -1,0 +1,185 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,hyperref,enumitem}
+\hypersetup{colorlinks=true,urlcolor=blue,linkcolor=blue}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newcommand{\Z}{\mathbb Z}
+\title{Uniqueness in the mirror Markov tree}
+\author{Principia Math In Progress}
+\date{22 September 2026}
+\begin{document}
+\maketitle
+\noindent\textbf{MathDB 373162. Task 1: a proof of Conjecture 6.3 of \cite{mirror}.}
+Fix a mirror Markov tree with the initial segment and signed mutations of
+\cite[Definitions 4.1--4.2]{mirror}. Its triples are regarded as vertices of
+that tree, with the source's ordering by evaluation at $q=1$.
+\begin{theorem}\label{main}
+Two distinct triples in this tree cannot have the same polynomial as their
+maximum-degree entry. In fact, the degree and the value at $q=1$ of that
+entry already determine the triple.
+\end{theorem}
+The proof uses the established fixed-sum ordering theorem for classical
+Markov numbers \cite{fixedsum}. It does not assume classical Markov
+uniqueness, or positivity of the coefficients of the mirror factors.
+
+\section*{1. Degree on the squared tree}
+Index the ordinary Farey tree in $[0,1]$ by reduced fractions $a/b$.
+The endpoint labels are $0/1$ and $1/1$, and the first mediant is $1/2$.
+Write $m_{a/b}$ for its classical Markov label, with
+$m_{0/1}=1$, $m_{1/1}=2$, $m_{1/2}=5$. These are labels at positions:
+we do not presume that different positions have different integer labels.
+Use the identical indexing for the symmetric squared deformation
+$F_{a/b}(q)$ and its mirror factor $f_{a/b}(q)$.
+The source establishes
+\[
+ F_{a/b}(q)=f_{a/b}(q)f_{a/b}(q^{-1}),\qquad
+ f_{a/b}(1)=m_{a/b},                                      \tag{1}
+\]
+and that every $F_{a/b}$ is a symmetric Laurent polynomial with
+nonnegative integer coefficients \cite[Theorem 2.2, Section 3.1,
+Theorem 4.4 and Notation 4.5]{mirror}.
+For a nonzero Laurent polynomial $g$ let $\delta(g)$ be its largest
+exponent. For an ordinary polynomial $f\ne0$, its exponent width is
+$w(f)=\deg f-\operatorname{val}_q f$. The endpoint terms give
+\[
+ \delta\bigl(f(q)f(q^{-1})\bigr)=w(f).                    \tag{2}
+\]
+There is exactly one product contributing to the largest exponent in (2).
+
+\begin{lemma}\label{degree}
+For every reduced $a/b\in[0,1]$,
+\[
+ \delta(F_{a/b})=w(f_{a/b})=a+b-1.                       \tag{3}
+\]
+At every noninitial squared triple the largest degree is the sum of the
+other two degrees plus one, and hence is strictly larger than both.
+\end{lemma}
+\begin{proof}
+The first two triples are $(1,1,1)$ and $(1,1,q+2+q^{-1})$.
+The latter has degrees $(0,0,1)$. Suppose a triple $(A,B,C)$,
+ordered by its classical labels, has degrees $(r,s,t)$ with
+$t=r+s+1$ and $r,s\ge0$. Mutation replacing $A$ gives
+\[
+ AA'=B^2+(q+q^{-1})BC+C^2.                              \tag{4}
+\]
+Since $t\ge s+1$, the numerator has largest exponent
+$\max\{2s,s+t+1,2t\}=2t$. Its coefficients are nonnegative,
+so a tie cannot cancel. Therefore
+\[
+ \delta(A')=2t-r=s+t+1>t.
+\]
+Replacing $B$ likewise produces degree $r+t+1>t$.
+Induction proves the asserted degree invariant on every branch.
+In particular the labels $0/1$, $1/1$, $1/2$ have degrees $0,1,2$.
+For a new Farey mediant $(a+c)/(b+d)$, the recurrence just proved is
+\[
+ \delta(F_{(a+c)/(b+d)})
+ =\delta(F_{a/b})+\delta(F_{c/d})+1.
+\]
+The proposed expression $a+b-1$ satisfies precisely this recurrence and
+the endpoint values. Equation (2) finishes the proof.
+\end{proof}
+
+\section*{2. The normalization has nonzero constant term}
+This step identifies ordinary polynomial degree with the width in (3).
+It uses only the source's squared positivity and polynomiality.
+The initial mirror polynomials $1$, $1+q$, and $1+2q+2q^2$
+have nonzero constant term, as do their reversed choices.
+Assume this for the three entries of a triple. Write $d(q)$ for the
+entry being replaced, $h(q)$ for the other nonmaximum entry, and
+$c(q)$ for the maximum entry. Set
+$H=h(q)h(q^{-1})$ and $C=c(q)c(q^{-1})$.
+By the induction hypothesis and Lemma~\ref{degree},
+\[
+ t:=\deg c=\delta(C),\qquad \delta(H)\le t-1.
+\]
+For either permitted sign $\epsilon\in\{-1,1\}$ the source's
+mutation has the form
+\[
+ p(q)=\frac{q^t\bigl(q^\epsilon H+C\bigr)}{\widetilde d(q)},
+ \qquad \widetilde d(q)=q^{\deg d}d(q^{-1}).             \tag{5}
+\]
+The numerator is an ordinary polynomial: its lowest possible exponents
+are $t+\epsilon-\delta(H)\ge0$ and $t-\delta(C)=0$.
+Its constant coefficient is positive, since $C$ contributes its positive
+endpoint coefficient and $H$ cannot cancel it.
+The denominator has nonzero constant coefficient, namely the leading
+coefficient of $d$. The source's Theorem 4.4 says that $p$ is a
+polynomial. Evaluating the polynomial identity in (5) at zero now gives
+$p(0)\ne0$. This proves the induction. Consequently
+\[
+ \deg f_{a/b}=a+b-1,                                    \tag{6}
+\]
+and the mediant entry is the unique maximum-degree polynomial of its
+triple. The argument applies to every fixed permitted initial choice.
+
+\section*{3. Fixed-sum ordering separates all positions}
+We use the following published theorem of Lagisquet, Pelantov\'a,
+Tavenas and Vuillon \cite[Theorem 2(3), Proposition 22]{fixedsum}:
+if $0<i<a<b$, $\gcd(a,b)=1$, and $\gcd(a-i,b+i)=1$, then
+\[
+ m_{a/b}<m_{(a-i)/(b+i)}.                               \tag{7}
+\]
+Thus distinct reduced fractions in $(0,1)$ having the same numerator
+plus denominator have different Markov labels. Indeed, given two such
+fractions, choose $a$ to be the larger numerator and let $i$ be their
+positive numerator difference. The other numerator $a-i$ is positive,
+and equality of the sums makes its denominator $b+i$; all hypotheses
+of (7) follow. The cited theorem is proved for an extension to
+noncoprime pairs as well, so it does not require intermediate fractions
+in a comparison chain to be reduced.
+
+Suppose two interior positions give polynomials with equal degree and
+equal value at $q=1$. Equation (6) gives equal sums $a+b$; equation (1)
+gives equal classical Markov labels. By (7) their reduced fractions
+are equal. The ordinary Farey construction has exactly one vertex
+whose mediant is any given reduced fraction in $(0,1)$, so the two
+triples in the fixed mirror tree coincide.
+The exceptional initial triples $(1,1,1)$ and $(1,1,1+q)$ have
+maximum degrees $0$ and $1$, whereas every interior triple has
+maximum degree at least $2$. They cause no collision with one another
+or with an interior triple. This proves Theorem~\ref{main}.
+
+The same reasoning proves injectivity of $a/b\mapsto F_{a/b}(q)$:
+equal squared polynomials give equal degrees and
+$F_{a/b}(1)=m_{a/b}^2$; positive classical labels then agree.
+This is a consequence of the same proof, not a second problem credit.
+In particular the proof does not infer the still separate classical
+uniqueness assertion by discarding the degree information.
+
+\section*{Verification and scope}
+The accompanying exact verifier checks the squared mutation, Farey
+degree formula and independent Christoffel-matrix labels on a finite
+binary subtree; both initial mirror choices and their signed mutations;
+and the fixed-sum order for a bounded set of coprime pairs. These are
+supplementary checks. The inductions and the published theorem establish
+the unrestricted conclusion. Review is by the authoring agent only.
+
+\section*{Proposed follow-up Tasks 2--5}
+These are research directions following the completed Task 1.
+\begin{enumerate}[label=\textbf{Task \arabic*.},start=2,leftmargin=*]
+\item Construct an algorithm recovering the Farey fraction from
+$(\deg f,f(1))$ by the fixed-sum ordering, and give bit-complexity bounds.
+\item Determine whether the degree and two endpoint coefficients already
+identify every mirror polynomial in a fixed tree.
+\item Derive a closed Christoffel-word formula for the leading and constant
+coefficients of $f_{a/b}$, including their dependence on the initial choice.
+\item For the squared recurrence with $q+q^{-1}$ replaced by a symmetric
+Laurent polynomial, characterize the substitutions for which a degree
+statistic and an integer specialization still separate all Farey positions.
+\end{enumerate}
+
+\begin{thebibliography}{9}
+\bibitem{mirror} L. Bittmann, P. Jouteur, E. Kantarc{\i} O\u{g}uz,
+M. Molander and E. Y{\i}ld{\i}r{\i}m,
+\emph{A mirror deformation of Markov numbers},
+\href{https://arxiv.org/abs/2602.14802}{arXiv:2602.14802v1}, 2026.
+\bibitem{fixedsum} C. Lagisquet, E. Pelantov\'a, S. Tavenas and L. Vuillon,
+\emph{On the Markov numbers: fixed numerator, denominator, and sum conjectures},
+Advances in Applied Mathematics \textbf{130} (2021), 102227,
+\href{https://doi.org/10.1016/j.aam.2021.102227}{doi:10.1016/j.aam.2021.102227}.
+Theorem 2 and Proposition 22 in the complete preprint
+\href{https://arxiv.org/abs/2010.10335}{arXiv:2010.10335v1}.
+\end{thebibliography}
+\end{document}

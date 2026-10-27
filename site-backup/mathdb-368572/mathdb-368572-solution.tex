@@ -1,0 +1,213 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,enumitem,hyperref}
+\hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue,citecolor=blue}
+\newtheorem{theorem}{Theorem}
+\newcommand{\Z}{\mathbb Z}
+\newcommand{\D}{\mathbb D}
+\title{A sum of squares for the Hartogs-triangle polynomials\\\large MathDB 368572}
+\author{Principia Math In Progress}
+\date{September 18, 2026}
+\begin{document}
+\maketitle
+\begin{abstract}
+We prove Edholm--Mathew's Conjecture 4.20: for all coprime positive
+integers $m>n$, the polynomial $Q_{m,n}$ has no zeros on the unit
+circle and has exactly $m-n$ zeros in the punctured unit disc, counted
+with multiplicity. We express its centered Laurent polynomial as a
+sum of squared absolute values of explicit integer polynomials.
+Two of these polynomials differ by a monomial times $1-z$, which
+rules out simultaneous vanishing. The established Bergman-kernel
+numerator formula is the only input from the source.
+\end{abstract}
+
+\section*{Task 1. Full solution}
+Let $m>n\ge1$, $\gcd(m,n)=1$, and $k=m-n$. Define
+\[
+ D_m(j)=\max\{0,m-|j-(m-1)|\}\qquad(j\in\Z).
+\]
+Almughrabi's kernel formula, recalled in
+\cite[Proposition 1.10, equation (1.11)]{EM}, gives the numerator
+\[
+ P_{m,n}(s,t)=\sum_{\beta_1,\beta_2\in\Z}
+ D_m(\beta_1)D_m(m\beta_2+n\beta_1+m+n-1-2mn)
+ s^{\beta_1}t^{\beta_2}.                                         \tag{1}
+\]
+Only finitely many terms are nonzero. The polynomial in the question is
+\[
+ Q_{m,n}(z)=z^{1-2n}P_{m,n}(z,z).
+\]
+We use the numerator (1) with precisely the source's normalization.
+For $0\le c<m$, introduce
+\[
+ H_c(z)=\sum_{a=0}^{m-1}z^{\,a-\lfloor(na+c)/m\rfloor}.           \tag{2}
+\]
+These are polynomials with nonnegative integer coefficients:
+$na+c<m(a+1)$ implies $\lfloor(na+c)/m\rfloor\le a$.
+Each $H_c(1)=m$.
+
+\begin{theorem}\label{main}
+For $z\ne0$, the following Laurent-polynomial identity holds:
+\[
+ \boxed{\ z^{-k}Q_{m,n}(z)=\sum_{c=0}^{m-1}H_c(z)H_c(z^{-1}).\ }  \tag{3}
+\]
+In particular, for every $|z|=1$,
+\[
+ z^{-k}Q_{m,n}(z)=\sum_{c=0}^{m-1}|H_c(z)|^2>0.                  \tag{4}
+\]
+Consequently $Q_{m,n}$ has exactly $k$ zeros in $\D\setminus\{0\}$
+and $k$ outside the closed unit disc, counted with multiplicity.
+This proves Conjecture 4.20 in full.
+\end{theorem}
+
+\subsection*{Centering the known numerator}
+Write $W_m(u)=m-|u|$ for $|u|<m$ and $W_m(u)=0$ otherwise. In (1), set
+\[
+ u=\beta_1-(m-1),\qquad
+ v=m\beta_2+n\beta_1+n-2mn.
+\]
+The second argument of $D_m$ is $v+(m-1)$ and
+\[
+ v-nu=m(\beta_2-n).
+\]
+Thus this change of variables is a bijection between integer pairs
+$(\beta_1,\beta_2)$ and pairs $(u,v)$ satisfying $v\equiv nu\pmod m$.
+On the diagonal, the exponent after centering is
+\[
+ \beta_1+\beta_2-(m+n-1)=\frac{ku+v}{m}.
+\]
+Therefore, with $R(z)=z^{-k}Q_{m,n}(z)$,
+\[
+ R(z)=\sum_{\substack{|u|,|v|<m\\v\equiv nu\pmod m}}
+             W_m(u)W_m(v)z^{(ku+v)/m}.                          \tag{5}
+\]
+The exponents are integers. Their absolute values are bounded by
+$(k+1)(m-1)/m<k+1$, hence by $k$. The pair $(u,v)=(m-1,k)$ is
+admissible and contributes positively to $z^k$. Simultaneous negation
+of $u,v$ preserves the weights in (5), so $R(z)=R(z^{-1})$ and the
+coefficient of $z^{-k}$ is also positive. This also proves directly
+that $Q_{m,n}$ has degree $2k$, nonzero constant term, and
+\[
+ Q_{m,n}(z)=z^{2k}Q_{m,n}(z^{-1}),                               \tag{6}
+\]
+the palindromic property previously established in \cite{EM}.
+
+\subsection*{An integer sum-of-squares certificate}
+For $a\in\{0,\ldots,m-1\}$ let $b_c(a)$ be the least nonnegative
+residue of $na+c$ modulo $m$. Then
+\[
+ e_c(a):=a-\left\lfloor\frac{na+c}{m}\right\rfloor
+        =\frac{ka+b_c(a)-c}{m}.                                 \tag{7}
+\]
+Expand the right hand side of (3), using (2) and (7):
+\[
+ \sum_{c=0}^{m-1}\sum_{a,a'=0}^{m-1}
+       z^{\{k(a-a')+b_c(a)-b_c(a')\}/m}.                         \tag{8}
+\]
+Every ordered pair of grid points $(a,b),(a',b')$ in
+$\{0,\ldots,m-1\}^2$ with
+\[
+ b-na\equiv b'-na'\pmod m                                      \tag{9}
+\]
+appears exactly once in (8), because (9) specifies a unique common
+residue $c$, and then $b=b_c(a)$, $b'=b_c(a')$.
+
+Fix $u=a-a'$ and $v=b-b'$. There are $W_m(u)$ ordered pairs
+$(a,a')$ with difference $u$, and independently $W_m(v)$ ordered
+pairs $(b,b')$ with difference $v$. All of them satisfy (9) exactly
+when $v\equiv nu\pmod m$. Their common exponent in (8) is
+$(ku+v)/m$. Grouping (8) by these two differences gives (5),
+which proves (3). Because all coefficients of $H_c$ are real,
+$H_c(z^{-1})=\overline{H_c(z)}$ on $|z|=1$.
+
+\subsection*{Why the sum is strictly positive}
+Coprimality gives a unique $a_*\in\{1,\ldots,m-1\}$ such that
+$na_*\equiv-1\pmod m$. Put
+\[
+ q_* =\frac{na_*+1}{m},\qquad
+ r=a_*-q_* =\frac{ka_*-1}{m}\ge0.
+\]
+As $c$ changes from $0$ to $1$ in (2), the floor increases by one
+only at $a=a_*$. The old exponent there is $r+1$ and the new
+exponent is $r$. Hence the exact identity
+\[
+ \boxed{\ H_1(z)-H_0(z)=z^r(1-z).\ }                            \tag{10}
+\]
+If $|z|=1$ and $z\ne1$, (10) shows that $H_0(z)$ and $H_1(z)$
+cannot both vanish. If $z=1$, every $H_c(1)=m$. Therefore (3)
+is strictly positive at every point on the unit circle. In fact,
+\[
+ R(z)\ge\frac12|1-z|^2\quad(|z|=1),\qquad R(1)=m^3,             \tag{11}
+\]
+since $|H_0|^2+|H_1|^2\ge\tfrac12|H_1-H_0|^2$.
+
+This proves nonvanishing. Finally (6) pairs each nonzero root $z$
+with $1/z$, with equal multiplicity. There are $2k$ roots in total,
+none at zero or on the circle. Exactly $k$ are inside the punctured
+unit disc and $k$ are outside, completing the proof of
+Theorem~\ref{main}.
+
+For example, $(m,n)=(3,2)$ gives
+$H_0=1+2z$, $H_1=2+z$, $H_2=3$, and
+\[
+ z^{-1}Q_{3,2}(z)=19+4(z+z^{-1})
+                =|1+2z|^2+|2+z|^2+9\qquad(|z|=1).
+\]
+The argument above applies without any restriction on $m-n$.
+
+\subsection*{Consequence for the Bergman kernel}
+The known formula for the Bergman kernel on
+$\mathbb H_{m/n}=\{(z_1,z_2):|z_1|^{m/n}<|z_2|<1\}$ is
+\[
+ K_{m/n}(z,w)=\frac{P_{m,n}(s,t)}
+ {m\pi^2(1-t)^2(t^n-s^m)^2},\qquad
+ s=z_1\overline{w_1},\quad t=z_2\overline{w_2}.                   \tag{12}
+\]
+Take a root $\xi=\rho e^{i\theta}$ of $Q_{m,n}$ in the punctured
+disc, and set $z=(\sqrt\rho e^{i\theta},\sqrt\rho e^{i\theta})$,
+$w=(\sqrt\rho,\sqrt\rho)$. Since $m/n>1$ and $0<\rho<1$,
+both points lie in $\mathbb H_{m/n}$ and give $s=t=\xi$.
+The numerator in (12) is zero, while its denominator is nonzero:
+$\xi\ne1$ and $\xi^n-\xi^m=\xi^n(1-\xi^k)\ne0$.
+Thus the kernel has zeros for every rational $m/n>1$.
+
+The numerator formula and the earlier palindromic and special-case
+results are due to the cited authors. The new contribution is the
+explicit integer certificate (3) together with the obstruction (10)
+to simultaneous vanishing.
+
+\section*{Tasks 2--5. Proposed follow-ups}
+\begin{enumerate}[label=\textbf{Task \arabic*.},start=2,leftmargin=*]
+\item Determine the minimum of $z^{-k}Q_{m,n}(z)$ on the unit
+circle and obtain sharp bounds, in terms of $m,n$, for how close
+the roots of $Q_{m,n}$ can lie to that circle.
+\item Determine the number of negative real roots of $Q_{m,n}$
+and whether all its complex roots are simple, including the
+dependence on the residue class of $n$ for fixed $m-n$.
+\item Investigate whether analogous residue-class sum-of-squares
+certificates control boundary zeros of Bergman numerators on other
+two-dimensional monomial quotient domains.
+\item Decide whether the Bergman kernel of $\mathbb H_\gamma$ has
+zeros for every irrational $\gamma\in(1,2)$, with quantitative
+control of zeros under rational approximation.
+\end{enumerate}
+
+\paragraph{Verification.}
+Four exact groups pass: the two source formulas and the sum-of-squares
+identity for all 773 coprime pairs with $m\le50$; independent enumeration
+of 136,420 admissible ordered quadruples for $m\le16$; exact Sturm
+counts for 199 cosine polynomials with $m\le25$; and 12 larger cases
+up to $(m,n)=(10007,10002)$. No floating-point arithmetic is used.
+These checks supplement the proof. Review is by the authoring agent.
+
+\begin{thebibliography}{9}
+\bibitem{EM} L. D. Edholm and V. T. Mathew,
+\emph{Arithmetic properties and zeros of the Bergman kernel on a
+class of quotient domains}, Math. Z. \textbf{313}, article 43 (2026),
+\href{https://doi.org/10.1007/s00209-026-04059-8}{doi:10.1007/s00209-026-04059-8};
+\href{https://arxiv.org/abs/2505.20489}{arXiv:2505.20489v3}.
+The target is Conjecture 4.20. Proposition 1.10 attributes (1) to
+R. Almughrabi, \emph{Bergman kernels of two dimensional monomial
+polyhedra}, Complex Anal. Oper. Theory \textbf{17}, article 103 (2023).
+\end{thebibliography}
+\end{document}

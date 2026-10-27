@@ -1,0 +1,182 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,booktabs,hyperref,listings}
+\hypersetup{colorlinks=true,urlcolor=blue,linkcolor=blue,citecolor=blue}
+\lstset{basicstyle=\small\ttfamily,columns=fullflexible,keepspaces=true}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\title{The unique bimodal restricted fractional-partition sequence\\
+\large MathDB 348827}
+\author{Principia Math in Progress}
+\date{September 18, 2026}
+\begin{document}
+\maketitle
+
+\section*{Task 1. Full solution}
+For an integer $j>2$, let $f_j(k)$ count subsets of
+$\{1,3,\ldots,2j-1\}$ whose sum is $kj$, where $1\le k\le j-1$.
+Thus $f_j=f_{O_j}$ in Hoelscher--Palsson \cite{HP}, and their polynomial is
+$r_j(x)=\sum_{k=1}^{j-1}f_j(k)x^k$. Conjecture 1.0.4 asks whether its
+coefficient sequence is always unimodal or bimodal.
+Here unimodality permits a plateau at the maximum, as does the source's
+discussion of $j=10$ immediately before the conjecture. Two separated
+peaks, with a smaller entry between them, constitute bimodality.
+
+\begin{theorem}\label{main}
+For every integer $j>2$ other than $6$, the sequence
+$(f_j(1),\ldots,f_j(j-1))$ is unimodal. For $j=6$ it is
+$(1,3,2,3,1)$ and is bimodal.
+Except at $j=6,10$, the sequence increases strictly to its center and
+decreases strictly thereafter, allowing two equal central entries when
+$j$ is odd. At $j=10$ its three central entries are all $20$.
+\end{theorem}
+
+\paragraph{The known theorem used.}
+Write
+\[
+ A_j(q)=\prod_{i=1}^{j}(1+q^{2i-1})
+       =\sum_{n=0}^{j^2}a_j(n)q^n.
+\]
+Pak--Panova \cite[Theorem 5.2]{PP} prove that for $j\ge27$ the
+sequence $(a_j(26),\ldots,a_j(j^2-26))$ is symmetric and strictly
+unimodal, with the usual equal central pair when its length is even.
+This result supplies the infinite range of our proof. We claim a
+corollary for the sampled sequence and an exact finite classification,
+not a new proof of their theorem.
+
+\begin{proof}[Proof for $j\ge27$]
+Choosing a term from each factor of $A_j$ gives
+$f_j(k)=a_j(kj)$. Complementation of subsets gives
+\begin{equation}\label{symmetry}
+ a_j(n)=a_j(j^2-n),\qquad f_j(k)=f_j(j-k).
+\end{equation}
+All sampled indices satisfy
+$26\le j\le kj\le j^2-j\le j^2-26$.
+If $1\le k<\lfloor j/2\rfloor$, then
+$kj<(k+1)j\le j^2/2$, so Pak--Panova's theorem gives
+$f_j(k)<f_j(k+1)$. When $j$ is odd, the two central sampled
+entries are equal by \eqref{symmetry}. The remaining inequalities
+follow by reflection. This proves the assertion in the infinite range.
+\end{proof}
+
+\newpage
+\paragraph{Exact certificate for $3\le j\le26$.}
+Set $a_0(0)=1$, set $a_0(n)=0$ for $n\ne0$, and interpret
+out-of-range coefficients as zero. Multiplication by the last factor gives
+\begin{equation}\label{recurrence}
+ a_j(n)=a_{j-1}(n)+a_{j-1}(n-(2j-1)).
+\end{equation}
+For $j\ge4$ put
+$d_j=\min_{1\le k<\lfloor j/2\rfloor}(a_j((k+1)j)-a_j(kj))$.
+The finite values are:
+\begin{center}
+\begin{tabular}{rr@{\qquad\qquad}rr@{\qquad\qquad}rr}
+\toprule
+$j$ & $d_j$ & $j$ & $d_j$ & $j$ & $d_j$\\
+\midrule
+3 & --- & 11 & 6 & 19 & 31\\
+4 & 1 & 12 & 8 & 20 & 39\\
+5 & 1 & 13 & 9 & 21 & 44\\
+6 & $-1$ & 14 & 13 & 22 & 55\\
+7 & 2 & 15 & 14 & 23 & 63\\
+8 & 1 & 16 & 18 & 24 & 76\\
+9 & 3 & 17 & 21 & 25 & 86\\
+10 & 0 & 18 & 28 & 26 & 105\\
+\bottomrule
+\end{tabular}
+\end{center}
+For completeness, the entire computation of this table is the following
+integer-only implementation of \eqref{recurrence}. Descending indices
+ensure that each update uses the previous polynomial's coefficients.
+\begin{lstlisting}[language=Python]
+a = [1]
+for j in range(1, 27):
+    w = 2*j - 1
+    a += [0]*w
+    for n in range(len(a)-1, w-1, -1):
+        a[n] += a[n-w]
+    if j >= 3:
+        half = [a[k*j] for k in range(1, j//2+1)]
+        d = min((v-u for u,v in zip(half, half[1:])),
+                default=None)
+        print(j, d)
+\end{lstlisting}
+The certificate file \texttt{verification-results.json} also records
+every sampled coefficient and every first-half difference. The separate
+verifier checks every coefficient of all 24 polynomials against direct
+enumeration of the subsets of two halves and convolution of their sum
+histograms; it uses no floating-point arithmetic.
+
+\begin{proof}[Completion of the proof]
+Each positive $d_j$, together with \eqref{symmetry}, gives precisely the
+claimed strict inequalities. The three other rows are, in full,
+\[
+\begin{array}{c|l}
+3 &(1,1)\\
+6 &(1,3,2,3,1)\\
+10&(2,7,12,20,20,20,12,7,2).
+\end{array}
+\]
+They have the asserted shapes. These cases and the preceding infinite
+argument cover every integer $j>2$, proving Theorem~\ref{main} and
+Conjecture 1.0.4.
+\end{proof}
+
+\newpage
+\paragraph{Scope and attribution.}
+The primary preprint and its 2020 journal final, and Hoelscher's 2021
+continuation \cite{H}, retain this conjecture. The latter writes the same
+sampled sequence as Conjecture 1.5. The essential infinite-range input
+predates both conjectures: Pak--Panova's 2014 Theorem 5.2, building on
+Almkvist's work. The present deduction consists of restricting that
+theorem to multiples of $j$ and completing all smaller cases. The source
+authors already exhibited the $j=6$ row; its uniqueness is established
+here. Bounded source and prior-claim checks are recorded separately.
+The proof and certificate were reviewed by the authoring agent; they
+have not received independent peer review or proof-assistant certification.
+
+\section*{Task 2. A direct injection}
+Construct an explicit injection from subsets with sum $kj$ into
+subsets with sum $(k+1)j$ for $k<\lfloor j/2\rfloor$, outside the two
+exceptional denominators. Can its missing images explain the positive
+differences without using the analytic input behind Pak--Panova's theorem?
+
+\section*{Task 3. Log-concavity of the sampled rows}
+Determine for which $j$ the inequalities
+$f_j(k)^2\ge f_j(k-1)f_j(k+1)$ hold at every interior index.
+If they hold for all sufficiently large $j$, seek an explicit threshold
+and an exact classification of the smaller cases.
+
+\section*{Task 4. Other arithmetic progressions}
+Replace the odd numerators by $a,a+b,\ldots,a+(j-1)b$ and sample the
+subset-sum polynomial at multiples of $j$. Determine which fixed positive
+integers $a,b$ give eventual unimodality of the resulting nonzero
+coefficient sequence, and which retain multiple separated peaks.
+
+\section*{Task 5. Quantitative gaps and central asymptotics}
+Obtain explicit estimates for $f_j(k+1)-f_j(k)$ before the center,
+including the smallest positive gap. Seek uniform local asymptotics
+near $k=j/2$ and compare their error terms with the exact strict
+inequalities proved here.
+
+\begin{thebibliography}{9}
+\raggedright
+\bibitem{HP} Z. Hoelscher and E. Palsson,
+\emph{Counting restricted partitions of integers into fractions: symmetry
+and modes of the generating function and a connection to $\omega(t)$},
+PUMP J. Undergrad. Res. \textbf{3} (2020), 277--307.
+\href{https://doi.org/10.46787/pump.v3i0.2428}{doi:10.46787/pump.v3i0.2428};
+\href{https://arxiv.org/abs/2011.14502v1}{arXiv:2011.14502v1}.
+\bibitem{PP} I. Pak and G. Panova,
+\emph{Unimodality via Kronecker products},
+J. Algebraic Combin. \textbf{40} (2014), 1103--1120.
+\href{https://doi.org/10.1007/s10801-014-0520-y}{doi:10.1007/s10801-014-0520-y};
+\href{https://arxiv.org/abs/1304.5044v2}{arXiv:1304.5044v2},
+Theorem 5.2, pp.~7--8 of the author manuscript.
+\bibitem{H} Z. Hoelscher,
+\emph{Semicomplete arithmetic sequences, division of hypercubes,
+and the Pell constant}, PUMP J. Undergrad. Res. \textbf{4} (2021), 108--116.
+\href{https://doi.org/10.46787/pump.v4i0.2524}{doi:10.46787/pump.v4i0.2524};
+\href{https://arxiv.org/abs/2102.07083v1}{arXiv:2102.07083v1}.
+\end{thebibliography}
+\end{document}

@@ -1,0 +1,243 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[hidelinks]{hyperref}
+\newcommand{\Tr}{\operatorname{Tr}}
+\newcommand{\rank}{\operatorname{rank}}
+\newcommand{\im}{\operatorname{Im}}
+\newcommand{\norm}[1]{\left\|#1\right\|_{\mathrm F}}
+\newtheorem{lemma}{Lemma}
+\newtheorem{theorem}{Theorem}
+\title{A trace inequality for four orthogonal projections\\
+\large Complete solution of MathDB 332493}
+\author{Principia Math in Progress}
+\date{12 September 2026}
+\begin{document}
+\maketitle
+
+\paragraph{Task 1. Solve the four-projection trace conjecture.}
+Let $P,Q,R,S$ be orthogonal projections on $\mathbb C^K$ such that
+\[
+ PQ=0,\qquad RS=0,\qquad
+ \im(P)\cap\im(R)=\{0\},\qquad
+ \im(Q)\cap\im(S)=\{0\}.
+\]
+The conjecture additionally assumes
+\[
+ \rank P+\rank Q=\rank R+\rank S,\qquad
+ \rank P+\rank R=\rank Q+\rank S.
+\]
+Define, using Moore--Penrose inverse square roots,
+\[
+\begin{aligned}
+ P'&=(P+R)^{-1/2}P(P+R)^{-1/2},&
+ R'&=(P+R)^{-1/2}R(P+R)^{-1/2},\\
+ Q'&=(Q+S)^{-1/2}Q(Q+S)^{-1/2},&
+ S'&=(Q+S)^{-1/2}S(Q+S)^{-1/2}.
+\end{aligned}
+\]
+Banica and Nechita's Conjecture 6.6 asks whether
+\begin{equation}\label{target}
+ \Tr(P'Q')+\Tr(R'S')\leq \Tr(PR)+\Tr(QS).
+\end{equation}
+
+\begin{theorem}
+Inequality \eqref{target} holds. In fact, the two rank identities are
+unnecessary.
+\end{theorem}
+
+We first prove a scalar estimate. Every matrix norm below with subscript
+$\mathrm F$ is the Frobenius norm; a contraction means a matrix of
+operator norm at most one.
+
+\begin{lemma}\label{scalar}
+For $\lambda,\mu\in(-1,1)$, put
+\[
+ a=\frac1{\sqrt{(1+\lambda)(1+\mu)}},\qquad
+ b=\frac1{\sqrt{(1-\lambda)(1-\mu)}}.
+\]
+Then $(a-b)^2\leq(\lambda^2+\mu^2)(a^2+b^2)$.
+\end{lemma}
+\begin{proof}
+Set $t=\lambda^2+\mu^2$ and $w=\lambda\mu$. Since $1+w>0$,
+\[
+ \frac{(a-b)^2}{a^2+b^2}
+ =1-\frac{\sqrt{1-t+w^2}}{1+w}.
+\]
+Thus it suffices to prove
+\begin{equation}\label{scalar-root}
+ \sqrt{1-t+w^2}\geq(1+w)(1-t).
+\end{equation}
+If $t\geq1$, the right side is nonpositive.
+If $t<1$ and $w\leq0$, the left side is at least
+$\sqrt{1-t}\geq1-t\geq(1+w)(1-t)$.
+Finally, if $t<1$ and $w\geq0$, both sides of
+\eqref{scalar-root} are nonnegative and the difference of their squares is
+\[
+ 1-t+w^2-(1+w)^2(1-t)^2
+ =(t-2w)(1-t)+wt\bigl(2(1-t)+w(2-t)\bigr)\geq0.
+\]
+Here $t-2w=(\lambda-\mu)^2\geq0$. This proves the lemma.
+\end{proof}
+
+\begin{lemma}\label{block}
+Let $X=X^*$ and $Y=Y^*$ have spectra in $(-1,1)$, and suppose
+\[
+ \begin{pmatrix}I+X&C\\ C^*&I+Y\end{pmatrix}\geq0,\qquad
+ \begin{pmatrix}I-X&-C\\ -C^*&I-Y\end{pmatrix}\geq0.
+\]
+Define
+\[
+ D_\pm=(I\pm X)^{-1/2}C(I\pm Y)^{-1/2}.
+\]
+Then
+\begin{equation}\label{block-bound}
+ \norm{\frac{D_+-D_-}{2}}^2
+ \leq\frac12\bigl(\Tr X^2+\Tr Y^2\bigr).
+\end{equation}
+\end{lemma}
+\begin{proof}
+Congruence by the inverse square roots of the diagonal blocks gives
+\[
+ \begin{pmatrix}I&D_+\\D_+^*&I\end{pmatrix}\geq0,\qquad
+ \begin{pmatrix}I&-D_-\\-D_-^*&I\end{pmatrix}\geq0.
+\]
+The Schur complement shows that both $D_+$ and $D_-$ are contractions.
+Consequently, every row and every column of either matrix has squared
+Euclidean norm at most one.
+
+Choose separate orthonormal eigenbases for $X$ and $Y$, with eigenvalues
+$\lambda_i$ and $\mu_j$. Write $c_{ij}$ for the entries of $C$ in these
+bases. Entrywise, Lemma \ref{scalar} gives
+\[
+ |(D_+-D_-)_{ij}|^2
+ \leq(\lambda_i^2+\mu_j^2)
+       \bigl(|(D_+)_{ij}|^2+|(D_-)_{ij}|^2\bigr).
+\]
+Summing and using the row and column bounds yields
+\[
+\begin{aligned}
+ \norm{\frac{D_+-D_-}{2}}^2
+ &\leq\frac14\sum_{i,j}(\lambda_i^2+\mu_j^2)
+       \bigl(|(D_+)_{ij}|^2+|(D_-)_{ij}|^2\bigr)\\
+ &\leq\frac12\left(\sum_i\lambda_i^2+\sum_j\mu_j^2\right).
+\end{aligned}
+\]
+This is \eqref{block-bound}.
+\end{proof}
+
+\begin{proof}[Proof of the theorem]
+Choose matrices $p,q,r,s$ whose columns are orthonormal bases of
+the ranges of $P,Q,R,S$, respectively. Thus $P=pp^*$ and similarly
+for the other projections. Put
+\[
+ F=[\,p\ \ r\,],\qquad H=[\,q\ \ s\,],\qquad
+ F^*F=I+X,\quad H^*H=I+Y,\quad C=F^*H.
+\]
+The zero intersection assumptions say exactly that $F$ and $H$ have
+linearly independent columns. Hence $I+X$ and $I+Y$ are positive definite.
+The Gram matrix
+\[
+ G=\begin{pmatrix}I+X&C\\C^*&I+Y\end{pmatrix}
+   =[\,F\ \ H\,]^*[\,F\ \ H\,]
+\]
+is positive semidefinite.
+
+Let
+\[
+ J=\operatorname{diag}(I_{\rank P},-I_{\rank R}),\qquad
+ L=\operatorname{diag}(I_{\rank Q},-I_{\rank S}).
+\]
+The matrices $X$ and $Y$ have only off-diagonal blocks:
+\[
+ X=\begin{pmatrix}0&p^*r\\r^*p&0\end{pmatrix},\qquad
+ Y=\begin{pmatrix}0&q^*s\\s^*q&0\end{pmatrix}.
+\]
+Also $p^*q=0$ and $r^*s=0$, so
+\[
+ C=\begin{pmatrix}0&p^*s\\r^*q&0\end{pmatrix}.
+\]
+It follows that $JXJ=-X$, $LYL=-Y$, and $JCL=-C$. In particular,
+$I-X=J(I+X)J$ and $I-Y=L(I+Y)L$ are positive definite. Thus $X,Y$
+have spectra in $(-1,1)$. Conjugating $G$ by
+$\operatorname{diag}(J,L)$ supplies the second positive matrix in
+Lemma \ref{block}.
+
+Set
+\[
+ U=F(I+X)^{-1/2}=[\,u_P\ \ u_R\,],\qquad
+ V=H(I+Y)^{-1/2}=[\,v_Q\ \ v_S\,].
+\]
+These matrices have orthonormal columns. The singular value decomposition
+of $F$ gives
+\[
+ (FF^*)^{-1/2}F=F(F^*F)^{-1/2};
+\]
+the inverse on the left is the Moore--Penrose inverse square root.
+Since $FF^*=P+R$, the projections onto the respective column groups of
+$U$ are exactly $P',R'$. Likewise, the groups of $V$ give $Q',S'$.
+
+We have $U^*V=D_+$, and functional calculus together with $JCL=-C$
+gives
+\[
+ JD_+L
+ =(I-X)^{-1/2}(JCL)(I-Y)^{-1/2}
+ =-D_-.
+\]
+The matrix
+\[
+ \frac{D_++JD_+L}{2}=\frac{D_+-D_-}{2}
+\]
+retains exactly the two diagonal rectangular blocks $u_P^*v_Q$ and
+$u_R^*v_S$ of $D_+$. Therefore
+\[
+\begin{aligned}
+ \Tr(P'Q')+\Tr(R'S')
+ &=\norm{u_P^*v_Q}^2+\norm{u_R^*v_S}^2\\
+ &=\norm{\frac{D_+-D_-}{2}}^2\\
+ &\leq\frac12(\Tr X^2+\Tr Y^2)\\
+ &=\norm{p^*r}^2+\norm{q^*s}^2\\
+ &=\Tr(PR)+\Tr(QS).
+\end{aligned}
+\]
+No rank identity was used. Zero-dimensional column groups are allowed;
+if an entire frame has no columns, all the corresponding sums vanish.
+\end{proof}
+
+\paragraph{Verification and scope.}
+The argument proves the conjecture for all finite dimensions over
+$\mathbb C$, including zero and unequal ranks. The accompanying script
+checks the scalar polynomial certificate exactly and checks the matrix
+identities on 724 reproducible real and complex examples, including
+unequal ranks and nearly intersecting ranges. These numerical checks
+are supplementary; the proof above is exact. The higher-$N$
+orthogonalization and convergence conjectures are not asserted here.
+
+\paragraph{Task 2. Determine the equality cases.}
+Use the equality conditions in the scalar and contraction estimates
+to characterize all quadruples for which \eqref{target} is an equality.
+
+\paragraph{Task 3. Quantify the decrease.}
+Derive explicit improvements to \eqref{target} when the nonzero principal
+angles between the relevant projection ranges obey prescribed bounds.
+
+\paragraph{Task 4. Extend the block estimate.}
+Determine which Schatten-norm or trace-class versions of Lemma
+\ref{block} hold, and state the hypotheses needed in infinite dimension.
+
+\paragraph{Task 5. Investigate larger orthogonalization arrays.}
+Identify an analogue of the two-block grading argument for three or
+more projection groups and test its consequences for the higher-$N$
+inequalities in the source.
+
+\begin{thebibliography}{9}
+\bibitem{BN}
+T. Banica and I. Nechita,
+\emph{Flat matrix models for quantum permutation groups},
+Advances in Applied Mathematics \textbf{83} (2017), 24--46.
+\href{https://doi.org/10.1016/j.aam.2016.09.001}{doi:10.1016/j.aam.2016.09.001}.
+Conjecture 6.6, p.~20 of the
+\href{https://arxiv.org/abs/1602.04456}{arXiv version} and the author's
+currently linked manuscript.
+\end{thebibliography}
+\end{document}

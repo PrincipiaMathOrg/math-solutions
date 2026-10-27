@@ -1,0 +1,218 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,hyperref}
+\newtheorem{theorem}{Theorem}
+\newcommand{\C}{\mathbb C}
+\newcommand{\norm}[1]{\lVert #1\rVert_R}
+\title{Convergence of the Habib--Hildebrand exponential-polynomial expansion}
+\author{Principia Math In Progress: MathDB 375458}
+\date{22 September 2026}
+\begin{document}
+\maketitle
+
+\paragraph{Task 1: full solution.}
+We prove Conjecture 7.3 of Habib and Hildebrand~\cite{necessary}.
+Their subsequent paper~\cite{sufficient} proves formal polynomial existence
+(Theorem 2.5) and supplies the first-order system used below (Lemma 3.1),
+but explicitly leaves convergence open in its final section.
+These results, the quadratic example, and the standard majorant method
+are credited to their respective sources; the result here is the uniform
+exponential coefficient bound and its convergence consequence.
+
+\begin{theorem}
+Let $P\in\C[t]$ satisfy $P(0)=0$ and $P'(0)=P''(0)/2$.
+For its formal solution
+\[
+ u(x)=\sum_{k\geq0}p_k(x+c)e^{-kx},\qquad p_0(t)=t,
+ \qquad uu''-(u')^2=e^{-x}P(u)-1,
+\]
+there exists $\alpha\geq0$, depending only on $P$, such that every
+coefficient $c_{k,j}=[t^j]p_k(t)$ satisfies
+$|c_{k,j}|\leq e^{\alpha k}$.
+For nonzero $P$, put $d=\deg P\geq2$. For every $c\in\C$ the series
+converges absolutely and locally uniformly on
+\[
+ \mathcal D_{\alpha,c}=
+ \{x\in\C:e^{\alpha-\operatorname{Re}x}
+                  \max(1,|x+c|^{d-2})<1\}.
+\]
+Its sum is holomorphic there and solves the displayed differential equation.
+For $d=2$ the factor involving $|x+c|$ is understood to be $1$.
+For $P=0$ the series is simply $x+c$.
+\end{theorem}
+
+\paragraph{Polynomial recurrences and degree control.}
+Write
+\[
+ P(t)=a(t+t^2)+t^3Q(t).
+\]
+Treat $t,z$ as independent formal variables and use the derivation
+$\delta=\partial_t-z\partial_z$. Consider the system from
+\cite[Lemma 3.1]{sufficient},
+\begin{equation}\label{system}
+ \delta U=1-azU+U^2V,\qquad
+ \delta V=zQ(U)+azV-UV^2.
+\end{equation}
+Seek $U=t+\sum_{k\geq1}p_k(t)z^k$ and
+$V=\sum_{k\geq1}v_k(t)z^k$.
+At order $k$, the second equation determines $v_k$ from earlier
+coefficients: the factor $z$ shifts the first two terms, and $V^2$ has
+no terms of order less than two.
+The first equation then determines $p_k$, with its only order-$k$
+unknown on the right being the already determined $t^2v_k$.
+Both equations have the form $(\partial_t-k)f=g$.
+For a polynomial $g$ of degree at most $m$, their unique polynomial solution is
+\begin{equation}\label{inverse}
+ (\partial_t-k)^{-1}g
+ =-\sum_{j=0}^{m}\frac{g^{(j)}}{k^{j+1}}.
+\end{equation}
+Thus all these polynomials exist.
+
+Direct differentiation of \eqref{system}, using $\delta z=-z$, gives
+\begin{equation}\label{identity}
+ U\delta^2U-(\delta U)^2=z\{a(U+U^2)+U^3Q(U)\}-1.
+\end{equation}
+In particular these $p_k$ are the source's formal coefficients.
+For completeness, uniqueness for the original equation also follows
+directly: at order $k$, the operator on $p_k$ is
+\[
+ L_kp=t(p''-2kp'+k^2p)-2(p'-kp).
+\]
+If $p\neq0$ has leading term $bt^m$, then $L_kp$ has leading term
+$k^2bt^{m+1}$, so $L_k$ is injective.
+
+Suppose first $d\geq3$ and set $D=d-2\geq1$.
+Induction in the above triangular recurrences proves
+\begin{equation}\label{degree}
+ \deg p_k\leq Dk+1\quad(k\geq0),\qquad
+ \deg v_k\leq Dk-1\quad(k\geq1).
+\end{equation}
+Here zero polynomials satisfy every degree upper bound.
+Indeed, since $\deg Q\leq D-1$, the coefficient of $z^k$ in
+$zQ(U)$ has degree at most $D(k-1)+(D-1)=Dk-1$.
+The term $azV$ has no larger degree. A product $p_\ell v_i v_j$
+with $\ell+i+j=k$ and $i,j\geq1$ has degree at most $Dk-1$.
+This proves the $v_k$ bound. Products $p_\ell p_m v_i$ of total
+index $k$ have degree at most $Dk+1$, and $azU$ meets the same
+bound. Formula \eqref{inverse} preserves degree, completing the induction.
+
+\paragraph{A uniform inverse estimate.}
+Fix $R=2(D+1)$ and, for a polynomial $f(t)=\sum_j f_jt^j$, set
+\[
+ \norm{f}=\sum_j|f_j|R^j.
+\]
+This norm is submultiplicative, $\norm{t}=R$, and for
+$\deg f\leq m$ it satisfies
+$\norm{f^{(j)}}\leq (m/R)^j\norm{f}$.
+When $m\leq Dk+1\leq(D+1)k$, formula \eqref{inverse} therefore gives
+\begin{equation}\label{bound}
+ \norm{(\partial_t-k)^{-1}f}
+ \leq\frac{\norm{f}}{k}
+       \sum_{j=0}^{m}\left(\frac{m}{Rk}\right)^j
+ \leq\frac{2}{k}\norm{f}\leq2\norm{f}.
+\end{equation}
+The same fixed $R$ works at every order; this is the essential estimate.
+
+\paragraph{An analytic scalar majorant.}
+Put $h=|a|$ and $Q_+(s)=\sum_j|[t^j]Q|s^j$.
+Define scalar power series $A(z),B(z)$ with $A(0)=B(0)=0$ by
+\begin{subequations}
+\begin{align}
+ A&=2\{hz(R+A)+(R+A)^2B\},\label{ma}\\
+ B&=2\{zQ_+(R+A)+hzB+(R+A)B^2\}.\label{mb}
+\end{align}
+\end{subequations}
+After moving the right sides to the left, the Jacobian with respect to
+$(A,B)$ at $(z,A,B)=(0,0,0)$ is
+\[
+ \begin{pmatrix}1&-2R^2\\0&1\end{pmatrix}.
+\]
+The analytic implicit-function theorem gives a unique holomorphic
+solution near $z=0$.
+Its Taylor coefficients are nonnegative: at order $k$, \eqref{mb}
+uses only earlier coefficients to determine $[z^k]B$; then \eqref{ma}
+determines $[z^k]A$, using that coefficient of $B$ and earlier ones.
+Every operation in these two recurrences has a nonnegative coefficient.
+
+Apply the norm to the polynomial recurrences from \eqref{system},
+use \eqref{bound}, and induct on $k$, determining $v_k$ first.
+Submultiplicativity and the triangle inequality give
+\begin{equation}\label{domination}
+ \norm{v_k}\leq[z^k]B(z),\qquad
+ \norm{p_k}\leq[z^k]A(z)\quad(k\geq1).
+\end{equation}
+For example, $zQ(U)$ is dominated by $zQ_+(R+A)$ and $U^2V$
+by $(R+A)^2B$, exactly as in \eqref{ma}--\eqref{mb}.
+There is no assumption that the formal polynomial series already converge.
+
+Choose $r>0$ with $A$ holomorphic on a neighborhood of $|z|\leq r$,
+and define
+\[
+ M=\max\bigl(1,\max_{|z|=r}|A(z)|\bigr),\qquad
+ e^\alpha=\max(1,M/r).
+\]
+Cauchy's estimate and \eqref{domination} imply, for $k\geq1$,
+\[
+ |c_{k,j}|\leq\norm{p_k}\leq Mr^{-k}\leq e^{\alpha k}.
+\]
+The last inequality follows from $M\geq1$; it also covers $r>M$.
+The assertion for $k=0$ is immediate from $p_0=t$.
+
+\paragraph{Low degrees and convergence.}
+For $P=a(t+t^2)$ the above system has $V=0$ and, as in the
+explicit example of \cite[Section 4]{necessary},
+\[
+ p_k(t)=\frac{a^k}{k!}(t+H_k),\qquad
+ H_k=\sum_{j=1}^k\frac1j,\quad H_0=0.
+\]
+Substitution in $(\partial_t-k)p_k=-ap_{k-1}$ verifies the formula.
+Since $H_k\leq k\leq k!$ for $k\geq1$, the required coefficient
+bound holds with $e^\alpha=\max(1,|a|)$; the series in fact converges
+everywhere. The zero polynomial is included by taking $a=0$.
+
+For $d\geq3$, set
+$q(x)=e^{\alpha-\operatorname{Re}x}\max(1,|x+c|^D)$.
+The degree and coefficient estimates imply
+\[
+ |p_k(x+c)e^{-kx}|
+ \leq(Dk+2)\max(1,|x+c|)q(x)^k.
+\]
+On every compact subset of $\mathcal D_{\alpha,c}$, the continuous
+function $q$ has maximum strictly below one. Thus the Weierstrass
+test proves absolute local uniform convergence throughout this domain,
+which is exactly the domain in \cite[Lemma 6.1]{necessary}.
+Local Cauchy estimates give normal convergence of the differentiated
+series, permitting differentiation of the sum. Absolute convergence also permits the
+finite products in the differential equation; its formal identities
+therefore become analytic identities. This proves the theorem.
+
+\paragraph{Tasks 2--5: proposed follow-ups, not additional solved problems.}
+\begin{enumerate}
+ \item Determine useful explicit values of $\alpha$ from the algebraic
+ majorant, and compare the resulting domains with numerical singularities.
+ \item Determine the maximal convergence domain for particular polynomials
+ $P$, including the monomials of degrees $3,4,6$.
+ \item Resolve the separate coefficient-positivity conjecture, which the
+ absolute-value majorant here does not settle.
+ \item Extend the method to suitable analytic nonpolynomial functions $P$,
+ where the degree estimate used here is unavailable.
+\end{enumerate}
+
+\paragraph{Verification status.}
+This is an authoring-agent proof review, not an independent referee report
+or a proof-assistant certificate. The companion exact-arithmetic verifier
+checks the differential identity, inverse estimates, polynomial recurrences,
+majorant domination, and the quadratic formula in finite examples.
+The argument above, rather than those finite checks, supplies all quantifiers.
+
+\begin{thebibliography}{9}
+\bibitem{necessary} R. Habib and R. Hildebrand,
+\emph{Necessary conditions for the existence of exponential-polynomial
+expansions for solutions of certain differential equations},
+\href{https://arxiv.org/abs/2606.21145v1}{arXiv:2606.21145v1}, 2026.
+\bibitem{sufficient} R. Hildebrand and R. Habib,
+\emph{Sufficient conditions for the existence of exponential-polynomial
+expansions for solutions of certain differential equations},
+\href{https://arxiv.org/abs/2606.24182v1}{arXiv:2606.24182v1}, 2026.
+\end{thebibliography}
+\end{document}

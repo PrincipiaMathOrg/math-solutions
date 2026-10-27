@@ -1,0 +1,183 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,booktabs}
+\usepackage[hidelinks]{hyperref}
+\newtheorem{theorem}{Theorem}
+\newcommand{\R}{\mathbb R}
+\newcommand{\dotp}[2]{\langle #1,#2\rangle}
+\title{A nonconvex incenter locus with nested circular caustics\\
+\large A counterexample to MathDB 351604}
+\author{Principia Math in Progress}
+\date{12 September 2026}
+\begin{document}
+\maketitle
+\section*{Task 1. Resolve the bic-III convexity conjecture}
+Conjecture 2 of \cite[p.~23]{source} asserts that the incenter locus
+of a bic-III triangle family is a convex curve. Its four circles must
+be distinct. We use \emph{convex curve} in the usual boundary-of-a-convex-set
+sense, rather than requiring that the curve itself be a convex set.
+
+\begin{theorem}
+There exists a bic-III family with all three circular caustics strictly
+inside its circumcircle, and with no degenerate triangles, whose
+incenter locus is not a convex curve.
+\end{theorem}
+\begin{proof}
+Put $h=2/5$, $r=7/12$, and $A=1+h^2-r^2=2951/3600$.
+Consider the pencil
+\[
+ C_\lambda:\quad x^2+y^2-2\lambda h x-1+\lambda A=0.
+\]
+Its center is $(\lambda h,0)$ and its squared radius is
+$1-\lambda A+\lambda^2h^2$.
+The circumcircle is $C_0$, the unit circle.
+Use $C_1$ and $C_{7/4}$ as the first two caustics. Their centers and
+radii are
+\[
+ O_1=(2/5,0),\quad r_1=7/12,\qquad
+ O_2=(7/10,0),\quad r_2=\sqrt{799}/120.
+\]
+They are strictly nested:
+$2/5+7/12<1$ and $3/10+\sqrt{799}/120<7/12$.
+Their centers are distinct.
+
+Here is a completely specified family, including the tangent choices.
+Set
+\[
+ P(t)=\left(\frac{1-t^2}{1+t^2},\frac{2t}{1+t^2}\right),
+ \qquad J(x,y)=(-y,x),\qquad t\in\R\cup\{\infty\}.
+\]
+For a circle with center $O$, radius $\rho$, and sign
+$s\in\{-1,1\}$, define
+\begin{align}
+ V&=O-P,\qquad D=\dotp{V}{V},\qquad
+ W=\frac{\sqrt{D-\rho^2}\,V+s\rho JV}{D}, \label{eq:W}\\
+ T(O,\rho,s;t)&=P-2\dotp{P}{W}W. \label{eq:T}
+\end{align}
+Take $Q(t)=T(O_1,r_1,-1;t)$ and
+$Z(t)=T(O_2,r_2,1;t)$.
+The vector $W$ has length one, and the distance from $O$ to the
+line $P+\R W$ is $\rho$. Equation \eqref{eq:T} gives its second
+intersection with the unit circle. Thus $PQ$ and $PZ$ are the
+specified tangent chords. The square roots are positive everywhere
+because the caustics lie strictly inside the unit circle.
+Also $P,Q,Z$ are pairwise distinct: $Q=Z$ would give a common
+tangent to the two strictly nested caustics. Three distinct points
+on a circle are noncollinear. Consequently the family and its
+incenter are smooth, including through the parameter value at infinity.
+
+Poncelet's Main Lemma, \cite[Lemma 1]{source}, gives a fixed
+in-pencil envelope for $QZ$. We verify explicitly that it is a
+third proper inner circle, distinct from the first two.
+For either $t=0$ or $t=1$, let
+\[
+ n=J(Z-Q),\qquad e=\dotp{n}{Q}.
+\]
+The line $QZ$ is tangent to $C_\lambda$ precisely when
+\begin{equation}
+ g_t(\lambda):=(e-\lambda h n_x)^2-
+ (1-\lambda A+\lambda^2h^2)\dotp{n}{n}=0. \label{eq:g}
+\end{equation}
+Exact rational interval evaluation gives the following isolating
+intervals for the two roots; all endpoints are divided by $10^9$:
+\[
+\begin{array}{c|cc}
+t&\text{smaller root}&\text{larger root}\\ \hline
+0&(1957015893,1957015894)&(11272411549,11272411550)\\
+1&(1957015893,1957015894)&(3366427888,3366427889)
+\end{array}
+\]
+The coefficients of $\lambda^2$ are nonzero. Since the larger-root
+intervals are disjoint, the fixed envelope supplied by the lemma must
+be $C_{\lambda_*}$, where $\lambda_*$ is the smaller root of $g_0$.
+In particular $1.95<\lambda_*<1.96$. Throughout that interval the
+squared radius is between $0.001744444$ and $0.016197667$.
+Writing its radius as $r_*$, the same interval evaluation gives
+\[
+ h\lambda_*+r_*<0.912<1,\qquad
+ h\lambda_*-7/10+r_*<0.212<r_2.
+\]
+Thus the third caustic is strictly inside $C_{7/4}$.
+Its parameter differs from $0,1,7/4$, so all four circles are distinct.
+
+The incenter is, using ordinary positive side lengths,
+\begin{equation}
+ I(t)=\frac{aP+bQ+cZ}{a+b+c},\quad
+ a=|Q-Z|,\quad b=|P-Z|,\quad c=|P-Q|. \label{eq:I}
+\end{equation}
+For vectors $u,v$, write $[u,v]=u_xv_y-u_yv_x$.
+The following exact enclosures suffice for the counterexample:
+\[
+\begin{array}{c|c}
+\text{quantity}&\text{enclosure}\\ \hline
+I_x'(-1/3)&(206784605,206784606)/10^9\\
+{}[I'(-1/3),\,I(0)-I(-1/3)]&(14992242,14992243)/10^9\\
+{}[I'(-1/3),\,I(-1/2)-I(-1/3)]&(-144056,-144055)/10^9
+\end{array}
+\]
+The first row shows that the tangent is nonzero. The next two rows
+put points of the same incenter locus strictly on opposite sides of
+that tangent line. If this locus were the boundary of a convex set,
+a supporting line at $I(-1/3)$ would have to be its tangent: apply the
+support inequality to $I(-1/3+\varepsilon)$ for both signs of
+$\varepsilon$ and differentiate at zero. All boundary points would
+then lie in one closed half-plane, contradicting the two signs.
+
+For completeness, these are rigorous integer interval computations,
+not floating-point sign tests. The accompanying \texttt{verify.py}
+evaluates \eqref{eq:W}--\eqref{eq:I} with outward rounding to denominator
+$B=10^{60}$ after every operation. An interval is stored as integer
+endpoints $[l,u]/B$. Multiplication rounds the minimum and maximum
+endpoint products outwards after division by $B$; division does the
+same with the four endpoint quotients, rejecting a denominator
+containing zero. Positive square roots are enclosed by
+\[
+ \left[\frac{\lfloor\sqrt{lB}\rfloor}{B},
+ \frac{\lceil\sqrt{uB}\rceil}{B}\right].
+\]
+The integer square-root bounds are checked by squaring.
+Derivatives are evaluated with pairs $(f,f')$ and the product,
+quotient and square-root differentiation rules, starting with $(t,1)$.
+The quadratic formula applied to \eqref{eq:g} gives the displayed
+root intervals. These operations, using only integer arithmetic and
+rational quotients, reproduce every strict bound above.
+\end{proof}
+
+The related paper \cite{hyperbolic} discusses cusps caused by exterior
+caustics and degenerate triangles. The present counterexample uses
+strictly nested proper circles and a smooth nondegenerate family;
+it does not rely on those phenomena.
+
+\section*{Task 2. Determine the convex parameter region}
+Characterize the pairs of nested caustics in a circular pencil for
+which a selected bic-III incenter locus is convex, taking account
+of all four choices of tangent chords.
+
+\section*{Task 3. Describe the onset of nonconvexity}
+Find exact parameter conditions for the first vanishing of the signed
+curvature, and determine which bifurcations preserve regularity and
+simplicity of the incenter locus.
+
+\section*{Task 4. Determine the algebraic locus}
+Compute a minimal implicit equation and its degree for the incenter
+locus of this example, separating the real incenter branch from
+the excenter branches introduced by squaring.
+
+\section*{Task 5. Compare the four triangle families}
+Determine how convexity, inflections, and winding numbers change
+under the four tangent choices associated with fixed first and
+second caustics.
+
+\begin{thebibliography}{9}
+\bibitem{source}
+R. Garcia, B. Odehnal and D. Reznik,
+\emph{Loci of Poncelet triangles in the general closure case},
+J. Geom. \textbf{113} (2022), article 17, 30 pp.,
+\href{https://doi.org/10.1007/s00022-022-00629-3}{doi:10.1007/s00022-022-00629-3}.
+Conjecture 2, p.~23; arXiv:2108.05430v2, p.~16.
+\bibitem{hyperbolic}
+R. Alves Garcia, B. Odehnal and D. Reznik,
+\emph{Poncelet porisms in hyperbolic pencils of circles},
+J. Geom. Graphics \textbf{25} (2021), 205--225.
+\end{thebibliography}
+\end{document}

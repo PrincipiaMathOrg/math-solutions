@@ -1,0 +1,229 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[hidelinks]{hyperref}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newcommand{\Z}{\mathbb Z}
+\title{The negative-parameter ACMS reciprocal-tail formulas\\
+\large MathDB 328441}
+\author{Principia Math In Progress}
+\date{29 September 2026}
+\begin{document}
+\maketitle
+\begin{abstract}
+We prove the reciprocal-tail floor formula for every pair of integers
+$s>t\geq1$, except $(s,t)=(2,1)$, and every positive starting index and
+step. We also prove the reciprocal-square formula for every integer
+$s\geq3$ and every positive starting index and step. The squared formula
+as printed needs this restriction: $s=1$ gives zero denominators and
+$s=2$ gives counterexamples. The proofs give strict bounds without any
+large-parameter qualification.
+\end{abstract}
+
+\section*{Task 1. Complete resolution}
+Write $u_j=f_j(s,-t)$, so
+\[
+u_0=0,\qquad u_1=1,\qquad u_j=su_{j-1}-tu_{j-2}\quad(j\geq2).
+\]
+The question is Conjecture 2 in Park~\cite[p.~8]{Park}, originally
+Conjecture 4.6 of Amdeberhan--Chen--Moll--Sagan~\cite[p.~556]{ACMS}.
+Park's Theorem 18 establishes large-parameter cases; the final ACMS
+paper's note on p.~560 records that partial result.
+
+\begin{theorem}\label{thm:linear}
+Let $s,t$ be integers with $s>t\geq1$ and $(s,t)\ne(2,1)$.
+For all positive integers $n,r$, put
+\[
+F_k=u_{rk},\qquad S_n=\sum_{k=n}^{\infty}\frac1{F_k},
+\qquad \Delta_n=F_n-F_{n-1}.
+\]
+Then the series converges and
+\[
+\Delta_n-1<S_n^{-1}<\Delta_n.
+\]
+Consequently $\lfloor S_n^{-1}\rfloor=F_n-F_{n-1}-1$.
+\end{theorem}
+
+\begin{theorem}\label{thm:squares}
+Let $s\geq3$ be an integer, take $t=1$, and let $n,r\geq1$.
+With $F_k=f_{rk}(s,-1)$, set
+\[
+Q_n=\sum_{k=n}^{\infty}\frac1{F_k^2},
+\qquad \Gamma_n=F_n^2-F_{n-1}^2 .
+\]
+Then the series converges and
+\[
+\Gamma_n-\frac{2}{s^2-4}<Q_n^{-1}<\Gamma_n.
+\]
+In particular $\lfloor Q_n^{-1}\rfloor=F_n^2-F_{n-1}^2-1$.
+\end{theorem}
+
+\section*{Root estimates and the determinant identity}
+Under the hypotheses of Theorem~\ref{thm:linear}, $s\geq3$ and
+$t\leq s-1$. Define
+\[
+D=s^2-4t,\quad \delta=\sqrt D,\quad
+\alpha=\frac{s+\delta}{2},\quad \beta=\frac{s-\delta}{2}.
+\]
+Since $D\geq(s-2)^2$, we have
+\[
+\delta\geq1,\qquad \alpha\geq s-1\geq2,\qquad
+0<\beta\leq1,\qquad \alpha\beta=t.
+\]
+Binet's formula, verified by the recurrence and initial conditions, is
+\[
+u_j=\frac{\alpha^j-\beta^j}{\delta}.
+\]
+Thus $0<u_j<\alpha^j/\delta$ for $j\geq1$. If $j,h\geq1$, then
+\begin{equation}\label{eq:ratio}
+\frac{u_j}{u_{j+h}}
+=\alpha^{-h}\frac{1-(\beta/\alpha)^j}
+ {1-(\beta/\alpha)^{j+h}}<\alpha^{-h}.
+\end{equation}
+The inequality remains true for $j=0$, since $u_0=0$.
+In particular $F_{k+1}>\alpha^r F_k$ for $k\geq1$,
+which proves convergence of both series used above.
+
+We shall use the following form of the generalized Cassini identity,
+also stated as ACMS Lemma 4.3 and Park Lemma 5:
+\begin{equation}\label{eq:cassini}
+F_nF_{n+m-1}-F_{n-1}F_{n+m}
+=t^{r(n-1)}u_r u_{rm}\quad(m,n\geq1).
+\end{equation}
+For completeness, let $A=\alpha^r$, $B=\beta^r$. Substituting
+$F_k=(A^k-B^k)/\delta$ into the left side gives
+\[
+\frac{(AB)^{n-1}(A-B)(A^m-B^m)}{\delta^2},
+\]
+which is exactly the right side. In particular it is strictly positive.
+
+\section*{The reciprocal formula}
+Fix $n,r\geq1$. Define, for $m\geq1$,
+\[
+C_m=\frac{F_n}{F_{n+m}}-\frac{F_{n-1}}{F_{n+m-1}}.
+\]
+Identity~\eqref{eq:cassini} gives $C_m>0$, and absolute convergence
+allows us to shift indices to obtain the exact equality
+\begin{equation}\label{eq:linear-sum}
+\Delta_n S_n=1+\sum_{m=1}^{\infty}C_m .
+\end{equation}
+Moreover, \eqref{eq:cassini}, \eqref{eq:ratio}, and the bound on $u_r$
+give
+\begin{align*}
+C_mF_{n+m-1}
+&=t^{r(n-1)}u_r\,\frac{u_{rm}}{u_{r(n+m)}}\\
+&<t^{r(n-1)}\frac{\alpha^r}{\delta}\alpha^{-rn}
+=\frac{\beta^{r(n-1)}}{\delta}\leq1.
+\end{align*}
+Summing the strict positive inequalities
+$0<C_m<1/F_{n+m-1}$ in \eqref{eq:linear-sum} yields
+\[
+1<\Delta_n S_n<1+S_n.
+\]
+Division by $S_n>0$ proves Theorem~\ref{thm:linear}. This includes
+$n=1$, where $F_{n-1}=0$, and the boundary $t=s-1$, where $\beta=1$:
+the preceding strict inequalities still apply.
+
+\section*{The reciprocal-square formula}
+Now take $t=1$, $s\geq3$. Thus $D=s^2-4\geq5$.
+For $m\geq1$ put
+\[
+E_m=\left(\frac{F_n}{F_{n+m}}\right)^2
+     -\left(\frac{F_{n-1}}{F_{n+m-1}}\right)^2 .
+\]
+The two ratios are nonnegative and their difference is positive by
+\eqref{eq:cassini}; hence $E_m>0$. As before,
+\begin{equation}\label{eq:square-sum}
+\Gamma_n Q_n=1+\sum_{m=1}^{\infty}E_m.
+\end{equation}
+Factoring the difference of squares and using \eqref{eq:cassini} with
+$t=1$ gives
+\[
+E_mF_{n+m-1}^2
+=u_r u_{rm}\frac{F_{n+m-1}}{F_{n+m}}
+ \left(\frac{F_n}{F_{n+m}}+
+       \frac{F_{n-1}}{F_{n+m-1}}\right).
+\]
+Estimate~\eqref{eq:ratio} applies to every ratio here, including the
+zero numerator when $n=1$. Therefore
+\[
+0<E_mF_{n+m-1}^2
+<\frac{\alpha^r}{\delta}\frac{\alpha^{rm}}{\delta}
+ \alpha^{-r}\bigl(2\alpha^{-rm}\bigr)
+=\frac2D.
+\]
+Summing in \eqref{eq:square-sum} gives
+\[
+1<\Gamma_n Q_n<1+\frac2D Q_n .
+\]
+This is the claimed strict interval. Since $2/D\leq2/5<1$ and
+$\Gamma_n$ is an integer, Theorem~\ref{thm:squares} follows.
+
+\section*{The omitted small parameters in the printed squared formula}
+Both cited statements print the squared formula for positive $s$
+without excluding $s=1,2$. If $s=1$, the recurrence has period six,
+beginning $0,1,1,0,-1,-1$. Every subsequence $u_{rk}$ contains zeros
+at arbitrarily large indices, so the proposed series is undefined.
+
+If $s=2$, then $u_j=j$. At $n=3,r=1$, strict integral comparison gives
+\[
+\frac13=\int_3^\infty x^{-2}\,dx
+<\sum_{k=3}^{\infty}\frac1{k^2}
+<\int_2^\infty x^{-2}\,dx=\frac12 .
+\]
+The floor of the inverse sum is consequently $2$, whereas the printed
+right side is $3^2-2^2-1=4$. Thus the unqualified squared assertion is
+false. Theorem~\ref{thm:squares} proves it throughout the intended
+nondegenerate range; the small-parameter defect is not the basis for
+claiming a resolution of the substantive problem.
+
+\section*{Exact checks and follow-up tasks}
+The companion verifier uses integer recurrence values and rational
+intervals for infinite tails. The bound
+$F_{k+1}>2^rF_k$ implies that the tail after $K$ is less than
+$1/(F_K^p(2^{rp}-1))$ for $p=1,2$. These finite checks corroborate the
+proof; the argument above establishes all parameters and indices.
+
+\paragraph{Task 2. Higher powers.}
+For $p\geq3$, determine correction terms to
+$F_n^p-F_{n-1}^p$ that give the exact floor of
+$(\sum_{k=n}^{\infty}F_k^{-p})^{-1}$ for $t=1$ and arbitrary step $r$.
+The known cubic result of Yuan--He--Zhou~\cite{YHZ} treats step one.
+
+\paragraph{Task 3. A wider parameter range.}
+For integer $s,t>0$ with $s^2>4t$ and $\alpha>1$, classify the pairs
+for which the formula of Theorem~\ref{thm:linear} holds for every
+$n,r\geq1$, allowing the smaller root $\beta$ to exceed one.
+
+\paragraph{Task 4. Shifted progressions.}
+Determine exact floor formulas for the inverses of
+\[
+\sum_{k=n}^{\infty}\frac1{u_{rk+a}}
+\quad\hbox{and}\quad
+\sum_{k=n}^{\infty}\frac1{u_{rk+a}^2},
+\]
+for $a\geq0$, in the corresponding
+parameter ranges of the two theorems.
+
+\paragraph{Task 5. Optimal error bounds.}
+For fixed $s\geq3,r\geq1$, determine
+$\sup_{n\geq1}(\Gamma_n-Q_n^{-1})$ and its dependence on $s,r$,
+including whether the supremum is attained or is a limiting value.
+
+\begin{thebibliography}{9}
+\bibitem{Park}
+S. Park, \emph{Arithmetic properties of generalized Fibonacci sequences},
+\href{https://arxiv.org/abs/1407.8086}{arXiv:1407.8086v1} (2014),
+Conjecture 2 and Theorem 18.
+\bibitem{ACMS}
+T. Amdeberhan, X. Chen, V. H. Moll, B. E. Sagan,
+\emph{Generalized Fibonacci polynomials and Fibonomial coefficients},
+Ann. Comb. \textbf{18} (2014), 541--562,
+\href{https://doi.org/10.1007/s00026-014-0242-9}{doi:10.1007/s00026-014-0242-9}.
+\bibitem{YHZ}
+P. Yuan, Z. He, J. Zhou, \emph{On the sum of reciprocal generalized
+Fibonacci numbers}, \href{https://arxiv.org/abs/1503.00803}{arXiv:1503.00803v1}
+(2015), Theorem 1.1.
+\end{thebibliography}
+\end{document}

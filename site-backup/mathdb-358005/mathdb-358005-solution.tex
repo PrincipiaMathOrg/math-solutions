@@ -1,0 +1,219 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[colorlinks=true,linkcolor=blue,urlcolor=blue,citecolor=blue]{hyperref}
+\newcommand{\qb}[2]{\genfrac{[}{]}{0pt}{}{#1}{#2}_q}
+\newcommand{\NN}{\mathbb N}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\title{The Amdeberhan--Callan Gaussian-product inequality}
+\author{Principia Math in Progress\\MathDB problem 358005}
+\date{29 September 2026}
+\begin{document}
+\maketitle
+\begin{abstract}
+We prove the coefficientwise inequality in Conjecture 15 of
+Amdeberhan and Callan's final paper \emph{Gaussian inequality}.
+A Gaussian Vandermonde expansion and the subspace-intersection
+linearization formula express its difference as a positive combination
+of two-by-two Gaussian Pascal minors. A subset injection proves the
+required positivity of these minors.
+\end{abstract}
+
+Write \(B(n,r)=\qb nr\), with \(B(n,r)=0\) if \(r<0\) or \(r>n\).
+All upper indices below are nonnegative integers. We use \(P\ge_q0\)
+to mean \(P\in\NN[q]\), where zero is included in \(\NN\).
+
+\begin{theorem}\label{thm:main}
+For all integers \(0\le k\le a<b\),
+\begin{equation}\label{eq:target}
+D_{a,b,k}(q):=B(a,k)B(a+b,b-k)-B(b,k)B(a+b,a-k)\ge_q0.
+\end{equation}
+Equivalently, the following rational expression is a polynomial with
+nonnegative integer coefficients:
+\[
+B(a,k)B(b,k)B(a+b,b)
+\left(\frac1{B(a+k,k)}-\frac1{B(b+k,k)}\right).
+\]
+\end{theorem}
+
+The target is Conjecture 4 on page 7 of the arXiv version
+\cite{ACpre} and Conjecture 15 on page 1533 of the final journal
+version \cite{AC}. We prove the full stated parameter range.
+The standard identities used below are proved here for completeness.
+
+\begin{lemma}[Gaussian Pascal minors]\label{lem:minor}
+For \(0\le a\le b\) and \(0\le r\le s\),
+\[
+\Delta_{a,b}(r,s):=B(a,r)B(b,s)-B(a,s)B(b,r)\ge_q0.
+\]
+\end{lemma}
+\begin{proof}
+The case \(r=s\) is zero. If \(s>a\), the subtracted product is
+zero, so the assertion is immediate. Suppose \(r<s\le a\), and put
+\(d=s-r>0\). Write \([n]=\{1,\ldots,n\}\).
+
+Start with an \(s\)-subset \(I\) of \([a]\) and an \(r\)-subset
+\(J\) of \([b]\). For \(0\le h\le a\), set
+\[
+f(h)=|I\cap[h]|-|J\cap[h]|.
+\]
+We have \(f(0)=0\), \(f(a)\ge s-r=d\), and each step changes \(f\)
+by at most one. Let \(h\) be the first index with \(f(h)=d\).
+Exchange the memberships of \(I\) and \(J\) on \([h]\):
+\[
+I'=(I\setminus[h])\cup(J\cap[h]),\qquad
+J'=(J\setminus[h])\cup(I\cap[h]).
+\]
+Then \(I'\subseteq[a]\), \(|I'|=r\), \(J'\subseteq[b]\), and
+\(|J'|=s\). In the image, \(h\) is the first index for which
+\(|J'\cap[h]|-|I'\cap[h]|=d\). Exchanging the same prefix recovers
+\((I,J)\), so this is an injection.
+
+It preserves the monomial weight
+\(\prod_{t\in I}x_t\prod_{t\in J}x_t\).
+Now specialize \(x_t=q^{t-1}\). The subset identity
+\[
+\sum_{\substack{S\subseteq[n]\\|S|=\ell}}q^{\sum_{t\in S}(t-1)}
+=q^{\binom{\ell}{2}}B(n,\ell)
+\]
+shows that the generating polynomial of the unused image-side pairs is
+\(q^{\binom r2+\binom s2}\Delta_{a,b}(r,s)\).
+Every such pair has exponent at least \(\binom r2+\binom s2\).
+Removing this common monomial therefore gives a polynomial in
+\(\NN[q]\), as required.
+\end{proof}
+
+\begin{lemma}[Subspace-intersection linearization]\label{lem:linear}
+For nonnegative integers \(n,k,j\),
+\begin{equation}\label{eq:linear}
+B(n,k)B(n,j)=
+\sum_{i=0}^{\min(k,j)}
+q^{(k-i)(j-i)}
+B(k+j-i,k)B(k,i)B(n,k+j-i).
+\end{equation}
+\end{lemma}
+\begin{proof}
+At a prime power \(q=Q\), \(B(n,\ell)\) counts the \(\ell\)-dimensional
+subspaces of an \(n\)-dimensional vector space over \(\mathbb F_Q\).
+Indeed, counting ordered independent \(\ell\)-tuples and dividing by
+the number of ordered bases of \(\mathbb F_Q^\ell\) gives
+\(\prod_{t=0}^{\ell-1}(Q^n-Q^t)/(Q^\ell-Q^t)\), which is \(B(n,\ell)\)
+at \(q=Q\).
+
+Count ordered pairs of subspaces \(U,V\) with dimensions \(k,j\),
+according to \(i=\dim(U\cap V)\).
+First choose \(W=U+V\), of dimension \(k+j-i\); then choose
+\(U\subseteq W\), and then \(T=U\cap V\subseteq U\).
+These choices contribute respectively
+\[
+B(n,k+j-i),\qquad B(k+j-i,k),\qquad B(k,i)
+\]
+evaluated at \(Q\).
+In \(W/T\), the subspace \(V/T\) is a complement to \(U/T\).
+Fixing one complement, all others are graphs of linear maps from
+a space of dimension \(j-i\) to one of dimension \(k-i\).
+There are \(Q^{(k-i)(j-i)}\) such maps.
+This proves the identity at every prime power.
+Both sides are polynomials, so agreement at infinitely many values
+proves \eqref{eq:linear}. If \(k>n\) or \(j>n\), every term is zero
+by the convention on \(B\), so these cases are also covered.
+\end{proof}
+
+\begin{proof}[Proof of Theorem \ref{thm:main}]
+The Gaussian Vandermonde identity gives
+\begin{align}
+B(a+b,b-k)&=\sum_{j\ge0}q^{j(j+k)}B(a,j)B(b,k+j),\label{eq:vdm1}\\
+B(a+b,a-k)&=\sum_{j\ge0}q^{j(j+k)}B(b,j)B(a,k+j).\label{eq:vdm2}
+\end{align}
+For example, to prove \eqref{eq:vdm1} at \(q=Q\), count
+\((b-k)\)-subspaces of \(X\oplus Y\), where
+\(\dim X=b\) and \(\dim Y=a\), by the dimension \(j\) of their
+projection to \(Y\). Choose the intersection with \(X\), of dimension
+\(b-k-j\), and the image in \(Y\). For these choices, the subspaces
+are graphs of maps from that image to the quotient of \(X\) by the
+intersection, giving \(Q^{j(k+j)}\) choices.
+Polynomial identity and symmetry \(B(b,b-k-j)=B(b,k+j)\) prove
+\eqref{eq:vdm1}; exchanging \(a,b\) gives \eqref{eq:vdm2}.
+
+Multiply \eqref{eq:vdm1} by \(B(a,k)\), multiply
+\eqref{eq:vdm2} by \(B(b,k)\), and subtract. We obtain
+\[
+D_{a,b,k}=
+\sum_{j\ge0}q^{j(j+k)}
+\bigl(B(a,k)B(a,j)B(b,k+j)-B(b,k)B(b,j)B(a,k+j)\bigr).
+\]
+Apply Lemma \ref{lem:linear} to the two products having equal upper
+indices. This yields the explicit expansion
+\begin{equation}\label{eq:positive}
+\boxed{\;
+D_{a,b,k}=
+\sum_{j=0}^{a}\ \sum_{i=0}^{\min(k,j)}
+q^{j(j+k)+(k-i)(j-i)}
+B(k+j-i,k)B(k,i)
+\Delta_{a,b}(k+j-i,k+j).
+\;}
+\end{equation}
+Terms with \(j>a\) vanish in the preceding expression:
+both \(B(a,j)\) and \(B(a,k+j)\) are zero.
+Every exponent in \eqref{eq:positive} is nonnegative, and every
+factor is in \(\NN[q]\), using Lemma \ref{lem:minor}.
+This proves \eqref{eq:target}, including \(k=0\), for which all
+minors in \eqref{eq:positive} have equal column indices and vanish.
+
+Finally, cancellation of the Gaussian factorials gives
+\[
+\frac{B(a,k)B(b,k)B(a+b,b)}{B(a+k,k)}
+=B(a,k)B(a+b,b-k).
+\]
+The analogous identity with \(a,b\) exchanged gives the second
+term of \eqref{eq:target}. This proves the claimed equivalence as
+an identity of rational functions, whose difference is the
+polynomial already shown to be nonnegative.
+\end{proof}
+
+\paragraph{Scope and verification.}
+No finite cutoff enters the proof. The Pascal-minor injection,
+subspace-intersection formula, and Vandermonde formula are standard
+ingredients; the result here is their application through
+\eqref{eq:positive} to the full codicil conjecture.
+The accompanying exact verifier checks the target, both auxiliary
+identities, the double-sum identity, and the injection itself by
+exhaustive subset enumeration on small ground sets.
+The source and bounded prior-claim audit are recorded separately.
+
+\paragraph{Task 2. A direct partition injection.}
+Construct a size-preserving injection directly between the pairs
+of bounded partitions enumerated by the two products in
+\eqref{eq:target}, with an explicit description of the unused pairs.
+
+\paragraph{Task 3. Coefficient shape.}
+Determine whether the nonzero coefficients of \(D_{a,b,k}\) are
+always unimodal. If not, characterize a substantial parameter
+range where unimodality holds.
+
+\paragraph{Task 4. Support and sharp lower bounds.}
+Determine exactly which coefficients of \(D_{a,b,k}\) are positive,
+and derive uniform lower bounds from selected summands of
+\eqref{eq:positive}.
+
+\paragraph{Task 5. Further product comparisons.}
+For fixed \(a<b\) and \(k\), classify the integers \(N,u,v\) for which
+\(B(a,k)B(N,u)-B(b,k)B(N,v)\) is coefficientwise nonnegative.
+Identify families admitting the same linearization into Pascal minors.
+
+\begin{thebibliography}{9}
+\bibitem{AC}
+T. Amdeberhan and D. Callan,
+\emph{Gaussian inequality},
+Rocky Mountain Journal of Mathematics \textbf{54} (2024),
+no.~6, 1527--1534.
+\href{https://doi.org/10.1216/rmj.2024.54.1527}{doi:10.1216/rmj.2024.54.1527}.
+Conjecture 15, p.~1533.
+\bibitem{ACpre}
+T. Amdeberhan and D. Callan,
+\emph{Gaussian inequality},
+\href{https://arxiv.org/abs/2304.03395v1}{arXiv:2304.03395v1} (2023).
+Conjecture 4, p.~7.
+\end{thebibliography}
+\end{document}

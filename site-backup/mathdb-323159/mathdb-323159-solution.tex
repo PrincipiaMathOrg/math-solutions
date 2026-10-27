@@ -1,0 +1,191 @@
+\documentclass[10pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,booktabs}
+\usepackage[colorlinks=true,urlcolor=blue,linkcolor=blue]{hyperref}
+\newtheorem{theorem}{Theorem}
+\title{A counterexample to the higher Toeplitz\\
+Hurwitz-stability conjecture\\\large MathDB 323159}
+\author{Principia Math In Progress}
+\date{11 September 2026}
+\begin{document}
+\maketitle
+
+\section*{Task 1. Resolve the stability conjecture}
+
+Karp's Conjecture 5~\cite{K} asserts that the rising-factorial determinant
+polynomial $P_n^r(x)$ is Hurwitz stable whenever the input sequence belongs
+to $PF_r$, for $r\geq2$. Hurwitz stability means that every zero has
+strictly negative real part.
+The order-two specialization, explicitly included in the source, is
+\begin{equation}
+ P_n^2(x)=\sum_{k=0}^n\binom nk f_kf_{n-k}
+ \bigl[(x)_k(x)_{n-k}-(x+1)_k(x-1)_{n-k}\bigr],
+ \label{eq:definition}
+\end{equation}
+where $(x)_k$ is the rising factorial.
+
+\begin{theorem}
+Take $r=2$, $n=15$ and
+\[
+ (f_0,\ldots,f_{15})=
+ (1,51,52,53,54,55,56,57,57,56,55,54,53,52,51,1).
+\]
+This is a positive strictly log-concave $PF_2$ sequence, but $P_{15}^2$
+has exactly one zero in
+\[
+ \left|x-\frac{1+41i}{10}\right|<\frac1{20}.
+\]
+In particular it has a zero with $\operatorname{Re}x>1/20$,
+and Conjecture 5 is false.
+\end{theorem}
+
+\section*{The input satisfies the full hypothesis}
+
+The adjacent log-concavity differences are
+\[
+ f_k^2-f_{k-1}f_{k+1}=
+ \begin{cases}
+ 2549,&k=1,14,\\
+ 57,&k=7,8,\\
+ 1,&k=2,\ldots,6,\ 9,\ldots,13.
+ \end{cases}
+\]
+Thus strict log-concavity holds at every required index.
+
+For completeness, extend $f_k$ by zero outside $0\leq k\leq15$.
+All entries of its infinite Toeplitz matrix are nonnegative.
+A two-by-two minor has the form
+\[
+ f_a f_{a+h-d}-f_{a+h}f_{a-d},\qquad h,d>0
+\]
+for integer indices. If the second product is zero, the minor is
+nonnegative. Otherwise all indices from $a-d$ through $a+h$
+are in the positive support. Since the ratios $f_j/f_{j-1}$ decrease,
+\[
+ \frac{f_a}{f_{a-d}}
+ \geq\frac{f_{a+h}}{f_{a+h-d}},
+\]
+by multiplying $d$ successive ratio comparisons.
+The minor is again nonnegative. This proves $PF_2$ directly, including
+every minor of the infinite matrix.
+
+\section*{An explicit polynomial factorization}
+
+Expanding the finite sum~\eqref{eq:definition} gives
+\begin{equation}
+ P_{15}^2(x)=210(x+1)_7 R(x),
+ \label{eq:factor}
+\end{equation}
+where
+\begin{align*}
+ R(x)={}&191647x^6+4104969x^5+36750955x^4+192645735x^3\\
+        &+736979998x^2+2128319736x+3212352000.
+\end{align*}
+This is an integer polynomial identity. It can be checked by ordinary
+coefficient multiplication. The accompanying verifier also checks it by
+evaluating both sides independently at $x=0,1,\ldots,15$;
+both sides have degree at most $15$, so these sixteen exact evaluations
+alone certify the identity.
+
+All coefficients of the displayed factorization are positive.
+Thus the counterexample concerns stability; it does not contradict
+coefficient positivity.
+
+\section*{An integer certificate for a right-half-plane zero}
+
+Put
+\[
+ T(w)=20^6 R\left(\frac{2+82i+w}{20}\right)
+      =\sum_{j=0}^6 c_jw^j.
+\]
+Its coefficients are the following Gaussian integers:
+\begin{center}
+\small
+\begin{tabular}{r rr}
+\toprule
+$j$&$\operatorname{Re}c_j$&$\operatorname{Im}c_j$\\
+\midrule
+0&6242984901271040&-4815010659523584\\
+1&-7146943743914496&-9080441566052096\\
+2&-369163407187520&-56477312908800\\
+3&-4012914867840&2981422413440\\
+4&-3796641800&34603649040\\
+5&84399144&94290324\\
+6&191647&0\\
+\bottomrule
+\end{tabular}
+\end{center}
+Let
+\[
+ L=11555657658184807,\qquad
+ U=\sum_{j\ne1}\left\lceil
+       \sqrt{(\operatorname{Re}c_j)^2+(\operatorname{Im}c_j)^2}
+       \right\rceil
+   =8262602600766508 .
+\]
+Direct integer squaring verifies $L^2\leq |c_1|^2$, and integer square
+root bounds give the displayed exact value of $U$.
+Moreover,
+\[
+ L-U=3293055057418299>0.
+\]
+Consequently on $|w|=1$,
+\[
+ |T(w)-c_1w|
+ \leq\sum_{j\ne1}|c_j|
+ \leq U<L\leq|c_1w|.
+\]
+Rouch\'e's theorem implies that $T$ and $c_1w$ have the same number
+of zeros inside the unit disk, namely one, counted with multiplicity.
+Undoing the affine change of variable gives exactly one zero of $R$
+in the claimed disk. The factor $(x+1)_7$ has its zeros at
+$-1,-2,\ldots,-7$, outside this disk, so the same statement holds for
+$P_{15}^2$. Every point in the disk has real part greater than $1/20$.
+This completes the refutation.
+
+\section*{Verification and scope}
+
+The verifier uses only exact integer arithmetic and Python's standard
+library. It checks the input inequalities, constructs the original
+determinant polynomial, checks~\eqref{eq:factor} by coefficients and by
+independent evaluations, and computes $T$ by both binomial expansion
+and Horner substitution. The norm comparisons use integer square roots.
+No approximate root finder is used in the certificate.
+
+The result refutes the universal assertion through its allowed $r=2$
+case. It does not decide the separate assertions for each $r\geq3$,
+or the stronger $PF_\infty$ real-root conjecture.
+The source's previously known nonreal-zero examples under mere
+log-concavity do not assert failure of Hurwitz stability.
+The published statement, live MathDB status and public claims were checked
+on 11 September 2026; no matching existing stability-refutation claim
+was located. Details are in \texttt{literature-audit.md}.
+
+\section*{Tasks 2--5}
+
+\begin{enumerate}
+\setcounter{enumi}{1}
+\item Determine the smallest degree index $n$ for which positive strictly
+log-concave data give an unstable order-two determinant polynomial.
+\item Determine the instability ranges in $A$ and $n$ for
+$f_0=f_n=1$ and $f_k=A+\min(k,n-k)$ at the interior indices.
+\item Prove or refute Hurwitz stability separately for each determinant
+order $r\geq3$ under the corresponding $PF_r$ hypothesis.
+\item Resolve the proposed real-negative-zero property under the
+stronger $PF_\infty$ hypothesis.
+\end{enumerate}
+
+\begin{thebibliography}{9}
+\bibitem{K}
+D.~Karp, \emph{Positivity of Toeplitz determinants formed by rising
+factorial series and properties of related polynomials},
+Zap. Nauchn. Sem. POMI \textbf{404} (2012), 184--198,
+Conjecture 5 and the order-two identity, p.~193.
+\href{https://www.mathnet.ru/eng/znsl5267}{Published article};
+\href{https://arxiv.org/abs/1203.1482}{arXiv:1203.1482}.
+English translation: Journal of Mathematical Sciences
+\textbf{193} (2013), 106--114,
+\href{https://doi.org/10.1007/s10958-013-1438-y}
+{doi:10.1007/s10958-013-1438-y}.
+\end{thebibliography}
+\end{document}

@@ -1,0 +1,181 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,hyperref}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newcommand{\fl}[1]{\left\lfloor#1\right\rfloor}
+\newcommand{\fr}[1]{\left\{#1\right\}}
+\title{The four limiting values of a square-root floor sum}
+\author{Principia Math In Progress}
+\date{29 September 2026}
+\begin{document}\maketitle
+\begin{abstract}
+We prove all four residue-class limits conjectured by Chamberland and
+Dilcher. An elementary complete quadratic exponential-sum bound gives
+equidistribution of the normalized square remainders for every sequence
+of positive integer moduli. An exact lattice count then transfers their
+mean to the floor sum. No restriction on prime factors or square factors
+is required.
+\end{abstract}
+
+\section*{Task 1: the conjecture and its complete resolution}
+Following~\cite[Equation (1.4)]{CD}, define
+\[
+ f(n)=\sum_{j=1}^{\lfloor n/4\rfloor}\fl{\sqrt{jn}}-\frac{n^2-1}{12}
+ \qquad(n\ge1).
+\]
+\begin{theorem}\label{thm:main}
+For each $r\in\{0,1,2,3\}$,
+\[
+ \lim_{m\to\infty}\frac{f(4m+r)}{4m+r}=\frac{1-r}{8}.
+\]
+Thus the four limits, in order, are $1/8$, $0$, $-1/8$, and $-1/4$.
+\end{theorem}
+
+\paragraph{The last numerator in the source.}
+Conjecture 7.5, Equation (7.14), prints $f(4m+2)/(4m+3)$ with
+limit $-1/4$. Its intended numerator is $f(4m+3)$: the discussion
+immediately below cites identities (1.6), (6.5), and (7.6), all concerning
+the residue class $3$ modulo $4$.
+The printed expression instead has limit $-1/8$, by the third case of
+Theorem~\ref{thm:main} and $(4m+2)/(4m+3)\to1$.
+We prove the full intended four-case assertion, as well as resolve the
+literal printed expression; no credit is claimed merely for this typo.
+
+\section*{Mean of the normalized square remainders}
+Write $e(t)=\exp(2\pi i t)$ and
+\[
+ G_n(h)=\sum_{k=0}^{n-1}e(hk^2/n),\qquad h\in\mathbb Z\setminus\{0\}.
+\]
+Changing variables $k=\ell+u$ modulo $n$ gives
+\[
+ |G_n(h)|^2
+ =\sum_{u\bmod n}e(hu^2/n)\sum_{\ell\bmod n}e(2hu\ell/n).
+\]
+The inner sum is $n$ when $n\mid2hu$ and zero otherwise. There are
+$\gcd(2h,n)$ such residues $u$, so
+\begin{equation}\label{eq:gauss}
+ |G_n(h)|^2\le n\gcd(2h,n)\le2|h|n.
+\end{equation}
+Consequently $G_n(h)/n\to0$ as $n\to\infty$ for each fixed nonzero $h$.
+By linearity, for every trigonometric polynomial $P$,
+\[
+ \frac1n\sum_{k=0}^{n-1}P(k^2/n)\longrightarrow\int_0^1P(t)\,dt.
+\]
+The same assertion holds for every continuous periodic function $g$,
+by uniform approximation with trigonometric polynomials.
+For completeness, this approximation follows by convolving $g$ with
+the Fej\'er kernels
+\[
+ K_M(t)=\frac1M\left|\sum_{j=0}^{M-1}e(jt)\right|^2.
+\]
+They are nonnegative trigonometric polynomials of integral one, and
+their mass outside any fixed neighborhood of the integers tends to zero:
+if the distance to the nearest integer is at least $\eta\in(0,1/2)$,
+then $K_M(t)\le1/(M\sin^2(\pi\eta))$.
+Uniform continuity of $g$ therefore gives uniform convergence of
+$K_M*g$ to $g$.
+
+We must also handle the discontinuity of the fractional-part function.
+Fix $0<\varepsilon<1/2$. A continuous periodic majorant $U_\varepsilon$
+of $t$ on $[0,1)$ is obtained by using $U_\varepsilon(t)=t$ for
+$\varepsilon\le t<1$ and joining $(0,1)$ to $(\varepsilon,\varepsilon)$
+linearly. A continuous periodic minorant $L_\varepsilon$ equals $t$ on
+$[0,1-\varepsilon]$ and joins $(1-\varepsilon,1-\varepsilon)$ to $(1,0)$
+linearly. Their integrals are $1/2+\varepsilon/2$ and
+$1/2-\varepsilon/2$, respectively. Applying the continuous-function
+limit to both envelopes and then letting $\varepsilon\downarrow0$ proves
+\begin{equation}\label{eq:mean}
+ \frac{S_n}{n}\longrightarrow\frac12,\qquad
+ S_n:=\sum_{k=0}^{n-1}\fr{\frac{k^2}{n}}
+     =\frac1n\sum_{k=0}^{n-1}(k^2\bmod n).
+\end{equation}
+This includes all positive moduli and also includes the residues whose
+squares are divisible by $n$.
+
+\section*{An exact lattice identity with square endpoints}
+Put $r=n\bmod4$, $\nu=\lfloor n/4\rfloor$, $m=2\nu=(n-r)/2$,
+and $R_n(k)=k^2\bmod n$. Since
+$\lfloor\sqrt{\nu n}\rfloor=2\nu$, counting pairs with
+$1\le j\le\nu$ and $k^2\le jn$ gives
+\begin{align*}
+ \sum_{j=1}^{\nu}\fl{\sqrt{jn}}
+ &=\sum_{k=1}^{m}\left(\nu+1-\left\lceil\frac{k^2}{n}\right\rceil\right)\\
+ &=2\nu^2-\sum_{k=1}^{m}\fl{\frac{k^2}{n}}+Z_n,
+\end{align*}
+where $Z_n=\#\{k:1\le k\le m,\ n\mid k^2\}$.
+The identity remains valid for $\nu=0$, with empty sums.
+Define
+\[
+ A_n=\frac1n\sum_{k=1}^{m}R_n(k).
+\]
+Replacing each floor by the square minus its remainder, summing the
+consecutive squares, and subtracting $(n^2-1)/12$ yields the exact formula
+\begin{equation}\label{eq:exact}
+ f(n)=A_n-\frac{r+1}{8}n+\frac r4+
+              \frac{r(r-1)(r-2)}{24n}+Z_n.
+\end{equation}
+
+The errors in replacing $A_n$ by $S_n/2$ and ignoring $Z_n$ are
+sublinear. First, $R_n(n-k)=R_n(k)$. The range $1\le k\le m$
+therefore gives half the full remainder sum, except for at most one
+central term or half of that term. Thus
+\begin{equation}\label{eq:half}
+ |A_n-S_n/2|\le1.
+\end{equation}
+For example, when $n$ is even, $m$ is either $n/2$ or $n/2-1$,
+and the difference is $\pm R_n(n/2)/(2n)$. When $n$ is odd, $m$
+is $(n-1)/2$ or $(n-3)/2$, giving difference zero or
+$-R_n((n-1)/2)/n$.
+
+Next write $n=\prod_p p^{a_p}$ and put
+$D_n=\prod_p p^{\lceil a_p/2\rceil}$. Then $n\mid k^2$ precisely
+when $D_n\mid k$, so
+\[
+ 0\le Z_n\le\frac n{D_n}
+ =\prod_p p^{\lfloor a_p/2\rfloor}\le\sqrt n.
+\]
+Since $0\le r/4+r(r-1)(r-2)/(24n)\le1$, equations
+\eqref{eq:exact} and~\eqref{eq:half} imply, for every positive integer $n$,
+\[
+ \left|f(n)-\frac{S_n}{2}+\frac{r+1}{8}n\right|
+ \le\sqrt n+2.
+\]
+Divide by $n$ and use~\eqref{eq:mean}. For each fixed residue $r$ this gives
+\[
+ \frac{f(n)}n\longrightarrow\frac14-\frac{r+1}{8}
+ =\frac{1-r}{8}\qquad(n\to\infty,\ n\equiv r\pmod4),
+\]
+proving Theorem~\ref{thm:main}.
+
+\section*{Tasks 2--5: follow-up questions}
+\begin{enumerate}\setcounter{enumi}{1}
+\item Determine the sharp uniform rate of convergence of $S_n/n$ to
+$1/2$, including the dependence on the prime factorization of $n$.
+\item Determine the order and limiting behavior of
+$f(n)-(1-r)n/8$ on each residue class, after the best natural rescaling.
+\item Find infinite families of moduli on which the square-endpoint term
+$Z_n$ or the quadratic-remainder discrepancy determines the main error.
+\item Extend the argument to floor sums of higher roots and identify
+the residue-class main terms and the required exponential-sum bounds.
+\end{enumerate}
+
+\paragraph{Verification and scope.}
+The verifier checks the exact lattice identity, square-endpoint count,
+and comparison with the original floor sum using integer and rational
+arithmetic. The limiting argument is proved analytically above; numerical
+examples do not establish convergence. All prime factorizations are
+allowed. Review is by the author-agent, not independent peer review.
+
+\begin{thebibliography}{9}
+\bibitem{CD} M.~Chamberland and K.~Dilcher,
+\emph{Sums of the floor function related to class numbers of imaginary
+quadratic fields},
+\href{https://arxiv.org/abs/2510.04387}{arXiv:2510.04387v1} (2025),
+Conjecture 7.5, p.~23. All 23 pages of the current manuscript were read
+on 29 September 2026.
+\bibitem{MathDB} MathDB,
+\href{https://mathdb.com/p/370789}{problem 370789},
+live status checked 29 September 2026.
+\end{thebibliography}
+\end{document}

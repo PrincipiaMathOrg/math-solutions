@@ -1,0 +1,173 @@
+\documentclass[11pt]{article}
+\usepackage[margin=0.95in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,hyperref}
+\hypersetup{colorlinks=true,urlcolor=blue,linkcolor=blue}
+\newtheorem{theorem}{Theorem}
+\newcommand{\R}{\mathbb R}
+\title{An open basin of four-point limits for a Markov distribution mapping}
+\author{Principia Math in Progress}
+\date{September 12, 2026}
+\begin{document}
+\maketitle
+
+\paragraph{Task 1. Resolve the finite metric-space convergence conjecture.}
+Conjecture 5 of Aldous--Cruz--Feng~\cite{ACF}, recorded as
+\href{https://mathdb.com/p/362490}{MathDB 362490}, asserts that on every finite
+metric space with distinct interpoint distances, almost every initial
+distribution has iterates under $\pi_{j,k}$ converging to a point mass or a
+uniform distribution on two points. Here $\pi_{j,k}(p)$ is the
+\emph{stationary distribution} of the chain that samples $k$ independent
+points with law $p$ and moves to the $j$th closest to its current state.
+The asserted almost-everywhere convergence is false, already for $(j,k)=(2,2)$.
+
+\begin{theorem}
+Let $S=\{1,2,3,4\}$ have distance matrix
+\[
+ D=\frac1{10}\begin{pmatrix}
+ 0&15&13&11\\15&0&12&14\\13&12&0&16\\11&14&16&0
+ \end{pmatrix}.
+\]
+There is a nonempty open subset of the three-dimensional probability simplex
+such that every distribution in that subset has $\pi_{2,2}$-iterates
+converging to $(a,a,\tfrac12-a,\tfrac12-a)$ for some $0<a<\tfrac12$.
+\end{theorem}
+
+\begin{proof}
+All six interpoint distances are distinct. They lie between $11/10$ and
+$16/10$, so every triangle inequality holds strictly. The rank matrix,
+with rank one assigned to the current point itself, is
+\[
+ R=\begin{pmatrix}1&4&3&2\\4&1&2&3\\3&2&1&4\\2&3&4&1\end{pmatrix}.
+\]
+Write $F(p)=\pi_{2,2}(p)$ for interior probability vectors, using row vectors.
+Its transition matrix is the quadratic polynomial matrix
+\begin{equation}\label{kernel}
+ K_{xy}(p)=p_y^2+2p_y\sum_{z:R_{xz}<R_{xy}}p_z.
+\end{equation}
+Indeed, either both samples equal $y$, or one equals $y$ and the other is
+strictly closer to $x$. This also covers the possibility that a sample
+equals the current state. Every entry is positive for interior $p$, so
+the stationary vector is unique. Moreover $F$ is analytic there: the
+linear equations $F K=F$ and $\sum_yF_y=1$ have a unique solution, which
+is locally a rational function of the entries of $K$.
+
+First observe the entire line of fixed points
+\begin{equation}\label{fixed}
+ p_a=(a,a,b,b),\qquad b=\tfrac12-a,\qquad 0<a<\tfrac12.
+\end{equation}
+For completeness, substitution into \eqref{kernel} gives
+\[
+K(p_a)=\begin{pmatrix}
+a^2&2a-a^2&b^2+b&b^2+2ab\\
+2a-a^2&a^2&b^2+2ab&b^2+b\\
+a^2+a&a^2+2ab&b^2&2b-b^2\\
+a^2+2ab&a^2+a&2b-b^2&b^2
+\end{pmatrix}.
+\]
+Multiplication gives $p_aK(p_a)=p_a$, using $a+b=1/2$; uniqueness
+therefore gives $F(p_a)=p_a$.
+
+Next we compute the derivative at $p_*=(1/4,1/4,1/4,1/4)$.
+Use the following basis of the tangent space of the simplex:
+\[
+ e_0=(1,1,-1,-1),\quad e_1=(1,-1,1,-1),\quad e_2=(1,-1,-1,1).
+\]
+At $p_*$, formula \eqref{kernel} yields
+\[
+ K_* =\frac1{16}\begin{pmatrix}
+ 1&7&5&3\\7&1&3&5\\5&3&1&7\\3&5&7&1
+ \end{pmatrix},\qquad
+ e_iK_* =\lambda_i e_i,\quad
+ (\lambda_0,\lambda_1,\lambda_2)=(0,-1/4,-1/2).
+\]
+Differentiating \eqref{kernel} also gives $p_* DK(p_*)[e_i]=e_i$.
+One way to check this last identity for any zero-sum vector $v$ is to
+note that every column of $R$ has ranks $1,2,3,4$, and for every $z\ne y$
+there are exactly two rows $x$ with $R_{xz}<R_{xy}$. Thus
+\[
+ (p_*DK(p_*)[v])_y
+ =\frac18(1+2+3+4)v_y+\frac18\sum_{z\ne y}2v_z=v_y.
+\]
+Differentiating $F(p)K(p)=F(p)$ now shows that $w=DF(p_*)[e_i]$
+satisfies $w(I-K_*)=e_i$ and $\sum_yw_y=0$. Consequently
+\begin{equation}\label{derivative}
+ DF(p_*)[e_0]=e_0,\qquad
+ DF(p_*)[e_1]=\frac45e_1,\qquad
+ DF(p_*)[e_2]=\frac23e_2.
+\end{equation}
+
+We finish with an explicit local convergence argument, so that the initial
+distributions need not lie in a symmetry subspace. In coordinates
+$p=p_*+t e_0+u e_1+v e_2$, write $F$ as
+\[
+ (t,z)\longmapsto (T(t,z),G(t,z)),\qquad z=(u,v).
+\]
+Equation \eqref{fixed} says $T(t,0)=t$ and $G(t,0)=0$. By
+\eqref{derivative}, $D_zG(0,0)=\operatorname{diag}(4/5,2/3)$.
+By continuity, choose $0<\delta<1/12$ so small that on the closed box
+$|t|\le\delta$, $\|z\|_\infty\le\delta$,
+\[
+ \|D_zG(t,z)\|_\infty\le q:=9/10.
+\]
+This box lies inside the simplex. Choose a finite $L\ge1$ bounding the
+operator norm of $D_zT$ there. The mean-value inequality, applied along
+the segment from $(t,0)$ to $(t,z)$, gives
+\begin{equation}\label{bounds}
+ \|G(t,z)\|_\infty\le q\|z\|_\infty,
+ \qquad |T(t,z)-t|\le L\|z\|_\infty.
+\end{equation}
+Start anywhere in the open set
+\[
+ |t_0|<\delta/2,\qquad \|z_0\|_\infty<\delta/(20L).
+\]
+Induction using \eqref{bounds} proves that all iterates stay in the box:
+\[
+ \|z_n\|_\infty\le q^n\|z_0\|_\infty,
+ \qquad
+ |t_n|\le |t_0|+L\|z_0\|_\infty\sum_{m=0}^{n-1}q^m<\delta.
+\]
+The increments $|t_{n+1}-t_n|$ are summable, hence $t_n\to t_\infty$
+with $|t_\infty|<\delta$, while $z_n\to0$. Therefore the iterates
+converge to $p_*+t_\infty e_0$, with all four coordinates positive.
+The displayed open set has positive three-dimensional Lebesgue measure.
+Its limits are neither point masses nor uniform two-point measures,
+contradicting Conjecture 5.
+\end{proof}
+
+The mechanism is attraction to a line of fixed points. An individual point
+of that line has a neutral tangential direction, while both transverse
+directions contract. The metric has distinct distances; its rank symmetries
+do not require the initial distribution to have any symmetry. This resolves
+the conjecture for arbitrary finite metrics by a counterexample and makes
+no assertion about the separate $\pi_{1,2}$ conjecture for planar Euclidean
+spaces in \cite{ACF}.
+
+\paragraph{Task 2. Determine the complete basin.}
+Characterize the initial distributions converging to the interior fixed
+line for this rank matrix, and determine the limiting parameter $a$ from
+the initial distribution.
+
+\paragraph{Task 3. Classify attracting fixed families.}
+Find conditions on a feasible rank matrix ensuring that $\pi_{2,2}$ has
+a positive-dimensional fixed family attracting a set of positive volume.
+
+\paragraph{Task 4. Analyze other sample ranks.}
+For this four-point metric, determine which pairs $(j,k)$ admit attracting
+limits supported on more than two points.
+
+\paragraph{Task 5. Identify geometric restrictions.}
+Determine which geometric classes of finite metrics exclude this mechanism,
+and formulate a corrected almost-everywhere convergence statement for them.
+
+\begin{thebibliography}{9}
+\bibitem{ACF} D. J. Aldous, M. Cruz and S. Feng,
+\emph{Markov chains and mappings of distributions on compact spaces II:
+Numerics and Conjectures}, arXiv:2403.18153v1 (2024),
+Conjecture 5, pp. 14--15.
+\url{https://arxiv.org/abs/2403.18153}.
+\bibitem{AF} D. J. Aldous and S. Feng,
+\emph{Markov Chains and Mappings of Distributions on Compact Spaces},
+ALEA \textbf{21} (2024), 1407--1416.
+\url{https://doi.org/10.30757/ALEA.v21-53}.
+\end{thebibliography}
+\end{document}

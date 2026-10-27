@@ -1,0 +1,226 @@
+\documentclass[10pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[hidelinks]{hyperref}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\title{Log-concavity of length counts for long-step lattice paths\\
+\large A proof of MathDB problem 405093}
+\author{Principia Math In Progress}
+\date{September 12, 2026}
+\begin{document}
+\maketitle
+
+\noindent\textbf{Task 1: solve the original problem.}
+A step is $(u,0)$ or $(0,u)$, where $u$ is a positive integer.
+For an integer $d\ge4$, let $N_\ell$ count paths of $\ell$ steps from
+$(2,1)$ to either $(d-1,d)$ or $(d,d-1)$. We prove Conjecture 6
+in the problem of Martina Juhnke recorded in
+\cite[p.~150]{OWR}, including its stronger log-concavity assertion.
+
+\begin{theorem}\label{main}
+Put $D=2d-4$. The numbers $N_\ell$ are positive for
+$2\le\ell\le D$, zero outside that range, and strictly log-concave
+on their support. In fact, for $3\le\ell<D$,
+\[
+ N_\ell^2\ge\frac{D-\ell+1}{D-\ell}\,
+                  N_{\ell-1}N_{\ell+1}
+       >N_{\ell-1}N_{\ell+1}.                          \tag{1}
+\]
+In particular, the sequence is unimodal.
+\end{theorem}
+
+\section{Counting by compositions}
+For positive integers $a,b$, let $P_{a,b,\ell}$ count paths from
+$(0,0)$ to $(a,b)$ with $\ell$ steps. A path with $h$ horizontal
+and $v$ vertical steps has $h+v=\ell$. Its step directions can be
+ordered in $\binom{\ell}{h}$ ways, and its positive step lengths are
+two compositions, of $a$ into $h$ parts and of $b$ into $v$ parts.
+Consequently
+\[
+ P_{a,b,\ell}
+ =\sum_{\substack{h+v=\ell\\h,v\ge1}}
+       \binom{\ell}{h}\binom{a-1}{h-1}\binom{b-1}{v-1}. \tag{2}
+\]
+For $a\ge1$, define
+\[
+ A_a(t)=\sum_{j=0}^{a-1}\binom{a-1}{j}\frac{t^j}{(j+1)!}.
+\]
+Equation (2) gives the exponential generating polynomial
+\[
+ \sum_\ell P_{a,b,\ell}\frac{t^\ell}{\ell!}
+       =t^2A_a(t)A_b(t).                              \tag{3}
+\]
+Translation of the two endpoints in the question, with $n=d-2$,
+therefore yields
+\[
+ \sum_\ell N_\ell\frac{t^\ell}{\ell!}
+   =t^2\bigl(A_{n-1}(t)A_{n+1}(t)+A_n(t)^2\bigr).
+                                                               \tag{4}
+\]
+
+\section{An interlacing polynomial family}
+\begin{lemma}\label{family}
+For $a\ge1$, the polynomial $A_a$ has $a-1$ simple negative zeros.
+For $a\ge2$, the zeros of $A_{a-1}$ strictly interlace those of $A_a$.
+\end{lemma}
+\begin{proof}
+Coefficient comparison in the definition gives
+\[
+ A_1=1,\quad A_2=1+\frac t2,\qquad
+ (a+1)A_{a+1}=(2a+t)A_a-(a-1)A_{a-1}\quad(a\ge2).     \tag{5}
+\]
+For completeness, after multiplication by $(j+1)!$, the coefficient
+identity in (5) is
+\[
+ (a+1)\binom aj
+ =2a\binom{a-1}j+(j+1)\binom{a-1}{j-1}
+                    -(a-1)\binom{a-2}j,
+\]
+with the usual zero conventions.
+Also $A_a(0)=1$ and its leading coefficient is $1/a!$.
+
+Induct on $a$. The base pair $A_1,A_2$ is immediate.
+Let $r_1<\cdots<r_{a-1}<0$ be the zeros of $A_a$.
+At each such zero, (5) gives
+\[
+ A_{a+1}(r_i)=-\frac{a-1}{a+1}A_{a-1}(r_i).            \tag{6}
+\]
+By the induction hypothesis these values are nonzero and alternate
+in sign, yielding a zero of $A_{a+1}$ in every $(r_i,r_{i+1})$.
+At $r_{a-1}$ the right side of (6) is negative, whereas
+$A_{a+1}(0)=1$, yielding a zero in $(r_{a-1},0)$.
+At $r_1$ its sign is $(-1)^{a-1}$, opposite to the sign
+$(-1)^a$ of $A_{a+1}$ near negative infinity.
+There is thus also a zero to the left of $r_1$.
+These are $a$ distinct negative zeros of a degree-$a$ polynomial,
+which proves simplicity and strict interlacing.
+\end{proof}
+
+\begin{lemma}\label{sum}
+For $n\ge2$ and $\alpha,\beta>0$, the polynomial
+\[
+ Q_n(t)=\alpha A_{n-1}(t)A_{n+1}(t)+\beta A_n(t)^2
+\]
+has $2n-2$ simple negative zeros.
+For $\alpha,\beta\ge0$, not both zero, all its zeros are negative,
+possibly with multiplicities.
+\end{lemma}
+\begin{proof}
+At each zero $r_i$ of $A_n$, (5) gives
+\[
+ Q_n(r_i)=-\alpha\frac{n-1}{n+1}A_{n-1}(r_i)^2<0.
+\]
+At each zero $s_i$ of $A_{n-1}$, $Q_n(s_i)=\beta A_n(s_i)^2>0$.
+The strict interlacing is
+$r_1<s_1<r_2<\cdots<s_{n-2}<r_{n-1}<0$.
+Moreover $Q_n(0)=\alpha+\beta>0$, and $Q_n$ is positive near
+negative infinity because its degree $2n-2$ is even and its leading
+coefficient is positive. There are therefore $2n-2$ disjoint
+sign-change intervals, proving the first assertion. If one weight
+vanishes, the claim follows directly from Lemma~\ref{family}.
+\end{proof}
+
+\section{Returning from exponential to ordinary counts}
+We include the needed form of Newton's inequalities.
+\begin{lemma}\label{newton}
+Suppose $F(t)=\sum_{\ell=0}^D c_\ell t^\ell/\ell!$ has nonnegative
+coefficients and only nonpositive real zeros. If
+$c_{\ell-1}c_{\ell+1}>0$ and $1\le\ell<D$, then
+\[
+ c_\ell^2\ge
+       \frac{D-\ell+1}{D-\ell}\,c_{\ell-1}c_{\ell+1}.   \tag{7}
+\]
+\end{lemma}
+\begin{proof}
+By Rolle's theorem $R=F^{(\ell-1)}$ has only nonpositive real zeros.
+Its degree is $m=D-\ell+1\ge2$ and its positive constant
+$R(0)=c_{\ell-1}$ makes all its zeros strictly negative.
+Write them as $-\rho_1,\ldots,-\rho_m$, with $\rho_i>0$.
+Logarithmic differentiation and Cauchy--Schwarz give
+\[
+ \frac{R''(0)}{R(0)}
+   =\left(\sum_i\frac1{\rho_i}\right)^2
+                            -\sum_i\frac1{\rho_i^2}
+ \le\frac{m-1}{m}\left(\frac{R'(0)}{R(0)}\right)^2.
+\]
+Using $R'(0)=c_\ell$ and $R''(0)=c_{\ell+1}$ gives (7).
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{main}]
+The right side of (4) has degree $D=2n$, a double zero at zero,
+and otherwise simple negative zeros by Lemma~\ref{sum}.
+All its coefficients of degrees $2,\ldots,D$ are positive.
+Lemma~\ref{newton} proves (1).
+The positive consecutive ratios $N_{\ell+1}/N_\ell$ consequently
+decrease, which proves unimodality.
+\end{proof}
+
+The same proof applies to a nonzero nonnegative weighted sum of the two
+endpoint counts, since Lemma~\ref{sum} permits arbitrary nonnegative
+$\alpha,\beta$. Equation (3) and Lemmas~\ref{family} and \ref{newton}
+also show that the length counts to \emph{any} fixed endpoint $(a,b)$,
+$a,b\ge1$, are strictly log-concave on their support.
+Under the usual convention allowing the empty path, the smaller
+cases in the question are immediate: for $d=2$ the ordinary counting
+polynomial is $1$, and for $d=3$ it is $t+3t^2$.
+
+\section{Scope and verification}
+The paths used here are precisely those in the definition preceding
+Conjecture 6 in the published workshop report. The report defines the
+coherent-path sequence separately, imposing diagonal avoidance and
+compatibility for Conjecture 5. The present proof resolves Conjecture 6.
+The author's current related papers were checked for later claims; see
+\texttt{literature-audit.md}.
+
+The proof is algebraic and independent of computation.
+\texttt{verify\_counting.py} independently checks (2) against a path
+dynamic program for 169 rectangles, verifies 39 recurrence identities,
+and checks (4) and the quantitative inequalities for 39 dimensions.
+Its exact results are saved in \texttt{exact-checks.json}.
+
+\section{Follow-up tasks}
+\noindent\textbf{Task 2: impose diagonal avoidance.}
+Prove log-concavity of the corresponding length counts when paths may
+cross the diagonal but may not have a vertex on it.
+
+\medskip
+\noindent\textbf{Task 3: resolve the coherent-path conjecture.}
+Prove the log-concavity assertion for the coherent-path counts in
+Conjecture 5 of the same workshop report, including its compatibility
+restriction.
+
+\medskip
+\noindent\textbf{Task 4: classify wider endpoint mixtures.}
+For a fixed $r$, determine the nonnegative weights
+$\lambda_0,\ldots,\lambda_r$ for which
+$\sum_{j=0}^r\lambda_j A_{n-j}(t)A_{n+j}(t)$ has only real
+zeros for every $n\ge r+1$.
+
+\medskip
+\noindent\textbf{Task 5: determine the typical length.}
+For a uniformly chosen path counted in Theorem~\ref{main}, find
+asymptotic formulas for the mode, mean and variance of its length
+as $d\to\infty$, and prove a central limit theorem.
+
+\begin{thebibliography}{9}
+\bibitem{OWR}
+G. Chapuy, S. Elizalde and I. Fischer (organizers),
+\emph{Enumerative Combinatorics}, Oberwolfach Rep. 23 (2026), no.~1,
+81--156, published 21 July 2026.
+Open problems, problem of Martina Juhnke, Conjecture 6, p.~150.
+\href{https://doi.org/10.4171/OWR/2026/2}{doi:10.4171/OWR/2026/2}.
+\bibitem{Poullot}
+G. Poullot, \emph{Vertices of the monotone path polytopes of
+hypersimplices}, \href{https://arxiv.org/abs/2411.14102}{arXiv:2411.14102}.
+\bibitem{JP}
+M. Juhnke and G. Poullot, Unimodality of the number of paths per length
+on polytopes: examples, counterexamples, and a central limit theorem,
+\emph{Int. Math. Res. Not.} 2026, no.~17, rnag191.
+\href{https://doi.org/10.1093/imrn/rnag191}{doi:10.1093/imrn/rnag191}.
+Current author manuscript:
+\href{https://arxiv.org/abs/2504.20739v3}{arXiv:2504.20739v3},
+11 August 2026.
+\end{thebibliography}
+\end{document}

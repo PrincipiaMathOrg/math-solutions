@@ -1,0 +1,234 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,hyperref}
+\setlength{\emergencystretch}{2em}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\title{The Euclidean-ball Bessel-integral asymptotic\\MathDB 365832}
+\author{Principia Math in Progress}
+\date{12 September 2026}
+\begin{document}
+\maketitle
+
+\paragraph{Task 1: Solve the original problem.}
+For fixed \(p>0\), put
+\[
+ J_n(p)=\int_0^\infty
+ \frac{r^{\,n+n/(2p)-1}}{I_{n/2}(r)^{1/p}}\,dr .
+\]
+Conjecture 5.2 of Mastrantonis \cite[p.~32]{M} asks for its
+exponential asymptotic as \(n\to\infty\). The same statement appears as
+Conjecture 5.51 in the author's 2025 thesis \cite[p.~214]{T}.
+The source proves the case \(p=1\). We prove every fixed \(p>0\).
+
+\begin{theorem}
+For every fixed \(p>0\), as the positive integer \(n\) tends to infinity,
+\[
+ J_n(p)=
+ \left[
+ n^{1+1/(2p)}e^{-1-1/(2p)}
+ \sqrt{p(1+p)^{1+1/p}}
+ \right]^n e^{o(n)} .
+\]
+The error \(o(n)\) here may depend on \(p\).
+\end{theorem}
+
+Only the positive Bessel series, its classical Poisson integral,
+Stirling's formula, and an elementary Laplace argument are needed.
+In particular, the proof controls the unbounded integration interval
+separately from the approximation on compact intervals.
+
+\begin{lemma}\label{compact}
+As \(\nu\to\infty\),
+\[
+ \frac{\log I_\nu(\nu z)}{\nu}\longrightarrow
+ \eta(z):=\sqrt{1+z^2}+
+ \log\frac{z}{1+\sqrt{1+z^2}}
+\]
+uniformly on each compact subinterval of \(0<z<\infty\).
+\end{lemma}
+\begin{proof}
+The Poisson representation \cite[10.32.2]{DLMF}, for \(\nu>-1/2\), is
+\begin{equation}\label{poisson}
+ I_\nu(\nu z)=
+ \frac{(\nu z/2)^\nu}{\sqrt{\pi}\,\Gamma(\nu+1/2)}
+ \int_{-1}^{1}e^{\nu zt}(1-t^2)^{\nu-1/2}\,dt .
+\end{equation}
+Write the integral as
+\(\int_{-1}^1 e^{\nu f_z(t)}w(t)\,dt\), where
+\[
+ f_z(t)=zt+\log(1-t^2),\qquad
+ w(t)=(1-t^2)^{-1/2},\qquad \int_{-1}^1w(t)\,dt=\pi .
+\]
+The strictly concave function \(f_z\) has its unique maximum at
+\[
+ t_z=\frac{z}{1+\sqrt{1+z^2}},\qquad
+ m(z):=f_z(t_z)
+ =\sqrt{1+z^2}-1+\log\frac{2}{1+\sqrt{1+z^2}} .
+\]
+The integral in \eqref{poisson} is at most \(\pi e^{\nu m(z)}\).
+If \(z\) ranges over a fixed compact subinterval of \((0,\infty)\),
+the points \(t_z\) remain uniformly separated from \(-1,1\).
+For each \(\epsilon>0\), uniform continuity therefore supplies a
+fixed \(h>0\) such that
+\[
+ f_z(t)\ge m(z)-\epsilon\quad
+ \text{whenever } |t-t_z|\le h .
+\]
+Since \(w\ge1\), the integral is at least
+\(2h e^{\nu(m(z)-\epsilon)}\).
+Its logarithm divided by \(\nu\) consequently tends uniformly to \(m(z)\).
+Stirling's formula gives
+\[
+ \frac1\nu\log
+ \frac{(\nu z/2)^\nu}{\sqrt{\pi}\,\Gamma(\nu+1/2)}
+ =1+\log(z/2)+o(1),
+\]
+uniformly on the same compact interval. Adding the two limits proves
+the lemma.
+\end{proof}
+
+\begin{proof}[Proof of the theorem]
+Fix \(p>0\), and abbreviate
+\[
+ \nu=\frac n2,\qquad a=1+\frac1{2p},\qquad
+ K_n=\nu^{-an}J_n(p)
+ =\int_0^\infty z^{an-1} I_\nu(\nu z)^{-1/p}\,dz .
+\]
+On each fixed interval \([\delta,R]\subset(0,\infty)\), Lemma
+\ref{compact} gives
+\[
+ \phi_n(z):=a\log z-\frac{\log I_\nu(\nu z)}{np}
+ \longrightarrow
+ \phi(z):=a\log z-\frac{\eta(z)}{2p}
+\]
+uniformly. The weight \(1/z\) is positive and bounded on this interval.
+Bounding the integral above by its maximum, and below by integration
+over a neighborhood of a maximizer, proves
+\begin{equation}\label{laplace}
+ \lim_{n\to\infty}\frac1n
+ \log\int_\delta^R z^{an-1}I_\nu(\nu z)^{-1/p}\,dz
+ =\max_{\delta\le z\le R}\phi(z).
+\end{equation}
+We next justify that neither omitted tail changes this limit.
+
+\emph{The tail near zero.}
+Positivity of the Bessel series implies
+\(I_\nu(\nu z)\ge(\nu z/2)^\nu/\Gamma(\nu+1)\).
+Since \(an-\nu/p=n\),
+\begin{align}
+ \int_0^\delta z^{an-1}I_\nu(\nu z)^{-1/p}\,dz
+ &\le A_n\frac{\delta^n}{n},\label{zero}\\
+ A_n&=\left[\Gamma(\nu+1)(2/\nu)^\nu\right]^{1/p},
+ &\lim_{n\to\infty}\frac{\log A_n}{n}
+ &=\frac{\log2-1}{2p}.\nonumber
+\end{align}
+Thus the upper exponential rate of this tail tends to \(-\infty\)
+as \(\delta\downarrow0\).
+
+\emph{The tail at infinity.}
+For \(n\ge1\), we have \(\nu\ge1/2\).
+Restricting \eqref{poisson} to \(t\in[1/2,3/4]\) gives
+\[
+ I_\nu(\nu z)\ge
+ \frac{(\nu z/2)^\nu}{4\sqrt{\pi}\,\Gamma(\nu+1/2)}
+ e^{\nu z/2}(7/16)^{\nu-1/2}.
+\]
+Consequently,
+\begin{align}
+ \int_R^\infty z^{an-1}I_\nu(\nu z)^{-1/p}\,dz
+ &\le B_n\int_R^\infty z^{n-1}e^{-nz/(4p)}\,dz,\label{infty}\\
+ B_n&=\left[
+ 4\sqrt{\pi}\,\Gamma(\nu+1/2)(2/\nu)^\nu
+ (7/16)^{-\nu+1/2}\right]^{1/p},\nonumber\\
+ \lim_{n\to\infty}\frac{\log B_n}{n}
+ &=\frac{\log(32/7)-1}{2p}.\nonumber
+\end{align}
+For \(R\ge8p\), the inequality
+\(\log(z/R)\le(z-R)/R\) yields
+\[
+ \int_R^\infty z^{n-1}e^{-nz/(4p)}\,dz
+ \le\frac{8p}{n}R^{n-1}e^{-nR/(4p)}.
+\]
+The upper exponential rate in \eqref{infty} is therefore at most
+\[
+ \frac{\log(32/7)-1}{2p}+\log R-\frac{R}{4p},
+\]
+which tends to \(-\infty\) as \(R\to\infty\).
+These estimates also establish finiteness of \(J_n(p)\) for every
+positive integer \(n\).
+
+\emph{The unique maximum and its value.}
+Direct differentiation gives
+\[
+ \eta'(z)=\frac{\sqrt{1+z^2}}{z},\qquad
+ \phi'(z)=\frac{2p+1-\sqrt{1+z^2}}{2pz}.
+\]
+Hence \(\phi\) increases up to
+\(z_*=2\sqrt{p(p+1)}\) and decreases thereafter.
+Choose \(\delta<z_*<R\) so that both tail rates above are less than
+\(\phi(z_*)\).
+Equation \eqref{laplace}, the tail estimates, and
+\(\log(u+v+w)\le\log3+\max(\log u,\log v,\log w)\)
+then show that
+\[
+ \lim_{n\to\infty}\frac{\log K_n}{n}=\phi(z_*).
+\]
+Since \(\sqrt{1+z_*^2}=2p+1\), substitution gives
+\[
+ \phi(z_*)-a\log2
+ =-a+\frac12\log p+\frac{1+1/p}{2}\log(1+p).
+\]
+Finally, \(\nu=n/2\) and \(J_n(p)=\nu^{an}K_n\) yield exactly
+the asserted asymptotic.
+\end{proof}
+
+\paragraph{Scope and status.}
+This solves the full fixed-\(p\) Bessel-integral statement, and hence
+also its equivalent Euclidean-ball exponential asymptotic in
+\cite[Conjecture 5.1]{M}. It makes no claim to uniformity when \(p\)
+depends on \(n\). MathDB was open and its claim fields were empty at the
+recorded checks on 12 September 2026. No matching full public claim was
+located in the bounded literature audit saved with this proof.
+
+\paragraph{Task 2: Determine the full leading prefactor.}
+Replace \(e^{o(n)}\) by an explicit power of \(n\) and an explicit
+constant depending on \(p\), with a proved relative error estimate.
+
+\paragraph{Task 3: Analyze varying parameter regimes.}
+Determine ranges of sequences \(p=p_n\to0\) or \(p_n\to\infty\)
+for which the stated exponential formula remains valid, and identify
+any transition asymptotics.
+
+\paragraph{Task 4: Establish a limit law for the dominant radius.}
+Normalize the integrand defining \(J_n(p)\) to a probability density.
+Prove a central limit theorem about
+\(r=n\sqrt{p(p+1)}\), including the variance and a quantitative error.
+
+\paragraph{Task 5: Generalize the order and radial exponent.}
+For fixed \(\alpha,\beta,\gamma>0\), determine the asymptotics and
+integrability threshold of
+\(\int_0^\infty r^{\beta n-1}I_{\alpha n}(r)^{-\gamma}\,dr\),
+and analyze the behavior as that threshold is approached.
+
+\begin{thebibliography}{9}
+\bibitem{M}
+V.~Mastrantonis,
+\emph{\(L^p\)-Legendre transforms and Mahler integrals:
+Asymptotics and the Fokker--Planck heat flow},
+\href{https://arxiv.org/abs/2411.10439}{arXiv:2411.10439v2},
+26 November 2024, Conjectures 5.1--5.2.
+The author's current publication list describes it as to appear in
+\emph{Journal d'Analyse Math\'ematique}.
+\bibitem{T}
+V.~Mastrantonis,
+\emph{From Bergman kernels to Polarity: Perspectives on the
+Mahler, Bourgain, and Blocki conjectures},
+Ph.D. thesis, University of Maryland, 2025,
+\href{https://doi.org/10.13016/cv5w-5vww}{doi:10.13016/cv5w-5vww},
+Conjectures 5.50--5.51.
+\bibitem{DLMF}
+NIST Digital Library of Mathematical Functions,
+\href{https://dlmf.nist.gov/10.32.E2}{formula 10.32.2}.
+\end{thebibliography}
+\end{document}

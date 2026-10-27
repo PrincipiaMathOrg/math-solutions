@@ -1,0 +1,174 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,hyperref}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newcommand{\fl}[1]{\left\lfloor #1\right\rfloor}
+\newcommand{\cl}[1]{\left\lceil #1\right\rceil}
+\title{Explicit disjoint zero blocks for square-root floor differences}
+\author{Principia Math In Progress}
+\date{29 September 2026}
+\begin{document}\maketitle
+\begin{abstract}
+We prove the disjoint zero-block conjecture of Chamberland and Dilcher.
+An explicit formula places each block inside the finite interval required
+by their alternating-sum problem. The blocks are disjoint and partition
+all zero positions. The proof is a bijection obtained by reflecting two
+consecutive integers across $n/2$.
+\end{abstract}
+
+\section*{Task 1: the original conjecture and its resolution}
+Fix an odd positive integer $n$, and put $N=(n-1)/2$. Following
+\cite[Equation (2.3) and Conjecture 2.1]{CD}, set
+\[
+ d_n(\ell)=\fl{\sqrt{2\ell n}}-\fl{\sqrt{(2\ell-1)n}},
+ \qquad 1\le\ell\le N.
+\]
+The source asks that a value $d_n(\lambda)=\delta\ge2$ be associated
+with $\delta-1$ consecutive zero positions, with different associations
+disjoint. The finite interval is part of the source problem: choosing
+zeros arbitrarily far beyond $N$ would not answer it.
+
+\begin{theorem}\label{thm:blocks}
+For $1\le\lambda\le N$ with $\delta=d_n(\lambda)\ge2$, define
+\[
+ a_\lambda=\fl{\sqrt{(2\lambda-1)n}},\qquad
+ b_\lambda=\fl{\sqrt{2\lambda n}},\qquad
+ L_\lambda=\frac{n+1}{2}+\lambda-b_\lambda.
+\]
+Then
+\[
+ B_\lambda=\{L_\lambda,L_\lambda+1,\ldots,L_\lambda+\delta-2\}
+ \subseteq\{1,\ldots,N\}
+\]
+consists entirely of zeros of $d_n$. These blocks are pairwise disjoint,
+and their union is exactly $\{\ell:1\le\ell\le N,\ d_n(\ell)=0\}$.
+The assertion is vacuous when $n=1$.
+\end{theorem}
+
+For example, for $n=33$ the surplus positions are $\lambda=1,2,3$, with
+values $3,2,2$. The formula gives respectively $B_1=\{10,11\}$,
+$B_2=\{8\}$, and $B_3=\{6\}$, reproducing the source's example.
+
+\section*{Two ceiling identities}
+For integer $0\le k\le n$, define $c(k)=\cl{k^2/n}$. Integer translation
+inside a ceiling gives the exact reflection identity
+\begin{equation}\label{eq:reflection}
+ c(n-k)=n-2k+c(k).
+\end{equation}
+Moreover, for $0\le r\le n-1$,
+\begin{equation}\label{eq:gap}
+ 0\le c(r+1)-c(r)\le2,
+\end{equation}
+since $((r+1)^2-r^2)/n=(2r+1)/n<2$.
+Finally,
+\begin{equation}\label{eq:bucket}
+ c(k)=2\lambda
+ \quad\Longleftrightarrow\quad
+ a_\lambda+1\le k\le b_\lambda.
+\end{equation}
+The strict lower and weak upper square inequalities in this equivalence
+also cover the case where an endpoint is a perfect square.
+
+\section*{Constructing each block and proving disjointness}
+Fix $\lambda$ as in the theorem. For each
+\[
+ k\in\{a_\lambda+2,\ldots,b_\lambda\},
+ \qquad r=n-k,
+ \qquad \ell=N+1+\lambda-k,
+\]
+equation~\eqref{eq:bucket} gives $c(k-1)=c(k)=2\lambda$.
+Applying~\eqref{eq:reflection} to these two integers yields
+\begin{equation}\label{eq:two-ceilings}
+ c(r)=2\ell-1,\qquad c(r+1)=2\ell+1.
+\end{equation}
+Therefore
+\[
+ r^2\le(2\ell-1)n\le2\ell n<(r+1)^2,
+\]
+and hence
+\begin{equation}\label{eq:zero}
+ \fl{\sqrt{(2\ell-1)n}}=\fl{\sqrt{2\ell n}}=r.
+\end{equation}
+Thus $d_n(\ell)=0$.
+
+We also check the interval, rather than assuming it. Since
+$\lambda\le N$, we have $b_\lambda\le n-1$, so $r\ge1$.
+Consequently $c(r)\ge1$, and~\eqref{eq:two-ceilings} implies $\ell\ge1$.
+Also $k-1\ge1$, so $r+1\le n$ and $c(r+1)\le n$;
+thus $2\ell+1\le n$ and $\ell\le N$.
+
+As $k$ runs consecutively from $a_\lambda+2$ to $b_\lambda$,
+$\ell$ runs consecutively in reverse order through exactly $B_\lambda$.
+This proves its size, position, and zero property.
+If the same $\ell$ arose from two pairs $(\lambda,k)$, equation
+\eqref{eq:zero} would determine the same $r$, and hence the same
+$k=n-r$. The equality $\ell=N+1+\lambda-k$ then determines the same
+$\lambda$. This proves disjointness.
+
+\section*{The inverse map: every zero occurs}
+Let $1\le\ell\le N$ satisfy $d_n(\ell)=0$, and set
+\[
+ r=\fl{\sqrt{2\ell n}}=\fl{\sqrt{(2\ell-1)n}}.
+\]
+Then $r^2\le(2\ell-1)n$ and $(r+1)^2>2\ell n$, so
+$c(r)\le2\ell-1$ and $c(r+1)\ge2\ell+1$.
+Here $1\le r\le n-1$. The gap bound~\eqref{eq:gap} forces equality:
+\[
+ c(r)=2\ell-1,\qquad c(r+1)=2\ell+1.
+\]
+Set $k=n-r$ and $\lambda=N+\ell-r$. Reflection now gives
+\[
+ c(k-1)=c(k)=2\lambda.
+\]
+In particular $k-1>0$: otherwise the left side would be $c(0)=0$,
+while $c(k)>0$. Since $k\le n-1$, the common value is a positive
+even integer at most $n-1$; thus $1\le\lambda\le N$.
+Equation~\eqref{eq:bucket} shows $a_\lambda+2\le k\le b_\lambda$,
+so $d_n(\lambda)\ge2$ and the construction above maps this pair to
+the original $\ell$. This proves surjectivity and the theorem.
+
+\paragraph{The already known alternating-sum identity.}
+The bijection gives
+\[
+ \#\{\ell:d_n(\ell)=0\}
+   =\sum_{\lambda:d_n(\lambda)\ge2}(d_n(\lambda)-1),
+ \qquad \sum_{\ell=1}^{N}d_n(\ell)=N.
+\]
+It follows that $\sum_{j=1}^{n}(-1)^{j+1}\fl{\sqrt{jn}}=n-N=(n+1)/2$.
+This last identity is already Theorem 1.1 of~\cite{CD}; no new credit
+is claimed for it. The new target here is the explicit consecutive,
+disjoint block structure left conjectural in that paper.
+
+\section*{Tasks 2--5: follow-up questions}
+\begin{enumerate}\setcounter{enumi}{1}
+\item Determine an asymptotic formula, with an explicit error term,
+for the number of zero positions as odd $n\to\infty$.
+\item Determine the number of blocks of each length and the maximal
+block length, including the dependence on square endpoints.
+\item Classify the analogous zero and surplus structure for even $n$,
+where reflection preserves, rather than reverses, ceiling parity.
+\item Identify higher-power floor differences admitting a comparable
+block bijection, and determine which reflection or increment conditions
+are necessary for such a construction.
+\end{enumerate}
+
+\paragraph{Verification and scope.}
+The proof covers every odd positive integer, including composite integers
+and square endpoints. The accompanying standard-library verifier uses
+integer square roots and integer division only. Its finite exhaustive
+and large-integer checks corroborate the proof; they do not replace it.
+The source and prior-claim searches are bounded, and their limits are
+recorded in the literature audit. No independent peer review is claimed.
+
+\begin{thebibliography}{9}
+\bibitem{CD} M.~Chamberland and K.~Dilcher,
+\emph{An alternating sum of the floor function of square roots},
+\href{https://arxiv.org/abs/2510.26291}{arXiv:2510.26291v1} (2025),
+Conjecture 2.1, pp.~2--3. Complete current five-page manuscript checked
+29 September 2026.
+\bibitem{MathDB} MathDB,
+\href{https://mathdb.com/p/371228}{problem 371228},
+live status and activity checked 29 September 2026.
+\end{thebibliography}
+\end{document}

@@ -1,0 +1,166 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,hyperref}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\DeclareMathOperator{\lcm}{lcm}
+\title{An integral normalization of the Narayana-related recurrence}
+\author{Principia Math In Progress\\Author-agent research note}
+\date{27 September 2026}
+\begin{document}
+\maketitle
+\begin{abstract}
+We prove Conjecture 8.7 of Amdeberhan, Moll and Vignat, in the stronger
+form that a positive integer initial value makes every term an integer.
+For a nonnegative integer $\mu$, the value
+$2\lcm(1,\ldots,2\mu)$ suffices, with the empty least common multiple
+interpreted as $1$. The proof bounds each prime valuation of every
+coefficient in the defining quadratic recurrence.
+\end{abstract}
+
+\section*{Task 1: the source question and its resolution}
+The source's recurrence (7.10) is
+\begin{equation}\label{rec}
+ a_n=\sum_{k=1}^{n-1} C_\mu(n,k)a_ka_{n-k},\qquad
+ C_\mu(n,k)=
+ \frac{\binom{n+\mu-1}{n-k-1}\binom{n+\mu-1}{k-1}}
+ {2\binom{n+\mu-1}{n-1}}\quad(n\ge2).
+\end{equation}
+The initial value $a_1$ may be chosen. In Definition 8.5, the source calls
+a rational sequence $p$-integral when every reduced denominator is a
+power of $p$. Conjecture 8.7 asks whether such an initial value and prime
+exist for every $\mu\in\mathbb N$.
+
+\begin{theorem}\label{main}
+Let $\mu\ge0$ be an integer, and set
+\[
+ L_\mu=\lcm(1,\ldots,2\mu),\qquad D_\mu=2L_\mu,
+ \qquad L_0=1.
+\]
+For every $n\ge2$ and $1\le k<n$, the number $D_\mu C_\mu(n,k)$
+is a positive integer. Consequently, choosing $a_1=D_\mu$ in
+\eqref{rec} gives $a_n\in D_\mu\mathbb Z_{>0}$ for every $n\ge1$.
+In particular, the sequence is $p$-integral for every prime $p$.
+\end{theorem}
+
+This is a nonzero positive construction. Denominator $1=p^0$ is allowed
+by the stated definition; no restriction to the small experimental
+initial values is imposed in Conjecture 8.7.
+
+\section*{A floor-function bound}
+\begin{lemma}\label{floor}
+For integers $t\ge1$, $q\ge2$ and $a,b\ge0$, put
+\begin{align*}
+ F_q(a,b,t)={}&
+ \left\lfloor\frac{a+b+1}{q}\right\rfloor+
+ \left\lfloor\frac{a+b+t}{q}\right\rfloor+
+ \left\lfloor\frac{t-1}{q}\right\rfloor\\
+ &-\left\lfloor\frac a q\right\rfloor
+ -\left\lfloor\frac b q\right\rfloor
+ -\left\lfloor\frac{a+t}{q}\right\rfloor
+ -\left\lfloor\frac{b+t}{q}\right\rfloor.
+\end{align*}
+Then $F_q(a,b,t)\ge-1$. Moreover, $F_q(a,b,t)\ge0$ whenever
+$q\ge2t-1$.
+\end{lemma}
+\begin{proof}
+Write $a=Aq+r$, $b=Bq+s$ and $t=Tq+u$, where $0\le r,s,u<q$.
+All integral multiples cancel, giving
+\begin{equation}\label{floorreduced}
+ F_q=\left\lfloor\frac{r+s+1}{q}\right\rfloor+
+ \left\lfloor\frac{r+s+u}{q}\right\rfloor-
+ \left\lfloor\frac{r+u}{q}\right\rfloor-
+ \left\lfloor\frac{s+u}{q}\right\rfloor-\mathbf1_{u=0}.
+\end{equation}
+If $u=0$, the two subtracted floors vanish, so the result is at least
+$-1$. If $u>0$, each subtracted floor is either $0$ or $1$.
+When both are $1$, $r,s\ge q-u$, and hence $r+s+u\ge q$;
+thus even in this case the expression is at least $-1$.
+If at most one is $1$, the same lower bound is immediate.
+
+Suppose now $q\ge2t-1$. Since $q\ge2$, we have $t<q$ and thus $u=t$.
+If neither subtracted floor in \eqref{floorreduced} is $1$, the
+expression is nonnegative. If at least one is $1$, the second positive
+floor is at least $1$. If both are $1$, then
+$r+s+1\ge2q-2t+1\ge q$, so the first positive floor is also at least
+$1$. This proves nonnegativity in all cases.
+\end{proof}
+
+\section*{The denominator bound and induction}
+\begin{proof}[Proof of Theorem~\ref{main}]
+Set $a=k-1$, $b=n-k-1$, and $t=\mu+1$. Expanding the binomial
+coefficients gives the positive rational number
+\begin{equation}\label{ratio}
+ 2C_\mu(n,k)=
+ \frac{(t-1)!(a+b+1)!(a+b+t)!}
+ {a!\,b!\,(a+t)!\,(b+t)!}.
+\end{equation}
+For a prime $\ell$, Legendre's formula gives
+\[
+ v_\ell\bigl(2C_\mu(n,k)\bigr)
+ =\sum_{e\ge1} F_{\ell^e}(a,b,t).
+\]
+The sum is finite. By Lemma~\ref{floor}, all terms with
+$\ell^e\ge2\mu+1$ are nonnegative, and each remaining term is at
+least $-1$. Therefore
+\[
+ v_\ell\bigl(2C_\mu(n,k)\bigr)
+ \ge-\#\{e\ge1:\ell^e\le2\mu\}
+ =-v_\ell(L_\mu).
+\]
+For $\mu=0$ the set is empty and $L_0=1$. Thus every prime valuation
+of $2L_\mu C_\mu(n,k)=D_\mu C_\mu(n,k)$ is nonnegative, proving
+that this positive rational number is an integer.
+
+Finally put $b_n=a_n/D_\mu$. The initial value is $b_1=1$, and
+\eqref{rec} becomes
+\[
+ b_n=\sum_{k=1}^{n-1}
+ \bigl(D_\mu C_\mu(n,k)\bigr)b_kb_{n-k}.
+\]
+Induction proves $b_n\in\mathbb Z_{>0}$ for every $n$, as required.
+\end{proof}
+
+\section*{Verification and source scope}
+The proof is uniform in all indices and does not rely on finite testing.
+The accompanying standard-library Python verifier checks 153,450 exact
+recurrence coefficients, 9,300 factorial-ratio identities, 13,533,960
+floor-function cases, 840 sequence/scaling identities, and 21 terms from
+the source's examples. All pass. The whole current arXiv manuscript and
+the 25-page journal article were inspected. The latter retains Conjecture
+8.7 on page 22. Its postscript resolves the separate logconvexity
+Conjecture 9.1 and does not assert a resolution of Conjecture 8.7.
+This note was reviewed by its author agent; no independent peer review
+is claimed. Dated status evidence and bounded literature-search limits
+are recorded in the accompanying audit files.
+
+\section*{Four follow-up problems}
+\begin{enumerate}
+\setcounter{enumi}{1}
+\item \textbf{Task 2.} Determine the least positive integer $M_\mu$ such
+that $M_\mu C_\mu(n,k)$ is integral for all $n\ge2$, $1\le k<n$,
+and give its prime factorization as a function of $\mu$.
+\item \textbf{Task 3.} Determine the least positive integer initial value
+$A_\mu$ for which the entire sequence \eqref{rec} is integral. Compare
+$A_\mu$ with $M_\mu$; cancellation within the recurrence is allowed.
+\item \textbf{Task 4.} For the canonical initial value $a_1=2$, classify
+the primes occurring in reduced denominators and determine
+$\liminf_{n\to\infty}v_\ell(a_n)/n$ for each such prime $\ell$.
+\item \textbf{Task 5.} Classify rational parameters $\mu>-1/2$ for which
+a nonzero rational initial value makes every term of \eqref{rec} an
+integer, using generalized binomial coefficients in that recurrence.
+\end{enumerate}
+
+\begin{thebibliography}{9}
+\bibitem{AMV}
+T. Amdeberhan, V. H. Moll and C. Vignat,
+\emph{A probabilistic interpretation of a sequence related to Narayana
+polynomials}, Online Journal of Analytic Combinatorics 8 (2013),
+paper 1, 1--25.
+\href{https://doi.org/10.61091/ojac-801}{doi:10.61091/ojac-801}.
+Preprint \href{https://arxiv.org/abs/1202.1203}{arXiv:1202.1203}.
+\bibitem{MathDB}
+\href{https://mathdb.com/p/322992}{MathDB 322992},
+\emph{The $p$-integrality conjecture for the Narayana-related sequence}.
+\end{thebibliography}
+\end{document}

@@ -1,0 +1,208 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=27mm]{geometry}
+\usepackage{amsmath,amssymb,amsthm,enumitem}
+\usepackage[hidelinks]{hyperref}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newcommand{\R}{\mathbb R}
+\title{Order-independent Hermite means:\\a counterexample and the corrected classification}
+\author{Principia Math In Progress}
+\date{12 September 2026}
+\begin{document}
+\maketitle
+\begin{abstract}
+Conjecture 23 of Horwitz is false: $f(x)=1/(x+1)$ produces the same
+mean for every admissible pair of interpolation orders, but that mean
+is not the harmonic mean. We also classify all generators satisfying
+the source's nondegeneracy hypotheses at every order: they are shifted
+reciprocals plus polynomials of degree at most two.
+\end{abstract}
+
+\section*{Task 1. The problem and its full resolution}
+For $0<a<b$ and integers $0\le m_2<m_1$, put
+$n=m_1+m_2+1$. Let $P,Q$ be the degree-at-most-$n$ Hermite
+interpolants to $f$: $P$ matches derivatives through orders $m_1,m_2$
+at $a,b$, while $Q$ interchanges these orders. Write $m=m_1-m_2$.
+The source defines $M_{f,m_1,m_2}(a,b)$ as the unique interior solution of
+$P=Q$ for even $m$, and of $2f=P+Q$ for odd $m$.
+Equivalently, with $E_P=f-P$ and $E_Q=f-Q$, the equation is
+\begin{equation}\label{eq:errors}
+ E_P(x)=(-1)^m E_Q(x).
+\end{equation}
+The existence hypotheses are $f\in C^{n+2}$ and
+$f^{(n+1)}\ne0$ on every relevant positive interval.
+Conjecture 23, on published page 95 of \cite{horwitz}, asserts that
+independence of both orders characterizes $f(x)=C/x$.
+
+\begin{theorem}\label{thm:classification}
+Suppose $f\in C^\infty(0,\infty)$ and
+$f^{(r)}(x)\ne0$ for every $r\ge3$ and $x>0$.
+Its Hermite means are independent of $m_1,m_2$ if and only if
+\begin{equation}\label{eq:family}
+ f(x)=\frac{C}{x+c}+p(x),\qquad
+ C\in\R\setminus\{0\},\quad c\ge0,\quad \deg p\le2.
+\end{equation}
+Their common value is
+\begin{equation}\label{eq:mean}
+ M_c(a,b)=\frac{2ab+c(a+b)}{a+b+2c}
+ =\frac{2(a+c)(b+c)}{a+b+2c}-c.
+\end{equation}
+In particular, $f(x)=1/(x+1)$ is a counterexample to Conjecture 23.
+\end{theorem}
+
+\subsection*{Exact proof of sufficiency and of the counterexample}
+First take $f(x)=C/(x+c)$ and set
+\[
+ W_P(x)=(x-a)^{m_1+1}(x-b)^{m_2+1},\qquad
+ W_Q(x)=(x-a)^{m_2+1}(x-b)^{m_1+1}.
+\]
+The polynomial $C-(x+c)P(x)$ has degree at most $n+1$ and vanishes
+at the nodes with exactly the required multiplicities, or higher ones.
+It is therefore a constant multiple of the monic polynomial $W_P$.
+Evaluation at $x=-c$ determines that constant and gives
+\begin{equation}\label{eq:exact-remainder}
+ E_P(x)=\frac{C W_P(x)}{(x+c)W_P(-c)},\qquad
+ E_Q(x)=\frac{C W_Q(x)}{(x+c)W_Q(-c)}.
+\end{equation}
+The denominators are nonzero since $a,b>0$ and $c\ge0$.
+For $a<x<b$, their ratio is
+\[
+ \frac{E_P(x)}{E_Q(x)}
+ =(-1)^m\left(\frac{(x-a)(b+c)}{(b-x)(a+c)}\right)^m.
+\]
+The quantity in parentheses is positive. Thus \eqref{eq:errors}, for
+either parity and every $m\ge1$, is equivalent to
+\[
+ \frac{x-a}{b-x}=\frac{a+c}{b+c}.
+\]
+This has exactly the solution \eqref{eq:mean} in $(a,b)$.
+Every allowed degree $n$ is at least two, so adding a fixed quadratic
+$p$ adds $p$ to both interpolants and leaves both errors unchanged.
+This proves sufficiency. The family has
+$f^{(r)}(x)=(-1)^r r!C/(x+c)^{r+1}\ne0$ for $r\ge3$.
+
+For $c=1,C=1,p=0$, the function is not $C_0/x$ for any constant
+$C_0$, since $x/(x+1)$ is not constant. Its mean differs from the
+harmonic mean $H$ and the arithmetic mean $A$ whenever $a\ne b$:
+\begin{equation}\label{eq:differences}
+ M_c-H=\frac{c(a-b)^2}{(a+b)(a+b+2c)},\qquad
+ A-M_c=\frac{(a-b)^2}{2(a+b+2c)}.
+\end{equation}
+For example, $M_1(1,2)=7/5$, whereas $H(1,2)=4/3$.
+Thus the counterexample changes the common mean itself. The source
+already notes invariance under polynomial additions in Remark 5;
+that invariance alone is not the basis of this counterexample.
+
+\subsection*{A local coefficient of an arbitrary Hermite mean}
+For confluent divided differences, let $a^{[j]}$ denote $j$ copies
+of the node $a$. The Hermite error formula turns \eqref{eq:errors} into
+\begin{equation}\label{eq:divided}
+ (u-a)^m D_P=(b-u)^m D_Q,
+\quad D_P=f[u,a^{[m_1+1]},b^{[m_2+1]}],
+\quad D_Q=f[u,a^{[m_2+1]},b^{[m_1+1]}].
+\end{equation}
+This is equation (4) of the source and is valid for both parities.
+
+\begin{lemma}\label{lem:diagonal}
+Fix an allowed pair and $t>0$. For smooth $f$ with
+$f^{(n+1)}(t)\ne0$,
+\[
+ M_{f,m_1,m_2}(t-h,t+h)
+ =t+\frac{f^{(n+2)}(t)}{(n+2)f^{(n+1)}(t)}h^2+O(h^3)
+ \qquad(h\downarrow0).
+\]
+\end{lemma}
+\begin{proof}
+The divided difference of order $N$ at nodes $t+\delta_0,\ldots,t+\delta_N$
+has the expansion
+\begin{equation}\label{eq:dd-expansion}
+ \frac{f^{(N)}(t)}{N!}
+ +\frac{f^{(N+1)}(t)}{(N+1)!}\sum_{i=0}^N\delta_i+O(h^2)
+ \quad\text{if }|\delta_i|\le h.
+\end{equation}
+For completeness, the Hermite--Genocchi integral writes this divided
+difference as $\mathbb E f^{(N)}(t+\sum_i V_i\delta_i)/N!$, where
+$V$ is uniform on the simplex $\sum_iV_i=1$, $V_i\ge0$.
+Taylor expansion and $\mathbb E V_i=1/(N+1)$ give
+\eqref{eq:dd-expansion}, including repeated nodes, with uniform remainder.
+The integral itself follows by repeated use of the fundamental theorem
+of calculus.
+
+Write $u=t+s$, so $|s|<h$, and put
+$B=f^{(n+1)}(t)/(n+1)!\ne0$ and
+$D=f^{(n+2)}(t)/(n+2)!$.
+The sums of offsets in the two divided differences are $s-mh$ and $s+mh$.
+Consequently
+\[
+ D_P=B+D(s-mh)+O(h^2),\qquad
+ D_Q=B+D(s+mh)+O(h^2).
+\]
+For small $h$, their ratio is positive and equals $1+O(h)$.
+Equation \eqref{eq:divided} first implies
+$m\log((h+s)/(h-s))=O(h)$, hence $s=O(h^2)$.
+Expanding once more gives
+\[
+ 2m\frac{s}{h}+O(h^3)
+ =\log\frac{D_Q}{D_P}
+ =2mh\frac{D}{B}+O(h^2).
+\]
+Multiplication by $h/(2m)$ proves the formula.
+\end{proof}
+
+\subsection*{Necessity and the global domain}
+If the means are independent of the orders, compare $(m_1,m_2)=(1,0)$
+and $(2,0)$, whose degrees are $n=2$ and $n=3$.
+Lemma~\ref{lem:diagonal} implies, at every $t>0$,
+\[
+ \frac{f^{(4)}}{4f^{(3)}}=\frac{f^{(5)}}{5f^{(4)}}.
+\]
+Set $v=f^{(4)}/(4f^{(3)})$, which is smooth and never zero.
+Differentiating and using the displayed identity gives
+\[
+ v'=\frac{f^{(5)}}{4f^{(3)}}
+       -\frac{(f^{(4)})^2}{4(f^{(3)})^2}
+    =5v^2-4v^2=v^2.
+\]
+Thus $(-1/v)'=1$, so $v(t)=-1/(t+c)$ for a constant $c$.
+The denominator cannot vanish anywhere on $(0,\infty)$; hence $c\ge0$.
+The equation $f^{(4)}/f^{(3)}=-4/(t+c)$ now yields
+$f^{(3)}=K/(t+c)^4$ with $K\ne0$. Integrating three times gives
+\eqref{eq:family}, with $C=-K/6$. This proves the theorem.
+
+The nondegeneracy in the classification is precisely what results from
+requiring the source's hypotheses for every allowed pair: $n+1$ runs
+through all integers at least three. The counterexample satisfies these
+hypotheses on the entire positive half-line. Homogeneity is defined as
+an additional property in the source, not a hypothesis of Conjecture 23.
+If homogeneity is imposed additionally, \eqref{eq:mean} forces $c=0$.
+
+\section*{Follow-up tasks}
+These tasks follow the full resolution of Task 1 and are not additional
+completed or independently screened open problems.
+\paragraph{Task 2.} Classify order-independent generators on arbitrary real intervals,
+including intervals on either side of a pole and the appropriate
+conditions at finite endpoints.
+\paragraph{Task 3.} Determine which two prescribed order pairs already force a shifted
+reciprocal plus a polynomial, and identify exceptional pairs.
+\paragraph{Task 4.} Prove quantitative stability estimates: bound a generator's distance
+from the classified family using a uniform bound on the difference
+between its means for two consecutive total degrees.
+\paragraph{Task 5.} Classify generators whose means become independent of the orders
+only after a fixed total degree, and determine the resulting polynomial
+freedom and possible limiting means.
+
+\section*{Status and verification}
+The dated accompanying files record the live open status, the search for
+earlier public solution claims, and exact checks of confluent interpolation,
+both parity equations, and the local coefficient. The proof is analytic;
+the finite checks are supplementary. No independent peer review or
+proof-assistant certification is claimed.
+
+\begin{thebibliography}{9}
+\bibitem{horwitz} A. Horwitz, \emph{Means and Hermite Interpolation},
+Journal of Mathematical Inequalities \textbf{2}(1) (2008), 75--95,
+Conjecture 23. \url{https://doi.org/10.7153/jmi-02-08}.
+\url{https://files.ele-math.com/articles/jmi-02-08.pdf}.
+Preprint: \url{https://arxiv.org/abs/0711.4940}.
+\end{thebibliography}
+\end{document}

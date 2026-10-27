@@ -1,0 +1,180 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[hidelinks]{hyperref}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newcommand{\norm}[1]{\lVert #1\rVert}
+\title{The sharp taxicab Erd\H{o}s--Mordell inequality\\
+\large MathDB 341671}
+\author{Principia Math in Progress}
+\date{12 September 2026}
+\begin{document}
+\maketitle
+
+\paragraph{Task 1. Solve the original conjecture.}
+For an interior point of an arbitrary taxicab triangle, prove that the
+sum of its distances to the vertices is at least \(3/2\) times the sum
+of its distances to the three side lines. This is Conjecture~1 of
+Petrovi\'c, Male\v sevi\'c and Banjac~\cite{source}.
+We prove a stronger statement.
+
+\begin{theorem}\label{thm:main}
+Let \(A_1A_2A_3\) be a nondegenerate triangle in a real normed plane
+and let \(P\) be strictly interior. Put
+\[
+x_i=\norm{A_i-P},\qquad d_i=\operatorname{dist}(P,L_i),
+\]
+where \(L_i\) is the line containing the side opposite \(A_i\). Then
+\begin{equation}\label{eq:main}
+\sum_{i=1}^3x_i\ \geq\ \frac32\sum_{i=1}^3d_i.
+\end{equation}
+The assertion also holds for distances to the finite side segments.
+The constant \(3/2\) is optimal in the taxicab plane.
+\end{theorem}
+
+\begin{lemma}\label{lem:algebra}
+Suppose \(d_i,x_i>0\), \(x_i\geq d_j\) whenever \(i\ne j\), and
+\begin{equation}\label{eq:phi}
+\Phi(x):=\sum_{i=1}^3\frac{d_i}{d_i+x_i}\leq1.
+\end{equation}
+Then \eqref{eq:main} holds.
+\end{lemma}
+\begin{proof}
+Relabel the paired indices so that
+\[
+(d_1,d_2,d_3)=r(1,u,v),\qquad r>0,\quad0<v\leq u\leq1.
+\]
+The endpoint bounds give \(x\geq b:=r(u,1,1)\) coordinatewise.
+If \(2+u\geq\frac32(1+u+v)\), the result follows immediately.
+Otherwise set
+\[
+D=\frac{u+3v-1}{2}>0.
+\]
+Suppose the conclusion fails and write \(x=b+e\), \(e_i\geq0\).
+Its strict failure is precisely
+\begin{equation}\label{eq:budget}
+\sum_i e_i<rD.
+\end{equation}
+At the baseline,
+\[
+\Phi(b)=\frac1{1+u}+\frac{u}{1+u}+\frac{v}{1+v}
+=1+\frac{v}{1+v}.
+\]
+For every \(y\geq b\), each partial derivative obeys
+\begin{equation}\label{eq:slope}
+\left|\frac{\partial\Phi}{\partial y_i}(y)\right|
+=\frac{d_i}{(d_i+y_i)^2}\leq \frac1{r(1+u)^2}.
+\end{equation}
+For \(i=1,2\) the baseline values are respectively
+\(1/[r(1+u)^2]\) and \(u/[r(1+u)^2]\).
+For \(i=3\), use
+\[
+\frac{v}{r(1+v)^2}\leq\frac1{4r}
+\leq\frac1{r(1+u)^2}.
+\]
+Integrating \eqref{eq:slope} along the segment from \(b\) to \(x\)
+and then using \eqref{eq:budget} gives
+\[
+\Phi(x)>1+\frac{v}{1+v}-\frac{D}{(1+u)^2}.
+\]
+Finally the identity
+\begin{align*}
+&2v(1+u)^2-(u+3v-1)(1+v)\\
+&\hspace{20mm}=1-u+3v(u-v)+2u^2v\geq0
+\end{align*}
+implies \(D/(1+u)^2\leq v/(1+v)\).
+Thus \(\Phi(x)>1\), contradicting \eqref{eq:phi}.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:main}]
+Translate \(P\) to \(0\). Its positive barycentric coordinates satisfy
+\[
+\sum_i\alpha_i=1,\qquad \sum_i\alpha_i A_i=0.
+\]
+For each \(i\), the point
+\[
+Q_i=\frac{\sum_{j\ne i}\alpha_j A_j}{1-\alpha_i}
+=-\frac{\alpha_i}{1-\alpha_i}A_i
+\]
+belongs to the opposite side segment. Hence
+\[
+d_i\leq\norm{Q_i}
+=\frac{\alpha_i}{1-\alpha_i}x_i,
+\qquad
+\frac{d_i}{d_i+x_i}\leq\alpha_i.
+\]
+Summation proves \eqref{eq:phi}. Moreover, \(A_i\) is an endpoint
+of the side opposite \(A_j\) whenever \(i\ne j\), so \(x_i\geq d_j\).
+Strict interiority and nondegeneracy give \(d_i,x_i>0\).
+Lemma~\ref{lem:algebra} now applies. The same actual points \(Q_i\)
+and endpoints establish both constraints for distances to finite
+segments, proving that assertion too.
+
+For sharpness take the taxicab norm \(\norm{(s,t)}=|s|+|t|\) and
+\[
+P=(0,0),\quad A=(1,-\varepsilon),\quad
+B=(-1,-\varepsilon),\quad C=(0,1),\qquad\varepsilon>0.
+\]
+The barycentric coordinates
+\[
+\left(\frac1{2(1+\varepsilon)},\
+\frac1{2(1+\varepsilon)},\
+\frac{\varepsilon}{1+\varepsilon}\right)
+\]
+are positive, so \(P\) is strictly interior. The distance to a line
+\(as+bt+c=0\) in this norm is
+\(|c|/\max(|a|,|b|)\) at \(P=0\).
+Consequently
+\[
+\sum_i x_i=3+2\varepsilon,\qquad
+\sum_i d_i=\varepsilon+\frac2{1+\varepsilon}.
+\]
+Their difference in \eqref{eq:main} is
+\[
+3+2\varepsilon-\frac32\left(\varepsilon+\frac2{1+\varepsilon}\right)
+=\frac{\varepsilon(7+\varepsilon)}{2(1+\varepsilon)}>0,
+\]
+and their ratio tends to \(3/2\) as \(\varepsilon\downarrow0\).
+No larger universal constant is possible.
+\end{proof}
+
+\paragraph{Scope and prior results.}
+The source's Theorem~2 covers particular positions relative to the
+taxicab axes; its Conjecture~1 on published page~1318 asks for arbitrary
+triangles. No rotation is assumed here. The source's definition uses
+side lines. The stray extraction suffix in the MathDB display has no
+mathematical content and is absent from the typeset inequality.
+The current source and public-claim audit is recorded separately.
+Earlier norm-dependent estimates and sharpness examples are credited
+in that audit; the present proof supplies the universal lower bound.
+
+\paragraph{Task 2. Determine the optimal constant for a fixed norm.}
+For a prescribed centrally symmetric unit ball, determine the infimum
+of \(\sum_i x_i/\sum_i d_i\) over triangles and interior points.
+Identify geometric conditions under which this infimum exceeds \(3/2\).
+
+\paragraph{Task 3. Quantify near equality.}
+For taxicab triangles with \(\sum_i x_i=1\), characterize sequences
+whose ratios tend to \(3/2\), and derive a quantitative estimate
+relating the deficit to their limiting configurations.
+
+\paragraph{Task 4. Find weighted refinements.}
+Use the individual constraints
+\(d_i/(d_i+x_i)\leq\alpha_i\) to determine sharp inequalities with
+prescribed positive barycentric coordinates or vertex weights.
+
+\paragraph{Task 5. Extend the bound to simplices.}
+For a simplex in an \(n\)-dimensional normed space, determine the best
+universal ratio between the sum of vertex distances and the sum of
+distances to opposite facet hyperplanes. Test the analogous
+barycentric and endpoint constraints for sufficiency.
+
+\begin{thebibliography}{9}
+\bibitem{source}
+M. Petrovi\'c, B. Male\v sevi\'c and B. Banjac,
+\emph{On the Erd\H{o}s--Mordell inequality for triangles in taxicab geometry},
+J. Math. Inequal. \textbf{14} (2020), 1299--1319,
+\href{https://doi.org/10.7153/jmi-2020-14-84}{doi:10.7153/jmi-2020-14-84}.
+\end{thebibliography}
+\end{document}

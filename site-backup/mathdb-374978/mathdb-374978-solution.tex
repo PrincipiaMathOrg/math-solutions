@@ -1,0 +1,193 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,hyperref,enumitem}
+\hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue}
+\newtheorem{theorem}{Theorem}
+\newtheorem{corollary}{Corollary}
+\newcommand{\R}{\mathbb R}
+\title{An obstruction to positive Taylor cancellation\\in sums of shifted roots}
+\author{Principia Math In Progress}
+\date{22 September 2026}
+\begin{document}
+\maketitle
+\noindent\textbf{MathDB 374978. Full disproof of Conjecture 5.1.}
+
+\section*{Task 1: the source conjecture}
+Korsky [1, Conjecture 5.1, p.~8] proposes that for every \(d\geq2\)
+and \(k\geq1\), fixed positive integers \(A_i\) and integers \(u_i,v_i\)
+can be chosen so that, along infinitely many integers \(M\to+\infty\),
+\[
+ S(M):=\sum_{i=1}^k A_i\bigl((M+u_i)^d+v_i\bigr)^{1/d}
+ =L(M)+\lambda M^{-(dk-1)}+O(M^{-dk}),                    \tag{1}
+\]
+where \(L\) is an integer-valued linear polynomial and
+\(\lambda\ne0\). We disprove this for every \(3\leq k\leq d\).
+In particular, \(d=k=3\) is an admissible parameter pair for which
+no permitted choice of coefficients and shifts exists.
+
+\begin{theorem}
+Fix \(d\geq2\), positive real weights \(A_i\), and real \(u_i,v_i\),
+with at most \(d\) distinct values among the \(u_i\). Define \(S\)
+as above for sufficiently large positive \(M\), and put
+\[
+ L_0(M)=\Bigl(\sum_i A_i\Bigr)M+\sum_i A_i u_i.
+\]
+If \(S(M)-L(M)=o(M^{1-2d})\) along an unbounded positive sequence,
+where \(L\) is linear, then \(L=L_0\) and every \(v_i=0\).
+More precisely, if the coefficients of
+\(M^{1-d},M^{-d},\ldots,M^{2-2d}\) all vanish, then either
+every \(v_i=0\), or
+\[
+ S(M)-L_0(M)=
+ -\frac{d-1}{2d^2}\Bigl(\sum_i A_i v_i^2\Bigr)M^{1-2d}
+      +O(M^{-2d}),                                      \tag{2}
+\]
+with a strictly negative leading coefficient.
+\end{theorem}
+
+\begin{proof}
+For fixed real \(u,v\), the binomial expansion at zero gives
+\begin{align}
+ \bigl((M+u)^d+v\bigr)^{1/d}
+ &=M+u+\frac vd(M+u)^{1-d}\notag\\
+ &\quad-\frac{d-1}{2d^2}v^2(M+u)^{1-2d}
+       +O(M^{1-3d}).                                    \tag{3}
+\end{align}
+The radicand and \(M+u\) are positive for large \(M\);
+the real branch and the Taylor remainder are therefore valid.
+The constants may depend on the fixed parameters, which suffices
+even for the weaker hypothesis of the theorem.
+
+In particular \(S-L_0=O(M^{1-d})\). If \(S-L=o(1)\) on an
+unbounded sequence, the linear polynomial \(L-L_0\) tends to zero
+there and hence is identically zero.
+
+Set \(\mu_j=\sum_i A_i v_i u_i^j\). In (3) the quadratic term in
+\(v\) starts only at \(M^{1-2d}\). Before that order, the coefficient
+of \(M^{1-d-j}\), for \(0\leq j\leq d-1\), is precisely
+\[
+ \frac1d\binom{1-d}{j}\mu_j.                             \tag{4}
+\]
+All displayed binomial factors are nonzero, since
+\(\binom{1-d}{j}=(-1)^j\binom{d+j-2}{j}\).
+The hypothesis \(S-L_0=o(M^{1-2d})\) forces all these coefficients
+to vanish. This remains true on a subsequence: a first nonzero
+coefficient at an earlier order, divided by its power of \(M\),
+would tend to a nonzero constant there. Thus
+\[
+ \mu_0=\mu_1=\cdots=\mu_{d-1}=0.                         \tag{5}
+\]
+
+Let \(s_1,\ldots,s_t\) be the distinct shifts, where \(t\leq d\), and
+put \(c_\ell=\sum_{i:u_i=s_\ell}A_i v_i\).
+The first \(t\) equations in (5) are
+\[
+ \sum_{\ell=1}^t c_\ell s_\ell^j=0
+       \quad(0\leq j<t).
+\]
+The Vandermonde determinant is
+\(\prod_{\ell<h}(s_h-s_\ell)\ne0\), so every \(c_\ell=0\).
+This argument explicitly includes repeated shifts.
+It follows that the entire first-order contribution in (3)
+cancels identically:
+\[
+ \sum_i A_i v_i(M+u_i)^{1-d}
+       =\sum_{\ell=1}^t c_\ell(M+s_\ell)^{1-d}=0.         \tag{6}
+\]
+Summing the remaining terms of (3), and using
+\((M+u_i)^{1-2d}=M^{1-2d}(1+O(M^{-1}))\), gives (2).
+Its coefficient is zero exactly when all \(v_i=0\), because
+every weight is positive. Otherwise (2) contradicts
+\(o(M^{1-2d})\). This proves both assertions.
+\end{proof}
+
+\begin{corollary}
+Conjecture 5.1 is false for every \(3\leq k\leq d\), even if its
+integer parameters are relaxed to real parameters and positive
+real weights.
+\end{corollary}
+\begin{proof}
+There are at most \(k\leq d\) distinct shifts, and
+\(dk-1>2d-1\). Thus (1) implies the theorem's little-oh
+hypothesis. It forces all \(v_i=0\), and hence \(S=L=L_0\)
+identically. Multiplying (1) by \(M^{dk-1}\) then gives
+\(0=\lambda+O(M^{-1})\), contrary to \(\lambda\ne0\).
+\end{proof}
+
+For the concrete case \(d=k=3\), the four relevant coefficients are
+\[
+ [M^{-2}]\,(S-L_0)=\frac{\mu_0}{3},\quad
+ [M^{-3}]\,(S-L_0)=-\frac{2\mu_1}{3},\quad
+ [M^{-4}]\,(S-L_0)=\mu_2,
+\]
+\[
+ [M^{-5}]\,(S-L_0)
+       =-\frac43\mu_3-\frac19\sum_i A_i v_i^2.
+\]
+The first three vanish only if the grouped weights \(c_\ell\)
+vanish, which also makes \(\mu_3=0\). The fourth then forces
+every \(v_i=0\). Already these four coefficients preclude the
+proposed first nonzero term at \(M^{-8}\).
+
+The source uses \(M\to+\infty\), as its radicands grow.
+Even if arbitrary unbounded integer subsequences were permitted,
+a negative subsequence gives the same obstruction after \(T=-M\):
+for even \(d\) replace \(u_i\) by \(-u_i\); for odd \(d\) negate
+the whole sum and replace \((u_i,v_i)\) by \((-u_i,-v_i)\).
+The transformed weights remain positive and the leading coefficient
+in (1) remains nonzero.
+
+\section*{Sharpness and the separate approximation question}
+The barrier order \(2d-1\) is attained with two terms:
+\[
+ (M^d+1)^{1/d}+(M^d-1)^{1/d}
+ =2M-\frac{d-1}{d^2}M^{1-2d}+O(M^{1-4d}).               \tag{7}
+\]
+Thus positivity does not rule out all cancellation.
+The source's square-root examples with three or four terms have
+three distinct shifts, exceeding \(d=2\), and do not contradict
+the theorem.
+
+The obstruction concerns the precise fixed-shift Taylor family in
+Conjecture 5.1. It does not disprove the separate bound for
+\(g_{k,d}(N)\) using arbitrary integer radicands, or the
+uniform approximation conjecture 1.2. The construction in (1)
+would imply such an integer-target bound; the converse is not
+established by the source's use of the word \emph{equivalently}.
+Our result is a structural disproof of the explicit cancellation
+conjecture, not credit for that wording issue.
+
+\section*{Tasks 2--5: four proposed mathematical follow-ups}
+\begin{enumerate}[label=\textbf{Task \arabic*:},start=2,leftmargin=*]
+\item Determine the least number of distinct shifts permitting
+nontrivial positive cancellation beyond order \(M^{1-2d}\).
+The theorem proves that at least \(d+1\) are necessary.
+\item Settle the square-root Taylor-cancellation assertion for
+every \(k\geq5\), extending the source's \(k=2,3,4\) constructions.
+\item Classify attainable leading orders when signed nonzero
+rational weights are allowed in place of positive weights.
+\item Resolve the separate unrestricted integer-target bound
+\(g_{3,3}(N)\ll N^{-8/3}\), using radicands beyond the prohibited
+three-term fixed-shift family.
+\end{enumerate}
+These are proposed directions and earn no additional solution credit.
+
+\section*{Verification and source}
+Four exact verification groups check the radical expansion against
+its defining power equation, Vandermonde determinants with arbitrary
+signs of the shifts, the cubic obstruction, and the sharp two-term
+family together with the three square-root examples in [1].
+The proof for arbitrary parameters is analytic and algebraic;
+finite checks only supplement it. Review is by the authoring agent
+only, without independent peer review or a proof assistant.
+
+\medskip\noindent
+[1] Samuel Korsky, \emph{Inhomogeneous Approximation by Sums of Roots},
+\href{https://arxiv.org/abs/2605.27233}{arXiv:2605.27233v1},
+26 May 2026. All ten pages were read. The target is Conjecture 5.1
+on p.~8, restated as a coefficient system on p.~10.
+The source's square-root constructions are attributed, not claimed
+as new. Dated live MathDB checks and bounded public-claim and
+publication searches are recorded separately; no earlier full
+target solution or later target version was identified in them.
+\end{document}

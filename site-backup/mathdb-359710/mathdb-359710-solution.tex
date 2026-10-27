@@ -1,0 +1,165 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,enumitem,hyperref}
+\hypersetup{colorlinks=true,urlcolor=blue,linkcolor=blue}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newcommand{\Per}{\operatorname{per}}
+\newcommand{\W}{\widehat W_{\rm per}}
+\title{The reciprocal supernorm perimeter asymptotic}
+\author{Principia Math In Progress: MathDB 359710}
+\date{21 September 2026}
+\begin{document}
+\maketitle
+\begin{abstract}
+We prove Conjecture 3.6 of Lagarias and Sun by decomposing a partition
+according to its largest part. A positive generating function bounds the
+contribution from long residual partitions exponentially. Mertens' product
+theorem and the prime number theorem then give the required constant.
+\end{abstract}
+
+\section*{Task 1: the original problem}
+Write $p_j$ for the $j$th prime, with $p_1=2$. For a nonempty partition
+$\lambda=(\lambda_1\ge\cdots\ge\lambda_\ell\ge1)$, put
+\[
+ \Per(\lambda)=\lambda_1+\ell-1,
+ \qquad \widehat N(\lambda)=\prod_{i=1}^\ell p_{\lambda_i},
+ \qquad \W(n)=\sum_{\Per(\lambda)=n}\frac1{\widehat N(\lambda)}.
+\]
+The source assigns the empty partition perimeter 1; its convention only
+changes a possible value at $n=1$. All identities below concerning $\W$
+are asserted for $n\ge2$ and are unaffected.
+
+\begin{theorem}\label{thm:main}
+As $n\to\infty$ through the positive integers,
+\[
+                    \W(n)\sim\frac{e^\gamma}{n},
+\]
+where $\gamma$ is Euler's constant.
+\end{theorem}
+
+This is the perimeter conjecture in both the 2023 preprint and the 2024
+journal version of \cite{LS}. The latter already proves the separate
+maximum-part assertion as Theorem 3.5; we claim no new result for that
+assertion. We use the classical estimates
+\begin{equation}\label{eq:classical}
+ p_k\sim k\log k,\qquad
+ \prod_{j=1}^k(1-p_j^{-1})^{-1}\sim e^\gamma\log p_k.
+\end{equation}
+These are consequences of Lemmas 4.3 and 4.4 of \cite{LS}.
+
+\section*{A coefficient decomposition and a uniform tail}
+For $k\ge1$, define the length generating function
+\begin{equation}\label{eq:H}
+ H_k(z)=\prod_{j=1}^k(1-z/p_j)^{-1}
+       =\sum_{r\ge0}h_{k,r}z^r\qquad (|z|<2).
+\end{equation}
+Here $h_{k,r}$ is the sum of reciprocal supernorms over partitions with
+exactly $r$ parts, all at most $k$. In particular $h_{k,r}\ge0$ and
+$h_{k,r}\le h_{k+1,r}$, coefficient by coefficient. The empty partition
+contributes $h_{k,0}=1$.
+
+\begin{lemma}\label{lem:decomp}
+For every $n\ge2$,
+\begin{equation}\label{eq:decomp}
+ \W(n)=\sum_{r=0}^{n-1}\frac{h_{n-r,r}}{p_{n-r}}.
+\end{equation}
+\end{lemma}
+\begin{proof}
+If the largest part is $k$, remove one copy of $k$. The remaining partition
+has $r=n-k$ parts, each at most $k$, and its supernorm is the original
+supernorm divided by $p_k$. Conversely, adjoining $k$ to any such residual
+partition gives a unique partition of perimeter $k+r=n$. Repeated largest
+parts create no multiplicity: partitions are multisets and exactly one
+copy is removed or adjoined. Summing over $k=1,\ldots,n$ proves the identity.
+\end{proof}
+
+For $n\ge4$, set $m=\lfloor\sqrt n\rfloor$ and
+\[
+ T_n=\sum_{r>m}h_{n,r},\qquad
+ B_n=(n+1)^3(2/3)^{m+1}.
+\]
+We have
+\begin{equation}\label{eq:tail}
+                         0\le T_n\le B_n.
+\end{equation}
+Indeed, positivity and evaluation of \eqref{eq:H} at $z=3/2$ give
+\[
+ T_n\le(2/3)^{m+1}H_n(3/2).
+\]
+Since $p_j\ge j+1$, and, for every integer $j\ge1$,
+\[
+ \frac{j+1}{j-1/2}\le\left(\frac{j+1}{j}\right)^3
+ \quad\text{because}\quad
+ (2j-1)(j+1)^2-2j^3=3j^2-1>0,
+\]
+we obtain the telescoping bound
+\[
+ H_n(3/2)\le\prod_{j=1}^n\frac{j+1}{j-1/2}
+       \le\prod_{j=1}^n\left(\frac{j+1}{j}\right)^3=(n+1)^3.
+\]
+This proves \eqref{eq:tail}. Moreover $n^A B_n\to0$ for every fixed real
+$A$, since its logarithm is
+$A\log n+3\log(n+1)-(m+1)\log(3/2)\to-\infty$.
+
+\section*{Proof of the asymptotic}
+Put $k=n-m$. For $0\le r\le m$, monotonicity gives
+\[
+ \frac{h_{k,r}}{p_n}
+ \le\frac{h_{n-r,r}}{p_{n-r}}
+ \le\frac{h_{n,r}}{p_k}.
+\]
+The omitted tail in the lower sum is at most $T_n$, because $k\le n$.
+For the terms $r>m$ in \eqref{eq:decomp}, use $p_{n-r}\ge2$ and
+$h_{n-r,r}\le h_{n,r}$. Thus
+\begin{equation}\label{eq:squeeze}
+ \frac{H_k(1)-B_n}{p_n}
+ \ \le\ \W(n)\ \le\ \frac{H_n(1)}{p_k}+\frac{B_n}{2}.
+\end{equation}
+Now $k/n\to1$. From \eqref{eq:classical},
+\[
+ \frac{nH_k(1)}{p_n}
+ \sim e^\gamma\frac{\log p_k}{\log n}\longrightarrow e^\gamma,
+ \qquad
+ \frac{nH_n(1)}{p_k}
+ \sim e^\gamma\frac{n\log p_n}{k\log k}\longrightarrow e^\gamma.
+\]
+Both limits use $\log p_k\sim\log k\sim\log n$ and
+$\log p_n\sim\log n$. Finally $nB_n\to0$, so multiplying
+\eqref{eq:squeeze} by $n$ and applying the squeeze theorem proves
+Theorem~\ref{thm:main}.\hfill$\square$
+
+\section*{Scope and verification}
+The proof applies to the full perimeter ensemble with unrestricted positive
+parts. It uses positivity, an exact partition bijection, and classical prime
+asymptotics. It does not differentiate a cumulative error estimate. The
+companion verifier checks the indexing by exact partition enumeration,
+checks exact finite versions of the bounds, and records larger numerical
+examples. These checks support the derivation; the argument above proves
+the assertion for all sufficiently large $n$. Review was by the authoring
+agent only, without independent peer review or a proof assistant.
+
+\section*{Proposed follow-up Tasks 2--5}
+\begin{enumerate}[label=Task \arabic*:,start=2,leftmargin=4.6em]
+\item Give explicit constants $C,n_0$ such that, for all $n\ge n_0$,
+\[
+ \left|\W(n)-\frac{e^\gamma}{n}\right|
+ \le C\frac{\log\log n}{n\log n}.
+\]
+\item For each fixed $\beta>1$, determine the leading asymptotic for
+$\sum_{\Per(\lambda)=n}\widehat N(\lambda)^{-\beta}$, including its constant.
+\item Determine the leading constant for the reciprocal supernorm sum over
+partitions of perimeter $n$ with distinct parts.
+\item Under the probability measure on perimeter-$n$ partitions proportional
+to $\widehat N(\lambda)^{-1}$, determine the limiting distribution of
+the number of parts after appropriate centering and scaling.
+\end{enumerate}
+
+\begin{thebibliography}{1}
+\bibitem{LS} J. C. Lagarias and C. Sun,
+\emph{Asymptotics of reciprocal supernorm partition statistics},
+The Ramanujan Journal \textbf{65} (2024), 487--520,
+\href{https://doi.org/10.1007/s11139-024-00893-8}{Journal version (DOI)}.
+Preprint: \href{https://arxiv.org/abs/2308.15303}{arXiv:2308.15303v1}.
+\end{thebibliography}
+\end{document}

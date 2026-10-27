@@ -1,0 +1,192 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[hidelinks]{hyperref}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newcommand{\tr}{\operatorname{tr}}
+\begin{document}
+\begin{center}
+{\Large A proof of the Factor 4 conjecture for Markov polynomials}\\[0.5em]
+MathDB 366806\\
+September 12, 2026
+\end{center}
+
+\paragraph{Task 1.}
+Prove Conjecture 8.1 of Evans, Veselov, and Winn \cite{EVW}:
+the coefficient at every integer point strictly inside the critical
+triangle of a Markov polynomial is divisible by $4$.
+Write its homogeneous numerator as
+\[
+ P_{a/b}(u,v,w)=
+ \sum_{i,j} A_{ij}u^iv^jw^{a+b-1-i-j}.
+\]
+The critical triangle is given by $i<a$, $j<b$, and $bi+aj>ab$.
+We prove the stronger congruence
+\[
+ P_{a/b}(u,v,1)\in (4,u^a,v^b)\,\mathbb Z[[u,v]].
+ \tag{1}
+\]
+Homogeneity ensures that setting $w=1$ preserves every coefficient
+$A_{ij}$ separately.
+
+\begin{theorem}
+For every coprime $1\leq a\leq b$, every coefficient $A_{ij}$ with
+$i<a$ and $j<b$ is divisible by $4$. In particular, the Factor 4
+conjecture holds.
+\end{theorem}
+
+We use the following elementary matrix observation.
+
+\begin{lemma}\label{overlap}
+Let $R=(\mathbb Z/4\mathbb Z)[[u,v]]$.
+If matrices $E,F$ over $R$ are idempotent and
+$F\equiv I-E\pmod2$, then $\tr(EF)=0$ in $R$.
+\end{lemma}
+\begin{proof}
+Write $F=I-E+2H$. Expanding $F^2=F$ gives
+$2(H-EH-HE)=0$.
+Reducing the expression in parentheses modulo $2$ and multiplying
+on both sides by $\overline E$ gives
+$\overline E\,\overline H\,\overline E=0$.
+Thus every entry of $EHE$ is divisible by $2$.
+By cyclicity of trace and $E^2=E$,
+$\tr(EH)=\tr(EHE)$ is divisible by $2$. Consequently
+$\tr(EF)=2\tr(EH)=0$ in $R$.
+\end{proof}
+
+\begin{proof}[Proof of the theorem]
+Put $S=1+u+v$ and define
+\[
+ M=\begin{pmatrix}v&1\\uv&u+1\end{pmatrix},
+ \qquad
+ N=\begin{pmatrix}v+1&1\\uv&u\end{pmatrix}.
+ \tag{2}
+\]
+The generalized Cohn-matrix formula
+\cite[Theorem 10.1]{EVW} gives a word $C_{a/b}$ with $b$ letters
+$M$ and $a$ letters $N$ such that
+\[
+ \tr(C_{a/b})=S\,P_{a/b}(u,v,1).
+ \tag{3}
+\]
+To match conventions, specialize the source matrices to $z=1$,
+put $u=x^2,v=y^2$, and conjugate by $\operatorname{diag}(x,1)$.
+Its initial matrices become $M$ and $MN$.
+The Farey mediant construction concatenates words, so their letter
+counts are $(b,a)$.
+The trace formula can also be checked directly from
+\[
+ \tr(X^2Y)=\tr(X)\tr(XY)-\det(X)\tr(Y):
+\]
+the determinants of these words are $u^av^b$, and the identity gives
+the same numerator Vieta recursion as in the source, with the
+same initial values.
+
+We next show that the order of the letters in (3) is immaterial
+modulo $4$ under the trace. Direct calculation gives
+\[
+ MN-NM=2K,\qquad
+ K=\begin{pmatrix}0&-1\\uv&0\end{pmatrix},
+ \qquad \tr K=\tr(MK)=0.
+ \tag{4}
+\]
+Modulo $2$, one has $N=M+I$, so any word reduces to a polynomial
+in $M$. The identity $M^2-SM+vI=0$ reduces such a polynomial to
+the form $\alpha I+\beta M$.
+For an adjacent interchange in an arbitrary word, (4) gives
+\[
+ \tr(XMNY)-\tr(XNMY)=2\tr(YXK)=0\pmod4,
+\]
+because $\tr(YXK)=0\pmod2$.
+Successive adjacent interchanges therefore prove
+\[
+ \tr(C_{a/b})=\tr(M^bN^a)\quad\hbox{in }R.
+ \tag{5}
+\]
+
+We now work entirely in $R$. There are unique formal series
+$\mu,\nu\in(u,v)R$ satisfying
+\[
+ \mu^2-S\mu+v=0,\qquad
+ \nu^2-S\nu+u=0.
+ \tag{6}
+\]
+For example, iteration of $\mu\mapsto v/(S-\mu)$ starting at zero
+stabilizes each coefficient, since it increases the order of a
+difference; the same construction applies to $\nu$.
+It also shows $\mu\in vR$ and $\nu\in uR$.
+Set $\lambda=S-\mu$ and $\eta=S-\nu$.
+The series $\lambda,\eta,\lambda-\mu,\eta-\nu$ are units.
+The characteristic polynomials of $M,N$ are precisely the two
+quadratics in (6). Thus
+\[
+ E=\frac{M-\mu I}{\lambda-\mu},\qquad
+ F=\frac{N-\nu I}{\eta-\nu}
+ \tag{7}
+\]
+are idempotents, with
+\[
+ M=\lambda E+\mu(I-E),\qquad
+ N=\eta F+\nu(I-F).
+ \tag{8}
+\]
+
+The two idempotents are complementary modulo $2$.
+Indeed, $N=M+I$ modulo $2$, and substitution in (6) shows that
+the small root of the second quadratic is
+$\nu=\lambda+1$ modulo $2$; its unit root is $\eta=\mu+1$.
+Uniqueness of the small root justifies these identifications.
+Equation (7) then gives $F=I-E$ modulo $2$.
+Lemma \ref{overlap} yields
+\[
+ \tr(EF)=0\quad\hbox{in }R.
+ \tag{9}
+\]
+
+Let $J=(u^a,v^b)R$. Since $\mu\in vR$ and $\nu\in uR$,
+equation (8) and idempotence imply, modulo $J$,
+\[
+ M^b=\lambda^bE,\qquad N^a=\eta^aF.
+\]
+Equations (5) and (9) now give
+$\tr(C_{a/b})=0$ modulo $J$.
+Finally $S$ is a unit in $R$, so (3) implies
+$P_{a/b}(u,v,1)\in J$.
+Membership in this monomial ideal says exactly that every coefficient
+with $i<a$ and $j<b$ vanishes modulo $4$.
+This proves (1) and the theorem.
+\end{proof}
+
+\paragraph{Task 2.}
+Characterize the critical-triangle coefficients whose exact
+$2$-adic valuation is $2$, and determine geometric criteria for
+divisibility by higher powers of $2$.
+
+\paragraph{Task 3.}
+Compute the corrections to trace invariance modulo $8$ and $16$
+and use them to obtain finer coefficient congruences.
+
+\paragraph{Task 4.}
+Construct a free action of a group of order $4$ on the perfect
+matchings contributing to each critical-triangle coefficient.
+
+\paragraph{Task 5.}
+Combine the matrix description with valuations adapted to the
+Markov sail to prove its conjectured coefficient duality.
+
+\begin{thebibliography}{9}
+\raggedright
+\bibitem{EVW}
+S. J. Evans, A. P. Veselov, and B. Winn,
+\emph{Arithmetic and geometry of Markov polynomials},
+arXiv:2501.14882v3 (2025); current 28-page journal-hosted manuscript,
+Conjecture 8.1 and Theorem 10.1.
+\url{https://armj.math.stonybrook.edu/Articles/250708-Winn/article.pdf}.
+\bibitem{E}
+S. J. Evans, \emph{Quantum numbers and Markov polynomials},
+doctoral thesis, Loughborough University, December 2025;
+deposited February 9, 2026. Conjecture 2.6.3 and Theorem 2.7.5.
+\url{https://doi.org/10.26174/thesis.lboro.31250974.v1}.
+\end{thebibliography}
+\end{document}

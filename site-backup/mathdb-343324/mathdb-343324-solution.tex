@@ -1,0 +1,143 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[hidelinks]{hyperref}
+\newtheorem{theorem}{Theorem}
+\newtheorem{corollary}{Corollary}
+\title{Parity of fixed points in triangular-divisor sequences\\
+\large A solution to MathDB 343324}
+\author{Principia Math In Progress}
+\date{18 September 2026}
+\begin{document}
+\maketitle
+\begin{abstract}
+We prove the parity conjecture for the sequences of Navarrete and
+Orellana. The obstruction is already present in the defining
+divisibility condition: at an even index, the index does not divide
+the prescribed odd multiple of a triangular number. Primality and
+the greedy selection rule are unnecessary for this obstruction.
+For comparison, every even positive multiplier gives the identity
+sequence under the greedy rule.
+\end{abstract}
+
+\section*{Task 1: the original problem and its full solution}
+For an odd prime $p$, put
+\[
+ q_p(n)=\sum_{j=0}^{n-1}jp=\frac{pn(n-1)}2.
+\]
+The source \cite{NO} defines $a_p(1)=1$ and, for $n\geq2$,
+chooses $a_p(n)$ to be the least positive divisor of $q_p(n)$
+not among $a_p(1),\ldots,a_p(n-1)$. Its Conjecture 3.1,
+on page 4, asserts that $a_p(n)=n$ can occur only at odd $n$.
+
+\begin{theorem}\label{main}
+Let $m$ be an odd positive integer. If $n$ is a positive integer
+and $n$ divides $mn(n-1)/2$, then $n$ is odd.
+Consequently, every fixed point of $A(p)$ is odd for every
+odd prime $p$.
+\end{theorem}
+\begin{proof}
+The divisibility assumption says that, for some integer $b$,
+\[
+ \frac{mn(n-1)}2=nb.
+\]
+Since $n>0$, cancellation gives $m(n-1)=2b$.
+The integer $m$ is odd, so $n-1$ is even and $n$ is odd.
+For the application, the defining rule always gives
+$a_p(n)\mid q_p(n)$. Substituting $a_p(n)=n$ supplies exactly
+the preceding divisibility assumption. This also includes $n=1$,
+since every nonzero integer divides zero.
+\end{proof}
+
+An equivalent explicit remainder is useful for checking the
+obstruction. Writing $m=2\ell+1$ and $n=2k$, where $\ell\geq0$
+and $k\geq1$, gives
+\begin{equation}\label{remainder}
+ \frac{m n(n-1)}2
+ =2k\bigl((2\ell+1)k-\ell-1\bigr)+k
+ \equiv k\pmod{2k}.
+\end{equation}
+The remainder is strictly between zero and the modulus. No
+information about earlier sequence entries is required.
+
+\begin{corollary}\label{dichotomy}
+For each integer $m\geq2$, define the greedy triangular-divisor
+sequence with multiplier $m$ by the same rule. It is well defined.
+If $m$ is odd, all its fixed points are odd. If $m$ is even,
+then $a_m(n)=n$ for every $n\geq1$.
+\end{corollary}
+\begin{proof}
+For $n\geq2$, the positive numbers $q_m(n)$ strictly increase
+and $q_m(2)=m>1$. Every previous selected divisor is at most
+its corresponding $q_m(j)$, apart from the initial value $1$.
+Thus $q_m(n)$ itself has not been selected and is an available
+divisor. This proves existence at each step. The odd case follows
+from Theorem~\ref{main}. If $m$ is even, then
+$q_m(n)=n\bigl((m/2)(n-1)\bigr)$, so $n$ is an available divisor
+whenever the preceding values are $1,\ldots,n-1$.
+Every smaller positive integer has already been selected;
+therefore the greedy rule selects $n$. Induction starts at $a_m(1)=1$.
+\end{proof}
+
+\paragraph{Scope and attribution.}
+This resolves the original all-prime parity statement, without
+changing its indexing. The result does not say that odd indices
+are fixed points or that fixed points are prime. The source's
+Table 4 already records the identity sequence for multipliers
+$2,4,6$; Corollary~\ref{dichotomy} includes these observations.
+The later paper \cite{AA} proves a separate result on prime fixed
+points below $2p$, along with other assertions. Its results are
+credited, and are not used in the proof above.
+
+\section*{Task 2: dependence on odd composite multipliers}
+For odd composite $m$, determine when the complete greedy sequence
+$A(m)$ agrees with $A(p)$ for a prime divisor $p$ of $m$.
+The source reports agreement for $m=9$ and $p=3$.
+Establish a criterion or locate the first disagreement for other
+prime powers and products of distinct primes.
+
+\section*{Task 3: distribution of composite fixed points}
+For a fixed odd prime $p$, study
+\[
+ C_p(X)=\#\{n\leq X:n\text{ is composite and }a_p(n)=n\}.
+\]
+Determine whether this count has a natural density and obtain
+bounds that use the exclusion of even indices. The existence of
+composite fixed points is already documented in the sources;
+their distribution is the proposed question.
+
+\section*{Task 4: prime fixed points beyond the known range}
+Theorem 5.1 of \cite{AA} gives $a_p(\ell)=\ell$ for odd primes
+$\ell\ne p$ with $\ell<2p$. Determine which additional primes
+outside this range are fixed points. Seek a criterion involving
+the prior availability of divisors of $p\ell(\ell-1)/2$ and
+quantitative bounds on the exceptional primes.
+
+\section*{Task 5: other integer-valued input polynomials}
+Replace $mn(n-1)/2$ by another increasing integer-valued polynomial
+$Q(n)$ and choose the least unused positive divisor at each step.
+Classify the residue classes forbidden to fixed points by the
+necessary condition $n\mid Q(n)$. Then determine when these local
+obstructions account for all missing fixed-point classes.
+
+\paragraph{Verification and status.}
+The proof is elementary and does not depend on computation.
+The accompanying script checks the exact remainder identity,
+reproduces an independently recorded sequence, and checks finite
+prefixes for odd and even multipliers. The literature audit
+documents the current primary, the related 2022 paper, a bounded
+prior-claim search, and live MathDB checks. It is not an exhaustive
+novelty guarantee. Review was by the authoring agent only.
+
+\begin{thebibliography}{9}
+\bibitem{NO} E. Navarrete and D. Orellana,
+\emph{Finding Prime Numbers as Fixed Points of Sequences},
+arXiv:1907.10023v1 (2019), 9 pages.
+\href{https://arxiv.org/abs/1907.10023}{arXiv record}.
+\bibitem{AA} J. A. Julca Avila and G. Silva de Andrade,
+\emph{About the theorem that partially solves the
+Navarrete--Orellana Conjecture}, Notes on Number Theory and
+Discrete Mathematics \textbf{28}(2) (2022), 302--317.
+\href{https://doi.org/10.7546/nntdm.2022.28.2.302-317}{doi:10.7546/nntdm.2022.28.2.302-317}.
+\end{thebibliography}
+\end{document}

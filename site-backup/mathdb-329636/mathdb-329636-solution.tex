@@ -1,0 +1,176 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,hyperref}
+\newtheorem{lemma}{Lemma}
+\title{Counterexamples to both squared operator inequalities\newline in MathDB 329636}
+\author{Principia Math in Progress}
+\date{12 September 2026}
+\begin{document}
+\maketitle
+
+\section*{Task 1. Resolve the two proposed squared inequalities}
+For positive definite matrices, write
+$A\#B=A^{1/2}(A^{-1/2}BA^{-1/2})^{1/2}A^{1/2}$.
+Conjecture 2.16 of Moslehian and Fu \cite{MF} proposes that every unital
+positive linear map $\Phi$, with
+$m_1^2I\leq A\leq M_1^2I$ and $m_2^2I\leq B\leq M_2^2I$,
+satisfies both
+\begin{align}
+ (\Phi(A)\#\Phi(B))^2&\leq
+ \frac{(M_1M_2+m_1m_2)^2}{4M_1M_2m_1m_2}\,\Phi(A\#B)^2,
+ \label{PS}\\
+ \left(\frac{M_2m_2}{M_1m_1}\Phi(A)+\Phi(B)\right)^2
+ &\leq\left(\frac{M_2}{m_1}+\frac{m_2}{M_1}\right)^2\Phi(A\#B)^2.
+ \label{DM}
+\end{align}
+\textbf{Both assertions are false.} We give separate exact counterexamples.
+All inputs are positive definite and both maps are unital and completely positive.
+The order is the usual positive semidefinite order.
+
+\subsection*{A geometric-mean computation}
+\begin{lemma}
+Let $C>0$, $d>0$, $x\neq0$, and
+$P_\pm=\begin{pmatrix}C&\pm x\\\pm x^*&d\end{pmatrix}>0$.
+Put $t=x^*C^{-1}x$ and $\rho=\sqrt{1-t/d}$. Then
+\[
+ P_+\#P_-=\operatorname{diag}(Y,d\rho),\qquad
+ Y=C-\frac{1-\rho}{t}xx^*.
+\]
+\end{lemma}
+\begin{proof}
+Congruence by $T^{-1}=\operatorname{diag}(C^{-1/2},d^{-1/2})$
+gives matrices $W_\pm=\begin{pmatrix}I&\pm w\\\pm w^*&1\end{pmatrix}$,
+where $w=C^{-1/2}x/\sqrt d$. The Schur complement gives $0<\|w\|^2<1$.
+The two matrices commute, and their product is
+$\operatorname{diag}(I-ww^*,1-w^*w)$. Thus their geometric mean is
+\[
+ \operatorname{diag}\left(I-\frac{1-\rho}{\|w\|^2}ww^*,\rho\right).
+\]
+Congruence back by $T$ proves the formula. Congruence invariance follows
+directly from the characterization of $A\#B$ as the unique positive definite
+$X$ satisfying $XA^{-1}X=B$: conjugating this equation by any invertible
+matrix preserves the characterization. Uniqueness follows by taking the
+positive square root of $A^{-1/2}BA^{-1/2}$.
+\end{proof}
+
+\subsection*{Counterexample to the squared P\'olya--Szeg\H{o} assertion}
+Take $m_1=m_2=1$, $M_1=M_2=32$, and set
+\[
+ a=\frac{1025}{2},\quad b=\frac{1023}{2},\quad
+ A=\begin{pmatrix}a&0&b\\0&1&0\\b&0&a\end{pmatrix},\quad
+ B=\begin{pmatrix}a&0&-b\\0&1&0\\-b&0&a\end{pmatrix}.
+\]
+Both spectra are $\{1,1,1024\}$, so all spectral bounds hold.
+Let $U$ interchange the first two coordinates and fix the third, and define
+\[
+ \Phi(X)=\frac14 X+\frac34 UXU^*.
+\]
+This convex combination of unitary conjugations is unital and completely
+positive. Since $A$ and $B$ commute,
+\[
+ A\#B=\operatorname{diag}(32,1,32),\qquad
+ Q:=\Phi(A\#B)=\operatorname{diag}(35/4,97/4,32).
+\]
+The images $\Phi(A),\Phi(B)$ are the lemma's $P_+,P_-$ with
+\[
+ C=\frac18\operatorname{diag}(1031,3077),\qquad
+ x=\frac{1023}{8}\binom{1}{3},\qquad d=\frac{1025}{2}.
+\]
+Direct rational arithmetic gives
+\[
+ \rho^2=\frac{18968594}{3251696675},\qquad
+ Y=C-c\begin{pmatrix}1&3\\3&9\end{pmatrix},\qquad
+ c=\frac{3172387}{98848}(1-\rho).
+\]
+Comparing squares shows $7/100<\rho<8/100$. Consequently
+\[
+ 29<\frac{72964901}{2471200}<c
+ <\frac{295031991}{9884800}<30.
+\]
+For $z=(7,-1,0)^T$, the lemma therefore yields
+\[
+ \|(\Phi(A)\#\Phi(B))z\|^2
+ =\left(\frac{7217}{8}-4c\right)^2
+  +\left(\frac{3077}{8}+12c\right)^2
+ >782^2+732^2=1147348.
+\]
+But the proposed right side of \eqref{PS}, evaluated on $z$, equals
+\[
+ \left(\frac{1025}{64}\right)^2\|Qz\|^2
+ =\left(\frac{1025}{64}\right)^2
+   \left[\left(\frac{245}{4}\right)^2+
+         \left(\frac{97}{4}\right)^2\right]
+ =\frac{36474548125}{32768}<1147348.
+\]
+For a Hermitian matrix $H$, $z^*H^2z=\|Hz\|^2$.
+Thus the quadratic form of the proposed right side minus the left side
+is negative. This disproves \eqref{PS}.
+
+\newpage
+\subsection*{Counterexample to the squared Diaz--Metcalf assertion}
+Now use $A=\operatorname{diag}(1,9/4,4)$, $B=I_3$,
+$m_1=1$, $M_1=2$, and $m_2=M_2=1$. Define
+\[
+ V=\frac13\begin{pmatrix}2&1\\1&2\\2&-2\end{pmatrix},\qquad
+ \Psi(X)=V^*XV.
+\]
+Since $V^*V=I_2$, this is a unital completely positive map from
+$\mathbb M_3$ to $\mathbb M_2$. Put $R=\Psi(A\#B)$ and
+$S=\frac12\Psi(A)+I_2$. Exact multiplication gives
+\[
+ R=\begin{pmatrix}3/2&-1/3\\-1/3&5/3\end{pmatrix},\qquad
+ S=\begin{pmatrix}161/72&-19/36\\-19/36&22/9\end{pmatrix},
+\]
+and
+\[
+ D:=\frac94R^2-S^2
+ =\frac1{5184}\begin{pmatrix}175&494\\494&1276\end{pmatrix}.
+\]
+For $v=(3,-1)^T$,
+\[
+ v^*Dv=-\frac{113}{5184}<0
+ \qquad\left(\text{also }\det D=-\frac1{1296}\right).
+\]
+This is precisely the failure of \eqref{DM}. If a map on one matrix algebra
+is preferred, replace $\Psi$ by
+$\widehat\Psi(X)=\operatorname{diag}(V^*XV,X_{22})$ from
+$\mathbb M_3$ to itself. It is unital and completely positive, and the same
+negative quadratic form occurs on $(3,-1,0)^T$.
+
+Equality of the two bounds for $B$ is explicitly permitted in the conjecture.
+The failure also persists with distinct bounds: keep $B=I_3$, and take
+$M_2=10001/10000$, $m_2=10000/10001$. Their product remains one, and
+the new quadratic form is exactly
+\[
+ v^*\left[\left(M_2+\frac{m_2}{2}\right)^2R^2-S^2\right]v
+ =-\frac{55824935636320127}{3240648032400000000}<0.
+\]
+Hence both individual assertions in the source conjecture have been refuted.
+
+\section*{Task 2. Determine the optimal replacement constants}
+Find the smallest dimension-independent constants in \eqref{PS} and
+\eqref{DM} for each prescribed set of spectral bounds, and compare them
+with the weaker constants already established in the source.
+
+\section*{Task 3. Identify maps for which the proposed bounds survive}
+Characterize structural conditions on $\Phi$ and on the inputs that permit
+the two unsquared inequalities to be squared with their original constants.
+Include commutativity of the relevant images and multiplicativity of the map.
+
+\section*{Task 4. Determine the smallest counterexample dimensions}
+Decide whether the first assertion can fail for maps from $\mathbb M_2$
+to itself, and classify the minimal input and output dimensions required
+for each failure.
+
+\section*{Task 5. Study the corresponding weighted and power inequalities}
+Determine the valid exponents and sharp constants when the geometric mean
+is weighted or the outer square is replaced by a positive power.
+
+\begin{thebibliography}{9}
+\bibitem{MF} M. S. Moslehian and X. Fu,
+\emph{Squaring operator P\'olya--Szeg\H{o} and Diaz--Metcalf type inequalities},
+Linear Algebra Appl. 491 (2016), 73--82.
+\href{https://arxiv.org/abs/1501.02939}{arXiv:1501.02939v1},
+Conjecture 2.16, p. 9.
+\end{thebibliography}
+\end{document}

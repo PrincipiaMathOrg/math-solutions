@@ -1,0 +1,230 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,hyperref,enumitem}
+\hypersetup{colorlinks=true,urlcolor=blue,linkcolor=blue,citecolor=blue}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newcommand{\N}{\mathbb N}
+\newcommand{\Q}{\mathbb Q}
+\title{Almost all continued-fraction strings have\\ no nontrivial frequency symmetries}
+\author{Principia Math In Progress\\MathDB 371294}
+\date{18 September 2026}
+\begin{document}
+\maketitle
+\begin{abstract}
+For each fixed length $n\ge4$, at most $O_n(N^{n-1})$ strings with digits
+in $\{1,\ldots,N\}$ have a permutation, other than the string and its
+reverse, with the same Gauss--Kuzmin frequency. This proves Conjectures
+4 and 6 of Singh, Zhang, and Hildebrand, including the unordered,
+distinct-digit formulation in MathDB. The proof reconstructs the order
+of independent variables, up to reversal, from one homogeneous part
+of the characteristic polynomial.
+\end{abstract}
+
+\section*{Task 1: the full fixed-length theorem}
+For a string $a=(a_1,\ldots,a_n)$ of positive integers, let $P_{\rm GK}(a)$
+be the Gauss--Kuzmin measure of its continued-fraction cylinder.
+A symmetry is nontrivial if it gives a permuted string different from
+both $a$ and its reverse. Let $E_n(N)$ count such strings in
+$\{1,\ldots,N\}^n$, allowing repeated digits. Let $f(N,n)$ count
+$n$-element subsets of $\{1,\ldots,N\}$ having at least one ordering
+with a nontrivial symmetry, and put
+$\delta(N,n)=f(N,n)/\binom Nn$ for $N\ge n$.
+
+\begin{theorem}\label{thm:main}
+For every fixed integer $n\ge4$ and every positive integer $N$,
+\[
+ E_n(N)\le (n!-2)(2n-1)N^{n-1}.
+\]
+Consequently, for $N\ge n$,
+\[
+ \delta(N,n)\le
+ \frac{(n!-2)(2n-1)N^{n-1}}{\binom Nn}
+ =O_n(N^{-1})\longrightarrow0.
+\]
+\end{theorem}
+The second conclusion is the exact MathDB assertion and
+\cite[Conjecture 6, p.~29]{SZH}. The first also proves the
+source's original formulation, Conjecture 4 on p.~7.
+
+\subsection*{1. The known characteristic polynomial}
+Define the continuant by
+\[
+ K()=1,\qquad K(x_1)=x_1,\qquad
+ K(x_1,\ldots,x_m)=x_mK(x_1,\ldots,x_{m-1})
+                         +K(x_1,\ldots,x_{m-2})\quad(m\ge2).
+\]
+For a string of length $n\ge3$, write
+\[
+ \begin{gathered}
+ Q=K(x_1,\ldots,x_n),\quad
+ U=K(x_1,\ldots,x_{n-1}),\quad V=K(x_2,\ldots,x_n),\\
+ \chi(x_1,\ldots,x_n)=(Q+U)(Q+V).
+ \end{gathered}
+\]
+This is the characteristic number of \cite[Definition 5.1]{SZH},
+regarded as a polynomial in independent variables.
+Indeed, if $p/q=[0;a_1,\ldots,a_n]$ and $p'/q'$ is the previous
+convergent, the matrix identity
+\[
+ \prod_{j=1}^n
+ \begin{pmatrix}0&1\\1&a_j\end{pmatrix}
+ =
+ \begin{pmatrix}p'&p\\q'&q\end{pmatrix}
+\]
+gives $q=Q(a)$, $q'=U(a)$, and $p=V(a)$.
+The cylinder endpoints are $p/q$ and $(p+p')/(q+q')$.
+Integrating $1/((1+x)\log2)$ between them gives the established formula
+\cite[Lemma 2.5]{SZH}
+\begin{equation}\label{eq:measure}
+ P_{\rm GK}(a)=
+ \left|\log_2\left(1+\frac{(-1)^n}{\chi(a)}\right)\right|.
+\end{equation}
+Here $\chi(a)>1$. For each fixed parity the expression on the right
+is a strictly decreasing function of $\chi(a)$, so
+\begin{equation}\label{eq:equivalence}
+ P_{\rm GK}(\sigma(a))=P_{\rm GK}(a)
+ \quad\Longleftrightarrow\quad
+ \chi(\sigma(a))=\chi(a).
+\end{equation}
+This equivalence is \cite[Lemma 5.2]{SZH}; it is not a new claim here.
+
+\subsection*{2. Recovering the order from high-degree terms}
+Let $M=x_1\cdots x_n$. If $[F]_d$ denotes the homogeneous part of
+total degree $d$, the continuant recurrence gives
+\begin{equation}\label{eq:continuantparts}
+ [Q]_n=M,\qquad [Q]_{n-1}=0,\qquad
+ [Q]_{n-2}=\sum_{i=1}^{n-1}\frac{M}{x_ix_{i+1}}.
+\end{equation}
+To see the last formula by induction, the first term of the recurrence
+extends each adjacent pair in the first $n-1$ positions; the second
+term supplies the last pair $\{n-1,n\}$.
+More generally, all degrees occurring in a length-$m$ continuant
+have the same parity as $m$. Also
+$[U]_{n-1}=M/x_n$ and $[V]_{n-1}=M/x_1$.
+Expand $\chi=Q^2+Q(U+V)+UV$. The middle term has no part of degree
+$2n-2$, by the parity observation. Thus
+\begin{equation}\label{eq:key}
+ [\chi]_{2n-2}
+ =2\sum_{i=1}^{n-1}\frac{M^2}{x_ix_{i+1}}
+       +\frac{M^2}{x_1x_n}.
+\end{equation}
+Every displayed quotient is a monomial with nonnegative exponents.
+For $n\ge3$, the endpoint pair $\{1,n\}$ is different from all
+adjacent pairs. Therefore the coefficient of $M^2/(x_ix_j)$, $i<j$,
+is $2$ exactly when the two labels are adjacent in the ordering,
+$1$ for its endpoint pair, and $0$ otherwise.
+
+\begin{lemma}\label{lem:permutations}
+For independent variables and $n\ge3$, the polynomial identity
+\[
+ \chi(x_{\sigma(1)},\ldots,x_{\sigma(n)})
+       =\chi(x_1,\ldots,x_n)
+\]
+holds only when $\sigma$ is the identity or the reversal.
+\end{lemma}
+\begin{proof}
+By \eqref{eq:key}, polynomial equality forces the two orderings to
+have exactly the same unordered adjacent pairs. These pairs are the
+edges of a path on the $n$ distinct variable labels. Such a path has
+exactly two traversals visiting its vertices in order: start at one
+endpoint or at the other. The two orderings are consequently equal
+or reversed. Conversely, reversal preserves $\chi$, either by
+transposing the displayed matrix product or by continuant reversal
+symmetry.
+\end{proof}
+In particular, for every other permutation,
+\[
+ F_\sigma(x)=\chi(x_{\sigma(1)},\ldots,x_{\sigma(n)})-\chi(x_1,\ldots,x_n)
+\]
+is a nonzero polynomial. Its degree is at most $2n-1$, since the
+leading term $[\chi]_{2n}=M^2$ cancels.
+
+\subsection*{3. Counting integer zeros}
+We include the elementary polynomial grid bound to make the counting
+step self-contained.
+\begin{lemma}\label{lem:grid}
+A nonzero polynomial in $m$ variables over $\Q$ of total degree at
+most $d$ has at most $dN^{m-1}$ zeros in $\{1,\ldots,N\}^m$.
+\end{lemma}
+\begin{proof}
+For one variable this is the usual root bound.
+For $m>1$, write
+\[
+ F=\sum_{j=0}^r F_j(x_1,\ldots,x_{m-1})x_m^j,\qquad F_r\ne0.
+\]
+The total degree of $F_r$ is at most $d-r$.
+By induction, $F_r$ vanishes at at most $(d-r)N^{m-2}$ points of
+the first $m-1$ coordinates. Over these points allow all $N$ values
+of $x_m$; over every other point there are at most $r$ roots.
+The total is at most
+\[
+ (d-r)N^{m-1}+rN^{m-1}=dN^{m-1}.
+\]
+Nonzero constants contribute no zeros, as required for the degree-zero
+case.
+\end{proof}
+
+\begin{proof}[Proof of Theorem \ref{thm:main}]
+If $a$ has a nontrivial symmetry, some index permutation $\sigma$
+other than the identity and reversal satisfies $F_\sigma(a)=0$,
+by \eqref{eq:equivalence}. Lemmas \ref{lem:permutations} and
+\ref{lem:grid}, followed by a union bound over the $n!-2$ choices,
+give
+\[
+ E_n(N)\le\sum_{\sigma\ne{\rm id},{\rm rev}}
+             \#\{a\in\{1,\ldots,N\}^n:F_\sigma(a)=0\}
+       \le(n!-2)(2n-1)N^{n-1}.
+\]
+Repeated digits cause no problem: the zero sets may count extra
+tuples giving trivial string equalities, which only enlarges this
+upper bound.
+Each subset counted by $f(N,n)$ has at least one ordered witness
+counted by $E_n(N)$, and different subsets have disjoint witnesses.
+Hence $f(N,n)\le E_n(N)$.
+Finally $\binom Nn\sim N^n/n!$ for fixed $n$, proving the result.
+\end{proof}
+
+\paragraph{Scope.}
+The proof covers every fixed length and the source's intended
+symmetry condition. It does not establish the stronger length-four
+prediction $\log f(N,4)/\log N\to1$ in Conjecture 5(ii)
+(MathDB 371295). That claim receives no solution credit.
+
+\section*{Four proposed follow-up tasks}
+\begin{enumerate}[label=\textbf{Task \arabic*:},start=2,leftmargin=*]
+\item Prove or refute the sharper estimate $f(N,4)=N^{1+o(1)}$.
+The present general argument gives only $f(N,4)=O(N^3)$.
+\item Classify the positive integer solutions with four distinct
+coordinates of $\chi(\sigma(a))=\chi(a)$, modulo permutation and
+reversal, and determine whether finitely many parameterized families
+account for all such solutions.
+\item Determine the sharp growth exponents of $f(N,n)$ for each
+fixed $n\ge5$, and identify which permutation equations contribute
+the largest families of positive integer points.
+\item Determine growth rates $n=n(N)\to\infty$ for which
+$\delta(N,n(N))\to0$. Improve the factorial dependence in the
+union bound by exploiting overlap and symmetry among the equations.
+\end{enumerate}
+
+\paragraph{Attribution and validation.}
+The characteristic number, frequency equivalence, and reversal
+symmetry are credited to \cite{SZH} and the classical sources cited
+there. The contribution is the reconstruction in \eqref{eq:key}
+and its use to prove the all-length zero-density assertion.
+Exact computations check the polynomial identities, finite permutation
+orbits, and the source's numerical counts. They supplement the
+general proof rather than prove it by finite enumeration.
+This manuscript has not received independent mathematical review.
+The separate audits document the source and bounded prior-claim checks.
+
+\begin{thebibliography}{1}
+\bibitem{SZH} Shreyas Singh, Zhuo Zhang, and AJ Hildebrand,
+\emph{An elementary characterization of the Gauss--Kuzmin measure
+in the theory of continued fractions}, Integers \textbf{25} (2025),
+Article A89, 32 pp., published 17 September 2025.
+\href{https://math.colgate.edu/~integers/z89/z89.pdf}{Final published article};
+DOI \href{https://doi.org/10.5281/zenodo.17144494}{10.5281/zenodo.17144494}.
+See Lemmas 2.5 and 5.2, and Conjectures 4 and 6.
+\end{thebibliography}
+\end{document}

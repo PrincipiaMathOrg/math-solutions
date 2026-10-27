@@ -1,0 +1,258 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[hidelinks]{hyperref}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\title{An exact counterexample to the generalized Lambert inverse-radius formula}
+\author{Principia Math In Progress}
+\date{18 September 2026}
+\begin{document}
+\maketitle
+\begin{abstract}
+For \(f(z)=z\sqrt{1+z}\,e^z\), the inverse germ at zero has Taylor
+radius \(1/(2\sqrt{2e})\). The two values permitted by Castle's
+Conjecture 1.2 are instead \(1/(2\sqrt2\,e)\) and \(2/e\).
+All integer phase choices have modulus one, so none repairs the
+discrepancy. We also prove an exact radius theorem for arbitrary
+positive real powers of factors with negative real roots.
+\end{abstract}
+
+\section*{Task 1: the original conjecture}
+Let
+\[
+ f(z)=z\prod_{j=1}^m(z-t_j)^{p_j}e^z,\qquad
+ t_j,p_j\in\mathbb C\setminus\{0\}.
+\]
+Use the primary source's specified branches near zero, where the
+inverse germ exists whenever these branches are analytic.
+Conjecture 1.2 of \cite[p.~3]{Castle}, reproduced by MathDB 338324,
+asserts that the Taylor radius of this inverse equals
+\begin{equation}\label{claim}
+ \left|
+ e^{\,2\pi i\sum_j l_j\phi_j-1}
+ \left(1-\sum_j\phi_j\right)^{1-\sum_j\phi_j}
+ \prod_j
+ \left(\frac{t_j}{p_j+\phi_j}\right)^{p_j+\phi_j}
+ p_j^{p_j}\phi_j^{\phi_j}
+ \right|
+\end{equation}
+for some integers \(l_j\) and some solution \(\phi\) of
+\begin{equation}\label{saddles}
+ \left(1-\sum_j\phi_j\right)(p_i+\phi_i)+t_i\phi_i=0
+ \quad(1\le i\le m).
+\end{equation}
+The exponential in \eqref{claim} is copied from the primary
+preprint, including its real term \(-1\).
+
+\begin{theorem}\label{counter}
+Take \(m=1,\ t_1=-1,\ p_1=1/2\), and the square root that equals
+one at \(z=0\). For
+\[
+ f(z)=z\sqrt{1+z}\,e^z
+\]
+the inverse germ \(g(0)=0\) has Taylor radius
+\[
+ R=\frac{e^{-1/2}}{2\sqrt2}.
+\]
+All choices in \eqref{claim} give one of the two different values
+\[
+ R_+=\frac{e^{-1}}{2\sqrt2},\qquad R_-=\frac2e.
+\]
+Thus Conjecture 1.2 is false.
+\end{theorem}
+
+\subsection*{Exact location of the radius}
+We first prove a general elementary statement that excludes
+unseen complex singularities closer to the origin.
+
+\begin{lemma}\label{positive}
+Let \(m\ge1\), \(a_j>0\), \(p_j>0\), and
+\[
+ f(z)=ze^z\prod_{j=1}^m(a_j+z)^{p_j},
+\]
+with the powers positive at zero. There is a unique
+\(\tau\in(0,\min_j a_j)\) satisfying
+\begin{equation}\label{tau}
+ 1-\tau-\sum_{j=1}^m\frac{p_j\tau}{a_j-\tau}=0.
+\end{equation}
+It also satisfies \(\tau<1\). The inverse germ of \(f\) at zero
+has Taylor radius
+\begin{equation}\label{radius}
+ \rho=\tau e^{-\tau}\prod_{j=1}^m(a_j-\tau)^{p_j}.
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+Put \(a=\min_j a_j\) and, for \(|u|<a\), define
+\[
+ \Phi(u)=e^u\prod_j(a_j-u)^{-p_j},\qquad
+ F(u)=\frac{u}{\Phi(u)}=-f(-u).
+\]
+Every Taylor coefficient of \(\Phi\) is positive. This follows by
+multiplying \(e^u\) and the binomial expansions
+\[
+ (a_j-u)^{-p_j}
+   =a_j^{-p_j}\sum_{k\ge0}\frac{(p_j)_k}{k!}
+                       \left(\frac{u}{a_j}\right)^k.
+\]
+The function
+\[
+ L(u)=1-u-\sum_j\frac{p_ju}{a_j-u}
+\]
+strictly decreases on \((0,a)\), from \(1\) to \(-\infty\), because
+\[
+ L'(u)=-1-\sum_j\frac{p_ja_j}{(a_j-u)^2}<0.
+\]
+This gives the unique root \(\tau\). If \(a>1\), then \(L(1)<0\);
+otherwise \(\tau<a\le1\). Hence always \(\tau<1\).
+Since \(F'(u)=F(u)L(u)/u\), the function \(F\) increases strictly
+from \(0\) to \(F(\tau)=\rho\) on \([0,\tau]\), with \(F'(\tau)=0\).
+
+Let \(h(w)=-g(-w)\) be its inverse germ. Lagrange inversion gives
+\begin{equation}\label{lagrange}
+ h(w)=\sum_{n\ge1}c_nw^n,\qquad
+ c_n=\frac1n[u^{n-1}]\Phi(u)^n>0.
+\end{equation}
+This formula also follows directly by changing variables \(w=F(u)\)
+in the coefficient residue integral and integrating by parts.
+For any \(0<r<a\), positivity of coefficients gives
+\[
+ c_n r^{n-1}\le\frac{\Phi(r)^n}{n},
+ \qquad c_n\le\frac{r}{nF(r)^n}.
+\]
+In particular, taking \(r=\tau\) proves convergence for every
+\(|w|<\rho\). Thus the radius is at least \(\rho\).
+
+For real \(0\le w<\rho\), the series agrees with the increasing
+real inverse of \(F\) on \([0,\tau)\): both agree near zero and
+continue uniquely along this interval since \(F'>0\) there.
+Consequently \(h(w)\to\tau\) as \(w\uparrow\rho\).
+If the Taylor radius exceeded \(\rho\), then \(h\) would be
+analytic at \(\rho\), with \(h(\rho)=\tau\). The identity
+\(F(h(w))=w\) would then imply
+\[
+ F'(\tau)h'(\rho)=1,
+\]
+which is impossible. The radius is therefore exactly \(\rho\).
+Reflection of the variable and value preserves the Taylor radius,
+so \(g\) has this same radius.
+\end{proof}
+
+\subsection*{Evaluation of every conjectured choice}
+In Theorem~\ref{counter}, equation \eqref{tau} is
+\[
+ 1-\tau-\frac{\tau}{2(1-\tau)}=0.
+\]
+Its unique root in \((0,1)\) is \(\tau=1/2\).
+Lemma~\ref{positive} therefore gives
+\[
+ R=F(1/2)=\frac12\sqrt{\frac12}\,e^{-1/2}.
+\]
+This is a radius for the entire complex Taylor disk, not just an
+endpoint of real continuation.
+
+On the other hand, the source saddle equation \eqref{saddles} becomes
+\[
+ (1-\phi)(1/2+\phi)-\phi=0
+ \quad\Longleftrightarrow\quad
+ (2\phi-1)(\phi+1)=0.
+\]
+Hence \(\phi=1/2\) or \(\phi=-1\); there are no further candidates.
+Both are real, so \(|e^{2\pi i l\phi}|=1\) for every integer \(l\).
+Substituting them into the remaining factors of \eqref{claim} gives
+\begin{align*}
+ \phi=\tfrac12:\quad
+ R_+&=e^{-1}
+ \left|(\tfrac12)^{1/2}(-1)^1
+             (\tfrac12)^{1/2}(\tfrac12)^{1/2}\right|
+       =\frac{e^{-1}}{2\sqrt2},\\
+ \phi=-1:\quad
+ R_-&=e^{-1}
+ \left|2^2\,2^{-1/2}(\tfrac12)^{1/2}(-1)^{-1}\right|
+       =\frac2e.
+\end{align*}
+The powers here are all defined, and changing any logarithm branch
+does not affect their moduli because their exponents are real.
+Finally \(R/R_+=e^{1/2}>1\), while
+\[
+ R<\frac12<\frac2e=R_-
+\]
+since \(1<e<3<4\). Neither saddle works for any integer phase.
+This proves Theorem~\ref{counter}. \qed
+
+\subsection*{The missing factor on the positive real class}
+The broader lemma also clarifies the discrepancy. For its parameters,
+put \(t_j=-a_j\) and
+\[
+ \phi_j=\frac{p_j\tau}{a_j-\tau}>0,\qquad
+ \sum_j\phi_j=1-\tau.
+\]
+These numbers solve \eqref{saddles}. Taking absolute values in
+\eqref{claim}, all integer phase factors disappear, and
+\[
+ \left|
+ (1-\textstyle\sum_j\phi_j)^{1-\sum_j\phi_j}
+ \prod_j
+ \left(\frac{t_j}{p_j+\phi_j}\right)^{p_j+\phi_j}
+ p_j^{p_j}\phi_j^{\phi_j}
+ \right|
+ =\tau\prod_j(a_j-\tau)^{p_j}.
+\]
+Indeed \(p_j+\phi_j=p_ja_j/(a_j-\tau)\) and
+\((a_j-\tau)\phi_j/p_j=\tau\), so the powers of \(\tau\)
+sum to \(\tau+\sum_j\phi_j=1\).
+The correct positive-class value uses \(e^{-\tau}\), whereas the
+printed conjecture uses \(e^{-1}\). Its ratio to the true value
+is \(e^{\tau-1}\). Replacing the exponential by
+\(e^{\sum_j\phi_j-1}\) repairs this particular real saddle.
+No assertion about the repaired formula for arbitrary complex
+parameters is made.
+
+This counterexample satisfies the primary source's hypotheses,
+uses a regular inverse germ with \(f'(0)=1\), and tests every
+allowed saddle and integer phase. It is not based on a database
+transcription or on a singular choice of input parameters.
+
+\section*{Task 2: the corrected complex-parameter conjecture}
+Insert the factor \(e^{\sum_j\phi_j}\) into the proposed expression.
+Determine whether a critical-value selection rule and logarithm
+branches give the inverse radius for arbitrary complex \(p_j,t_j\),
+or construct a counterexample to that revised assertion.
+
+\section*{Task 3: coefficient asymptotics in the positive class}
+For Lemma~\ref{positive}, establish the dominant square-root expansion
+at \(\rho\), determine whether any other point on \(|w|=\rho\)
+is singular, and derive an explicit leading asymptotic for \(c_n\)
+with a controlled remainder.
+
+\section*{Task 4: sensitivity of the exact radius}
+Differentiate the implicit equation for \(\tau\) and formula
+\eqref{radius} with respect to each \(a_j,p_j\). Determine sharp
+monotonicity and convexity properties, including the limits as
+one exponent tends to zero or a negative root approaches zero.
+
+\section*{Task 5: a certified critical-value algorithm}
+For rational positive \(a_j,p_j\), construct an interval algorithm
+that isolates the unique \(\tau\), encloses \(\rho\) to prescribed
+accuracy, and gives a rigorous tail bound for the inverse Taylor
+series throughout \(|w|\le r<\rho\).
+
+\begin{thebibliography}{9}
+\bibitem{Castle}
+P. Castle, \emph{Taylor series for generalized Lambert W functions},
+arXiv:1801.09904v1 (2018), 15 pp.; Conjecture 1.2 on p.~3
+and its heuristic discussion in Section 6.
+\url{https://arxiv.org/abs/1801.09904v1}.
+\bibitem{Neto}
+A. Francisco Neto,
+\emph{New approach to the Lagrange--B\"urmann theorem via omega
+calculus and applications},
+Electron. J. Differential Equations \textbf{2025}, no.~90, 1--32.
+\url{https://doi.org/10.58997/ejde.2025.90}.
+Related literature: its Section 7 uses finite polynomial/rational
+factors, and its Section 8 addresses the different questions of
+Mez\H{o}--Baricz. It does not state a resolution of Castle's
+arbitrary-power conjecture.
+\end{thebibliography}
+\end{document}

@@ -1,0 +1,247 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[hidelinks]{hyperref}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\title{Nonsingularity of the periodic random-walk system\\
+\large A solution to MathDB 357004}
+\author{Principia Math In Progress}
+\date{18 September 2026}
+\begin{document}
+\maketitle
+\begin{abstract}
+We prove the nonsingularity conjecture of Gerv\'e and Grigutis for
+every positive integer premium and every number of seasons, under
+the source's net profit, positive zero-mass, and simple-root assumptions.
+A null vector would produce generating functions continuous on the
+closed unit disk. Their coefficients tend to zero and satisfy a
+positive recurrence. An elementary maximum principle then forces
+the null vector to vanish. Roots on the unit circle are included.
+\end{abstract}
+
+\section*{Task 1: the original problem and its full solution}
+Let $X_1,\ldots,X_N$ be independent, nonnegative integer-valued
+random variables, and let $\kappa,N\geq1$. We retain the net profit
+condition used to construct system (16) in \cite{GG}:
+\begin{equation}\label{eq:assumptions}
+ \mu=\sum_{j=1}^N\mathbb E X_j<\kappa N,\qquad
+ \mathbb P(X_1+\cdots+X_N=0)>0.
+\end{equation}
+Write $G_X(z)=\mathbb E z^X$. The source proves that
+$G_{X_1+\cdots+X_N}(z)-z^{\kappa N}$ has exactly $\kappa N-1$
+zeros other than $1$ in the closed unit disk, counted with
+multiplicity \cite[Lemma 4]{GG}. In Conjecture 1 these zeros
+$\alpha_1,\ldots,\alpha_{\kappa N-1}$ are assumed simple.
+The conjecture states that the coefficient matrix of system (16)
+is nonsingular.
+
+We specify that matrix without its large block display. This also
+fixes all cyclic indices. Set
+\[
+ Y_1=X_N,\quad Y_j=X_{j-1}\ (2\leq j\leq N),\qquad
+ g_j(z)=G_{Y_j}(z),\quad p_{j,r}=\mathbb P(Y_j=r),
+\]
+and $F_j(r)=\sum_{q=0}^r p_{j,q}$. In particular $p_{j,0}>0$,
+by independence and \eqref{eq:assumptions}. For a vector
+$v=(v_{j,i})_{1\leq j\leq N,\ 0\leq i<\kappa}$, define
+\begin{equation}\label{eq:B}
+ B_j(z)=\sum_{i=0}^{\kappa-1}v_{j,i}
+                 \sum_{r=i}^{\kappa-1}z^r F_j(r-i).
+\end{equation}
+The first $\kappa N-1$ rows of the source matrix $A$ act by
+\begin{equation}\label{eq:row}
+ (Av)_\ell=\sum_{j=1}^N
+ \frac{\prod_{r=1}^{j-1}g_r(\alpha_\ell)}
+      {\alpha_\ell^{\kappa(j-1)}}B_j(\alpha_\ell),
+ \qquad 1\leq\ell<\kappa N.
+\end{equation}
+Its final row acts by
+\begin{equation}\label{eq:last}
+ (Av)_{\kappa N}=\sum_{j=1}^N B_j(1).
+\end{equation}
+Indeed,
+$\sum_{r=i}^{\kappa-1}F_j(r-i)
+=\sum_{q=0}^{\kappa-1-i}p_{j,q}(\kappa-i-q)$,
+which is exactly the final row printed in system (16).
+Equations \eqref{eq:row} and \eqref{eq:last} are respectively the
+homogeneous forms of source equations (13) and (11).
+
+\begin{theorem}\label{thm:main}
+Under \eqref{eq:assumptions} and the simple-root hypothesis above,
+the $\kappa N$ by $\kappa N$ matrix $A$ is nonsingular.
+\end{theorem}
+
+\subsection*{Two elementary uniqueness facts}
+\begin{lemma}\label{lem:coefficients}
+If $C$ is holomorphic in the open unit disk and continuous on its
+closure, its Taylor coefficients $h(n)=[z^n]C(z)$ tend to zero.
+\end{lemma}
+\begin{proof}
+Put $M=\max_{|z|\leq1}|C(z)|$. Cauchy's estimate gives $|h(n)|\leq M$.
+Uniform continuity implies
+$\varepsilon_\rho=\max_{|z|\leq1}|C(z)-C(\rho z)|\to0$ as
+$\rho\to1^-$. Again by Cauchy's estimate,
+$|(1-\rho^n)h(n)|\leq\varepsilon_\rho$, so
+$|h(n)|\leq M\rho^n+\varepsilon_\rho$.
+First let $n\to\infty$, then $\rho\to1^-$.
+\end{proof}
+
+\begin{lemma}\label{lem:maximum}
+Let $h_1,\ldots,h_N$ be complex sequences on the nonnegative
+integers, each tending to zero. Extend the indices periodically,
+so $h_0=h_N$. Suppose $p_{j,r}\geq0$,
+$\sum_{r\geq0}p_{j,r}=1$, $p_{j,0}>0$, and
+\begin{equation}\label{eq:harmonic}
+ h_{j-1}(u)=\sum_{r=0}^{u+\kappa}
+                 p_{j,r}h_j(u+\kappa-r),\qquad u\geq0.
+\end{equation}
+Then all the sequences vanish identically.
+\end{lemma}
+\begin{proof}
+If not, their common supremum in modulus is a positive number $M$.
+It is attained at some $(j-1,u)$, since there are finitely many
+sequences and each tends to zero. Taking absolute values in
+\eqref{eq:harmonic} bounds the right-hand side by $M$.
+Because $p_{j,0}>0$, equality is possible only if
+$|h_j(u+\kappa)|=M$: otherwise that positive-weight term makes
+the bound strictly smaller than $M$. Repeating this argument
+propagates the modulus $M$ to arguments $u+q\kappa$ for every
+$q\geq0$, contradicting convergence to zero.
+\end{proof}
+
+\subsection*{From a null vector to a decaying recurrence}
+\begin{proof}[Proof of Theorem \ref{thm:main}]
+Suppose $Av=0$, and form \eqref{eq:B}. Put
+\[
+ K(z)=\prod_{r=1}^N g_r(z)-z^{\kappa N}.
+\]
+Extend $g_j,B_j$ periodically in $j$, and, for $1\leq j\leq N$, set
+\begin{equation}\label{eq:H}
+ H_j(z)=\sum_{\ell=1}^N z^{\kappa(N-\ell)}
+           \left(\prod_{r=1}^{\ell-1}g_{j+r}(z)\right)B_{j+\ell}(z).
+\end{equation}
+Direct cancellation of consecutive terms gives the algebraic identity
+\begin{equation}\label{eq:cyclic}
+ g_jH_j-z^\kappa H_{j-1}=K B_j,\qquad H_0=H_N.
+\end{equation}
+For $N=1$ this reads $(g_1-z^\kappa)B_1=KB_1$, so the
+one-season case is included.
+
+In particular
+\[
+ H_N(z)=\sum_{j=1}^N z^{\kappa(N-j)}
+                  \left(\prod_{r=1}^{j-1}g_r(z)\right)B_j(z).
+\]
+The root equations \eqref{eq:row} imply $H_N(\alpha_\ell)=0$.
+No $\alpha_\ell$ is zero, since $K(0)=\prod_jp_{j,0}>0$.
+At any such root, \eqref{eq:cyclic} propagates the vanishing
+backwards from $H_N$ to every $H_j$. At $1$ we have
+\[
+ H_j(1)=\sum_{r=1}^N B_r(1)=0
+\]
+by \eqref{eq:last}. Thus every $H_j$ vanishes at every zero
+of $K$ in the closed unit disk.
+
+Define $C_j=H_j/K$ away from these zeros. The interior
+singularities are removable by the simple-root hypothesis.
+We check the boundary carefully: finite mean in
+\eqref{eq:assumptions} implies that each $g_j$ and $g_j'$
+extends continuously to the closed disk, by absolute uniform
+convergence of the derivative series. The same holds for $H_j,K$
+and their first derivatives. Also $K'(1)=\mu-\kappa N<0$.
+More generally, if $|\alpha|=1$ and $K(\alpha)=0$, equality in
+the triangle inequality for the probability generating function
+of $S=\sum_jY_j$, together with $\mathbb P(S=0)>0$, gives
+\[
+ \alpha^s=1\ \text{whenever }\mathbb P(S=s)>0,\qquad
+ \alpha^{\kappa N}=1.
+\]
+Consequently
+\begin{equation}\label{eq:boundary}
+ K'(\alpha)=\alpha^{-1}(\mu-\kappa N)\ne0.
+\end{equation}
+For any function $f$ here vanishing at $\alpha$, integration
+along the segment from $\alpha$ to $z$ gives
+$f(z)/(z-\alpha)\to f'(\alpha)$ as $z\to\alpha$ within the
+closed disk. Applying this to $H_j$ and $K$ proves that
+$C_j$ extends continuously at every boundary root.
+Hence $C_j$ is holomorphic in the disk and continuous on its closure.
+Lemma \ref{lem:coefficients} implies
+\[
+ h_j(n):=[z^n]C_j(z)\longrightarrow0.
+\]
+
+Dividing \eqref{eq:cyclic} by $K$ and then continuing through
+its removable zeros gives
+\begin{equation}\label{eq:C}
+ g_j(z)C_j(z)-z^\kappa C_{j-1}(z)=B_j(z).
+\end{equation}
+Since $\deg B_j<\kappa$, comparison of the coefficient of
+$z^{u+\kappa}$ in \eqref{eq:C} gives exactly
+\eqref{eq:harmonic}. Lemma \ref{lem:maximum} forces all
+$h_j(n)$, hence all $C_j$ and all $B_j$, to vanish.
+Finally the map from $(v_{j,0},\ldots,v_{j,\kappa-1})$ to
+the coefficients of $B_j$ is triangular, with diagonal
+$F_j(0)=p_{j,0}>0$. Therefore every $v_{j,i}=0$.
+The square matrix $A$ has trivial kernel and is nonsingular.
+\end{proof}
+
+\paragraph{The explicitly stated three-season inequality.}
+For $\kappa=1,N=3$, put
+$u_\ell=G_{X_3}(\alpha_\ell)/\alpha_\ell$ and
+$v_\ell=G_{X_3+X_1}(\alpha_\ell)/\alpha_\ell^2$.
+Factoring the positive zero-masses from the three columns of
+the source matrix (26), then subtracting its final row from
+the first two, gives
+\[
+ \det A=
+ \mathbb P(X_1=0)\mathbb P(X_2=0)\mathbb P(X_3=0)
+ \bigl((u_1-1)(v_2-1)-(u_2-1)(v_1-1)\bigr).
+\]
+Theorem \ref{thm:main} makes this nonzero, which is precisely
+the additional inequality requested in the conjecture.
+
+\section*{Tasks 2--5: proposed follow-up directions}
+These are further questions, not additional solved claims.
+\begin{description}
+\item[Task 2.] Remove the simple-root restriction by determining
+the exact nonsingularity statement for the source's confluent
+matrix, whose repeated root rows are replaced by derivative rows.
+\item[Task 3.] When some $\mathbb P(X_j=0)$ vanish, characterize
+which columns and root constraints must be removed to obtain a
+square nonsingular system, including seasons whose minimum claim
+exceeds $\kappa$.
+\item[Task 4.] Find quantitative bounds for the smallest singular
+value of the row-normalized system matrix in terms of the net
+profit margin, zero-masses, root separation, and a specified
+uniform moment bound.
+\item[Task 5.] Generalize the argument to claim distributions
+modulated by a finite-state Markov chain, giving explicit
+irreducibility and boundary conditions that guarantee uniqueness
+of the corresponding generating-function system.
+\end{description}
+
+\paragraph{Verification and status.}
+The accompanying exact checks cover the cyclic numerator identities,
+the matrix's normalization row, finite Taylor coefficient recurrences,
+and boundary-root identities. They supplement the analytic proof
+for arbitrary distributions. The published 35-page primary was read
+in full; Conjecture 1 remains on printed page 335. The earlier
+32-page arXiv source was checked at its definition and target
+passages, not read in full. The dated literature audit records
+bounded prior-claim checks. Verification is by the authoring agent
+only, without independent peer review.
+
+\begin{thebibliography}{9}
+\raggedright
+\bibitem{GG} S. Gerv\'e and A. Grigutis,
+\emph{Distribution of shifted discrete random walk generated by
+distinct random variables and applications in ruin theory},
+Modern Stochastics: Theory and Applications \textbf{11}(3) (2024),
+323--357.
+\href{https://doi.org/10.15559/24-VMSTA249}{doi:10.15559/24-VMSTA249}.
+Earlier version:
+\href{https://arxiv.org/abs/2211.14629}{arXiv:2211.14629v1} (2022).
+\end{thebibliography}
+\end{document}

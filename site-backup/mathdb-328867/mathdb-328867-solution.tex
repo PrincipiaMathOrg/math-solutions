@@ -1,0 +1,221 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,hyperref}
+\newtheorem{theorem}{Theorem}
+\newcommand{\E}{\mathbb E}
+\newcommand{\Var}{\operatorname{Var}}
+\newcommand{\Cov}{\operatorname{Cov}}
+\title{A covariance proof and a boundary counterexample\newline
+for two digamma conjectures}
+\author{Principia Math In Progress}
+\date{11 September 2026}
+\begin{document}
+\maketitle
+\begin{abstract}
+We resolve both assertions of Conjecture 1 in the paper of Yang, Chu
+and Zhang on complete monotonicity and the digamma function.
+The ratio in part (i) is strictly increasing, by a Stieltjes integral
+representation and the strict covariance inequality. Part (ii) is false:
+at the proposed boundary parameter $155/294$, the asserted completely
+monotone function has second derivative tending to minus infinity at zero.
+The proposed parameter range does characterize its ordinary nonnegativity.
+\end{abstract}
+
+\section*{Task 1: Resolve MathDB problem 328867}
+Let
+\[
+ R(x)=\psi(x+1/2)-\log x,\qquad x>0,
+\]
+where $\psi=\Gamma'/\Gamma$, and put
+\begin{align}
+ G_a(x)&=24\left(x^4+ax^2+\frac7{40}a-\frac{31}{336}\right)R(x)
+              -\left(x^2-\frac7{40}+a\right),\label{eq:Ga}\\
+ L(x)&=\frac{-24(x^4-31/336)R(x)+x^2-7/40}
+                 {24(x^2+7/40)R(x)-1}.\label{eq:L}
+\end{align}
+These are the definitions in \cite[Sections 3--4]{published}; the same
+conjecture appears in \cite[Conjecture 1, p.~14]{preprint}.
+Part (i) asks whether $L$ is increasing on $(0,\infty)$.
+Part (ii) asserts that $-G_a$ is completely monotone on $(0,\infty)$
+if and only if $a\leq155/294$.
+
+\begin{theorem}\label{thm:result}
+The denominator in \eqref{eq:L} is strictly positive. The function $L$
+is strictly increasing and has exact range
+\[
+ \frac{155}{294}<L(x)<\frac{11165}{8284}\qquad(x>0).
+\]
+Thus part (i) holds. Part (ii) is false: for $a_0=155/294$,
+\[
+ (-G_{a_0})''(x)=48a_0\log x+O(1)\longrightarrow-\infty
+ \quad\text{as }x\downarrow0.
+\]
+In contrast, $-G_a(x)\geq0$ for every $x>0$ if and only if $a\leq a_0$;
+in this range the pointwise inequality is always strict.
+\end{theorem}
+
+\subsection*{A positive Stieltjes representation}
+The differentiated Binet formula \cite[Eq.~5.9.15]{dlmf} is
+\[
+ \psi(x)=\log x-\frac1{2x}
+  -2\int_0^\infty\frac{t}{(x^2+t^2)(e^{2\pi t}-1)}\,dt
+ \qquad(x>0).
+\]
+Apply this at $x$ and $2x$, use
+$\psi(x+1/2)=2\psi(2x)-\psi(x)-2\log2$, and change variables in the
+integral at $2x$. The identity
+\[
+ \frac1{e^u-1}-\frac2{e^{2u}-1}=\frac1{e^u+1}
+\]
+gives
+\begin{equation}\label{eq:stieltjes}
+ R(x)=2\int_0^\infty\frac{t}{(x^2+t^2)(e^{2\pi t}+1)}\,dt.
+\end{equation}
+All integrals above converge absolutely for $x>0$.
+
+Let $U$ have probability density
+\begin{equation}\label{eq:prob}
+ \frac{24}{e^{2\pi\sqrt u}+1},\qquad u>0.
+\end{equation}
+For integers $k\geq0$, substituting $u=t^2$ gives
+\[
+ \E U^k=48\int_0^\infty\frac{t^{2k+1}}{e^{2\pi t}+1}\,dt
+ =\frac{48\Gamma(2k+2)(1-2^{-2k-1})\zeta(2k+2)}{(2\pi)^{2k+2}}.
+\]
+For example, this follows by expanding $1/(e^v+1)$ in exponentials;
+the sum of the absolute term integrals is finite for $2k+2>1$.
+In particular,
+\begin{equation}\label{eq:moments}
+ \begin{gathered}
+ \E 1=1,\qquad m:=\E U=\frac7{40},\qquad b:=\E U^2=\frac{31}{336},\\
+ c:=\E U^3=\frac{127}{1280},\qquad
+ v:=\Var(U)=b-m^2=\frac{2071}{33600}>0.
+ \end{gathered}
+\end{equation}
+The density has all moments and is positive throughout $(0,\infty)$.
+For $s>0$, define
+\[
+ S(s)=\E\frac1{s+U}=24R(\sqrt s),\qquad
+ D(s)=(s+m)S(s)-1.
+\]
+Strict Jensen gives $S(s)>1/(s+m)$, hence $D(s)>0$.
+This proves positivity of the denominator of $L$.
+
+\subsection*{The covariance inequality proves strict monotonicity}
+In terms of $s=x^2$, equation \eqref{eq:L} becomes
+\begin{equation}\label{eq:quotient}
+ \ell(s):=L(\sqrt s)
+ =\frac{(b-s^2)S(s)+s-m}{D(s)}
+ =m-s+v\frac{S(s)}{D(s)}.
+\end{equation}
+Write $V_s=(s+U)^{-1}$. Differentiation under the expectation is
+permitted locally for $s>0$, since its derivatives are bounded there.
+Thus $S'(s)=-\E V_s^2$ and
+\[
+ \Cov(U,V_s)=\E\frac{U}{s+U}-mS(s)=1-(s+m)S(s)=-D(s).
+\]
+Differentiating \eqref{eq:quotient} now gives the exact identity
+\begin{equation}\label{eq:covariance}
+ \ell'(s)=\frac{v(\E V_s^2-S(s)^2)-D(s)^2}{D(s)^2}
+ =\frac{\Var(U)\Var(V_s)-\Cov(U,V_s)^2}{D(s)^2}>0.
+\end{equation}
+The nonnegative sign is Cauchy--Schwarz for the centered random
+variables $U$ and $V_s$. Equality would require $V_s$ to be affine
+in $U$ almost surely. The function $u\mapsto(s+u)^{-1}$ cannot agree
+with an affine function on an interval, whereas the density
+\eqref{eq:prob} is positive on every interval in $(0,\infty)$.
+The inequality is therefore strict. Since $L'(x)=2x\ell'(x^2)$,
+part (i) follows on the entire positive half-line.
+
+For completeness, the endpoint values can be checked without an
+uncontrolled asymptotic series. At zero,
+$R(x)=-\log x+O(1)$, so \eqref{eq:L} gives
+\[
+ L(0+)=b/m=155/294.
+\]
+At infinity, finite geometric expansion of $(s+U)^{-1}$ gives
+\[
+ S(s)=s^{-1}-ms^{-2}+bs^{-3}-cs^{-4}+O(s^{-5}),
+\]
+because the fourth moment is finite. Substitution in
+\eqref{eq:quotient} yields
+\[
+ L(\infty)=\frac{c-mb}{b-m^2}=\frac{11165}{8284}.
+\]
+Together with strict monotonicity these limits prove the asserted range.
+
+\subsection*{A boundary counterexample to complete monotonicity}
+Set $a_0=b/m=155/294$. Since $ma_0-b=0$, equation \eqref{eq:Ga} gives
+\begin{equation}\label{eq:boundary}
+ -G_{a_0}(x)=a_0-m+x^2-24x^2(x^2+a_0)R(x).
+\end{equation}
+The function $r(x)=\psi(x+1/2)$ is analytic near zero and
+$R(x)=-\log x+r(x)$. Inserting this exact decomposition gives
+\[
+ -G_{a_0}(x)=a_0-m+x^2
+       +24x^2(x^2+a_0)\log x-24x^2(x^2+a_0)r(x).
+\]
+Twice differentiating this expression is legitimate for $x>0$.
+The term $24a_0x^2\log x$ contributes
+$48a_0\log x+72a_0$; the second derivative of $24x^4\log x$
+tends to zero; and the remaining analytic terms have bounded second
+derivatives at zero. Consequently,
+\[
+ (-G_{a_0})''(x)=48a_0\log x+O(1)\to-\infty.
+\]
+Every completely monotone function has nonnegative second derivative
+at every positive point. Thus $-G_{a_0}$ is not completely monotone,
+even though $a_0$ is expressly included in the proposed parameter range.
+This refutes part (ii) analytically, without relying on a numerical test.
+
+Finally, direct algebra gives
+\[
+ -G_a(x)=D(x^2)(L(x)-a).
+\]
+As $D>0$ and $L$ has infimum $a_0$, this product is nonnegative for all
+$x>0$ exactly when $a\leq a_0$; strict monotonicity makes it positive
+even at $a=a_0$. The boundary counterexample therefore distinguishes
+ordinary positivity from the stronger derivative conditions asserted
+in the conjecture. This completes both parts of Theorem \ref{thm:result}.
+
+\section*{Task 2: Determine the actual complete-monotonicity cutoff}
+Find the sharp parameter $a_*$ for which $-G_a$ is completely monotone
+exactly when $a\leq a_*$. Using the source's Laplace kernel
+$Q(t)=t^{-1}-(2\sinh(t/2))^{-1}$, determine the infimum of
+\[
+ \frac{(31/336)Q(t)-Q^{(4)}(t)}{Q''(t)+(7/40)Q(t)},\qquad t>0,
+\]
+and establish the number and location of its minimizing points.
+
+\section*{Task 3: Derive higher-order bounds from the moment measure}
+Use the higher moments of \eqref{eq:prob} to construct successive
+rational upper and lower bounds for $R(x)$. Quantify their errors
+uniformly on positive intervals and compare the resulting bounds for
+harmonic numbers with existing DeTemple--Wang approximations.
+
+\section*{Task 4: Classify the loss of convexity}
+Determine the number of positive zeros of $(-G_a)''$ as $a$ varies
+between the actual complete-monotonicity cutoff and $155/294$.
+Describe their limiting behavior and identify the ranges of $x$ where
+the conjectured functions retain ordinary convexity.
+
+\section*{Task 5: Extend the covariance construction to shifted remainders}
+Construct analogous ratios for digamma remainders with shifts other
+than $1/2$. Specify the shifts and correction terms for which a positive
+Stieltjes measure exists, and derive the corresponding sharp endpoint
+constants and strict monotonicity statements.
+
+\begin{thebibliography}{9}
+\bibitem{published} Z.-H. Yang, Y.-M. Chu and X.-H. Zhang,
+\emph{Necessary and sufficient conditions for functions involving the psi
+function to be completely monotonic}, J. Inequal. Appl. \textbf{2015},
+157, Conjecture 1, Section 4.
+\href{https://doi.org/10.1186/s13660-015-0674-8}{doi:10.1186/s13660-015-0674-8}.
+\bibitem{preprint} Z.-H. Yang,
+\emph{Several completely monotone functions related to DeTemple's sequence},
+\href{https://arxiv.org/abs/1409.6411}{arXiv:1409.6411v1},
+23 September 2014, Conjecture 1, page 14.
+\bibitem{dlmf} NIST Digital Library of Mathematical Functions,
+\href{https://dlmf.nist.gov/5.9.E15}{Equation 5.9.15}.
+\end{thebibliography}
+\end{document}

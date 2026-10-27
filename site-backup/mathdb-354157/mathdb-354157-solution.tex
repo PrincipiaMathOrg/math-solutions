@@ -1,0 +1,254 @@
+\documentclass[11pt]{article}
+\usepackage[margin=0.8in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,hyperref}
+\hypersetup{colorlinks=true,urlcolor=blue,linkcolor=blue}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newcommand{\CF}[2]{\mathop{\mathrm K}_{j=1}^{#1}\frac{#2_j}{x}}
+\title{Identifying the telescoping continued-fraction coefficients\\
+\large MathDB 354157: the stabilized coefficients equal the Stirling coefficients}
+\author{Principia Math In Progress}
+\date{12 September 2026}
+\begin{document}
+\maketitle
+
+\section*{Task 1. Prove coefficient matching}
+Bhatnagar and Rajkumar's Conjecture 6.2 in \cite{BR}, p.~9,
+asks whether the coefficients obtained by their telescoping algorithm
+agree with those of the classical continued fraction for the Stirling
+remainder. The algorithm first fixes a Legendre approximation order
+\(k\), so denote its output by \(a_j^{(k)}\).
+The sequence in the conjecture is the stabilized sequence described
+on p.~7 and displayed in (6.1). We prove its stabilization and
+identification together:
+
+\begin{theorem}\label{main}
+Let \(b_j\) be the classical Stirling continued-fraction coefficients.
+For every \(m\geq1\) and \(k\geq m+1\), the source's successive
+leading-degree cancellations are possible through step \(m\) and give
+\[
+ a_j^{(k)}=b_j\qquad(1\leq j\leq m).
+\]
+Consequently the stabilized sequence \(a_j\) satisfies \(a_j=b_j\)
+for every \(j\), resolving Conjecture 6.2.
+\end{theorem}
+
+The finite-\(k\) convention matters: for example,
+\(a_2^{(2)}=1/18\), whereas the stabilized value is \(b_2=1/30\).
+The theorem concerns exactly the stabilization region \(k\geq j+1\)
+specified in the source.
+
+\subsection*{The two formal expansions}
+Let
+\[
+ r(x)=\log\Gamma(x+1)-(x+\tfrac12)\log x+x-\tfrac12\log(2\pi),
+ \qquad x>0.
+\]
+Its formal Stirling expansion and exact difference are
+\begin{align}
+ \mathcal R(x)&=\sum_{\ell\geq1}
+ \frac{B_{2\ell}}{2\ell(2\ell-1)x^{2\ell-1}},
+                                                        \label{Stirling}\\
+ r(x)-r(x+1)&=\varepsilon(x):=
+ (x+\tfrac12)\log(1+1/x)-1.                              \label{difference}
+\end{align}
+Thus the formal expansion of \(\varepsilon\) is
+\(\mathcal R(x)-\mathcal R(x+1)\).
+All formal \(O\)-statements below refer to Laurent expansions at infinity.
+
+The classical coefficients \(b_j>0\) appearing in the conjecture
+are characterized by the formal continued fraction
+\[
+ \mathcal R(x)=\cfrac{b_1}{x+\cfrac{b_2}{x+\cfrac{b_3}{x+\ddots}}}.
+\]
+In particular, if \(B_m(x)=\CF{m}{b}\), then
+\begin{equation}\label{formal}
+ \mathcal R(x)-B_m(x)=O(x^{-2m-1}).
+\end{equation}
+These are the defining formal coefficients of the classical
+Stieltjes expansion recalled in \cite[Section 6]{BR}.
+Only this formal property and nonvanishing of \(b_j\) are needed.
+
+For completeness, the positive Stieltjes measure underlying these
+facts follows by integrating Binet's formula by parts:
+\[
+ \frac{r(\sqrt z)}{\sqrt z}
+ =\int_0^\infty\frac{\rho(t)}{z+t}\,dt,\qquad
+ \rho(t)=\frac{-\log(1-e^{-2\pi\sqrt t})}{2\pi\sqrt t}>0.
+\]
+Its moments are
+\(\mu_n=|B_{2n+2}|/[(2n+2)(2n+1)]\).
+Every ordinary and shifted Hankel moment determinant is positive,
+because its matrix is the Gram matrix of monomials for respectively
+\(\rho(t)\,dt\) and \(t\rho(t)\,dt\), both with infinite support.
+The classical Stieltjes correspondence therefore gives strictly
+positive, nonterminating continued-fraction coefficients.
+No convergence assertion is used to infer \eqref{formal}.
+
+\subsection*{Accuracy of the finite Legendre input}
+Let \(P_k\) be the Legendre polynomial and \(P_k^*\) its associated
+numerator polynomial, with the normalization of \cite[Section 2]{BR}.
+Put
+\[
+ E_k(x)=\frac{(2x+1)P_k^*(2x+1)}{P_k(2x+1)}-1
+       =\frac{f_k^*(z)}{f_k(z)},\qquad z=x(x+1).
+\]
+For \(k\geq2\), \(\deg f_k=d_k\) and \(\deg f_k^*=d_k-1\), after the
+usual cancellation when \(k\) is odd.
+
+\begin{lemma}\label{Legendre}
+For each \(k\geq1\),
+\[
+ \varepsilon(x)-E_k(x)=O(x^{-2k}).
+\]
+\end{lemma}
+\begin{proof}
+The associated numerator has the integral expression
+\[
+ P_k^*(t)=\frac12\int_{-1}^1\frac{P_k(t)-P_k(s)}{t-s}\,ds.
+\]
+Consequently
+\[
+ \frac12\log\frac{t+1}{t-1}-\frac{P_k^*(t)}{P_k(t)}
+ =\frac1{2P_k(t)}\int_{-1}^1\frac{P_k(s)}{t-s}\,ds.
+\]
+Expanding \(1/(t-s)\) at infinity, orthogonality of \(P_k\)
+to \(1,s,\ldots,s^{k-1}\) makes the integral \(O(t^{-k-1})\).
+Division by the degree-\(k\) polynomial makes the right side
+\(O(t^{-2k-1})\). Multiplying by \(t\) and setting \(t=2x+1\)
+gives the assertion.
+\end{proof}
+
+\subsection*{Leading-degree cancellation identifies the next coefficient}
+For any prefix \(a_1,\ldots,a_m\), write
+\[
+ G_m(x)=\CF{m}{a}=\frac{p_m(x)}{q_m(x)}.
+\]
+The continuant recurrence is
+\[
+ p_m=xp_{m-1}+a_mp_{m-2},\qquad
+ q_m=xq_{m-1}+a_mq_{m-2},
+\]
+with \((p_{-1},p_0)=(1,0)\) and \((q_{-1},q_0)=(0,1)\).
+In particular \(q_m\) is monic of degree \(m\), and
+\begin{equation}\label{continuant}
+ G_m-G_{m-1}
+ =\frac{(-1)^{m-1}a_1\cdots a_m}{q_mq_{m-1}}.
+\end{equation}
+Parity of the continuants shows that \(G_m\) is odd.
+Hence \(G_m(x)-G_m(x+1)\) is invariant under \(x\mapsto-x-1\);
+its numerator and denominator in the source's representation
+are polynomials in \(z=x(x+1)\).
+
+Fix \(k\geq m+1\), and suppose the first \(m-1\) chosen coefficients
+are \(b_1,\ldots,b_{m-1}\). Leave the final coefficient \(a\) free
+and write \(G_m(x;a)\). Formula \eqref{continuant} gives
+\begin{equation}\label{variation}
+ G_m(x;a)-B_m(x)
+ =(-1)^{m-1}\!\left(\prod_{j=1}^{m-1}b_j\right)
+ (a-b_m)x^{-2m+1}+O(x^{-2m-1}).
+\end{equation}
+For any \(q\geq1\), a leading term \(c x^{-q}\) has difference
+\[
+ c x^{-q}-c(x+1)^{-q}=q c x^{-q-1}+O(x^{-q-2}).
+\]
+Moreover, Lemma \ref{Legendre}, \eqref{difference} and
+\eqref{formal} show that
+\begin{equation}\label{good}
+ E_k(x)-\bigl(B_m(x)-B_m(x+1)\bigr)=O(x^{-2m-2}),
+\end{equation}
+since \(k\geq m+1\). Combining \eqref{variation} and \eqref{good}
+therefore yields
+\begin{align}
+ E_k(x)-\bigl(G_m(x;a)-G_m(x+1;a)\bigr)
+ ={}&(2m-1)(-1)^m
+ \left(\prod_{j=1}^{m-1}b_j\right)(a-b_m)x^{-2m}\nonumber\\
+ &+O(x^{-2m-1}).                                        \label{leading}
+\end{align}
+The coefficient of \(a-b_m\) is nonzero.
+
+Now relate this directly to the polynomial algorithm.
+With \(q_m^+(x)=q_m(x+1)\) and similarly for \(p_m^+\), the
+cleared numerator is exactly
+\[
+ \Delta_1(k,m)=f_k^*q_mq_m^+
+              -f_k(p_mq_m^+-p_m^+q_m).
+\]
+Its denominator is \(f_k(z)q_m(x)q_m(x+1)\).
+As a polynomial in \(z\), this denominator has degree \(d_k+m\)
+and a fixed nonzero leading coefficient. The order estimate
+\eqref{leading} thus says that \(\Delta_1(k,m)\) has degree at
+most \(d_k\), and its coefficient of \(z^{d_k}\) is a fixed
+nonzero multiple of \(a-b_m\).
+The source's rule is precisely to set this highest possible
+coefficient equal to zero. Its unique choice is therefore \(a=b_m\).
+For this choice, the stronger estimate \eqref{good} gives
+\(\deg\Delta_1(k,m)\leq d_k-1\), as required.
+
+Starting with the empty prefix proves the assertion inductively.
+There is no premature termination before the required last step:
+after a step \(j<m\), \eqref{continuant} and \eqref{formal} give
+\[
+ \mathcal R(x)-B_j(x)
+ =(-1)^j\!\left(\prod_{i=1}^{j+1}b_i\right)x^{-2j-1}
+  +O(x^{-2j-3}).
+\]
+Because \(k\geq m+1\geq j+2\), the Legendre-input error is of
+strictly higher order than the difference of this expression.
+Thus the residual has a nonzero term of order \(x^{-2j-2}\);
+its cleared numerator has degree exactly \(d_k-1\).
+Every next cancellation above is well defined. This proves
+Theorem \ref{main}.\qed
+
+\subsection*{Consequences and exact verification}
+The full stabilized continued fraction is therefore the classical
+Stirling one. Its standard Stieltjes bounds, already recalled in
+\cite[Section 6]{BR}, have even convergents below \(r(x)\) and odd
+convergents above \(r(x)\), for \(x>0\).
+This also gives the intended companion bound in MathDB 354156;
+no separate campaign credit is taken for that immediate consequence.
+The source's displayed parity inequalities in Conjecture 6.1 are
+reversed relative to its prose and preceding results; we use the
+unambiguous intended parity.
+
+The verifier \texttt{verify\_coefficients.py} implements two independent
+exact constructions. One builds Legendre polynomials, continuants
+and cleared residuals, then cancels their leading coefficients.
+The other starts with the Bernoulli series and repeatedly extracts
+the continued fraction using formal-series reciprocation.
+All \(45\) coefficients in the prefixes \(2\leq k\leq10\),
+\(1\leq m<k\), agree. It separately checks the nonstabilized
+value \(a_2^{(2)}=1/18\). The all-order proof above, not these
+finite checks, establishes the conjecture.
+
+\section*{Tasks 2--5. Further directions after the full solve}
+These are proposed tasks. Check their current literature and public
+claims before attacking them.
+\begin{description}
+\item[Task 2.] For fixed \(k\), determine whether all coefficients
+\(a_m^{(k)}\) beyond the stabilization region exist and remain positive.
+Identify the asymptotic behavior of this finite-\(k\) tail.
+\item[Task 3.] Settle the source's separate sign conjecture for all
+coefficients of the cleared residual \(\Delta_1(k,m)\) after its
+leading-degree cancellation.
+\item[Task 4.] Derive explicit convergence-rate bounds for the
+stabilized convergents \(B_m(x)\), uniform on \(x\geq x_0>0\),
+with usable dependence on both \(m\) and \(x_0\).
+\item[Task 5.] Characterize positive moment sequences whose formal
+discrete antiderivatives also admit positive Stieltjes
+continued fractions, extending the structural mechanism behind
+the Stirling example.
+\end{description}
+
+\begin{thebibliography}{9}
+\bibitem{BR}
+G. Bhatnagar and K. Rajkumar,
+\emph{Telescoping continued fractions for the error term in Stirling's formula},
+J. Approx. Theory 293 (2023), 105943,
+\url{https://doi.org/10.1016/j.jat.2023.105943}.
+Current author-linked manuscript:
+\url{https://arxiv.org/abs/2204.00962v2}.
+Earlier version, with the stabilization results in Sections 6--7:
+\url{https://arxiv.org/abs/2204.00962v1}.
+\end{thebibliography}
+\end{document}

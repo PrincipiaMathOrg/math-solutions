@@ -1,0 +1,222 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,enumitem,hyperref}
+\hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue,citecolor=blue}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newcommand{\Q}{\mathcal Q}
+\newcommand{\supp}{\operatorname{supp}}
+\newcommand{\Max}{\operatorname{Max}}
+\newcommand{\cov}{\operatorname{cov}}
+\newcommand{\Z}{\mathbb Z}
+\title{$q$-zeta reciprocity for preorder lattice-point posets\\\large MathDB 374960}
+\author{Principia Math In Progress}
+\date{September 18, 2026}
+\begin{document}
+\maketitle
+\begin{abstract}
+We prove Conjecture 4.9 of Athanasiadis and Chapoton for every finite
+preorder. A support refinement of Postnikov's lattice-point formula
+identifies certain strict filter counts with maximal lattice points.
+Weighted Ehrhart reciprocity then gives the proposed $q$-zeta value.
+\end{abstract}
+
+\section*{Task 1. Full solution}
+Let $\tau$ be a preorder on $E$, with $|E|=n\ge1$. For a subset $A$
+write $x(A)=\sum_{e\in A}x_e$, and let $U_\tau(A)$ and $D_\tau(A)$
+be its upward and downward closures. Define
+\[
+ \Q_\tau=\{x\in\mathbb R_{\ge0}^E:x(I)\le |I|
+                  \text{ for every order ideal }I\},\qquad
+ P_\tau=\Q_\tau\cap\Z^E,
+\]
+with componentwise order and rank $|a|=a(E)$. This is a downward
+closed set, so $\cov(a)=|\supp(a)|$. Here $\cov$ counts elements
+covered by $a$, and $\supp(a)=\{e:a_e>0\}$.
+For an indeterminate $q$, the $q$-zeta polynomial is characterized by
+\[
+ \mathcal Z_q(P,[m]_q)=
+ \sum_{a_1\le\cdots\le a_{m-1}}q^{|a_1|+\cdots+|a_{m-1}|},
+ \qquad [m]_q=\frac{q^m-1}{q-1},\quad m\ge2.
+\]
+
+\begin{theorem}\label{thm:main}
+For every finite preorder $\tau$,
+\[
+ \boxed{\mathcal Z_q(P_\tau,[-1]_q)
+   =(-1)^n\sum_{a\in\Max(P_\tau)}q^{-\cov(a)}.}
+\]
+Consequently $\mathcal Z(P_\tau,-1)=(-1)^n|\Max(P_\tau)|$.
+\end{theorem}
+
+\subsection*{Weighted polytopes and support counts}
+For nonnegative integral weights $y=(y_e)$ and a preorder $\sigma$, put
+\[
+ \Q_\sigma(y)=\sum_{e\in E}y_e
+        \operatorname{conv}(0,\mathbf e_f:f\in U_\sigma(e)).
+\]
+Its inequality description is
+\begin{equation}\label{eq:weighted}
+ x\ge0,\qquad x(I)\le y(I)\quad
+                 \text{for every order ideal $I$ of $\sigma$}.
+\end{equation}
+Indeed, a nonnegative vector can be supplied by these simplices
+exactly when $x(A)\le y(D_\sigma(A))$ for all $A\subseteq E$,
+by the transportation form of max-flow/min-cut. The ideal inequalities
+imply this because $x(A)\le x(D_\sigma(A))$; conversely take $A=I$.
+For integer demands and supplies, the flow can be chosen integral.
+In particular every point of $P_\tau$ is a sum of $n$ choices,
+one from each set $\{0\}\cup\{\mathbf e_f:f\in U_\tau(e)\}$.
+If $|a|<n$, an unused choice can be changed from $0$ to $\mathbf e_e$.
+It follows that
+\begin{equation}\label{eq:max}
+ \Max(P_\tau)=\{a\in P_\tau:|a|=n\}.
+\end{equation}
+
+The established Postnikov formula, in the form of
+\cite[Theorem 2.1 and Lemma 4.1]{AC}, gives the polynomial
+\begin{equation}\label{eq:F}
+ F_\sigma(y)=\sum_{a\in P_{\sigma^*}}
+                      \prod_{e\in E}\binom{y_e+a_e-1}{a_e}
+        =|\Q_\sigma(y)\cap\Z^E|
+\end{equation}
+for nonnegative integral $y$. Indeed, use the source's bipartite
+graph on $E\sqcup\{0\}$, coefficient zero for its universal summand,
+and coefficient $y_e$ for the summand indexed by $e$. Its draconian
+vectors satisfy $a_0+|a|=n$ and $a\in P_{\sigma^*}$; the factor
+from the universal summand is $\binom{a_0}{a_0}=1$.
+Binomial coefficients here and below have fixed nonnegative lower
+argument and are interpreted polynomially in the upper argument.
+
+For $S\subseteq E$, define the finite number
+\[
+ N_\tau(S)=\#\{b\in\Z_{\ge0}^E:
+       b(J)\le |J\cap S|-1\text{ for every nonempty filter $J$ of $\tau$}\}.
+\]
+\begin{lemma}\label{lem:support}
+For every $S\subseteq E$,
+\[
+ N_\tau(S)=\#\{a\in\Max(P_\tau):\supp(a)\subseteq S\}.
+\]
+\end{lemma}
+\begin{proof}
+The face of $\Q_\tau$ on which $|x|=n$ and $\supp(x)\subseteq S$
+is the Minkowski sum
+\[
+ B_\tau(S)=\sum_{e\in E}
+            \operatorname{conv}(\mathbf e_s:s\in S\cap U_\tau(e)).
+\]
+This follows directly from its simplex representation: attaining
+total sum $n$ forces every summand onto its nonzero face, and
+nonnegative coordinates outside $S$ must all vanish.
+If $S$ is empty or one of these summands has an empty vertex set,
+there are no such maximal points. Also $N_\tau(S)=0$: respectively
+use the filter $E$, or a principal filter $U_\tau(e)$ disjoint from $S$.
+
+Otherwise apply \cite[Theorem 2.1]{AC} on ground set $S$ with
+summands $I_e=S\cap U_\tau(e)$ of coefficient one, and an additional
+universal summand $I_0=S$ of coefficient zero. No vertex is isolated.
+Its draconian vectors are the nonnegative vectors $(a_0,b)$ with
+\begin{equation}\label{eq:drac}
+ a_0+|b|=|S|-1,\qquad
+ b(A)\le |S\cap U_\tau(A)|-1\quad(\varnothing\ne A\subseteq E).
+\end{equation}
+Constraints involving the universal summand follow from the total sum.
+All factors in the counting formula equal one, so lattice points of
+$B_\tau(S)$ are counted by these vectors. Taking $A=E$ shows that
+$a_0$ is determined and nonnegative. The other inequalities are
+equivalent to those defining $N_\tau(S)$: take $A=J$ for necessity;
+for sufficiency apply the filter inequality to $U_\tau(A)$ and use
+$b(A)\le b(U_\tau(A))$. Now use \eqref{eq:max}.
+\end{proof}
+
+Apply ordinary Ehrhart reciprocity to $\Q_{\tau^*}(y)$ with
+$y=\mathbf1+\mathbf1_S$. This is a full dimensional lattice polytope,
+since it contains $[0,1]^E$. Its Ehrhart polynomial in $k$ is
+$F_{\tau^*}(ky)$, by \eqref{eq:F}. At $k=-1$ reciprocity gives
+$F_{\tau^*}(-y)=(-1)^n\#(\operatorname{int}\Q_{\tau^*}(y)\cap\Z^E)$.
+The nonzero normals in \eqref{eq:weighted} show that its interior
+integer points satisfy $x_e\ge1$ and $x(J)\le y(J)-1$ for every
+nonempty filter $J$ of $\tau$. Subtracting $\mathbf1$ therefore proves
+\begin{equation}\label{eq:rec}
+ F_{\tau^*}(-\mathbf1-\mathbf1_S)=(-1)^n N_\tau(S).
+\end{equation}
+
+\subsection*{Evaluation of the $q$-zeta polynomial}
+Fix the last element $a$ of a multichain. Since $[0,a]$ is a product
+of ordinary chains, the Gaussian binomial formula gives
+\begin{equation}\label{eq:q}
+ \mathcal Z_q(P_\tau,[m]_q)
+   =\sum_{a\in P_\tau}\prod_{e\in E}
+           q^{a_e}\begin{bmatrix}m+a_e-2\\a_e\end{bmatrix}_q.
+\end{equation}
+For each integer $a\ge0$, the factor on the right is
+\[
+ q^a\prod_{j=1}^a\frac{q^{m+j-2}-1}{q^j-1}.
+\]
+It is polynomial in $q^m$, hence in $[m]_q$, over $\mathbb Q(q)$.
+Thus \eqref{eq:q}, initially a counting identity for $m\ge2$,
+is an identity of polynomials in $[m]_q$. In particular we may
+substitute $q^m=q^{-1}$, corresponding to $[-1]_q=-q^{-1}$.
+Set $p=q^{-1}$. The resulting factor is
+\[
+ f_a(p)=
+ \begin{cases}1&a=0,\\-(1+p)&a=1,\\p&a=2,\\0&a\ge3,\end{cases}
+ \qquad
+ f_a(p)=(1-p)\binom{a-2}{a}+p\binom{a-3}{a}.
+\]
+Expanding the product of the last two-term expression and using
+\eqref{eq:F} yields
+\begin{align*}
+ \mathcal Z_q(P_\tau,[-1]_q)
+ &=\sum_{S\subseteq E}p^{|S|}(1-p)^{n-|S|}
+                  F_{\tau^*}(-\mathbf1-\mathbf1_S)\\
+ &=(-1)^n\sum_{S\subseteq E}p^{|S|}(1-p)^{n-|S|}
+       \#\{a\in\Max(P_\tau):\supp(a)\subseteq S\},
+\end{align*}
+by \eqref{eq:rec} and Lemma~\ref{lem:support}.
+For a fixed maximal point with support $T$, the sum of its weights is
+\[
+ \sum_{S\supseteq T}p^{|S|}(1-p)^{n-|S|}
+     =p^{|T|}\bigl(p+(1-p)\bigr)^{n-|T|}=p^{|T|}.
+\]
+This proves the claimed $q$-identity because $|T|=\cov(a)$.
+At $q=1$ the Gaussian factors in \eqref{eq:q} specialize to the
+ordinary binomial chain-counting polynomials, giving the ordinary
+zeta assertion. For $n=0$, the singleton poset has both sides equal
+to one, so the empty case also holds.
+
+\subsection*{Verification and attribution}
+The conjecture and the weighted counting input are due to
+Athanasiadis--Chapoton and Postnikov. The support lemma and its
+combination with weighted reciprocity supply the proof. Source
+Remark 4.10 already derives the ordinary specialization conditionally
+from the descent conjecture; the proof here establishes the full
+$q$-refinement directly.
+
+All 389 labeled preorders of sizes 1--4 pass exact polynomial checks,
+and all 5,930 support subsets pass the support and reciprocity counts.
+An independent weighted-chain dynamic program supplies 2,035 values
+and 423 exact interpolations. Larger examples and the source's
+five-element example also pass. All 26 pages of the current primary
+were read; bounded checks identified no prior full target claim or
+target journal final. Review is by the authoring agent only.
+
+\section*{Tasks 2--5. Proposed follow-up directions}
+\begin{enumerate}[label=\textbf{Task \arabic*.},start=2,leftmargin=*]
+\item Construct an explicit support-preserving bijection underlying
+Lemma~\ref{lem:support}, replacing equality of Postnikov counts.
+\item Determine which integral polymatroids satisfy the same
+$q$-zeta reciprocity identity with their maximal elements.
+\item Retain separate variables for each coordinate in the support
+lemma and seek a multivariate zeta specialization realizing them.
+\item Find combinatorial interpretations for $\mathcal Z_q(P_\tau,[-r]_q)$
+at other positive integers $r$, extending the case $r=1$.
+\end{enumerate}
+\begin{thebibliography}{9}
+\raggedright
+\bibitem{AC} C. A. Athanasiadis and F. Chapoton,
+\emph{Polytopes and posets associated to preorders},
+\href{https://arxiv.org/abs/2605.26916v1}{arXiv:2605.26916v1}, 2026.
+\end{thebibliography}
+\end{document}

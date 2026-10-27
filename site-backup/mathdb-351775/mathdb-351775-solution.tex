@@ -1,0 +1,115 @@
+\documentclass[10pt]{article}
+\usepackage[margin=0.9in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,hyperref}
+\newtheorem{theorem}{Theorem}
+\title{The row-sum polynomials of Barry's almost Riordan array}
+\author{Principia Math in Progress}
+\date{13 September 2026}
+\begin{document}
+\maketitle
+
+\paragraph{Task 1. Prove the row-sum formula.}
+Conjecture 27 of Barry \cite{Barry} concerns the array produced by
+\(P=\overline A\), where the bar deletes the first row and
+\[
+ A=\left(\frac{1+2z}{1-z^2};
+          \frac{-1}{(1-z)(1+z)^2},\frac{z}{1+z}\right).
+\]
+In this almost Riordan notation the first column has generating
+function \(a(z)=(1+2z)/(1-z^2)\), while column \(k\ge1\) has
+generating function
+\[
+ z\frac{-1}{(1-z)(1+z)^2}\left(\frac{z}{1+z}\right)^{k-1}.
+\]
+Define the produced rows by \(u_0=(1,0,\ldots)\) and
+\(u_{n+1}=u_nP\), and set \(P_n(x)=\sum_k(u_n)_kx^k\).
+These operations are finite in each row because \(P\) is lower
+Hessenberg.
+
+\begin{theorem}
+For every integer \(n\ge0\),
+\begin{equation}\label{answer}
+ P_n(x)=1+(1-x)\sum_{i=0}^{n-1}(1-x)^{\overline i},
+ \qquad y^{\overline i}=\prod_{j=0}^{i-1}(y+j),
+ \quad y^{\overline0}=1.
+\end{equation}
+\end{theorem}
+
+\paragraph{Factorial convention.}
+The rising factorial in \eqref{answer} is essential: it gives the
+source's \(P_3=5-8x+5x^2-x^3\). The falling-factorial gloss added
+in the MathDB transcription would give \(3-4x+3x^2-x^3\), which
+already contradicts the source's displayed values. We prove the
+full source formula, rather than counting that transcription
+error as a counterexample.
+
+\begin{proof}
+Let \(R_m(x)=\sum_k A_{m,k}x^k\). The specified column generating
+functions give, as a formal power series in \(z\),
+\begin{align*}
+ \sum_{m\ge0}R_m(x)z^m
+ &=\frac{1+2z}{1-z^2}
+   -\frac{zx}{(1-z)(1+z)(1+(1-x)z)}\\
+ &=\frac{1+2(1-x)z}{(1-z)(1+(1-x)z)}\\
+ &=\frac1{1-z}+
+    \frac{(1-x)z}{(1-z)(1-(x-1)z)}.
+\end{align*}
+Consequently
+\[
+ R_{j+1}(x)=1+(1-x)\sum_{i=0}^{j}(x-1)^i.
+\]
+Since row \(j\) of \(P\) is row \(j+1\) of \(A\), right
+multiplication by \(P\) acts on row polynomials by the linear
+operator \(T\) defined by \(T(x^j)=R_{j+1}(x)\).
+For every polynomial \(F\), summing the finite geometric series
+therefore yields
+\begin{equation}\label{operator}
+ (TF)(x)=\frac{(3-2x)F(1)+(1-x)^2F(x-1)}{2-x}.
+\end{equation}
+The numerator vanishes at \(x=2\), so this is a polynomial
+identity with no excluded value of \(x\). In particular,
+\(P_{n+1}=TP_n\).
+
+Write \(Q_n\) for the right side of \eqref{answer}.
+We have \(Q_0=1=P_0\) and \(Q_n(1)=1\). Substitution into
+\eqref{operator} gives
+\begin{align*}
+ TQ_n
+ &=\frac{3-2x+(1-x)^2}{2-x}
+      +(1-x)^2\sum_{i=0}^{n-1}(2-x)^{\overline i}\\
+ &=2-x+(1-x)^2\sum_{i=0}^{n-1}(2-x)^{\overline i}\\
+ &=1+(1-x)\left(1+
+       \sum_{i=1}^{n}(1-x)^{\overline i}\right)=Q_{n+1}.
+\end{align*}
+The last step uses
+\((1-x)^{\overline{i+1}}=(1-x)(2-x)^{\overline i}\).
+Induction proves the formula for every \(n\).
+\end{proof}
+
+\paragraph{Task 2. Determine an explicit coefficient formula.}
+Express each coefficient of \(P_n(x)\) through standard Stirling
+numbers and obtain a combinatorial interpretation of its absolute
+value.
+
+\paragraph{Task 3. Analyze the zeros.}
+Determine which \(P_n\) have only real zeros, and describe the
+limiting zero distribution after an appropriate rescaling.
+
+\paragraph{Task 4. Extend the production operator.}
+Identify parameter families of almost Riordan arrays for which
+the induced operator has an analogous evaluation-and-shift
+formula and the produced polynomials admit finite factorial sums.
+
+\paragraph{Task 5. Derive asymptotics.}
+Obtain asymptotic formulas for \(P_n(x)\) at fixed real or complex
+\(x\), including the exceptional values where the factorial sum
+terminates or cancels.
+
+\begin{thebibliography}{1}
+\bibitem{Barry} P.~Barry, \emph{On the partial sums of Riordan
+arrays}, \href{https://arxiv.org/abs/2108.13537}
+{arXiv:2108.13537v1} (2021). The almost Riordan array is on
+pp.~19--20, the produced array and its initial polynomials on
+p.~21, and Conjecture 27 on p.~22 of the inspected 23-page PDF.
+\end{thebibliography}
+\end{document}

@@ -1,0 +1,222 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,booktabs,hyperref}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\title{Symmetry of four-digit continued-fraction permutiples}
+\author{Principia Math In Progress}
+\date{28 September 2026}
+\begin{document}
+\maketitle
+\noindent MathDB 335304; Holt, arXiv:1702.04760v1, Conjecture 17.
+
+\begin{theorem}[Task 1]
+Let $a,b,c,d$ be positive integers, and let $(e,f,g,h)$ be a
+permutation of $(a,b,c,d)$. Suppose that $d,h\ge2$ and
+\[
+ [a;b,c,d]=k[e;f,g,h],\qquad k\in\mathbb Z,\quad k\ge2.
+\]
+Then $ad=eh$ and $bc=fg$. Thus every canonical four-digit
+continued-fraction permutiple is symmetric in Holt's sense.
+\end{theorem}
+
+\section*{Continuants and two reductions}
+Put
+\[
+ P=abcd+ab+ad+cd+1,\qquad Q=bcd+b+d,
+\]
+and define $P',Q'$ using $(e,f,g,h)$ in the same order.
+The continued fractions are $P/Q$ and $P'/Q'$, in lowest terms.
+Taking integer parts gives
+\begin{equation}\label{floor}
+ a=ke+j,\qquad 0\le j\le k-1.
+\end{equation}
+In particular $a>e$ and $k\le a/e\le a$.
+
+\begin{lemma}\label{ratio}
+For any two arrangements of four positive integers,
+their four-term continuants have ratio strictly less than two.
+\end{lemma}
+\begin{proof}
+Write the sorted entries as $1\le x\le y\le z\le w$ and set
+$V=xyzw$. The continuant of an arrangement is $V+S+1$, where
+$S$ is the sum of the three edge products along a path through
+the four entries: for $(a,b,c,d)$ the path is $b,a,d,c$.
+Root this path at $x$. Each other vertex $v$ contributes an edge
+of weight at least $xv$, so $S\ge x(y+z+w)$.
+Also $S\le w(y+z)+yz$. Indeed, if $w$ has degree two its incident
+edges sum to at most $w(y+z)$ and the other edge is at most $yz$.
+If it has degree one its incident edge is at most $wz$ and the
+other two sum to at most $yz+xz\le yz+wy$.
+With $L_0=V+x(y+z+w)+1$ and $U_0=V+w(y+z)+yz+1$, direct expansion gives
+\begin{align*}
+2L_0-U_0={}&(x-1)\{yzw+2(y+z+w)\}\\
+ &+(y-1)(z-1)(w-1)+y+z+w+2>0.
+\end{align*}
+Every such continuant therefore lies between $L_0$ and $U_0<2L_0$.
+\end{proof}
+
+Since $PQ'=kP'Q$ and $\gcd(P',Q')=1$, we have $P'\mid P$.
+Lemma~\ref{ratio} now gives
+\begin{equation}\label{equal}
+ P=P',\qquad Q'=kQ.
+\end{equation}
+For completeness, set $p_2=abc+a+c$, $q_2=bc+1$ and define
+$p'_2,q'_2$ analogously. The determinant identities are
+\[
+ Pq_2-Qp_2=1,\qquad Pq'_2-Q'p'_2=1.
+\]
+Subtracting them and using \eqref{equal} yields
+\begin{equation}\label{divis}
+ Q\mid(bc-fg),\qquad P\mid(p_2-kp'_2).
+\end{equation}
+
+\begin{lemma}\label{last}
+If $h\ge k$, then $ad=eh$ and $bc=fg$.
+\end{lemma}
+\begin{proof}
+We have $0<p_2<P$ and $P=hp'_2+ef+1>hp'_2$, so
+$0<kp'_2<P$ when $h\ge k$. By \eqref{divis}, their difference,
+which lies strictly between $-P$ and $P$, is zero.
+The subtracted determinant identities then imply $q_2=q'_2$,
+or $bc=fg$. The equality $abcd=efgh$ gives $ad=eh$.
+\end{proof}
+
+\section*{Exhausting the permutations}
+The six positional permutations with $e=a$ are excluded by $a>e$.
+The six with $h=a$ satisfy Lemma~\ref{last}, since $a\ge k$.
+The remaining twelve are in the following table. Set
+$L=b-c+d$ and $N=bc+bd-cd$. Every expression in the middle column
+must vanish by \eqref{equal}.
+\begin{center}
+\begin{tabular}{lll}
+\toprule
+$(e,f,g,h)$ & $P-P'$ & Resolution\\
+\midrule
+$(b,a,c,d)$ & $d(a-b)$ & $a=e$, impossible\\
+$(b,a,d,c)$ & $ad-bc$ & symmetry directly\\
+$(b,c,a,d)$ & $b(a-c)-d(b-c)$ & Case A\\
+$(b,d,a,c)$ & $aL-N$ & Case B\\
+$(c,a,b,d)$ & $aL-bd$ & Case C\\
+$(c,a,d,b)$ & $aL-N$ & Case D\\
+$(c,b,a,d)$ & $b(a-c)$ & $a=e$, impossible\\
+$(c,d,a,b)$ & $ad-bc$ & symmetry directly\\
+$(d,a,b,c)$ & $b(a-c)$ & $h=a$, Lemma~\ref{last}\\
+$(d,a,c,b)$ & $b(a-c)-d(b-c)$ & Case E\\
+$(d,b,a,c)$ & $aL-bd$ & Case C\\
+$(d,c,a,b)$ & $d(a-b)$ & $h=a$, Lemma~\ref{last}\\
+\bottomrule
+\end{tabular}
+\end{center}
+This is a list of positional permutations, so repeated digit values
+cause no exception to its exhaustiveness.
+
+\paragraph{Case C.}
+Here $aL=bd>0$, so the integer $L$ is at least one. Since
+$c=b+d-L$,
+\[
+ cL-b=(c-1)(L-1)+d-1\ge0.
+\]
+Thus $a=bd/L\le cd=eh$. As $k\le a/e$, it follows that
+$h\ge k$ and Lemma~\ref{last} applies.
+
+\paragraph{A common bound for Cases B and D.}
+If $aL=N$ and $L\ge1$, then $a\le bc$.
+For $b\le c$, this follows from $N=bc-d(c-b)\le bc$.
+For $b>c$, use $L\ge d+1$ and $b-c<bc$ to obtain
+$N=bc+d(b-c)<(d+1)bc\le Lbc$.
+In both cases $eh=bc$, so $h\ge k$ and Lemma~\ref{last} applies.
+
+\paragraph{Case D.}
+Write $a=kc+j$ with $j\ge0$. The equality $Q'=kQ$ is
+\[
+ kL=j(bd+1)+b>0.
+\]
+Consequently $L\ge1$ and the common bound proves symmetry.
+
+\paragraph{Case B.}
+The common bound handles $L\ge1$. If $L=0$, then $c=b+d$
+and $N=b^2+bd-d^2=0$, which would give
+$(2d-b)^2=5b^2$, impossible for positive integers.
+Suppose $L<0$ and put $u=-L\ge1$, so $c>b+d>d$.
+Write $a=kb+j$ with $j\ge0$. Using $Q'=acd+c+d=kQ$
+and $aL=N$ gives
+\begin{equation}\label{hard}
+ jQ=c(a-d),\qquad ad-bc=(a-d)(c-b),\qquad
+ a-d=\frac{d^2-bc}{u}.
+\end{equation}
+The first identity implies $a\ge d$. If $a=d$, the second proves
+$ad=bc$ and hence symmetry. Otherwise $0<a-d<d^2$.
+By \eqref{divis}, $Q\mid(ad-bc)$. The first two identities in
+\eqref{hard} then imply $Q\mid b(a-d)$ as well as $Q\mid c(a-d)$.
+Writing $s=\gcd(b,c)$, B\'ezout's identity gives $Q\mid s(a-d)$.
+But
+\[
+ 0<s(a-d)<sd^2\le bd^2<bcd<Q,
+\]
+a contradiction. This completes Case B.
+
+\paragraph{Case A.}
+The numerator identity is $b(a-c)=d(b-c)$, so
+\[
+ a=c+d-\frac{cd}{b},\qquad b(a-b)=(b-c)(d-b).
+\]
+Since $a>b$, the possibility $d=b$ is excluded.
+If $d>b$, then $a<d=h$, and Lemma~\ref{last} applies.
+If $d<b$, the second identity forces $c>b$, and then $a<c$.
+Write $a=kb+j$ with $j\ge0$. The denominator identity becomes
+\[
+ c(jd+1)=kb+(k-1)d.
+\]
+If $j\ge1$, then, because $c>a\ge kb$,
+\[
+ c(jd+1)\ge c(d+1)>kb(d+1)\ge k(b+d)>kb+(k-1)d,
+\]
+which is impossible. If $j=0$, then $a=kb$ and
+$c=kb+(k-1)d$. Substituting into $b(a-c)-d(b-c)=0$
+gives $(k-1)d^2=0$, again impossible.
+
+\paragraph{Case E.}
+Again $a=c+d-cd/b<c+d$. Write $a=kd+j$, $j\ge0$.
+The denominator identity is
+\[
+ j(bc+1)=(k-1)b.
+\]
+It forces $j\ge1$ and hence $c<k-1$. But then
+\[
+ a<c+d<k+d-1\le kd\le a,
+\]
+a contradiction. All permutations have been resolved, proving the theorem.
+
+\section*{Scope and reproducibility}
+The theorem answers Conjecture 17 for all positive digits and every
+integer multiplier $k>1$, using the source's canonical conventions.
+No distinctness or bounded-digit assumption is made. It does not assert
+the longer-length conjectures. The proof uses only elementary
+continuant identities; no other structural theorem in the source is needed.
+The accompanying verifier checks the polynomial identities, the full
+permutation table, and bounded exact instances. The latter are checks,
+not a substitute for the proof. This is author-agent self-review,
+not independent peer review.
+
+\section*{Proposed follow-up tasks}
+These are research directions, with no solutions claimed here.
+\begin{enumerate}
+\setcounter{enumi}{1}
+\item Determine the sharp supremum of the ratio of two four-term
+continuants obtained by permuting one positive-integer multiset.
+\item For each fixed integer $k>1$, parametrize all canonical
+four-digit continued-fraction permutiples without repetitions.
+\item Decide whether every canonical five-digit continued-fraction
+permutiple preserves its numerator continuant.
+\item Classify the canonical five-digit permutiples whose two
+outer-pair products and middle digit are preserved by the permutation.
+\end{enumerate}
+\begin{thebibliography}{9}
+\raggedright
+\bibitem{Holt} B. V. Holt, \emph{Digit Preserving Multiplication in
+Continued Fraction Representations}, arXiv:1702.04760v1 (2017),
+Definitions 1 and 13, Conjecture 17.
+\url{https://arxiv.org/abs/1702.04760}.
+\end{thebibliography}
+\end{document}

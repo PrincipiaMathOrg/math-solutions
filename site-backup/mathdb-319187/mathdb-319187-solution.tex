@@ -1,0 +1,248 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,hyperref,listings}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\lstset{basicstyle=\ttfamily\footnotesize,columns=fullflexible,keepspaces=true,
+        showstringspaces=false,breaklines=true}
+\title{A variance proof of Davis's polynomial-ratio bound}
+\author{Principia Math In Progress}
+\date{17 September 2026}
+\begin{document}
+\maketitle
+\noindent MathDB \href{https://mathdb.com/p/319187}{319187};
+Davis, Conjecture 3.1 \cite{D}.
+
+\section*{Task 1. Prove the original bound}
+Write $(x)_{\underline i}=x(x-1)\cdots(x-i+1)$, with
+$(x)_{\underline0}=1$, and let
+\[
+ P_d(x)=\sum_{i=0}^d
+ \frac{(x)_{\underline i}^{\,2}(x)_{\underline{d-i}}^{\,2}}{i!(d-i)!},
+ \qquad
+ q_d(x)=\frac{2x^2-2dx}{d+1}+\frac d2.
+\]
+The remainder in the source is $R_d=P_{d+1}-q_dP_d$:
+Lemma 1.1 of its journal version proves that $q_d$ is the polynomial
+division quotient.
+
+\begin{theorem}\label{thm:main}
+For every integer $d\ge5$ and every real
+$x\ge(d+\sqrt{d+2})/2$,
+\begin{equation}\label{eq:target}
+ -\frac{R_d(x)}{P_d(x)}>
+       \frac{199(d-2)}{200(2x+d-2)}.
+\end{equation}
+Thus the conjectured weak inequality holds, with its exact constant
+$0.995=199/200$.
+\end{theorem}
+The proof is analytic for all $d\ge40$. For the remaining 35 degrees,
+we give exact integer polynomial certificates valid on whole real
+rays, not pointwise numerical sampling.
+
+\subsection*{The ratio as a variance}
+Put $c=x-d/2$ and introduce the nonnegative weights
+\[
+ w_i=\frac{(x)_{\underline i}^{\,2}(x)_{\underline{d-i}}^{\,2}}{i!(d-i)!},
+ \qquad \Pr(I=i)=\frac{w_i}{P_d(x)}\quad(0\le i\le d).
+\]
+The denominator is positive: the middle summand has no vanishing
+factor when $x>d/2$. Since $w_i=w_{d-i}$, the variable $Z=I-d/2$
+has mean zero. Write $V=\mathbb E Z^2$ and $M_4=\mathbb E Z^4$.
+
+Adding a factor to either falling factorial gives
+\[
+ (d+1)P_{d+1}(x)
+   =\sum_{i=0}^d w_i\bigl((x-i)^2+(x-d+i)^2\bigr).
+\]
+For example, the first sum contributes $j$ times the $j$th summand
+of $P_{d+1}$, and the second contributes $d+1-j$ times that summand.
+Consequently
+\begin{equation}\label{eq:variance}
+ \frac{P_{d+1}}{P_d}=\frac{2c^2+2V}{d+1},\qquad
+ -\frac{R_d}{P_d}=\frac{d-4V}{2(d+1)}.
+\end{equation}
+
+There is also an exact fourth-moment identity. Define
+\[
+ a_i=(d-i)(x-i)^2,\qquad b_i=i(x-d+i)^2.
+\]
+Direct cancellation in the weights proves
+$w_i a_i=w_{i+1}b_{i+1}$ for $0\le i<d$; this is a polynomial
+identity and remains valid when some weights vanish. Since $a_d=b_0=0$,
+telescoping gives
+\[
+ \mathbb E\{a_I(f(I+1)-f(I))+b_I(f(I-1)-f(I))\}=0.
+\]
+Use $f(i)=(i-d/2)^2$. In centered coordinates,
+\[
+ a_i-b_i=-2Z(c^2+dc+Z^2),\qquad
+ a_i+b_i=dc^2+(d+4c)Z^2.
+\]
+It follows that
+\begin{equation}\label{eq:moment}
+ 4M_4+A V=dc^2,\qquad A=4c^2+4(d-1)c-d.
+\end{equation}
+Cauchy--Schwarz gives $M_4\ge V^2$. Thus, with $t=4V$,
+\begin{equation}\label{eq:quadratic}
+ t^2+At\le4dc^2.
+\end{equation}
+
+\subsection*{Every degree at least 40}
+Suppose $d\ge40$. The required domain implies
+$c\ge\sqrt{d+2}/2>3$, so $A>0$. Set
+\[
+ T=d-\frac{199(d+1)(d-2)}{200(c+d-1)}.
+\]
+Here $T>d-(d+1)(d-2)/(d+2)=3-4/(d+2)>0$.
+We will prove $T^2+AT>4dc^2$. Since $y\mapsto y^2+Ay$ is strictly
+increasing for $y\ge0$, \eqref{eq:quadratic} will then imply $t<T$.
+
+Put $u=d-40\ge0$ and $v=c-3\ge0$. An exact expansion is
+\begin{equation}\label{eq:largecert}
+ 40000(c+d-1)^2(T^2+AT-4dc^2)
+       =C_0(u)+C_1(u)v+C_2(u)v^2+C_3(u)v^3,
+\end{equation}
+where
+\begin{align*}
+ C_0(u)&=2201u^4+240358u^3+8708957u^2
+                  +110582964u+241318564,\\
+ C_1(u)&=800u^4+95400u^3+4131000u^2
+                  +80610800u+677526400,\\
+ C_2(u)&=1600u^3+196000u^2+8631200u+136276800,\\
+ C_3(u)&=800u^2+63200u+1566400.
+\end{align*}
+Every displayed coefficient is positive. Hence \eqref{eq:largecert}
+is strictly positive, proving $4V=t<T$. By \eqref{eq:variance},
+\[
+ -\frac{R_d}{P_d}>\frac{199(d-2)}{400(c+d-1)}
+                =\frac{199(d-2)}{200(2x+d-2)}.
+\]
+In fact this part of the proof works whenever $d\ge40$ and $c\ge3$.
+
+\subsection*{Exact certificates for degrees 5 through 39}
+Fix such a degree and put
+\[
+ b=\lfloor d/2\rfloor,\quad q=\lceil d/2\rceil,\quad
+ K=1000d+\left\lfloor\sqrt{10^6(d+2)}\right\rfloor,
+ \quad X=2000x-K.
+\]
+The source domain implies $X\ge0$. Define the degree-$b$ integer
+polynomial
+\[
+ A_i(X)=
+ \prod_{j=0}^{\min(i,d-i)-1}(X+K-2000j)
+ \prod_{j=q}^{\max(i,d-i)-1}(X+K-2000j),
+\]
+where an empty product is one, and set
+\[
+ S(X)=\sum_{i=0}^d\binom di A_i(X)^2,\qquad
+ N(X)=\sum_{i=0}^d\bigl(d-(2i-d)^2\bigr)\binom di A_i(X)^2.
+\]
+Factoring the common square $(x)_{\underline q}^{\,2}$ from the
+weights shows that $S>0$ and $N/S=d-4V$. Thus
+\eqref{eq:target} is equivalent to positivity of
+\begin{equation}\label{eq:smallcert}
+ E_d(X)=(X+K+1000(d-2))N(X)-1990(d+1)(d-2)S(X).
+\end{equation}
+For each of the 35 indicated degrees, every coefficient of $E_d$ is
+nonnegative and its constant coefficient is positive. The degree is
+$2\lfloor d/2\rfloor$; there are 787 coefficients in total.
+These finite integer assertions are verified by the complete checker
+below. The coefficient vectors, divided by their positive integer
+contents, are also recorded in \texttt{polynomial-certificates.json}.
+
+\begin{lstlisting}[language=Python]
+from math import comb, isqrt
+
+def mul(p, q):
+    r = [0] * (len(p) + len(q) - 1)
+    for i, a in enumerate(p):
+        for j, b in enumerate(q):
+            r[i+j] += a*b
+    return r
+
+total = 0
+for d in range(5, 40):
+    b, q = d//2, (d+1)//2
+    K = 1000*d + isqrt(1000000*(d+2))
+    S, N = [0]*(2*b+1), [0]*(2*b+1)
+    for i in range(d+1):
+        p = [1]
+        J = list(range(min(i,d-i))) + list(range(q,max(i,d-i)))
+        for j in J:
+            p = mul(p, [K-2000*j, 1])
+        for j, a in enumerate(mul(p,p)):
+            w = comb(d,i)*a
+            S[j] += w
+            N[j] += (d-(2*i-d)**2)*w
+    E = mul(N, [K+1000*(d-2), 1])
+    for j, a in enumerate(S):
+        E[j] -= 1990*(d+1)*(d-2)*a
+    while len(E)>1 and E[-1] == 0:
+        E.pop()
+    assert len(E)-1 == 2*b
+    assert E[0] > 0 and all(a >= 0 for a in E)
+    total += len(E)
+assert total == 787
+\end{lstlisting}
+This code uses only exact integer arithmetic from Python's standard
+library. Its coefficient assertions imply $E_d(X)>0$ for every real
+$X\ge0$, and therefore prove \eqref{eq:target} for every real argument
+in the required domain. Together with the large-degree argument,
+this completes the proof.\hfill$\square$
+
+\paragraph{Scope and verification.}
+The proof handles every integer degree $d\ge5$, includes the stated
+cutoff, and proves a strict inequality. The accompanying verifier
+checks the universal symbolic identities, the 17 positive terms in
+\eqref{eq:largecert}, all 35 small-degree certificates, and 70 exact
+rational evaluations from the original falling-factorial definition.
+Those last evaluations check normalization only; the polynomial
+certificates prove the full real intervals. The same agent authored
+and audited the argument; independent peer review is not claimed.
+
+\section*{Task 2. Determine the optimal universal constant}
+Determine the infimum, over the full source domain, of
+\[
+ \frac{2x+d-2}{d-2}\left(-\frac{R_d(x)}{P_d(x)}\right).
+\]
+In particular, prove or refute the candidate that it is attained at
+$d=27$ and $x=(27+\sqrt{29})/2$. Obtain an exact algebraic
+description and a certified interval for the optimal constant.
+
+\section*{Task 3. Remove the finite coefficient check}
+Use additional detailed-balance moment identities or a sharper lower
+bound for $\mathbb E Z^4$ to prove the stated $199/200$ inequality
+uniformly from $d=5$ onward. Seek a short analytic certificate that
+replaces the 35 polynomial expansions while preserving the full
+real-argument domain.
+
+\section*{Task 4. Prove a uniform two-sided approximation}
+Derive explicit upper and lower error bounds for
+$-R_d/P_d-(d-2)/(2x+d-2)$, uniform for
+$x\ge(d+\sqrt{d+2})/2$. Determine the leading correction both when
+$x-d/2$ is proportional to $\sqrt d$ and when $x/d$ stays above
+$1/2$, with rigorous control through the transition between them.
+
+\section*{Task 5. Resolve the extremum conjecture}
+For odd $d\ge5$, determine the number of real critical points of
+\[
+ Q_d(x)=1+\frac{R_d(x)}{P_d(x)}\frac{2x+d-2}{d-2},
+\]
+interpreted after cancelling common factors. Prove or refute the
+source's single-maximum, single-minimum assertion and derive rigorous
+large-$d$ expansions for their locations. This is Conjecture 3.2 in
+the journal version, numbered 3.9 in the preprint.
+
+\begin{thebibliography}{9}
+\bibitem{D}
+D. M. Davis, \emph{Maximizing a combinatorial expression arising from
+crowd estimation}, International Journal of Modern Mathematics
+\textbf{5} (2010), 129--148. Author-hosted journal version, revised
+14 May 2010:
+\href{https://www.lehigh.edu/~dmd1/fredijmm.pdf}{\texttt{fredijmm.pdf}},
+Lemma 1.1 on PDF p. 5 and Conjecture 3.1 on PDF p. 12.
+Preprint: \href{https://arxiv.org/abs/0910.5725}{arXiv:0910.5725v1}.
+\end{thebibliography}
+\end{document}

@@ -1,0 +1,154 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,hyperref}
+\hypersetup{colorlinks=true,urlcolor=blue,linkcolor=blue}
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}{Proposition}
+\title{Finite positivity forces binomial rigidity\\\large MathDB 325243}
+\author{Principia Math In Progress}
+\date{18 September 2026}
+\begin{document}
+\maketitle
+
+\section*{Task 1: complete classification for every positive integer $s$}
+Let $s\ge1$ be an integer, $q\in\mathbb R\setminus\{0\}$, and
+$t=\widetilde q>0$. For real $p_0,\ldots,p_s$, define
+\begin{equation}\label{eq:g}
+ g_k=\sum_{m=0}^{\min(k,s)}
+ \binom{s-1+k-m}{s-1}p_mq^m(-t)^{k-m}\qquad(k\ge0).
+\end{equation}
+L\'oczi and Ketcheson's Conjecture 2.11 in the preprint, numbered
+8.2 in the published paper \cite{LK}, asks whether
+$g_0,\ldots,g_{s+1}\ge0$ force the binomial coefficients below.
+We prove this for every $s$, and give the exact interpretation of
+the extra variable $p_{s+1}$ printed in that conjecture.
+
+\begin{theorem}\label{thm:main}
+The following conditions are equivalent:
+\begin{enumerate}
+\item $g_k\ge0$ for $0\le k\le s+1$;
+\item for some $c\ge0$,
+\[
+             p_m=c\binom{s}{m}\left(\frac tq\right)^m
+                    \qquad(0\le m\le s).
+\]
+\end{enumerate}
+In either case $c=p_0$, $g_0=c$, and $g_k=0$ for every $k\ge1$.
+If $p_{s+1}$ is also supplied as an independent real variable,
+it is arbitrary: the complete feasible set is the displayed ray
+in $(p_0,\ldots,p_s)$ times $\mathbb R$ in the last coordinate.
+\end{theorem}
+
+\begin{proof}
+All identities can be read in the formal power series ring
+$\mathbb R[[z]]$; no convergence assertion is needed. Set
+\[
+ P(z)=\sum_{m=0}^s p_mq^m z^m,
+ \qquad G(z)=\frac{P(z)}{(1+tz)^s}.
+\]
+The negative binomial expansion
+\[
+ (1+tz)^{-s}=\sum_{j\ge0}(-1)^j\binom{s+j-1}{s-1}t^jz^j
+\]
+shows that $G(z)=\sum_{k\ge0}g_kz^k$, with precisely the sums
+in \eqref{eq:g}. Since $\deg P\le s$, the coefficient of $z^{s+1}$
+in $(1+tz)^sG(z)=P(z)$ is zero. Thus
+\begin{equation}\label{eq:certificate}
+      0=\sum_{j=0}^s\binom{s}{j}t^j g_{s+1-j}.
+\end{equation}
+Every weight $\binom{s}{j}t^j$ is strictly positive.
+Under condition (1), every summand is nonnegative, so
+\[
+                  g_1=g_2=\cdots=g_{s+1}=0.
+\]
+Also $g_0=p_0\ge0$. Comparing coefficients of degrees $0$ through
+$s$ in $(1+tz)^sG=P$ now gives
+\[
+                 p_mq^m=g_0\binom{s}{m}t^m
+                        \qquad(0\le m\le s).
+\]
+Division by $q^m$ proves (2), including negative $q$.
+Conversely, (2) gives $P(z)=c(1+tz)^s$, so $G(z)=c$ and all
+the asserted values of $g_k$ follow. Finally, $p_{s+1}$ occurs
+in none of the defining sums, so it is unrestricted.
+\end{proof}
+
+\paragraph{The printed last index.}
+Both source versions also assert the formula for $m=s+1$,
+which would force $p_{s+1}=0$. That extra conclusion is false
+when $p_{s+1}$ is independent: take $s=q=t=1$ and
+$(p_0,p_1,p_2)=(1,1,1)$. Then $(g_0,g_1,g_2)=(1,0,0)$.
+Theorem~\ref{thm:main} proves the full intended rigidity assertion
+for all the coefficients that enter the hypotheses; it also proves
+every claimed vanishing sum and its converse. The complete
+all-$s$ classification, rather than this unused-coordinate
+counterexample alone, is the mathematical result here.
+In the motivating degree-$s$ polynomial setting,
+$p_{s+1}=P^{(s+1)}(x)/(s+1)!=0$ automatically.
+
+\begin{proposition}[A general denominator and a sharp cutoff]
+Let $D(z)=\sum_{j=0}^s d_jz^j$ with every $d_j>0$, and
+$P\in\mathbb R[z]$ with $\deg P\le s$.
+If the coefficients $g_0,\ldots,g_{s+1}$ of $P/D$ are nonnegative,
+then $P=g_0D$. For each such $D$, testing only degrees
+$0,\ldots,s$ does not imply this conclusion.
+\end{proposition}
+\begin{proof}
+The coefficient of $z^{s+1}$ gives
+$\sum_{j=0}^s d_jg_{s+1-j}=0$. Positivity again forces
+$g_1=\cdots=g_{s+1}=0$, and comparison through degree $s$
+gives $P=g_0D$.
+For sharpness, fix $\varepsilon>0$ and put
+\[
+ P(z)=D(z)(1+\varepsilon z)-\varepsilon d_sz^{s+1}.
+\]
+This has degree at most $s$, and
+\[
+ \frac{P(z)}{D(z)}=1+\varepsilon z
+           -\frac{\varepsilon d_sz^{s+1}}{D(z)}.
+\]
+Hence $g_0=1$, $g_1=\varepsilon$, and $g_2=\cdots=g_s=0$,
+where the last range is empty if $s=1$. But
+$g_{s+1}=-\varepsilon d_s/d_0<0$, and $P/D$ is not constant.
+\end{proof}
+
+\paragraph{Verification and scope.}
+The exact verifier checks the positive linear certificate by
+coefficient cancellation, compares direct sums with formal series
+division, and checks the feasible family and the sharp-cutoff
+construction. The proof for arbitrary $s$ is the coefficient
+argument above, not an extrapolation of these computations.
+The source's Runge--Kutta optimal-radius questions are separate:
+the sign $t>0$ used here must not be replaced by $t=-a<0$
+without a new argument.
+
+\section*{Four proposed follow-up tasks}
+\begin{description}
+\item[Task 2.] For denominators having zero or negative coefficients,
+characterize when some finite number of nonnegative coefficients of
+$P/D$, with $\deg P\le\deg D$, forces $P/D$ to be constant.
+\item[Task 3.] Determine optimal quantitative bounds on the distance
+from $P$ to a multiple of $D$ when the tested coefficients are only
+bounded below by small errors; study uniformity as the positive
+coefficients of $D$ approach zero.
+\item[Task 4.] For $\deg P>\deg D$ and a specified finite testing
+range, classify the extreme rays of the cone defined by
+coefficient nonnegativity of $P/D$.
+\item[Task 5.] Find a replacement for the positive certificate
+\eqref{eq:certificate} compatible with the denominator $(1-az)^s$
+and the order conditions in the source's general rational-function
+optimal-radius conjectures.
+\end{description}
+These are proposed research directions and receive no additional
+solution credit.
+
+\begin{thebibliography}{9}
+\bibitem{LK} L. L\'oczi and D. I. Ketcheson,
+\emph{Rational functions with maximal radius of absolute monotonicity},
+LMS Journal of Computation and Mathematics \textbf{17}(1) (2014),
+159--205. Conjecture 8.2, p.~197.
+\href{https://doi.org/10.1112/S1461157013000326}{doi:10.1112/S1461157013000326}.
+Preprint: \href{https://arxiv.org/abs/1303.6651}{arXiv:1303.6651v1},
+Conjecture 2.11, p.~10.
+\end{thebibliography}
+\end{document}

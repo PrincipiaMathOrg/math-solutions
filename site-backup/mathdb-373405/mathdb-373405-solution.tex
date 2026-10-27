@@ -1,0 +1,248 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,hyperref}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newcommand{\CC}{\mathbb C}
+\newcommand{\RR}{\mathbb R}
+\newcommand{\diag}{\operatorname{diag}}
+\newcommand{\MLD}{\operatorname{MLD}}
+\newcommand{\eMLD}{\operatorname{eMLD}}
+\title{The extremal maximum-likelihood degree bound\\
+\large A solution of MathDB 373405}
+\author{Principia Math In Progress}
+\date{27 September 2026}
+\begin{document}
+\maketitle
+\begin{abstract}
+We prove that the extremal maximum-likelihood degree of a graph is at
+most its Gaussian maximum-likelihood degree. The proof deforms each
+generic complex extremal critical point into a nonsingular Gaussian
+critical point. A second-order determinant expansion resolves the
+degeneracy in the added diagonal parameters.
+\end{abstract}
+
+\section*{Task 1: statement and likelihood coordinates}
+The target is Conjecture 4.12 of \cite{ACGR}, page 19.
+Degrees count complex critical points for generic data, on the domain
+where the relevant determinant is nonzero.
+\begin{theorem}\label{main}
+For every connected finite simple graph $G$,
+\[
+ \eMLD(G)\leq\MLD(G).
+\]
+The same bound holds for disconnected graphs under either the strict
+completion definition in the source or its componentwise extension.
+\end{theorem}
+
+Let $G$ have vertices $1,\ldots,n$ and edge set $E$. We first take
+$n\geq2$ and $G$ connected. Give its edges complex weights $w_e$ and set
+\[
+ L(w)=\sum_{e=\{i,j\}\in E}w_e(e_i-e_j)(e_i-e_j)^{\mathsf T},
+ \quad A(w)=L(w)_{\widehat n,\widehat n},\quad \tau(w)=\det A(w).
+\]
+Here a hat means that the row and column are deleted. The map from
+weights to $A$ is injective: a Laplacian with zero row sums is determined
+by this principal submatrix, and its off-diagonal entries determine the
+weights. On $\tau\ne0$, the extremal score equations are
+\begin{equation}\label{ext}
+ \partial_{w_e}\log\tau(w)=v_e\qquad(e\in E).
+\end{equation}
+Indeed, the pseudo-determinant of $L$ is $n\tau$, and for a hollow
+variogram $\Gamma$,
+\[
+ \tfrac12\operatorname{tr}(L\Gamma)
+   =-\sum_{\{i,j\}\in E}w_{ij}\Gamma_{ij}.
+\]
+Thus \eqref{ext} is exactly the critical system for the source's
+surrogate likelihood, with $v_{ij}=\Gamma_{ij}$; see \cite[Section 4,
+equation (16)]{ACGR}. It also describes the spanning-tree concentration
+model in \cite{CMS}.
+
+Every symmetric Gaussian concentration matrix with this graph's
+off-diagonal zero pattern has unique coordinates
+\[
+ K=L(w)+\diag(s_1,\ldots,s_n),\qquad F(w,s)=\det K.
+\]
+For a symmetric sample matrix $S$, set
+$u_i=S_{ii}$ and $v_{ij}=S_{ii}+S_{jj}-2S_{ij}$ on edges. These are
+invertible linear coordinates on the specified sample entries, and
+\[
+ \operatorname{tr}(KS)=\sum_i s_i u_i+\sum_e w_e v_e.
+\]
+Consequently the Gaussian score equations are
+\begin{equation}\label{gauss}
+ \partial_{w_e}\log F=v_e,\qquad
+ \partial_{s_i}\log F=u_i,\qquad F\ne0.
+\end{equation}
+
+For completeness, generic fibers of both score maps are finite and
+nonsingular. At positive real edge weights, $A$ is positive definite.
+The Hessian of $\log\det A$ in a nonzero weight direction $\dot A$ is
+\[
+ -\operatorname{tr}(A^{-1}\dot A A^{-1}\dot A)<0,
+\]
+because the coordinate map is injective. Thus the score map has a
+nonzero Jacobian determinant. It is a dominant rational map between
+spaces of the same dimension, generically finite and unramified over
+$\CC$. The identical argument at a positive definite $K$ applies to
+\eqref{gauss}. We may therefore choose $v$ such that \eqref{ext} has
+exactly $r=\eMLD(G)$ distinct solutions, all with $\tau\ne0$ and
+nonsingular Hessian $\nabla_w^2\log\tau$.
+
+\section*{The determinant expansion}
+Fix any $w$ with $\tau(w)\ne0$ and put $C=A^{-1}$. Extend $C$ to an
+$n$-by-$n$ matrix $\widetilde C$ by giving it a zero last row and column.
+Define
+\begin{equation}\label{resistance}
+ R_{ij}=\widetilde C_{ii}+\widetilde C_{jj}-2\widetilde C_{ij},
+ \qquad Z=\sum_{i=1}^n z_i.
+\end{equation}
+All these functions are holomorphic near the chosen $w$.
+\begin{lemma}\label{expansion}
+As a polynomial identity in the parameter $t$, locally on $\tau\ne0$,
+\begin{equation}\label{expand}
+ F(w,tz)=t\tau Z+
+ t^2\tau\sum_{i<j}R_{ij}z_i z_j+O(t^3).
+\end{equation}
+Here the remainder is divisible by $t^3$.
+\end{lemma}
+\begin{proof}
+Write $\widehat z=(z_1,\ldots,z_{n-1})^{\mathsf T}$ and
+$D=\diag(\widehat z)$. The zero row sums give
+\[
+ L=\begin{pmatrix}A&-A\mathbf1\\-\mathbf1^{\mathsf T}A&
+                  \mathbf1^{\mathsf T}A\mathbf1\end{pmatrix}.
+\]
+The Schur complement of $A+tD$ in $L+t\diag(z)$ equals
+\[
+ tZ-t^2\widehat z^{\mathsf T}C\widehat z+O(t^3),
+\]
+while
+\[
+ \det(A+tD)=\tau\left(1+t\sum_{i<n}C_{ii}z_i+O(t^2)\right).
+\]
+Multiplying proves \eqref{expand}, since
+\[
+ Z\sum_{i<n}C_{ii}z_i-\widehat z^{\mathsf T}C\widehat z
+     =\sum_{i<j}R_{ij}z_i z_j.
+\]
+\end{proof}
+
+\section*{Lifting every extremal critical point}
+Since $F(w,0)=0$, the quotient
+\[
+ P(t,w,z)=\frac{F(w,tz)}{t}
+\]
+is a polynomial, including at $t=0$. Consider the following $|E|+n$
+equations in the same number of unknowns $(w,z)$:
+\begin{align}
+ H_e&=\partial_{w_e}P-v_eP=0 &&(e\in E),\label{He}\\
+ H_0&=\partial_{z_n}P-P=0,\label{H0}\\
+ H_i&=\frac{\partial_{z_i}P-\partial_{z_n}P}{t}=0
+                         &&(1\leq i<n).\label{Hi}
+\end{align}
+The last expressions are polynomials because
+$P(0,w,z)=\tau(w)Z$, whose $z_i$ derivatives all equal $\tau$.
+When $t\ne0$ and $P\ne0$, these equations are equivalent to
+\eqref{gauss} for
+\begin{equation}\label{data}
+ s_i=tz_i,\qquad u_i=1/t\quad(1\leq i\leq n),
+ \qquad v_e\text{ as fixed above}.
+\end{equation}
+
+Let $w^*$ be any of the $r$ chosen extremal critical points. At $t=0$,
+Lemma~\ref{expansion} turns \eqref{He}--\eqref{Hi} into
+\begin{align*}
+ H_e&=Z(\partial_{w_e}\tau-v_e\tau),\\
+ H_0&=\tau(1-Z),\\
+ H_i&=\tau\bigl((Rz)_i-(Rz)_n\bigr)
+     =\tau\left(C_{ii}Z-2(C\widehat z)_i\right).
+\end{align*}
+Thus they have the unique solution in $z$ given by
+\begin{equation}\label{zstar}
+ Z=1,\qquad
+ \widehat z^*=\tfrac12 A\,(C_{11},\ldots,C_{n-1,n-1})^{\mathsf T},
+ \qquad z_n^*=1-\sum_{i<n}z_i^*.
+\end{equation}
+
+Use coordinates $(w,\widehat z,Z)$ and order the equations as
+$(H_e)_{e\in E},(H_i)_{i<n},H_0$. Their Jacobian at
+$(t,w,z)=(0,w^*,z^*)$ is block lower triangular. Its upper diagonal
+block is
+\[
+ \tau\,\nabla_w^2\log\tau,
+\]
+and its lower diagonal block is
+\begin{equation}\label{block}
+ \begin{pmatrix}
+ -2\tau C&\tau\,(C_{11},\ldots,C_{n-1,n-1})^{\mathsf T}\\
+ 0&-\tau
+ \end{pmatrix}.
+\end{equation}
+Both are nonsingular. In the upper right block, derivatives with respect
+to $z$ vanish because \eqref{ext} holds. This verifies the triangular
+claim without any assumption on the signs of the complex weights or
+on the entries of $z^*$.
+
+The holomorphic implicit-function theorem now gives a solution
+$(w(t),z(t))$ near each $(w^*,z^*)$ for all sufficiently small $t$.
+Its Jacobian stays nonsingular, and
+$P(t,w(t),z(t))\to\tau(w^*)\ne0$. Because the $r$ limiting points are
+distinct, their neighborhoods may be chosen disjoint. For a common
+sufficiently small nonzero $t$, we obtain $r$ distinct nonsingular
+solutions of \eqref{gauss}. The changes of variables and equations
+used above are invertible for this fixed $t\ne0$.
+
+The special data in \eqref{data} need not themselves be generic.
+Each of these $r$ nonsingular Gaussian solutions persists under a small
+arbitrary perturbation of all data coordinates $(u,v)$, again by the
+implicit-function theorem. The perturbation can be chosen in the
+Zariski-open set where the number of solutions equals $\MLD(G)$.
+It follows that $r\leq\MLD(G)$, proving the bound for connected
+$G$ with $n\geq2$.
+
+For a single vertex both degrees are one. If $G$ has two or more
+connected components, every graph-supported Laplacian has at least two
+independent kernel vectors, the component indicators. Thus it cannot
+have rank $n-1$. The source's strict variogram model, and its regular
+complex completion domain, are then empty, giving degree zero and a
+trivial inequality. Alternatively, if disconnected extremal models are
+defined componentwise, their degrees multiply, just as Gaussian degrees
+do. Multiplication of the connected inequalities proves the bound for
+that extension as well. This completes Theorem~\ref{main}.
+
+\section*{Verification and proposed follow-up tasks}
+The exact verifier checks the determinant coefficients and the two
+Jacobian blocks on all connected labeled graphs with two through four
+vertices, and additional graphs through seven vertices. These finite
+calculations supplement the all-graph proof above.
+\begin{description}
+\item[Task 2 (proposed).] Classify connected graphs for which
+$\eMLD(G)=\MLD(G)$, beyond the known chordal case.
+\item[Task 3 (proposed).] Describe and count the Gaussian critical points
+that do not converge to the extremal branches constructed here, in order
+to express $\MLD(G)-\eMLD(G)$ geometrically.
+\item[Task 4 (proposed).] Determine whether extremal ML degree is
+monotone under connected induced subgraphs, as suggested by the
+spanning-tree-model questions in \cite{CMS}.
+\item[Task 5 (proposed).] Extend the deformation to concentration
+spaces with a fixed kernel of dimension greater than one, identifying
+conditions that make the analogue of \eqref{block} nonsingular.
+\end{description}
+
+\begin{thebibliography}{2}
+\bibitem{ACGR} C. Am\'endola, J. I. Coons, A. Grosdos, and F. R\"ottger,
+\emph{Algebraic statistics of H\"usler--Reiss graphical models in
+multivariate extremes}, arXiv:2603.02191v1 (2026), especially
+Conjecture 4.12. \url{https://arxiv.org/abs/2603.02191}.
+\bibitem{CMS} S. Cox, P. Misra, and P. Semnani,
+\emph{Homaloidal polynomials and Gaussian models of maximum likelihood
+degree one}, Algebraic Statistics \textbf{15} (2024), 167--198.
+\url{https://doi.org/10.2140/astat.2024.15.167}.
+Final author version: \url{https://arxiv.org/abs/2402.06090v3}.
+\end{thebibliography}
+\noindent\textit{Review status.} Author-agent review; no independent peer
+review or proof-assistant verification. The accompanying audits record
+the source coverage and bounded prior-claim checks.
+\end{document}

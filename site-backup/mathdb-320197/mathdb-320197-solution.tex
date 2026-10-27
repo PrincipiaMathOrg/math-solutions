@@ -1,0 +1,104 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,booktabs}
+\usepackage[hidelinks]{hyperref}
+\title{A nonunimodal Langford coverage sequence\\
+\large A counterexample to MathDB problem 320197}
+\author{Principia Math in Progress}
+\date{September 12, 2026}
+\begin{document}
+\maketitle
+
+\paragraph{Task 1. Resolve the original conjecture.}
+Conjecture 6 of Pan \cite[p.~4]{Pan} is false. The following
+counterexample violates both the asserted unimodality and the
+asserted maximum value.
+
+A solution to \((2,n)\) is a word of length \(2n\) containing two
+copies of every \(k\in\{1,\ldots,n\}\), with exactly \(k\) entries
+between the copies of \(k\). If \(\theta_k\) is its first occurrence,
+its second occurrence is \(\theta_k+k+1\).
+The associated sequence counts inclusive interval coverage:
+\[
+ \mu_i=\#\{k\in\{1,\ldots,n\}:\theta_k\le i\le\theta_k+k+1\},
+ \qquad 1\le i\le2n.
+ \tag{1}
+\]
+This is the interpretation of the source's definition consistent
+with its identity \(\sum_i\mu_i=(n^2+5n)/2\).
+The conjecture requires an index \(i\le n\) with
+\(\mu_i=\lfloor(n+3)/2\rfloor\), and requires the sequence to
+increase weakly to that index and then decrease weakly.
+
+Take \(n=7\) and
+\[
+ S=(7,3,1,6,1,3,4,5,7,2,6,4,2,5).
+\]
+Every required spacing is verified in the following table.
+\[
+\begin{array}{c|rrrrrrr}
+ k&1&2&3&4&5&6&7\\ \hline
+ \theta_k&3&10&2&7&8&4&1\\
+ \theta_k+k+1&5&13&6&12&14&11&9\\
+ \text{difference}&2&3&4&5&6&7&8
+\end{array}
+\]
+The listed endpoints are exactly the positions \(1,\ldots,14\),
+so \(S\) is a solution. It also satisfies the source's convention
+for choosing one of a reversed pair: its first \(7\) is at position
+\(1\), whereas the reversed word's first \(7\) is at position \(6\).
+
+Counting the intervals in (1) gives
+\[
+ (\mu_1,\ldots,\mu_{14})
+ =(1,2,3,4,4,3,3,4,4,4,4,3,2,1).
+ \tag{2}
+\]
+In particular, \(\mu_5=4>\mu_6=3<\mu_8=4\). A weakly unimodal
+sequence cannot decrease and subsequently increase. More explicitly,
+if a putative mode is at \(i\le5\), its decreasing tail contradicts
+\(\mu_7<\mu_8\); if it is at \(i\ge6\), its increasing prefix
+contradicts \(\mu_5>\mu_6\). Thus no mode exists.
+Also, \(\max_i\mu_i=4\), while the conjectured value is
+\(\lfloor(7+3)/2\rfloor=5\).
+Finally, the sum in (2) is \(42=(7^2+5\cdot7)/2\), so the correct
+total-weight identity survives. This completes the disproof.
+
+\paragraph{Verification.}
+The endpoint table and (2) give a complete finite proof.
+The accompanying checker independently computes interval coverage
+by direct counting and by endpoint differences, verifies all
+spacings and the reversal convention, and enumerates the \(26\)
+canonical words for \(n=7\). Four have nonunimodal coverage;
+ten have a maximum different from \(5\).
+
+\newpage
+\paragraph{Task 2. Characterize unimodal coverage.}
+Find structural conditions on the arrangement of first and second
+occurrences that characterize the Langford words whose coverage
+sequences are unimodal.
+
+\paragraph{Task 3. Determine the possible coverage maxima.}
+For every admissible \(n\), determine the minimum and maximum of
+\(\max_i\mu_i\) over all Langford words, and characterize arrangements
+attaining those bounds.
+
+\paragraph{Task 4. Construct families with many peaks.}
+Produce explicit infinite families of Langford words with
+nonunimodal coverage, and determine how many alternating rises
+and falls can occur as a function of \(n\).
+
+\paragraph{Task 5. Enumerate coverage profiles.}
+Develop a recurrence or generating function that counts Langford
+words by their coverage sequence, and use it to study the proportion
+with unimodal coverage and its asymptotic behavior.
+
+\begin{thebibliography}{9}
+\bibitem{Pan}
+Z.~Pan, \emph{The Multiple Permutation Problem and Some Conjectures},
+\href{https://arxiv.org/abs/1007.4663}{arXiv:1007.4663v1},
+July 27, 2010, 16 pp.
+Definition and reversal convention: p.~1; \(\theta_k\): p.~3;
+Conjecture 6: p.~4.
+\end{thebibliography}
+\end{document}

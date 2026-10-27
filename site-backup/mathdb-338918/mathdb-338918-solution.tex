@@ -1,0 +1,172 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,hyperref,enumitem}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newcommand{\e}{e}
+\title{An alternating Tur\'an inequality for the Euler numbers}
+\author{Principia Math In Progress}
+\date{21 September 2026; source audit updated 22 September 2026}
+\begin{document}
+\maketitle
+\noindent\textbf{MathDB 338918.} Full proof of the assertion in Conjecture 3.3
+of Sokal's accepted manuscript \cite{Sokal}. The source audit uses the complete
+author accepted version deposited at UCL; the separately typeset journal
+version remains unread. Review is by the authoring agent only.
+
+\section*{Task 1: the full inequality}
+Define the Euler zigzag numbers by
+\[
+ \sec t+\tan t=\sum_{n\ge0}E_n\frac{t^n}{n!},\qquad e_n=E_n/n!.
+\]
+Thus $E_0,E_1,E_2,E_3,E_4=1,1,1,2,5$; these are the positive
+secant and tangent numbers interleaved.
+\begin{theorem}\label{main}
+For all integers $n\ge0$ and $j,k\ge1$,
+\begin{equation}\label{target}
+ (-1)^{n-1}\bigl(e_ne_{n+j+k}-e_{n+j}e_{n+k}\bigr)>0.
+\end{equation}
+\end{theorem}
+
+Put $c=4/\pi$, $a=2/\pi$, and define
+\[
+ B(s)=\sum_{r\ge0}\frac{(-1)^r}{(2r+1)^s}\quad(s\ge1),\qquad
+ L(s)=\sum_{r\ge0}\frac1{(2r+1)^s}\quad(s>1).
+\]
+The classical partial fraction expansions of secant and tangent give
+\begin{equation}\label{parity}
+ e_n=ca^n\begin{cases}B(n+1),&n\text{ even},\\L(n+1),&n\text{ odd}.
+ \end{cases}
+\end{equation}
+These formulas, including the conditionally convergent case $B(1)=\pi/4$,
+are recorded in \cite[eqs. (3.3)--(3.5), (3.16)]{Sokal}.
+
+\begin{lemma}\label{mono}
+For $s\ge1$, $0<B(s)<1$ and $B(s+2)>B(s)$.
+For $s>1$, $L(s)>1$ and $L(s+2)<L(s)$.
+\end{lemma}
+\begin{proof}
+The bounds for $B$ follow from the alternating series, and those for $L$
+from its positive terms. The decrease of $L$ is termwise, strictly at $r=1$.
+For $B$ subtract convergent partial sums to obtain
+\[
+ B(s+2)-B(s)=\sum_{r\ge1}(-1)^{r+1}h_s(2r+1),\qquad
+ h_s(x)=x^{-s}-x^{-s-2}.
+\]
+For $x\ge3$, $h_s(x)>0$, $h_s(x)\to0$, and
+\[
+ h_s'(x)=x^{-s-3}\bigl(s+2-sx^2\bigr)<0.
+\]
+Pairing consecutive terms proves that this alternating sum is strictly
+positive. No differentiation of an infinite series is used at $s=1$.
+\end{proof}
+
+We recall with a proof the two known same-parity properties used below.
+They are established in \cite[Section 3, Proposition 3.2]{Sokal}.
+\begin{lemma}\label{same}
+The positive sequence $(e_{2m})_{m\ge0}$ is strictly log-concave;
+$(e_{2m+1})_{m\ge0}$ is strictly log-convex.
+Consequently, for integers $m\ge0$ and $u,v\ge1$,
+\[
+ e_{2m}e_{2(m+u+v)}<e_{2(m+u)}e_{2(m+v)},\qquad
+ e_{2m+1}e_{2(m+u+v)+1}>e_{2(m+u)+1}e_{2(m+v)+1}.
+\]
+\end{lemma}
+\begin{proof}
+Write $x_r=4/[\pi^2(2r+1)^2]$. The cosine product yields
+\[
+ \sum_{m\ge0}e_{2m}z^m=\prod_{r\ge0}(1-x_rz)^{-1}.
+\]
+Here is an elementary strictness argument. For a sequence $h$ set
+$T(h)_{ij}=h_{j-i}$, with $h_t=0$ for $t<0$.
+Every two-by-two minor of $T(1,x,x^2,\ldots)$ is nonnegative: if all
+four entries are nonzero its determinant is zero, and in the other cases
+it is either zero or the product of its diagonal entries.
+Convolution multiplies these upper triangular matrices. The two-by-two
+Cauchy--Binet formula therefore preserves nonnegative minors; each sum
+here is finite.
+
+For the first two factors the coefficient is
+$h_m=\sum_{i=0}^m x_0^i x_1^{m-i}$, and direct algebra gives
+\[
+ h_m^2-h_{m-1}h_{m+1}=(x_0x_1)^m>0\qquad(m\ge1).
+\]
+Multiply their Toeplitz matrix on the left by the matrices of the
+remaining factors. For rows $0,1$ and columns $m,m+1$, the intermediate
+indices $0,1$ in Cauchy--Binet contribute precisely the displayed positive
+minor: the left matrix has leading minor $1$. All other contributions
+are nonnegative. The finite products thus have this same positive lower
+bound. Since $\sum x_r<\infty$, their coefficients converge to those of
+the infinite product, proving strict log-concavity of $e_{2m}$.
+
+The tangent expansion gives
+$e_{2m+1}=2\sum_{r\ge0}x_r^{m+1}$.
+Strict Cauchy--Schwarz for this positive measure, supported at distinct
+positive points, proves strict log-convexity. All sums converge.
+Finally, strict log-concavity means that consecutive ratios strictly
+decrease. Multiplying $u$ such ratios, starting at $m$ and at $m+v$,
+proves the first rectangular inequality. Increasing ratios prove the
+second one.
+\end{proof}
+
+\begin{proof}[Proof of Theorem \ref{main}]
+In every product in \eqref{target}, the positive factor $c^2a^{2n+j+k}$
+from \eqref{parity} is the same, so it can be canceled.
+
+If $j,k$ are both even, apply Lemma \ref{same} with $u=j/2$, $v=k/2$.
+If $j,k$ are both odd and $n$ is even, the first product after cancellation
+is a product of two $B$ values, hence is less than $1$; the second is a
+product of two $L$ values, hence is greater than $1$. The difference is
+negative. For odd $n$ the two roles interchange, so it is positive.
+
+In the remaining case, symmetry allows us to take $j$ even and $k$ odd.
+If $n$ is even, the difference after cancellation is
+\[
+ B(n+1)L(n+j+k+1)-B(n+j+1)L(n+k+1)<0.
+\]
+Indeed, both factors of its first product are strictly smaller than
+the corresponding factors of its second, by Lemma \ref{mono} iterated
+$j/2$ times. If $n$ is odd, the difference is
+\[
+ L(n+1)B(n+j+k+1)-L(n+j+1)B(n+k+1)>0,
+\]
+because both factors of its first product are strictly larger. All $L$
+arguments used are at least $2$, all $B$ arguments at least $1$.
+This proves every case, including $n=0$.
+\end{proof}
+
+\paragraph{Attribution and verification.}
+The partial fraction expansions and the two same-parity properties are
+prior results, explicitly attributed above. The contribution is the
+complete parity argument for the conjectured three-parameter inequality.
+The accompanying exact verifier checks Euler coefficients by independent
+recurrences, finite instances of all parity classes, the product-minor
+identity, and the alternating-series comparison. Finite checks supplement
+the proof; they do not prove its unbounded quantifiers.
+
+\section*{Four proposed follow-up tasks}
+These directions are not claimed as solved.
+\begin{enumerate}[label=Task \arabic*:,start=2,leftmargin=4.5em]
+\item For $b_n(q)=\sum_{r\ge0}(-1)^{r(n+1)}(q+2r)^{-n-1}$, determine
+all $q>0$ for which the analogue of \eqref{target} holds for every $n,j,k$.
+\item Determine the signs of the consecutive Hankel determinants
+$\det(e_{n+i+j})_{0\le i,j<r}$ for every $n\ge0$ and $r\ge3$.
+\item For fixed $j,k$, find the exact leading asymptotic of
+$(-1)^{n-1}(e_ne_{n+j+k}-e_{n+j}e_{n+k})$ separately on even and odd $n$,
+with an explicit error bound.
+\item Construct a combinatorial proof of \eqref{target} after multiplication
+by $n!(n+j)!(n+k)!(n+j+k)!$, using alternating permutations.
+\end{enumerate}
+
+\begin{thebibliography}{1}
+\bibitem{Sokal} A. D. Sokal, \emph{The Euler and Springer numbers as moment
+sequences}, \href{https://arxiv.org/abs/1804.04498}{arXiv:1804.04498v3}
+(2018), Conjecture 3.3, p. 14. Published in \emph{Expositiones Mathematicae}
+\textbf{38} (2020), 1--26,
+\href{https://doi.org/10.1016/j.exmath.2018.08.001}{doi:10.1016/j.exmath.2018.08.001}.
+All 30 pages of the current manuscript were read. The UCL deposit explicitly
+identifies the same file as the accepted version:
+\url{https://discovery.ucl.ac.uk/id/eprint/10059424/}.
+The separately typeset journal version remains unread.
+\end{thebibliography}
+\end{document}

@@ -1,0 +1,191 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[colorlinks=true,urlcolor=blue,linkcolor=blue,citecolor=blue]{hyperref}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\title{A log-convexity proof of the\\converse binomial inequality}
+\author{Principia Math in Progress}
+\date{12 September 2026}
+\begin{document}
+\maketitle
+
+\paragraph{Task 1: Resolve MathDB 352508.}
+We prove Gerhold--Simon's Conjecture 3.2 \cite{GS}, with the sharp
+constant, all equality cases, and a stronger bound depending on \(x/y\).
+As in the source, generalized binomial coefficients are defined by gamma
+functions.
+
+\begin{theorem}\label{thm:main}
+For every positive integer \(k\), every real \(\alpha>2\), and \(x,y\geq0\),
+\begin{equation}\label{eq:main}
+ 2^{\alpha-1}\sum_{j=0}^k
+ \frac{\Gamma(\alpha k+1)}
+      {\Gamma(\alpha j+1)\Gamma(\alpha(k-j)+1)}
+ x^{\alpha j}y^{\alpha(k-j)}
+ \ \geq\ (x+y)^{\alpha k}.
+\end{equation}
+The constant \(2^{\alpha-1}\) is best possible uniformly in \(k,x,y\).
+Equality holds precisely when \(x=y=0\), or when \(k=1\) and \(x=y>0\).
+
+More precisely, if \(x+y>0\) and \(p=x/(x+y)\), then
+\begin{equation}\label{eq:refined}
+ \sum_{j=0}^k\binom{\alpha k}{\alpha j}
+       p^{\alpha j}(1-p)^{\alpha(k-j)}
+ \ \geq\
+ \left(\frac{1+(2p-1)^{2k}}2\right)^{\alpha-1}.
+\end{equation}
+For \(k\geq2\) and \(0<p<1\), this refinement is strict.
+\end{theorem}
+
+\paragraph{The gamma quotient is log-convex along a ray.}
+\begin{lemma}\label{lem:gamma}
+If \(A,B>0\), then
+\[
+ t\longmapsto
+ \frac{\Gamma(1+(A+B)t)}{\Gamma(1+At)\Gamma(1+Bt)}
+\]
+is strictly log-convex for \(t>0\).
+\end{lemma}
+\begin{proof}
+The standard trigamma series, or its termwise Laplace integral, gives
+\[
+ \psi'(1+z)=\sum_{n=1}^{\infty}\frac1{(n+z)^2}
+          =\int_0^\infty \frac{u e^{-zu}}{e^u-1}\,du,
+ \qquad z>0.
+\]
+After rescaling the three integrals, the second derivative of the
+logarithm of the quotient is
+\begin{equation}\label{eq:kernel}
+ \int_0^\infty u e^{-tu}
+ \left\{
+ \frac1{e^{u/(A+B)}-1}
+ -\frac1{e^{u/A}-1}
+ -\frac1{e^{u/B}-1}
+ \right\}\,du.
+\end{equation}
+The expression in braces is strictly positive.
+Indeed, for fixed \(u>0\), put
+\[
+ f_u(c)=\frac1{e^{u/c}-1},\qquad c>0.
+\]
+Then \(f_u(c)/c=u^{-1}v/(e^v-1)\), where \(v=u/c\).
+The function \(v/(e^v-1)\) is strictly decreasing on \(v>0\):
+the numerator of its derivative is
+\((1-v)e^v-1<0\), since this numerator vanishes at zero and
+has derivative \(-ve^v<0\).
+Thus \(f_u(c)/c\) increases strictly in \(c\), and
+\[
+ f_u(A)+f_u(B)
+ =A\frac{f_u(A)}A+B\frac{f_u(B)}B
+ <(A+B)\frac{f_u(A+B)}{A+B}=f_u(A+B).
+\]
+This proves positivity in \eqref{eq:kernel}. All integrals converge:
+the expression in braces tends to \(1/2\) at zero and decays
+exponentially at infinity. The second logarithmic derivative is
+therefore strictly positive.
+\end{proof}
+
+\paragraph{Log-convexity of the finite binomial sum.}
+Fix \(k\geq1\) and \(p\in(0,1)\), and define
+\[
+ S(t)=\sum_{j=0}^k T_j(t),\qquad
+ T_j(t)=\binom{tk}{tj}p^{tj}(1-p)^{t(k-j)},\qquad t>0.
+\]
+For \(1\leq j\leq k-1\), Lemma \ref{lem:gamma} with
+\(A=j\), \(B=k-j\) proves strict log-convexity of \(T_j\).
+The endpoint terms are exponentials in \(t\), and hence log-convex.
+The positive factors involving \(p\) add only affine functions to
+the logarithms and do not change their second derivatives.
+
+A positive finite sum of log-convex functions is log-convex. To check
+both this assertion and the strictness needed here, let
+\(\ell_j=\log T_j\) and \(\omega_j=T_j/S>0\). Direct differentiation gives
+\begin{equation}\label{eq:sum}
+ (\log S)''
+ =\sum_{j=0}^k\omega_j\ell_j''
+  +\sum_{j=0}^k\omega_j
+       \left(\ell_j'-\sum_{i=0}^k\omega_i\ell_i'\right)^2\geq0.
+\end{equation}
+When \(k\geq2\), an interior summand makes the first term strictly
+positive, so \(\log S\) is strictly convex on \((0,\infty)\).
+
+\paragraph{Use the ordinary binomial identities at \(t=1,2\).}
+The usual binomial theorem and its even-part identity give
+\begin{equation}\label{eq:anchors}
+ S(1)=1,\qquad
+ S(2)=\frac{1+(2p-1)^{2k}}2\geq\frac12.
+\end{equation}
+For \(\alpha>2\), write
+\[
+ 2=\frac{\alpha-2}{\alpha-1}\,1+
+                       \frac1{\alpha-1}\,\alpha.
+\]
+Convexity of \(\log S\) implies
+\[
+ \log S(2)\leq
+ \frac{\alpha-2}{\alpha-1}\log S(1)
+ +\frac1{\alpha-1}\log S(\alpha)
+ =\frac1{\alpha-1}\log S(\alpha).
+\]
+Consequently
+\[
+ S(\alpha)\geq S(2)^{\alpha-1}
+ =\left(\frac{1+(2p-1)^{2k}}2\right)^{\alpha-1}
+ \geq2^{1-\alpha}.
+\]
+This proves \eqref{eq:refined}, and multiplication by
+\(2^{\alpha-1}(x+y)^{\alpha k}\) proves \eqref{eq:main}.
+For \(p=0\) or \(p=1\), \(S(t)=1\), so the refinement holds directly
+and the original inequality is strict when \(x+y>0\).
+
+\paragraph{Strictness and sharpness.}
+If \(k\geq2\) and \(0<p<1\), the convexity step is strict by
+\eqref{eq:sum}. If \(k=1\) and \(p\ne1/2\), then \(S(2)>1/2\),
+which already makes the original inequality strict.
+If \(k=1\) and \(p=1/2\), then \(S(\alpha)=2^{1-\alpha}\), giving
+equality and proving sharpness of the uniform constant.
+Finally, \(x=y=0\) gives equality by continuity, since all terms
+have positive total degree. This accounts for every case.
+
+\paragraph{Verification and status.}
+The companion verifier checks ordinary binomial identities and
+integer-parameter refinements with exact arithmetic, and independently
+checks the noninteger sums, trigamma derivatives, and integral kernel.
+These computations supplement the proof.
+The current MathDB entry, the current source, its published HTML
+Conjecture 3.2, the author's addenda, and subsequent public claims were
+checked. No matching full solution claim was located; the dated audit
+records the unrelated catalogue hits and later fractional-binomial work.
+
+\paragraph{Task 2: Determine the sharp constants after fixing \(k\).}
+For each \(k\geq2\) and \(\alpha>2\), determine
+\(\min_{0\leq p\leq1}S(\alpha)\), its minimizing points, and the
+corresponding best constant in \eqref{eq:main}.
+
+\paragraph{Task 3: Find optimal multinomial converse constants.}
+Replace the two variables by an arbitrary number of nonnegative
+variables and determine the smallest uniform constant multiplying
+the generalized multinomial sum.
+
+\paragraph{Task 4: Classify shifted gamma quotients.}
+Determine which positive shifts preserve log-convexity of the quotient
+in Lemma \ref{lem:gamma}, and use those ranges to establish converse
+inequalities for sums with shifted generalized binomial coefficients.
+
+\paragraph{Task 5: Quantify the strict interpolation gap.}
+Derive explicit positive lower bounds for
+\(\log S(\alpha)-(\alpha-1)\log S(2)\) when \(k\geq2\),
+with useful control near \(\alpha=2\) and near \(p=0,1\).
+
+\begin{thebibliography}{9}
+\bibitem{GS}
+S.\ Gerhold and T.\ Simon,
+A converse to the neo-classical inequality with an application to the
+Mittag-Leffler function,
+\emph{Monatshefte f\"ur Mathematik} \textbf{200} (2023), 627--645.
+\href{https://doi.org/10.1007/s00605-022-01817-8}{doi:10.1007/s00605-022-01817-8}.
+\href{https://arxiv.org/abs/2111.02747}{arXiv:2111.02747v2},
+Conjecture 3.2.
+\end{thebibliography}
+\end{document}

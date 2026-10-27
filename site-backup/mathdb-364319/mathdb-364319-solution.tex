@@ -1,0 +1,173 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,hyperref}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newtheorem{corollary}{Corollary}
+\newcommand{\F}{\mathbb F}
+\newcommand{\im}{\operatorname{im}}
+\newcommand{\rank}{\operatorname{rank}}
+\title{Singular translates of permutation matrices over arbitrary fields}
+\author{Principia Math In Progress}
+\date{27 September 2026}
+\begin{document}
+\maketitle
+\begin{abstract}
+We prove Conjecture 2 of Nikseresht, Namazi, and Beygi Khormaei,
+including its nonsymmetric version, over every field. In fact we classify
+all matrices whose every permutation translate is singular: either all row
+sums or all column sums are $-1$. A maximal-rank argument using
+transpositions removes every restriction on the characteristic.
+\end{abstract}
+
+\paragraph{Task 1: the source problem.}
+Let $k\geq1$ and let $\F$ be any field. In Definition 3.8 of
+\cite{source}, condition $\Pi_k$ says that a symmetric matrix
+$M\in\F^{k\times k}$ for which $PM$ has eigenvalue $-1$ for every
+permutation matrix $P$ must have sum of entries $-k$. Conjecture 2
+(p.~18) asserts this for every field and, more generally, without symmetry.
+The source proves the nonsymmetric assertion when $(k-1)!\ne0$ in
+$\F$ (Corollaries 3.20--3.21), as well as additional symmetric cases.
+Its concluding paragraph reports the stronger row-or-column alternative
+observed in computations. We prove that alternative in full.
+
+Write $\mathbf1=(1,\ldots,1)^T$ and let $\mathcal P_k$ be the set of
+$k\times k$ permutation matrices. All vector spaces and ranks below are
+over $\F$; the transpose is the ordinary transpose.
+
+\begin{theorem}\label{thm:main}
+For every $M\in\F^{k\times k}$, the following conditions are equivalent:
+\begin{enumerate}
+\item $-1$ is an eigenvalue of $PM$ for every $P\in\mathcal P_k$;
+\item $M+P$ is singular for every $P\in\mathcal P_k$;
+\item $M\mathbf1=-\mathbf1$ or $\mathbf1^TM=-\mathbf1^T$.
+\end{enumerate}
+Consequently, either of the first two conditions implies
+$\sum_{i,j=1}^k M_{ij}=-k$ in $\F$.
+\end{theorem}
+
+We give two elementary lemmas, including proofs so that no
+characteristic-dependent rank assertion is implicit.
+
+\begin{lemma}\label{lem:update}
+Let $A\in\F^{k\times k}$ and $u,v\in\F^k$. If
+$u\notin\im A$ and $v\notin\im A^T$, then
+\[
+ \rank(A+uv^T)=\rank A+1.
+\]
+\end{lemma}
+\begin{proof}
+The row space $\im A^T$ is the annihilator of $\ker A$ under the
+nondegenerate pairing $(v,x)\mapsto v^Tx$. Thus there is an
+$x\in\ker A$ with $v^Tx\ne0$. Since $(A+uv^T)x=u(v^Tx)$,
+the image of $A+uv^T$ contains $u$. For every $y$, it then also contains
+$Ay=(A+uv^T)y-u(v^Ty)$. Its image therefore contains
+$\im A+\F u$, a space of dimension $\rank A+1$.
+The reverse rank bound follows from the same expression for $A+uv^T$.
+\end{proof}
+
+\begin{lemma}\label{lem:roots}
+Let $C,R$ be subspaces of $\F^k$. Suppose every difference
+$e_i-e_j$ of standard basis vectors belongs to $C\cup R$.
+Then $H\subseteq C$ or $H\subseteq R$, where
+\[
+ H=\{x\in\F^k:\mathbf1^Tx=0\}.
+\]
+\end{lemma}
+\begin{proof}
+The differences span $H$: for $x\in H$,
+$x=\sum_{i=1}^{k-1}x_i(e_i-e_k)$. If all differences belong to $C$,
+we are done. Otherwise choose $a,b$ with $e_a-e_b\notin C$;
+by hypothesis $e_a-e_b\in R$. For every $i$, at least one of
+$e_i-e_a,e_i-e_b$ is outside $C$, since their difference is
+$e_b-e_a\notin C$. That vector belongs to $R$, and adding or
+subtracting $e_a-e_b\in R$ shows that both belong to $R$.
+These differences span $H$, so $H\subseteq R$.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:main}]
+The first two conditions are equivalent because
+$I+PM=P(M+P^{-1})$ and inversion permutes $\mathcal P_k$.
+Condition (3) implies (2), since every permutation fixes $\mathbf1$
+on both the left and the right. It remains to prove (2) implies (3).
+For $k=1$ this is immediate, so assume $k\geq2$.
+
+Choose $P_0\in\mathcal P_k$ maximizing $\rank(M+P_0)$, and put
+\[
+ A=P_0^{-1}M+I,\qquad r=\rank A,\qquad
+ C=\im A,\quad R=\im A^T.
+\]
+By (2), $r<k$. For $i\ne j$, set $u=e_i-e_j$. The matrix of
+the transposition $(i\ j)$ is
+\[
+ T_{ij}=I-uu^T.
+\]
+This identity holds also in characteristic two. Maximality gives
+\[
+ \rank(A-uu^T)
+ =\rank\bigl(P_0^{-1}(M+P_0T_{ij})\bigr)\leq r.
+\]
+If $u$ belonged to neither $C$ nor $R$, Lemma~\ref{lem:update},
+applied to $u$ and $-u$, would instead give rank $r+1$.
+Thus every $e_i-e_j$ belongs to $C\cup R$.
+
+Lemma~\ref{lem:roots} implies $H\subseteq C$ or $H\subseteq R$.
+Both $C$ and $R$ are proper subspaces, whereas $H$ has dimension
+$k-1$ over every field. Therefore $C=H$ or $R=H$.
+In the first case $\mathbf1^TA=0$, so
+\[
+ \mathbf1^TM=\mathbf1^TP_0^{-1}M=-\mathbf1^T.
+\]
+In the second case $A\mathbf1=0$, so
+$M\mathbf1=-P_0\mathbf1=-\mathbf1$.
+This proves (3). Summing the indicated row or column sums proves
+the final assertion.
+\end{proof}
+
+\begin{corollary}
+Every field satisfies $\Pi_k$ for every $k\geq1$; the stronger
+nonsymmetric assertion in Conjecture 2 of \cite{source} also holds.
+Moreover, if every $M+P$ is singular, then
+$\max_{P\in\mathcal P_k}\rank(M+P)=k-1$.
+\end{corollary}
+\begin{proof}
+The first statement follows from Theorem~\ref{thm:main}.
+The proof also gives $r=k-1$; this includes $k=1$, when $M=-1$.
+\end{proof}
+
+\paragraph{Scope and verification.}
+No division by $k$, a factorial, or $2$ is used, and $\mathbf1$ is
+nonzero even when the characteristic divides $k$. The proof does not
+assume a positive definite inner product or symmetry of $M$.
+The accompanying exact-arithmetic verifier compares the universal
+permutation condition with the row-or-column criterion over small prime
+and extension fields, checks the maximal-rank conclusion, and constructs
+nonsingular permutation translates in larger examples. These finite tests
+supplement the proof; they do not establish its infinite quantifiers.
+The main LCED-code conjecture (Conjecture 1 of the source) is not claimed
+as a separate result in this package. This manuscript was reviewed by its
+authoring agent and has not undergone independent peer review.
+
+\paragraph{Proposed follow-up Tasks 2--5.}
+\begin{enumerate}
+\setcounter{enumi}{1}
+\item Develop an algorithm finding a nonsingular permutation translate
+when neither exceptional sum condition holds, and determine its optimal
+arithmetic complexity using transposition rank updates.
+\item Determine the smallest possible number of nonsingular translates
+$M+P$ for nonexceptional $k\times k$ matrices over a specified finite field.
+\item Classify matrices $M$ for which $M+g$ is singular for every element
+$g$ of another finite reflection group in its defining representation.
+\item Determine which commutative rings admit an analogous classification
+with ``singular'' replaced by ``noninvertible'', and characterize the
+additional obstructions when the field proof no longer applies.
+\end{enumerate}
+
+\begin{thebibliography}{1}
+\bibitem{source}
+A. Nikseresht, S. Namazi, and M. Beygi Khormaei,
+\emph{Linear Complementary Equi-Dual Codes},
+arXiv:2408.05509v1 (10 August 2024), 23 pp.,
+\url{https://arxiv.org/abs/2408.05509}.
+\end{thebibliography}
+\end{document}

@@ -1,0 +1,123 @@
+\documentclass[10pt]{article}
+\usepackage[margin=0.9in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,hyperref}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newcommand{\R}{\mathbb R}
+\title{Diagonal maximality of the inverse geometric Vandermonde matrix}
+\author{Principia Math in Progress}
+\date{12 September 2026}
+\begin{document}
+\maketitle
+\paragraph{Task 1. Solve the inverse Vandermonde conjecture.}
+For \(b>1\) and \(n\ge1\), put
+\[
+ V=(b^{ij})_{0\le i,j<n},\qquad C=V^{-1}=(c_{ij}),\qquad
+ M_b(n)=\max_{i,j}|c_{ij}|,\qquad
+ n_0=\left\lceil\log_b(1+b^{-1})\right\rceil.
+\]
+Sanna, Shallit, and Zhang conjectured that, for all sufficiently large \(n\),
+\(M_b(n)=|c_{ii}|\) for some \(0\le i\le n_0\)
+\cite[Conjecture 11]{SSZ}. The accepted manuscript retains this as
+Conjecture 12. We prove the assertion for every \(n\).
+
+\begin{theorem}
+For every \(b>1\) and \(n\ge1\),
+\[
+ M_b(n)=\max_{0\le i\le\min(n-1,n_0)}c_{ii}.
+\]
+All diagonal entries are positive, and no off-diagonal entry attains \(M_b(n)\).
+\end{theorem}
+
+\begin{proof}
+Write \(s=\log b>0\). For \(x=(x_0,\ldots,x_{n-1})\in\R^n\),
+the absolutely convergent exponential series gives
+\[
+ x^TVx=\sum_{k=0}^{\infty}\frac{s^k}{k!}
+             \left(\sum_{i=0}^{n-1}x_i i^k\right)^2 ,
+ \qquad (0^0=1).
+\]
+If \(x\ne0\), at least one inner sum with \(0\le k<n\) is nonzero:
+the Vandermonde matrix on the distinct nodes \(0,1,\ldots,n-1\)
+is invertible. Thus \(V\), and hence \(C\), is positive definite.
+In particular \(c_{ii}>0\), and each two-by-two principal minor yields
+\[
+ |c_{ij}|^2<c_{ii}c_{jj}\quad(i\ne j).
+ \tag{1}
+\]
+Consequently \(M_b(n)=\max_i c_{ii}\), and off-diagonal entries are
+strictly smaller than that maximum.
+
+For completeness we verify the needed index bound, also obtainable
+from \cite[Theorem 1]{SSZ}. Let \(e_m\) denote the elementary symmetric
+polynomial of degree \(m\), with \(e_0=1\), and set
+\[
+ E_m(j)=e_m(\{b^h:0\le h<n,\ h\ne j\}),\qquad
+ \pi_j=\prod_{\substack{0\le h<n\\h\ne j}}|b^j-b^h|.
+\]
+The coefficients of the Lagrange polynomial
+\(\prod_{h\ne j}(X-b^h)/(b^j-b^h)\) form column \(j\) of \(C\).
+Thus
+\[
+ |c_{ij}|=\frac{E_{n-1-i}(j)}{\pi_j}.                 \tag{2}
+\]
+For \(0\le j<n-1\), let \(T=\{b^h:h\ne j,j+1\}\), and use
+\(e_m(T)=0\) outside its natural degree range. Then
+\[
+ E_m(j)-E_m(j+1)=(b^{j+1}-b^j)e_{m-1}(T)\ge0.       \tag{3}
+\]
+Direct cancellation in the two products for \(\pi_j\) gives
+\[
+ \frac{\pi_{j+1}}{\pi_j}
+   =\frac{b^{n+j-1}-b^{n-2}}{b^{n-1}-b^j}>1
+       \quad\hbox{if } j\ge n_0.                  \tag{4}
+\]
+Indeed the last inequality is equivalent to
+\[
+ b^j>\frac{b^{n-1}+b^{n-2}}{b^{n-1}+1},
+\]
+whose right side is strictly less than \(1+b^{-1}\le b^j\).
+All numerators in (2) are positive. Equations (2)--(4) therefore show
+\[
+ |c_{i,j+1}|<|c_{ij}| \quad(0\le i<n,\ n_0\le j<n-1).
+\]
+Using symmetry, for \(n_0\le j<n-1\) we obtain
+\[
+ c_{j+1,j+1}<|c_{j+1,j}|=|c_{j,j+1}|<c_{jj}.
+\]
+Hence the diagonal strictly decreases after index \(n_0\).
+If \(n-1\le n_0\), the index restriction is automatic; otherwise
+every larger diagonal entry is bounded by \(c_{n_0n_0}\).
+Together with (1), this proves the theorem.
+\end{proof}
+
+\paragraph{Task 2. Locate the maximizing diagonal index.}
+Determine, as functions of \(b\) and \(n\), which indices attain
+\(\max_i c_{ii}\), and characterize the values of \(b\) at which ties occur.
+
+\paragraph{Task 3. Quantify convergence to the limiting maximum.}
+Find effective error bounds for \(M_b(n)\) relative to its known limit,
+with explicit dependence on \(b\), especially as \(b\downarrow1\).
+
+\paragraph{Task 4. Study other exponential kernels.}
+For distinct real nodes \(t_0,\ldots,t_{n-1}\), analyze which diagonal
+entries maximize the inverse of \((e^{s t_i t_j})\), and identify node
+conditions that yield a dimension-independent range of maximizing indices.
+
+\paragraph{Task 5. Measure separation from off-diagonal entries.}
+Obtain explicit estimates for the gap between \(M_b(n)\) and
+\(\max_{i\ne j}|c_{ij}|\), and determine its behavior for fixed \(b\)
+as \(n\) increases.
+
+\begin{thebibliography}{1}
+\bibitem{SSZ}
+C.~Sanna, J.~Shallit, and S.~Zhang,
+\emph{The Largest Entry in the Inverse of a Vandermonde Matrix},
+\href{https://arxiv.org/abs/2008.01012}{arXiv:2008.01012v1} (2020).
+Accepted manuscript, 11 December 2020:
+\href{https://iris.polito.it/handle/11583/2898892}{institutional record}.
+Published in \emph{Linear and Multilinear Algebra} \textbf{70} (2022),
+5634--5641, DOI \href{https://doi.org/10.1080/03081087.2021.1922337}
+{10.1080/03081087.2021.1922337}.
+\end{thebibliography}
+\end{document}

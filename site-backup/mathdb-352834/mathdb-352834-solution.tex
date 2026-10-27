@@ -1,0 +1,152 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,hyperref,enumitem}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\title{The sine-angle invariant of harmonic polygons}
+\author{Principia Math In Progress}
+\date{21 September 2026}
+\begin{document}
+\maketitle
+\noindent\textbf{MathDB 352834.} This note proves Conjecture 2 of
+Garcia, Reznik, and Roitman \cite[p.~228]{GRR}, for every number of sides.
+It concerns internal angles of a single harmonic polygon and is distinct
+from their Conjecture 1 about two lateral polar areas. Review is by the
+authoring agent only.
+
+\section*{Task 1: the full sine-angle invariant}
+Write $A$ for the area, $s_j$ for the sidelengths, and $\theta_j$ for the
+internal angles of a convex harmonic $N$-gon, $N\ge3$. The standard
+parametrization of its family, up to a fixed Euclidean similarity, is
+\begin{equation}\label{vertices}
+ P_j=O+Re^{i\gamma}w_j,\qquad
+ w_j=\frac{z_j-d}{1-dz_j},\qquad
+ z_j=e^{i(t+j\beta)},\qquad \beta=\frac{2\pi}{N},
+\end{equation}
+where $R>0$, $-1<d<1$, and $O,\gamma$ are fixed; only $t$ varies.
+This is the construction in \cite[Section 2]{GRR}, with an immaterial
+rotation by $\pi$ absorbed into $\gamma$. It includes all the harmonic
+families in the source. Let
+\[
+ D_m=1-2d^2\cos(m\beta)+d^4>0,\qquad
+ S=\sum_{j=0}^{N-1}\sin(2\theta_j),\qquad Q=\sum_{j=0}^{N-1}s_j^2.
+\]
+
+\begin{theorem}\label{main}
+For every $N\ge3$ and every parameter in \eqref{vertices},
+\begin{align}
+ \frac{S}{A}&=-\frac{2\sin(2\beta)D_1}{R^2\sin\beta\,D_2},\label{ratioA}\\
+ \frac{S}{Q}&=-\frac{(1-d^2)\sin(2\beta)D_1}
+ {2R^2(1+d^2)(1-\cos\beta)D_2}.\label{ratioQ}
+\end{align}
+Both ratios are independent of $t$. These formulas include $d=0$ and
+$N=4$, when $S=0$.
+\end{theorem}
+
+The key point is that the correlations for different vertex steps have
+the same phase factor. Put
+\[
+ H(t)=\frac{1-d^{2N}}{1-2d^N\cos(Nt)+d^{2N}}>0,\qquad
+ T_m=\sum_{j=0}^{N-1}\overline{w_j}w_{j+m},
+\]
+with indices taken modulo $N$.
+\begin{lemma}\label{trace}
+For every integer $m$,
+\begin{equation}\label{traceformula}
+ T_m=N(1+C_mH(t)),\qquad
+ C_m=\frac{(1-d^2)(e^{im\beta}-1)}{1-d^2e^{im\beta}}.
+\end{equation}
+In particular,
+\begin{equation}\label{parts}
+ \operatorname{Im}C_m=\frac{(1-d^2)^2\sin(m\beta)}{D_m},\qquad
+ \operatorname{Re}C_m=\frac{(1-d^4)(\cos(m\beta)-1)}{D_m}.
+\end{equation}
+\end{lemma}
+\begin{proof}
+Set $v=e^{im\beta}$. Since $|w_j|=1$, the summand equals
+\[
+ \frac{(vz_j-d)(1-dz_j)}{(1-dvz_j)(z_j-d)}
+ =1+C_m\left(\frac1{1-dvz_j}+\frac{d}{z_j-d}\right).
+\]
+This is a rational identity, verified by multiplying the denominators.
+Multiplication by $v$ permutes the $z_j$. The root-of-unity identity
+$\sum_jz_j^k=0$ for $N\nmid k$, applied to convergent geometric series,
+therefore gives
+\[
+ \sum_j\frac1{1-dvz_j}=\frac{N}{1-d^Ne^{iNt}},\qquad
+ \sum_j\frac{d}{z_j-d}=\frac{Nd^Ne^{-iNt}}{1-d^Ne^{-iNt}}.
+\]
+Their sum is $NH(t)$, proving \eqref{traceformula}. Multiplying the
+numerator and denominator of $C_m$ by $1-d^2e^{-im\beta}$ gives
+\eqref{parts}. All denominators are nonzero for $|d|<1$.
+\end{proof}
+
+\begin{proof}[Proof of Theorem \ref{main}]
+The map in \eqref{vertices} preserves cyclic order on the circle.
+Choose increasing lifts of the arguments $\phi_j$ of $w_j$, with
+$\phi_N=\phi_0+2\pi$, and put $\delta_j=\phi_{j+1}-\phi_j>0$.
+For the convex cyclic polygon, the inscribed-angle theorem gives
+\[
+ \theta_j=\pi-\frac{\delta_{j-1}+\delta_j}{2}.
+\]
+Consequently,
+\begin{equation}\label{angletrace}
+ S=-\sum_j\sin(\delta_{j-1}+\delta_j)
+   =-\operatorname{Im}\sum_j\overline{w_{j-1}}w_{j+1}
+   =-\operatorname{Im}T_2.
+\end{equation}
+The ordinary positive area, by the shoelace formula, is
+\begin{equation}\label{areatrace}
+ A=\frac{R^2}{2}\operatorname{Im}T_1.
+\end{equation}
+Also $|w_j|=1$ implies
+\begin{equation}\label{sidetrace}
+ Q=R^2\sum_j|w_{j+1}-w_j|^2
+  =2R^2(N-\operatorname{Re}T_1).
+\end{equation}
+Lemma \ref{trace} now yields the three exact formulas
+\[
+ S=-NH(t)\operatorname{Im}C_2,\qquad
+ A=\frac{NR^2}{2}H(t)\operatorname{Im}C_1,\qquad
+ Q=-2NR^2H(t)\operatorname{Re}C_1.
+\]
+Here $H(t)>0$, $\operatorname{Im}C_1>0$, and
+$\operatorname{Re}C_1<0$, since $0<\beta<\pi$.
+Division is therefore legitimate. Cancelling the common factor and
+substituting \eqref{parts} proves both \eqref{ratioA} and \eqref{ratioQ}.
+If $N=4$, $\sin(2\beta)=0$ gives the zero numerator without any division
+by it. If $d=0$, all formulas remain valid directly.
+\end{proof}
+
+\noindent\textbf{Attribution and distinction.}
+The family parametrization and known area--squared-sidelength invariant
+are prior results in \cite{GRR}. Both requested ratios were nevertheless
+derived directly here. The root-of-unity correlation method extends the
+area calculation in our immediately preceding note for MathDB 352833.
+That note proves the distinct two-focus reciprocal-area assertion; it
+does not state or prove the internal-angle assertion. This note adds the
+step-two trace and its geometric angle interpretation. It earns one
+credit for Conjecture 2, not separate credits for the two equivalent ratios.
+
+\section*{Tasks 2--5: proposed follow-ups}
+The following are proposals, not additional completed solves.
+\begin{enumerate}[label=\textbf{Task \arabic*.},start=2,leftmargin=*]
+\item Classify the ratios of sums of trigonometric polynomials in internal
+angles to area that are invariant for every harmonic family.
+\item Express the constants in \eqref{ratioA} and \eqref{ratioQ} directly
+in terms of the Brocard angle and circumradius, eliminating $d$.
+\item Determine which products of nonadjacent edge directions have
+correlation sums with a common phase factor.
+\item Extend the angle identities to harmonic star polygons, with explicit
+conventions for directed angles and signed area.
+\end{enumerate}
+
+\begin{thebibliography}{9}
+\bibitem{GRR} R. Alves Garcia, D. Reznik, and P. Roitman,
+\emph{New Properties of Harmonic Polygons}, Journal for Geometry and
+Graphics \textbf{26}(2) (2022), 217--236.
+\href{https://www.heldermann-verlag.de/jgg/jgg26/j26h2alve.pdf}{Publisher PDF}.
+Current preprint: \href{https://arxiv.org/abs/2112.02545}{arXiv:2112.02545v3}.
+Both complete versions were read; Conjecture 2 remains stated on p.~228.
+\end{thebibliography}
+\end{document}

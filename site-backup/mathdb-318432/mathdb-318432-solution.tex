@@ -1,0 +1,284 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=28mm]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage[hidelinks]{hyperref}
+\usepackage{enumitem}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newtheorem{corollary}{Corollary}
+\newcommand{\E}{\mathbb E}
+\newcommand{\dd}{\,\mathrm d}
+\title{Sharp translation monotonicity for the polygamma\texorpdfstring{\,--\,}{--}logarithmic-mean difference}
+\author{Principia Math In Progress}
+\date{11 September 2026}
+\begin{document}
+\maketitle
+
+\begin{abstract}
+We prove the two necessary and sufficient parameter ranges in
+Conjecture~5.1 of Qi's 2009 survey (also Conjecture~5.1 of its 2014
+published version). A Laplace-transform difference has exactly one
+change of sign. Comparing its vanishing power moment against the
+polygamma kernel proves both sufficient ranges, including their
+endpoints. Small-argument and large-argument asymptotics prove necessity.
+The sufficient inequalities also hold for arbitrary nonconstant bounded
+positive random variables translated by a common parameter.
+\end{abstract}
+
+\section*{Task 1: the source problem}
+For $a,b>0$ with $a\ne b$, use Qi's parameter convention
+\[
+L_p(a,b)=
+\begin{cases}
+\displaystyle\left(\frac{b^{p+1}-a^{p+1}}{(p+1)(b-a)}\right)^{1/p},
+ &p\ne-1,0,\\[1ex]
+\displaystyle\frac{b-a}{\log b-\log a},&p=-1,\\[1ex]
+\displaystyle\exp\left(\frac{b\log b-a\log a}{b-a}-1\right),&p=0.
+\end{cases}
+\]
+This is the generalized logarithmic mean, despite the word ``Lehmer''
+in the MathDB title. In particular, it is the power mean of a uniform
+random variable on $[a,b]$. Let $i\ge0$ be an integer and put
+$h_i(y)=(-1)^i\psi^{(i)}(y)$, where $\psi^{(0)}=\psi$.
+
+\begin{theorem}\label{thm:main}
+Fix distinct real $s,t$. On $x>-\min\{s,t\}$, define
+\[
+f_{i,p,s,t}(x)=h_i\bigl(L_p(x+s,x+t)\bigr)
+ -\frac1{t-s}\int_s^t h_i(x+u)\dd u.
+\]
+Then $f_{i,p,s,t}$ is increasing if and only if $p\le-i-1$,
+and decreasing if and only if $p\ge-i$.
+In the respective ranges its derivative is strictly positive and
+strictly negative everywhere. Thus the same characterization applies
+whether ``increasing'' and ``decreasing'' are taken strictly or weakly.
+\end{theorem}
+
+The source locations are \cite[Conjecture 5.1, p.~16]{qi2009} and
+\cite[Conjecture 5.1, p.~162]{qi2014}. The conjecture concerns translation
+in $x$, with $s,t$ held fixed. We prove necessity for every such fixed
+pair, not just uniformly over all pairs.
+
+\section*{A comparison lemma}
+\begin{lemma}\label{lem:crossing}
+Let $X$ be a nonconstant random variable with $0<a\le X\le b<\infty$.
+For real $p<1$, define
+\[
+m=\begin{cases}(\E X^p)^{1/p},&p\ne0,\\
+\exp(\E\log X),&p=0,\end{cases}
+\qquad K=m^{1-p}\E X^{p-1}.
+\]
+Then $K>1$, and
+\[
+D(u)=\E e^{-uX}-K e^{-um}
+\]
+has exactly one zero $u_0$ on $(0,\infty)$, is negative before $u_0$,
+and positive after $u_0$. Moreover,
+\begin{equation}\label{eq:zero-moment}
+\int_0^\infty u^{-p}D(u)\dd u=0.
+\end{equation}
+If $w$ is strictly increasing and the relevant integrals converge
+absolutely, then
+\[
+\int_0^\infty u^{-p}D(u)w(u)\dd u>0.
+\]
+The inequality reverses if $w$ is strictly decreasing.
+\end{lemma}
+\begin{proof}
+For $p<0$ or $0<p<1$, apply strict Jensen to $Y=X^p$ and
+the strictly convex function $y^{(p-1)/p}$:
+\[
+\E X^{p-1}>(\E X^p)^{(p-1)/p}=m^{p-1}.
+\]
+For $p=0$, strict Jensen gives
+$\E X^{-1}>\exp(-\E\log X)=m^{-1}$. Thus $K>1$.
+
+The function $G(u)=e^{um}D(u)=\E e^{(m-X)u}-K$ is strictly
+convex, since
+\[
+G''(u)=\E\bigl((m-X)^2e^{(m-X)u}\bigr)>0.
+\]
+Here $G(0)=1-K<0$. Since the power mean lies strictly between the
+essential infimum and essential supremum of $X$, there are
+$\epsilon,\delta>0$ with $\Pr(X\le m-\epsilon)\ge\delta$.
+Consequently $G(u)\ge\delta e^{\epsilon u}-K\to\infty$.
+Strict convexity now gives precisely one positive zero, with the
+asserted signs.
+
+Since $1-p>0$, integrating the two nonnegative terms separately gives
+\[
+\int_0^\infty u^{-p}D(u)\dd u
+=\Gamma(1-p)\bigl(\E X^{p-1}-Km^{p-1}\bigr)=0.
+\]
+Subtract $w(u_0)$ times this identity. For increasing $w$, the product
+$D(u)(w(u)-w(u_0))$ is strictly positive except at $u_0$.
+For decreasing $w$ it is strictly negative. This proves the comparison.
+\end{proof}
+
+\section*{Proof of the sufficient ranges}
+By symmetry assume $s<t$ and let $U$ be uniform on $[s,t]$.
+For fixed $x>-s$ set $X=x+U$ and $m(x)=L_p(x+s,x+t)$.
+Differentiating the power-mean identity, also at $p=0$, gives
+\begin{equation}\label{eq:mean-derivative}
+m'(x)=m(x)^{1-p}\E X^{p-1}=K.
+\end{equation}
+The standard positive series and Laplace integral are
+\begin{equation}\label{eq:polygamma}
+h_i'(y)=(i+1)!\sum_{n=0}^\infty(y+n)^{-i-2}
+ =\int_0^\infty\frac{u^{i+1}}{1-e^{-u}}e^{-yu}\dd u.
+\end{equation}
+They hold for every $i\ge0$ and $y>0$; see, for example,
+\cite[equation (1.2)]{yang2016}. Hence
+\begin{equation}\label{eq:derivative}
+f'(x)=Kh_i'(m)-\E h_i'(X)
+ =-\int_0^\infty u^{-p}D(u)w_{i,p}(u)\dd u,
+\qquad
+w_{i,p}(u)=\frac{u^{i+1+p}}{1-e^{-u}}.
+\end{equation}
+All integrals converge absolutely: near zero the last integrand is
+$O(u^i)$, and at infinity $a=x+s>0$ supplies exponential decay.
+
+Put $\alpha=i+1+p$. A direct logarithmic differentiation yields
+\[
+\frac{w_{i,p}'(u)}{w_{i,p}(u)}
+ =\frac\alpha u-\frac1{e^u-1}.
+\]
+If $p\le-i-1$, then $\alpha\le0$ and this is strictly negative.
+Lemma~\ref{lem:crossing} and \eqref{eq:derivative} imply $f'(x)>0$.
+If $-i\le p<1$, then $\alpha\ge1$, and $e^u-1>u$ shows that
+the logarithmic derivative is strictly positive. The same lemma gives
+$f'(x)<0$. This includes $p=0$ when appropriate.
+
+For completeness, suppose $p\ge1$. Then $m\ge\E X$ and $K\le1$.
+For $p>1$, the second inequality follows from Jensen applied to
+$y^{(p-1)/p}$; for $p=1$, $K=1$.
+By \eqref{eq:polygamma}, $h_i'$ is positive, strictly decreasing,
+and strictly convex. Consequently
+\[
+Kh_i'(m)\le h_i'(m)\le h_i'(\E X)<\E h_i'(X),
+\]
+which again gives $f'(x)<0$.
+
+\section*{Necessity for every fixed interval}
+Translate $x$ so that $a=x+s\downarrow0$ is the left endpoint,
+and put $d=t-s>0$, $z=a+d/2$. All parameters $d,p,i$ are fixed below.
+Expansion of the defining integral of the mean about its midpoint gives
+\begin{equation}\label{eq:mean-asymptotic}
+L_p(a,a+d)=z+\frac{(p-1)d^2}{24z}+O(z^{-3}),
+\qquad z\to\infty.
+\end{equation}
+Indeed $\E(z+V)^p=z^p(1+p(p-1)d^2/(24z^2)+O(z^{-4}))$
+for $V$ uniform on $[-d/2,d/2]$; at $p=0$ expand
+$\E\log(z+V)$ instead.
+The integral test in \eqref{eq:polygamma}, also after differentiation,
+gives
+\[
+h_i'(z)=i!z^{-i-1}+O(z^{-i-2}),\qquad
+h_i''(z)=-(i+1)!z^{-i-2}+O(z^{-i-3}).
+\]
+Taylor expansion, with the higher derivative bounds from the same
+series, therefore proves
+\begin{equation}\label{eq:f-infinity}
+f_{i,p,s,t}(x)=\frac{i!(i+p)d^2}{24z^{i+2}}
+                  +O(z^{-i-3}).
+\end{equation}
+In particular $f(x)\to0$ for every real $p$.
+If $p<-i$, this expansion is negative for sufficiently large $x$.
+A decreasing function with limit zero must be nonnegative everywhere.
+Thus decreasing monotonicity requires $p\ge-i$.
+
+An increasing function with limit zero must be nonpositive everywhere.
+We show that $p>-i-1$ instead makes $f$ positive near $a=0$.
+First suppose $i\ge1$. The recurrence for the polygamma function gives
+$h_i(y)=-i!y^{-i-1}+O(1)$ as $y\downarrow0$, with a bounded
+remainder on every fixed bounded positive interval. On integration,
+\begin{equation}\label{eq:average-small}
+\E h_i(X)=-\frac{(i-1)!}{d}a^{-i}+O(1).
+\end{equation}
+For $-i-1<p<-1$ the mean satisfies
+\[
+m\sim\bigl((-p-1)d\bigr)^{-1/p}a^{1+1/p}.
+\]
+The inequality $p>-i-1$ implies $(i+1)(1+1/p)<i$, so
+$h_i(m)=o(a^{-i})$. For $p=-1$, the exact logarithmic-mean formula
+gives $h_i(m)=O((\log(1/a))^{i+1})=o(a^{-i})$.
+For $p>-1$, the mean tends to a strictly positive constant, so $h_i(m)$
+stays bounded. Equation~\eqref{eq:average-small} proves in all cases
+\[
+f(x)\sim\frac{(i-1)!}{d}a^{-i}>0.
+\]
+
+Finally, for $i=0$ the excluded range is $p>-1$. Here
+\[
+m\longrightarrow
+\begin{cases}d(p+1)^{-1/p},&p\ne0,\\d/e,&p=0,
+\end{cases}
+\qquad
+\E\psi(X)=\frac{\log\Gamma(a+d)-\log\Gamma(a)}d
+            =\frac{\log a}{d}+O(1).
+\]
+Thus $f(x)=-(\log a)/d+O(1)\to+\infty$, which also excludes increasing
+monotonicity. This completes the proof of Theorem~\ref{thm:main}.
+
+\begin{corollary}\label{cor:weighted}
+Let $U$ be any nonconstant bounded real random variable. Define
+$m_p(x)$ as the power mean of $x+U$, including its geometric value
+at $p=0$. On $x>-\operatorname*{ess\,inf}U$, the function
+\[
+h_i(m_p(x))-\E h_i(x+U)
+\]
+has strictly positive derivative if $p\le-i-1$, and strictly negative
+derivative if $p\ge-i$.
+\end{corollary}
+\begin{proof}
+The sufficient-range proof uses only boundedness, positivity, and
+nonconstancy. Its differentiation and integral interchange are valid
+locally on the stated domain by uniform positive lower bounds on $x+U$.
+The uniform distribution was needed only for the endpoint necessity
+argument above.
+\end{proof}
+
+\section*{Follow-up tasks}
+These tasks follow the full solution above. They are proposed directions,
+not additional completed problems or independently screened open claims.
+\begin{enumerate}[label=\textbf{Task \arabic*:},start=2,leftmargin=*]
+\item Determine the parameters for which $f$ or $-f$ is completely
+monotonic, as suggested in Qi's Remark~5.8. Start with the two boundary
+parameters $p=-i$ and $p=-i-1$.
+\item For $-i-1<p<-i$, determine the number of zeros and stationary
+points of $f$. In particular, prove or disprove uniqueness of its zero
+and of its global minimum, and obtain bounds for their locations.
+\item Determine the sharp monotonicity ranges when the uniform law is
+replaced by a beta density on $[s,t]$. Identify how endpoint behavior
+affects necessity beyond the sufficient ranges in
+Corollary~\ref{cor:weighted}.
+\item Replace $\psi^{(i)}$ by the $q$-polygamma function for $0<q<1$,
+and determine the translation-monotonicity ranges for the same means
+$L_p$. Account for the discrete Laplace measure and the limit $q\uparrow1$.
+\end{enumerate}
+
+\section*{Status and verification}
+The live MathDB record and a dated literature audit accompany this file.
+No matching prior claim was located in the sources recorded in that audit;
+this is a bounded literature check, not a guarantee about all public work.
+The proof above is analytic. The accompanying script checks derivative
+signs and compares separately computed expressions at prescribed inputs;
+those computations are supplementary and do not replace the proof.
+
+\begin{thebibliography}{9}
+\bibitem{qi2009} F. Qi,
+\emph{Bounds for the ratio of two gamma functions---From Gautschi's and
+Kershaw's inequalities to completely monotonic functions},
+arXiv:0904.1049v1 (2009), Conjecture~5.1.
+\url{https://arxiv.org/abs/0904.1049}.
+\bibitem{qi2014} F. Qi,
+\emph{Bounds for the Ratio of Two Gamma Functions: from Gautschi's and
+Kershaw's Inequalities to Complete Monotonicity},
+Turkish Journal of Analysis and Number Theory \textbf{2}(5) (2014),
+152--164. \url{https://doi.org/10.12691/tjant-2-5-1}.
+\bibitem{yang2016} Z.-H. Yang and S.-Z. Zheng,
+\emph{Monotonicity of a mean related to polygamma functions with an
+application}, Journal of Inequalities and Applications (2016), 216.
+\url{https://doi.org/10.1186/s13660-016-1155-4}.
+\end{thebibliography}
+\end{document}

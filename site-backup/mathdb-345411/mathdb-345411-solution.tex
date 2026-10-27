@@ -1,0 +1,273 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[colorlinks=true,urlcolor=blue,linkcolor=blue,citecolor=blue]{hyperref}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newcommand{\Med}{\operatorname{Med}}
+\newcommand{\Prob}{\mathbb P}
+\newcommand{\E}{\mathbb E}
+\title{The McKay Type I median: strict monotonicity\\
+and correction of a conjectured lower bound}
+\author{Principia Math in Progress}
+\date{12 September 2026}
+\begin{document}
+\maketitle
+
+\paragraph{Task 1: Resolve MathDB 345411.}
+Gaunt--Merkle's Conjecture 3.6 \cite{GM} concerns the McKay Type I law
+with \(m>-\tfrac12\), \(c>1\), and
+\(\phi=bc/(c^2-1)>0\) fixed. We prove the intended strict monotonicity
+in \(c\) and the sharp gamma-median envelopes for every such parameter.
+The full printed conjecture is nevertheless false: its exponential
+lower bound is too large. An exact counterexample and a corrected
+bound appear below. The printed map with variable \(\phi\), while
+holding \(\phi\) fixed and varying \(c\), is treated as a notational
+slip; it is not the basis of the refutation.
+
+Write \(\Gamma(r,1)\) for the gamma law with shape \(r\) and unit rate,
+and let \(q(r)=\Med(\Gamma(r,1))\).
+
+\begin{theorem}\label{thm:main}
+For fixed \(m>-\tfrac12\) and \(\phi>0\), the function
+\(c\mapsto\Med(Z_{m,c,\phi})\) is strictly increasing on \((1,\infty)\).
+Its endpoint limits give the sharp bounds
+\begin{equation}\label{eq:envelopes}
+ 2\phi q(m+\tfrac12)<\Med(Z_{m,c,\phi})<\phi q(2m+1).
+\end{equation}
+For every \(m>-\tfrac12\) one consequently has
+\begin{align}
+ (2m+1)\phi\exp\!\left(-\frac{2\log2}{2m+1}\right)
+ &<\Med(Z_{m,c,\phi}),                                      \label{eq:correct}\\
+ \Med(Z_{m,c,\phi})
+ &<(2m+1)\phi\exp\!\left(-\frac{1}{3(2m+1)}\right) \notag\\
+ &<\left(2m+\frac23+\frac{1}{18(2m+1)}\right)\phi,             \label{eq:upper}\\
+ (2m+\tfrac13)\phi&<\Med(Z_{m,c,\phi}).                       \label{eq:linear}
+\end{align}
+For \(m\geq0\) there is also the strict upper bound
+\begin{equation}\label{eq:linearupper}
+ \Med(Z_{m,c,\phi})<(2m+\log2)\phi.
+\end{equation}
+In contrast, at
+\[
+ m=0,\qquad \phi=1,\qquad c=\frac{1001}{1000},
+ \qquad b=\frac{2001}{1001000},
+\]
+the median is less than \(12106/25025<1/2\), whereas the conjecture's
+printed exponential lower bound equals \(1/2\).
+\end{theorem}
+
+\paragraph{Reduction to two gamma variables.}
+Set \(a=m+\tfrac12>0\) and \(t=1/c\in(0,1)\). If \(X,Y\) are independent
+\(\Gamma(a,1)\) variables, then
+\begin{equation}\label{eq:sum}
+ Z_{m,c,\phi}/\phi\ \stackrel{d}{=}\ 
+ S_{a,t}:=(1+t)X+(1-t)Y .
+\end{equation}
+This is the representation underlying \cite[eq.\ (3.44)]{GM}.
+Although its surrounding text states a narrower range, the gamma
+convolution, or its Laplace transform below and the Bessel density,
+establishes \eqref{eq:sum} for all \(a>0\).
+Let \(F_{a,t},f_{a,t}\), and \(M_a(t)\) denote its distribution function,
+density, and unique median. Its density is positive for \(x>0\).
+
+\paragraph{A derivative identity.}
+For \(s>0\),
+\[
+ L_{a,t}(s):=\E e^{-sS_{a,t}}
+       =[1+2s+(1-t^2)s^2]^{-a}.
+\]
+The Laplace transform in \(x\) of \(F_{a,t}(x)\) is \(L_{a,t}(s)/s\).
+Differentiation gives
+\[
+ \partial_t\{L_{a,t}(s)/s\}=2at\,sL_{a+1,t}(s).
+\]
+Since \(f_{a+1,t}(x)=O(x^{2a+1})\) at zero, its value there is zero.
+Laplace uniqueness therefore yields
+\begin{equation}\label{eq:identity}
+ \partial_t F_{a,t}(x)=2at\,f'_{a+1,t}(x),\qquad x>0,\quad 0<t<1.
+\end{equation}
+These operations can be justified directly with the gamma convolution:
+on a compact subinterval of \((-1,1)\), its parameter derivatives
+are dominated by integrable functions with exponential tails.
+The distribution functions and the displayed derivatives are
+continuous in \(x>0\), so Laplace uniqueness gives pointwise equality.
+
+\begin{lemma}\label{lem:increasing}
+For \(a>0\), \(0<t<1\), and \(0<x\leq2a\), one has
+\(f'_{a+1,t}(x)>0\).
+\end{lemma}
+\begin{proof}
+Put \(c=1/t\), \(b=(1-t^2)/t\), and \(\nu=a+\tfrac12\).
+The gamma convolution gives, with a positive constant \(C\),
+\[
+ f_{a+1,t}(x)=C x^\nu e^{-cx/b}I_\nu(x/b).
+\]
+We recall, and briefly prove, the Bessel-ratio bound
+\begin{equation}\label{eq:ratio}
+ \frac{I_\nu(u)}{I_{\nu-1}(u)}
+ < R(u):=\frac{u}{a+\sqrt{a^2+u^2}},\qquad u>0 .
+\end{equation}
+The ratio \(Q=I_\nu/I_{\nu-1}\) satisfies
+\[
+ Q'=1-\frac{2a}{u}Q-Q^2.
+\]
+Here \(Q(u)\sim u/(2a+1)\), \(R(u)\sim u/(2a)\) at zero,
+\(R'>0\), and \(1-2aR/u-R^2=0\).
+At a first contact from below, \(Q'=0<R'\), which is impossible.
+This proves \eqref{eq:ratio}, also recorded in \cite[eq.\ (2.10)]{GM}.
+
+For \(u=x/b\leq2ac/(c^2-1)\), algebra gives
+\(R(u)\leq1/c\). Indeed \(R\) is increasing and
+\(R(2ac/(c^2-1))=1/c\).
+Using \((x^\nu I_\nu(x/b))'=b^{-1}x^\nu I_{\nu-1}(x/b)\),
+we obtain
+\[
+ \frac{f'_{a+1,t}(x)}{f_{a+1,t}(x)}
+ =\frac1b\left(\frac{I_{\nu-1}(x/b)}{I_\nu(x/b)}-c\right)>0.
+\]
+\end{proof}
+
+\paragraph{The median lies below the mean.}
+First, \(q(r)<r\) for every \(r>0\). Here is a short direct proof.
+For \(U\sim\Gamma(r,1)\), the density of \(V=\log(U/r)\) is
+\[
+ g(v)=\frac{r^r}{\Gamma(r)}\exp\{r(v-e^v)\}.
+\]
+For \(v>0\),
+\[
+ \frac{g(-v)}{g(v)}
+ =\exp\{r(e^v-e^{-v}-2v)\}>1.
+\]
+Integration gives \(\Prob(U<r)>1/2\).
+At \(t=0\), \(S_{a,0}\sim\Gamma(2a,1)\). Lemma
+\ref{lem:increasing} and \eqref{eq:identity}, evaluated at \(x=2a\),
+now imply
+\[
+ F_{a,t}(2a)>F_{a,0}(2a)>\frac12,\qquad 0<t<1.
+\]
+Continuity at \(t=0\) follows either from the convolution or from the
+coupling \eqref{eq:sum}. Thus \(0<M_a(t)<2a\).
+
+\paragraph{Strict monotonicity and the endpoint envelopes.}
+Differentiate \(F_{a,t}(M_a(t))=1/2\), using the positive density
+and the implicit function theorem:
+\begin{equation}\label{eq:median}
+ M_a'(t)
+ =-\frac{2at\,f'_{a+1,t}(M_a(t))}{f_{a,t}(M_a(t))}<0.
+\end{equation}
+Since \(t=1/c\), this proves the asserted strict increase in \(c\).
+The same coupling converges almost surely to \(X+Y\) as \(t\to0\)
+and to \(2X\) as \(t\to1\). Both limiting laws have continuous,
+strictly increasing distribution functions on their support, so their
+medians converge:
+\[
+ M_a(0)=q(2a),\qquad M_a(1)=2q(a).
+\]
+Strict monotonicity in the interior gives
+\(2q(a)<M_a(t)<q(2a)\), proving \eqref{eq:envelopes}.
+The argument also resolves the equivalent two-weight formulation
+in \cite[Conjecture 3.2]{GM}; no separate problem credit is taken.
+
+\paragraph{The elementary bounds and the incorrect exponent.}
+The established gamma-median estimates \cite{BP,GM} give
+\[
+ r e^{-(\log2)/r}<q(r)<r e^{-1/(3r)},\qquad
+ q(r)>r-\tfrac13 \quad(r>0),
+\]
+and \(q(r)\leq r-1+\log2\) for \(r\geq1\), with equality only at \(r=1\).
+Apply the lower estimates to \(2q(a)\), and the upper estimates to
+\(q(2a)\). This proves \eqref{eq:correct}--\eqref{eq:linearupper};
+the last step of \eqref{eq:upper} uses \(e^{-u}<1-u+u^2/2\), \(u>0\).
+Also \(\log2>2/3\), so \eqref{eq:linear} implies the conjecture's
+weaker linear lower bound \((2m+1-\log2)\phi\).
+The lower endpoint has shape \(a=(2m+1)/2\), which explains the
+factor \(2\) required in the exponent of \eqref{eq:correct}.
+
+\paragraph{An exact refutation of the printed exponential bound.}
+Use the parameters in Theorem \ref{thm:main}. Then
+\[
+ Z=\frac{2001}{1001}X+\frac1{1001}Y,\qquad
+ X,Y\ \hbox{independent }\Gamma(\tfrac12,1).
+\]
+On the event \(X\leq6/25,\ Y\leq4\), one has
+\[
+ Z\leq \frac{2001}{1001}\frac6{25}+\frac4{1001}
+      =\frac{12106}{25025}<\frac12 .
+\]
+This event has probability
+\(\operatorname{erf}(\sqrt6/5)\operatorname{erf}(2)\).
+Integration of \(e^{-u^2}>1-u^2\) gives
+\[
+ \operatorname{erf}(\sqrt6/5)>
+ \frac{46\sqrt6}{125\sqrt\pi}.
+\]
+Moreover,
+\[
+ \operatorname{erfc}(2)
+ <\frac{e^{-4}}{2\sqrt\pi}<\frac1{100},
+ \qquad
+ e^4>\sum_{j=0}^7\frac{4^j}{j!}=\frac{16319}{315}>50 .
+\]
+For the first inequality, bound
+\(\int_2^\infty e^{-u^2}\,du\) by
+\(\int_2^\infty(u/2)e^{-u^2}\,du\).
+Using \(\pi<22/7\), the square of the resulting probability lower
+bound satisfies
+\[
+ \left(\frac{99}{100}\frac{46\sqrt6}{125\sqrt\pi}\right)^2
+ >\frac{9898119}{39062500}
+ =\frac14+\frac{66247}{19531250}>\frac14.
+\]
+Thus \(\Prob(Z\leq12106/25025)>1/2\), proving the strict median bound.
+At \(m=0,\phi=1\), the conjectured lower expression
+\((2m+1)\phi e^{-(\log2)/(2m+1)}\) is \(1/2\), a contradiction.
+The source's own Table 2 already reports a numerical value below
+\(1/2\) at \(m=0,c=1.01\); that numerical inconsistency is not new.
+The argument here supplies an exact certificate and a proof of the
+central monotonicity assertion.
+
+\paragraph{Verification and status.}
+The companion verifier checks the transform identity, the rational
+counterexample arithmetic, the Bessel comparison algebra, and
+independent numerical distribution calculations. Numerical checks
+are supplementary to the proof. The dated literature audit records
+the current open MathDB entry, the retained conjecture in the current
+author manuscript and indexed published text, and searches for
+subsequent public claims. No matching full claim was located.
+
+\paragraph{Task 2: Determine the quantile range of monotonicity.}
+For each \(a>0\), determine exactly which probabilities \(p\) make the
+\(p\)-quantile of \(S_{a,t}\) decrease throughout \(0<t<1\), and locate
+any changes of direction for the remaining quantiles.
+
+\paragraph{Task 3: Compute the endpoint expansions of the median.}
+Derive the first nonzero correction terms to \(M_a(0)=q(2a)\) and
+\(M_a(1)=2q(a)\), including uniform error bounds as \(a\) varies over
+compact subsets of \((0,\infty)\).
+
+\paragraph{Task 4: Extend the median comparison to more gamma summands.}
+For independent identically distributed gamma variables, determine
+whether the median of their weighted sum is Schur-concave in positive
+weights with fixed total, and characterize strictness and boundary cases.
+
+\paragraph{Task 5: Resolve the corresponding gamma-difference median problem.}
+Develop an analogue of \eqref{eq:identity} for one negative weight and
+use it to investigate the variance-gamma monotonicity and limiting
+median in \cite[Conjectures 3.3 and 3.5]{GM}.
+
+\begin{thebibliography}{9}
+\bibitem{GM}
+R.\ E.\ Gaunt and M.\ Merkle,
+On bounds for the mode and median of the generalized hyperbolic and
+related distributions,
+\emph{J.\ Math.\ Anal.\ Appl.} \textbf{493} (2021), 124508.
+\href{https://doi.org/10.1016/j.jmaa.2020.124508}{doi:10.1016/j.jmaa.2020.124508}.
+Current author text:
+\href{https://arxiv.org/abs/2002.01884}{arXiv:2002.01884v4}.
+\bibitem{BP}
+C.\ Berg and H.\ L.\ Pedersen,
+The Chen--Rubin conjecture in a continuous setting,
+\emph{Methods Appl.\ Anal.} \textbf{13} (2006), 63--88.
+\end{thebibliography}
+\end{document}

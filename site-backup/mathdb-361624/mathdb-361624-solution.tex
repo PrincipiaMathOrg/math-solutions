@@ -1,0 +1,328 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,hyperref,enumitem}
+\newtheorem{theorem}{Theorem}
+\newcommand{\Si}{\operatorname{Si}}
+\newcommand{\Ci}{\operatorname{Ci}}
+\title{Both endpoint asymptotics of the first zero of $E_{a,a}(-t^a)$}
+\author{Principia Math In Progress}
+\date{21 September 2026}
+\begin{document}
+\maketitle
+\noindent\textbf{Task 1: MathDB 361624.}
+Put
+\[
+ H(a,t)=E_{a,a}(-t^a)=\sum_{k\geq0}
+       \frac{(-1)^kt^{ak}}{\Gamma(a(k+1))},
+ \qquad Z(a)=\min\{t>0:H(a,t)=0\}.
+\]
+Conjecture 1(b) of Chaudhary, Diethelm and Hashemishahraki
+\cite{CDH} proposes $Z(a)=(c\log(a-1)+d)(1+o(1))$ as
+$a\downarrow1$, with $c\approx-0.81$ and $d\approx2.25$.
+Part (c) proposes $Z(a)=\pi+c(2-a)+o(2-a)$ as $a\uparrow2$,
+again with $c\approx-0.81$. The authors explicitly ask whether these
+two coefficients are equal. The following theorem answers this question
+and corrects the first coefficient.
+
+\begin{theorem}\label{main}
+The first positive zero exists for all $a>1$ sufficiently close to
+either endpoint $1$ or $2$. With $L=\log(1/\varepsilon)$,
+\begin{align*}
+ \boxed{Z(1+\varepsilon)=L+2\log L+o(1)}
+       &\qquad(\varepsilon\downarrow0),\\
+ \boxed{Z(2-\delta)=\pi+c_*\delta+O(\delta^2),\quad
+ c_*={\pi\Ci(\pi)-\Si(\pi)\over2}}
+       &\qquad(\delta\downarrow0).
+\end{align*}
+Here $-811/1000<c_*<-809/1000$, so the two leading coefficients
+are unequal: the first is $-1$, and the second is
+$-0.8102512403460584\ldots$.
+\end{theorem}
+
+We use $\Si(x)=\int_0^x\sin u/u\,du$ and
+$\Ci(x)=\gamma+\log x+\int_0^x(\cos u-1)/u\,du$ for $x>0$.
+The theorem refutes the numerical leading coefficient in part (b)
+and hence the conjunction recorded in MathDB. It also supplies the
+exact coefficient in part (c). The global positivity bound
+$H(a,t)>0$ for $0\leq t\leq2.93785$ in part (a) remains unresolved.
+No contradiction rests on the constant $d$, which is invisible at
+the source's multiplicative $1+o(1)$ precision.
+
+\section*{An exact representation near order one}
+Write $a=1+\varepsilon$, $0<\varepsilon<1/4$,
+$\theta=\pi\varepsilon$, and
+\[
+ K(r)={\sin\theta\over\pi}
+ {r^{a-1}\over (r^a-1)^2+2r^a(1-\cos\theta)}\quad(r>0).
+\]
+For $f_a(t)=E_{a,1}(-t^a)$ the classical residue formula is
+\begin{equation}\label{f}
+ f_a(t)={2\over a}e^{t\cos(\pi/a)}\cos(t\sin(\pi/a))
+             -\int_0^\infty e^{-tr}K(r)\,dr.
+\end{equation}
+Indeed, termwise Laplace transformation for real $s>1$ gives
+$s^{a-1}/(s^a+1)$. On its principal branch the poles are
+$e^{\pm i\pi/a}$, with residues in the inverse transform
+$a^{-1}e^{t e^{\pm i\pi/a}}$. The imaginary part of the transform
+on the upper side of the negative real cut is
+\[
+ \operatorname{Im}{r^{a-1}e^{i\theta}\over1-r^ae^{i\theta}}
+       =\pi K(r).
+\]
+Deforming the inversion contour gives the negative integral in
+\eqref{f}. The small-circle contribution is $O(\rho^a)$ and the
+large arcs vanish for $t>0$, using the transform's $O(1/s)$ decay
+and the exponential on the left arcs. The cut integral converges
+absolutely. These representation methods are classical; see
+\cite{Hanneken,Paris}.
+
+Differentiating the defining series gives
+$-f_a'(t)=t^{a-1}H(a,t)$. Differentiating the exact integral in
+\eqref{f} is justified for $t>0$ by exponential integrability.
+Thus, with $g_a(t)=t^{a-1}H(a,t)$,
+\begin{equation}\label{g}
+ g_a(t)=-{2\over a}e^{t\cos(\pi/a)}
+       \cos\bigl(t\sin(\pi/a)+\pi/a\bigr)
+             -\int_0^\infty r e^{-tr}K(r)\,dr.
+\end{equation}
+This is differentiation of an exact identity, not of an asymptotic
+expansion. The unweighted mass, by $u=r^a$, is
+\begin{equation}\label{mass}
+ \int_0^\infty K(r)\,dr
+ ={\sin\theta\over\pi a}\int_0^\infty
+ {du\over(u-\cos\theta)^2+\sin^2\theta}
+ ={\pi-\theta\over\pi a}={2\over a}-1.
+\end{equation}
+
+\section*{Uniform estimates and the first zero near order one}
+We prove, uniformly for $L/4\leq t\leq3L/2$,
+\begin{equation}\label{uniform}
+ g_a(t)=e^{-t}(1+o(1))
+          -\varepsilon\Gamma(a+1)t^{-a-1}(1+o(1)),
+\end{equation}
+with separate relative errors for the two displayed terms.
+All constants below are uniform for sufficiently small $\varepsilon$.
+Write $D(r)=1-2r^a\cos\theta+r^{2a}$ and $h=t^{-2}$.
+For $r\leq1/2$, $D\geq1/4$ and $D^{-1}=1+O(r^a)$, so
+\begin{align*}
+ \int_0^{1/2}r e^{-tr}K(r)\,dr
+ &= {\sin\theta\over\pi}\left\{
+ \Gamma(a+1)t^{-a-1}+O(t^{-2a-1})
+       +O\bigl(t^{-a-1}(1+t)^2 e^{-t/2}\bigr)\right\}\\
+ &=\varepsilon\Gamma(a+1)t^{-a-1}(1+o(1)).
+\end{align*}
+The algebraic error follows by extending its gamma integral to
+infinity. The omitted main-integral tail follows by $u=tr$ and
+$u^a\leq1+u^2$, since $1<a<5/4$.
+
+Outside $[1/2,3/2]$ the unweighted $K$ mass is $O(\varepsilon)$:
+on the lower interval use $D\geq1/4$; on the upper interval use
+$D\geq(r^a-1)^2\geq r^{2a}/9$, whence
+$K(r)\leq C\varepsilon r^{-a-1}$. On $[1/2,3/2]$ the mean value
+theorem yields $|r^a-1|\geq C_0|r-1|$, so
+$K(r)\leq C\varepsilon/(r-1)^2$ for $r\ne1$. Equation \eqref{mass}
+therefore implies
+\[
+ \int_{1-h}^{1+h}K(r)\,dr
+       =1+O(\varepsilon)+O(\varepsilon/h)=1+o(1).
+\]
+Here $\varepsilon t^2\to0$. In this central interval,
+$r e^{-tr}=e^{-t}(1+O(h+th))$, and consequently its contribution
+to the integral in \eqref{g} is $e^{-t}(1+o(1))$.
+The rest of $[1/2,3/2]$ contributes at most
+$C\varepsilon t^4e^{-t/2}=o(e^{-t})$, since its ratio to
+$e^{-t}$ is at most $C L^4\varepsilon^{1/4}$.
+For the remaining upper tail we retain the exponential weight:
+\[
+ \int_{3/2}^\infty r e^{-tr}K(r)\,dr
+ \leq C\varepsilon\int_{3/2}^\infty r^{-a}e^{-tr}\,dr
+ \leq C\varepsilon e^{-3t/2}/t=o(e^{-t}).
+\]
+Finally $\cos(\pi/a)=-1+O(\varepsilon^2)$ and
+$\sin(\pi/a)=O(\varepsilon)$. The residue term in \eqref{g} is
+$2e^{-t}(1+o(1))$ because $\varepsilon t\to0$ uniformly.
+Subtracting the central and small-$r$ contributions proves
+\eqref{uniform}.
+
+We next exclude earlier zeros. For $1\leq b\leq a$ and $k\geq1$,
+\[
+ \partial_b {t^{bk}\over\Gamma(b(k+1))}
+ ={t^{bk}\over\Gamma(b(k+1))}
+        \bigl(k\log t-(k+1)\psi(b(k+1))\bigr).
+\]
+We have $\Gamma(b(k+1))\geq k!$ and
+$0<\psi(b(k+1))\leq\log(b(k+1))\leq2(k+1)$.
+The $k=0$ derivative is uniformly bounded. For $1\leq t\leq L/4$,
+eventually $t^{b-1}\leq2$, and summing the factorial majorant gives
+$|\partial_b H(b,t)|\leq C(1+t)^3e^{2t}$.
+As $H(1,t)=e^{-t}$, integration over $b$ yields
+\[
+ { |H(a,t)-e^{-t}|\over e^{-t}}
+ \leq C\varepsilon(1+L)^3e^{3L/4}=o(1).
+\]
+For $0<t\leq1$, use $k t^{bk}|\log t|\leq1/(b\mathrm e)$;
+the derivative series is uniformly bounded by a summable multiple
+of $(1+(k+1)^2)/k!$. Hence $H(a,t)=e^{-t}+O(\varepsilon)$
+uniformly there. Also $H(a,0)=1/\Gamma(a)>0$.
+These bounds justify the differentiations and show positivity on
+$[0,L/4]$ for small $\varepsilon$.
+
+Fix $0<\eta<1/2$. The ratio of the second leading term in
+\eqref{uniform} to the first is
+\[
+ Q_\varepsilon(t)=\varepsilon\Gamma(a+1)e^t t^{-a-1}.
+\]
+It is increasing for $t>a+1$. At $(1-\eta)L$ it tends to zero,
+and at $(1+\eta)L$ it tends to infinity. Equation \eqref{uniform}
+therefore gives positivity throughout $[L/4,(1-\eta)L]$ and a
+negative value at $(1+\eta)L$. Since $g$ and $H$ have the same
+sign for $t>0$, continuity and earlier positivity show that a first
+positive zero exists and $Z(a)/L\to1$.
+At this zero the two relative errors in \eqref{uniform} tend to zero.
+Taking logarithms gives
+\[
+ Z(a)=L+(a+1)\log Z(a)-\log\Gamma(a+1)+o(1)
+      =L+2\log L+o(1).
+\]
+The last step uses $\log Z(a)=\log L+o(1)$,
+$\varepsilon\log Z(a)=o(1)$, and $\log\Gamma(a+1)=o(1)$.
+
+\section*{The coefficient near order two}
+Set $F(a,t)=tH(a,t)$. Then $F(2,t)=\sin t$ and
+$F_t(2,\pi)=-1$. The series and its first two derivatives converge
+locally uniformly near $(2,\pi)$: for $a\geq3/2$ and $k\geq1$,
+$\Gamma(a(k+1))\geq k!$, and derivatives contribute only
+polynomial and logarithmic factors in $k$. The $k=0$ term is smooth.
+The implicit function theorem gives a $C^2$ zero branch $z(a)$,
+and its coefficient in $2-a$ is $-F_a(2,\pi)$.
+For small fixed $\eta>0$, $F_t(a,t)<-1/4$ near
+$[\pi-\eta,\pi+\eta]$ when $a$ is close to $2$.
+On $[0,\pi-\eta]$, $H(a,t)$ converges uniformly to
+$\sin t/t$ (value $1$ at zero), which has a positive minimum.
+Thus the branch is the first positive zero.
+
+To evaluate its derivative, introduce
+$F_2(a,t)=tE_{a,2}(-t^a)$ and $w(t)=\partial_a F_2(2,t)$.
+Termwise differentiation and $\psi(m+1)=H_m-\gamma$ give
+\[
+ w(t)=\sum_{k\geq1}{(-1)^k k t^{2k+1}\over(2k+1)!}
+             (\log t+\gamma-H_{2k+1})
+ =-{1\over2}\int_0^t(\log(t-u)+\gamma)u\sin u\,du.
+\]
+The integral identity follows by expanding $u\sin u$ and using
+$\int_0^t u^m\log(t-u)\,du=
+t^{m+1}(\log t-H_{m+1})/(m+1)$.
+With $v=\pi-u$, two integrations by parts yield
+\[
+ -w(\pi)={1\over2}\int_0^\pi(\log v+\gamma)(\pi-v)\sin v\,dv
+         ={\pi\Ci(\pi)+\Si(\pi)\over2}.
+\]
+For explicit primitives, use
+$-\log v\cos v+\Ci(v)$ for $\log v\sin v$ and
+$-v\log v\cos v+(\log v+1)\sin v-\Si(v)$ for
+$v\log v\sin v$. Their limits at zero are $\gamma$ and $0$.
+
+The derivative of the second parameter in $F$ contributes one extra
+digamma factor. Thus the required coefficient is
+\begin{align*}
+ c_*&=-w(\pi)+\sum_{k\geq0}
+       {(-1)^k\pi^{2k+1}\psi(2k+2)\over(2k+1)!}\\
+ &=-w(\pi)+\int_0^1{\sin\pi-\sin(\pi u)\over1-u}\,du
+ =-w(\pi)-\Si(\pi).
+\end{align*}
+Here the Euler-constant part vanishes, and
+$H_{2k+1}=\int_0^1(1-u^{2k+1})/(1-u)\,du$ justifies the
+middle equality by absolute convergence of the integrated series.
+This proves the closed formula; Taylor's theorem gives the stated
+$O(\delta^2)$ remainder.
+
+\section*{An exact rational enclosure}
+We specify a finite rational certificate for $c_*\ne-1$.
+Let $p_-=31415926535/10^{10}$ and $p_+=31415926536/10^{10}$.
+Machin's identity $\pi=16\arctan(1/5)-4\arctan(1/239)$,
+with 12 alternating terms and the next-term bound for each arctangent,
+proves $p_-<\pi<p_+$.
+For rational $x>1$ put $y=(x-1)/(x+1)$ and
+\[
+ A(x)=2\sum_{j=0}^{49}{y^{2j+1}\over2j+1},\qquad
+ B(x)=A(x)+{2y^{101}\over101(1-y^2)}.
+\]
+Then $A(x)<\log x<B(x)$. With $N=2048=2^{11}$,
+\[
+ H_N-11B(2)-1/N<\gamma<H_N-11A(2),\qquad
+ A(p_-)<\log\pi<B(p_+).
+\]
+The gamma bound follows from
+$0<H_N-\log N-\gamma<1/N$, obtained by summing
+$0<\log(1+1/j)-1/(j+1)<1/j-1/(j+1)$ for $j\geq N$.
+Use the alternating series
+\begin{align*}
+ \Ci(\pi)&=\gamma+\log\pi+
+       \sum_{k=1}^{10}{(-1)^k\pi^{2k}\over2k(2k)!}+R_C,
+ &-{p_+^{22}\over22\cdot22!}<R_C<0,\\
+ \Si(\pi)&=\sum_{k=0}^{10}
+       {(-1)^k\pi^{2k+1}\over(2k+1)(2k+1)!}+R_S,
+ &-{p_+^{23}\over23\cdot23!}<R_S<0.
+\end{align*}
+The term magnitudes decrease, as follows from their ratios and
+$\pi^2<10$. Evaluate positive powers in $[p_-^j,p_+^j]$, add
+intervals with their displayed signs, and use all four endpoint
+products when multiplying intervals. The exact resulting rational
+endpoints $c_-,c_+$, stored by the verifier, satisfy
+\[
+ -811/1000<c_-<c_*<c_+<-809/1000.
+\]
+Together with the first asymptotic, this proves the coefficients
+unequal and completes Theorem~\ref{main}.
+\hfill$\square$
+
+\section*{Verification, attribution, and scope}
+The representation and perturbation methods are classical. The
+uniform weighted-kernel estimates above and the first-zero arguments
+are included explicitly. Companion MathDB 361626 treats second
+parameter $1$ near order $1$; MathDB 361625 treats fixed second
+parameter $2$ near order $2$. Here the second parameter varies with
+the order, changing both coefficients. These are distinct source
+conjectures. Earlier first-zero existence and monotonicity results
+include \cite{EL}; no novelty for those general facts is claimed.
+
+The verifier checks rational constants, the coefficient enclosure,
+and symbolic identities exactly. Supplemental 110-digit calculations
+compare the exact integral with the series and examine both endpoint
+limits. These are not interval certificates or a substitute for
+first-zero minimality. The complete current primary and author-posted
+target-final text were read; limitations of the bounded priority
+audit are recorded separately. Review is by the authoring agent only.
+
+\begin{enumerate}[label=\textbf{Task \arabic*:},start=2,leftmargin=*]
+\item Determine the next term after $L+2\log L$, with an error bound.
+\item Prove or refute the global positivity bound in Conjecture 1(a).
+\item Determine the quadratic coefficient of $(2-a)^2$ in $Z(a)$.
+\item Prove uniqueness and locate the global minimum of $Z(a)$
+on $(1,2]$ with rigorous bounds.
+\end{enumerate}
+\small
+\begin{thebibliography}{9}
+\bibitem{CDH} R. Chaudhary, K. Diethelm and S. Hashemishahraki,
+On the separation of solutions to fractional differential equations
+of order $\alpha\in(1,2)$, \emph{Applied Numerical Mathematics}
+\textbf{203} (2024), 84--96,
+\href{https://doi.org/10.1016/j.apnum.2024.05.020}{doi:10.1016/j.apnum.2024.05.020}.
+\href{https://arxiv.org/abs/2401.14771}{Current preprint: arXiv:2401.14771v3}.
+Conjecture 1 in both versions.
+\bibitem{Hanneken} J. W. Hanneken, B. N. N. Achar and D. M. Vaught,
+An alpha-beta phase diagram representation of the zeros and properties
+of the Mittag-Leffler function, \emph{Advances in Mathematical Physics}
+(2013), Article 421685,
+\href{https://doi.org/10.1155/2013/421685}{doi:10.1155/2013/421685}.
+\bibitem{Paris} R. B. Paris, Exponential asymptotics of the
+Mittag--Leffler function, \emph{Proceedings of the Royal Society A}
+\textbf{458} (2002), 3041--3052,
+\href{https://doi.org/10.1098/rspa.2002.0977}{doi:10.1098/rspa.2002.0977}.
+\bibitem{EL} P. W. Eloe and Y. Li, Existence, comparison, and
+monotonicity of principal eigenvalues of fractional Sturm--Liouville
+problems involving Riemann--Liouville derivatives,
+\emph{Fractional Calculus and Applied Analysis} \textbf{29} (2026),
+1--25, \href{https://doi.org/10.1007/s13540-026-00481-1}{doi:10.1007/s13540-026-00481-1}.
+\end{thebibliography}
+\end{document}

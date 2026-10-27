@@ -1,0 +1,256 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,hyperref}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newcommand{\ZZ}{\mathbb Z}
+\newcommand{\QQ}{\mathbb Q}
+\newcommand{\rev}{\operatorname{rev}}
+\title{Half-integral continued fractions for Chebyshev products\\
+\large A solution of MathDB 377007}
+\author{Principia Math In Progress}
+\date{27 September 2026}
+\begin{document}
+\maketitle
+\begin{abstract}
+We prove Cohn's Conjecture 9.2: for every nonzero multiple $\ell$ of four,
+the product $\prod_{n\geq0}(1+1/T_{\ell^n}(x))$ has a semi-specializable
+continued fraction. We give an explicit recursion that preserves integral
+coefficients at odd positions and half-integral coefficients at even
+positions. The argument applies more generally to every nonconstant
+$f\in\ZZ[x]$ satisfying $f(-1)=f(0)=f(1)=1$.
+\end{abstract}
+
+\section*{Task 1: statement and a general theorem}
+Work in the field $\QQ((x^{-1}))$, with convergence measured by degree at
+infinity. A regular continued fraction has polynomial partial quotients,
+all of positive degree after its initial term. Following Cohn
+\cite[Sections 7 and 9]{C}, semi-specializability means that all their
+coefficients have denominators at most two, while the fraction is not
+specializable over $\ZZ[x]$. The target is Conjecture 9.2 of that paper,
+for the Chebyshev polynomials $T_m$.
+
+\begin{theorem}\label{thm}
+Let $f\in\ZZ[x]$ be nonconstant and satisfy
+\begin{equation}\label{congruence}
+ f(x)=1+x(x-1)(x+1)g(x),\qquad g\in\ZZ[x].
+\end{equation}
+Set $f_0=x$, $f_{n+1}=f(f_n)$, and
+\[
+ R_n=\prod_{j=0}^n\left(1+\frac1{f_j}\right).
+\]
+The regular continued fractions of the $R_n$ form nested prefixes of an
+infinite continued fraction $[1;a_1,a_2,\ldots]$ for $R_\infty$.
+For every $j\geq1$,
+\[
+ a_j\in\ZZ[x]\quad(j\text{ odd}),\qquad
+ 2a_j\in\ZZ[x]\quad(j\text{ even}).
+\]
+Its first four partial quotients after $1$ are
+\begin{equation}\label{first}
+ x,\quad -(x-1)g(x),\quad 1-x,\quad -1-\frac{x}{2}.
+\end{equation}
+In particular it is semi-specializable.
+\end{theorem}
+
+The hypotheses force $g\ne0$ and $d:=\deg f\geq3$. For $\ell\ne0$
+divisible by four, $T_{|\ell|}(0)=T_{|\ell|}(1)=T_{|\ell|}(-1)=1$.
+The monic factor theorem over $\ZZ[x]$ gives \eqref{congruence}.
+The identities $T_a(T_b(x))=T_{ab}(x)$ and $T_{-a}=T_a$ identify
+$f_n$ with $T_{\ell^n}$. Thus Theorem~\ref{thm} proves the full conjecture,
+including negative $\ell$.
+
+\section*{A continued-fraction identity}
+For a polynomial $a$ write
+\[
+ A(a)=\begin{pmatrix}a&1\\1&0\end{pmatrix}.
+\]
+For a word $w=(a_1,\ldots,a_m)$ with $a_1=x$, put
+\[
+ M=A(1)A(a_1)\cdots A(a_m)
+   =\begin{pmatrix}p&p'\\q&q'\end{pmatrix},
+ \qquad \epsilon=\det M=(-1)^{m+1}.
+\]
+Here $p,q$ are the actual continuants, including their scalar factors.
+Define the word $\mathcal T(w,Y)$ as follows:
+\begin{equation}\label{word}
+ \mathcal T(w,Y)=
+ \bigl(w,Y,-a_m,\ldots,-a_2,1-x,b_1,\ldots,b_m\bigr),
+\end{equation}
+where
+\[
+ b_1=-1-\frac{x}{2},\qquad
+ b_j=\begin{cases}-2a_j,&j\geq2\text{ even},\\
+                  -a_j/2,&j\geq3\text{ odd}.
+       \end{cases}
+\]
+When $m=1$, the segment $-a_m,\ldots,-a_2$ is empty.
+The new word has length $3m+1$ and begins with $w$.
+
+\begin{lemma}\label{identity}
+Let $F$ satisfy $Y=-\epsilon(F-1)/(pq)$ and set
+\[
+ c_m=\begin{cases}1,&m\text{ even},\\1/2,&m\text{ odd}.
+       \end{cases}
+\]
+The first column of the continuant matrix of
+$[1;\mathcal T(w,Y)]$ is
+\begin{equation}\label{column}
+ -\epsilon c_m\begin{pmatrix}p(F+1)\\qF\end{pmatrix}.
+\end{equation}
+Consequently, this fraction has value $\dfrac pq(1+1/F)$.
+\end{lemma}
+
+\begin{proof}
+Let $W=A(a_1)\cdots A(a_m)$ and $D=\operatorname{diag}(1,-1)$.
+Then
+\[
+ W=\begin{pmatrix}q&q'\\p-q&p'-q'\end{pmatrix}.
+\]
+Write $S$ for the continuant matrix of the scaled word
+$(a_1/2,2a_2,a_3/2,2a_4,\ldots)$, and let $e_1=(1,0)^{\mathsf T}$.
+Pairwise multiplication of the matrices $A(a_j)$ gives
+\[
+ Se_1=c_m\begin{pmatrix}q\\2(p-q)\end{pmatrix}.
+\]
+The negative reversed word has matrix $(-1)^mDW^{\mathsf T}D$.
+Consider the auxiliary word
+\[
+ [1;w,Y,-\rev(w),1,a_1/2,2a_2,a_3/2,\ldots].
+\]
+Eliminating the displayed constant $1$ by
+\[
+ [a,1,b,c,\ldots]=[a+1,-b-1,-c,\ldots]
+\]
+produces \eqref{word}. At the matrix level this multiplies the first
+column by $(-1)^m$, cancelling the sign from the negative reversal.
+Hence the new first column is
+\[
+ M A(Y) D W^{\mathsf T}D A(1)S e_1.
+\]
+Using $pq'-p'q=\epsilon$, its last factors give
+\[
+ DW^{\mathsf T}DA(1)Se_1
+   =c_m\begin{pmatrix}pq\\-pq'-\epsilon\end{pmatrix}.
+\]
+Multiplication by $MA(Y)$ therefore yields
+\[
+ c_m\begin{pmatrix}p(pqY-2\epsilon)\\q(pqY-\epsilon)\end{pmatrix}
+ =-\epsilon c_m\begin{pmatrix}p(F+1)\\qF\end{pmatrix},
+\]
+as asserted. The constant-elimination sign also follows directly from
+\[
+ A(a+1)A(-b-1)=A(a)A(1)A(b)\operatorname{diag}(-1,1),
+ \qquad A(-c)=-DA(c)D.
+\]
+\end{proof}
+
+\section*{Induction and coefficient denominators}
+Put
+\[
+ U_n=\prod_{j=0}^n(f_j+1),\quad V_n=\prod_{j=0}^nf_j,
+ \quad s_n=\sum_{j=0}^nd^j.
+\]
+Iterating \eqref{congruence} gives the exact polynomial identity
+\begin{equation}\label{divisibility}
+ f_{n+1}-1=(x-1)U_nV_n\prod_{j=0}^ng(f_j).
+\end{equation}
+Indeed, $f_{j+1}-1=(f_j-1)f_j(f_j+1)g(f_j)$, which telescopes.
+
+Starting with $w_0=(x)$ and $\kappa_0=1$, we inductively construct words
+$w_n$ of length $m_n$ whose continuants are
+\begin{equation}\label{scale}
+ p_n=\kappa_n U_n,\qquad q_n=\kappa_n V_n,
+ \qquad \kappa_n\in\{\pm2^{-h}:h\geq0\}.
+\end{equation}
+The base fraction is $R_0=[1;x]$.
+Given $w_n$, define
+\begin{equation}\label{Y}
+ Y_n=(-1)^{m_n}\frac{f_{n+1}-1}{p_nq_n},\qquad
+ w_{n+1}=\mathcal T(w_n,Y_n).
+\end{equation}
+By \eqref{divisibility} and \eqref{scale}, $Y_n\in\ZZ[x]$:
+the scalar $\kappa_n^{-2}$ is an integer. Moreover,
+\begin{equation}\label{degree}
+ \deg Y_n=d^{n+1}-2s_n
+ =\frac{(d-3)d^{n+1}+2}{d-1}>0.
+\end{equation}
+Lemma~\ref{identity} proves that $[1;w_{n+1}]=R_{n+1}$ and that
+\[
+ \kappa_{n+1}=(-1)^{m_n}c_{m_n}\kappa_n.
+\]
+This preserves the asserted form of $\kappa_n$. More explicitly,
+\[
+ m_n=\frac{3^{n+1}-1}{2},\qquad
+ \kappa_n=(-1/2)^{\lceil n/2\rceil}.
+\]
+
+It remains to check the coefficient assertion and regularity.
+Assume that odd positions of $w_n$ have integral coefficients and even
+positions have half-integral coefficients. In the reversed segment of
+\eqref{word}, the entry coming from position $j$ occupies position
+$2m_n+2-j$, which has the same parity as $j$. The new entry $Y_n$ is
+integral. The entry $1-x$ occupies the odd position $2m_n+1$.
+The entry $b_j$ occupies position $2m_n+1+j$, of opposite parity to $j$.
+Thus the factors $2$ and $1/2$ in the definition of $b_j$ give exactly
+the required coefficient bounds at these new positions. The special
+$b_1=-1-x/2$ also has half-integral coefficients.
+Every inherited entry has positive degree, as do $1-x$, $b_1$, and
+$Y_n$ by \eqref{degree}. This proves all the induction assertions.
+
+Since all partial quotients after $1$ have positive degree, these are
+regular polynomial continued fractions. Their nested words have lengths
+tending to infinity. Such a continued fraction converges in
+$\QQ((x^{-1}))$: the degrees of its convergent denominators strictly
+increase and the difference between consecutive convergents is
+$\pm1/(q_jq_{j-1})$. Its subsequence $[1;w_n]=R_n$ tends to the formal
+product $R_\infty$, since $\deg f_n=d^n\to\infty$. Their limits are
+therefore equal, proving the coefficient assertion for the infinite
+product.
+
+The first recursion gives \eqref{first}. The first nonintegral coefficient
+occurs in the nonconstant term of $-1-x/2$. This also rules out
+specializability by the criterion in \cite[Section 7, p.~308]{C}:
+when the first nonintegral partial quotient has a nonintegral nonconstant
+coefficient, inserting constant partial quotients cannot make the expansion
+integral. Thus the conclusion has precisely Cohn's meaning of
+semi-specializability. This completes the proof of Theorem~\ref{thm}.
+
+\section*{Verification and proposed follow-up tasks}
+The accompanying exact verifier obtains continued fractions by direct
+Euclidean division of $U_n$ and $V_n$, and compares them to the recursion.
+It checks the actual continuant scale and every coefficient's parity
+condition. The checks cover 48 finite products from ten polynomials,
+including $T_4,T_8,T_{12},T_{16}$, with maximum denominator degree 4,369.
+They supplement the proof for all $n$ and all eligible $f$.
+
+\begin{description}
+\item[Task 2 (proposed).] Classify cubic $f\in\ZZ[x]$ for which
+$\prod_{n\geq0}(1+1/f_n(x))$ is semi-specializable, including the classes
+outside \eqref{congruence}.
+\item[Task 3 (proposed).] Turn \eqref{word} into explicit recursions for
+the positive integer partial quotients after specializing $x=M\geq2$,
+for each fixed $\ell\equiv0\pmod4$.
+\item[Task 4 (proposed).] Determine the irrationality exponent of
+$\prod_{n\geq0}(1+1/T_{\ell^n}(M))$ for every integer $M\geq2$ and
+positive $\ell\equiv0\pmod4$.
+\item[Task 5 (proposed).] For integer $c\ne0$, find congruence conditions
+on $f\in\ZZ[x]$ that give a uniform bound on the coefficient denominators
+in the continued fraction of $\prod_{n\geq0}(1+c/f_n(x))$.
+\end{description}
+
+\begin{thebibliography}{2}
+\bibitem{C} H. Cohn, \emph{Symmetry and specializability in continued
+fractions}, Acta Arithmetica \textbf{75} (1996), 297--320,
+especially Conjecture 9.2, p.~319.
+\url{https://doi.org/10.4064/aa-75-4-297-320}.
+Author manuscript: \url{https://arxiv.org/abs/math/0008221}.
+\bibitem{M} J. Mc Laughlin, \emph{Symmetry and specializability in the
+continued fraction expansions of some infinite products}, Journal of
+Number Theory \textbf{127} (2007), 184--219.
+\url{https://doi.org/10.1016/j.jnt.2007.04.007}.
+\end{thebibliography}
+\noindent\textit{Review status.} Author-agent review; no independent peer
+review or proof-assistant verification. Scope, source coverage, and bounded
+public-claim checks are recorded in the accompanying audits.
+\end{document}

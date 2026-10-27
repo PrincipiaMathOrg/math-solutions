@@ -1,0 +1,203 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,enumitem,hyperref}
+\hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue,citecolor=blue}
+\newtheorem{theorem}{Theorem}
+\newcommand{\E}{\mathbb E}
+\newcommand{\Q}{\mathcal Q}
+\newcommand{\des}{\operatorname{des}}
+\title{The word-enumerator formula for every arbor polytope\\\large MathDB 373577}
+\author{Principia Math In Progress}
+\date{September 18, 2026}
+\begin{document}
+\maketitle
+\begin{abstract}
+We prove Conjecture 5.2 of Athanasiadis, Xiao, and Yan for every arbor,
+including arbitrary branching and nonsingleton vertex blocks. The result
+is a direct corollary of the preorder descent theorem proved in our
+companion MathDB 374958 solution. We give the precise arbor reduction
+and reproduce the reciprocity and word-counting proof in full.
+\end{abstract}
+
+\section*{Task 1. Full solution}
+An arbor $\tau$ on $[n]$ is a rooted tree whose vertices are the
+nonempty blocks of a partition of $[n]$, where $n\ge1$.
+Let $D(v)$ be the union of the blocks in the subtree rooted at $v$,
+including its own block. The arbor polytope is
+\[
+ \Q_\tau=\{x\in\mathbb R_{\ge0}^n:x(D(v))\le |D(v)|
+                             \text{ for every vertex $v$}\},
+ \qquad x(A)=\sum_{i\in A}x_i.
+\]
+Let $W_\tau$ consist of words $w\in[n]^n$ in which the letters
+from $D(v)$ occur at least $|D(v)|$ times for every $v$.
+Let $\des(w)=\#\{j\in[n-1]:w_j>w_{j+1}\}$.
+\begin{theorem}\label{thm:main}
+For every arbor $\tau$ of size $n$,
+\[
+ \boxed{h^*(\Q_\tau,t)=\sum_{w\in W_\tau}t^{n-1-\des(w)}.}
+\]
+\end{theorem}
+
+\subsection*{From descendant sets to order ideals}
+Define a preorder $\sigma$ on $[n]$ by $i\le_\sigma j$ when
+the block of $i$ is a descendant of the block of $j$. Elements
+in one block are equivalent. Thus $D(v)$ is a principal order ideal.
+Every order ideal $I$ of $\sigma$ is the disjoint union of the sets
+$D(v)$ for its maximal blocks $v$. The subtrees are disjoint because
+these blocks are incomparable in a rooted tree.
+
+Summing over this disjoint union shows that the upper bounds on
+$D(v)$ are equivalent to $x(I)\le |I|$ for every ideal $I$.
+It follows that $\Q_\tau=\Q_\sigma$, where $\Q_\sigma$ denotes
+the preorder polytope. The identical argument with lower bounds on
+letter multiplicities gives $W_\tau=W_\sigma$, where $W_\sigma$
+uses all order ideals. This reduction respects the usual order on
+the alphabet, which need not be compatible with $\sigma$.
+
+For completeness we prove the needed preorder formula below. Set $E=[n]$.
+Write $\sigma^*$ for the reversed preorder and
+$P_{\sigma^*}=\Q_{\sigma^*}\cap\mathbb Z^n$.
+
+\subsection*{A counting identity from reciprocity}
+We give the needed reciprocity argument in full. Let
+\[
+ \Q_\sigma(r,s)=\left\{x\in\mathbb R_{\ge0}^E:
+       \sum_{e\in I}x_e\le r|I|+s
+       \text{ for every nonempty order ideal }I\right\}.
+\]
+By \cite[Propositions 3.2--3.3 and 7.1]{AC}, for nonnegative
+integers $r,s$ this is a lattice polytope, also expressible as an
+integral Minkowski sum of simplices. Its lattice-point count is the
+polynomial $\E_\sigma(r,s)$, of total degree $n$.
+
+For positive integers $r,s$, the polytope is full dimensional
+(it contains $[0,r]^E$). Its interior integer points satisfy
+$x_e\ge1$ and $\sum_{e\in I}x_e\le r|I|+s-1$ for every
+nonempty order ideal. Subtracting the all-ones vector therefore
+bijects these points with $\Q_\sigma(r-1,s-1)\cap\mathbb Z^E$.
+All inequality normals are nonzero; redundant inequalities have
+no effect on this strict-interior characterization.
+
+For $P=\Q_\sigma(r,s)$ one has $kP=\Q_\sigma(kr,ks)$ for
+nonnegative integers $k$, so its Ehrhart polynomial equals
+$\E_\sigma(kr,ks)$ as a polynomial in $k$. Ordinary Ehrhart
+reciprocity at $k=-1$ and the translation just described imply
+\begin{equation}\label{eq:rec}
+ \E_\sigma(-u,-v)=(-1)^n\E_\sigma(u-1,v-1).
+\end{equation}
+Initially this holds for positive integer pairs $(u,v)$; it is a
+polynomial identity because a polynomial vanishing on that entire
+grid is zero (first fix $v$ and vary $u$, then vary $v$).
+
+For $a=(a_e)_{e\in E}$ write $|a|=\sum_e a_e$ and $a_0=n-|a|$.
+The established formula \cite[Lemma 4.1 and Equation (25)]{AC} is
+\begin{equation}\label{eq:source}
+ \E_\sigma(u,v)=\sum_{a\in P_{\sigma^*}}
+       \binom{v+a_0}{a_0}\prod_{e\in E}\binom{u+a_e-1}{a_e}.
+\end{equation}
+Here $a_0\ge0$, and binomial coefficients with fixed nonnegative
+lower argument are interpreted as polynomials in the upper argument.
+Putting $(u,v)=(-m-1,-1)$ in \eqref{eq:source}, every term with
+$a_0>0$ vanishes, since $\binom{a_0-1}{a_0}=0$.
+For the remaining terms $|a|=n$, use
+\[
+ \binom{a_e-m-2}{a_e}=(-1)^{a_e}\binom{m+1}{a_e}.
+\]
+Together with \eqref{eq:rec}, this gives, for all $m\ge0$,
+\begin{equation}\label{eq:count}
+ \operatorname{Ehr}(\Q_\sigma,m)=\E_\sigma(m,0)
+ =\sum_{\substack{a\in P_{\sigma^*}\\|a|=n}}
+        \prod_{e\in E}\binom{m+1}{a_e}.
+\end{equation}
+This implication of bivariate reciprocity was already noted,
+conditionally, in \cite[Remark 7.3]{AC}; equation \eqref{eq:rec}
+supplies the missing premise.
+
+\subsection*{An elementary multiset identity}
+For a nonnegative integer vector $a$ with $|a|=n$, let $S_a$
+be all words having $a_e$ copies of each $e$. We prove
+\begin{equation}\label{eq:word}
+ \sum_{m\ge0}\left(\prod_e\binom{m+1}{a_e}\right)t^m
+ =\frac{\displaystyle\sum_{w\in S_a}t^{n-1-\des(w)}}{(1-t)^{n+1}}.
+\end{equation}
+Choose, for each letter $e$, a subset of $a_e$ bins from the
+$m+1$ ordered bins $0,1,\ldots,m$. Place one copy of $e$ in each
+chosen bin. The number of choices is the product on the left.
+Within each bin, read its distinct letters in strictly decreasing
+order, and concatenate the bins. This produces a word $w\in S_a$
+and a weakly increasing sequence of bin indices
+$0\le b_1\le\cdots\le b_n\le m$.
+
+At each index $j$ for which $w_j\le w_{j+1}$, the bin index must
+strictly increase. Conversely these conditions suffice: a constant
+bin segment is strictly decreasing and contains no repeated letter.
+Thus this construction is a bijection. The number of required
+strict increases is $c(w)=n-1-\des(w)$. Subtract from $b_j$ the
+number of required increases before position $j$. When $m\ge c(w)$
+this gives a weakly increasing sequence of length $n$ in
+$\{0,\ldots,m-c(w)\}$, counted by
+$\binom{m-c(w)+n}{n}$. There are no such sequences for $m<c(w)$.
+Consequently the contribution of $w$ to the generating function is
+\[
+ \sum_{m\ge c(w)}\binom{m-c(w)+n}{n}t^m
+ =\frac{t^{c(w)}}{(1-t)^{n+1}},
+\]
+which proves \eqref{eq:word}, including repeated letters and $m=0$.
+
+\begin{proof}[Proof of Theorem~\ref{thm:main}]
+A vector $a$ of total sum $n$ belongs to $P_{\sigma^*}$ exactly
+when $\sum_{e\in J}a_e\le |J|$ for every order filter $J$ of
+$\sigma$. Taking complements $I=E\setminus J$, these conditions
+are equivalent to $\sum_{e\in I}a_e\ge |I|$ for every order
+ideal $I$ of $\sigma$. Therefore the sets $S_a$ indexed in
+\eqref{eq:count} partition $W_\sigma$.
+Sum \eqref{eq:word} over those vectors and use \eqref{eq:count}.
+The definition
+\[
+ \sum_{m\ge0}\operatorname{Ehr}(\Q_\sigma,m)t^m
+ =\frac{h^*(\Q_\sigma,t)}{(1-t)^{n+1}}
+\]
+now yields the desired identity.
+\end{proof}
+
+\subsection*{Verification and attribution}
+The conjecture and the octopus special case are due to
+Athanasiadis, Xiao, and Yan \cite{AXY}. The preorder counting formula
+and the conditional deduction from bivariate reciprocity are due to
+Athanasiadis and Chapoton \cite{AC}. The complete reciprocity proof
+above is reproduced from our MathDB 374965 and 374958 packages;
+this separately listed arbor target is a corollary, not an independent
+new general theorem. Since $\Q_\tau=\Q_\sigma$ and
+$W_\tau=W_\sigma$, the formula proved above is exactly the target.
+
+All 14 pages of the current arbor primary and all 26 pages of the
+preorder paper were read. The verifier checks every one of the
+1,674 labeled arbors through size five, including arbitrary blocks:
+11,275 ideal decompositions, 1,674 complete $h^*$-identities,
+9,866 binomial counts, and 740 direct lattice enumerations.
+It also checks the published octopus formula and six-element examples.
+Bounded checks found no earlier external full target claim or identified
+target journal final. Review is by the authoring agent only.
+
+\section*{Tasks 2--5. Proposed follow-up directions}
+\begin{enumerate}[label=\textbf{Task \arabic*.},start=2,leftmargin=*]
+\item Construct a recursive bijection from dilated arbor lattice
+points to the bin assignments, using the branching of the rooted tree.
+\item Refine the formula by descent sets and derive shuffle identities
+for the subtrees attached to a vertex.
+\item Find a parking interpretation of the magic-basis coefficients
+for arbitrary arbors, extending the known octopus case.
+\item Determine which modifications of the subtree capacities admit
+an analogous word formula with a fixed multiplicity constraint.
+\end{enumerate}
+\begin{thebibliography}{9}
+\raggedright
+\bibitem{AXY} C. A. Athanasiadis, Q. Xiao, and X. Yan,
+\emph{Lattice point enumeration of some arbor polytopes},
+\href{https://arxiv.org/abs/2603.11654v1}{arXiv:2603.11654v1}, 2026.
+\bibitem{AC} C. A. Athanasiadis and F. Chapoton,
+\emph{Polytopes and posets associated to preorders},
+\href{https://arxiv.org/abs/2605.26916v1}{arXiv:2605.26916v1}, 2026.
+\end{thebibliography}
+\end{document}

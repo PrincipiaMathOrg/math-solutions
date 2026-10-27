@@ -1,0 +1,265 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,hyperref}
+\hypersetup{colorlinks=true,urlcolor=blue,linkcolor=blue,citecolor=blue}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newtheorem{corollary}{Corollary}
+\newcommand{\Av}{\operatorname{Av}}
+\title{Marked primitive components and the expansion conjecture\\
+\large MathDB 360957}
+\author{Principia Math in Progress}
+\date{September 18, 2026}
+\begin{document}
+\maketitle
+
+\section*{Task 1. Full solution}
+For $a,k\ge1$, let $\mathcal S^{a\prec n}_{n,k}(1324)$ consist of
+the permutations of $[n]$ avoiding $1324$ in which $a$ is $k$ positions
+to the left of $n$, and all letters $1,\ldots,a-1$ are to the right
+of $n$. Write
+\[
+ T_{a,k}(x)=\sum_n |\mathcal S^{a\prec n}_{n,k}(1324)|x^n,
+ \qquad T_{a,0}(x)=|\Av_{a-1}(1324)|x^a.
+\]
+The auxiliary class at $k=0$ consists of the words $a\lambda$, where
+$\lambda$ is a $1324$-avoiding permutation of $[a-1]$. The empty
+permutation is allowed, so $T_{1,0}=x$.
+
+A \emph{primitive} is a $1324$-avoiding permutation whose minimum
+is immediately followed by its maximum. If $\mathcal P_m$ is this
+class in size $m\ge2$, the series used in the source is
+\[
+ f(x)=\sum_{m\ge2}|\mathcal P_m|x^{m-1}
+     =x+2x^2+6x^3+22x^4+91x^5+\cdots.
+\]
+We use the primitive factorization of Gil--Lopez--Weiner
+\cite[Propositions 2.3--2.4 and Corollary 2.5]{GLW}.
+Their paper proves the cases $a=1,2$ and also gives the marking
+argument for $a=3$. The following proof extends that method to
+every $a$ by proving that unmarked components can always be inserted.
+
+\begin{theorem}\label{main}
+For each $a\ge1$ there are series $H_{a,r}(x)$ with nonnegative
+integer coefficients, zero for $r\ge a$, such that for every $k\ge0$,
+\begin{equation}\label{expansion}
+ T_{a,k}=\sum_{r=0}^{\min(k,a-1)}\binom{k}{r}f^{k-r}H_{a,r}.
+\end{equation}
+Consequently, for every $k\ge a$ all three formulas of
+\cite[Conjecture 1]{GLW} hold:
+\begin{align}
+ &\sum_{j=0}^k(-1)^j\binom{k}{j}f^jT_{a,k-j}=0,\label{first}\\
+ &T_{a,k}=\sum_{r=0}^{a-1}\binom{k}{r}f^{k-r}
+       \sum_{i=0}^r(-1)^i\binom{r}{i}f^iT_{a,r-i},\label{second}\\
+ &T_{a,k}=\sum_{j=0}^{a-1}(-1)^{a-j-1}\binom{k}{j}
+       \binom{k-j-1}{a-j-1}f^{k-j}T_{a,j}.\label{third}
+\end{align}
+All identities are identities of formal power series in $x$.
+\end{theorem}
+
+\paragraph{The primitive components.}
+Call letters below $a$ \emph{small}, and letters at least $a$
+\emph{large}. Delete the small letters from an object counted by
+$T_{a,k}$ and standardize. The cited unique factorization gives
+$k$ primitives. Before standardizing, this large-letter word has
+the form
+\begin{equation}\label{skeleton}
+ A_k\cdots A_1\;a\,b_1\cdots b_k\;B_k\cdots B_1,
+ \qquad a=b_0<b_1<\cdots<b_k=n.
+\end{equation}
+For each $i$, the words $A_i,B_i$ partition the interval of integer
+letters $(b_{i-1},b_i)$. The word
+$A_i\,b_{i-1}\,b_i\,B_i$ standardizes to the $i$th primitive.
+Conversely, any ordered list of primitives gives a unique avoiding
+word of the form \eqref{skeleton}. In particular, every large
+letter in $B_i$ exceeds every large letter in $B_j$ when $i>j$.
+The suffix $B_k\cdots B_1$ avoids $213$: otherwise prepending the
+earlier letter $a$ would give $1324$.
+
+\paragraph{A canonical assignment of the small letters.}
+In the suffix to the right of $n$, attach each maximal run of small
+letters that is followed by a large letter to that following letter.
+The final run, if any, is kept separately as a tail $L$.
+Let $D_i$ be $B_i$ with its attached runs inserted. Thus the full
+permutation has the unique form
+\begin{equation}\label{decorated}
+ A_k\cdots A_1\;a\,b_1\cdots b_k\;D_k\cdots D_1\;L.
+\end{equation}
+Every nonempty $D_i$ ends in a large letter, and $D_i$ is empty
+if $B_i$ is empty. Mark component $i$ precisely when $D_i$ contains
+a small letter. The marked components use disjoint nonempty sets
+of the $a-1$ small letters; hence their number $r$ is at most $a-1$.
+An unmarked component has $D_i=B_i$.
+
+\begin{lemma}[Deletion and arbitrary reinsertion]\label{insertion}
+Delete all unmarked components in \eqref{decorated}, meaning that
+for each such $i$ we delete $A_i,B_i$, and the upper endpoint $b_i$.
+Standardize the result, leaving the small letters $1,\ldots,a-1$
+and the base letter $a$ fixed. The result is an avoiding permutation
+with exactly $r$ components, all marked, or an auxiliary $k=0$
+object if $r=0$.
+
+Conversely, into any such fully marked object one may insert
+arbitrary unmarked primitives at arbitrary places in its ordered
+component list. This always produces a $1324$-avoiding permutation.
+\end{lemma}
+
+\begin{proof}
+Deletion produces a subsequence followed by an order-preserving
+relabeling, so it preserves avoidance. Each retained component
+keeps its internal order and decorations. Its width
+$b_i-b_{i-1}$ is unchanged; the successive intervals are simply
+made consecutive again. The unique primitive factorization of the
+remaining large-letter word is therefore exactly the retained list.
+Each small run still has its assigned following large letter,
+and the tail stays at the end. This proves the deletion assertion,
+including $r=0$, when only $aL$ remains.
+
+For the converse, form \eqref{decorated} with the extra primitives,
+using consecutive intervals for their large letters and preserving
+all small letters and their assignments. Its large-letter
+subsequence avoids $1324$ by the cited primitive-product theorem.
+Its small-letter subsequence is unchanged. Suppose nevertheless
+that a forbidden pattern appears. Classify it by its number of
+small letters.
+
+With zero small letters it contradicts avoidance of the large-letter
+subsequence. With four small letters it was already in the core.
+With at least one small letter the first letter of the pattern
+must be small: the first letter is the minimum of a $1324$
+pattern. Thus the entire pattern lies to the right of the new
+maximum, in $D_k\cdots D_1L$.
+
+With exactly one small letter, the three large letters would form
+$213$ in $B_k\cdots B_1$, which is impossible.
+
+With exactly two small letters, the pattern has the form
+$s_1,u,s_2,v$, where $s_1<s_2<a\le u<v$. An increasing pair
+$u,v$ cannot cross two suffix blocks, since those blocks occur
+in decreasing order of their value intervals. Hence $u,v$ lie
+in the same $B_i$. This cannot be an inserted unmarked block,
+because $s_2$ lies between $u$ and $v$. It is therefore a retained
+marked block, and the same four letters form a forbidden pattern
+in the core.
+
+With exactly three small letters, those letters form $132$ and
+are followed by a large letter $v$. If $v$ is retained, this
+pattern is already in the core. If $v$ belongs to an inserted
+block, consider the last of the three selected small letters,
+in positional order. It cannot lie in the final tail. It lies
+in a retained decorated block $D_i$ before the inserted block.
+Its attached run is followed by a retained large letter $w$ in
+that same $D_i$, hence after all three selected small letters
+and before $v$. Replacing $v$ by $w$ gives $1324$ in the core,
+again a contradiction. These cases exhaust all possibilities.
+\end{proof}
+
+\begin{proof}[Proof of Theorem \ref{main}]
+Let $H_{a,r}$ count, by their full size, the avoiding objects with
+$r$ components all marked, retaining every small letter and the
+tail. For $r=0$ this is the auxiliary class, so $H_{a,0}=T_{a,0}$.
+The marking bound gives $H_{a,r}=0$ for $r\ge a$.
+
+Lemma \ref{insertion} is a bijection: an object with $k$ components
+determines its core, the $r$ marked positions in the component
+list, and its ordered $k-r$ unmarked primitives. Conversely these
+data recover exactly one object. No labels need to be chosen:
+consecutive large-letter intervals determine them, while the
+small labels belong to the core. A primitive of size $m$ adds
+$m-1$ letters, since its lower endpoint is shared with the
+preceding part of the increasing central sequence. Thus every
+unmarked primitive contributes $f$, and the choices of marked
+positions contribute $\binom{k}{r}$. This proves \eqref{expansion}.
+
+Ordinary weighted binomial inversion gives
+\begin{equation}\label{inverse}
+ H_{a,r}=\sum_{i=0}^r(-1)^i\binom{r}{i}f^iT_{a,r-i}.
+\end{equation}
+To check this, substitute \eqref{expansion} on the right.
+The coefficient of $f^{r-s}H_{a,s}$ is
+\[
+ \binom{r}{s}\sum_{i=0}^{r-s}(-1)^i\binom{r-s}{i}.
+\]
+This is one if $s=r$ and zero otherwise. No division by $f$ is used.
+Equation \eqref{first} follows because $H_{a,k}=0$ for $k\ge a$;
+substitution into \eqref{expansion} gives \eqref{second}.
+
+Finally the coefficient of $f^{k-j}T_{a,j}$ in \eqref{second} is
+\begin{align*}
+ \sum_{r=j}^{a-1}(-1)^{r-j}\binom{k}{r}\binom{r}{j}
+ &=\binom{k}{j}\sum_{u=0}^{a-j-1}(-1)^u\binom{k-j}{u}\\
+ &=(-1)^{a-j-1}\binom{k}{j}\binom{k-j-1}{a-j-1}.
+\end{align*}
+The last equality is the alternating partial-binomial identity
+(an immediate telescoping consequence of Pascal's rule), valid
+here because $k\ge a$. This proves \eqref{third}.
+\end{proof}
+
+\begin{corollary}
+The binomial transforms \eqref{inverse} have nonnegative integer
+coefficients. Moreover the positional generating function satisfies
+\[
+ g_a(x,t)=\sum_{r=0}^{a-1}\frac{H_{a,r}(x)t^r}
+                                  {(1-tf(x))^{r+1}}-T_{a,0}(x).
+\]
+\end{corollary}
+\begin{proof}
+The first assertion follows from the definition of the cores.
+For the second, sum \eqref{expansion} over $k\ge0$ using
+$\sum_{k\ge r}\binom{k}{r}z^{k-r}=(1-z)^{-r-1}$,
+and remove the $k=0$ term.
+\end{proof}
+
+\paragraph{Exact corroboration and scope.}
+The accompanying standard-library verifier enumerates permutations
+through size $9$, checks compression and reconstruction for
+$113{,}979$ objects, and checks $2{,}808$ arbitrary primitive
+insertions by direct pattern inspection. Two pattern detectors
+agree on all $46{,}233$ permutations of sizes $1$ through $8$.
+It also checks the coefficient identities and their binomial
+simplification with exact integers. These computations corroborate
+the proof; the all-parameter conclusion rests on
+Lemma \ref{insertion} and the bijection above. The initial core
+series are not evaluated in closed form here.
+
+\section*{Task 2. Explicit initial series (proposed)}
+Find closed forms or finite functional equations for $H_{3,1}$
+and $H_{3,2}$. The corollary would then give an explicit expression
+for $g_3(x,t)$, addressing the further question stated in the source.
+
+\section*{Task 3. Sharpness of the component bound (proposed)}
+Determine for which $a$ the series $H_{a,a-1}$ is nonzero and
+find its least nonzero coefficient. This would decide when the
+degree $a-1$ in the binomial expansion is necessary.
+
+\section*{Task 4. Other forbidden patterns (proposed)}
+Classify permutation classes whose primitive suffix blocks have
+the same deletion and arbitrary-reinsertion property. Test this
+first for the extra restrictions $1243$ and $2134$ studied in
+\cite{GLW26}, and formulate the corresponding finite expansions.
+
+\section*{Task 5. Asymptotics at fixed $a$ (proposed)}
+Determine the dominant singularities of the finitely many
+$H_{a,r}$, then use the displayed expression for $g_a$ to obtain
+coefficient asymptotics and the limiting distribution of the
+distance from $a$ to the maximum. No asymptotic claim is made here.
+
+\paragraph{Status.}
+Task 1 proves the full stated expansion conjecture. Tasks 2--5
+are research proposals and carry no additional solution credit.
+Review and computation were performed by the authoring agent;
+no independent peer review or proof-assistant certification is claimed.
+
+\begin{thebibliography}{9}\raggedright
+\bibitem{GLW} J. B. Gil, O. A. Lopez, and M. D. Weiner,
+\emph{A positional statistic for 1324-avoiding permutations},
+Discrete Mathematics \& Theoretical Computer Science 26:1 (2024).
+\href{https://doi.org/10.46298/dmtcs.12629}{doi:10.46298/dmtcs.12629}.
+Current and journal-final text:
+\href{https://arxiv.org/abs/2311.18227v3}{arXiv:2311.18227v3}.
+\bibitem{GLW26} J. B. Gil, O. A. Lopez, and M. D. Weiner,
+\emph{On separable permutations and three other pairs in the
+Schr\"oder class},
+\href{https://arxiv.org/abs/2603.25528v2}{arXiv:2603.25528v2} (2026).
+\end{thebibliography}
+\end{document}

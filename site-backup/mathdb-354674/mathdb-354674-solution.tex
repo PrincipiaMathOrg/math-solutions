@@ -1,0 +1,184 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,hyperref}
+\hypersetup{colorlinks=true,urlcolor=blue,citecolor=blue}
+\newtheorem{theorem}{Theorem}
+\newtheorem{corollary}[theorem]{Corollary}
+\title{A bounded counterexample to pointwise convergence\\
+for recurrence-defined functions\\[3pt]
+\large MathDB problem 354674}
+\author{Principia Math in Progress}
+\date{September 29, 2026}
+\begin{document}
+\maketitle
+\begin{abstract}
+Pointwise convergence of the scaled coefficients of a backward recurrence
+does not imply a continuously differentiable limit, even when the limiting
+differential equation has a unique solution continuous at the terminal
+endpoint. We give an explicit counterexample with recurrence values in
+$[0,1]$, and a variant with convex-combination coefficients.
+\end{abstract}
+
+\section*{Task 1. Full resolution}
+Conjecture 1 of Bay\'on et al.\ \cite{source}, retained in the final
+publication at pp.~29--30, is MathDB problem
+\href{https://mathdb.com/p/354674}{354674}. It concerns
+\[
+ F_n(k)=G_n(k)+H_n(k)F_n(k+1),\qquad F_n(n)=\mu.
+\]
+Put $f_n(x)=F_n(\lfloor nx\rfloor)$,
+$g_n(x)=nG_n(\lfloor nx\rfloor)$, and
+$h_n(x)=n(1-H_n(\lfloor nx\rfloor))$.
+The hypotheses are pointwise convergence $g_n\to g$, $h_n\to h$ on
+$(0,1)$ with continuous limits, and solvability of
+$y'=-g+hy$ continuously up to $1$ only for one terminal value
+$y(1)=\Theta$. The conjectured conclusion is pointwise convergence
+of $f_n$ to a function in $C^1(0,1]$ satisfying that equation and
+terminal condition. The following example disproves it.
+
+\begin{theorem}
+The conjecture is false even with $\mu=\Theta=0$,
+$0<H_n(k)<1$ for $k<n$, and $0\leq F_n(k)\leq1$.
+In fact, $h_n$ can converge locally uniformly on $(0,1)$.
+\end{theorem}
+\begin{proof}
+For every $n\geq1$ and $0\leq k\leq n$, define
+\[
+ H_n(k)=\frac{n-k}{n-k+1}.
+\]
+For $n\geq4$, set
+\[
+ j_n=\lfloor n/2\rfloor+1,\qquad
+ G_n(k)=\begin{cases}1,&k=j_n,\\0,&k\ne j_n.\end{cases}
+\]
+For $n<4$, set $G_n(k)=0$ for all $k$. Set $F_n(n)=0$
+and determine $F_n(k)$ backward by the recurrence.
+The harmless value at $k=0$ makes all floor-index expressions
+defined on $[0,1]$; restriction to $\{1,\ldots,n\}$ gives
+the domain stated in the conjecture.
+
+For $n\geq4$ we have $j_n<n$. Backward substitution gives
+$F_n(k)=0$ for $k>j_n$, $F_n(j_n)=1$, and, for $k<j_n$,
+\[
+ F_n(k)=\prod_{\ell=k}^{j_n-1}\frac{n-\ell}{n-\ell+1}
+       =\frac{n-j_n+1}{n-k+1}.
+\]
+Consequently
+\begin{equation}\label{exact}
+ F_n(k)=
+ \begin{cases}
+ \displaystyle\frac{\lceil n/2\rceil}{n-k+1},&0\leq k\leq j_n,\\[5pt]
+ 0,&j_n<k\leq n.
+ \end{cases}
+\end{equation}
+These values lie in $[0,1]$. For $n<4$, $F_n$ is identically zero.
+
+Fix $x\in(0,1)$. If $x\leq1/2$, then
+$\lfloor nx\rfloor\leq\lfloor n/2\rfloor<j_n$.
+If $x>1/2$, then $\lfloor nx\rfloor>j_n$ for all sufficiently
+large $n$, since $j_n/n\to1/2$.
+Thus $G_n(\lfloor nx\rfloor)=0$ eventually for every fixed $x$,
+including $x=1/2$, and $g_n(x)\to g(x)=0$.
+Also
+\[
+ h_n(x)=\frac{n}{n-\lfloor nx\rfloor+1}
+       \longrightarrow h(x)=\frac1{1-x}.
+\]
+Writing $n-\lfloor nx\rfloor+1=n(1-x)+d_n$ with $1\leq d_n<2$
+gives $0<h(x)-h_n(x)\leq2/[n(1-x)^2]$,
+which proves local uniform convergence of $h_n$.
+Both limiting coefficients are continuous, indeed smooth, on $(0,1)$.
+
+The limiting equation is $y'=y/(1-x)$. Hence
+\[
+ \bigl((1-x)y(x)\bigr)'=0,\qquad
+ y(x)=\frac{C}{1-x}.
+\]
+A solution continuous at $1$ must have $C=0$.
+Thus the only admissible terminal value is $\Theta=0$ and
+the only such solution is $y\equiv0$, which belongs to $C^1(0,1]$.
+The endpoint-solvability hypothesis therefore holds in full.
+
+On the other hand, \eqref{exact} gives the pointwise limit
+\begin{equation}\label{limit}
+ \lim_{n\to\infty}f_n(x)=
+ \begin{cases}
+ \displaystyle\frac1{2(1-x)},&0<x\leq1/2,\\[5pt]
+ 0,&1/2<x<1.
+ \end{cases}
+\end{equation}
+Its value at $1/2$ is $1$ and its right-hand limit there is $0$.
+It is not continuous and cannot be the claimed $C^1$ function.
+For example, $f_n(1/4)\to2/3$, whereas the only admissible
+differential-equation solution has value zero there.
+\end{proof}
+
+\begin{corollary}
+The conjecture remains false if one also requires
+$0\leq G_n(k)\leq1-H_n(k)$ and $0<H_n(k)<1$ for $k<n$.
+\end{corollary}
+\begin{proof}
+For $n\geq4$, change only the exceptional coefficients to
+$G_n(j_n)=H_n(j_n)=1/2$, and keep the other coefficients as above.
+Now $F_n(j_n)=1/2$, so the entire solution in \eqref{exact}
+is divided by two. Each fixed $x$ eventually avoids the exceptional
+index, so the limiting coefficients and endpoint uniqueness
+are unchanged. The limit is half of \eqref{limit} and still
+has a jump. The stated coefficient inequalities follow directly.
+Equivalently, the recurrence has the form
+$F_n(k)=(1-H_n(k))P_n(k)+H_n(k)F_n(k+1)$
+with $P_n(j_n)=1$ and $P_n(k)=0$ elsewhere.
+\end{proof}
+
+\paragraph{Why the hypotheses miss the spike.}
+For every $n\geq4$, the main example has
+$\sum_{k=0}^{n-1}G_n(k)=1$ although $g_n(x)\to0$ pointwise.
+The corresponding mass is concentrated on one interval of length $1/n$.
+The averaged error condition in Theorem 2 of \cite{source} is stronger:
+for its candidate $f=0$, the average in condition (3)(iii) is $1$
+for every $n\geq5$. Thus that theorem does not assert convergence
+for this example.
+
+\paragraph{Relationship to earlier counterexamples.}
+Ravsky's 2024 answers \cite{mo,mse} show that related recurrence
+convergence claims can fail because of exceptional boundary
+coefficients. Their limiting coefficients are $g=h=0$, so
+every constant terminal value is possible; they do not satisfy
+the unique terminal-value hypothesis here. Our example verifies
+that additional hypothesis and produces an interior jump.
+
+\section*{Four follow-up directions}
+\paragraph{Task 2. Averaged coefficient control.}
+Formulate sufficient local uniform-integrability or discrete
+$L^1$ conditions on the scaled coefficients, together with endpoint
+control, that recover the proposed conclusion.
+\paragraph{Task 3. Limits with concentrated mass.}
+Develop a version of the recurrence limit theorem with measure-valued
+forcing and explicit jump conditions for finitely many coefficient spikes.
+\paragraph{Task 4. Endpoint selection.}
+Determine conditions under which bounded solutions of the limiting
+linear equation automatically extend continuously to the terminal endpoint,
+and combine these with compactness of the discrete solutions.
+\paragraph{Task 5. Quantitative convergence.}
+For a corrected theorem, bound the error on compact subintervals using
+discrete accumulated coefficient errors and terminal data.
+
+\begin{thebibliography}{9}
+\bibitem{source}
+L.~Bay\'on, P.~Fortuny Ayuso, J.~M.~Grau, A.~M.~Oller-Marc\'en,
+and M.~M.~Ruiz,
+\emph{A new method for computing asymptotic results in optimal stopping
+problems}, Bull.\ Malays.\ Math.\ Sci.\ Soc.\ \textbf{46} (2023), article 46.
+\href{https://doi.org/10.1007/s40840-022-01436-4}{doi:10.1007/s40840-022-01436-4}.
+Preprint: \href{https://arxiv.org/abs/2205.08495}{arXiv:2205.08495v1},
+Conjecture 1, p.~24; final version, pp.~29--30.
+\bibitem{mo}
+A.~Ravsky, answer and comment on MathOverflow question 463221,
+February 11 and 16, 2024.
+\url{https://mathoverflow.net/questions/463221}.
+\bibitem{mse}
+A.~Ravsky, answer and comments on Mathematics Stack Exchange
+question 4862107, February 16--17, 2024.
+\url{https://math.stackexchange.com/questions/4862107}.
+\end{thebibliography}
+\end{document}

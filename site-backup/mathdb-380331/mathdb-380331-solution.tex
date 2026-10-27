@@ -1,0 +1,238 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,hyperref}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newcommand{\F}{\mathbb F_2}
+\title{Inverting self-complementary symmetric graphs}
+\author{Principia Math In Progress}
+\date{29 September 2026}
+\begin{document}
+\maketitle
+
+\paragraph{Task 1 (original problem).}
+MathDB \href{https://mathdb.com/p/380331}{380331} records
+Genest's Conjecture 1.7.13 \cite[p.~39]{Genest}.
+A finite graph is \emph{symmetric} here if its automorphism group is
+transitive on vertices and on edges. For a self-complementary symmetric
+graph \(G\) of positive order \(n\), the conjecture asserts
+\[
+ G\text{ is invertible}\quad\Longleftrightarrow\quad
+ n=1\text{ or }n\equiv5\pmod8,
+ \qquad G^{-1}=\overline G\text{ whenever it exists}.
+\]
+The inverse in this statement is Genest's graph operation, not an
+assumption about an adjacency matrix. We first give its definitions and
+prove the required connection.
+
+\paragraph{The source operation.}
+Give every vertex a white or black color. Local complementation at \(u\)
+toggles the edges between distinct neighbors of \(u\). If \(u\) is white,
+it also reverses all its neighbors' colors; if \(u\) is black, it changes
+no color. The vertex \(u\) keeps its own color.
+A \emph{parity word} is built from allowed steps of two kinds:
+a local complementation at a white vertex \(u\), or the three successive
+local complementations \(uvu\), abbreviated \([uv]\), at adjacent
+black vertices \(u,v\).
+A reduced parity word is composed of singleton and pair blocks with
+disjoint vertex supports. The graph is invertible when such a word
+uses every vertex, and its inverse is the resulting graph.
+These are Definitions 1.3.9, 1.6.4, and 1.7.1 in \cite{Genest};
+the source proves independence of the choice of reduced word.
+For an uncolored graph, its \emph{natural coloring} makes even-degree
+vertices white and odd-degree vertices black.
+
+\begin{lemma}\label{matrix}
+For a bicolored graph \(H\), form the symmetric matrix \(M_H\) over
+\(\F\) whose off-diagonal entries are its adjacencies, and whose
+diagonal is one at white vertices and zero at black vertices.
+Then \(H\) is invertible in the source sense if and only if \(M_H\)
+is nonsingular. In that case
+\[
+ M_{H^{-1}}=M_H^{-1}.
+\]
+\end{lemma}
+\begin{proof}
+Partition a symmetric matrix as
+\[
+ M=\begin{pmatrix}P&Q\\Q^t&R\end{pmatrix},
+\]
+where \(P\) is nonsingular. Solving the first block of the equation
+\(y=Mx\) for \(x_S\), where \(S\) indexes \(P\), gives
+\begin{equation}\label{pivot}
+ \begin{pmatrix}x_S\\y_{S^c}\end{pmatrix}
+ =
+ \begin{pmatrix}
+ P^{-1}&P^{-1}Q\\
+ Q^tP^{-1}&R+Q^tP^{-1}Q
+ \end{pmatrix}
+ \begin{pmatrix}y_S\\x_{S^c}\end{pmatrix}.
+\end{equation}
+All signs are plus in characteristic two.
+This operation is a principal pivot; its displayed formula is all
+we need.
+
+For a white vertex, \(P=(1)\). Formula \eqref{pivot} preserves the
+incident edges and pivot diagonal, toggles all edges between its
+neighbors, and toggles exactly their diagonal entries. It is exactly
+the source's white-vertex move.
+
+For adjacent black vertices \(u,v\),
+\[
+ P=P^{-1}=\begin{pmatrix}0&1\\1&0\end{pmatrix},\qquad
+ Q=\begin{pmatrix}c^t\\d^t\end{pmatrix}.
+\]
+The transformed matrix is
+\begin{equation}\label{pair}
+ \begin{pmatrix}
+ 0&1&d^t\\
+ 1&0&c^t\\
+ d&c&R+cd^t+dc^t
+ \end{pmatrix}.
+\end{equation}
+The source move \(uvu\) has this same effect.
+For an outside vertex whose original adjacencies to \(u,v\) are
+\((c_i,d_i)\), the three moves change them to \((d_i,c_i)\).
+For outside vertices \(i,j\), the three edge toggles sum to
+\[
+ c_ic_j+(c_i+d_i)(c_j+d_j)+d_id_j
+ =c_id_j+d_ic_j.
+\]
+All three pivots are at black vertices, so colors are unchanged,
+also agreeing with the zero diagonal of \(cd^t+dc^t\).
+
+It remains to check existence of a word covering all vertices.
+Block elimination gives
+\[
+ \det M=\det P\,\det(R+Q^tP^{-1}Q).
+\]
+If \(M\) is nonsingular, either some diagonal entry is one, allowing
+a white singleton, or all diagonal entries are zero and some
+off-diagonal entry is one, allowing an adjacent black pair.
+The remaining Schur complement is symmetric and nonsingular.
+Repeat on the as yet unused vertices. The moves are allowed in
+the current graph and have disjoint supports, so they give a reduced
+parity word covering every vertex.
+
+Conversely, each block of any such full reduced word is a nonsingular
+singleton or pair pivot. On the unused vertices, the successive
+matrices are exactly the successive Schur complements. The determinant
+factorization, ending in the empty determinant one, shows that the
+original matrix is nonsingular.
+
+Finally \eqref{pivot} interchanges the roles of \(x_i,y_i\) precisely
+on the pivot set. Successive disjoint pivots covering all indices
+therefore transform \(y=Mx\) into \(x=M^{-1}y\). Their final matrix is
+\(M^{-1}\), proving both the formula and its independence of the word.
+\end{proof}
+
+\begin{lemma}\label{parameters}
+Let \(G\) be a self-complementary symmetric graph of order \(n>1\).
+Then \(n\equiv1\pmod4\), and \(G\) is strongly regular with parameters
+\[
+ k=\frac{n-1}{2},\qquad \lambda=\frac{n-5}{4},\qquad
+ \mu=\frac{n-1}{4}.
+\]
+\end{lemma}
+\begin{proof}
+Vertex transitivity makes the degree constant, and self-complementarity
+gives \(k=n-1-k\). Thus \(n\) is odd; since the number of edges is
+\(n(n-1)/4\), we get \(n\equiv1\pmod4\).
+For \(n>1\) this implies \(n\ge5\), so edges and nonedges both exist.
+
+Edge transitivity makes the number \(\lambda\) of common neighbors
+constant on adjacent pairs. An isomorphism to the complement
+conjugates edge transitivity to transitivity on nonadjacent pairs,
+so their common-neighbor count \(\mu\) is constant too.
+In the complement, an adjacent pair has \(n-2-2k+\mu=\mu-1\)
+common neighbors. Hence \(\lambda=\mu-1\).
+Counting length-two walks from a fixed vertex to its nonneighbors
+gives
+\[
+ k(k-\lambda-1)=(n-k-1)\mu=k\mu.
+\]
+Since \(k>0\), we obtain \(k-\lambda-1=\mu\). Combining these equations
+gives \(k=2\mu\), and the displayed parameters follow.
+\end{proof}
+
+\begin{theorem}
+Genest's invertibility conjecture holds in full.
+\end{theorem}
+\begin{proof}
+For \(n=1\), the sole vertex has degree zero, is white, and its local
+complementation leaves the graph unchanged. It is its own inverse and
+its own complement.
+
+Suppose \(n>1\). Let \(A\) be the adjacency matrix of \(G\), let \(I\)
+be the identity matrix, and let \(J\) be the all-ones matrix.
+Lemma~\ref{parameters} gives the integer identity
+\begin{equation}\label{srg}
+ A^2=(k-\mu)I+(\lambda-\mu)A+\mu J.
+\end{equation}
+Because \(k=(n-1)/2\) is even, the natural coloring is all white;
+therefore the matrix in Lemma~\ref{matrix} is \(M=I+A\).
+In what follows, all matrix operations are over \(\F\).
+Also \(AJ=kJ=0\).
+
+If \(n\equiv1\pmod8\), then \(\mu\) and \(k-\mu\) are even, while
+\(\lambda-\mu=-1\) is odd. Equation \eqref{srg} becomes \(A^2=A\).
+Thus
+\[
+ (I+A)A=0.
+\]
+There is an edge, so \(A\ne0\), and \(I+A\) has a nonzero kernel.
+Lemma~\ref{matrix} shows that \(G\) is not invertible.
+
+If \(n\equiv5\pmod8\), then \(\mu=k-\mu\) is odd and
+\eqref{srg} becomes \(A^2=I+A+J\). Hence
+\[
+ (I+A)(A+J)=A+A^2+J+AJ=I,
+ \qquad (I+A)^{-1}=A+J.
+\]
+The last matrix has diagonal one and off-diagonal entries
+\(1+A_{ij}\). It therefore encodes \(\overline G\) with all vertices
+white. The complement has the same even degree \(k\), so this is its
+natural coloring. Lemma~\ref{matrix} proves
+\(G^{-1}=\overline G\), with equality on the original labeled vertex set.
+These two residue classes exhaust the possibilities.
+\end{proof}
+
+\paragraph{Scope and verification.}
+The proof establishes both directions and identifies the full inverse,
+including its coloring. It applies to every self-complementary symmetric
+graph and does not require the classification into Paley and Peisert
+graphs and the exceptional graph. The pivot correspondence is standard
+linear algebra, proved here to make the source's convention explicit.
+The accompanying exact verifier independently simulates the source
+graph moves for every bicolored graph on at most four vertices and
+compares feasible supports with principal minors. It also checks the
+theorem on larger Paley graphs over prime and extension fields.
+Finite checks supplement, rather than replace, the general proof.
+
+\paragraph{Task 2 (proposed follow-up).}
+Determine the minimum number of black-edge pair moves among reduced
+words realizing the inverse of each self-complementary symmetric graph.
+
+\paragraph{Task 3 (proposed follow-up).}
+Determine the number and size distribution of complementation sets
+in Paley and Peisert graphs, equivalently the nonsingular principal
+submatrices of their color-augmented adjacency matrices.
+
+\paragraph{Task 4 (proposed follow-up).}
+Classify invertibility and inverse graphs for self-complementary
+vertex-transitive graphs without the edge-transitivity assumption.
+
+\paragraph{Task 5 (proposed follow-up).}
+Construct full reduced inversion words directly from finite-field
+coordinates of Paley graphs, with a formula that avoids matrix elimination.
+
+\begin{thebibliography}{1}
+\bibitem{Genest}
+F. Genest, \emph{Graphes eul\'eriens et compl\'ementarit\'e locale}
+(English arXiv title: \emph{Eulerian graphs and local complementation}),
+Ph.D. thesis, Universit\'e de Montr\'eal; arXiv:math/0701421v1 (2007),
+103 pages. Chapter 1, Definitions 1.3.9, 1.6.4, 1.7.1 and
+Conjecture 1.7.13.
+\url{https://arxiv.org/abs/math/0701421}.
+\end{thebibliography}
+\end{document}

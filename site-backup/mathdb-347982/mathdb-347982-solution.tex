@@ -1,0 +1,276 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,hyperref,enumitem}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newcommand{\BC}{\mathrm{BC}}
+\newcommand{\Z}{\mathbb Z}
+\title{A fourth-root pole in the seventh stained-glass column}
+\author{Principia Math In Progress}
+\date{18 September 2026}
+\begin{document}
+\maketitle
+
+\paragraph{Task 1: resolve MathDB 347982.}
+Blomberg, Shannon, and Sloane's Conjecture 4.3 predicts that each fixed
+column \(k\ge3\) of their triangle, quadrilateral, and total-cell arrays
+has a generating function with denominator
+\[
+ D_k(z)=(1-z^{k-2})(1-z^{k-1})(1-z^k).
+\]
+The statement remains in the published article and subsequent book
+chapter \cite{BSS}. We disprove it using the total-cell column \(k=7\).
+The argument also proves rationality of every fixed total-cell column.
+
+Take the rectangle \([0,n]\times[0,1]\), with every pair of boundary
+points \((j,0),(j,1)\), \(0\le j\le n\), joined by a segment. Write
+\(c_{n,k}\) for its number of cells in
+\((k-1,k)\times(0,1)\), and put
+\[
+ C_k(z)=\sum_{n\ge k}c_{n,k}z^n .
+\]
+The integer vertical segments already belong to this arrangement, so
+its cells are contained in the unit strips. This is exactly the array
+in Table 4 of the article, or Table 5.4 of the book \cite{BSS}, and
+OEIS A333288 \cite{OEIS}.
+
+\begin{theorem}
+The rational continuation of \(C_7\) satisfies
+\[
+ \lim_{z\to i}(1-z^4)C_7(z)=2i .
+\]
+In particular, \(C_7(z)\) cannot be a polynomial divided by \(D_7(z)\),
+and Conjecture 4.3 is false.
+\end{theorem}
+
+\paragraph{Counting cells through consecutive chords.}
+For \(n\ge k\), exactly
+\[
+ L_{n,k}=2k(n-k+1)
+\]
+segments pass through the open unit strip: their two horizontal endpoint
+indices lie on opposite sides of the gap between \(k-1\) and \(k\).
+If \(m_v\) segments meet at an interior intersection \(v\), then
+\begin{equation}\label{cells}
+ c_{n,k}=1+L_{n,k}+\sum_v(m_v-1).
+\end{equation}
+Indeed, insert the segments one at a time. A new segment with \(h\)
+distinct old interior intersections creates \(h+1\) new cells.
+At a point eventually incident with \(m_v\) segments, exactly the last
+\(m_v-1\) insertions count that point.
+
+Represent a chord by the pair \((A,B)\) of its bottom and top endpoint
+indices. At an intersection \((u,v)\), these pairs are the integer
+points of
+\[
+ (1-v)A+vB=u,\qquad 0\le A,B\le n .
+\]
+Their consecutive differences have a unique primitive direction
+\((p,-r)\), with \(p,r\ge1\) and \(\gcd(p,r)=1\).
+There are exactly \(m_v-1\) consecutive pairs. This familiar
+point-line description also appears in Karlsson's treatment of
+simple intersections \cite{Karlsson}; here we count all consecutive
+pairs and retain the unit-strip restriction.
+
+Every such pair can be written uniquely as
+\[
+ (A,B)=(a,r+c),\quad(a+p,c),
+ \qquad a,c\ge0,\quad a+p\le n,\quad r+c\le n.
+\]
+Conversely, a primitive difference makes these two chords consecutive:
+there is no intervening lattice point, while all intermediate points
+of the line inside the square would represent available chords.
+Their intersection is
+\[
+ \left(\frac{ar+pc+pr}{p+r},\,\frac{p}{p+r}\right).
+\]
+Consequently, if \(A_{n,k}(p,r)\) counts the nonnegative integer pairs
+\((a,c)\) with \(a+p,r+c\le n\) and
+\begin{equation}\label{strip}
+ (k-1)(p+r)<ar+pc+pr<k(p+r),
+\end{equation}
+then
+\begin{equation}\label{primitive}
+ c_{n,k}=1+2k(n-k+1)+
+ \sum_{\substack{p,r\ge1\\(p,r)=1}} A_{n,k}(p,r).
+\end{equation}
+Both inequalities are strict: intersections on the strip boundary
+must not be counted as interior intersections.
+
+\paragraph{Separating the finite part from the tail.}
+Reflection across the horizontal midline interchanges \(p,r\) and
+\(a,c\). Thus we may restrict to \(p\le r\), doubling when \(p<r\).
+The sole primitive diagonal case is \(p=r=1\).
+Since \eqref{strip} implies \(pr<k(p+r)\), we have \(p<2k\).
+For \(p>k\), it also gives
+\[
+ r<\frac{kp}{p-k}.
+\]
+These directions are finite in number. For each fixed direction,
+\eqref{strip} bounds both \(a,c\). Such a pair contributes
+\[
+ \frac{z^{\max(k,a+p,r+c)}}{1-z}
+\]
+to \(C_k\), so all these finite contributions are analytic at \(i\).
+The same holds for any finite set of the remaining directions.
+The initial term \(1+L_{n,k}\) has generating function
+\begin{equation}\label{base}
+ \frac{z^k(1+2k-z)}{(1-z)^2}.
+\end{equation}
+
+Put \(T=k+1\). It remains to consider, for \(1\le p\le k\),
+\[
+ r=pt+s,\qquad t\ge T,\quad
+ s\in U_p:=\{1\le s\le p:\gcd(s,p)=1\}.
+\]
+This representation includes \(U_1=\{1\}\), and these directions all
+have \(r>p\). In particular \(r/p>k\).
+Writing \(j=p+a\), the strip condition is equivalent to
+\begin{equation}\label{cbounds}
+ k-1+\frac{(k-1-j)r}{p}<c<
+ k+\frac{(k-j)r}{p}.
+\end{equation}
+If \(j\ge k+1\), the upper bound is negative. If \(j=k\), exactly
+\(c=0,\ldots,k-1\) occur. If \(j\le k-1\), the integer bounds are
+\[
+ \ell=k+\left\lfloor\frac{(k-1-p-a)r}{p}\right\rfloor,
+ \qquad
+ h=k-1+\left\lceil\frac{(k-p-a)r}{p}\right\rceil .
+\]
+Here \(\ell\ge0\) and \(h\ge\ell\), since their defining open interval
+has length \(1+r/p>k+1\). Also \(r+c>k\ge p+a\), so the activation
+threshold is \(n=r+c\).
+Summing first over \(n\), then over \(c\), gives
+\[
+ \sum_{c=\ell}^h\frac{z^{r+c}}{1-z}
+ =\frac{z^{r+\ell}-z^{r+h+1}}{(1-z)^2}.
+\]
+The two exponents simplify to
+\[
+ r+\ell=(k-1-a)t+k+
+ \left\lfloor\frac{(k-1-a)s}{p}\right\rfloor,\qquad
+ r+h+1=(k-a)t+k+
+ \left\lceil\frac{(k-a)s}{p}\right\rceil .
+\]
+For \(j=k\), the contribution is
+\((1-z^k)z^{pt+s}/(1-z)^2\).
+
+Summing the geometric series over \(t\ge T\) proves that
+\begin{equation}\label{tail}
+\begin{split}
+ R_k(z)=\frac{2}{(1-z)^2}
+ \sum_{p=1}^k\sum_{s\in U_p}\Bigg[
+ &\sum_{a=0}^{k-p-1}
+ \left\{
+ \frac{z^{(k-1-a)T+k+\lfloor(k-1-a)s/p\rfloor}}{1-z^{k-1-a}}
+ \right.\\[-2pt]
+ &\hspace{35mm}\left.
+ -\frac{z^{(k-a)T+k+\lceil(k-a)s/p\rceil}}{1-z^{k-a}}
+ \right\}
+ +\frac{(1-z^k)z^{pT+s}}{1-z^p}
+ \Bigg]
+\end{split}
+\end{equation}
+differs from \(C_k(z)\) by \eqref{base} plus a polynomial divided
+by \(1-z\). Empty sums have value zero. The calculation is valid
+coefficientwise as a formal power series, since each coefficient
+counts a finite arrangement. It exhibits \(C_k\) as a rational function.
+In particular \(C_7-R_7\) is analytic at \(i\).
+
+\paragraph{The fourth-root contribution.}
+Set \(k=7\), \(T=8\). All periods in \eqref{tail} lie between 1 and 7,
+so at \(z=i\) only denominator \(1-z^4\) can vanish.
+The positive terms with period 4 have \(a=2\), \(p\le4\); the negative
+ones have \(a=3\), \(p\le3\). The final term has period 4 precisely
+when \(p=4\). Since \(i^{4T}=1\), their combined numerator is
+\begin{equation}\label{B}
+\begin{split}
+ B={}&\sum_{p=1}^4\sum_{s\in U_p}
+ i^{7+\lfloor4s/p\rfloor}
+ -\sum_{p=1}^3\sum_{s\in U_p}
+ i^{7+\lceil4s/p\rceil}
+ +(1-i^7)(i+i^3).
+\end{split}
+\end{equation}
+For \(p=1,2\), the floor and ceiling coincide, so those terms cancel.
+For \(p=3\), the contribution is
+\[
+ (i^8-i^9)+(i^9-i^{10})=2.
+\]
+For \(p=4\), the positive sum is \(i^8+i^{10}=0\);
+the final term is zero as well. Hence \(B=2\), and
+\[
+ \lim_{z\to i}(1-z^4)C_7(z)
+ =\frac{2B}{(1-i)^2}=2i\ne0.
+\]
+But
+\[
+ D_7(i)=(1-i^5)(1-i^6)(1-i^7)=4\ne0.
+\]
+A polynomial divided by \(D_7\) is analytic at \(i\), which proves the
+theorem. Shifting the column's starting index or changing finitely
+many initial coefficients does not remove this pole.
+
+\paragraph{Reproducibility.}
+The accompanying exact verifier checks the primitive formula against
+direct rational intersection enumeration, the published array data,
+and the finite-part-plus-tail decomposition. It constructs the full
+rational function for column 7 without guessing a recurrence.
+Its numerator has degree 74 and is coprime to
+\[
+ (1+z^2)(1-z^5)(1-z^6)(1-z^7).
+\]
+Polynomial division further gives
+\[
+ D_7(z)C_7(z)=P(z)+\frac{4z}{1+z^2},
+ \qquad \deg P=72.
+\]
+The integer coefficient certificate is included in the package.
+These computations support the argument; the short pole calculation
+above already proves the counterexample without a numerical cutoff.
+The proof and source audits were performed by the authoring agent;
+no independent peer review or proof-assistant certification is claimed.
+
+\paragraph{Task 2: determine the minimal denominators.}
+The decomposition gives the universal upper denominator
+\((1-z)^2\operatorname{lcm}_{1\le d\le k}(1-z^d)\)
+for the total-cell column. Which cyclotomic factors cancel as a function
+of \(k\), and what is the exact eventual quasipolynomial period?
+
+\paragraph{Task 3: separate triangles and quadrilaterals.}
+Can the consecutive-chord count be refined to determine the two cell
+types separately? Determine their rational generating functions and
+the individual contributions to the fourth-root pole in column 7.
+
+\paragraph{Task 4: simplify the column formulas.}
+Can the finite and primitive-residue sums be reorganized using
+arithmetic functions to give short coefficient formulas for general
+\(c_{n,k}\), including a useful bound on the start of quasipolynomial
+behavior?
+
+\paragraph{Task 5: compare fixed and moving columns.}
+Determine the leading quadratic coefficient for fixed \(k\), and
+study how the asymptotics change when \(k\) grows with \(n\), especially
+near the central column. These are followup questions, not additional
+claimed solutions.
+
+\begin{thebibliography}{9}
+\bibitem{BSS}
+L. Blomberg, S. R. Shannon, and N. J. A. Sloane,
+\emph{Graphical Enumeration and Stained Glass Windows, 1:
+Rectangular Grids},
+Integers \textbf{21A} (2021), A5, Conjecture 4.3, p.~13.
+\href{https://math.colgate.edu/~integers/graham5/graham5.pdf}{Journal text}.
+Also in \emph{Number Theory and Combinatorics} (2022), pp.~65--98,
+Conjecture 4.3, p.~78,
+\href{https://doi.org/10.1515/9783110754216-005}{doi:10.1515/9783110754216-005}.
+Preprint \href{https://arxiv.org/abs/2009.07918}{arXiv:2009.07918v2}.
+\bibitem{Karlsson}
+J. Karlsson, \emph{Church Windows}, 23 June 2026, 9 pp.,
+\href{https://oeis.org/A334701/a334701_2.pdf}{OEIS-hosted manuscript}.
+\bibitem{OEIS}
+The OEIS Foundation Inc.,
+\href{https://oeis.org/A333288}{A333288}, including L. Blomberg's
+80-row data table. Accessed 18 September 2026.
+\end{thebibliography}
+\end{document}

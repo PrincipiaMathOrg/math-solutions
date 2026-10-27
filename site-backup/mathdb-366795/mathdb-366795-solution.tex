@@ -1,0 +1,223 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[colorlinks=true,urlcolor=blue,linkcolor=blue]{hyperref}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newcommand{\ind}{\mathbf{1}}
+\title{A recurrence whose power ranks detect perfect squares}
+\author{Principia Math in Progress}
+\date{28 September 2026}
+\begin{document}
+\maketitle
+
+\section*{Task 1: resolve MathDB 366795}
+The rank of a constant-recursive sequence is the order of its minimal
+eventual constant-coefficient linear recurrence. Conjecture 5.3 of
+Rowland and Sistos Barr\'on \cite{RS} predicts eventual polynomiality
+for general rank sequences and eventual pseudo-polynomiality for
+particular rank sequences, which allow coefficient cancellations.
+We disprove the latter assertion, and hence the combined conjecture.
+
+Here pseudo-polynomiality is understood in the periodic-coefficient,
+or quasipolynomial, sense: there are a positive integer $p$ and
+polynomials $P_0,\ldots,P_{p-1}$ such that the sequence equals
+$P_a(M)$ for all sufficiently large $M\equiv a\pmod p$.
+This makes explicit the interpretation suggested by the periodic
+cancellation examples immediately preceding the conjecture.
+The source does not separately define the term.
+
+\begin{theorem}\label{thm}
+The integer constant-recursive sequence
+\begin{equation}\label{s}
+s(n)=1+2^n+3^n-6^n+n27^n+n54^n\qquad(n\ge0)
+\end{equation}
+has rank eight. For every integer $M\ge5$, the rank $R(M)$ of
+the sequence $(s(n)^M)_{n\ge0}$ is
+\begin{equation}\label{rank}
+R(M)=\frac{(M+1)(3M^2+3M+2)}2
+-3(M-1)\ind_{2\mid M}-6(M-2)\ind_{M\text{ is a square}}.
+\end{equation}
+In particular, $R$ is not eventually quasipolynomial.
+\end{theorem}
+
+\subsection*{Rank from exponential polynomials}
+We use the elementary fact that, for distinct nonzero numbers
+$\lambda_1,\ldots,\lambda_v$ and nonzero polynomials $A_j$,
+\begin{equation}\label{rankfact}
+\operatorname{rank}\left(\sum_{j=1}^v A_j(n)\lambda_j^n\right)
+=\sum_{j=1}^v(\deg A_j+1).
+\end{equation}
+For completeness, let $E$ be the shift operator. On $A(n)\lambda^n$,
+$E-\lambda$ lowers the polynomial degree by one until it annihilates
+the term; $E-\mu$, with $\mu\ne\lambda$, preserves its degree and
+nonzero leading coefficient. Applying products of these operators
+isolates each distinct exponential root and also proves their linear
+independence. Consequently an annihilating polynomial in $E$ must
+contain $(E-\lambda_j)^{\deg A_j+1}$ for each $j$, and their product
+suffices. The same argument applies to eventual recurrences.
+
+Thus \eqref{s} has minimal characteristic polynomial
+\[
+(z-1)(z-2)(z-3)(z-6)(z-27)^2(z-54)^2,
+\]
+which has integer coefficients and a nonzero constant term.
+All terms of $s$ are integers, so it meets the source's hypotheses.
+
+\subsection*{Three leading coefficient types}
+Introduce independent indeterminates $t,x,y$ and put
+\[
+F(t,x,y)=(1+x)+y(1-x)+ty^3(1+x).
+\]
+Then $s(n)=F(n,2^n,3^n)$. Write
+\[
+F(t,x,y)^M=\sum_{i,j}C_{i,j}(t)x^iy^j.
+\]
+Unique prime factorization makes all numbers $2^i3^j$ distinct.
+Therefore \eqref{rankfact} gives
+\begin{equation}\label{sumrank}
+R(M)=\sum_{C_{i,j}\ne0}(\deg C_{i,j}+1).
+\end{equation}
+Choosing $h$ factors of the third summand, $k$ of the second, and
+$M-h-k$ of the first gives the exact expansion
+\begin{equation}\label{expansion}
+F^M=\sum_{\substack{h,k\ge0\\h+k\le M}}
+\frac{M!}{h!k!(M-h-k)!}\,
+t^hy^{3h+k}(1+x)^{M-k}(1-x)^k.
+\end{equation}
+
+Write a prospective $y$-exponent uniquely as $j=3h+r$, with
+$r\in\{0,1,2\}$. Its largest possible $t$-exponent is $h$.
+It is feasible exactly when $h+r\le M$: using $h-d$ third
+summands instead would require $r+3d$ second summands and a total
+of $h+r+2d$ factors. Hence the feasible pairs are precisely
+\begin{equation}\label{feasible}
+r\in\{0,1,2\},\qquad 0\le h\le M-r.
+\end{equation}
+For each pair and each $0\le i\le M$, the top coefficient of
+$C_{i,3h+r}(t)$ is a positive multinomial multiple of
+\[
+A_r(i):=[x^i](1+x)^{M-r}(1-x)^r.
+\]
+
+Define the auxiliary polynomials
+\[
+K_k(i):=[z^k](1-z)^i(1+z)^{M-i},\qquad a=M-2i.
+\]
+Expansion of the binomial coefficients shows
+\begin{equation}\label{dual}
+\binom Mr A_r(i)=\binom Mi K_r(i).
+\end{equation}
+Indeed, matching the summand with $b$ negative choices on each side
+gives the same factorial expression. In particular,
+\begin{equation}\label{first}
+K_0=1,\qquad K_1=a,\qquad K_2=\frac{a^2-M}{2}.
+\end{equation}
+Thus the leading coefficient never vanishes for $r=0$; for $r=1$
+it vanishes only at $i=M/2$, when $M$ is even; and for $r=2$
+it vanishes only at
+\[
+i=\frac{M-\sqrt M}{2},\quad \frac{M+\sqrt M}{2},
+\]
+when $M$ is a square. For square $M\ge5$ these are two distinct
+integers in $[0,M]$, since $M$ and $\sqrt M$ have the same parity.
+
+\subsection*{Exact losses, including the boundary}
+At a vanishing leading coefficient, a term of degree $h-1$ is
+available exactly when
+\begin{equation}\label{next}
+h\ge1\quad\hbox{and}\quad h\le M-r-2.
+\end{equation}
+By \eqref{expansion} and \eqref{dual}, it is a nonzero constant
+multiple of $K_{r+3}(i)$ unless that polynomial vanishes.
+Differentiating the defining generating polynomial gives
+\[
+(k+1)K_{k+1}=aK_k-(M-k+1)K_{k-1}.
+\]
+Consequently,
+\begin{align}
+K_4(i)&=\frac{M(M-2)}8&&\text{when }a=0,\label{k4}\\
+K_5(i)&=\frac{a(M-1)(M-4)}{20}&&\text{when }a^2=M.\label{k5}
+\end{align}
+For example, at $a^2=M$ the recurrence successively gives
+$K_3=-(M-1)a/3$ and $K_4=-M(M-1)/12$, followed by \eqref{k5}.
+The quantities in \eqref{k4}--\eqref{k5} are nonzero in the
+applicable cases for $M\ge5$. Thus under \eqref{next}, a vanished
+leading term reduces the rank contribution from $h+1$ to $h$,
+an exact loss of one.
+
+When $h=0$, a vanished constant coefficient also loses one rank
+unit. At the final two feasible values $h=M-r-1,M-r$, no smaller
+$t$-exponent is possible at all: replacing $h$ by $h-d$, $d\ge1$,
+would require $h+r+2d>M$ factors. The whole polynomial is then
+zero, so its losses are respectively $M-r$ and $M-r+1$.
+For each vanishing index $i$, the aggregate loss over all feasible
+$h$ is therefore
+\begin{equation}\label{loss}
+\underbrace{(M-r-1)}_{h=0,\ldots,M-r-2}
++(M-r)+(M-r+1)=3(M-r).
+\end{equation}
+There is one such index for $r=1$ at even $M$, and two for $r=2$
+at square $M$. These are disjoint $y$-exponent classes, so their
+losses add even when $M$ is an even square.
+
+If no leading terms vanished, \eqref{sumrank} would equal
+\begin{align*}
+(M+1)\sum_{r=0}^2\sum_{h=0}^{M-r}(h+1)
+&=\frac{M+1}{2}\bigl((M+1)(M+2)+M(M+1)+(M-1)M\bigr)\\
+&=\frac{(M+1)(3M^2+3M+2)}2.
+\end{align*}
+Subtracting exactly the losses in \eqref{loss} proves \eqref{rank}.
+
+\subsection*{Why no eventual quasipolynomial can agree}
+If $R$ were eventually quasipolynomial, subtracting its polynomial
+and parity terms would make
+\[
+D(M)=6(M-2)\ind_{M\text{ is a square}}
+\]
+eventually quasipolynomial, with some positive period $p$.
+On the residue class $0\pmod p$, its constituent polynomial would
+vanish at all sufficiently large integers $(pt)^2+p$: these lie
+strictly between $(pt)^2$ and $(pt+1)^2$, and hence are nonsquares.
+That polynomial would have infinitely many roots, so would be zero.
+But on the same residue class it must take the nonzero value
+$6((pt)^2-2)$ at all sufficiently large squares $(pt)^2$.
+This contradiction completes Theorem~\ref{thm}.
+
+\paragraph{Scope and verification.}
+All 23 pages of the current manuscript were read, and the separate
+23-page author copy was fully reconciled. No journal version was
+identified. An existing MathDB submission under problem 366796
+claims the general, no-cancellation case and expressly leaves the
+particular case open; our argument addresses that remaining case.
+The accompanying verifier expands the six-term polynomial directly,
+checks ranks with exact integer coefficients, and verifies the
+auxiliary identities symbolically. These finite checks support the
+all-$M$ proof above. Source and claim-search limits appear in the
+separate audit. This is author-agent review, not independent peer review.
+
+\section*{Tasks 2--5: proposed follow-up problems}
+These are separate research proposals, not completed results.
+\begin{enumerate}
+\setcounter{enumi}{1}
+\item Determine the minimum rank of an integer constant-recursive
+sequence whose power-rank sequence is not eventually quasipolynomial.
+\item Decide whether every integer constant-recursive sequence with
+only simple characteristic roots has an eventually quasipolynomial
+power-rank sequence.
+\item Determine the power-rank sequence of
+$1+2^n+3^n-6^n$ by classifying the integer zeros in the corresponding
+Krawtchouk coefficient arrays.
+\item For each fixed $d\ge3$, construct an integer constant-recursive
+sequence with an explicit rank formula containing a nonzero correction
+supported exactly on the perfect $d$th powers, or prove an obstruction
+to such a construction.
+\end{enumerate}
+
+\begin{thebibliography}{9}
+\bibitem{RS} Eric Rowland and Jes\'us Sistos Barr\'on,
+\emph{Complexity of powers of a constant-recursive sequence},
+\href{https://arxiv.org/abs/2501.14643}{arXiv:2501.14643v1} (2025),
+Conjecture 5.3, p.~15.
+\end{thebibliography}
+\end{document}

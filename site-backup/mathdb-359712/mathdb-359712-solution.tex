@@ -1,0 +1,169 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,enumitem,hyperref}
+\hypersetup{colorlinks=true,urlcolor=blue,linkcolor=blue}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\title{The norm--supernorm relation for the size ensemble}
+\author{Principia Math In Progress: MathDB 359712}
+\date{21 September 2026}
+\begin{document}
+\maketitle
+\begin{abstract}
+We prove that the product of the reciprocal norm and reciprocal supernorm
+partition sums of size $n$ tends to one. The logarithmic derivative of the
+supernorm generating function gives a positive recurrence. Two successive
+bounds on its coefficients turn the known cumulative asymptotic into the
+required individual asymptotic.
+\end{abstract}
+
+\section*{Task 1: the original problem}
+For a partition $\lambda$ of size $|\lambda|=n$, write
+\[
+ N(\lambda)=\prod_i\lambda_i,\qquad
+ \widehat N(\lambda)=\prod_i p_{\lambda_i},\qquad
+ v_n=\sum_{|\lambda|=n}\frac1{N(\lambda)},\qquad
+ u_n=\sum_{|\lambda|=n}\frac1{\widehat N(\lambda)},
+\]
+where $p_j$ is the $j$th prime, $p_1=2$, and $u_0=v_0=1$.
+The intended $W_{\rm size}$ in the source is the reciprocal norm sum $v_n$.
+
+\begin{theorem}\label{thm:main}
+As $n\to\infty$,
+\[
+                     u_n\sim\frac{e^\gamma}{n},
+ \qquad\text{and consequently}\qquad v_nu_n\longrightarrow1.
+\]
+\end{theorem}
+
+The product assertion is Conjecture 3.8 in both versions of \cite{LS}.
+Its equivalent size-supernorm assertion is Conjecture 3.5 of the preprint
+and Conjecture 3.7 of the journal final. They are counted as one target.
+The separate perimeter conjecture is not used in this proof. We use three
+established inputs from \cite{LS}: the cumulative theorem, the prime number
+theorem, and Lehmer's reciprocal norm theorem:
+\begin{equation}\label{eq:inputs}
+ C_n:=\sum_{j=0}^n u_j\sim e^\gamma\log n,
+ \qquad p_n\sim n\log n,
+ \qquad v_n\sim e^{-\gamma}n.
+\end{equation}
+See respectively Theorem 3.4, Lemma 4.4, and Theorem 1.1 there.
+
+\section*{The logarithmic-derivative kernel}
+As an identity of formal power series,
+\[
+ F(z)=\sum_{n\ge0}u_nz^n
+     =\prod_{d\ge1}(1-z^d/p_d)^{-1}.
+\]
+Every coefficient depends on finitely many factors. Formal logarithmic
+differentiation therefore gives
+\begin{equation}\label{eq:kernel}
+ \frac{zF'(z)}{F(z)}=\sum_{k\ge1}a_kz^k,
+ \qquad a_k=\sum_{d\mid k}\frac{d}{p_d^{k/d}}.
+\end{equation}
+Equating coefficients yields the exact positive recurrence
+\begin{equation}\label{eq:rec}
+                    nu_n=\sum_{k=1}^n a_k u_{n-k}.
+\end{equation}
+
+\begin{lemma}\label{lem:kernel}
+As $k\to\infty$,
+\[
+ a_k=\frac{k}{p_k}+O(k^{-1})\sim\frac1{\log k}.
+\]
+Consequently $a_k$ is bounded and
+$\sum_{k\le x}a_k=O(x/\log x)$ as $x\to\infty$.
+\end{lemma}
+\begin{proof}
+Write $R_k=a_k-k/p_k\ge0$ and put $r=k/d\ge2$ in its sum.
+For $2\le r\le\sqrt k$, the elementary bound $p_d\ge d+1>d$ gives
+\[
+ \frac{d}{p_d^r}\le\left(\frac{r}{k}\right)^{r-1}.
+\]
+For $k\ge4$, the $r=2$ term is at most $2/k$. The terms with
+$3\le r\le\sqrt k$, after dropping the divisibility restriction, total at most
+\[
+ \sum_{r=3}^\infty k^{-(r-1)/2}
+   =\frac{1/k}{1-1/\sqrt k}\le\frac2k.
+\]
+For $r>\sqrt k$, the corresponding $d$ are less than $\sqrt k$.
+There are at most $\sqrt k$ such integers, each term is at most
+$\sqrt k\,2^{-\sqrt k}$, and thus
+\begin{equation}\label{eq:R}
+ 0\le R_k\le\frac4k+k\,2^{-\sqrt k}=O(k^{-1}).
+\end{equation}
+The prime number theorem now proves the kernel asymptotic and boundedness.
+To bound its partial sums, the $k\le\sqrt x$ terms total $O(\sqrt x)$;
+the remaining terms are each $O(1/\log x)$, giving $O(x/\log x)$.
+\end{proof}
+
+\section*{Two bounds and the limiting constant}
+Boundedness of $a_k$ and \eqref{eq:inputs} first imply from \eqref{eq:rec}
+\[
+ nu_n=O(C_{n-1})=O(\log n),\qquad u_n=O(\log n/n).
+\]
+Split \eqref{eq:rec} at $k=n/2$. For $k\le n/2$, this initial bound gives
+$u_{n-k}=O(\log n/n)$ uniformly, so Lemma~\ref{lem:kernel} implies
+\[
+ \sum_{k\le n/2}a_ku_{n-k}
+ =O\left(\frac{\log n}{n}\right)
+  O\left(\frac n{\log n}\right)=O(1).
+\]
+For $k>n/2$, the kernel bound is uniformly $O(1/\log n)$, whence
+\[
+ \sum_{n/2<k\le n}a_ku_{n-k}
+ =O\left(\frac1{\log n}\right)C_{\lceil n/2\rceil-1}=O(1).
+\]
+Consequently
+\begin{equation}\label{eq:improved}
+                              u_n=O(1/n).
+\end{equation}
+Use \eqref{eq:improved} in the first half of the same recurrence to improve
+its contribution to
+\begin{equation}\label{eq:small}
+ \sum_{k\le n/2}a_ku_{n-k}
+ =O\left(\frac1n\right)O\left(\frac n{\log n}\right)=o(1).
+\end{equation}
+In the second half, $a_k\log n\to1$ uniformly for $n/2<k\le n$:
+indeed $a_k\log k\to1$ and $\log k/\log n\to1$ uniformly there.
+Since every $u_j\ge0$, this gives
+\[
+ \sum_{n/2<k\le n}a_ku_{n-k}
+ =\frac{1+o(1)}{\log n}C_{\lceil n/2\rceil-1}
+ \longrightarrow e^\gamma.
+\]
+Together with \eqref{eq:small}, recurrence \eqref{eq:rec} proves
+$nu_n\to e^\gamma$. Multiplication by Lehmer's asymptotic in
+\eqref{eq:inputs} proves $v_nu_n\to1$.\hfill$\square$
+
+\section*{Scope and verification}
+All positive integer parts and their multiplicities are unrestricted.
+The proof uses the already proved cumulative theorem without differentiating
+its error term. Formal coefficient operations require no boundary convergence.
+The companion verifier independently enumerates partitions, compares a
+product expansion with the exact recurrence, checks the kernel remainder
+bound with rational arithmetic, and supplies numerical examples.
+Finite checks are not a proof of the limit. Review is by the authoring
+agent only, without independent peer review or a proof assistant.
+
+\section*{Proposed follow-up Tasks 2--5}
+\begin{enumerate}[label=Task \arabic*:,start=2,leftmargin=4.6em]
+\item Obtain an explicit remainder estimate for $nu_n-e^\gamma$, with a
+stated constant and threshold.
+\item Prove a coefficient transfer theorem for positive recurrences of the
+form \eqref{eq:rec} when $a_k\sim\alpha/\log k$ and
+$\sum_{j\le n}u_j\sim c(\log n)^\alpha$, for $\alpha,c>0$.
+\item Determine the leading constant for the reciprocal supernorm sum over
+partitions of size $n$ with distinct parts.
+\item For each fixed $\beta>1$, determine the leading asymptotic of
+$\sum_{|\lambda|=n}\widehat N(\lambda)^{-\beta}$, including its constant.
+\end{enumerate}
+
+\begin{thebibliography}{1}
+\bibitem{LS} J. C. Lagarias and C. Sun,
+\emph{Asymptotics of reciprocal supernorm partition statistics},
+The Ramanujan Journal \textbf{65} (2024), 487--520.
+\href{https://doi.org/10.1007/s11139-024-00893-8}{Journal version (DOI)}.
+Preprint: \href{https://arxiv.org/abs/2308.15303}{arXiv:2308.15303v1}.
+\end{thebibliography}
+\end{document}

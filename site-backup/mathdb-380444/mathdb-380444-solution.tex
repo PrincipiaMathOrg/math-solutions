@@ -1,0 +1,209 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=25mm]{geometry}
+\usepackage{amsmath,amssymb,amsthm,booktabs,array,hyperref}
+\hypersetup{colorlinks=true,urlcolor=blue,linkcolor=blue,citecolor=blue}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newcommand{\conv}{\operatorname{conv}}
+\newcommand{\Vol}{\operatorname{Vol}}
+\title{A ten-cube counterexample to the recursive structure conjecture for extremal polyominoes}
+\author{Principia Math In Progress}
+\date{28 September 2026}
+\begin{document}
+\maketitle
+\begin{abstract}
+We give a facet-connected union of ten integer unit cubes with bounding
+box side lengths $(4,4,4)$ and convex-hull volume $28$, the maximum possible
+for ten cubes. Every coordinate layer contains at most six cubes. Thus no
+one-layer subpolyomino can retain both other bounding-box side lengths.
+This disproves Conjecture 1 of Kurz, already in dimension three.
+\end{abstract}
+
+\section*{Task 1: the source question and its resolution}
+In \cite[Conjecture 1, p.~135]{Kurz}, an extremal $d$-dimensional
+polyomino is conjectured to contain a subpolyomino $P'$ of thickness one
+in some coordinate direction $i$, whose projection retains all other
+bounding-box side lengths and is again extremal; the remainder is to
+consist of at most two linear arms. The conjecture also asserts that the
+auxiliary growth parameters $v_i$ vanish. We disprove the existence of
+$P'$ itself, without needing to interpret the arm condition.
+
+For an integer vector $a$ let $Q_a=a+[0,1]^3$. Take the following lower
+corners in the displayed growth order, and set $P=\bigcup_{j=0}^9Q_{a_j}$:
+\begin{equation}\label{cells}
+\begin{array}{c|r@{\,,\,}r@{\,,\,}r|c}
+j&\multicolumn{3}{c|}{a_j}&\text{earlier facet neighbor}\\ \hline
+0&0&0&0&--\\
+1&1&0&0&0\\
+2&1&0&-1&1\\
+3&1&-1&-1&2\\
+4&-1&0&0&0\\
+5&1&-2&-1&3\\
+6&2&0&0&1\\
+7&1&-1&-2&3\\
+8&2&0&1&6\\
+9&1&-3&-1&5
+\end{array}
+\end{equation}
+Each listed neighbor differs by one standard basis vector up to sign.
+Consequently $P$ is a polyomino with ten distinct cubes. Its bounding
+box is $[-1,3]\times[-3,1]\times[-2,2]$, of side lengths $(4,4,4)$.
+Every added cube increases one bounding-box side length. Thus all the
+source's parameters $v_i$ are zero. Equivalently, the source identity
+$n=1+\sum_i(l_i-1)+\sum_i v_i$ forces $\sum_i v_i=0$.
+
+\begin{theorem}\label{main}
+The polyomino $P$ in \eqref{cells} has the maximum convex-hull volume
+among ten-cube three-dimensional polyominoes, but has no subpolyomino
+satisfying conditions (i) and (ii) of Kurz's Conjecture 1.
+\end{theorem}
+
+\section*{Exact convex-hull volume}
+Write $K=\conv\{a_0,\ldots,a_9\}$. Convexity of the unit cube gives
+\begin{equation}\label{minkowski}
+\conv(P)=K+[0,1]^3.
+\end{equation}
+The six vertices of $K$ are
+\[
+\begin{array}{lll}
+A=(-1,0,0),&B=(1,0,-1),&C=(1,-1,-2),\\
+D=(1,-3,-1),&E=(2,0,0),&F=(2,0,1).
+\end{array}
+\]
+The other four lower corners lie on the segments $AE$ or $BD$.
+Here is a complete facet certificate for this six-vertex polytope.
+An oriented row $UVW$ contributes $\det(U,V,W)$ to six times the
+volume. For the quadrilateral use the fan from its first vertex.
+\begin{center}
+\begin{tabular}{c c r r}
+\toprule
+Oriented facet & Outward normal $u$ & $b$ in $u\cdot x=b$
+  & Contribution\\
+\midrule
+$ACD$&$(-5,-2,-4)$&5&5\\
+$ADF$&$(-3,-5,9)$&3&3\\
+$BCA$&$(-1,2,-2)$&1&1\\
+$FEBA$&$(0,1,0)$&0&0\\
+$CBE$&$(1,1,-1)$&2&2\\
+$DEF$&$(3,-1,0)$&6&6\\
+$DCE$&$(5,-1,-2)$&10&10\\
+\bottomrule
+\end{tabular}
+\end{center}
+All six vertices satisfy every displayed inequality $u\cdot x\le b$.
+Checking the $\binom63=20$ vertex triples gives precisely these seven
+supporting planes; thus the table lists every facet. The origin belongs
+to $K$ (on $AE$), so pyramids from the origin to the oriented facets
+give
+\begin{equation}\label{kvol}
+\Vol(K)=\frac{5+3+1+0+2+6+10}{6}=\frac92.
+\end{equation}
+The three coordinate projections have the following cyclic vertex lists
+and areas, directly obtained by the shoelace formula. The letters here
+denote the corresponding projected points.
+\begin{center}
+\begin{tabular}{ccc}
+\toprule
+Coordinate plane & Projected hull & Area\\
+\midrule
+$xy$&$ADE$&$9/2$\\
+$xz$&$ACEF$&$9/2$\\
+$yz$&$DCBF$&$9/2$\\
+\bottomrule
+\end{tabular}
+\end{center}
+Every coordinate width of $K$ is $3$.
+
+For any three-dimensional convex body $L$, addition of a unit segment
+in direction $e_i$ increases its volume by the area of its projection
+onto $e_i^\perp$. Indeed, every nonempty parallel line section is an
+interval whose length increases by one, and integration over the
+projection proves the assertion. Applying this three times, together
+with the two-dimensional analogue for projection areas, gives
+\begin{align*}
+\Vol(K+[0,1]^3)
+ &=\Vol(K)+\operatorname{area}(K_{xy})
+   +\operatorname{area}(K_{xz})+\operatorname{area}(K_{yz})\\
+ &\qquad+\operatorname{width}_x(K)+\operatorname{width}_y(K)
+   +\operatorname{width}_z(K)+1\\
+ &=\frac92+3\frac92+3+3+3+1=28.
+\end{align*}
+Kurz's upper bound \cite[Theorem 4]{Kurz} for $n$ cubes in dimension $d$
+is
+\[
+\sum_{I\subseteq\{1,\ldots,d\}}\frac1{|I|!}
+  \prod_{i\in I}\left\lfloor\frac{n-2+i}{d}\right\rfloor.
+\]
+For $d=3$ and $n=10$ the three floor values are $3$, so this equals
+$1+9+27/2+27/6=28$. Hence $P$ is globally extremal for ten cubes.
+
+\section*{The missing planar subpolyomino}
+\begin{lemma}\label{planar}
+A facet-connected planar polyomino with bounding-box side lengths
+$r$ and $s$ contains at least $r+s-1$ cells.
+\end{lemma}
+\begin{proof}
+Order its cells by growing a spanning tree of the facet-adjacency graph.
+The first cell has side-length sum two. A subsequent cell shares a side
+with an earlier cell and can increase that sum by at most one. If there
+are $m$ cells, then $r+s\le 2+(m-1)$.
+\end{proof}
+The layer counts of $P$, indexed by the respective coordinates of its
+lower corners, are
+\[
+\begin{array}{c|c|c}
+\text{direction}&\text{layer coordinates}&\text{numbers of cubes}\\\hline
+x&-1,0,1,2&1,1,6,2\\
+y&-3,-2,-1,0&1,1,2,6\\
+z&-2,-1,0,1&1,4,4,1.
+\end{array}
+\]
+In particular, each layer contains at most six cubes. Suppose a
+subpolyomino $P'$ had thickness one in direction $i$ and retained both
+other side lengths, as conditions (i) and (ii) require. Its cubes would
+all lie in one coordinate layer. Projection along $i$ is injective on
+these cubes and preserves facet connectivity, so it would give a planar
+polyomino with side lengths $4,4$ and at most six cells. Lemma
+\ref{planar} requires at least seven. This contradiction proves
+Theorem~\ref{main} and disproves the conjecture. \qed
+
+\section*{Verification and limits}
+The accompanying standard-library Python verifier uses integer and
+rational arithmetic. It checks the growth order, layers, all supporting
+planes of $K$ and of the 44 distinct cube corners, oriented facet
+volumes, edge incidences, Euler's formula, projection areas, and the
+source bound. The direct cube-corner hull has 20 vertices, 37 edges and
+19 facets, and volume $28$, independently confirming the extrusion
+calculation. It also exhausts all 1,023 nonempty subsets of the ten cubes
+for an eligible planar subpolyomino. Numerical search was used only to
+find the example. No smallest-counterexample claim is made. This is an
+author-agent proof and audit, without independent peer review.
+
+\section*{Proposed Tasks 2--5}
+\begin{enumerate}
+\setcounter{enumi}{1}
+\item Determine the smallest number of cubes in a three-dimensional
+counterexample to Kurz's recursive structure conjecture, with an exact
+classification or exclusion certificate for every smaller size.
+\item Classify all ten-cube convex-hull maximizers up to translation,
+coordinate permutation and reflection, and determine which admit a
+subpolyomino satisfying the conjectured recursion.
+\item Construct infinitely many sizes for which a three-dimensional
+convex-hull maximizer has no coordinate layer containing a connected
+subpolyomino with both full remaining side lengths.
+\item Determine for each dimension $d\ge4$ whether such a failure of the
+full-side-length layer condition occurs among convex-hull maximizers,
+giving constructions or a structural obstruction.
+\end{enumerate}
+
+\begin{thebibliography}{9}
+\bibitem{Kurz} S.~Kurz, \emph{Convex hulls of polyominoes},
+Beitr\"age zur Algebra und Geometrie \textbf{49} (2008), no.~1, 125--136.
+\href{https://www.maths.tcd.ie/EMIS/journals/BAG/vol.49/no.1/b49h1kur.pdf}{Published article};
+\href{https://arxiv.org/abs/math/0702786}{arXiv:math/0702786v1} (2007).
+\bibitem{MathDB} \href{https://mathdb.com/p/380444}{MathDB 380444},
+\emph{Recursive structure conjecture for extremal polyominoes}.
+Source and public-claim audit dated 28 September 2026; details accompany
+the proof package.
+\end{thebibliography}
+\end{document}

@@ -1,0 +1,137 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[hidelinks]{hyperref}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newcommand{\qi}[1]{[#1]_q}
+\title{Bottom heaviness of the four \(q\)-Stirling families\\
+\large A solution to MathDB problem 354788}
+\author{Principia Math in Progress}
+\date{September 12, 2026}
+\begin{document}
+\maketitle
+
+\paragraph{Task 1. Solve the original conjecture.}
+For a nonzero polynomial \(F(q)=\sum_{i=0}^{D}a_iq^i\) of degree \(D\),
+bottom heaviness means \(a_i\ge a_{D-i}\) for \(0\le i<D/2\).
+We prove this for all four polynomials in Conjecture 7.6 of
+Sagan--Swanson \cite{SS}. Constants and zero polynomials satisfy the
+condition vacuously.
+
+Put \(\qi{m}=1+q+\cdots+q^{m-1}\) for integers \(m\ge1\), and
+\(\qi{0}=0\). The source's four families have initial values
+\(S[0,k]=c[0,k]=S_B[0,k]=c_B[0,k]=\delta_{0k}\) and recurrences
+\begin{align}
+ S[n,k]&=S[n-1,k-1]+\qi{k}S[n-1,k], \label{eq:A2}\\
+ c[n,k]&=c[n-1,k-1]+\qi{n-1}c[n-1,k], \label{eq:A1}\\
+ S_B[n,k]&=S_B[n-1,k-1]+\qi{2k+1}S_B[n-1,k], \label{eq:B2}\\
+ c_B[n,k]&=c_B[n-1,k-1]+\qi{2n-1}c_B[n-1,k]. \label{eq:B1}
+\end{align}
+Here \(n\ge1\), \(0\le k\le n\), and entries outside the triangular
+range are zero. These are equations (2), (7), (12), and (14) of
+\cite{SS}. In particular, \(S[n,k]\) is the unshifted version in (2).
+
+\begin{lemma}\label{lem:product}
+Every finite product of \(q\)-integers \(\qi{m}\), \(m\ge1\), has
+nonnegative, symmetric, unimodal coefficients.
+\end{lemma}
+\begin{proof}
+We give an elementary induction that also handles plateaux. Suppose
+\(f(q)=\sum_{j=0}^{d}f_jq^j\) has the asserted properties, and set
+\(f_j=0\) for all integers outside \([0,d]\).
+The value \(f_j\) is a nonincreasing function of
+\(\lvert j-d/2\rvert\) on these integer indices. For
+\(g=f\qi{m}\), symmetry follows by reversing both factors. Moreover,
+\[
+ g_i-g_{i-1}=f_i-f_{i-m}.
+\]
+If \(1\le i\le(d+m-1)/2\), then
+\[
+ (i-m-d/2)^2-(i-d/2)^2=m(d+m-2i)\ge0.
+\]
+Thus \(f_i\ge f_{i-m}\), so \(g\) is nondecreasing up to its center
+\((d+m-1)/2\). Symmetry gives unimodality. Induction starts with the
+empty product \(1\).
+\end{proof}
+
+\begin{lemma}\label{lem:sum}
+A finite nonnegative linear combination of nonzero polynomials
+having nonnegative, symmetric, unimodal coefficients is bottom heavy.
+\end{lemma}
+\begin{proof}
+Discard zero weights. If all weights vanish the assertion is vacuous;
+otherwise let \(D\) be the largest degree of a summand. Nonnegativity
+ensures that \(D\) is the degree of the sum.
+Fix a summand \(f\) of degree \(d\le D\), extend its coefficient
+sequence by zeros, and let \(0\le i<D/2\). Since
+\[
+ (D-i-d/2)^2-(i-d/2)^2=(D-2i)(D-d)\ge0,
+\]
+the same distance-from-center observation gives \(f_i\ge f_{D-i}\).
+Multiplying by the nonnegative weight and adding over the summands
+proves the claim.
+\end{proof}
+
+\begin{theorem}\label{thm:main}
+For every admissible \(n,k\), the coefficient sequences of
+\(S[n,k]\), \(c[n,k]\), \(S_B[n,k]\), and \(c_B[n,k]\) are bottom heavy.
+More generally, every finite nonnegative linear combination of
+products of \(q\)-integers is bottom heavy.
+\end{theorem}
+\begin{proof}
+The general assertion is the combination of Lemmas
+\ref{lem:product} and \ref{lem:sum}. Let \(\mathcal C\) consist of
+these linear combinations, including \(0\) and the empty product \(1\).
+This class is closed under addition and multiplication by any
+\(\qi{m}\), \(m\ge0\). Every coefficient multiplying an entry in
+\eqref{eq:A2}--\eqref{eq:B1} is such a \(q\)-integer.
+Induction on \(n\) therefore places every entry in \(\mathcal C\).
+This also handles \(k=0\), \(k=n\), and \(n=0\) without a positivity
+or degree assumption on a zero entry.
+\end{proof}
+
+The comparison in Lemma \ref{lem:sum} uses each summand's own center:
+the summands need not have equal degrees. For example
+\(S[4,3]=\qi1+\qi2+\qi3=3+2q+q^2\) has the required asymmetry.
+The theorem settles the entire original conjecture; it does not
+assert unimodality of a sum with different centers.
+
+\paragraph{Verification.}
+The proof is independent of computation. The accompanying exact
+integer checker reconstructs all four recurrences for \(n\le50\),
+compares them with explicit complete-homogeneous and elementary
+symmetric-function expansions for \(n\le10\), and tests the lemmas
+on products and mixtures with unequal degrees. It also reproduces
+the source's nonunimodal type \(B\) examples.
+
+\paragraph{Task 2. Construct coefficient injections.}
+Translate the summand comparison into an explicit injection from
+objects counted by the coefficient of \(q^{D-i}\) to those counted
+by \(q^i\), using products of chains and the source's partition and
+permutation models.
+
+\paragraph{Task 3. Classify equality and quantify the asymmetry.}
+Determine exactly when \(a_i=a_{D-i}\) in each family, and obtain
+effective lower bounds for \(a_i-a_{D-i}\) outside those cases.
+
+\paragraph{Task 4. Extend the theorem to further Stirling analogues.}
+Identify which \(q\)-Stirling polynomials for complex reflection
+groups have nonnegative expansions in products of \(q\)-integers,
+then apply the theorem and characterize any exceptions.
+
+\paragraph{Task 5. Resolve the stronger coefficient conjectures.}
+Prove or refute coefficient log-concavity in type \(A\) and parity
+log-concavity in type \(B\), as stated in Conjectures 7.4 and 7.5 of
+\cite{SS}; isolate additional structure beyond the sum lemma.
+
+\begin{thebibliography}{9}
+\bibitem{SS}
+B.~E. Sagan and J.~P. Swanson,
+\emph{\(q\)-Stirling numbers in type \(B\)},
+European Journal of Combinatorics \textbf{118} (2024), 103899.
+\href{https://par.nsf.gov/servlets/purl/10626831}{Published text};
+\href{https://arxiv.org/abs/2205.14078}{arXiv:2205.14078}.
+Definitions: pp.~2--4; Conjecture 7.6: p.~31.
+\end{thebibliography}
+\end{document}

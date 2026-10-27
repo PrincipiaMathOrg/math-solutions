@@ -1,0 +1,171 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,hyperref}
+\newtheorem{theorem}{Theorem}
+\newcommand{\fl}[1]{\left\lfloor#1\right\rfloor}
+\title{A squarefree floor sum and its class-number inversion}
+\author{Principia Math In Progress}
+\date{29 September 2026}
+\begin{document}\maketitle
+\begin{abstract}
+We prove the odd-squarefree floor-sum identity of Chamberland and Dilcher
+and its equivalent M\"obius-inversion formula. Expanding the number of
+square roots modulo a squarefree integer into quadratic characters gives
+an exact remainder sum; an elementary lattice count then recovers the
+floor sum. The two equivalent source conjectures receive one campaign credit.
+\end{abstract}
+
+\section*{Task 1: the original conjecture}
+For a positive integer $n$, define
+\[
+ f(n)=\sum_{j=1}^{\lfloor n/4\rfloor}\fl{\sqrt{jn}}-\frac{n^2-1}{12}.
+\]
+For odd squarefree $d$, let $\delta(d)=1$ when $d\equiv3\pmod4$ and
+$\delta(d)=0$ otherwise. Define $H(d)=0$ in the latter case, and
+\[
+ H(3)=\frac13,\qquad
+ H(d)=h\bigl(\mathbb Q(\sqrt{-d})\bigr)
+       \quad(d>3,\ d\equiv3\pmod4).
+\]
+Thus $H(d)$ is the source's product $h^*(-d)\delta(d)$, with no need
+to assign an unused normalization when $\delta(d)=0$.
+
+\begin{theorem}\label{thm:main}
+For every odd squarefree positive integer $n$,
+\begin{align}
+ f(n)&=\frac{1-n}{4}\delta(n)-\frac12\sum_{d\mid n}H(d),
+ \label{eq:floor}\\
+ H(n)&=\sum_{d\mid n}\mu(n/d)
+       \left(\frac{1-d}{2}\delta(d)-2f(d)\right).
+ \label{eq:inversion}
+\end{align}
+\end{theorem}
+Equation~\eqref{eq:inversion} is Conjecture 7.4 of~\cite[p.~22]{CD},
+MathDB 370788. Equation~\eqref{eq:floor} is Conjecture 7.3,
+MathDB 370787. M\"obius inversion makes them equivalent; we count them
+as one resolution. The case $n=1$ has only empty sums and is immediate.
+
+\section*{Counting square roots and evaluating the remainder sum}
+For odd squarefree $d>1$, write $\chi_d(t)=(t/d)$ for the Jacobi symbol;
+put $\chi_1(t)=1$. This is a nonprincipal quadratic character modulo $d$
+when $d>1$. Its character sum is zero. One elementary way to see this is
+to choose, by the Chinese remainder theorem, a unit that is a quadratic
+nonresidue at exactly one prime dividing $d$; multiplication by this
+unit negates the sum.
+
+The number $\rho_n(t)$ of solutions of $x^2\equiv t\pmod n$ is
+\begin{equation}\label{eq:roots}
+ \rho_n(t)=\prod_{p\mid n}\left(1+\left(\frac tp\right)\right)
+         =\sum_{d\mid n}\chi_d(t).
+\end{equation}
+This includes nonunit $t$: modulo a prime there is one root at zero
+and zero or two roots at a nonzero residue. The Chinese remainder
+theorem then proves the product for every $t$.
+
+Define
+\[
+ S_n=\frac1n\sum_{x=0}^{n-1}(x^2\bmod n).
+\]
+Interchanging finite sums in~\eqref{eq:roots} gives
+\[
+ S_n=\sum_{d\mid n}\frac1n\sum_{t=0}^{n-1}t\chi_d(t).
+\]
+The contribution of $d=1$ is $(n-1)/2$. For $d>1$, split $t$ into
+complete periods modulo $d$. Since the unweighted character sum is zero,
+\[
+ \frac1n\sum_{t=0}^{n-1}t\chi_d(t)
+ =\frac1d\sum_{r=0}^{d-1}r\chi_d(r).
+\]
+If $d\equiv1\pmod4$, the character is even, and pairing $r$ with
+$d-r$ shows that this weighted sum is zero. If $d\equiv3\pmod4$,
+quadratic reciprocity identifies $\chi_d(r)$ with the Kronecker
+character $(-d/r)$. The discriminant $-d$ is fundamental, so
+Dirichlet's finite class-number formula gives
+\[
+ \frac1d\sum_{r=0}^{d-1}r\chi_d(r)=-H(d).
+\]
+Here we use the classical formula stated in~\cite[Theorem 4.1]{CD};
+its unit factor is six at $d=3$ and two otherwise, giving exactly
+$H(3)=1/3$. Consequently
+\begin{equation}\label{eq:remainder}
+ S_n=\frac{n-1}{2}-\sum_{d\mid n}H(d).
+\end{equation}
+
+\section*{Recovering the floor sum}
+We include the lattice-count step to fix every endpoint. Put
+$\nu=\lfloor n/4\rfloor$ and
+$F(n)=f(n)+(n^2-1)/12$. For odd $n\ge3$ one has
+$\lfloor\sqrt{\nu n}\rfloor=2\nu$, including $\nu=0$.
+Counting the pairs $(j,k)$ with $1\le j\le\nu$ and $k^2\le jn$ gives
+\[
+ F(n)=\sum_{k=1}^{2\nu}
+       \left(\nu+1-\left\lceil\frac{k^2}{n}\right\rceil\right)
+     =2\nu^2-\sum_{k=1}^{2\nu}\fl{\frac{k^2}{n}}.
+\]
+The last equality uses squarefreeness: $n\nmid k^2$ for $0<k<n$.
+Writing $R_n(k)=k^2\bmod n$ and summing the consecutive squares yields
+\begin{equation}\label{eq:lattice}
+ F(n)=2\nu^2-\frac{2\nu(2\nu+1)(4\nu+1)}{6n}
+             +\frac1n\sum_{k=1}^{2\nu}R_n(k).
+\end{equation}
+Since $R_n(n-k)=R_n(k)$,
+\[
+ \frac1n\sum_{k=1}^{(n-1)/2}R_n(k)=\frac{S_n}{2}.
+\]
+If $n\equiv1\pmod4$, then $2\nu=(n-1)/2$. If $n\equiv3\pmod4$,
+then $2\nu=(n-3)/2$, and the omitted last remainder is
+\[
+ R_n\left(\frac{n-1}{2}\right)=\frac{n+1}{4},
+\]
+as follows by subtracting $(n+1)/4$ from $(n-1)^2/4$.
+Substituting these two cases into~\eqref{eq:lattice} and subtracting
+$(n^2-1)/12$ gives respectively
+\[
+ f(n)=\frac{S_n}{2}-\frac{n-1}{4},
+ \qquad
+ f(n)=\frac{S_n}{2}-\frac{n-1}{2}.
+\]
+Equation~\eqref{eq:remainder} now proves~\eqref{eq:floor}.
+
+Finally, multiply~\eqref{eq:floor} by $-2$ and rearrange:
+\[
+ \frac{1-n}{2}\delta(n)-2f(n)=\sum_{d\mid n}H(d).
+\]
+Every divisor of an odd squarefree integer is again odd and squarefree.
+Ordinary M\"obius inversion on the divisor set therefore gives
+Equation~\eqref{eq:inversion}, completing the proof.
+
+\section*{Tasks 2--5: follow-up questions}
+\begin{enumerate}\setcounter{enumi}{1}
+\item Extend the root-count expansion to arbitrary odd nonsquarefree
+integers and obtain explicit coefficients for all class-number terms.
+\item Derive effective uniform bounds for the deviation of $f(n)$ from
+its residue-class main term over odd squarefree integers.
+\item Replace the linear remainder weight by higher powers and express
+the resulting sums using generalized Bernoulli numbers or Dirichlet values.
+\item Compare algorithms for computing the class numbers in
+Equation~\eqref{eq:inversion}, including their exact arithmetic complexity,
+against enumeration of reduced binary quadratic forms.
+\end{enumerate}
+
+\paragraph{Verification and scope.}
+The verifier computes the original floor and remainder sums using integer
+arithmetic and computes class numbers independently by enumerating reduced
+binary quadratic forms. It checks both identities and the inversion.
+Finite checks corroborate the all-squarefree proof. This is author-agent
+review, not independent peer review. Source and search limitations are
+recorded in the literature audit.
+
+\begin{thebibliography}{9}
+\bibitem{CD} M.~Chamberland and K.~Dilcher,
+\emph{Sums of the floor function related to class numbers of imaginary
+quadratic fields},
+\href{https://arxiv.org/abs/2510.04387}{arXiv:2510.04387v1} (2025),
+Conjectures 7.3--7.4, pp.~21--22.
+All 23 pages of the current manuscript were read on 29 September 2026.
+\bibitem{MathDB} MathDB,
+\href{https://mathdb.com/p/370788}{problem 370788} and the equivalent
+\href{https://mathdb.com/p/370787}{problem 370787},
+live records checked 29 September 2026.
+\end{thebibliography}
+\end{document}

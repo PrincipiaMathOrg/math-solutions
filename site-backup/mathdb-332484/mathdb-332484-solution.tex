@@ -1,0 +1,259 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,hyperref}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newcommand{\E}{\mathbb E}
+\title{All alternating ratio inequalities for the\\
+Fennessey--Larcombe--French sequence}
+\author{Principia Math In Progress}
+\date{11 September 2026}
+\begin{document}
+\maketitle
+\begin{abstract}
+We prove Conjecture 5.3 of Sun and Zhao for every ratio iteration and
+every required index, with strict inequalities. The normalized sequence
+is a constant minus moments of an explicit positive measure on $(0,1)$.
+A convergent logarithmic series then expresses its logarithmic deficit
+as positive moments, making all higher finite-difference signs explicit.
+\end{abstract}
+
+\section*{Task 1: Resolve MathDB problem 332484}
+Let $V_0=1$, $V_1=8$, and, for $n\geq2$, define
+\begin{equation}\label{eq:Vrec}
+ (n-1)n^2V_n
+ =8(n-1)(3n^2-n-1)V_{n-1}-128(n-2)n^2V_{n-2}.
+\end{equation}
+For a positive sequence $a$, set $(\mathcal Ra)_n=a_{n+1}/a_n$ and
+$(\Delta f)_n=f_{n+1}-f_n$.
+The conjecture \cite[Conjecture 5.3, p.~601]{published} asserts that
+$\mathcal R^k(V_n)_{n\geq1}$ is log-convex for odd $k\geq1$ and
+log-concave for even $k\geq1$.
+
+\begin{theorem}\label{thm:main}
+For every $n\geq1$ and integer $r\geq2$,
+\begin{equation}\label{eq:sign}
+ (-1)^{r+1}\Delta^r\log V_n>0.
+\end{equation}
+Consequently, every inequality in Conjecture 5.3 holds strictly.
+\end{theorem}
+
+\subsection*{Identifying a moment representation}
+Use the parameter convention for the complete elliptic integral:
+\[
+ K(m)=\int_0^{\pi/2}\frac{d\theta}{\sqrt{1-m\sin^2\theta}},\qquad
+ c_j=\left(\frac{\binom{2j}j}{4^j}\right)^2.
+\]
+The binomial expansion under the integral gives
+\begin{equation}\label{eq:Kseries}
+ K(m)=\frac\pi2\sum_{j\geq0}c_jm^j\qquad(0\leq m<1).
+\end{equation}
+Put $L=2/\pi$ and, for $0<u<1$, $u\ne1/2$, define
+\begin{align}
+ w(u)&=\frac4{\pi^2}K\bigl(4u(1-u)\bigr),\label{eq:w}\\
+ \rho(u)&=w(u)+(2u-1)w'(u).
+ \label{eq:rho}
+\end{align}
+The value at $u=1/2$ is immaterial for integration.
+
+\begin{lemma}\label{lem:moment}
+The function $\rho$ is positive almost everywhere on $(0,1)$, integrable,
+and satisfies
+\begin{equation}\label{eq:mass}
+ \int_0^1\rho(u)\,du=\frac4\pi-1=2L-1.
+\end{equation}
+For every $n\geq1$,
+\begin{equation}\label{eq:moment}
+ \frac{V_n}{16^n}=L-\int_0^1u^n\rho(u)\,du.
+\end{equation}
+\end{lemma}
+
+We first identify the sequence that occurs in the integral. Let $X,Y$
+be independent random variables with arcsine density
+$1/(\pi\sqrt{1-x^2})$ on $(-1,1)$, and put $U=(1+XY)/2$.
+A change of variables in the product density gives, for $0<|t|<1$,
+\[
+ f_{XY}(t)=\frac2{\pi^2}\int_{|t|}^1
+ \frac{dx}{\sqrt{(1-x^2)(x^2-t^2)}}
+ =\frac2{\pi^2}K(1-t^2).
+\]
+For the second equality set
+$x^2=t^2+(1-t^2)\sin^2\theta$ and reverse the angle.
+Thus $U$ has probability density $w$ in \eqref{eq:w}.
+Since $\E(X^{2j})=\binom{2j}j/4^j$ and odd moments vanish,
+\begin{equation}\label{eq:pn}
+ p_n:=\E(U^n)=2^{-n}\sum_{j=0}^{\lfloor n/2\rfloor}\binom n{2j}c_j.
+\end{equation}
+
+For completeness, we verify from these finite sums that the $V_n$
+in \eqref{eq:Vrec} are exactly the sequence needed below.
+Let $H(q)=\sum_{j\geq0}c_jq^j$. The ratio of consecutive $c_j$ gives
+\[
+ q(1-q)H''(q)+(1-2q)H'(q)-\tfrac14H(q)=0.
+\]
+Summing \eqref{eq:pn} for $|z|$ small yields
+\[
+ A(z):=\sum_{n\geq0}p_nz^n
+   =\frac2{2-z}H\left(\frac{z^2}{(2-z)^2}\right).
+\]
+Substitution into the preceding differential equation, by the chain
+rule, gives
+\[
+ z(1-z)(2-z)A''+(2-6z+3z^2)A'+(z-1)A=0.
+\]
+Its coefficient equations show that $P_n:=16^np_n$ satisfies
+\[
+ E_n:=n^2P_n-8(3n^2-3n+1)P_{n-1}+128(n-1)^2P_{n-2}=0
+ \quad(n\geq2),
+\]
+with $P_0=1$, $P_1=8$; also set $E_1=P_1-8P_0=0$.
+Define $W_0=1$ and $W_n=(2n+1)P_n-16nP_{n-1}$ for $n\geq1$.
+The residual of \eqref{eq:Vrec} with $W$ in place of $V$ is exactly
+\[
+ (n-1)(2n+1)E_n-16n^2E_{n-1}\qquad(n\geq2).
+\]
+It is therefore zero. Since $W_1=8$, uniqueness in the recurrence gives
+$W_n=V_n$, and hence
+\begin{equation}\label{eq:weighted}
+ \frac{V_n}{16^n}=(2n+1)p_n-np_{n-1}
+ =\int_0^1\left[u^n+n(2u-1)u^{n-1}\right]w(u)\,du
+ \quad(n\geq1).
+\end{equation}
+
+\begin{proof}[Proof of Lemma \ref{lem:moment}]
+Write $m=4u(1-u)=1-(2u-1)^2$. Differentiating \eqref{eq:w} gives
+\[
+ \rho(u)=\frac4{\pi^2}\left[K(m)-4(1-m)K'(m)\right].
+\]
+Here $K'$ differentiates its parameter $m$.
+Using \eqref{eq:Kseries} and
+$c_{j+1}/c_j=(2j+1)^2/(4(j+1)^2)$, we obtain the positive series
+\begin{equation}\label{eq:positive}
+ \rho(u)=\frac2\pi\sum_{j\geq1}\frac{j}{j+1}c_j
+                         \bigl(4u(1-u)\bigr)^j>0
+ \qquad(0<u<1,\ u\ne1/2).
+\end{equation}
+
+We justify the integration by parts even at the middle singularity.
+The elementary bound $c_j\leq1/(j+1)$ follows inductively from the
+displayed coefficient ratio. Thus \eqref{eq:Kseries} implies
+$K(m)=O(1+|\log(1-m)|)$ as $m\uparrow1$.
+It follows that $h(u):=(2u-1)w(u)$ extends continuously across $1/2$
+with value zero. At the endpoints, $w(0)=w(1)=L$, so $h(0)=-L$ and
+$h(1)=L$. Away from the middle point,
+\[
+ h'(u)=w(u)+\rho(u)>0.
+\]
+Integrating separately on either side and taking the one-sided limits
+shows that $h'$ is integrable with integral $2L$. Since $w$ is a
+probability density, this proves \eqref{eq:mass} and the integrability
+of $\rho$. It also proves that the continuous extension of $h$ is
+absolutely continuous on $[0,1]$.
+
+For $n\geq1$, integrate the second term of \eqref{eq:weighted} by parts:
+\[
+ \int_0^1\left[u^nw(u)+h(u)(u^n)'\right]du
+ =\left[u^nh(u)\right]_0^1
+       +\int_0^1u^n\bigl(w(u)-h'(u)\bigr)du
+ =L-\int_0^1u^n\rho(u)du.
+\]
+This is \eqref{eq:moment}. The boundary term at zero vanishes precisely
+because $n\geq1$; the formula does not assert a representation of $V_0$.
+\end{proof}
+
+\subsection*{The logarithm as positive moments}
+Let $\mu$ be the positive measure with density $\rho(u)/L$ on $(0,1)$.
+Its total mass is
+\[
+ q:=\mu((0,1))=2-\frac\pi2\in(0,1).
+\]
+For each positive integer $j$, let $\mu^{\odot j}$ be the image of
+$\mu^{\otimes j}$ under multiplication
+$(u_1,\ldots,u_j)\mapsto u_1\cdots u_j$. The measure
+\begin{equation}\label{eq:tau}
+ \tau=\sum_{j\geq1}\frac1j\mu^{\odot j}
+\end{equation}
+is finite and positive, since its mass is $\sum_{j\geq1}q^j/j<\infty$.
+For $n\geq1$, Lemma \ref{lem:moment}, the power series for $-\log(1-z)$,
+and Tonelli's theorem now give
+\begin{align}
+ \log V_n
+ &=n\log16+\log L-\int_{(0,1)}t^n\,d\tau(t).
+ \label{eq:logmoment}
+\end{align}
+In particular all $V_n$ used here are positive, since
+$V_n/16^n\geq L(1-q)>0$.
+
+\begin{proof}[Proof of Theorem \ref{thm:main}]
+For $r\geq2$, the affine terms in \eqref{eq:logmoment} disappear.
+Taking a finite difference inside the integral is legitimate because
+$\tau$ is finite. Therefore
+\[
+ (-1)^{r+1}\Delta^r\log V_n
+   =\int_{(0,1)}t^n(1-t)^r\,d\tau(t)>0.
+\]
+Strictness follows already from the first summand $\mu$ in
+\eqref{eq:tau}, whose density is positive almost everywhere in $(0,1)$.
+Finally, $\log(\mathcal R^kV)_n=\Delta^k\log V_n$, so
+\[
+ \Delta^2\log(\mathcal R^kV)_n=\Delta^{k+2}\log V_n.
+\]
+This is positive for odd $k$ and negative for even $k$, exactly the
+required strict log-convexity and strict log-concavity for all $n\geq1$.
+\end{proof}
+
+\subsection*{Scope and verification}
+The theorem covers every iteration order with the exact initial index
+in the published conjecture. No asymptotic cutoff in $n$ is used.
+The exceptional value $V_0$ is deliberately excluded, as in the source.
+The proof supplies the full argument; finite symbolic and numerical
+checks are supplementary. The accompanying audit records the current
+published source, live MathDB status, and bounded search for solution
+claims. No external peer review is claimed.
+
+\section*{Task 2: Resolve the determinant-sequence conjecture}
+Use the positive density $\rho$ to analyze
+$D_n=V_n^2-V_{n-1}V_{n+1}$ for $n\geq2$.
+Resolve published Conjecture 5.1, which asserts infinite log-convexity
+of this sequence (MathDB 332482). In particular, determine whether
+an appropriate exponential normalization of $D_n$ admits a positive
+moment measure and identify that measure if it exists.
+
+\section*{Task 3: Resolve the companion Catalan ratio conjecture}
+For the Catalan--Larcombe--French numbers $P_n$ identified above,
+resolve published Conjecture 5.2 (MathDB 332483): after omitting the
+first $k$ terms, $\mathcal R^k(P_n)_{n\geq0}$ is log-concave for odd
+$k$ and log-convex for even $k$. Explain how the necessary index cutoff
+arises from the arcsine-product moment representation.
+
+\section*{Task 4: Extend the construction to symmetric beta laws}
+Replace the two arcsine densities by densities proportional to
+$(1-x^2)^{a-1}$ and $(1-y^2)^{b-1}$ on $(-1,1)$, with $a,b>0$.
+For $U=(1+XY)/2$ and
+$B_n=(2n+1)\E(U^n)-n\E(U^{n-1})$, determine the parameter region
+where $B_n$ is positive and has the same higher logarithmic-difference
+signs. Account for any endpoint terms that replace the constant $L$.
+
+\section*{Task 5: Obtain uniform quantitative inequalities}
+Find explicit upper and lower bounds for
+$(-1)^{r+1}\Delta^r\log V_n$ using the measure $\tau$.
+Derive sharp asymptotics both for fixed $r$ with $n\to\infty$ and when
+$r$ grows proportionally to $n$, and identify the contributions of
+the individual multiplicative-convolution terms.
+
+\clearpage
+\begin{thebibliography}{9}
+\bibitem{published}
+B. Y. Sun and J. J. Y. Zhao, \emph{Log-behavior of Two Sequences Related
+to the Elliptic Integrals}, Acta Mathematicae Applicatae Sinica,
+English Series \textbf{36} (2020), 590--602.
+Conjecture 5.3, p.~601.
+\url{https://doi.org/10.1007/s10255-020-0952-1}.
+Full publisher PDF:
+\url{https://applmath.cjoe.ac.cn/jweb_yysxxb_en/EN/PDF/10.1007/s10255-020-0952-1}.
+\bibitem{preprint}
+B. Y. Sun and J. J. Y. Zhao, \emph{Log-behavior of two sequences related
+to the elliptic integrals}, arXiv:1602.04359v4 (2017), Conjecture 5.3,
+p.~14. \url{https://arxiv.org/abs/1602.04359}.
+\end{thebibliography}
+\end{document}

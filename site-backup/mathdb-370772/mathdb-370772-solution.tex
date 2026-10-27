@@ -1,0 +1,312 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,hyperref}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newcommand{\E}{\mathbb E}
+\newcommand{\R}{\mathbb R}
+\DeclareMathOperator{\erfc}{erfc}
+\title{Complete monotonicity of a squared Mittag--Leffler modulus}
+\author{Principia Math In Progress}
+\date{11 September 2026}
+\begin{document}
+\maketitle
+\begin{abstract}
+For every $0<\alpha\leq1/2$, the function
+$|E_{2\alpha,1}(-t)|^2+t|E_{2\alpha,1+\alpha}(-t)|^2$
+is strictly completely monotone and strictly log-convex on $(0,\infty)$.
+This proves Conjecture 3 of Chorfi, Et-tahri, Maniar, and Yamamoto.
+The proof combines an inverse-stable scale representation with an explicit
+positive Laplace representation for differences of scaled half-Gaussians.
+It also gives the proposed logarithmic convexity estimate for the
+corresponding spectral solutions.
+\end{abstract}
+
+\section*{Task 1: Resolve MathDB problem 370772}
+For $\rho,\delta>0$, write
+\[
+ E_{\rho,\delta}(z)=\sum_{n=0}^\infty\frac{z^n}{\Gamma(\delta+\rho n)},
+ \qquad E_\alpha=E_{\alpha,1}.
+\]
+Conjecture 3, equation (5.2), page 23 of \cite{source}, asks whether
+\begin{equation}\label{eq:target}
+ f_\alpha(t)=|E_{2\alpha,1}(-t)|^2
+       +t|E_{2\alpha,1+\alpha}(-t)|^2,
+ \qquad 0<\alpha\leq\tfrac12,
+\end{equation}
+is completely monotone, or at least log-convex, for $t>0$.
+The authors still refer to the journal version's Conjecture 3 as unresolved
+in their March 2026 follow-up \cite[page 13]{followup}.
+
+\begin{theorem}\label{thm:main}
+For every $0<\alpha\leq1/2$, there is a nondegenerate probability measure
+$\nu_\alpha$ on $(0,\infty)$ such that
+\begin{equation}\label{eq:laplace}
+ f_\alpha(t)=\int_0^\infty e^{-t\lambda}\,\nu_\alpha(d\lambda)
+ \quad(t\geq0).
+\end{equation}
+Consequently, $(-1)^n f_\alpha^{(n)}(t)>0$ for every integer $n\geq0$
+and $t>0$, and $(\log f_\alpha)''(t)>0$ there.
+\end{theorem}
+
+\subsection*{A half-Gaussian scale representation}
+Let $H$ have density $\pi^{-1/2}e^{-x^2/4}$ on $x>0$.
+For $0<\beta<1$, let $S_\beta$ be a positive stable random variable,
+normalized by $\E e^{-sS_\beta}=e^{-s^\beta}$ for $s\geq0$;
+set $S_1=1$.
+These standard laws and their Mittag--Leffler transforms are discussed in
+\cite[Examples 3.10--3.11]{janson}. We give the moment calculation needed here.
+For $q>0$, Tonelli's theorem and $u=s^\beta$ give
+\begin{equation}\label{eq:negative-moment}
+ \E S_\beta^{-q}
+ =\frac1{\Gamma(q)}\int_0^\infty s^{q-1}e^{-s^\beta}\,ds
+ =\frac{\Gamma(1+q/\beta)}{\Gamma(1+q)}.
+\end{equation}
+The formula also holds for $\beta=1$.
+
+\begin{lemma}\label{lem:scale}
+Fix $0<\alpha\leq1/2$, let $R=S_{2\alpha}^{-\alpha}$, and take $H$
+independent of $R$. Then $X=RH$ satisfies
+\begin{equation}\label{eq:mgf}
+ \E e^{zX}=E_\alpha(z)\qquad(z\in\mathbb C).
+\end{equation}
+\end{lemma}
+\begin{proof}
+For every integer $n\geq0$, the gamma duplication formula gives
+\[
+ \E H^n=\frac{2^n\Gamma((n+1)/2)}{\sqrt\pi}
+       =\frac{n!}{\Gamma(1+n/2)},\qquad
+ \E R^n=\frac{\Gamma(1+n/2)}{\Gamma(1+\alpha n)}.
+\]
+The second identity follows from \eqref{eq:negative-moment} for $n>0$
+and is immediate for $n=0$. Independence yields
+$\E X^n=n!/\Gamma(1+\alpha n)$.
+For $c\geq0$, monotone convergence therefore gives
+\[
+ \E e^{cX}=\sum_{n=0}^\infty\frac{c^n}{\Gamma(1+\alpha n)}<\infty;
+\]
+convergence follows from Stirling's formula. For complex $z$, absolute
+integrability follows by the same calculation with $c=|z|$.
+Termwise expectation proves \eqref{eq:mgf}.
+\end{proof}
+
+\subsection*{A positive Laplace kernel}
+\begin{lemma}\label{lem:kernel}
+Let $H,H'$ be independent copies of the half-Gaussian above. For any
+$a,b>0$, set $A=a^2+b^2$. Then
+\begin{align}
+ K_{a,b}(t)&:=\E\cos\bigl(\sqrt t(aH-bH')\bigr)\notag\\
+ &=\frac2\pi\int_0^\infty\left[
+ \frac{a\exp\{-a^2At/(A+b^2v^2)\}}
+ {(1+v^2)\sqrt{A+b^2v^2}}
+ +\frac{b\exp\{-b^2At/(A+a^2v^2)\}}
+ {(1+v^2)\sqrt{A+a^2v^2}}\right]dv.\label{eq:kernel}
+\end{align}
+This is the Laplace transform of a nondegenerate probability measure
+$\nu_{a,b}$ on $(0,\infty)$.
+\end{lemma}
+\begin{proof}
+Let $h_{a,b}$ be the density of $aH-bH'$. For $z\geq0$, completing the
+square in the convolution integral gives
+\begin{align*}
+ h_{a,b}(z)
+ &=\frac1{ab\pi}\int_0^\infty
+    e^{-(z+y)^2/(4a^2)-y^2/(4b^2)}\,dy\\
+ &=\frac{e^{-z^2/(4A)}}{\sqrt{\pi A}}
+   \erfc\left(\frac{bz}{2a\sqrt A}\right),
+ \qquad h_{a,b}(-z)=h_{b,a}(z).
+\end{align*}
+Thus the symmetrized probability density is
+\begin{equation}\label{eq:density}
+ k_{a,b}(z):=\frac{h_{a,b}(z)+h_{a,b}(-z)}2
+ =\frac{e^{-z^2/(4A)}}{2\sqrt{\pi A}}
+ \left[\erfc\left(\frac{b|z|}{2a\sqrt A}\right)
+       +\erfc\left(\frac{a|z|}{2b\sqrt A}\right)\right].
+\end{equation}
+For $c>0$ and $z\in\R$, one has the positive representation
+\begin{equation}\label{eq:erfc}
+ \erfc(c|z|)=\frac2\pi\int_0^\infty
+          \frac{e^{-c^2z^2(1+v^2)}}{1+v^2}\,dv.
+\end{equation}
+Indeed, both sides equal one at $z=0$. For $z>0$, differentiating the
+right side and evaluating the Gaussian integral gives
+$-2c\pi^{-1/2}e^{-c^2z^2}$, the derivative of the left side.
+Continuity at zero follows by dominated convergence.
+
+Insert \eqref{eq:erfc} into \eqref{eq:density}. The two Gaussian exponents
+are $-\kappa_1(v)z^2$ and $-\kappa_2(v)z^2$, where
+\[
+ \kappa_1(v)=\frac{A+b^2v^2}{4a^2A},\qquad
+ \kappa_2(v)=\frac{A+a^2v^2}{4b^2A}.
+\]
+The resulting integrand is nonnegative and integrates to one over
+$(z,v)$ because $k_{a,b}$ is a probability density. Consequently its
+cosine transform may be interchanged with the $v$ integral by absolute
+integrability. The Gaussian Fourier identity
+\[
+ \int_{\R}e^{-\kappa z^2}\cos(\sqrt t\,z)\,dz
+ =\sqrt{\frac\pi\kappa}\,e^{-t/(4\kappa)}
+\]
+now gives \eqref{eq:kernel}.
+Both weights there are positive. At $t=0$ their combined mass is one,
+either by the probability-density calculation or by
+\[
+ \frac2\pi\int_0^\infty
+ \frac{a\,dv}{(1+v^2)\sqrt{A+b^2v^2}}
+ =\frac2\pi\arcsin\frac a{\sqrt A},
+ \qquad
+ \arcsin\frac a{\sqrt A}+\arcsin\frac b{\sqrt A}=\frac\pi2.
+\]
+Push these weights forward by the respective rates
+$\lambda_1=a^2A/(A+b^2v^2)$ and
+$\lambda_2=b^2A/(A+a^2v^2)$.
+Every rate is positive for finite $v$, and each rate varies strictly on
+$v>0$. Hence the resulting measure is a probability measure on
+$(0,\infty)$ and is nondegenerate (in fact, atomless).
+\end{proof}
+
+\subsection*{Proof of the conjecture}
+\begin{proof}[Proof of Theorem \ref{thm:main}]
+Splitting the defining series into even and odd powers gives
+\[
+ E_\alpha(i\sqrt t)=E_{2\alpha,1}(-t)
+                +i\sqrt t\,E_{2\alpha,1+\alpha}(-t).
+\]
+Both functions on the right have real values for $t\geq0$, so
+$f_\alpha(t)=|E_\alpha(i\sqrt t)|^2$.
+Take independent copies $(R,H)$ and $(R',H')$ from Lemma \ref{lem:scale}.
+Since $X=RH$ and $X'=R'H'$ are identically distributed,
+\[
+ f_\alpha(t)=\E e^{i\sqrt t(X-X')}
+            =\E\cos\bigl(\sqrt t(X-X')\bigr)
+            =\E_{R,R'}K_{R,R'}(t).
+\]
+Here the real part is essential: the characteristic function conditional
+on two unequal scales need not be real. The conditional cosine transform
+is exactly the kernel of Lemma \ref{lem:kernel}.
+
+Define $\nu_\alpha(B)=\E\nu_{R,R'}(B)$ for Borel sets
+$B\subset(0,\infty)$. The explicit integral \eqref{eq:kernel} makes
+measurability immediate. Tonelli's theorem gives \eqref{eq:laplace}.
+All scales are finite and strictly positive almost surely. Each
+conditional measure is atomless, so $\nu_\alpha$ is also atomless,
+in particular nondegenerate.
+For every $t>0$, differentiation under the integral is justified in a
+neighborhood of $t$ by boundedness of $\lambda^n e^{-t\lambda/2}$.
+Thus
+\[
+ (-1)^n f_\alpha^{(n)}(t)
+  =\int_0^\infty\lambda^n e^{-t\lambda}\,\nu_\alpha(d\lambda)>0.
+\]
+Finally,
+\[
+ f_\alpha f_\alpha''-(f_\alpha')^2
+ =\frac12\iint(\lambda-\mu)^2e^{-t(\lambda+\mu)}
+       \,\nu_\alpha(d\lambda)\nu_\alpha(d\mu)>0,
+\]
+because $\nu_\alpha$ is not concentrated at a point. This proves strict
+log-convexity as well.
+\end{proof}
+
+At the endpoint $\alpha=1/2$, the scales are $R=R'=1$. In this case
+\eqref{eq:kernel} gives the particularly simple probability density
+\begin{equation}\label{eq:endpoint}
+ f_{1/2}(t)=\int_0^1
+     e^{-t\lambda}\frac{2\,d\lambda}{\pi(2-\lambda)\sqrt{1-\lambda}}.
+\end{equation}
+To obtain it, set $a=b=1$ and $\lambda=2/(2+v^2)$ in
+\eqref{eq:kernel}. Its mass is one, as is also seen by
+$\lambda=1-u^2$, which yields $4\pi^{-1}\int_0^1(1+u^2)^{-1}du=1$.
+
+\subsection*{The proposed spectral logarithmic convexity estimate}
+\begin{corollary}
+Let $(e_j)$ be an orthonormal basis of a Hilbert space, let $\mu_j\in\R$,
+and let $\sum_j|c_j|^2<\infty$. For $0<\alpha\leq1/2$, define
+\[
+ u(t)=\sum_j c_jE_\alpha(-i\mu_jt^\alpha)e_j,\qquad t\geq0.
+\]
+Then for every $T>0$,
+\[
+ \|u(t)\|\leq\|u(0)\|^{1-t/T}\|u(T)\|^{t/T}
+ \qquad(0\leq t\leq T).
+\]
+In particular this applies to the spectral solution in the source's
+proposed estimate (5.1).
+\end{corollary}
+\begin{proof}
+Theorem \ref{thm:main} implies $0<f_\alpha(s)\leq1$, so the series
+converges in the Hilbert space and
+\[
+ \|u(t)\|^2=\sum_j|c_j|^2 f_\alpha(\mu_j^2t^{2\alpha}).
+\]
+The function $h=\log f_\alpha$ is decreasing and convex on $[0,\infty)$,
+using continuity at zero. Since $t\mapsto t^{2\alpha}$ is concave,
+$t\mapsto h(\mu_j^2t^{2\alpha})$ is convex: apply concavity first,
+then monotonicity of $h$, and finally convexity of $h$.
+With $\theta=t/T$, this gives
+$f_\alpha(\mu_j^2t^{2\alpha})
+ \leq f_\alpha(\mu_j^2T^{2\alpha})^\theta$.
+H\"older's inequality for the sum yields
+\[
+ \|u(t)\|^2\leq
+ \left(\sum_j|c_j|^2\right)^{1-\theta}
+ \left(\sum_j|c_j|^2f_\alpha(\mu_j^2T^{2\alpha})\right)^\theta.
+\]
+The endpoints and the zero initial datum are immediate; taking square
+roots completes the proof.
+\end{proof}
+
+\section*{Verification and scope}
+The proof treats the full stated parameter range, including $\alpha=1/2$,
+and every derivative order. The accompanying script performs 133 checks
+at 75-digit precision: direct convolution, conditional characteristic
+functions versus the Laplace integral, derivatives through order four,
+the endpoint density, an independent $\alpha=1/4$ scale integral, and
+the gamma moment identities. These finite checks supplement the proof.
+The dated literature audit records current open status and no located
+existing solution claim; it does not assert exhaustive knowledge of
+unindexed or private work. No external peer review is claimed.
+
+\section*{Task 2: Determine the remaining parameter range}
+Characterize all $\alpha\in(1/2,1)$ for which
+$t\mapsto|E_\alpha(i\sqrt t)|^2$ is completely monotone or log-convex.
+Give a rigorous obstruction when either property fails and account
+separately for the constant case $\alpha=1$.
+
+\section*{Task 3: Compute the general Laplace measure}
+Derive a direct density or useful special-function expression for
+$\nu_\alpha$ when $0<\alpha<1/2$. Determine its support and endpoint
+asymptotics, recovering \eqref{eq:endpoint} as $\alpha\uparrow1/2$.
+
+\section*{Task 4: Classify completely monotone fractional powers}
+Determine the exponents $q>0$ for which $f_\alpha^q$ is completely
+monotone. In particular settle $q=1/2$, and characterize whether the
+probability measure $\nu_\alpha$ is infinitely divisible.
+
+\section*{Task 5: Quantify spectral stability from the representation}
+Use the Laplace measure to obtain quantitative refinements of the
+spectral logarithmic convexity estimate under assumptions on the
+spectral support of the initial datum. Determine equality cases and
+the resulting stability constants for the backward problem.
+
+\begin{thebibliography}{9}
+\bibitem{source}
+S. E. Chorfi, F. Et-tahri, L. Maniar, and M. Yamamoto,
+\emph{Forward and backward problems for abstract time-fractional
+Schr\"odinger equations}, \href{https://arxiv.org/abs/2510.03600}{arXiv:2510.03600v1}
+(2025); published in \emph{Communications in Nonlinear Science and
+Numerical Simulation} \textbf{157} (2026), 109758,
+\href{https://doi.org/10.1016/j.cnsns.2026.109758}{doi:10.1016/j.cnsns.2026.109758}.
+\bibitem{followup}
+S. E. Chorfi, F. Et-tahri, L. Maniar, and M. Yamamoto,
+\emph{Maximal regularity for time-fractional Schr\"odinger equations
+and application to nonlinear equations},
+\href{https://arxiv.org/abs/2603.16726}{arXiv:2603.16726v1} (2026).
+\bibitem{janson}
+S. Janson, \emph{Moments of Gamma type and the Brownian supremum process
+area}, \emph{Probability Surveys} \textbf{7} (2010), 1--52,
+\href{https://doi.org/10.1214/10-PS160}{doi:10.1214/10-PS160};
+\href{https://arxiv.org/abs/1002.4135}{arXiv:1002.4135}.
+\end{thebibliography}
+\end{document}

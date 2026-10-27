@@ -1,0 +1,313 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,hyperref}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newcommand{\E}{\mathbb E}
+\newcommand{\R}{\mathbb R}
+\title{A counterexample family to Simon's Le Roy-type criterion}
+\author{Principia Math In Progress}
+\date{11 September 2026}
+\begin{document}
+\maketitle
+\begin{abstract}
+We disprove the proposed necessity of the logarithmic infinite-divisibility
+criterion for complete monotonicity of a Le Roy-type Mittag--Leffler
+function. With $\alpha=1/3$ and $\gamma=2$, a nonempty open interval of
+parameters $\beta$ below the proposed threshold still gives completely
+monotone functions. The proof constructs a signed density by beta
+integrals, proves strict positivity at the threshold, and shows that
+positivity persists across that threshold. The existence of the interval
+is proved analytically; its width is not assigned a numerical value.
+\end{abstract}
+
+\section*{Task 1: Resolve MathDB problem 349140}
+Write
+\[
+ F_{\alpha,\beta}^{(\gamma)}(z)
+ =\sum_{n=0}^\infty\frac{z^n}{\Gamma(\beta+\alpha n)^\gamma},
+ \qquad \alpha,\beta,\gamma>0.
+\]
+The conjecture in Section 3 of \cite{source} asserts the equivalence
+\begin{equation}\label{eq:conjecture}
+ F_{\alpha,\beta}^{(\gamma)}(-x)\text{ is completely monotone for }x>0
+ \quad\Longleftrightarrow\quad
+ z+\gamma(z^{\beta-\alpha}-z^\beta)\leq1\quad(0<z<1).
+\end{equation}
+Its sufficient direction was already proved there. We refute necessity.
+
+\begin{theorem}\label{thm:counter}
+Define
+\begin{equation}\label{eq:threshold}
+ \beta_c=\max_{0<y<1}
+ \frac13\left(1+\frac{\log((1+y+y^2)/2)}{\log y}\right).
+\end{equation}
+Then $1/3<\beta_c<1/2$, and there exists $\varepsilon>0$ such that,
+for every $\beta\in(\beta_c-\varepsilon,\beta_c)$,
+$F_{1/3,\beta}^{(2)}(-x)$ is strictly completely monotone on $(0,\infty)$,
+whereas the right side of \eqref{eq:conjecture} fails.
+\end{theorem}
+The proof below defines a permissible positive $\varepsilon$ in terms of
+convergent integrals and extrema on compact sets. It does not claim that
+any particular decimal or rational $\beta$ has been certified.
+
+\subsection*{The threshold}
+Set $a=1/3$ and $b=2/3$ throughout. With $z=y^3$, the proposed condition is
+equivalent to
+\begin{equation}\label{eq:polynomial}
+ 1+y+y^2\geq2y^{3\beta-1}\quad(0<y<1),
+\end{equation}
+because the difference between its two sides in \eqref{eq:conjecture}
+is $(1-y)(1+y+y^2-2y^{3\beta-1})$.
+Taking logarithms shows that \eqref{eq:polynomial} holds exactly when
+$\beta\geq\beta_c$.
+The function being maximized tends to $a$ at zero and to $-\infty$ at one,
+and is greater than $a$ whenever $1+y+y^2<2$. Its maximum is therefore
+attained at some $y_*\in(0,1)$ and is greater than $a$.
+Moreover,
+\[
+ 1+y+y^2-2\sqrt y=(1-\sqrt y)^2+y^2>0,
+\]
+so every value in \eqref{eq:threshold}, including its attained maximum,
+is less than $1/2$.
+At any maximizer $y_*$, equality holds in \eqref{eq:polynomial} for
+$\beta=\beta_c$. For every $\beta<\beta_c$, the same $y_*$ gives a strict
+violation, with $z=y_*^3$ in \eqref{eq:conjecture}.
+
+\subsection*{A continuous family of signed densities}
+For $a<\beta<1/2$, define
+\begin{align}
+ H_\beta(s)&=\frac{\Gamma(s+a)\Gamma(s+b)\Gamma(s+1)}
+                       {\Gamma(s+\beta)^2},\label{eq:mellin}\\
+ w_{c,\beta}(u)&=\frac{u^{c-1}(1-u)^{\beta-c}}
+                         {\Gamma(\beta+1-c)},
+ \qquad c\in\{a,b\},\quad 0<u<1,\label{eq:weights}\\
+ P_\beta(t)&=t^2+(2\beta-3)t+(\beta-1)^2,\label{eq:quadratic}\\
+ h_\beta(x)&=\int_0^1\int_0^1
+ w_{a,\beta}(u)w_{b,\beta}(v)
+ \frac{e^{-x/(uv)}}{uv}\,P_\beta\!\left(\frac{x}{uv}\right)\,du\,dv,
+ \qquad x>0.\label{eq:density}
+\end{align}
+Both beta weights are integrable and positive. The function $h_\beta$
+may have either sign at this stage.
+
+\begin{lemma}\label{lem:properties}
+The family $h_\beta(x)$ is jointly continuous, with a continuous
+$\beta$ derivative, on $(a,1/2)\times(0,\infty)$.
+For every complex $s$ with $\Re s>-a$, it is absolutely integrable
+against $x^s$ and satisfies
+\begin{equation}\label{eq:transform}
+ \int_0^\infty x^s h_\beta(x)\,dx=H_\beta(s).
+\end{equation}
+On each compact parameter interval $I\subset(a,1/2)$, it is positive
+for all sufficiently small $x>0$, uniformly in $\beta\in I$.
+It is also positive for every $x\geq3$ and every $\beta\in(a,1/2)$.
+\end{lemma}
+\begin{proof}
+For $s$ in the stated half-plane, absolute Fubini is justified by
+putting $t=x/(uv)$ in \eqref{eq:density}. The absolute $t$ integral is
+bounded by a sum of gamma integrals, since $\Re s>-a>-1$.
+The remaining beta integrals have exponents $s+a-1$ and $s+b-1$
+at zero and integrable exponents at one. Furthermore,
+\[
+ \int_0^\infty t^s e^{-t}P_\beta(t)\,dt
+ =(s+\beta)^2\Gamma(s+1),\qquad
+ \int_0^1 u^s w_{c,\beta}(u)\,du
+ =\frac{\Gamma(s+c)}{\Gamma(s+\beta+1)}.
+\]
+Their product is \eqref{eq:transform}. In particular $h_\beta\in L^1$.
+On compact positive $x$ intervals, the exponential in
+\eqref{eq:density} dominates all powers of $(uv)^{-1}$; logarithmic
+factors from a $\beta$ derivative are integrable at $u=1,v=1$.
+This proves the asserted continuity by dominated differentiation.
+
+Here are details of the uniform small-$x$ assertion. Mellin inversion gives
+\[
+ h_\beta(x)=\frac1{2\pi i}\int_{-i\infty}^{i\infty}
+                   H_\beta(s)x^{-s-1}\,ds.
+\]
+Indeed, \eqref{eq:transform} at $s=it$ is the Fourier transform of the
+integrable continuous function $e^v h_\beta(e^v)$, and is itself integrable.
+Uniform Stirling estimates on compact $\beta$ intervals give
+\[
+ |H_\beta(\sigma+it)|\leq C_I(1+|t|)^{A_I}e^{-\pi|t|/2}
+ \quad(-1/2\leq\sigma\leq0,\ |t|\geq1).
+\]
+We may therefore move the contour to $\Re s=-1/2$. Only the simple pole
+$s=-a$ is crossed. Consequently,
+\begin{equation}\label{eq:small}
+ h_\beta(x)=C_\beta x^{-2/3}+R_\beta(x),\qquad
+ C_\beta=\frac{\Gamma(1/3)\Gamma(2/3)}{\Gamma(\beta-1/3)^2}>0,
+ \qquad |R_\beta(x)|\leq M_I x^{-1/2},
+\end{equation}
+where one can take
+\[
+ M_I=\frac1{2\pi}\sup_{\beta\in I}
+          \int_{\R}|H_\beta(-1/2+it)|\,dt<\infty.
+\]
+The minimum of $C_\beta$ on $I$ is positive, proving uniform positivity
+near zero. Finally, for $t\geq3$ and $\beta>a$,
+\[
+ P_\beta(t)>t(t-7/3)>0.
+\]
+When $x\geq3$, the argument $t=x/(uv)$ in \eqref{eq:density} is at
+least three. The entire integrand is then positive.
+\end{proof}
+
+\subsection*{Strict positivity at the threshold}
+Nonnegativity alone at the threshold would not suffice for perturbation
+on a compact $x$ interval. The following argument establishes the needed
+pointwise strictness.
+
+\begin{lemma}\label{lem:strict}
+For every $x>0$, $h_{\beta_c}(x)>0$.
+\end{lemma}
+\begin{proof}
+The standard exponential formula for the gamma function yields, for $s\geq0$,
+\begin{equation}\label{eq:levy}
+ \log\frac{H_\beta(s)}{H_\beta(0)}
+ =d_\beta s+\int_0^\infty(e^{-su}-1+su)\frac{N_\beta(u)}u\,du,
+\end{equation}
+where
+\[
+ d_\beta=\psi(a)+\psi(b)+\psi(1)-2\psi(\beta),\qquad
+ N_\beta(u)=\frac{e^{-au}+e^{-bu}+e^{-u}-2e^{-\beta u}}{1-e^{-u}}.
+\]
+This is the same gamma/L\'evy--Khintchine calculation used in
+\cite[Section 2]{source}, with a change of scale.
+At $\beta=\beta_c$, \eqref{eq:polynomial} gives $N_\beta\geq0$.
+Moreover $N_\beta(u)/u\sim u^{-2}$ at zero and decays exponentially at
+infinity. Thus \eqref{eq:levy} is the cumulant of an infinitely divisible
+real random variable $T$, with negative jumps and all positive
+exponential moments. The formula also holds on the imaginary axis.
+By \eqref{eq:transform} and uniqueness of Fourier transforms of finite
+signed measures, its continuous density is
+\begin{equation}\label{eq:logdensity}
+ g(t)=\frac{e^t h_{\beta_c}(e^t)}{H_{\beta_c}(0)}.
+\end{equation}
+In particular, this expression is nonnegative everywhere.
+
+Since $a<\beta_c<b<1$, the term $e^{-au}$ dominates the numerator of
+$N_{\beta_c}$ at infinity. Choose $L>0$ so that $N_{\beta_c}(u)>0$
+for all $u\geq L$. Choose a continuous bounded function $\nu_1$ which
+vanishes for $u\leq L$, is strictly positive for $u>L$, and satisfies
+\[
+ 0\leq\nu_1(u)\leq N_{\beta_c}(u)/u.
+\]
+For example multiply that density on $u>L$ by
+$1-e^{-(u-L)}$ and set it to zero elsewhere. Its mass
+$\Lambda=\int\nu_1(u)\,du$ is finite and positive, and $\nu_1$ is
+uniformly continuous.
+Split the L\'evy measure to write $T=W+Z$, independently, where $Z$ is
+the negative compound-Poisson variable with intensity density $\nu_1$.
+The remaining drift is absorbed in $W$.
+
+For $s\geq0$,
+\[
+ -\Lambda\leq\log\E e^{sZ}
+ =\int_0^\infty(e^{-su}-1)\nu_1(u)\,du\leq0.
+\]
+Stirling's formula gives
+$\log(H_{\beta_c}(s)/H_{\beta_c}(0))=s\log s+O(s)$.
+It follows that $\log\E e^{sW}=s\log s+O(s)$, so $W$ has unbounded
+support above: an upper bound $W\leq A$ would imply
+$\log\E e^{sW}\leq As$.
+
+The event that $Z$ has exactly one jump gives the continuous density
+minorant
+\[
+ g_1(t)=e^{-\Lambda}\int_{\R}\nu_1(w-t)\,\mathbb P(W\in dw).
+\]
+For every real $t$, the unbounded upper support of $W$ and the positivity
+of $\nu_1$ on $(L,\infty)$ imply $g_1(t)>0$.
+Continuity follows from uniform continuity and boundedness of $\nu_1$.
+The probability-measure domination gives $g\geq g_1$ almost everywhere;
+as both are continuous, it holds everywhere.
+Equation \eqref{eq:logdensity} now proves the lemma.
+\end{proof}
+
+\subsection*{Perturbation and the Mittag--Leffler transform}
+Choose a closed interval $I\subset(a,1/2)$ with $\beta_c$ in its interior.
+Let $c_I=\min_{\beta\in I} C_\beta>0$ and choose $\eta\in(0,1]$ so small
+that $M_I\eta^{1/6}<c_I/2$. By \eqref{eq:small},
+$h_\beta(x)>0$ for $0<x\leq\eta$, uniformly for $\beta\in I$.
+Lemma \ref{lem:strict} gives
+\[
+ m=\min_{\eta\leq x\leq3}h_{\beta_c}(x)>0.
+\]
+Joint continuous differentiability from Lemma \ref{lem:properties} gives
+\[
+ A=\sup_{\beta\in I,\ \eta\leq x\leq3}
+                |\partial_\beta h_\beta(x)|<\infty.
+\]
+Take any positive $\varepsilon$ smaller than both the distance from
+$\beta_c$ to the endpoints of $I$ and $m/[2(1+A)]$.
+For $|\beta-\beta_c|<\varepsilon$, the mean value theorem gives
+$h_\beta(x)>m/2$ on $[\eta,3]$. Together with the uniform small-$x$
+bound and positivity for $x\geq3$, this proves
+\begin{equation}\label{eq:perturbed}
+ h_\beta(x)>0\quad\text{for all }x>0,
+ \qquad |\beta-\beta_c|<\varepsilon.
+\end{equation}
+
+Normalize $h_\beta/H_\beta(0)$ to be the density of a positive random
+variable $Y_\beta$, and put $X_\beta=3Y_\beta^{1/3}$.
+Gamma triplication and \eqref{eq:transform} give, for every $s\geq0$,
+\begin{equation}\label{eq:moments}
+ \E X_\beta^s
+ =3^s\frac{H_\beta(s/3)}{H_\beta(0)}
+ =\frac{\Gamma(1+s)\Gamma(\beta)^2}{\Gamma(\beta+s/3)^2}.
+\end{equation}
+The series for $F_{1/3,\beta}^{(2)}$ is entire, as follows directly from
+Stirling's formula. For every real $z\geq0$, monotone convergence and
+\eqref{eq:moments} therefore give
+$\E e^{zX_\beta}=\Gamma(\beta)^2 F_{1/3,\beta}^{(2)}(z)<\infty$.
+Absolute convergence then justifies the same identity for complex $z$.
+In particular,
+\begin{equation}\label{eq:laplace}
+ F_{1/3,\beta}^{(2)}(-x)
+ =\frac1{\Gamma(\beta)^2}\E e^{-xX_\beta}\quad(x>0).
+\end{equation}
+For every integer $k\geq0$, differentiation under this probability
+integral is justified by boundedness of $t^k e^{-xt/2}$ locally in $x>0$.
+Since $X_\beta>0$ almost surely, all alternating derivatives are strictly
+positive. Finally choose $\beta\in(\beta_c-\varepsilon,\beta_c)$.
+The threshold calculation shows failure of the proposed condition,
+while \eqref{eq:laplace} proves complete monotonicity. This completes the
+proof of Theorem \ref{thm:counter}.
+
+\section*{Task 2: Certify an explicit counterexample parameter}
+Replace the implicit positive width $\varepsilon$ by a rigorous numerical
+lower bound. In particular, determine whether $\beta=43/100$ is a
+counterexample, using certified bounds for the small-$x$ remainder and
+the compact-interval minimum. A positive numerical grid alone is not
+a certificate.
+
+\section*{Task 3: Determine the actual complete-monotonicity threshold}
+For $\alpha=1/3$ and $\gamma=2$, determine the infimum of the parameters
+$\beta$ giving complete monotonicity. Describe the loss of positivity
+of $h_\beta$ at this boundary, including whether it occurs through a
+unique double zero at a finite positive argument.
+
+\section*{Task 4: Extend the counterexamples to other parameters}
+Establish an analogous stability theorem for other rational $\alpha$
+and integer $\gamma$, and then for noninteger $\gamma$. Determine
+whether the counterexamples occupy a nonempty open subset of the full
+three-dimensional parameter space.
+
+\section*{Task 5: Find a direct positive representation below the threshold}
+Construct an explicit positive mixture or product representation of
+$X_\beta$ for counterexample parameters. Such a representation should
+make positivity visible without perturbing from $\beta_c$, and explain
+how the sign-changing gamma L\'evy kernel is compatible with a positive
+probability law.
+
+\begin{thebibliography}{9}
+\bibitem{source} T. Simon,
+\emph{Remark on a Mittag--Leffler function of Le Roy type},
+Integral Transforms Spec. Funct. \textbf{33} (2022), 108--114,
+\href{https://doi.org/10.1080/10652469.2021.1913138}{doi:10.1080/10652469.2021.1913138}.
+\href{https://arxiv.org/abs/2012.11018}{arXiv:2012.11018v2},
+25 March 2021, Section 3, pages 5--6.
+\end{thebibliography}
+\end{document}

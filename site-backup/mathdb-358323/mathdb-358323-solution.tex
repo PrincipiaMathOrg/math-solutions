@@ -1,0 +1,150 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,hyperref}
+\newtheorem{theorem}{Theorem}
+\newcommand{\C}{\mathbb C}
+\title{A periodic counterexample to the generated Taylor-polynomial\ zero-set conjecture}
+\author{Principia Math In Progress}
+\date{11 September 2026}
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Conjecture 47 of Chung asserts a circular zero-set limit for a rationally
+generated polynomial sequence when its fixed quadratic factor has nonpositive
+discriminant. The admissible choice $a=b=c=1$ refutes the conjecture:
+one infinite subsequence has all zeros on the unit circle, whereas a second
+has an additional zero at the origin. Consequently the upper and lower
+zero-set limits differ, and the limit required by the source does not exist.
+\end{abstract}
+
+\section*{Task 1: Resolve MathDB problem 358323}
+The problem, Conjecture 47 on printed page 119 of \cite{chung}, concerns
+the polynomials defined by
+\begin{equation}\label{eq:gf}
+ \sum_{m\geq0}P_m(z)t^m=
+ \frac{1}{(at^2+bt+c)(1-tz)},\qquad
+ a,b,c\in\mathbb R\setminus\{0\},\quad b^2-4ac\leq0.
+\end{equation}
+If $t_1$ is a zero of $at^2+bt+c$ of smallest modulus, the proposed conclusion is
+\[
+ \lim_{m\to\infty}Z(P_m)=\{z\in\C:|z|=1/|t_1|\}.
+\]
+Here $Z(P)$ is the set of complex zeros of $P$. Definitions 38--41 on
+printed pages 92--93 of the source specify the meaning of the limit.
+Writing $B(w,r)=\{z:|z-w|<r\}$, they are the usual set limits
+\begin{align*}
+ w\in\limsup_m Z(P_m)
+ &\iff \text{every }B(w,r)\text{ meets }Z(P_m)
+       \text{ for arbitrarily large }m,\\
+ w\in\liminf_m Z(P_m)
+ &\iff \text{every }B(w,r)\text{ meets }Z(P_m)
+       \text{ for all sufficiently large }m.
+\end{align*}
+The source defines $\lim_m Z(P_m)$ when these two sets are equal.
+
+\begin{theorem}\label{thm:counterexample}
+For $a=b=c=1$ in \eqref{eq:gf}, and every integer $r\geq0$,
+\begin{align}
+ P_{3r+1}(z)&=(z-1)\sum_{j=0}^{r}z^{3j},\label{eq:first}\\
+ P_{3r+2}(z)&=z(z-1)\sum_{j=0}^{r}z^{3j}.
+ \label{eq:second}
+\end{align}
+In particular,
+\[
+ 0\in\limsup_m Z(P_m)\setminus\liminf_m Z(P_m).
+\]
+Thus Conjecture 47 is false even for positive $a,b,c$ and strictly negative
+discriminant.
+\end{theorem}
+
+\begin{proof}
+The parameters are nonzero and $b^2-4ac=-3<0$. The two quadratic zeros
+are $e^{2\pi i/3}$ and $e^{-2\pi i/3}$; both have modulus one. Thus the
+conjectured circle is $|z|=1$.
+
+Define coefficients $c_k$ by
+\[
+ \frac1{1+t+t^2}=\frac{1-t}{1-t^3}
+ =\sum_{j\geq0}(t^{3j}-t^{3j+1}).
+\]
+These identities hold as formal power series, so
+\[
+ c_{3j}=1,\qquad c_{3j+1}=-1,\qquad c_{3j+2}=0.
+\]
+Multiplication by $(1-tz)^{-1}$ gives
+\begin{equation}\label{eq:coeff}
+ P_m(z)=\sum_{k=0}^{m}c_k z^{m-k}.
+\end{equation}
+For $m=3r+1$, grouping the nonzero coefficients in pairs yields
+\[
+ P_{3r+1}(z)
+ =\sum_{j=0}^{r}\bigl(z^{3r+1-3j}-z^{3r-3j}\bigr)
+ =(z-1)\sum_{j=0}^{r}z^{3j}.
+\]
+For $m=3r+2$ the extra coefficient $c_{3r+2}$ is zero,
+so \eqref{eq:coeff} gives $P_{3r+2}(z)=zP_{3r+1}(z)$.
+This proves both factorization identities without division by a polynomial.
+
+Every zero of $S_r(z)=\sum_{j=0}^{r}z^{3j}$ lies on the unit circle:
+if $S_r(z)=0$, the polynomial identity
+\[
+ (z^3-1)S_r(z)=z^{3r+3}-1
+\]
+implies $z^{3r+3}=1$ and hence $|z|=1$.
+(For $r=0$, $S_r=1$ has no zeros.) Formula \eqref{eq:first}
+therefore places every zero of $P_{3r+1}$ on $|z|=1$.
+Formula \eqref{eq:second} places a zero of $P_{3r+2}$ exactly at $0$.
+
+Every neighborhood of $0$ consequently meets $Z(P_{3r+2})$ for every $r$.
+Thus $0$ belongs to the upper limit. But the fixed ball $B(0,1/2)$
+is disjoint from $Z(P_{3r+1})$ for every $r$, so $0$ does not belong
+to the lower limit. The required limit does not exist.
+Moreover, even if the conjectured limit were interpreted as the upper
+limit alone, its claimed circle would still omit the point $0$.
+\end{proof}
+
+\paragraph{Scope.}
+The theorem resolves the universal conjecture by an exact infinite-family
+counterexample. It makes no assertion about weak convergence of normalized
+zero-counting measures, which is a different question: a single exceptional
+zero has mass tending to zero in such a normalization.
+
+\paragraph{Verification and status.}
+The accompanying integer-arithmetic verifier constructs $P_m$ independently
+from the cubic denominator in \eqref{eq:gf} and checks the coefficient and
+factorization identities. These finite checks supplement the proof for all
+$r$. A same-agent dependency audit and dated literature/status audit are
+saved alongside this file. MathDB was checked to be open with no posted
+claims on 11 September 2026; the searched primary sources disclosed no
+existing resolution. No external peer review is claimed.
+
+\section*{Task 2: Classify the root-phase obstruction}
+For $b^2-4ac<0$, express the quadratic zeros as $\rho e^{\pm i\theta}$.
+Determine which rational values of $\theta/\pi$ force the two zero-set
+limits to differ, and whether irrational values can have the same effect.
+
+\section*{Task 3: Determine both limiting zero sets}
+Compute the full lower and upper zero-set limits for $a=b=c=1$, including
+the subsequence $m\equiv0\pmod3$; then extend the description to arbitrary
+nonzero real $a,b,c$ with nonpositive discriminant.
+
+\section*{Task 4: Establish a measure version of the limit}
+For the polynomials in \eqref{eq:gf}, determine whether the normalized
+zero-counting measures converge weakly to uniform arclength on
+$|z|=1/|t_1|$ throughout the nonpositive-discriminant range, with zeros
+counted with multiplicity.
+
+\section*{Task 5: Quantify exceptional zeros}
+For each fixed admissible quadratic and $\varepsilon>0$, bound the number
+of zeros lying outside the annulus
+$\bigl||z|-1/|t_1|\bigr|<\varepsilon$ and determine the possible limits
+of these exceptional zeros along subsequences.
+
+\begin{thebibliography}{9}
+\bibitem{chung} J. Chung, \emph{Zero Distribution of Generated Taylor
+Polynomials}, MSc project, California State University, Fresno, May 2022;
+\href{https://arxiv.org/abs/2305.05130}{arXiv:2305.05130v1}, 9 May 2023.
+Definitions 38--41, pp.~92--93; Conjecture 47, p.~119.
+\end{thebibliography}
+\end{document}

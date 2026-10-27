@@ -1,0 +1,160 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,booktabs,enumitem,hyperref}
+\hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue,citecolor=blue}
+\newtheorem{theorem}{Theorem}
+\newcommand{\RLM}{\operatorname{RLMv}}
+\newcommand{\EXC}{\operatorname{EXCv}}
+\newcommand{\inv}{\operatorname{inv}}
+\title{A counterexample to signed cycle-restriction positivity\\\large MathDB 350721}
+\author{Principia Math In Progress}
+\date{September 18, 2026}
+\begin{document}
+\maketitle
+\begin{abstract}
+The signed cycle-restriction positivity conjecture fails at $n=8$,
+$k=3$, including the corrected formulation in the published paper.
+The coefficient of $x_1x_4x_6x_7y_2y_3y_5y_8$ is $-1$.
+We prove this by an exhaustive six-row table derived directly from
+the required permutation statistics. A second coefficient is $+1$,
+so changing a global sign cannot restore positivity.
+\end{abstract}
+
+\section*{Task 1. Full solution}
+\subsection*{The intended published statement}
+For a permutation $\pi\in\mathfrak S_n$, written as
+$\pi(1)\cdots\pi(n)$, define
+\[
+ \RLM(\pi)=\{\pi(j):\pi(j)<\pi(l)\text{ for every }l>j\},
+ \qquad
+ \EXC(\pi)=\{\pi(j):\pi(j)>j\}.
+\]
+For a set $S$, put $x_S=\prod_{s\in S}x_s$, and similarly for $y_S$.
+Let $c(\pi)$ denote the number of cycles. Write
+\begin{equation}\label{eq:P}
+ P_{n,k}(\mathbf x,\mathbf y)=(-1)^{n-1}
+ \sum_{\substack{\pi\in\mathfrak S_n\\
+                  \text{every cycle of }\pi\text{ has length}\ge k}}
+ (-1)^{\inv(\pi)}x_{\RLM(\pi)}y_{\EXC(\pi)}.
+\end{equation}
+Conjecture 5.2.1 of the journal version \cite[p.~411]{final} asserts
+$P_{n,k}\in\mathbb N[\mathbf x,\mathbf y]$ for $2\le k\le n$.
+The current preprint's Conjecture 40 and the MathDB transcription omit
+$(-1)^{n-1}$ and allow $k=1$. The journal corrects both points.
+Our counterexample uses the journal's corrected statement.
+
+\begin{theorem}\label{thm:counter}
+For $n=8$, $k=3$, let
+\[
+ M=x_1x_4x_6x_7y_2y_3y_5y_8,\qquad
+ N=x_1y_2y_3y_4y_5y_6y_7y_8.
+\]
+Then $[M]P_{8,3}=-1$ and $[N]P_{8,3}=1$.
+In particular, the published conjecture is false, and the
+unnormalized polynomial in MathDB also has coefficients of both signs.
+\end{theorem}
+
+\subsection*{Deriving the complete table}
+To contribute to $[M]P_{8,3}$, a permutation must have
+\begin{equation}\label{eq:sets}
+ \RLM(\pi)=\{1,4,6,7\},\qquad \EXC(\pi)=\{2,3,5,8\}.
+\end{equation}
+It must in particular have no fixed points. Let $p_v=\pi^{-1}(v)$.
+The excedance conditions for the values $2,3$ force $p_2=1$, $p_3=2$.
+The rightmost entry is the largest right-to-left minimum value, so
+$\pi(8)=7$. Value $6$ is not an excedance and is not fixed, hence
+$p_6>6$. Since position $8$ is occupied, $p_6=7$.
+Similarly $p_4>4$. The right-to-left minima occur in increasing
+value order, so $p_4<p_6=7$; therefore $p_4\in\{5,6\}$.
+Finally $5$ is an excedance value, giving $p_5<5$, and positions
+$1,2$ are occupied; thus $p_5\in\{3,4\}$.
+
+We have reduced every possible permutation to
+\[
+ \pi=2\,3\,\boxed{\quad\quad\quad\quad}\,6\,7,
+\]
+where the middle four entries are $1,4,5,8$, subject to the conditions
+just stated and $p_1<p_4$.
+If $p_4=5$, the values $1,5$ fill positions $3,4$ in either order,
+and $8$ fills position $6$. If $p_4=6$, place $5$ at position $3$
+or $4$, and fill the remaining two positions with $1,8$ in either
+order. These give exactly the following six rows. Direct inspection
+confirms that each has the two statistic sets in \eqref{eq:sets}.
+
+\begin{center}
+\begin{tabular}{llll}
+\toprule
+One-line form & Disjoint cycles & $c(\pi)$ & Contribution to $[M]P_{8,3}$\\
+\midrule
+$23154867$ & $(123)(45)(687)$ & $3$ & excluded: a $2$-cycle\\
+$23158467$ & $(123)(45876)$ & $2$ & $-1$\\
+$23514867$ & $(12354)(687)$ & $2$ & $-1$\\
+$23518467$ & $(12358764)$ & $1$ & $+1$\\
+$23581467$ & $(1235)(4876)$ & $2$ & $-1$\\
+$23851467$ & $(12387645)$ & $1$ & $+1$\\
+\bottomrule
+\end{tabular}
+\end{center}
+Indeed $\operatorname{sgn}(\pi)=(-1)^{8-c(\pi)}$, so the weight
+including the global factor in \eqref{eq:P} is $(-1)^{c(\pi)-1}$.
+All cycles in the last five rows have length at least $3$.
+Their contributions add to $-1-1+1-1+1=-1$. This proves the first
+coefficient assertion without relying on computer enumeration.
+
+\subsection*{The other sign and the source correction}
+For the monomial $N$, all values $2,3,\ldots,8$ must be excedances.
+Induction forces $p_v=v-1$ for $2\le v\le8$: the earlier positions
+are already occupied by the smaller excedance values. Thus the
+unique permutation is $23456781=(12345678)$. Its right-to-left
+minimum set is $\{1\}$ and its normalized sign is $+1$.
+Therefore $[N]P_{8,3}=1$, completing the proof.\hfill$\square$
+
+For the unnormalized polynomial printed in MathDB, the coefficients
+of $M,N$ are $+1,-1$, respectively. Hence this resolves the intended
+research assertion even after the journal's corrections; the missing
+global sign is not the mathematical obstruction established here.
+
+\subsection*{Verification and attribution}
+The conjecture, statistics, and the known $k=2$ result are due to
+Alexandersson and Getachew Kebede \cite{final,preprint}. Our six-row
+coefficient calculation disproves their proposed extension.
+The accompanying exact verifier checks the table and inversion signs,
+enumerates all $8!$ permutations, independently generates the allowed
+permutations by their cycles, and checks the known derangement
+identity and all smaller parameters. These computations supplement
+the complete table argument above.
+
+All 23 pages of the current primary, all 27 pages of the journal
+final, and all nine pages of the proceedings version were read.
+The later refinements by Pei and Zeng \cite{pz} concern the
+derangement case; their stated results do not settle the cycle-length
+restriction. Bounded public checks found no earlier full claim for
+this target. Review is by the authoring agent, with no independent
+peer review or proof-assistant certification.
+
+\section*{Tasks 2--5. Proposed follow-up directions}
+\begin{enumerate}[label=\textbf{Task \arabic*.},start=2,leftmargin=*]
+\item Construct infinite families of negative coefficients for fixed
+$k=3$, extending the six-row configuration above.
+\item Classify the pairs $(n,k)$ for which all coefficients of
+$P_{n,k}$ are nonnegative; the cases $k=2$ and $k>n/2$ are known
+or immediate.
+\item Determine which identifications of the $x$ and $y$ variables
+restore positivity, and whether the fully bivariate specialization
+has nonnegative coefficients for every cycle restriction.
+\item Describe precisely how forbidding $2$-cycles removes
+sign-canceling partners in the source involutions, and derive a
+formula for the resulting negative terms.
+\end{enumerate}
+\begin{thebibliography}{9}
+\bibitem{final} P. Alexandersson and F. G. Kebede,
+\emph{An involution on derangements preserving excedances and
+right-to-left minima}, Australas. J. Combin. \textbf{86}(3) (2023),
+387--413. \href{https://ajc.maths.uq.edu.au/pdf/86/ajc_v86_p387.pdf}{Journal PDF}.
+\bibitem{preprint} P. Alexandersson and F. G. Kebede, same title,
+\href{https://arxiv.org/abs/2105.08455v3}{arXiv:2105.08455v3}, 2022.
+\bibitem{pz} Y. Pei and J. Zeng, \emph{Counting derangements with
+signed right-to-left minima and excedances},
+\href{https://arxiv.org/abs/2206.11236v2}{arXiv:2206.11236v2}, 2023.
+\end{thebibliography}
+\end{document}

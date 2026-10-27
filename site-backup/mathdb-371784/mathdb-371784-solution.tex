@@ -1,0 +1,196 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,hyperref}
+\hypersetup{colorlinks=true,urlcolor=blue,linkcolor=blue}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newtheorem{corollary}{Corollary}
+\newcommand{\I}{\mathcal I}
+\newcommand{\T}{\mathcal T}
+\newcommand{\A}{\mathcal A}
+\newcommand{\B}{\mathcal B}
+\title{A strictly positive biquadratic $M$-tensor\protect\\without a sum-of-squares representation\protect\\\large MathDB 371784}
+\author{Principia Math In Progress}
+\date{21 September 2026}
+\begin{document}
+\maketitle
+
+\section*{Task 1: full resolution of the stated conjecture}
+Xu, Cui and Qi ask whether every symmetric biquadratic $M$-tensor
+is a sum of squares of bilinear forms \cite[Question 1]{XCQ}.
+This was Conjecture 3.1 in their current preprint.
+We answer negatively, even with a strict $M$-eigenvalue margin.
+
+Here symmetric means the tensor identities
+\begin{equation}\label{eq:sym}
+                 a_{ijkl}=a_{kjil}=a_{klij}.
+\end{equation}
+It does not impose invariance of the polynomial under arbitrary
+permutations of the $x$-variables or the $y$-variables. The source
+explicitly distinguishes these notions. We use exactly
+\eqref{eq:sym}, its hypothesis in Question 1.
+
+For $x,y\in\mathbb R^3$ define
+\begin{align}
+ C(x,y)&=\sum_{i=1}^3x_i^2y_i^2+
+             x_1^2y_2^2+x_2^2y_3^2+x_3^2y_1^2
+             -2\sum_{i<j}x_ix_jy_iy_j,\label{eq:choi}\\
+ J(x,y)&=\Bigl(\sum_{i=1}^3x_i^2\Bigr)
+              \Bigl(\sum_{j=1}^3y_j^2\Bigr),\qquad
+ P(x,y)=8C(x,y)+J(x,y).\label{eq:P}
+\end{align}
+The form $C$ is the classical Choi form \cite{Choi}, up to cyclic
+orientation. We do not claim its PSD/non-SOS phenomenon as new.
+The point here is its application to the stated $M$-tensor question,
+with an explicit strict perturbation and a self-contained certificate.
+
+\begin{theorem}\label{thm:main}
+The symmetric biquadratic tensor $\A$ of $P$ satisfies
+\[
+ \A=9\I-\B,\qquad \B\ge0\text{ entrywise},\qquad
+                   \lambda_{\max}(\B)=8<9.
+\]
+Thus $\A$ is a strong $M$-biquadratic tensor. Moreover,
+$P(x,y)\ge\|x\|^2\|y\|^2$, but $P$ is not a sum of squares
+of bilinear forms.
+\end{theorem}
+
+\subsection*{Positivity and the tensor entries}
+Let $\T$ be the tensor of $C$. Its nonzero entries are as follows.
+For $i=1,2,3$, with $i+1$ taken cyclically,
+\[
+ t_{iiii}=t_{i,i+1,i,i+1}=1.
+\]
+For each $i<j$ set
+\[
+ t_{iijj}=t_{jiij}=t_{ijji}=t_{jjii}=-\tfrac12.
+\]
+Every other entry is zero. These prescriptions verify
+\eqref{eq:sym} and give
+$C=\sum_{i,j,k,l}t_{ijkl}x_iy_jx_ky_l$.
+The $M$-identity is $I_{ijkl}=\delta_{ik}\delta_{jl}$,
+whose form is $J$. Consequently $\A=8\T+\I$ has integer entries.
+
+\begin{lemma}\label{lem:psd}
+$C(x,y)\ge0$ for all real $x,y$.
+\end{lemma}
+\begin{proof}
+Write $C=x^TM(y)x$, where
+\[
+ M(y)=\begin{pmatrix}
+ y_1^2+y_2^2&-y_1y_2&-y_1y_3\\
+ -y_1y_2&y_2^2+y_3^2&-y_2y_3\\
+ -y_1y_3&-y_2y_3&y_3^2+y_1^2
+ \end{pmatrix}.
+\]
+Put $a=y_1^2,b=y_2^2,c=y_3^2$. Its diagonal entries are
+nonnegative. The principal minors on index sets $12,13,23$ are,
+respectively,
+\[
+ ac+b^2+bc,\qquad a^2+ab+bc,\qquad ab+ac+c^2.
+\]
+Its determinant is
+\[
+                a^2c+ab^2+bc^2-3abc\ge0,
+\]
+by AM--GM, since the product of the three positive terms is
+$(abc)^3$. The inequality includes zero values by continuity.
+All principal minors of the real symmetric matrix $M(y)$ are
+nonnegative, so it is positive semidefinite. This proves the lemma.
+\end{proof}
+
+Set $\B=8(\I-\T)$. Diagonal entries of $\T$ are zero or one,
+and its off-diagonal entries are zero or $-1/2$.
+Therefore $\B$ has entries in $\{0,4,8\}$ and is nonnegative.
+Its form is $8(J-C)$. If $\lambda$ is any $M$-eigenvalue of
+$\B$ with unit eigenvectors $x,y$, contraction with $x$ gives
+\[
+              \lambda=8(1-C(x,y))\le8.
+\]
+To verify attainment directly, set $v=(1,1,1)^T/\sqrt3$.
+For each fixed first index, the entries of $\B$ sum to $24$;
+the same holds for each fixed second index. Hence
+\[
+       \B\mathbin{\cdot}vvv=8v,\qquad
+       \B v\mathbin{\cdot}vv=8v.
+\]
+Thus $8$ is an $M$-eigenvalue and $\lambda_{\max}(\B)=8$.
+This proves the asserted strict $M$-tensor condition.
+Lemma~\ref{lem:psd} also gives $P\ge J$.
+
+\subsection*{An exact obstruction to every SOS representation}
+Define a linear functional $\ell$ on the space of real biquadratic
+polynomials by specifying its values on monomials:
+\[
+\begin{array}{c|c}
+\text{monomial}&\ell(\text{monomial})\\\hline
+x_i^2y_i^2&2\\
+x_1^2y_2^2,\ x_2^2y_3^2,\ x_3^2y_1^2&1\\
+x_2^2y_1^2,\ x_3^2y_2^2,\ x_1^2y_3^2&4\\
+x_ix_jy_iy_j\quad(i<j)&2
+\end{array}
+\]
+Its value on every unlisted monomial is zero.
+For an arbitrary bilinear form $g=\sum_{i,j=1}^3u_{ij}x_iy_j$,
+direct expansion gives
+\begin{align}
+ \ell(g^2)={}&2(u_{11}+u_{22}+u_{33})^2
+        +(u_{12}+2u_{21})^2\notag\\
+       &+(u_{23}+2u_{32})^2+(u_{31}+2u_{13})^2\ge0.
+       \label{eq:separator}
+\end{align}
+In particular $\ell$ is nonnegative on every finite sum of squares
+of bilinear forms. On the other hand,
+\[
+ \ell(C)=6+3-12=-3,\qquad \ell(J)=6+3+12=21,
+ \qquad \ell(P)=8(-3)+21=-3<0.
+\]
+This contradicts any proposed SOS representation of $P$ and completes
+the proof of Theorem~\ref{thm:main}.
+
+\begin{corollary}
+For every $0<t<1/7$, the form $C+tJ$ is strictly positive on
+pairs of nonzero vectors, its tensor is a strong $M$-biquadratic
+tensor, and it is not SOS.
+\end{corollary}
+\begin{proof}
+Its tensor is $(1+t)\I-(\I-\T)$, with
+$\lambda_{\max}(\I-\T)=1$. Its form is at least $tJ$, while
+$\ell(C+tJ)=-3+21t<0$.
+\end{proof}
+
+\paragraph{Verification and scope.}
+The accompanying verifier checks all tensor entries and symmetries,
+all principal-minor identities, the exact eigenvector equations,
+and the separator identity for nine symbolic bilinear coefficients.
+These checks support the displayed algebraic proof; no numerical
+optimization, eigenvalue approximation, or sampled positivity claim
+is used. This resolves Question 1 only. Review is by the authoring
+agent, without independent peer review or a proof assistant.
+
+\section*{Four proposed follow-up tasks}
+\begin{enumerate}
+\item Task 2: Determine the exact smallest $t\ge0$ for which $C+tJ$
+is SOS, and exhibit a representation at the threshold.
+\item Task 3: Classify the SOS members of the three-parameter cyclic
+family with independently weighted diagonal and two cyclic square sums.
+\item Task 4: Characterize which symmetric $M$-biquadratic tensors
+admit positive diagonal rescaling to a diagonally dominated tensor.
+\item Task 5: Obtain dimension-dependent bounds for the amount of
+$M$-identity that must be added to a normalized $M$-biquadratic tensor
+to make it SOS.
+\end{enumerate}
+These are proposed research tasks and earn no additional solution credit.
+
+\begin{thebibliography}{9}
+\bibitem{XCQ} Y.~Xu, C.~Cui and L.~Qi,
+\emph{Sum of Squares Decompositions for Structured Biquadratic Forms},
+Communications on Applied Mathematics and Computation (2026),
+\href{https://doi.org/10.1007/s42967-026-00586-7}{doi:10.1007/s42967-026-00586-7}.
+Preprint: \href{https://arxiv.org/abs/2512.02734v2}{arXiv:2512.02734v2}.
+\bibitem{Choi} M.-D.~Choi,
+\emph{Positive semidefinite biquadratic forms},
+Linear Algebra and its Applications \textbf{12} (1975), 95--100,
+\href{https://doi.org/10.1016/0024-3795(75)90058-0}{doi:10.1016/0024-3795(75)90058-0}.
+\end{thebibliography}
+\end{document}

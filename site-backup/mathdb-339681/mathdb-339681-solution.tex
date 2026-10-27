@@ -1,0 +1,179 @@
+\documentclass[10pt]{article}
+\usepackage[margin=0.95in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,hyperref}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newcommand{\T}{\mathbb T}
+\newcommand{\G}{\mathcal G}
+\title{A shared-reset coupling outside every finite product construction}
+\author{Principia Math in Progress}
+\date{12 September 2026}
+\begin{document}
+\maketitle
+
+\paragraph{Task 1.}
+MathDB 339681 records Conjecture 19 of N\"usken and Pavliotis
+\cite[pp.~337--338]{NP}. For generators of ergodic Feller semigroups,
+the conjecture asserts that one can choose decompositions
+\[
+ L_i=-\sum_{k=1}^{K_i}(A_k^i)^*A_k^i+B^i
+\]
+so that every coupling operator is a sum
+\begin{equation}\label{construction}
+ \Gamma=\sum_{\substack{i\ne j\\1\leq k\leq K_i\\1\leq l\leq K_j}}
+ \alpha_{ijkl} A_k^i A_l^j ,
+\end{equation}
+with scalar coefficient functions on the product state space.
+We disprove the stated finite-sum construction. The obstruction holds
+for every choice of its finite families of scalar operators.
+
+\begin{theorem}
+Let each of two marginal processes on the circle \(\T=\mathbb R/\mathbb Z\)
+reset, at rate one, to an independent uniform point of the circle.
+The coupling that resets both coordinates simultaneously to the same
+uniform point is a rich ergodic Feller coupling. Its coupling operator
+cannot have the form \eqref{construction} for any finite \(K_1,K_2\)
+and any decompositions of the marginal generators.
+\end{theorem}
+
+\begin{proof}
+Let \(\pi\) be normalized Lebesgue measure on \(\T\), and define
+\[
+ (Pf)(x)=\int_\T f(z)\,d\pi(z),\qquad L=P-I.
+\]
+Here \(P\) is a positive, constant-preserving projection of norm one on
+\(C(\T)\). Thus
+\begin{equation}\label{semigroup}
+ S_t=e^{-t}I+(1-e^{-t})P
+\end{equation}
+is a conservative, uniformly continuous Feller semigroup, with bounded
+generator \(L\). It is precisely the stated reset process.
+Its invariant measure is uniquely \(\pi\), and \(S_tf\) converges uniformly
+to \(\pi(f)\). Ergodic time averages follow directly from the strong law:
+successive reset positions are independent with law \(\pi\), and the
+independent holding times are exponential with mean one, so the ratio of
+the accumulated rewards and holding times converges to \(\pi(f)\).
+This applies to every bounded continuous observable and every initial
+point. Smooth functions are invariant under \(S_t\) and dense in \(C(\T)\).
+Since \(L\) is bounded, they are a core, and the process is rich.
+
+The required marginal decomposition exists. Indeed, \(P\) is an
+orthogonal projection in \(L^2(\pi)\), so with \(A=I-P\) and \(B=0\),
+\[
+ -A^*A=-(I-P)^2=P-I=L.
+\]
+Our argument below excludes all other finite decompositions as well.
+
+On \(C(\T^2)\), put
+\begin{align*}
+ (P_xF)(x,y)&=\int_\T F(z,y)\,d\pi(z),&
+ (P_yF)(x,y)&=\int_\T F(x,z)\,d\pi(z),\\
+ (QF)(x,y)&=\int_\T F(z,z)\,d\pi(z).
+\end{align*}
+The shared-reset generator and its coupling operator are
+\begin{equation}\label{Gamma}
+ \overline L=Q-I,\qquad
+ \Gamma=\overline L-(L_x+L_y)=Q-P_x-P_y+I.
+\end{equation}
+The projection \(Q\) is positive and constant-preserving, so
+\(\overline S_t=e^{-t}I+(1-e^{-t})Q\) is again a conservative,
+uniformly continuous Feller semigroup. Its process resets the pair to
+\((Z,Z)\), with \(Z\sim\pi\), at each rate-one Poisson time.
+Each coordinate therefore has exactly the prescribed marginal process,
+including its path law. The unique invariant distribution is the
+diagonal measure \(\Delta_\#\pi\), where \(\Delta(z)=(z,z)\);
+the same renewal argument proves ergodicity.
+
+All the operators in \eqref{Gamma} are bounded in the supremum norm,
+and \(\Gamma\) is defined on all bounded Borel functions.
+It vanishes on functions of either coordinate alone.
+On \(C(\T^2)\), \(L_x+L_y+\Gamma=Q-I\) is the bounded Feller generator
+just constructed. Smooth functions on \(\T^2\) are a core.
+Thus both conditions of the source's Definition 6 hold, including
+closability and the generator property. In fact \(\Gamma\in\G^0\).
+
+For any smooth \(f,g\), \eqref{Gamma} gives
+\begin{equation}\label{bilinear}
+ \Gamma(f\otimes g)(x,y)
+ =\int_\T f(z)g(z)\,d\pi(z)
+   -g(y)\pi(f)-f(x)\pi(g)+f(x)g(y).
+\end{equation}
+Now suppose \eqref{construction} holds for finite \(K_1,K_2\).
+Operators acting in different coordinates commute on simple tensors.
+Combining the terms with \((i,j)=(1,2)\) and \((2,1)\), we obtain
+\begin{equation}\label{factor}
+ \Gamma(f\otimes g)(x,y)
+ =\sum_{k=1}^{K_1}\sum_{l=1}^{K_2}
+   \beta_{kl}(x,y)\,(A_k^1f)(x)\,(A_l^2g)(y).
+\end{equation}
+Consequently, for any \(m\) test functions \(f_1,\ldots,f_m\) and
+any fixed \((x,y)\), the matrix
+\[
+ M(x,y)=\bigl[\Gamma(f_i\otimes f_j)(x,y)\bigr]_{i,j=1}^m
+\]
+has a factorization \(U(x)\beta(x,y)V(y)^{\mathsf T}\), and hence
+\begin{equation}\label{rank}
+ \operatorname{rank} M(x,y)\leq \min(K_1,K_2).
+\end{equation}
+
+Choose \(m>\max(K_1,K_2)\). Take a nonempty open arc \(O\) of the
+circle whose complement contains an open arc. In that complementary
+arc choose \(m\) disjoint smaller arcs, and smooth real bump functions
+\(f_i\), one supported in each smaller arc, normalized by
+\(\int_\T f_i^2\,d\pi=1\).
+Then \(f_i=0\) on \(O\) and \(\int_\T f_if_j\,d\pi=\delta_{ij}\).
+Equation \eqref{bilinear} therefore yields
+\[
+ M(x,y)=I_m\qquad\text{for every }(x,y)\in O\times O,
+\]
+contradicting \eqref{rank}.
+The contradiction also works if the factors are interpreted as
+\(L^2\) representatives and the identities hold almost everywhere:
+only finitely many factors and test functions occur, so choose a point
+of the positive-measure set \(O\times O\) outside their exceptional
+null sets. This completes the disproof.
+\end{proof}
+
+\newpage
+\paragraph{Scope and verification.}
+The final source permits locally compact Polish state spaces with a
+smooth structure; the compact circle satisfies this condition.
+Conjecture 19 is stated for ergodic Feller processes generally.
+The following Proposition 20 treats the narrower continuous-path
+diffusion case, which this jump-process example does not contradict.
+The conclusion concerns the finite index ranges displayed in
+equations (34), (37), and (39); an infinite expansion or an
+auxiliary noise-space integral would be a different construction.
+The accompanying exact checks verify projection, generator, marginal,
+and rank identities in finite reset models. The arbitrary-rank
+argument on smooth functions above supplies the full proof.
+
+\paragraph{Task 2.}
+Formulate and prove an exhaustion theorem that permits countably many
+operators or integration over an auxiliary noise space, with explicit
+convergence and domain conditions.
+
+\paragraph{Task 3.}
+Characterize jump kernels whose coupling operators admit a finite
+product representation of the form \eqref{construction}.
+
+\paragraph{Task 4.}
+Determine the minimum numbers of marginal factors needed to represent
+all coupling operators for finite-state irreducible Markov chains.
+
+\paragraph{Task 5.}
+Develop finite-rank approximations of shared-reset couplings and
+quantify their effect on invariant measures and asymptotic variances.
+
+\begin{thebibliography}{9}
+\raggedright
+\bibitem{NP}
+N. N\"usken and G. A. Pavliotis,
+\emph{Constructing Sampling Schemes via Coupling: Markov Semigroups and
+Optimal Transport}, SIAM/ASA J. Uncertainty Quantification
+\textbf{7}(1) (2019), 324--382,
+\href{https://doi.org/10.1137/18M119896X}{doi:10.1137/18M119896X}.
+Conjecture 19, equations (34)--(39), pp.~337--338;
+Definition 6, p.~332; general setting, pp.~330--331.
+\end{thebibliography}
+\end{document}

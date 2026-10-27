@@ -1,0 +1,224 @@
+\documentclass[10pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage[hidelinks]{hyperref}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newcommand{\Z}{\mathbb Z}
+\newcommand{\Q}{\mathbb Q}
+\title{Denominators of two basic hypergeometric ratios\\
+\large A proof of MathDB problem 346880}
+\author{Principia Math In Progress}
+\date{September 12, 2026}
+\begin{document}
+\maketitle
+\noindent\textbf{Task 1: solve the original problem.}
+We prove Conjecture 8.4 of Kim--Stanton \cite{KS}, which is the
+MathDB question, and its companion Conjecture 8.3. These are
+Conjectures 7.3 and 7.2, respectively, in the earlier manuscript
+\cite{original}. Only one MathDB problem is counted.
+
+Let $a,b,c,q$ be independent indeterminates and write
+\[
+ (u;q)_j=\prod_{i=0}^{j-1}(1-uq^i),\qquad
+ F(a,b,c;z)={}_2\phi_1(a,b;c;q,z)
+   =\sum_{j\ge0}\frac{(a;q)_j(b;q)_j}{(c;q)_j(q;q)_j}z^j.
+\]
+Define formal series
+\[
+ R(z)=\frac{F(aq,b,cq;z)}{F(a,b,c;z)}
+       =\sum_{n\ge0}r_nz^n,\qquad
+ S(z)=\frac{F(aq,bq,cq;z)}{F(a,b,c;z)}
+       =\sum_{n\ge0}s_nz^n .
+\]
+Their constant coefficients are $r_0=s_0=1$. Put
+\[
+ D_n(c,q)=\prod_{k=0}^n(1-cq^k)^{\lfloor(n+1)/(k+1)\rfloor}.
+\]
+\begin{theorem}\label{main}
+For every integer $n\ge0$,
+\[
+ \frac{D_n(c,q)}{1-c}\,r_n\in\Z[a,b,c,q],
+ \qquad
+ \frac{D_n(c,q)}{1-c}\,s_n\in\Z[a,b,c,q].
+                                                               \tag{1}
+\]
+The first assertion is the second coefficient-denominator conjecture
+recorded as MathDB 346880.
+\end{theorem}
+
+We first remove possible denominators involving $q$ alone. Set
+\[
+ B=\Z[a,b,q],\quad A=B[c],\quad
+ \mathcal L=A[(1-cq^j)^{-1}:j\ge0],\quad K=\Q(a,b,q).
+\]
+\begin{lemma}\label{integral}
+Every coefficient of $R$ and $S$ belongs to $\mathcal L$.
+Moreover,
+\[
+ \mathcal L\cap K[c]=A.                                  \tag{2}
+\]
+\end{lemma}
+\begin{proof}
+Heine's contiguous relation, also given in \cite[p.~13]{KS}, is
+\[
+ F(aq,b,cq;z)-F(a,b,c;z)
+   =\beta z F(aq,bq,cq^2;z),\qquad
+ \beta=\frac{(a-c)(1-b)}{(1-c)(1-cq)}.                    \tag{3}
+\]
+It can be checked directly in each coefficient: the relevant numerator
+simplification is
+\[
+ (1-au)(1-c)-(1-a)(1-cu)=(a-c)(1-u),\qquad u=q^j,
+\]
+and $1-q^j$ cancels from $(q;q)_j$.
+Let $\sigma$ substitute $(a,b,c)\mapsto(b,aq,cq)$, leaving $q,z$
+fixed. Symmetry of $F$ in its first two parameters changes (3) into
+\[
+ R=\frac1{1-\beta z\,\sigma(R)},\qquad
+ r_n=\beta\sum_{j=0}^{n-1}r_j\,\sigma(r_{n-1-j})\quad(n\ge1).
+                                                               \tag{4}
+\]
+Both $\beta\in\mathcal L$ and
+$\sigma(\mathcal L)\subseteq\mathcal L$ hold.
+Induction on $n$ proves $r_n\in\mathcal L$.
+
+A second elementary contiguous identity is
+\[
+ F(aq,bq,cq;z)-F(aq,b,cq;z)
+   =\delta z F(aq^2,bq,cq^2;z),\qquad
+ \delta=\frac{b(1-aq)}{1-cq}.                             \tag{5}
+\]
+For a direct verification, in the coefficient of $z^j$ the shift
+$b\mapsto bq$ contributes $b(1-q^j)/(1-b)$; cancellation in the
+shifted factorials gives the right side of (5).
+If $\tau$ substitutes $(a,b,c)\mapsto(aq,b,cq)$, then
+\[
+ S=R\bigl(1+\delta z\,\tau(S)\bigr),\qquad
+ s_n=r_n+\delta\sum_{j=0}^{n-1}r_j\,\tau(s_{n-1-j}).
+                                                               \tag{6}
+\]
+Since $\tau$ also preserves $\mathcal L$, induction proves
+$s_n\in\mathcal L$.
+
+Finally, write an element of $\mathcal L$ as $U/V$ with $U\in A$
+and $V$ a finite product of powers of $1-cq^j$. Its constant
+coefficient in $c$ is $V(0)=1$, so its Taylor series at $c=0$ has
+all coefficients in $B$. If $U/V$ is also a polynomial in $K[c]$,
+that Taylor series is finite. The polynomial therefore lies in
+$B[c]=A$, proving (2).
+\end{proof}
+
+\begin{proof}[Proof of Theorem \ref{main}]
+Let $H$ denote either $F(aq,b,cq;z)$ or $F(aq,bq,cq;z)$,
+and put $F=F(a,b,c;z)$. We bound the poles, as functions of $c$,
+of the coefficients of
+\[
+ \frac{H}{(1-c)F}.                                      \tag{7}
+\]
+Work over $K=\Q(a,b,q)$. The points $c=q^{-k}$, $k\ge0$, are
+distinct, and each factor $1-cq^k$ is linear in $c$.
+
+Fix $k\ge1$ and put $\epsilon=1-cq^k$.
+The coefficient of $z^j$ in $F$ is regular at $c=q^{-k}$ for
+$j\le k$, and has at most a simple pole for $j\ge k+1$.
+For $H$ the corresponding threshold is $j=k$: its coefficients
+are regular for $j<k$ and have at most a simple pole thereafter.
+Thus, over the local ring of rational functions regular at this point,
+\[
+ \epsilon F=\epsilon U+z^{k+1}V,\qquad
+ \epsilon H=\epsilon W+z^kX,                             \tag{8}
+\]
+where $U,W,V,X$ are formal series with regular coefficients,
+and $U(0)=W(0)=1$. In particular $U$ is a unit in the formal
+series ring over the local ring. Expand
+\[
+ \frac HF=
+ \left(W+\frac{z^kX}{\epsilon}\right)\frac1U
+ \sum_{\ell\ge0}
+       \frac{(-1)^\ell z^{(k+1)\ell}V^\ell}
+                            {\epsilon^\ell U^\ell}.     \tag{9}
+\]
+For each coefficient of $z^n$ only finitely many summands contribute.
+The part involving $W$ has pole order at most
+$\lfloor n/(k+1)\rfloor$. The other part vanishes if $n<k$;
+otherwise its pole order is at most
+\[
+ 1+\left\lfloor\frac{n-k}{k+1}\right\rfloor
+   =\left\lfloor\frac{n+1}{k+1}\right\rfloor.             \tag{10}
+\]
+The factor $1-c$ is a local unit because $k\ge1$, so (10) is
+also the required bound for (7). In particular there is no pole
+when $k>n$.
+
+The point $c=1$ requires separate treatment. Now
+$\epsilon=1-c$, all coefficients of $H$ are regular, and
+\[
+ \epsilon F=\epsilon+zV
+\]
+with regular coefficients in $V$. Hence (7) becomes
+\[
+ \frac{H}{\epsilon+zV}
+   =H\sum_{\ell\ge0}\frac{(-1)^\ell z^\ell V^\ell}
+                           {\epsilon^{\ell+1}}.         \tag{11}
+\]
+Its coefficient of $z^n$ has pole order at most $n+1$,
+which is precisely the exponent prescribed at $k=0$.
+
+Lemma \ref{integral} shows that the coefficients of (7) lie in
+$\mathcal L$, so there are no other possible finite poles in $c$.
+Equations (10)--(11) show that $D_n$ removes every such pole.
+The resulting rational function therefore lies in $K[c]$.
+It also lies in $\mathcal L$, so (2) places it in
+$A=\Z[a,b,c,q]$, as required.
+\end{proof}
+
+For example, the normalized polynomial for $R$ at $n=1$ is
+$(a-c)(1-b)$, and both normalized polynomials at $n=0$ are $1$.
+The proof is an identity over the field of rational functions;
+specializations are understood wherever the original series coefficients
+are defined, or through the resulting rational identities.
+
+\medskip
+\noindent\textbf{Task 2: determine the minimal denominators.}
+Compute the exact generic pole orders of $r_n/(1-c)$ and $s_n/(1-c)$
+at every $c=q^{-k}$. Determine when the exponents in $D_n$ are attained
+and classify parameter specializations that lower them.
+
+\medskip
+\noindent\textbf{Task 3: treat arbitrary integral parameter shifts.}
+For nonnegative integers $u,v,w$, study
+\[
+ F(aq^u,bq^v,cq^w;z)/F(a,b,c;z).
+\]
+Determine which shifts admit
+normalizations in $\Z[a,b,c,q]$ and derive their optimal pole bounds.
+
+\medskip
+\noindent\textbf{Task 4: give explicit formulas for the normalized numerators.}
+Construct finite sums or combinatorial models for
+$D_nr_n/(1-c)$ and $D_ns_n/(1-c)$ in which denominator cancellation
+has already been carried out. Use them to explain systematic factors
+and coefficient patterns.
+
+\medskip
+\noindent\textbf{Task 5: extend the method to higher basic hypergeometric series.}
+Identify contiguous ratios of \({}_{r+1}\phi_r\) whose coefficients lie
+in an integral localization of their lower parameters, and establish
+denominator theorems by combining that property with local pole bounds.
+
+\begin{thebibliography}{9}
+\bibitem{KS}
+J.~S.~Kim and D.~Stanton,
+\emph{Three families of $q$-Lommel polynomials},
+S\'eminaire Lotharingien de Combinatoire \textbf{87B} (2023),
+Article 8, 25 pp.; Conjectures 8.3--8.4.
+\href{https://www.mat.univie.ac.at/~slc/wpapers/lattpath/KimStanton/KimStanton.pdf}
+{Published full text}.
+\bibitem{original}
+J.~S.~Kim and D.~Stanton,
+\emph{Ratios of Hahn--Exton $q$-Bessel functions and $q$-Lommel
+polynomials}, arXiv:2006.08120v2 (2021), Conjectures 7.2--7.3.
+\href{https://arxiv.org/abs/2006.08120}{arXiv record}.
+\end{thebibliography}
+\end{document}

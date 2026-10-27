@@ -1,0 +1,174 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[colorlinks=true,urlcolor=blue,linkcolor=blue]{hyperref}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newtheorem{corollary}{Corollary}
+\title{Polynomial recurrence identities extend to all integer indices}
+\author{Principia Math In Progress\\Author-agent research note: MathDB 340544}
+\date{28 September 2026}
+\begin{document}
+\maketitle
+\begin{abstract}
+We prove Conjecture 4.2 of Soykan's paper on negative-index Tribonacci
+matrix sequences. A polynomial expression in arithmetic subsequences of
+bilateral constant-coefficient recurrence sequences itself satisfies a
+recurrence with nonzero constant coefficient. Consequently, its vanishing
+on a terminal interval implies its vanishing everywhere. The proof makes
+explicit the extension of Bruckman's second-order argument suggested by
+Soykan; it uses standard finite-dimensional linear algebra.
+\end{abstract}
+
+\section*{Task 1: the conjecture and its scope}
+The source conjecture asks whether a polynomial identity in terms
+$H_{a_i n+b_i}$ of an arbitrary-order constant-coefficient recurrence,
+valid for all sufficiently large integers $n$, is valid for every integer
+$n$ \cite[Conjecture 4.2]{Soykan}. Here $a_i,b_i$ are arbitrary integers.
+We use the intended bilateral convention: the recurrence is valid on
+$\mathbb Z$, with negative indices supplied by backward recurrence.
+The source's Theorem 1.1 explicitly uses a nonzero constant term for this
+extension. We prove the following stronger statement.
+
+\begin{theorem}\label{main}
+Let $K$ be any field. For $1\leq i\leq r$, let
+$H^{(i)}:\mathbb Z\to K$ satisfy a nonzero constant-coefficient homogeneous
+linear recurrence. Let $a_i,b_i\in\mathbb Z$ and
+$f\in K[X_1,\ldots,X_r]$. Put
+\[
+ u_n=f\bigl(H^{(1)}_{a_1n+b_1},\ldots,H^{(r)}_{a_rn+b_r}\bigr).
+\]
+If $u_n=0$ for every sufficiently large integer $n$, then $u_n=0$
+for every integer $n$.
+\end{theorem}
+
+No distinct-root hypothesis is imposed. The slopes may be negative or
+zero. Taking all input sequences equal and taking integer coefficients
+for $f$ proves the source conjecture. The harmless extra unused variable
+in its printed polynomial notation does not affect the assertion.
+
+\section*{An invertible finite-dimensional representation}
+Let $E$ denote the shift on bilateral sequences, $(EH)_n=H_{n+1}$.
+It is invertible. If $P(E)H=0$ and $P(x)=x^tQ(x)$ with $Q(0)\ne0$,
+then $Q(E)H=0$ by applying $E^{-t}$. If $Q$ is constant, $H$ is zero;
+in that case use instead the annihilator $x-1$. Otherwise rescale $Q$
+to be monic. Thus each input has an annihilator
+\[
+ Q_i(x)=x^{s_i}+c_{i,s_i-1}x^{s_i-1}+\cdots+c_{i,0},
+ \qquad s_i\geq1,\quad c_{i,0}\ne0.
+\]
+For
+\[
+ v^{(i)}_m=(H^{(i)}_m,H^{(i)}_{m+1},\ldots,
+ H^{(i)}_{m+s_i-1})^{\mathsf T},
+\]
+the recurrence gives $v^{(i)}_{m+1}=M_i v^{(i)}_m$, where $M_i$
+is the companion matrix with superdiagonal ones and final row
+$(-c_{i,0},\ldots,-c_{i,s_i-1})$.
+Its determinant is $(-1)^{s_i}c_{i,0}\ne0$.
+Consequently this state equation can be iterated in either direction.
+
+Stack the selected states into
+\[
+ w_n=\bigl(v^{(1)}_{a_1n+b_1},\ldots,v^{(r)}_{a_rn+b_r}\bigr)^{\mathsf T}
+ \in K^m,\qquad m=\sum_{i=1}^r s_i.
+\]
+Then, for every $n\in\mathbb Z$,
+\[
+ w_{n+1}=Aw_n,\qquad A=\operatorname{diag}(M_1^{a_1},\ldots,M_r^{a_r})
+ \in\operatorname{GL}_m(K).
+\]
+The shifts $b_i$ affect $w_0$ only. There is a polynomial
+$F\in K[Z_1,\ldots,Z_m]$ of degree at most $d=\max(0,\deg f)$
+such that $u_n=F(w_n)$; for $f=0$ choose $d=0$.
+
+\begin{lemma}\label{lift}
+For $A\in\operatorname{GL}_m(K)$ and $F$ of degree at most $d$,
+the sequence $F(A^nw_0)$ satisfies a monic recurrence of order
+$D=\binom{m+d}{d}$ with nonzero constant coefficient, valid on $\mathbb Z$.
+\end{lemma}
+\begin{proof}
+On the vector space $V=K[Z_1,\ldots,Z_m]_{\leq d}$ define
+$TP=P\circ A$. This space has the monomials of total degree at most
+$d$ as a basis, so has dimension $D$. The operator $T$ is invertible:
+its inverse is $P\mapsto P\circ A^{-1}$.
+Write its characteristic polynomial as
+\[
+ R(x)=x^D+q_{D-1}x^{D-1}+\cdots+q_0.
+\]
+Its constant coefficient is $q_0=(-1)^D\det T\ne0$.
+Cayley--Hamilton gives $R(T)F=0$ as a formal polynomial. Evaluating
+at $w_n=A^nw_0$ gives
+\begin{equation}\label{rec}
+ u_{n+D}+q_{D-1}u_{n+D-1}+\cdots+q_0u_n=0
+ \qquad(n\in\mathbb Z).
+\end{equation}
+This argument concerns formal polynomials and also works over finite fields.
+\end{proof}
+
+\begin{proof}[Proof of Theorem \ref{main}]
+Choose an integer $L$ for which $u_n=0$ whenever $n\geq L$.
+Equation \eqref{rec} at $n=L-1$ gives $q_0u_{L-1}=0$,
+so $u_{L-1}=0$. Apply the same step successively at
+$L-2,L-3,\ldots$. Every integer is reached after finitely many steps.
+\end{proof}
+
+\begin{corollary}
+In the notation above, $D$ consecutive zero values of $u$ already imply
+$u_n=0$ for all integers $n$. For a single input recurrence of order $k$
+and $r$ selected subsequences, one may use $D=\binom{rk+d}{d}$ when
+its constant coefficient is nonzero.
+\end{corollary}
+\begin{proof}
+The leading coefficient in \eqref{rec} is one, so the zero block
+propagates forward. Its nonzero constant coefficient propagates it backward.
+\end{proof}
+An extra input $(-1)^n$, as in the older second-order theorem, is allowed:
+it is itself a bilateral recurrence sequence. Repeated characteristic
+roots require no separate limiting argument.
+
+\section*{Attribution, checks, and proposed follow-up tasks}
+Bruckman's solution of Rabinowitz's second-order problem already uses
+closure under polynomial expressions and backward propagation
+\cite{Bruckman}. Soykan explicitly suggests extending that proof.
+The contribution here is a self-contained, arbitrary-order formulation
+and proof of the stated conjecture, with the standard argument and its
+antecedent credited; no new recurrence technique is claimed.
+
+The accompanying exact verifier constructs polynomial pullback matrices,
+checks their inverses and Cayley--Hamilton identities, and compares the
+resulting recurrences with direct bilateral sequence evaluations. Cases
+include repeated roots, zero and negative slopes, and degree zero.
+These are implementation checks supporting the proof, not a proof by
+finite sampling. The source and bounded public-claim audit, including its
+access limits, are recorded separately. Review is by the authoring agent.
+
+The following are four proposed tasks; they are not additional solved
+MathDB problems and have not been established here.
+\begin{enumerate}
+\setcounter{enumi}{1}
+\item Determine the smallest uniform zero-block bound for fixed
+recurrence order, polynomial degree, and list of slopes, accounting for
+relations between the sampled states.
+\item Design an exact algorithm that outputs the minimal annihilator
+of a supplied polynomial recurrence expression, together with a certificate,
+and bound its arithmetic complexity in terms of the sparse input size.
+\item Decide whether the tail-to-all-integers implication continues to hold
+over characteristic zero when each affine index $a_i n+b_i$ is replaced
+by an integer-valued polynomial in $n$; give a proof or a counterexample.
+\item For constant-coefficient recurrences over a commutative ring whose
+last coefficient need not be a unit, characterize when a bilateral sequence
+that is eventually zero must vanish identically.
+\end{enumerate}
+
+\begin{thebibliography}{9}
+\raggedright
+\bibitem{Soykan} Y. Soykan, \emph{Tribonacci and Tribonacci-Lucas Matrix
+Sequences with Negative Subscripts}, Communications in Mathematics and
+Applications \textbf{11}(1) (2020), 141--159,
+\href{https://doi.org/10.26713/cma.v11i1.1103}{doi:10.26713/cma.v11i1.1103}.
+Primary manuscript: \href{https://arxiv.org/abs/1809.09507}{arXiv:1809.09507v1}.
+\bibitem{Bruckman} P. S. Bruckman, solution to problem H-487 proposed by
+S. Rabinowitz, The Fibonacci Quarterly \textbf{33}(4) (1995), 382.
+\end{thebibliography}
+\end{document}

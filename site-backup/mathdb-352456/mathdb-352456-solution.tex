@@ -1,0 +1,253 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,hyperref}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newcommand{\R}{\mathbb R}
+\newcommand{\C}{\mathbb C}
+\title{Straight centroid loci for polar Poncelet polygons}
+\author{Principia Math In Progress}
+\date{21 September 2026}
+\begin{document}
+\maketitle
+\begin{abstract}
+For every size of the focus-circle Poncelet family inscribed in a
+parabola, the vertex and area centroids of the polar polygons trace
+complete lines parallel to the directrix. The proof removes every
+possible pole of their horizontal coordinates on the elliptic flag
+curve. In particular, finite zero-area configurations are accounted
+for rather than omitted.
+\end{abstract}
+
+\section*{Task 1: the original problem}
+Let
+\[
+ \mathcal P:\ y^2+4fx=0,\qquad
+ \mathcal C:\ (x+f)^2+y^2=r^2,\qquad 0<r<f,
+\]
+admit a primitive Poncelet family of $N\geq3$ distinct vertices
+circumscribed about the inner circle. These are the families studied
+in \cite{BGR}, including all its convex cases. For a polygon $P$ in
+the family, let $Q$ be the polygon whose sides are the tangents to
+$\mathcal P$ at the vertices of $P$. Area and area centroid use
+signed area and winding multiplicity for a self-intersecting polygon,
+as in \cite{ST,CC}.
+
+\begin{theorem}
+There is a real constant $h_0$ such that
+\begin{align*}
+ \{C_0(Q):P\text{ finite}\}&=\{(h_0,Y):Y\in\R\},\\
+ \{C_2(Q):P\text{ finite}\}&=\{(h_2,Y):Y\in\R\},
+ \qquad h_2=\frac{8f^2-r^2}{12f}.
+\end{align*}
+Thus both centroid loci are full lines parallel to the directrix
+$x=f$. Moreover, for each polygon individually,
+\[
+ A(Q)=-\tfrac12 A(P),\qquad
+ (C_0(Q))_y=(C_0(P))_y,\qquad
+ (C_2(Q))_y=(C_2(P))_y.
+\]
+\end{theorem}
+
+This proves Conjecture 5 of \cite{BGR}. Its $N=3,4$ cases are already
+proved there. We use the standard elliptic-curve description of the
+Poncelet map from \cite{ST}, and adapt the area zero-counting idea of
+\cite{CC}. The pole orders needed in this parabolic setting are
+established explicitly below. We do not infer a line from a generic
+conic-locus assertion.
+
+\section*{Coordinates and polygon identities}
+Write the vertices of $P$ as
+\[
+ P_i=(-t_i^2/(4f),t_i),\qquad i\pmod N.
+\]
+The tangent at parameter $t$ is $4fx+2ty-t^2=0$. Hence
+\begin{equation}\label{polar}
+ Q_i=\left(-\frac{t_i t_{i+1}}{4f},
+                 \frac{t_i+t_{i+1}}2\right).
+\end{equation}
+Put
+\[
+ S_2=\sum_i t_i^2(t_{i+1}-t_{i-1}),\quad
+ S_3=\sum_i t_i^3(t_{i+1}-t_{i-1}),\quad
+ S_{32}=\sum_i t_i^3(t_{i+1}^2-t_{i-1}^2).
+\]
+For any cyclic list of parameters, the shoelace formulas give
+\begin{align}
+ A(P)&=-\frac{S_2}{8f},& A(Q)&=\frac{S_2}{16f},\label{area}\\
+ (C_2(P))_y&=(C_2(Q))_y=\frac{S_3}{3S_2},&
+ (C_2(Q))_x&=-\frac{S_{32}}{12fS_2},\label{moments}\\
+ (C_0(Q))_y&=\frac1N\sum_i t_i,&
+ (C_0(Q))_x&=-\frac1{4fN}\sum_i t_i t_{i+1}.\label{vertex}
+\end{align}
+These are polynomial identities for area and first moments before
+division by area. For example,
+\[
+ \det(Q_i,Q_{i+1})
+ =\frac{t_{i+1}^2(t_{i+2}-t_i)}{8f}.
+\]
+Summing and shifting the index proves \eqref{area}; multiplication
+by $(Q_i+Q_{i+1})/6$ gives the first moments in \eqref{moments}.
+All real finite polygons considered here have $A(P)\ne0$: orient
+the edges with the circle on the left, and their fan triangles from
+the focus have area $r\ell_i/2>0$. Consequently $A(Q)\ne0$ too.
+
+The chord between parameters $t,s$ has equation
+$4fx+(t+s)y-ts=0$. Tangency to $\mathcal C$ is equivalent to
+\begin{equation}\label{chord}
+ (ts+4f^2)^2=r^2\bigl(16f^2+(t+s)^2\bigr).
+\end{equation}
+If $u,v$ are the two neighbors of $t$, Vieta's formula therefore gives
+\begin{equation}\label{vieta}
+ u+v=\frac{2(r^2-4f^2)t}{t^2-r^2}.
+\end{equation}
+These formulas also show that the polar vertices lie on
+$ (x-f)^2/r^2-y^2/(4f^2)=1$.
+
+\section*{The flag curve and the area zeros}
+Recall the standard complex flag curve
+\[
+ E=\{(p,\ell):p\in\mathcal P,\ p\in\ell,
+                    \ \ell\text{ tangent to }\mathcal C\}.
+\]
+Its compactification is a smooth elliptic curve. In the coordinate
+above it has a model
+\[
+ w^2=t^4+8f^2t^2+16f^2(f^2-r^2).
+\]
+The four roots on the right are distinct when $0<r<f$, so the
+degree-two map to the $t$-sphere has four simple branch points.
+The two points over $t=\infty$ are unramified; $t$ has a simple
+pole at each. The Poncelet step $T$ is a translation of exact order
+$N$ on $E$. The involution $\tau$ changing the chosen tangent
+reverses a polygon and satisfies $\tau T\tau=T^{-1}$. With a fixed
+point of $\tau$ as origin, these maps have the form
+$T(z)=z+a$, $\tau(z)=-z$; see \cite[Section 3]{ST}.
+
+There are exactly $2N$ flags at which one of the $t_i$ is infinite,
+and at each such flag exactly one $t_i$ is infinite. To check that
+these are distinct, use the real geometry: the two real components
+of $E$ correspond to the two choices of direction around the nested
+pair, and each projects bijectively to the real projective parabola.
+The step preserves each component and has $N$ distinct vertices per
+orbit. The two flags over infinity belong to different components.
+
+Near any such flag put the unbounded parameter equal to $t$.
+Its neighbors approach $r,-r$; all other parameters stay bounded.
+Splitting $P$ into the triangle at that vertex and a bounded
+remainder shows
+\begin{equation}\label{area-infty}
+ A(P)=\pm\frac{r}{4f}t^2+o(t^2).
+\end{equation}
+Thus $A(P)$, viewed as a meromorphic function on $E$, has exactly
+$2N$ poles, each of order two, and total pole order $4N$.
+
+Now consider the $N$ reflections $\rho_j=T^j\tau$,
+$0\leq j<N$. Each is an elliptic involution $z\mapsto ja-z$,
+and so has four fixed points (the four solutions of $2z=ja$).
+Their fixed-point sets are disjoint: a common fixed point for two
+reflections would be fixed by a nontrivial translation $T^{j-k}$.
+None of these $4N$ points is an infinite-vertex flag, since its real
+polygon has distinct vertices and cannot equal its reversed labeled
+vertex list up to a cyclic shift when $N\geq3$.
+
+Oriented area is invariant under $T$ and changes sign under $\tau$.
+It must therefore vanish at all $4N$ reflection fixed points.
+A nonconstant meromorphic function on a compact curve has the same
+total zero and pole order. By \eqref{area-infty}, these are precisely
+all zeros of $A(P)$, and every one is simple. Equation \eqref{area}
+gives exactly the same zero divisor for $A(Q)$.
+
+Let $M_x(Q)=\frac16\sum_i\det(Q_i,Q_{i+1})
+((Q_i)_x+(Q_{i+1})_x)$ be the signed first moment. It is finite
+where all $t_i$ are finite, and it too is invariant under cyclic
+relabeling and changes sign under reversal. At each of the $4N$
+zeros just found, $M_x(Q)$ vanishes. Since the denominator has a
+simple zero, the quotient $M_x(Q)/A(Q)=(C_2(Q))_x$ has a removable
+singularity there. There are no other possible finite poles.
+This supplies the finite-zero check directly, following the
+zero-counting method in \cite{CC} rather than assuming that a
+centroid's denominator never vanishes over $\C$.
+
+\section*{The horizontal coordinates have no poles}
+First consider $(C_0(Q))_x$. In the sum in \eqref{vertex}, the only
+unbounded terms near a pole parameter $t$ combine as $t(u+v)$.
+Equation \eqref{vieta} makes this bounded. All other summands are
+bounded. Therefore $(C_0(Q))_x$ has no poles on $E$ and is constant.
+
+For $(C_2(Q))_x$, finite denominator zeros have already been removed.
+At an infinite-vertex flag, \eqref{area-infty} and \eqref{area}
+give $S_2$ a nonzero term of order $t^2$. In $S_{32}$, the summand
+with unbounded central parameter is
+\[
+ t^3(v^2-u^2)=t^3(v-u)(v+u)=O(t^2),
+\]
+because $u,v$ are bounded and \eqref{vieta} gives $u+v=O(t^{-1})$.
+Each of the other summands is $O(t^2)$ as well. Thus the quotient
+in \eqref{moments} stays bounded. Meromorphicity makes these
+singularities removable too. A holomorphic function on the compact
+connected curve $E$ is constant, proving $(C_2(Q))_x=h_2$.
+The two constants are real, as the family contains real polygons.
+
+The area-centroid constant can be evaluated at infinity. Label the
+neighbors so that $u\to r$, $v\to-r$. Then
+\[
+ \frac{S_2}{t^2}\longrightarrow-2r,\qquad
+ \frac{S_{32}}{t^2}\longrightarrow
+ -4r(r^2-4f^2)+r^3-(-r)^3=2r(8f^2-r^2).
+\]
+In the second limit the central summand uses \eqref{vieta}, the two
+neighboring summands contribute $r^3$ each, and all remaining summands
+vanish after division by $t^2$. Equation \eqref{moments} therefore
+gives $h_2=(8f^2-r^2)/(12f)$.
+
+Finally, the finite loci are complete lines. The unlabeled real
+polygons form a circle, the quotient by $T$ of either real component
+of $E$. Removing its unique infinite-vertex orbit leaves an interval.
+For $t\to\pm\infty$, the original centroids satisfy
+\[
+ (C_0(P))_y=t/N+O(1),\qquad (C_2(P))_y=t/3+O(1).
+\]
+The second expansion follows from the same dominant triangle used
+in \eqref{area-infty}. Equations \eqref{moments}--\eqref{vertex}
+give the identical vertical coordinates for $Q$. They are continuous
+on the finite interval and have opposite infinite limits at its
+ends. Every real vertical coordinate is attained, completing the proof.
+
+\section*{Verification and four proposed follow-up tasks}
+The verifier checks the tangency and Vieta formulas, exact polygon
+area/moment identities, pole cancellation, and numerical closed
+families. The compact-curve argument is the proof for arbitrary $N$;
+finite calculations are supplementary checks. The source's
+perpendicular/directrix typo in its separate pentagon conjecture is
+not used, and the perimeter-centroid degree is not asserted here.
+\begin{enumerate}
+ \item \textbf{Task 2.} Express $h_0$ in terms of $N$, $r/f$,
+ and explicit elliptic-function invariants of the Poncelet map.
+ \item \textbf{Task 3.} Determine the directions and offsets of the
+ two polar centroid lines when the circular caustic center is displaced
+ off the parabola's axis.
+ \item \textbf{Task 4.} Determine the algebraic degree of the polar
+ perimeter-centroid locus for every $N$, including the pentagon case.
+ \item \textbf{Task 5.} Classify inner conics of a parabola for which
+ the vertex and area centroids of the polar polygons trace parallel
+ lines for every available finite Poncelet period.
+\end{enumerate}
+\begin{thebibliography}{9}
+\bibitem{BGR} F. Bellio, R. Garcia, D. Reznik,
+\emph{Parabola-Inscribed Poncelet Polygons Derived from the Bicentric Family},
+KoG \textbf{26} (2022), 3--15,
+\href{https://doi.org/10.31896/k.26.1}{doi:10.31896/k.26.1};
+\href{https://arxiv.org/abs/2111.00979}{arXiv:2111.00979v3}.
+\bibitem{ST} R. Schwartz, S. Tabachnikov,
+\emph{Centers of mass of Poncelet polygons, 200 years after},
+Math. Intelligencer \textbf{38}(2) (2016), 29--34,
+\href{https://doi.org/10.1007/s00283-016-9622-9}{doi:10.1007/s00283-016-9622-9};
+\href{https://arxiv.org/abs/1607.04766}{arXiv:1607.04766}.
+\bibitem{CC} A. C. Chavez-Caliz,
+\emph{More about areas and centers of Poncelet polygons},
+Arnold Math. J. \textbf{7} (2021), 91--106,
+\href{https://doi.org/10.1007/s40598-020-00154-8}{doi:10.1007/s40598-020-00154-8};
+\href{https://arxiv.org/abs/2004.05404}{arXiv:2004.05404}.
+\end{thebibliography}
+\end{document}

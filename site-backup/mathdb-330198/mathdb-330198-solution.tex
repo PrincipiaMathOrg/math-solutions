@@ -1,0 +1,102 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,hyperref}
+\newtheorem{theorem}{Theorem}
+\newcommand{\fr}[1]{\left\{#1\right\}}
+\title{A finite certificate against the Beatty logarithm bound by one}
+\author{Principia Math In Progress}
+\date{29 September 2026}
+\begin{document}
+\maketitle
+\noindent\textbf{Task 1 (MathDB 330198).}
+For irrational $a,b>1$, put
+\[
+ E(a,b)=\log(a/b)-\sum_{n=1}^{\infty}
+ \frac{a\fr{(n+1)/a}-b\fr{(n+1)/b}}{n(n+1)}.
+\]
+Polanco's Conjecture 2 asserts $|E(a,b)|<1$ \cite{polanco}.
+The sum converges absolutely, since its numerator has absolute value
+less than $\max(a,b)$. The conjecture is false.
+
+\begin{theorem}
+For every irrational $0<\varepsilon<1/50$, the parameters
+$a=2-\varepsilon$ and $b=1+\varepsilon$ satisfy
+\[
+ E(a,b)>\frac{95797}{92400}>1.
+\]
+In particular, $\varepsilon=\sqrt{2}/100$ gives an explicit counterexample.
+\end{theorem}
+\begin{proof}
+Both parameters are irrational and exceed one. For $1\le n\le10$,
+\[
+ \left\lfloor\frac{n+1}{b}\right\rfloor=n,
+ \qquad
+ \left\lfloor\frac{n+1}{a}\right\rfloor
+   =k_n:=\left\lfloor\frac{n+1}{2}\right\rfloor.
+\]
+Indeed, $n(1+\varepsilon)<n+1<(n+1)(1+\varepsilon)$.
+For the second equality, $k_n(2-\varepsilon)<n+1$ and
+$(k_n+1)(2-\varepsilon)>n+1$: the latter follows from
+$(k_n+1)\varepsilon<6/50<1$, treating odd and even $n$.
+Consequently the numerator in the $n$th summand is
+\[
+ n-2k_n+\varepsilon(n+k_n)=
+ \begin{cases}-1+\varepsilon(n+k_n),&n\text{ odd},\\
+ \varepsilon(n+k_n),&n\text{ even}.
+ \end{cases}
+\]
+Writing $S_{10}$ for the first ten terms of the series, exact summation gives
+\[
+ S_{10}=-C+\varepsilon D,\qquad
+ C=\sum_{j=1}^{5}\frac{1}{(2j-1)2j}=\frac{1627}{2520},\qquad
+ D=\sum_{n=1}^{10}\frac{n+k_n}{n(n+1)}=\frac{18587}{5544}.
+\]
+For the remaining tail $T$, each numerator is less than $a$, so
+\[
+ T< a\sum_{n=11}^{\infty}\frac{1}{n(n+1)}
+ =\frac{a}{11}<\frac{2}{11}.
+\]
+Moreover, $a/b>33/17$. For $x>1$ the elementary inequality
+$\log x>2(x-1)/(x+1)$ follows by differentiation: the derivative
+of their difference is $(x-1)^2/[x(x+1)^2]>0$, and the difference
+vanishes at one. Therefore $\log(a/b)>16/25$. Combining the bounds,
+\[
+ E(a,b)=\log(a/b)+C-\varepsilon D-T
+ >\frac{16}{25}+\frac{1627}{2520}
+   -\frac{18587}{277200}-\frac{2}{11}
+ =\frac{95797}{92400}=1+\frac{3397}{92400}.
+\]
+Finally, $1<\sqrt2<2$ makes the displayed explicit choice admissible.
+\end{proof}
+
+\noindent\textbf{Scope and verification.}
+The target appears on page 4 of arXiv:1503.08512v1 and remains
+Conjecture 2 on journal page 104 of the final article. Both formulations
+allow arbitrary irrational $a,b>1$; complementarity is not required.
+The argument directly treats the defining series and bounds its infinite
+tail. It does not depend on the source's other identities or on numerical
+approximation. The separate bound $\pi^2/6$ (Conjecture 1, MathDB 330197)
+is not resolved here. The accompanying verifier checks the finite
+arithmetic and floor bounds with exact rational arithmetic.
+
+\medskip
+\noindent\textbf{Proposed follow-up tasks (not claimed solved).}
+\begin{enumerate}
+\setcounter{enumi}{1}
+\item Determine the optimal universal constant $K$ with $|E(a,b)|<K$
+for all irrational $a,b>1$, including whether the optimal bound is attained.
+\item For $F(a)=\log a-a\sum_{n\ge1}\fr{(n+1)/a}/[n(n+1)]$,
+derive its two one-sided limits and jump at every rational $a>1$.
+\item Determine a quantitative modulus of continuity of $F$ at irrational
+points in terms of their rational approximation properties.
+\item Determine whether $|E(a,b)|<1$ holds under the additional
+complementarity condition $a^{-1}+b^{-1}=1$.
+\end{enumerate}
+
+\begin{thebibliography}{1}
+\bibitem{polanco} G. Polanco, \emph{The logarithm of irrational numbers
+and Beatty sequences}, Acta Arithmetica \textbf{179} (2017), 101--123,
+\href{https://doi.org/10.4064/aa6695-1-2017}{doi:10.4064/aa6695-1-2017}.
+Preprint: \href{https://arxiv.org/abs/1503.08512}{arXiv:1503.08512v1} (2015).
+\end{thebibliography}
+\end{document}

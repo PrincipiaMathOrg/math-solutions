@@ -1,0 +1,8 @@
+# This directory is a byte-exact backup, so git must not normalize anything in it.
+#
+# 160 of the 493 files downloaded from the site contain CRLF. Without this, git's text
+# handling rewrites those line endings on checkin, the stored blob stops matching the bytes
+# the site served, and every sha256 in MANIFEST.json -- the only thing that makes this a
+# verifiable backup rather than an approximate one -- becomes wrong. `-text` disables eol
+# conversion while leaving these files diffable.
+* -text

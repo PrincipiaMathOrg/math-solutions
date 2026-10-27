@@ -1,0 +1,189 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,enumitem,hyperref}
+\hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue,citecolor=blue}
+\newtheorem{theorem}{Theorem}
+\newcommand{\E}{\mathbb E}
+\newcommand{\Q}{\mathcal Q}
+\newcommand{\des}{\operatorname{des}}
+\title{The descent formula for preorder polytopes\\\large MathDB 374958}
+\author{Principia Math In Progress}
+\date{September 18, 2026}
+\begin{document}
+\maketitle
+\begin{abstract}
+For every preorder on an arbitrarily totally ordered $n$-element set,
+we prove that the $h^*$-polynomial of its preorder polytope is the
+reverse-descent enumerator of words meeting every order ideal at
+least as often as its cardinality. This proves Conjecture 4.4 of
+Athanasiadis and Chapoton. We use bivariate Ehrhart reciprocity,
+their established counting formula, and an explicit multiset argument.
+\end{abstract}
+
+\section*{Task 1. Full solution}
+Let $E$ be a finite set with $|E|=n\ge1$, equipped with a preorder
+$\tau$ and, separately, an arbitrary total order. There is no
+compatibility assumption between these two orders. Set
+\[
+ \Q_\tau=\left\{x\in\mathbb R_{\ge0}^E:
+       \sum_{e\in I}x_e\le |I|\text{ for every order ideal }I\right\}.
+\]
+Write $\tau^*$ for the reversed preorder, and
+$P_{\tau^*}=\Q_{\tau^*}\cap\mathbb Z^E$.
+Let $W_\tau$ consist of the words $w\in E^n$ such that the letters
+from each order ideal $I$ occur at least $|I|$ times in $w$.
+The number $\des(w)$ counts indices $1\le j<n$ with $w_j>w_{j+1}$
+in the chosen total order.
+
+\begin{theorem}\label{thm:main}
+For every such preorder and total order,
+\[
+ \boxed{h^*(\Q_\tau,t)=\sum_{w\in W_\tau}t^{n-1-\des(w)}.}
+\]
+\end{theorem}
+
+\subsection*{A counting identity from reciprocity}
+We give the needed reciprocity argument in full. Let
+\[
+ \Q_\tau(r,s)=\left\{x\in\mathbb R_{\ge0}^E:
+       \sum_{e\in I}x_e\le r|I|+s
+       \text{ for every nonempty order ideal }I\right\}.
+\]
+By \cite[Propositions 3.2--3.3 and 7.1]{AC}, for nonnegative
+integers $r,s$ this is a lattice polytope, also expressible as an
+integral Minkowski sum of simplices. Its lattice-point count is the
+polynomial $\E_\tau(r,s)$, of total degree $n$.
+
+For positive integers $r,s$, the polytope is full dimensional
+(it contains $[0,r]^E$). Its interior integer points satisfy
+$x_e\ge1$ and $\sum_{e\in I}x_e\le r|I|+s-1$ for every
+nonempty order ideal. Subtracting the all-ones vector therefore
+bijects these points with $\Q_\tau(r-1,s-1)\cap\mathbb Z^E$.
+All inequality normals are nonzero; redundant inequalities have
+no effect on this strict-interior characterization.
+
+For $P=\Q_\tau(r,s)$ one has $kP=\Q_\tau(kr,ks)$ for
+nonnegative integers $k$, so its Ehrhart polynomial equals
+$\E_\tau(kr,ks)$ as a polynomial in $k$. Ordinary Ehrhart
+reciprocity at $k=-1$ and the translation just described imply
+\begin{equation}\label{eq:rec}
+ \E_\tau(-u,-v)=(-1)^n\E_\tau(u-1,v-1).
+\end{equation}
+Initially this holds for positive integer pairs $(u,v)$; it is a
+polynomial identity because a polynomial vanishing on that entire
+grid is zero (first fix $v$ and vary $u$, then vary $v$).
+
+For $a=(a_e)_{e\in E}$ write $|a|=\sum_e a_e$ and $a_0=n-|a|$.
+The established formula \cite[Lemma 4.1 and Equation (25)]{AC} is
+\begin{equation}\label{eq:source}
+ \E_\tau(u,v)=\sum_{a\in P_{\tau^*}}
+       \binom{v+a_0}{a_0}\prod_{e\in E}\binom{u+a_e-1}{a_e}.
+\end{equation}
+Here $a_0\ge0$, and binomial coefficients with fixed nonnegative
+lower argument are interpreted as polynomials in the upper argument.
+Putting $(u,v)=(-m-1,-1)$ in \eqref{eq:source}, every term with
+$a_0>0$ vanishes, since $\binom{a_0-1}{a_0}=0$.
+For the remaining terms $|a|=n$, use
+\[
+ \binom{a_e-m-2}{a_e}=(-1)^{a_e}\binom{m+1}{a_e}.
+\]
+Together with \eqref{eq:rec}, this gives, for all $m\ge0$,
+\begin{equation}\label{eq:count}
+ \operatorname{Ehr}(\Q_\tau,m)=\E_\tau(m,0)
+ =\sum_{\substack{a\in P_{\tau^*}\\|a|=n}}
+        \prod_{e\in E}\binom{m+1}{a_e}.
+\end{equation}
+This implication of bivariate reciprocity was already noted,
+conditionally, in \cite[Remark 7.3]{AC}; equation \eqref{eq:rec}
+supplies the missing premise.
+
+\subsection*{An elementary multiset identity}
+For a nonnegative integer vector $a$ with $|a|=n$, let $S_a$
+be all words having $a_e$ copies of each $e$. We prove
+\begin{equation}\label{eq:word}
+ \sum_{m\ge0}\left(\prod_e\binom{m+1}{a_e}\right)t^m
+ =\frac{\displaystyle\sum_{w\in S_a}t^{n-1-\des(w)}}{(1-t)^{n+1}}.
+\end{equation}
+Choose, for each letter $e$, a subset of $a_e$ bins from the
+$m+1$ ordered bins $0,1,\ldots,m$. Place one copy of $e$ in each
+chosen bin. The number of choices is the product on the left.
+Within each bin, read its distinct letters in strictly decreasing
+order, and concatenate the bins. This produces a word $w\in S_a$
+and a weakly increasing sequence of bin indices
+$0\le b_1\le\cdots\le b_n\le m$.
+
+At each index $j$ for which $w_j\le w_{j+1}$, the bin index must
+strictly increase. Conversely these conditions suffice: a constant
+bin segment is strictly decreasing and contains no repeated letter.
+Thus this construction is a bijection. The number of required
+strict increases is $c(w)=n-1-\des(w)$. Subtract from $b_j$ the
+number of required increases before position $j$. When $m\ge c(w)$
+this gives a weakly increasing sequence of length $n$ in
+$\{0,\ldots,m-c(w)\}$, counted by
+$\binom{m-c(w)+n}{n}$. There are no such sequences for $m<c(w)$.
+Consequently the contribution of $w$ to the generating function is
+\[
+ \sum_{m\ge c(w)}\binom{m-c(w)+n}{n}t^m
+ =\frac{t^{c(w)}}{(1-t)^{n+1}},
+\]
+which proves \eqref{eq:word}, including repeated letters and $m=0$.
+
+\begin{proof}[Proof of Theorem~\ref{thm:main}]
+A vector $a$ of total sum $n$ belongs to $P_{\tau^*}$ exactly
+when $\sum_{e\in J}a_e\le |J|$ for every order filter $J$ of
+$\tau$. Taking complements $I=E\setminus J$, these conditions
+are equivalent to $\sum_{e\in I}a_e\ge |I|$ for every order
+ideal $I$ of $\tau$. Therefore the sets $S_a$ indexed in
+\eqref{eq:count} partition $W_\tau$.
+Sum \eqref{eq:word} over those vectors and use \eqref{eq:count}.
+The definition
+\[
+ \sum_{m\ge0}\operatorname{Ehr}(\Q_\tau,m)t^m
+ =\frac{h^*(\Q_\tau,t)}{(1-t)^{n+1}}
+\]
+now yields the desired identity.
+\end{proof}
+
+\subsection*{Verification and attribution}
+Athanasiadis and Chapoton supplied the counting formula and
+proposed the implication from reciprocity. The complete
+reciprocity proof is reproduced above from our companion solution
+to MathDB 374965. The elementary multiset argument makes the
+descent conversion explicit. The earlier result \cite{AXY} treats
+a special family of arbors. The later preorder result in
+\cite[Corollary 5.4]{Y} concerns the reflexive polytope
+$\Q_\tau+\Delta_E-\mathbf1$, whose word set includes an extra
+letter; it is a different statement.
+
+All 26 pages of the current primary were read. The accompanying
+verifier compares direct lattice counts with word enumeration for
+all 389 labeled preorders of sizes 1--4, checks 50,069 words for
+the multiset identity, and tests all 120 total orderings in the
+source's five-element example. Bounded checks found no prior full
+target claim or identified journal final. Review is by the
+authoring agent only, without independent peer review or a proof assistant.
+
+\section*{Tasks 2--5. Proposed follow-up directions}
+\begin{enumerate}[label=\textbf{Task \arabic*.},start=2,leftmargin=*]
+\item Construct an explicit bijection directly from lattice points
+of $m\Q_\tau$ to the bin assignments in \eqref{eq:count}.
+\item Find a geometric realization of descent-set refinements of
+the formula, retaining the positions of descents rather than their number.
+\item Derive colored-word analogues for integral weights assigned
+to the principal-filter simplex summands.
+\item Characterize extremal $h^*$-coefficients among preorders of
+fixed size using the ideal constraints on the word set.
+\end{enumerate}
+\begin{thebibliography}{9}
+\raggedright
+\bibitem{AC} C. A. Athanasiadis and F. Chapoton,
+\emph{Polytopes and posets associated to preorders},
+\href{https://arxiv.org/abs/2605.26916v1}{arXiv:2605.26916v1}, 2026.
+\bibitem{AXY} C. A. Athanasiadis, Q. Xiao, and X. Yan,
+\emph{Lattice point enumeration of some arbor polytopes},
+\href{https://arxiv.org/abs/2603.11654v1}{arXiv:2603.11654v1}, 2026.
+\bibitem{Y} X. Yan, \emph{Variations of colored multiset Eulerian
+polynomials and applications},
+\href{https://arxiv.org/abs/2608.15682v2}{arXiv:2608.15682v2}, 2026.
+\end{thebibliography}
+\end{document}

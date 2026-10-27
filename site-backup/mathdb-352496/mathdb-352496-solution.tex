@@ -1,0 +1,192 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[colorlinks=true,urlcolor=blue,linkcolor=blue,citecolor=blue]{hyperref}
+\newtheorem{theorem}{Theorem}
+\newtheorem{corollary}{Corollary}
+\title{The Polynexus formula for nonzero interval-translation products}
+\author{Principia Math In Progress}
+\date{28 September 2026}
+\begin{document}
+\maketitle
+\begin{abstract}
+We prove Conjecture 1 of Fikioris and Fikioris by counting the zero
+products through disjoint intermediate intervals. A formal generating
+function evaluates the resulting weighted sum. The count concerns ordered
+pairs of elements of the specified interval-translation submonoid.
+\end{abstract}
+
+\section*{Task 1: statement and scope}
+Let $[n]=\{1,\ldots,n\}$. Let $M_n$ consist of the zero matrix and the
+$n\times n$ matrices whose ones form a nonempty consecutive block on one
+diagonal, all other entries being zero. Thus a nonzero element is uniquely
+specified by integers $\langle d,k,m\rangle$ satisfying
+\begin{equation}\label{domain}
+ 1-\min(0,d)\le k\le m\le n-\max(0,d),
+\end{equation}
+and its ones occupy $(i,i+d)$ for $k\le i\le m$. This is the submonoid
+$M_n$ of \cite{FF}, not the entire rook monoid $R_n$. Define
+\[
+ \psi(n)=\#\{(x,y)\in(M_n\setminus\{0\})^2:xy\ne0\}.
+\]
+Products are counted with their ordered factorizations, rather than as
+distinct resulting matrices. The source defines $M_n$ for $n\ge2$; its
+matrix description also gives the natural case $n=1$.
+
+\begin{theorem}\label{main}
+For every integer $n\ge1$,
+\begin{equation}\label{answer}
+ \psi(n)=\frac{(n+1)^7-n^7-(n+1)^3+n^3}{120}.
+\end{equation}
+Consequently Conjecture 1 of \cite[Section 8, p.~207]{FF} holds for its
+entire intended range.
+\end{theorem}
+
+\section*{Counting by intermediate intervals}
+A nonzero matrix in $M_n$ is equivalently the unique increasing
+translation from an integer interval $A\subseteq[n]$ to an interval
+$I\subseteq[n]$ of the same positive length. In the matrix convention
+above, $A=[k,m]$ is its row support and $I=[k+d,m+d]$ its column support.
+There are $n-l+1$ intervals of length $l$, so the number of nonzero
+elements is
+\begin{equation}\label{total}
+ T_n=\sum_{l=1}^n(n-l+1)^2=\frac{n(n+1)(2n+1)}6.
+\end{equation}
+For matrices $x:A\to I$ and $y:J\to B$, the defining formula
+$(xy)_{ab}=\sum_t x_{at}y_{tb}$ shows that $xy\ne0$ if and only if
+$I\cap J\ne\varnothing$. Indeed every $t\in I\cap J$ supplies a
+nonzero summand, and every nonzero summand supplies such a $t$.
+
+Let $Z_n$ count ordered pairs with $I$ entirely to the left of $J$.
+Fix $|I|=l\ge1$ and $|J|=m\ge1$, with $l+m\le n$, and set
+$g=n-l-m$. The numbers of unused sites before $I$, between $I$ and $J$,
+and after $J$ are three nonnegative integers summing to $g$.
+Conversely these three numbers determine $I,J$ uniquely. There are
+$\binom{g+2}{2}$ such triples. Adjacency is allowed and corresponds to
+a zero middle gap. For each placement of $I,J$, the external intervals
+$A,B$ have $(n-l+1)(n-m+1)$ independent choices. Therefore
+\begin{equation}\label{zeros}
+ Z_n=\sum_{\substack{l,m\ge1\\l+m\le n}}
+ (n-l+1)(n-m+1)\binom{n-l-m+2}{2}.
+\end{equation}
+The other orientation, with $J$ to the left of $I$, has the same count
+(by reflection of all intervals in $[n]$). These orientations are
+disjoint and exhaust the zero products. Thus
+\begin{equation}\label{complement}
+ \psi(n)=T_n^2-2Z_n.
+\end{equation}
+
+\section*{Evaluation of the weighted sum}
+We use formal power series, so no analytic convergence assertion is
+required. Set $Z_0=0$, $f(z)=(1-z)^{-3}$ and
+$D=z\frac{d}{dz}+1$. The identities
+\[
+ \sum_{l\ge1}z^l=\frac z{1-z},\qquad
+ \sum_{l\ge1}lz^l=\frac z{(1-z)^2},\qquad
+ \sum_{g\ge0}\binom{g+2}{2}z^g=f(z)
+\]
+give an explicit evaluation of \eqref{zeros}. Since $n=l+m+g$,
+\[
+ (n-l+1)(n-m+1)=lm+(g+1)(l+m)+(g+1)^2.
+\]
+The operator $D$ multiplies the coefficient of $z^g$ by $g+1$.
+Summing the three terms separately therefore gives
+\begin{align}\label{gf}
+ \sum_{n\ge0}Z_nz^n
+ &=\frac{z^2f(z)}{(1-z)^4}
+   +\frac{2z^2Df(z)}{(1-z)^3}
+   +\frac{z^2D^2f(z)}{(1-z)^2}\notag\\
+ &=\frac{z^2(4+11z+4z^2)}{(1-z)^7}.
+\end{align}
+For clarity, the derivatives used here are
+\[
+ Df(z)=\frac{1+2z}{(1-z)^4},\qquad
+ D^2f(z)=\frac{1+7z+4z^2}{(1-z)^5}.
+\]
+Extracting coefficients yields
+\begin{equation}\label{zclosed}
+ Z_n=4\binom{n+4}{6}+11\binom{n+3}{6}+4\binom{n+2}{6},
+ \qquad n\ge0,
+\end{equation}
+where $\binom a6=0$ for integers $0\le a<6$.
+Every rearranged sum has only finitely many terms in each degree,
+which justifies all the formal series operations above.
+
+\begin{proof}[Completion of the proof of Theorem~\ref{main}]
+Substitute \eqref{total} and \eqref{zclosed} into \eqref{complement}.
+Expansion of the binomial products gives
+\[
+ T_n^2-2Z_n
+ =\frac{7n^6+21n^5+35n^4+35n^3+18n^2+4n}{120},
+\]
+which is exactly \eqref{answer} by the binomial theorem. This expansion
+also holds at $n=1$: the three binomial products vanish, $T_1=1$, and
+$\psi(1)=1$. Thus there are no omitted small cases.
+\end{proof}
+
+\begin{corollary}
+Put $S_n=M_n\setminus\{1\}$, as in \cite{FF}. For $n\ge2$, the proportion
+of nonzero products among ordered pairs from $S_n\setminus\{0\}$ is
+\[
+ r(n)=\frac{\psi(n)-2T_n+1}{(T_n-1)^2},\qquad
+ \lim_{n\to\infty}r(n)=\frac{21}{40}.
+\]
+\end{corollary}
+\begin{proof}
+Exactly $2T_n-1$ of the ordered pairs involve the identity, and all
+their products are nonzero. Removing these pairs proves the expression.
+The leading coefficients of $\psi(n)$ and $T_n^2$ are $7/120$ and
+$1/9$, respectively, giving the limit. This makes the corresponding
+conditional conclusion in \cite{FF} unconditional.
+\end{proof}
+
+\section*{Verification and research status}
+The accompanying verifier enumerates the original integer triplets and
+checks every ordered pair through $n=12$. For $n\le6$ it additionally
+performs literal integer matrix multiplication. It checks the rational
+generating function identity and final polynomial identity exactly.
+These finite checks support the audit; the proof for all $n$ is the
+counting argument and formal evaluation above.
+
+All 26 pages of arXiv:2111.01863v3 and the final article were read; the
+final full text was obtained through the authors' public Springer
+SharedIt link. The final Conjecture 1 retains the target formula.
+The later extension \cite{extension} does not resolve this enumeration.
+Live MathDB status and bounded public claim searches were checked
+before the attempt and refreshed before credit. This is an author-agent
+self-reviewed proof, without independent peer review or formalization.
+
+\section*{Proposed follow-up Tasks 2--5}
+The following are proposed directions after the complete resolution of
+Task 1; no solution or additional campaign credit is claimed for them.
+\begin{enumerate}
+\setcounter{enumi}{1}
+\item Determine a closed formula for the number of ordered pairs
+$(x,y)\in(M_n\setminus\{0\})^2$ with $\operatorname{rank}(xy)=r$,
+for every $1\le r\le n$.
+\item For each fixed $k\ge3$, determine the number of ordered
+$k$-tuples of nonzero elements of $M_n$ whose product is nonzero,
+and compute its limiting proportion as $n\to\infty$.
+\item Determine the number of commuting ordered pairs in $M_n$,
+separating the cases $xy=yx=0$ and $xy=yx\ne0$.
+\item Find a closed rational expression for
+$\sum_{n\ge1}z^n\sum_{x,y\in M_n\setminus\{0\},\,xy\ne0}
+u^{\operatorname{rank}(x)}v^{\operatorname{rank}(y)}$,
+refining the count by both factor ranks.
+\end{enumerate}
+
+\begin{thebibliography}{9}
+\bibitem{FF} George Fikioris and Giannis Fikioris,
+\emph{A subsemigroup of the rook monoid}, Semigroup Forum
+105 (2022), 191--216.
+\href{https://doi.org/10.1007/s00233-022-10302-5}{doi:10.1007/s00233-022-10302-5}.
+Preprint: \href{https://arxiv.org/abs/2111.01863v3}{arXiv:2111.01863v3}.
+Public author sharing link: \url{https://rdcu.be/cRc5q}.
+\bibitem{extension} George Fikioris and Giannis Fikioris,
+\emph{An extension to ``A subsemigroup of the rook monoid''},
+Semigroup Forum 107 (2023), 637--650.
+\href{https://doi.org/10.1007/s00233-023-10393-8}{doi:10.1007/s00233-023-10393-8}.
+\bibitem{OEIS} OEIS Foundation, \href{https://oeis.org/A083200}{A083200},
+Polynexus numbers of order 7. The count here equals $a(n+1)$.
+\end{thebibliography}
+\end{document}

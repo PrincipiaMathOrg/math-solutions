@@ -1,0 +1,240 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,hyperref,enumitem}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newcommand{\e}{\mathbf e}
+\title{Positivity and monotonicity of the Dilcher--Ulas sequence}
+\author{Principia Math In Progress}
+\date{18 September 2026}
+\begin{document}
+\maketitle
+\begin{abstract}
+We prove the positivity and monotonicity conjecture for
+$f_{2^k,n}(-1)$ in every interval between its prescribed zeros.
+A finite-path representation makes each signed term, and each required
+successive difference, a positive sum of numbers of walks. The argument
+also gives the equality of the final two terms of every block.
+\end{abstract}
+
+\section*{Task 1: complete proof}
+Dilcher and Ulas define
+\[
+ f_{m,n}(z)=\sum_{a=0}^n\binom na z^{\binom am},
+ \qquad f_{m,n}=f_{m,n}(-1).
+\]
+The target is Conjecture 5.8 in the current preprint \cite{DUa},
+and Conjecture 2 in the published paper \cite{DU}.
+
+\begin{theorem}\label{main}
+Let $k\ge1$, $m=2^k$, and $\nu\ge0$ be integers. Then
+\[
+ 0<(-1)^\nu f_{m,2m\nu}<(-1)^\nu f_{m,2m\nu+1}
+ <\cdots<(-1)^\nu f_{m,2m\nu+2m-3}
+ =(-1)^\nu f_{m,2m\nu+2m-2}.
+\]
+Moreover, $f_{m,2m\nu+2m-1}=0$. Thus the displayed blocks
+contain all nonzero terms of the sequence.
+\end{theorem}
+
+\subsection*{From the binomial sum to a path}
+Lucas's parity rule gives
+$\binom a{2^k}\equiv\lfloor a/2^k\rfloor\pmod2$.
+For completeness, in $\mathbb F_2[x]$ write
+$(1+x)^a=\prod_{r:a_r=1}(1+x^{2^r})$, where $a_r$ are the
+binary digits of $a$. The coefficient of $x^{2^k}$ is $a_k$:
+the smaller binary powers sum to less than $2^k$.
+Consequently it suffices to study
+\begin{equation}\label{F}
+ F_m(n)=\sum_{a=0}^n\binom na(-1)^{\lfloor a/m\rfloor}.
+\end{equation}
+In fact, we shall prove the same block assertion for $F_m$ for
+\emph{every integer $m\ge2$}. For powers of two, $F_m(n)=f_{m,n}$.
+
+Let $B$ be the adjacency matrix of the path on vertices
+$1,2,\ldots,2m-1$, let $\e=\e_m$ be the central unit vector, and define
+\[
+ U_0(x)=1,\quad U_1(x)=2x,\quad
+ U_{t+1}(x)=2xU_t(x)-U_{t-1}(x),\qquad
+ u_t=U_t(B/2)\e.
+\]
+Thus $u_0=\e$, $u_1=B\e$, and $u_{t+1}=Bu_t-u_{t-1}$.
+
+\begin{lemma}\label{spectral}
+For every $n,t\ge0$,
+\begin{equation}\label{matrix}
+ F_m(n)=\e^{\mathsf T}B^n u_n,
+ \qquad u_{t+2m}=-u_t.
+\end{equation}
+\end{lemma}
+\begin{proof}
+Put $\theta_\ell=(2\ell+1)\pi/(2m)$ and
+$z_\ell=e^{2i\theta_\ell}$, $0\le\ell<m$.
+The sequence $\sigma(a)=(-1)^{\lfloor a/m\rfloor}$ is
+antiperiodic with shift $m$. Finite Fourier inversion on its first
+$m$ terms gives
+\[
+ \sigma(a)=\sum_{\ell=0}^{m-1}c_\ell z_\ell^a,
+ \qquad c_\ell=\frac1m\sum_{b=0}^{m-1}z_\ell^{-b}
+ =\frac{2}{m(1-z_\ell^{-1})}
+ =\frac{-i e^{i\theta_\ell}}{m\sin\theta_\ell}.
+\]
+Indeed, the $z_\ell^a$ are orthogonal on $0\le a<m$ and all
+have the same antiperiodicity. Apply the binomial theorem and take
+real parts, using $1+z_\ell=2\cos\theta_\ell\,e^{i\theta_\ell}$:
+\begin{equation}\label{trig}
+ F_m(n)=\frac1m\sum_{\ell=0}^{m-1}
+ (2\cos\theta_\ell)^n
+ \frac{\sin((n+1)\theta_\ell)}{\sin\theta_\ell}.
+\end{equation}
+For powers of two, pairing the terms with opposite cosines recovers
+Dilcher--Ulas Proposition 7, equation (38), or preprint
+Proposition 5.3, equation (5.6). That trigonometric identity is known;
+the derivation above fixes the normalization and also handles general $m$.
+
+The normalized eigenvectors of $B$ have coordinates
+\[
+ v_r(a)=m^{-1/2}\sin\frac{ar\pi}{2m},\quad
+ 1\le r,a\le2m-1,
+ \qquad Bv_r=2\cos\frac{r\pi}{2m}\,v_r.
+\]
+The sine recurrence verifies the eigenvalue equation, including the
+zero boundary values. Distinct eigenvalues give orthogonality, and
+$\sum_{a=1}^{2m-1}\sin^2(ar\pi/(2m))=m$ gives the normalization.
+At the central vertex $v_r(m)^2$ is $1/m$ for odd $r$ and zero
+for even $r$. Since $U_t(\cos\theta)=\sin((t+1)\theta)/\sin\theta$,
+the spectral expansion of $\e^{\mathsf T}B^nU_n(B/2)\e$
+is precisely \eqref{trig}.
+On every odd mode, shifting $t$ by $2m$ changes the sine's sign.
+The even modes have zero coefficient in $\e$, proving the second
+identity in \eqref{matrix} as a vector identity.
+\end{proof}
+
+\subsection*{An explicit nonnegative central column}
+For $0\le s\le m-1$, set
+\[
+ S_s=\sum_{a=0}^s\e_{m-s+2a},\qquad S_{-1}=0.
+\]
+\begin{lemma}\label{wave}
+For $0\le t\le2m-2$,
+\begin{equation}\label{column}
+ u_t=S_{\min(t,\,2m-2-t)},\qquad u_{2m-1}=0.
+\end{equation}
+In particular, $u_t$ is nonnegative. If $t$ is even it contains
+$\e_m$ with coefficient one; if $t$ is odd it contains
+$\e_{m-1}$ with coefficient one.
+\end{lemma}
+\begin{proof}
+Moving one step left or right on the path gives
+\[
+ BS_s=S_{s-1}+S_{s+1}\quad(0\le s\le m-2),
+ \qquad BS_{m-1}=2S_{m-2}.
+\]
+These identities can also be checked at each coordinate: the two
+outer coordinates have multiplicity one until the endpoints are
+reached, and all overlapping coordinates have multiplicity two.
+Starting with $u_0=S_0$ and $u_1=S_1$, the recurrence
+$u_{t+1}=Bu_t-u_{t-1}$ first gives
+$S_0,S_1,\ldots,S_{m-1}$ and then
+$S_{m-2},\ldots,S_0,0$. This proves \eqref{column}, including $m=2$.
+The minimum in \eqref{column} has the parity of $t$.
+Its defining sum therefore contains the stated central vertex or
+neighbor. In the odd case this minimum is at least one.
+\end{proof}
+
+\begin{lemma}\label{positive}
+If $0\le t\le2m-2$, $n\ge0$, and $n\equiv t\pmod2$, then
+$\e^{\mathsf T}B^n u_t>0$.
+\end{lemma}
+\begin{proof}
+Every entry of $B^n$ counts walks of length $n$ on the path and
+is nonnegative. When $n$ is even, there is a walk from $m$ to
+$m$: for $n=0$ take the empty walk, and otherwise repeat the
+edge between $m$ and $m-1$ back and forth. When $n$ is odd,
+there is similarly a walk from $m$ to $m-1$. The corresponding
+coordinate of $u_t$ equals one by Lemma~\ref{wave}.
+\end{proof}
+
+\subsection*{All blocks and all successive differences}
+Write $n=2m\nu+j$. Lemma~\ref{spectral} gives
+\begin{equation}\label{signed}
+ (-1)^\nu F_m(n)=\e^{\mathsf T}B^n u_j.
+\end{equation}
+For $0\le j\le2m-2$, $n$ and $j$ have the same parity, so
+Lemma~\ref{positive} proves strict positivity. For $j=2m-1$,
+Lemma~\ref{wave} gives zero.
+
+For $0\le j\le2m-3$, the two terms $n$ and $n+1$ lie in
+the same block. Apply \eqref{signed} to both and use the recurrence:
+\begin{align}
+ (-1)^\nu\bigl(F_m(n+1)-F_m(n)\bigr)
+ &=\e^{\mathsf T}B^n(Bu_{j+1}-u_j)\notag\\
+ &=\e^{\mathsf T}B^n u_{j+2}.\label{difference}
+\end{align}
+If $j\le2m-4$, Lemma~\ref{positive} applies to $t=j+2$,
+giving strict increase. If $j=2m-3$, then $u_{j+2}=u_{2m-1}=0$,
+giving the equality of the final two terms. Taking $m=2^k$
+proves Theorem~\ref{main}.\hfill$\square$
+
+\section*{Tasks 2--5: proposed follow-up questions}
+These are proposed directions, not additional solved problems.
+\begin{enumerate}[label=\textbf{Task \arabic*:},start=2,leftmargin=*]
+\item Determine whether every positive signed block is log-concave:
+for $b_j=(-1)^\nu f_{m,2m\nu+j}$, is
+$b_j^2\ge b_{j-1}b_{j+1}$ at every interior index? Identify all
+equality cases or the first counterexample.
+\item Determine exact $2$-adic valuations of the nonzero block
+entries and their positive differences. Can the path representation
+explain cancellations modulo powers of two and yield formulas in
+the binary digits of $n$?
+\item For even $m$ that are not powers of two, classify the negative
+terms and failures of monotonicity of the original $f_{m,n}(-1)$.
+Its sign sequence is no longer the single square wave in \eqref{F};
+investigate a decomposition into finite-path contributions.
+\item Obtain uniform asymptotic formulas for the walk sums in
+\eqref{signed} and \eqref{difference} when $m\to\infty$,
+$n/m^2$ stays in a compact subset of $(0,\infty)$, and the
+position $j/(2m)$ varies, including the endpoints of a block.
+\end{enumerate}
+
+\section*{Verification and source scope}
+The accompanying standard-library program \texttt{verify.py} uses only
+integer arithmetic. Its four groups check 2,256 Lucas-parity cases,
+5,884 central-vector identities, 3,160 independent binomial-sum/walk
+identities, and 3,160 sign/zero cases together with 2,960 exact difference
+identities. The proof above, rather than these finite checks, establishes
+the universal quantifiers.
+
+All 22 pages of the current preprint and all 26 pages of the published
+final were read. The preprint states the target on page 18; the final
+states it on page 22. Their earlier results include the trigonometric
+formula, positivity for sufficiently late blocks, the first block,
+and terminal equality. Those results are credited to Dilcher and Ulas.
+The present argument supplies positivity and strict monotonicity in
+every block by a nonnegative path representation.
+
+The MathDB API's reference text labels a different harmonic-sum
+statement as refuted. That text is not a resolution of the target,
+which remains a conjecture in both current source versions. The
+database's solution and attempt fields were empty at the recorded
+checks. Bounded literature and public claim-index searches found no
+prior full claim for this target. This is an authoring-agent proof and
+audit; no independent peer review or formal verification is claimed.
+
+\begin{thebibliography}{9}
+\bibitem{DU}
+K. Dilcher and M. Ulas,
+\emph{Divisibility and Arithmetic Properties of a Class of Sparse Polynomials},
+Integers \textbf{22} (2022), A8, 26 pp.
+\href{https://math.colgate.edu/~integers/w8/w8.pdf}{Published final};
+Conjecture 2, p.~22; Proposition 7, pp.~18--20.
+\bibitem{DUa}
+K. Dilcher and M. Ulas, same title,
+\href{https://arxiv.org/abs/2008.13475}{arXiv:2008.13475v2},
+24 September 2021, 22 pp.; Conjecture 5.8, p.~18.
+\bibitem{DB}
+\href{https://mathdb.com/p/347788}{MathDB 347788},
+\emph{Positivity and monotonicity conjecture for the sequence
+$f_{2^k,n}$}, checked 18 September 2026.
+\end{thebibliography}
+\end{document}

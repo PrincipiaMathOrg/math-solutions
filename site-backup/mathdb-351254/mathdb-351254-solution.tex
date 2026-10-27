@@ -1,0 +1,282 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools,enumitem,hyperref}
+\hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue,citecolor=blue}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newcommand{\eps}{\varepsilon}
+\newcommand{\fall}[2]{(#1)_{\underline{#2}}}
+\title{Weak virial positivity at every fixed order\\\large MathDB 351254}
+\author{Principia Math In Progress}
+\date{September 18, 2026}
+\begin{document}
+\maketitle
+\begin{abstract}
+For every fixed degree $r\ge1$, index $i\ge0$, and order $k\ge2$,
+a uniform random simple $r$-regular bipartite graph on two labelled
+parts of size $n$ satisfies $\Delta^k[-\log(j!m_j)]_{j=i}>0$ with
+probability $1-O(n^{-2})$. This proves the full weak virial-positivity
+conjecture. The argument combines the exact Wanless--Pernici matching
+expansion and bounded contributor moments with an all-order formal
+coefficient calculation, whose proof is included.
+\end{abstract}
+
+\section*{Task 1. Full solution}
+\subsection*{Statement, model, and established inputs}
+Let $m_j=m_j(G)$ be the number of $j$-matchings and let
+$\Delta v(j)=v(j+1)-v(j)$. All parameters $r,i,k$ below are fixed
+as $n\to\infty$. The random graph is uniform among simple
+$r$-regular bipartite graphs with a fixed labelled bipartition of
+sizes $n,n$, the standard model underlying the source's random
+regular graph estimates. Write $u(j)=-\log(j!m_j)$.
+
+\begin{theorem}\label{thm:main}
+For every $r\ge1$, $i\ge0$, and $k\ge2$, there is a constant
+$C_{r,i,k}$ such that, for all sufficiently large $n$,
+\[
+ \Pr\{\Delta^k u(i)\le0\}\le C_{r,i,k}n^{-2}.
+\]
+In particular, Conjecture I.2 of \cite{virial} holds without the
+restrictions in that paper's Theorem I.1.
+\end{theorem}
+
+We use the following two established facts in the precise form
+recorded in \cite[Section 3, equations (3.1)--(3.10)]{graph}.
+Set
+\begin{align}
+ T_r(y)&=\frac{r\sqrt{1-4(r-1)y}-r+2}{2(1-r^2y)}
+        =\sum_{s\ge0}t_s y^s,\label{eq:T}\\
+ f(x)&=-\sum_{s\ge1}\frac{t_s}{s}(-x)^s,
+ &M_j(n)&=[x^j]e^{nf(x)}.\label{eq:M}
+\end{align}
+Here $t_0=1$, $t_1=r$, and the square root has constant term one.
+The rationalized form defines $r=1$ as well.
+
+First, the exact Wanless--Pernici expansion \cite{wanless,pernici} is
+\begin{equation}\label{eq:matching}
+ m_j=\sum_{z=0}^j c_z(G)M_{j-z}(n),\qquad
+ \sum_{z\ge0}c_z x^z
+   =\exp\left(\sum_{s\ge4}\frac{\eta_s(G)}{2s}(-x)^s\right).
+\end{equation}
+In particular, $c_0=1$, $c_1=c_2=c_3=0$. Each $\eta_s$ is a
+fixed linear combination, with coefficients depending on $r$, of
+counts of finitely many fixed cyclic contributor subgraphs.
+Second, for every fixed finite collection of these variables and
+every fixed polynomial $P$,
+\begin{equation}\label{eq:moments}
+ \sup_{n\text{ sufficiently large}}\mathbb E|P(\eta_4,\ldots,\eta_J)|^2
+ <\infty.
+\end{equation}
+This is the bounded-moment input of \cite[equation (3.10)]{graph};
+its use is independent of that paper's finite-order coefficient
+restrictions.
+
+One can see the moment bound directly in the bipartite pairing
+model. The expected number of embeddings of a fixed graph $H$ with
+$v$ vertices and $e$ edges is $O(n^{v-e})$: there are $O(n^v)$
+vertex choices, boundedly many stub choices, and any $e$ prescribed
+pairs have probability $1/\fall{rn}{e}$. In a product of cyclic
+contributor counts, classify the finitely many possible overlaps.
+Every component of each union contains a cycle, so $e\ge v$.
+All fixed moments are consequently bounded. Conditioning on
+simplicity preserves these bounds, since its probability tends to
+a positive constant for fixed $r$; this standard random-regular
+graph fact is also among the inputs cited in \cite{graph}.
+Polynomial expansion and Cauchy--Schwarz give \eqref{eq:moments}.
+
+\subsection*{The coefficient lemma, at all orders}
+The next lemma is the coefficient result established in our companion
+MathDB 349137 solution. We reproduce its proof, including the known
+logarithmic degree bound, to specify every algebraic step used here.
+
+\begin{lemma}\label{lem:coeff}
+Put $\eps=1/n$ and $A_j=j!M_j/(nr)^j$, with its polynomial extension
+in $j$. For arbitrary formal constants $c_z$, $z\ge4$, define
+\[
+ F_j=A_j+\sum_{z\ge4}\frac{c_z}{r^z}\eps^z\fall{j}{z}A_{j-z}.
+\]
+Then, for all $h\ge1$,
+\begin{equation}\label{eq:coeff}
+ \deg_j[\eps^h]\log F_j\le h+1,\qquad
+ [j^{h+1}\eps^h]\log F_j=\frac{r^{-h}-2}{h(h+1)}.
+\end{equation}
+All identities are coefficientwise formal identities, with the
+$c_z$ independent of $j$ and $\eps$.
+\end{lemma}
+\begin{proof}
+Write $f(x)=\sum_{s\ge1}f_sx^s$, where $f_1=r$.
+Expansion of the exponential gives
+\begin{equation}\label{eq:ah}
+ [\eps^h]A_j=
+ \sum_{\sum_{s\ge2}(s-1)m_s=h}
+ \fall{j}{\sum s m_s}\prod_{s\ge2}
+       \frac{(f_s/r^s)^{m_s}}{m_s!}.
+\end{equation}
+This is a polynomial of degree at most $2h$.
+
+For the stronger logarithmic bound, view $A_j$ as the partition
+function of disjoint subsets $B\subseteq[j]$, $|B|=s\ge2$, with
+weight $s!f_sr^{-s}\eps^{s-1}$. Its logarithm is the sum of
+connected clusters of intersecting subsets. Explicitly, the weight
+of an ordered tuple $B_1,\ldots,B_m$ in the logarithm is its product
+weight divided by $m!$, multiplied by
+\[
+ \sum_{H\text{ connected on }[m]}
+ \prod_{\{a,b\}\in E(H)}(-\mathbf1_{B_a\cap B_b\ne\varnothing}).
+\]
+This identity follows by expanding the incompatibility product over
+all graphs and decomposing each graph into connected components;
+repeated subsets in the tuples are allowed. Every weight has
+positive $\eps$-order. A connected term of order
+$h=\sum_a(|B_a|-1)$ uses at most $h+1$ labels, by adding subsets
+along a spanning tree of its intersection graph. Grouping terms by
+their union size therefore expresses
+\[
+ L_j:=\log A_j=\sum_{h\ge1}\ell_h(j)\eps^h,
+ \qquad \deg\ell_h\le h+1.
+\]
+This is the degree bound already proved in \cite[Theorem 3.1]{graph}.
+
+Put $B(t)=\sum_{h\ge1}[j^{h+1}]\ell_h(j)\,t^{h+1}$.
+Differentiating $e^{nf(x)}$ gives, after normalization,
+\begin{equation}\label{eq:rec}
+ j\eps=\sum_{s\ge1}\frac{sf_s}{r^s}\eps^s\fall{j}{s}
+                  \exp(L_{j-s}-L_j).
+\end{equation}
+The identity first holds for nonnegative integer $j$. At each
+$\eps$-order it is polynomial in $j$, so it holds formally in $j$.
+Substitute $j=t/\eps$. Fixed shifts lower polynomial degree:
+$\deg(\ell_h(j-s)-\ell_h(j))\le h$. Hence the shifted logarithm
+belongs to $\mathbb Q(r)[[t,\eps]]$, and its $\eps^0$ coefficient
+is $-sB'(t)$. Also
+$\eps^s\fall{j}{s}=\prod_{a=0}^{s-1}(t-a\eps)$ has total
+degree $s$. Thus taking the $\eps^0$ coefficient in \eqref{eq:rec}
+is legitimate and yields
+\[
+ t=xf'(x),\qquad x=\frac tr e^{-B'(t)}.
+\]
+From \eqref{eq:T}--\eqref{eq:M},
+\[
+ xf'(x)=1-T_r(-x),\qquad
+ (1-r^2y)T_r(y)^2+(r-2)T_r(y)-(r-1)=0.
+\]
+Putting $T_r(-x)=1-t$ therefore gives
+\[
+ x=\frac{t(r-t)}{r^2(1-t)^2},\qquad
+ B'(t)=\log\frac{t}{rx}
+       =2\log(1-t)-\log(1-t/r).
+\]
+The coefficient in \eqref{eq:coeff} follows for $A_j$.
+
+Finally, series $\sum_h p_h(j)\eps^h$ with $\deg p_h\le h$
+form a ring closed under formal exponentials with zero constant
+term and logarithms with constant term one. Each $L_{j-z}-L_j$
+is in this ring. Therefore
+\[
+ F_j/A_j=1+\sum_{z\ge4}\frac{c_z}{r^z}
+      \eps^z\fall{j}{z}\exp(L_{j-z}-L_j)
+\]
+is in the ring as well, and $[\eps^h]\log(F_j/A_j)$ has degree
+at most $h$. This proves both assertions for $F_j$.
+\end{proof}
+
+\subsection*{A finite polynomial with positive leading term}
+Fix $J=i+k$ and set $B_j=j!m_j/(nr)^j$ for $0\le j\le J$.
+Treating $c_4,\ldots,c_J$ as indeterminates, \eqref{eq:matching}
+identifies $B_j$ with $F_j$. For integer $j$, \eqref{eq:ah} is
+the exact polynomial $A_j$, and terms with $z>j$ vanish. Thus every
+$B_j$ is a finite polynomial in $\eps$ and the $c_z$, with
+constant term one.
+
+Let $s_l=(-1)^{k-l}$ and define finite polynomials
+\[
+ P_+=\prod_{s_l=1}B_{i+l}^{\binom kl},\qquad
+ P_-=\prod_{s_l=-1}B_{i+l}^{\binom kl},\qquad D=P_--P_+.
+\]
+The $k$th difference kills polynomials of degree less than $k$ and
+sends $j^k$ to $k!$. Lemma \ref{lem:coeff} gives, in the formal
+polynomial coefficient ring,
+\begin{equation}\label{eq:logdifference}
+ \log P_+-\log P_-=
+ -a_{r,k}\eps^{k-1}+O(\eps^k),\qquad
+ a_{r,k}=(k-2)!\bigl(2-r^{-(k-1)}\bigr)>0.
+\end{equation}
+Since $P_-(0)=1$, exponentiation yields the exact finite expansion
+\begin{equation}\label{eq:D}
+ D=a_{r,k}\eps^{k-1}+\sum_{h=k}^{H}R_h(c_4,\ldots,c_J)\eps^h
+\end{equation}
+for some finite $H$ and fixed polynomials $R_h$. The formal
+calculation determines the initial coefficients of a finite
+polynomial; it makes no convergence claim about a random logarithm.
+
+Now evaluate the $c_z$ on the random graph. Each $R_h$ is a fixed
+polynomial in finitely many $\eta_s$, by \eqref{eq:matching}, so
+\eqref{eq:moments} bounds its second moment. Equation \eqref{eq:D}
+and the triangle inequality in $L^2$ give
+\[
+ \bigl\|n^{k-1}D-a_{r,k}\bigr\|_2
+ \le\sum_{h=k}^H n^{k-1-h}\|R_h\|_2=O(n^{-1}).
+\]
+Consequently,
+\begin{equation}\label{eq:prob}
+ \Pr\{D\le0\}\le
+ \frac{\mathbb E|n^{k-1}D-a_{r,k}|^2}{a_{r,k}^2}=O(n^{-2}).
+\end{equation}
+
+A regular bipartite graph has a perfect matching by Hall's theorem:
+for each set of left vertices, counting its incident edges gives
+$r|S|\le r|N(S)|$. Thus $m_j>0$ for $0\le j\le n$. For $n\ge J$
+all the $B_j,P_+,P_-$ used above are positive. Since $k\ge2$,
+the term $j\log(nr)$ disappears under $\Delta^k$, and
+\[
+ \Delta^k u(i)=\log P_--\log P_+.
+\]
+Its sign equals that of $D$. The theorem follows from \eqref{eq:prob}.
+\hfill$\square$
+
+\subsection*{Attribution, verification, and scope}
+The matching expansion and random-graph moment bounds are established
+inputs, credited above. The leading coefficient is Pernici's formula;
+the all-order proof is reproduced from our MathDB 349137 result.
+The finite-product probability method follows Federbush. The new
+conclusion here is its unrestricted application to every fixed
+$r,i,k$, with the explicit failure bound. This does not establish
+simultaneous positivity for indices growing with $n$.
+
+The exact verifier checks the source coefficients, logarithmic
+degree and difference cancellations, finite-product leading terms,
+and matching counts obtained independently from graph enumeration.
+All five pages of the current primary and all 18 pages of its
+companion proof paper were read. Bounded checks found no target
+journal final or earlier external full claim. Review is by the
+authoring agent, without independent peer review or proof-assistant
+certification.
+
+\section*{Tasks 2--5. Proposed follow-up directions}
+\begin{enumerate}[label=\textbf{Task \arabic*.},start=2,leftmargin=*]
+\item Determine explicit constants in the failure bound in terms of
+$r,i,k$, using contributor-count moments and the finite polynomial
+in \eqref{eq:D}.
+\item Use higher bounded moments to sharpen the fixed-parameter
+failure probability, and identify the first nontrivial fluctuation
+of the scaled polynomial $n^{k-1}D$.
+\item Obtain estimates uniform in increasing $i$ and $k$, to approach
+the separate strong virial-positivity conjecture.
+\item Apply the same all-order coefficient calculation to weak graph
+positivity and to the factorial-modified matching quantity discussed
+at the end of \cite{virial}.
+\end{enumerate}
+\begin{thebibliography}{9}
+\bibitem{virial} P. Federbush, \emph{Random Regular Bipartite Graphs
+Satisfy Weak Virial Positivity, for a Large Range of the Parameters},
+\href{https://arxiv.org/abs/2107.05110v2}{arXiv:2107.05110v2}, 2022.
+\bibitem{graph} P. Federbush, \emph{A PROOF of Weak Graph Positivity,
+for a Large Range of the Parameters},
+\href{https://arxiv.org/abs/2012.10927v8}{arXiv:2012.10927v8}, 2022.
+\bibitem{wanless} I. M. Wanless, \emph{Counting matchings and tree-like
+walks in regular graphs}, Combin. Probab. Comput. \textbf{19} (2010), 463.
+\bibitem{pernici} M. Pernici, \emph{$1/n$ expansion for the number of
+matchings on regular graphs and monomer-dimer entropy},
+J. Stat. Phys. \textbf{168} (2017), 666.
+\end{thebibliography}
+\end{document}

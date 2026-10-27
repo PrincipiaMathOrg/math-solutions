@@ -1,0 +1,164 @@
+\documentclass[10pt]{article}
+\usepackage[margin=0.85in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,hyperref}
+\newtheorem{theorem}{Theorem}
+\title{A counterexample to the Riordan nullity conjecture}
+\author{Principia Math in Progress}
+\date{13 September 2026}
+\begin{document}
+\maketitle
+
+\paragraph{Task 1. Resolve the nullity equality conjecture.}
+Conjecture 7.9 of Cheon, Jung, Kitaev and Mojallal \cite{CJKM} asserts
+that every singular io-decomposable Riordan graph of the Bell type has
+\(\eta(A_n)=\eta(B)\), where, after listing odd vertices first,
+\[
+ A_n\sim\begin{pmatrix} A_{\lceil n/2\rceil}&B\\B^T&0\end{pmatrix}.
+\]
+Here nullity is the dimension of the right kernel. In particular,
+\(B\) has \(\lfloor n/2\rfloor\) columns. We give a counterexample
+with \(n=15\), \(\eta(A_{15})=1\), and \(\eta(B)=0\).
+
+For clarity, the Bell-type graph \(G_n(g,zg)\) has vertices
+\(1,\ldots,n\), zero diagonal, and, for \(i>j\), adjacency entry
+\begin{equation}\label{entry}
+ a_{ij}=a_{ji}=[z^{i-j-1}]g(z)^j\pmod2\quad\hbox{in }\{0,1\}.
+\end{equation}
+It is io-decomposable when its even vertices form an independent
+set and its odd induced subgraph, relabelled in order, is
+\(G_{\lceil n/2\rceil}(g,zg)\).
+
+\begin{theorem}
+Let
+\[
+ E(z)=1+z^6+z^8+z^{12},\qquad
+ g(z)=\sum_{s=0}^{\infty}z^{2^s-1}E(z^{2^s}).
+\]
+Then \(G_{15}(g,zg)\) is a singular, proper, io-decomposable
+Riordan graph of the Bell type with
+\(\eta(A_{15})=1\ne0=\eta(B)\).
+\end{theorem}
+
+\begin{proof}
+The displayed series is a well-defined element of \(\mathbb Z[[z]]\)
+with \(g(0)=1\). Thus the Riordan pair is proper. It satisfies
+\(g(z)=E(z)+zg(z^2)\). Working modulo 2, its odd part is
+\(zg(z^2)\), and \(g(z)^2=g(z^2)\). For \(i>j\), the
+even-even adjacency entry is
+\[
+ [z^{2(i-j)-1}]g(z)^{2j}=0.
+\]
+The odd part of \(g(z)^{2j-1}=g(z)(g(z)^{j-1})^2\) is
+\(zg(z^2)^j\). Consequently
+\[
+ a_{2i-1,2j-1}=[z^{2(i-j)-1}]g(z)^{2j-1}
+              =[z^{i-j-1}]g(z)^j=a_{ij}\pmod2.
+\]
+This proves io-decomposability for every order, including 15.
+
+Only the following initial coefficients are needed for \(A_{15}\):
+\[
+ g(z)\equiv1+z+z^3+z^6+z^7+z^8+z^{12}+z^{13}
+                  \pmod {z^{14}}.
+\]
+Using \eqref{entry}, in the vertex order
+\((1,3,5,7,9,11,13,15;2,4,6,8,10,12,14)\) its blocks are
+\[
+ C=A_8=\begin{pmatrix}
+0&1&1&0&1&0&0&1\\
+1&0&1&0&1&0&0&0\\
+1&1&0&1&1&1&0&0\\
+0&0&1&0&1&0&0&0\\
+1&1&1&1&0&1&1&0\\
+0&0&1&0&1&0&1&0\\
+0&0&0&0&1&1&0&1\\
+1&0&0&0&0&0&1&0
+\end{pmatrix},\qquad
+ B=\begin{pmatrix}
+1&0&0&1&1&0&1\\
+1&1&1&0&0&0&1\\
+1&1&1&0&1&1&1\\
+0&0&1&1&1&1&1\\
+1&1&1&1&1&0&0\\
+0&0&1&0&1&1&1\\
+0&0&0&0&1&1&1\\
+1&0&0&0&0&0&1
+\end{pmatrix}.
+\]
+Let
+\[
+ o=(1,0,1,0,-1,0,-1,-1)^T,\qquad
+ e=(-1,0,-1,-1,2,-1,1)^T.
+\]
+Direct integer multiplication gives
+\[
+ B^To=0,\qquad
+ Co=(-1,1,0,0,1,-1,-2,0)^T=-Be.
+\]
+Thus \((o,e)^T\ne0\) is in the kernel of the reordered adjacency
+matrix. In the original vertex order it is
+\[
+ (1,-1,0,0,1,-1,0,-1,-1,2,0,-1,-1,1,-1)^T.
+\]
+
+We also give a short exact certificate that \(B\) has full column
+rank. Write \(b_i\) for row \(i\) of \(B\), and write
+\(e_j^T\) for the standard row vectors in \(\mathbb R^7\).
+Successively, the rows \(b_2,\ldots,b_8\) span
+\begin{align*}
+ e_4^T&=b_4-b_6,&e_3^T&=b_6-b_7,&e_2^T&=b_2-b_8-e_3^T,\\
+ e_7^T&=b_7-b_3+b_2,&e_1^T&=b_8-e_7^T,\\
+ e_5^T&=b_5-e_1^T-e_2^T-e_3^T-e_4^T,&
+ e_6^T&=b_3-b_2-e_5^T.
+\end{align*}
+Hence \(\operatorname{rank}B=7\) and \(\eta(B)=0\).
+As an additional check, deleting the first row of \(B\) gives
+a square matrix of determinant \(-1\).
+
+Finally, projection of \(\ker A_{15}\) onto its odd coordinates
+is injective: if those coordinates vanish, the other block equation
+is \(Be=0\), which forces \(e=0\). Its image lies in
+\(\ker B^T\), which has dimension \(8-7=1\). The exhibited
+nonzero kernel vector therefore proves \(\eta(A_{15})=1\).
+All hypotheses of Conjecture 7.9 hold and its equality fails.
+\end{proof}
+
+\paragraph{Scope.}
+This refutes the full universal conjecture by a concrete graph in the
+intended class. The series is specified to all orders; an arbitrary
+finite coefficient list is not assumed to extend to that class.
+The example also has nonzero odd coordinates in a zero eigenvector,
+contrary to the equivalent Conjecture 7.7. That equivalent formulation
+receives no additional campaign credit.
+
+\paragraph{Task 2. Classify counterexamples of order fifteen.}
+Determine all generating-series prefixes giving counterexamples of
+order fifteen and classify the resulting graphs up to isomorphism.
+
+\paragraph{Task 3. Settle the even-order restriction.}
+Determine whether \(\eta(A_n)=\eta(B)\) holds for every even-order
+io-decomposable Bell-type Riordan graph, or exhibit an even-order
+counterexample.
+
+\paragraph{Task 4. Characterize families with nullity equality.}
+Use the restriction of the odd adjacency quadratic form to
+\(\ker B^T\) to identify conditions on \(g\) that force nullity
+equality at every order.
+
+\paragraph{Task 5. Construct an infinite family.}
+Find an explicit family of distinct orders with counterexamples,
+tracking how the nonzero odd kernel coordinates propagate under
+the recursive odd-vertex decomposition.
+
+\begin{thebibliography}{1}
+\bibitem{CJKM} G.-S.~Cheon, J.-H.~Jung, S.~Kitaev and S.~A.~Mojallal,
+\emph{Riordan graphs II: Spectral properties},
+\href{https://arxiv.org/abs/1801.07021}{arXiv:1801.07021};
+\emph{Linear Algebra and its Applications} \textbf{575} (2019),
+174--215, \href{https://doi.org/10.1016/j.laa.2019.04.011}
+{doi:10.1016/j.laa.2019.04.011}.
+Definitions 2.2 and 2.9, Theorem 7.5, and Conjecture 7.9
+appear on pp.~3, 6, 27, and 29 of the inspected 33-page
+arXiv and accepted author manuscripts.
+\end{thebibliography}
+\end{document}

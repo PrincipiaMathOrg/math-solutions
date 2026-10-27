@@ -1,0 +1,199 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,hyperref}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newcommand{\leg}[2]{\left(\frac{#1}{#2}\right)}
+\newcommand{\fr}[1]{\left\{#1\right\}}
+\title{Quadratic remainder sums for two primes congruent to three modulo four}
+\author{Principia Math In Progress}
+\date{29 September 2026}
+\begin{document}\maketitle
+\begin{abstract}
+We prove Chamberland--Dilcher Conjecture 7.2 for all positive exponents.
+The proof expands the distribution of unit squares in quadratic characters
+and partitions the original sum according to the two prime valuations.
+This produces the conjectured class-number coefficients, including the
+exceptional normalization at the prime three.
+\end{abstract}
+
+\section*{Task 1: the original conjecture}
+Let $p,q$ be distinct primes congruent to $3$ modulo $4$, let $a,b\ge1$,
+and set $n=p^a q^b$. Define
+\[
+ S_n=\frac1n\sum_{k=1}^{n-1}(k^2\bmod n)
+     =\sum_{k=0}^{n-1}\fr{\frac{k^2}{n}},
+ \qquad G_t(x)=\frac{x^t-1}{x-1}\quad(t\ge0).
+\]
+Here remainders are least nonnegative remainders and braces denote
+fractional parts. Write
+\[
+ u=\lfloor a/2\rfloor,\quad v=\lfloor b/2\rfloor,\quad
+ A=\lceil a/2\rceil,\quad B=\lceil b/2\rceil,
+ \qquad H_r=h^*(-r).
+\]
+For a prime $r\equiv3\pmod4$, $H_r$ is the class number of
+$\mathbb Q(\sqrt{-r})$ when $r>3$, while $H_3=1/3$.
+
+\begin{theorem}\label{thm:main}
+With this notation,
+\begin{align*}
+ S_n={}&\frac{n-p^u q^v}{2}\\
+ &-G_A(p)\left(G_{v+1}(q)+\leg pq G_v(q)\right)H_p\\
+ &-G_B(q)\left(G_{u+1}(p)+\leg qp G_u(p)\right)H_q.
+\end{align*}
+\end{theorem}
+Since $A=\lfloor(a+1)/2\rfloor$ and $B=\lfloor(b+1)/2\rfloor$,
+this is exactly Conjecture 7.2, Equation (7.2), in~\cite[p.~21]{CD}.
+There is no restriction on the sizes or parities of the positive exponents.
+
+\section*{Unit-square averages}
+Let $\chi_r(x)=\leg xr$. We use the classical finite class-number formula
+\begin{equation}\label{eq:class}
+ \frac1r\sum_{x=1}^{r-1}x\chi_r(x)=-H_r.
+\end{equation}
+This is Dirichlet's formula as stated in~\cite[Theorem 4.1 and
+Corollary 4.3]{CD}. At $r=3$ the sum is $(1-2)/3=-1/3$, which
+explains the stated normalization.
+
+For odd $M>1$ and $c$ coprime to $M$, put
+\[
+ U_M(c)=\sum_{\substack{x\bmod M\\(x,M)=1}}\fr{\frac{cx^2}{M}}.
+\]
+For $e,f\ge1$ the following formulas hold:
+\begin{align}
+ U_{p^e}(c)&=\frac{\varphi(p^e)}2-\chi_p(c)H_p,
+ \label{eq:one}\\
+ U_{p^e q^f}(1)&=\frac{\varphi(p^e q^f)}2
+ -(1-\chi_p(q))H_p-(1-\chi_q(p))H_q.
+ \label{eq:two}
+\end{align}
+We give the details so that their application to nonunit terms is explicit.
+
+For an odd prime $r$, a unit residue $y$ modulo $r^e$ has
+$1+\chi_r(y)$ square roots. Indeed, modulo $r$ it has zero or two
+roots, and each root lifts uniquely at each step: solving
+$(x+t r^j)^2\equiv y\pmod{r^{j+1}}$ is a linear equation for $t$
+with nonzero coefficient $2x$ modulo $r$.
+Consequently the number of roots of $cx^2=y\pmod{p^e}$ is
+$1+\chi_p(c)\chi_p(y)$. Summing $y/p^e$ over unit residues $y$
+gives~\eqref{eq:one}: the principal sum is $\varphi(p^e)/2$ by
+pairing $y$ with $p^e-y$, and the character sum is $-H_p$ by
+splitting into periods of length $p$ in~\eqref{eq:class}.
+
+For $M=p^e q^f$, the Chinese remainder theorem gives the root count
+\[
+ (1+\chi_p(y))(1+\chi_q(y))
+ \qquad ((y,M)=1).
+\]
+The principal term again sums to $\varphi(M)/2$. The product character
+$\chi_p\chi_q$ is even and nonprincipal, so its weighted sum is zero:
+pairing $y$ with $M-y$ reduces it to half its unweighted sum, which
+vanishes. Finally, by periodicity and~\eqref{eq:class},
+\[
+ \frac1M\sum_{y=1}^{M}y\chi_p(y)=-H_p,
+ \qquad
+ \frac1M\sum_{\substack{1\le y\le M\\q\mid y}}y\chi_p(y)
+ =-\chi_p(q)H_p.
+\]
+Subtracting excludes multiples of $q$; multiples of $p$ already contribute
+zero. Interchanging $p$ and $q$ proves~\eqref{eq:two}.
+
+\section*{Partition by valuations}
+For $0\le k<n$, put
+\[
+ i=\min(v_p(k),a),\qquad j=\min(v_q(k),b),
+\]
+where the valuations of zero are taken to be infinite. In a fixed class
+$(i,j)$, write $g=p^i q^j$, $m=n/g$, and $k=gx$. Then $x$ runs
+once through the unit residues modulo $m$ (with the sole zero residue
+when $m=1$).
+
+Call the $p$ valuation active when $2i<a$, equivalently $0\le i<A$;
+define active $q$ valuations analogously. If both are active, set
+$M=p^{a-2i}q^{b-2j}$. Reduction from units modulo $m$ to units modulo
+$M$ has constant fiber size $p^i q^j$, and $k^2/n=x^2/M$.
+Thus this class contributes
+\begin{equation}\label{eq:both}
+ p^i q^j U_{p^{a-2i}q^{b-2j}}(1).
+\end{equation}
+
+If only the $p$ valuation is active, then $0\le i<A$ and $B\le j\le b$.
+Now
+\[
+ \frac{k^2}{n}=\frac{q^{2j-b}x^2}{p^{a-2i}},
+\]
+and reduction to units modulo $p^{a-2i}$ has constant fiber size
+$p^i\varphi(q^{b-j})$, with $\varphi(1)=1$. The contribution is
+\begin{equation}\label{eq:p-only}
+ p^i\varphi(q^{b-j})U_{p^{a-2i}}(q^{2j-b}).
+\end{equation}
+The formula with $p$ and $q$ interchanged treats the third case. If
+neither valuation is active, then $n\mid k^2$ and the contribution is zero.
+These four cases exhaust every residue $k$ without overlap.
+
+\section*{Collecting the coefficients}
+In each nonzero class, the principal term in~\eqref{eq:one} or
+\eqref{eq:two}, multiplied by its fiber size, is half the number of
+residues in that class. There are exactly $p^u q^v$ residues satisfying
+$n\mid k^2$: they are the multiples of $p^Aq^B$ modulo $n$.
+The total principal contribution is therefore $(n-p^u q^v)/2$.
+
+Put $s=\chi_p(q)\in\{-1,1\}$. From~\eqref{eq:both}, the coefficient
+of $-H_p$ in the classes with both valuations active is
+\[
+ G_A(p)(1-s)G_B(q).
+\]
+In~\eqref{eq:p-only}, the twisting character has constant value
+$\chi_p(q^{2j-b})=s^b$. Since
+\[
+ \sum_{j=B}^{b}\varphi(q^{b-j})
+ =\sum_{t=0}^{v}\varphi(q^t)=q^v,
+\]
+these classes contribute $G_A(p)s^b q^v$ to the same coefficient.
+The classes with only $q$ active have no $H_p$ term. Hence its full
+coefficient is
+\[
+ C_p=G_A(p)\big((1-s)G_B(q)+s^b q^v\big).
+\]
+Checking $b=2v$ and $b=2v+1$ separately, using
+$G_{v+1}(q)=G_v(q)+q^v$, gives in both cases
+\[
+ (1-s)G_B(q)+s^b q^v=G_{v+1}(q)-sG_v(q).
+\]
+Quadratic reciprocity for $p\equiv q\equiv3\pmod4$ gives
+$-s=\leg pq$. This yields the first class-number coefficient in
+Theorem~\ref{thm:main}. Interchanging $p,a$ with $q,b$ gives the second.
+Together with the principal contribution, this proves the theorem.
+
+\section*{Tasks 2--5: follow-up questions}
+\begin{enumerate}\setcounter{enumi}{1}
+\item Derive a corresponding explicit valuation formula for three or more
+distinct odd prime factors, tracking every odd quadratic character.
+\item Extend the unit-square calculation to moduli divisible by arbitrary
+powers of two, with explicit conductor and exceptional-unit corrections.
+\item Prove uniform error bounds for $S_n-n/2$ as $n$ varies through
+integers with a fixed number of distinct prime factors.
+\item Determine exact formulas for higher moments of the normalized
+remainders $\{k^2/n\}$ and identify the Dirichlet special values that occur.
+\end{enumerate}
+
+\paragraph{Verification.}
+The accompanying integer/rational verifier evaluates the original sum,
+enumerates reduced binary quadratic forms to check class numbers
+independently, and checks the coefficient simplifications. Finite tests
+corroborate the written all-exponent proof. Review is by the author-agent;
+no independent peer review is claimed. Source and bounded-search limits
+are recorded in the literature audit.
+
+\begin{thebibliography}{9}
+\bibitem{CD} M.~Chamberland and K.~Dilcher,
+\emph{Sums of the floor function related to class numbers of imaginary
+quadratic fields},
+\href{https://arxiv.org/abs/2510.04387}{arXiv:2510.04387v1} (2025).
+The complete current 23-page manuscript was read on 29 September 2026.
+\bibitem{MathDB} MathDB,
+\href{https://mathdb.com/p/370786}{problem 370786},
+live record checked 29 September 2026.
+\end{thebibliography}
+\end{document}

@@ -1,0 +1,213 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,hyperref}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newcommand{\conv}{\operatorname{conv}}
+\newcommand{\Pol}{\operatorname{Pol}}
+\title{Root localization for a derivative convolution}
+\author{Principia Math In Progress}
+\date{11 September 2026}
+\begin{document}
+\maketitle
+\begin{abstract}
+For complex polynomials $P,Q$ of the same degree $p$, every zero of
+$\sum_{k=0}^p P^{(k)}Q^{(p-k)}$ lies in half the Minkowski sum of their
+root convex hulls. This proves the derivative-convolution conjecture in
+Lachaume's paper, including its complex Gauss--Lucas formulation.
+The proof identifies the sum with a translated polarization and applies
+the classical Grace--Walsh--Szeg\H{o} theorem.
+\end{abstract}
+
+\section*{Task 1: Resolve MathDB problem 338079}
+Let $p\geq1$ and let $P,Q\in\mathbb C[X]$ both have degree exactly $p$.
+Write their leading coefficients as $a,b\ne0$, list their roots with
+multiplicity as $\alpha_1,\ldots,\alpha_p$ and $\beta_1,\ldots,\beta_p$,
+and set
+\[
+ S_{P,Q}(x)=\sum_{k=0}^pP^{(k)}(x)Q^{(p-k)}(x),\qquad
+ K_P=\conv\{\alpha_i\},\quad K_Q=\conv\{\beta_i\}.
+\]
+Theorem 4.9 of \cite{lachaume} states the real-rooted formulation of
+Conjecture 4: $S_{P,Q}$ is real-rooted whenever $P,Q$ are real-rooted.
+Conjecture 5 on the same page asks whether, for complex $P,Q$, every root
+belongs to $\conv(K_P\cup K_Q)$.
+
+\begin{theorem}\label{thm:main}
+The polynomial $S_{P,Q}$ has degree $p$, leading coefficient $2^pp!ab$,
+and all its roots belong to
+\[
+ \tfrac12(K_P+K_Q)
+ :=\{(u+v)/2:u\in K_P,\ v\in K_Q\}
+ \ \subseteq\ \conv(K_P\cup K_Q).
+\]
+In particular, both conjectures hold, with repeated roots permitted.
+If the roots are real, every root of $S_{P,Q}$ belongs to
+\[
+ \left[\frac{\min_i\alpha_i+\min_i\beta_i}{2},
+       \frac{\max_i\alpha_i+\max_i\beta_i}{2}\right].
+\]
+\end{theorem}
+
+\subsection*{Two polynomial identities}
+For a polynomial $Q(z)=\sum_{j=0}^p q_jz^j$, its polarization is
+\[
+ F(z_1,\ldots,z_p)=\Pol Q(z_1,\ldots,z_p)
+   :=\sum_{j=0}^p\frac{q_j}{\binom pj}e_j(z_1,\ldots,z_p),
+\]
+where $e_j$ is the $j$th elementary symmetric polynomial and $e_0=1$.
+Thus $F$ is symmetric, is affine in each variable separately, and
+$F(z,\ldots,z)=Q(z)$.
+
+\begin{lemma}\label{lem:identity}
+For all $x\in\mathbb C$,
+\begin{equation}\label{eq:identity}
+ S_{P,Q}(x)=p!a\,F(2x-\alpha_1,\ldots,2x-\alpha_p).
+\end{equation}
+\end{lemma}
+\begin{proof}
+Define the bivariate polynomial
+\[
+ T(u,v)=\sum_{k=0}^pP^{(k)}(u)Q^{(p-k)}(v).
+\]
+Reindexing the differentiated sums gives $\partial_uT=\partial_vT$:
+the potential extra terms contain $P^{(p+1)}$ or $Q^{(p+1)}$ and vanish.
+Consequently, for fixed $u,v$, the polynomial
+$t\mapsto T(t,u+v-t)$ has derivative zero. In particular,
+\begin{equation}\label{eq:translation}
+ S_{P,Q}(x)=T(x,x)=T(0,2x)
+    =\sum_{k=0}^pP^{(p-k)}(0)Q^{(k)}(2x).
+\end{equation}
+
+Let $(p)_k=p!/(p-k)!$, with $(p)_0=1$.
+For each subset $A\subseteq\{1,\ldots,p\}$ of size $k$, symmetry and
+the diagonal identity give
+\[
+ (\partial_A F)(z,\ldots,z)=\frac{Q^{(k)}(z)}{(p)_k}.
+\]
+Indeed, differentiating the diagonal $k$ times sums the mixed derivatives
+over the $(p)_k$ ordered lists of distinct indices; all terms with a
+repeated index vanish because $F$ is affine in that variable.
+The exact multiaffine Taylor expansion now yields
+\[
+ F(z-\alpha_1,\ldots,z-\alpha_p)
+   =\sum_{k=0}^p(-1)^ke_k(\alpha_1,\ldots,\alpha_p)
+                      \frac{Q^{(k)}(z)}{(p)_k}.
+\]
+On the other hand, expanding $P(z)=a\prod_i(z-\alpha_i)$ gives
+\[
+ \frac{P^{(p-k)}(0)}{p!a}
+   =\frac{(-1)^ke_k(\alpha_1,\ldots,\alpha_p)}{(p)_k}.
+\]
+Substitution into \eqref{eq:translation} proves \eqref{eq:identity}.
+\end{proof}
+
+\subsection*{Localization by half-planes}
+We use the following classical form of the Grace--Walsh--Szeg\H{o}
+coincidence theorem \cite[Lemma 6.13, p.~106]{pemantle}: if a symmetric
+multiaffine complex polynomial $F$ is evaluated at points
+$z_1,\ldots,z_p$ in an open half-plane $H$, then its value equals
+$F(\zeta,\ldots,\zeta)$ for some $\zeta\in H$.
+An open half-plane is a convex circular region, so it satisfies the
+hypothesis of the cited theorem. No reality, sign, or simplicity
+condition on the coefficients or roots is required.
+
+\begin{proof}[Proof of Theorem \ref{thm:main}]
+Suppose that $x\notin\tfrac12(K_P+K_Q)$. This set is compact and
+convex in the real plane $\mathbb C$. Strict separation supplies a
+nonzero complex number $\eta$ such that
+\[
+ 2\Re(\eta x)>A+B,\qquad
+ A=\max_i\Re(\eta\alpha_i),\quad
+ B=\max_i\Re(\eta\beta_i).
+\]
+Here the support function of a Minkowski sum is the sum of the two
+support functions, as follows directly by taking the two maxima
+independently. For every $i$,
+\[
+ \Re\bigl(\eta(2x-\alpha_i)\bigr)>B.
+\]
+Thus all $2x-\alpha_i$ lie in the open half-plane
+$H=\{z:\Re(\eta z)>B\}$, while $Q$ has no root in $H$.
+The coincidence theorem gives a $\zeta\in H$ for which
+\[
+ F(2x-\alpha_1,\ldots,2x-\alpha_p)=F(\zeta,\ldots,\zeta)
+   =Q(\zeta)\ne0.
+\]
+Lemma \ref{lem:identity} therefore shows $S_{P,Q}(x)\ne0$.
+This proves the asserted localization.
+
+Finally, the degree-$p$ term of $F$ is $b\prod_i z_i$. Equation
+\eqref{eq:identity} gives the nonzero leading coefficient $2^pp!ab$.
+For real-rooted $P,Q$, the two convex hulls are their real root
+intervals, whose half-sum is exactly the interval displayed in the
+theorem. This also proves real-rootedness.
+\end{proof}
+
+The enclosure cannot be uniformly reduced even in the one-point case:
+if $P(x)=a(x-\alpha)^p$ and $Q(x)=b(x-\beta)^p$, then
+\[
+ S_{P,Q}(x)=p!ab(2x-\alpha-\beta)^p.
+\]
+The localization is an application of classical polarization theory;
+no novelty is claimed for the coincidence theorem or for the
+underlying polynomial convolution.
+
+\subsection*{Scope and status}
+This note fully answers MathDB 338079. The complex theorem also answers
+the companion entry 338080, which receives no separate campaign credit.
+The source and the author's thesis retain the exact two conjectures.
+The author's later gravity paper \cite[Theorem 2.7(d)]{gravity} claims a
+weaker concavity consequence using Walsh's theorem; it does not state
+a solution of these derivative-convolution conjectures. Dated live
+records and the bounded search for later claims are documented in the
+accompanying literature audit. The proof has been checked locally;
+external peer review is not claimed.
+
+\section*{Task 2: Determine boundary-root multiplicities}
+Fix a supporting line of $\tfrac12(K_P+K_Q)$. Determine exactly when
+$S_{P,Q}$ has a root on that line and express its multiplicity in terms
+of the roots of $P,Q$ on the corresponding supporting lines. Include
+coincident roots and line segments, and compare the result with the
+multiplicity theorems for classical polynomial convolution.
+
+\section*{Task 3: Classify admissible derivative weights}
+For fixed $p$, characterize the real vectors $(c_0,\ldots,c_p)$ for which
+every nonzero polynomial
+\[
+ \sum_{k=0}^p c_kP^{(k)}Q^{(p-k)}
+\]
+has its roots in $\conv(K_P\cup K_Q)$ for every pair of complex
+degree-$p$ polynomials. Obtain an explicit criterion, accounting for
+zero outputs and arbitrary nonzero input leading coefficients.
+
+\section*{Task 4: Extend the identity to several inputs}
+For $r\geq3$ degree-$p$ polynomials, analyze the sum of
+$\prod_{j=1}^rP_j^{(k_j)}$ over $0\leq k_j\leq p$ with
+$\sum_j k_j=(r-1)p$. Derive its exact normalization and determine its
+root enclosure in terms of the average of the $r$ root convex hulls.
+Give the relation to iterated binary convolution explicitly.
+
+\section*{Task 5: Quantify movement of the output roots}
+For real-rooted inputs whose normalized convolution has simple roots,
+derive bounds for the movement of each output root when the input roots
+are perturbed. State the dependence on input diameter, degree, and
+the smallest output-root separation, and identify the deterioration
+as an output root becomes multiple.
+
+\begin{thebibliography}{9}
+\bibitem{lachaume}
+X. Lachaume, \emph{On the concavity of a sum of elementary symmetric
+polynomials}, arXiv:1712.10327v1 (2017), Theorem 4.9 and Conjecture 5,
+p.~17. \url{https://arxiv.org/abs/1712.10327}.
+\bibitem{pemantle}
+R. Pemantle, \emph{Hyperbolicity and stable polynomials in combinatorics
+and probability}, Current Developments in Mathematics 2011,
+57--123, Lemma 6.13, p.~106.
+\url{https://intlpress.com/site/pub/files/_fulltext/journals/cdm/2011/2011/0001/CDM-2011-2011-0001-a002.pdf}.
+\bibitem{gravity}
+X. Lachaume, \emph{The constraint equations of Lovelock gravity theories:
+a new $\sigma_k$-Yamabe problem}, arXiv:1712.04528v2 (2018),
+Theorem 2.7(d), p.~8. \url{https://arxiv.org/abs/1712.04528}.
+\end{thebibliography}
+\end{document}

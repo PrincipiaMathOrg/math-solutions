@@ -1,0 +1,126 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,booktabs,hyperref}
+\hypersetup{colorlinks=true,urlcolor=blue,linkcolor=blue}
+\setlength{\emergencystretch}{1em}
+\newtheorem{theorem}{Theorem}
+\newcommand{\Phiuni}{\Phi^{\mathrm{uni}}}
+\title{A unimodal cyclotomic generating function\protect\\with no prime-index cyclotomic factor}
+\author{Principia Math In Progress}
+\date{27 September 2026}
+\begin{document}
+\maketitle
+
+\paragraph{Task 1 (MathDB 358386).}
+Billey and Swanson's Conjecture 48 in \cite{BS} asks whether every
+nonconstant unimodal basic cyclotomic generating function has a factor
+$\Phi_p(q)$ for some prime $p$. A basic cyclotomic generating function is a
+monic polynomial with constant term 1 and nonnegative integer coefficients
+whose roots are roots of unity. Their monoid of unimodal such polynomials
+is denoted by $\Phiuni$. We disprove the conjecture with an explicit
+degree-66 polynomial. The statement occurs on page 32 of the final
+article and page 33 of arXiv:2305.07620v3.
+
+\begin{theorem}
+The polynomial
+\[
+ F(q)=\Phi_4(q)^7\Phi_9(q)^4\Phi_{25}(q)\Phi_{30}(q)
+\]
+belongs to $\Phiuni$, is nonconstant, and has no factor $\Phi_p(q)$
+with $p$ prime.
+\end{theorem}
+
+\begin{proof}
+The four cyclotomic polynomials in the displayed product are
+\begin{align*}
+ \Phi_4(q)&=1+q^2,& \Phi_9(q)&=1+q^3+q^6,\\
+ \Phi_{25}(q)&=1+q^5+q^{10}+q^{15}+q^{20},\\
+ \Phi_{30}(q)&=1+q-q^3-q^4-q^5+q^7+q^8.
+\end{align*}
+These identities follow, for example, by exact division in
+$q^n-1=\prod_{d\mid n}\Phi_d(q)$.
+Each factor is reciprocal, so $F$ is reciprocal of degree
+$7\cdot2+4\cdot6+20+8=66$. Write $F(q)=\sum_{s=0}^{66}c_sq^s$.
+The coefficients through the midpoint are as follows; the others are
+given by $c_{66-s}=c_s$.
+\begin{center}
+\begin{tabular}{rr@{\qquad}rr@{\qquad}rr@{\qquad}rr}
+\toprule
+$s$&$c_s$&$s$&$c_s$&$s$&$c_s$&$s$&$c_s$\\
+\midrule
+0&1&9&198&18&920&27&1450\\
+1&1&10&283&19&940&28&1570\\
+2&7&11&337&20&1025&29&1588\\
+3&10&12&437&21&1058&30&1704\\
+4&24&13&524&22&1109&31&1737\\
+5&42&14&592&23&1184&32&1746\\
+6&63&15&701&24&1220&33&1810\\
+7&105&16&763&25&1319&&\\
+8&147&17&829&26&1381&&\\
+\bottomrule
+\end{tabular}
+\end{center}
+\newpage
+For completeness, the following finite sum specifies every entry of the
+table directly. Define
+\[
+b_s=\sum_{i=0}^{7}\sum_{j=0}^{4}\sum_{k=0}^{4-j}\sum_{h=0}^{4}
+ {7\choose i}\frac{4!}{j!k!(4-j-k)!}
+ \mathbf{1}_{\{s=2i+3j+6k+5h\}},
+\]
+so $b_s$ is the coefficient of $q^s$ in
+$(1+q^2)^7(1+q^3+q^6)^4(1+q^5+q^{10}+q^{15}+q^{20})$,
+with $b_s=0$ outside $0\le s\le58$. Multiplication by $\Phi_{30}$ gives
+\[
+c_s=b_s+b_{s-1}-b_{s-3}-b_{s-4}-b_{s-5}+b_{s-7}+b_{s-8}.
+\]
+This proves the tabulated values by finite integer arithmetic. They satisfy
+$1=c_0\le c_1\le\cdots\le c_{33}$. Reciprocity now proves that every
+coefficient is positive and that the entire sequence is unimodal. The
+factorization also proves that $F$ is monic with constant term 1 and that
+every root is a root of unity. Thus $F\in\Phiuni$.
+
+Finally, every root of $F$ has exact order in $\{4,9,25,30\}$.
+If $\Phi_p$ divided $F$ for a prime $p$, a primitive $p$th root of unity
+would be a root of $F$. None of the four possible orders is prime,
+which is a contradiction. Since $\deg F=66>0$, this is a counterexample
+to the stated conjecture.
+\end{proof}
+
+\paragraph{Verification and scope.}
+The accompanying standard-library Python verifier constructs cyclotomic
+polynomials from the divisor identity, checks the table by two exact
+expansions, and checks nondivisibility by $\Phi_p$ for every prime
+$p\le67$ by polynomial division. Larger primes are excluded by degree.
+An additional SymPy expansion independently reproduced all 67 coefficients.
+No claim is made that degree 66 is minimal. This example is not log-concave:
+$c_1^2=1<7=c_0c_2$. The source's prime-power factor theorem is consistent
+with the example, which has factors $\Phi_4,\Phi_9,\Phi_{25}$.
+
+\paragraph{Proposed Tasks 2--5.}
+The following directions are proposed after the completed resolution of
+Task 1; they are not claimed to be solved here, and their novelty has not
+been audited.
+\begin{enumerate}
+\setcounter{enumi}{1}
+\item Determine the smallest degree of a nonconstant member of $\Phiuni$
+having no prime-index cyclotomic factor, with a certificate excluding
+every smaller degree.
+\item Characterize the nonnegative integer quadruples $(a,b,c,d)$ for
+which $\Phi_4^a\Phi_9^b\Phi_{25}^c\Phi_{30}^d$ is unimodal.
+\item Give an algorithm that, for an input degree bound $D$, enumerates
+exactly the irreducible elements of $\Phiuni$ of degree at most $D$
+that have no prime-index cyclotomic factor, and prove its correctness.
+\item Let $N(D)$ count the nonconstant elements of $\Phiuni$ of degree
+at most $D$ having no prime-index cyclotomic factor. Determine the
+asymptotic order of $\log N(D)$ as $D\to\infty$.
+\end{enumerate}
+
+\begin{thebibliography}{1}
+\bibitem{BS} S. C. Billey and J. P. Swanson,
+\emph{Cyclotomic Generating Functions}, Electronic Journal of
+Combinatorics \textbf{31}(4) (2024), P4.4, 43 pp.
+\href{https://doi.org/10.37236/12687}{doi:10.37236/12687}.
+Current manuscript: \href{https://arxiv.org/abs/2305.07620}{arXiv:2305.07620v3}.
+\end{thebibliography}
+\end{document}

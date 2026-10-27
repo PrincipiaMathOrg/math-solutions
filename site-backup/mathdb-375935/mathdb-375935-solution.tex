@@ -1,0 +1,189 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,enumitem,hyperref}
+\hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue,citecolor=blue}
+\newtheorem{theorem}{Theorem}
+\newcommand{\HH}{\mathcal H}
+\title{An obstruction to the proposed binary Hankel product formula\\\large MathDB 375935}
+\author{Principia Math In Progress}
+\date{September 18, 2026}
+\begin{document}
+\maketitle
+\begin{abstract}
+The fixed-offset product formula in Sobolewski--Ulas's Conjecture 4.6
+fails already at offset $2$. We evaluate that entire subsequence using
+their determinant recurrence, then rule out every allowed shift and
+prefactor. The obstruction persists even when polynomial prefactors
+are replaced by arbitrary rational functions.
+\end{abstract}
+
+\section*{Task 1. Full disproof}
+Let $s(a)$ be the number of ones in the binary expansion of $a$, and put
+\[
+ \HH(n)=\det\bigl[s(i+j)\bigr]_{0\le i,j<n},\qquad
+ B_m=\prod_{j=1}^m(2^j-1)^{2^{m-j}},\qquad
+ T_m=\sum_{j=1}^m\frac{2^{j-1}}{2^j-1}.
+\]
+Thus $\HH(n)=\HH(n,1)$ in the source's notation. The conjecture asserts
+that, for each fixed $k\ge0$, there exist a fixed integer $r\ge0$, a sign
+$\varepsilon$, a polynomial $P\in\mathbb Q[X]$, and a constant
+$c\in\mathbb Q$ such that eventually
+\[
+ \HH(2^m+k)=\varepsilon P(2^m)(c+T_{m-r})B_{m-r}.                 \tag{1}
+\]
+The equality is required for all sufficiently large integers $m$.
+
+\begin{theorem}
+For every $m\ge2$, with $X=2^m$,
+\[
+ \boxed{\quad
+ \HH(2^m+2)=\frac{B_m(2+T_{m-1})}{(2^{m-1}-1)(2^m-1)}
+ =\frac{B_m}{A(X)}\bigl(T_m+d(X)\bigr),\quad}                  \tag{2}
+\]
+where
+\[
+ A(X)=(X/2-1)(X-1),\qquad d(X)=\frac32-\frac1{2(X-1)}.
+\]
+There are no $r\ge0$, $c\in\mathbb R$, and nonzero
+$P\in\mathbb R(X)$ for which (1) holds eventually at $k=2$.
+Consequently Conjecture 4.6 is false.
+\end{theorem}
+
+\subsection*{Exact evaluation}
+We use the proved recurrence in \cite[Theorem 4.2 and Proposition 4.3]{SU}.
+Here are its specializations, with all normalizations specified.
+For $2^a<n\le2^{a+1}$ let $h(n,x)$ be the Hankel determinant of
+the weighted digit sum with weights $(1,\ldots,1,x)$, where $x$
+is the weight at position $a+1$. Let $g(n,x)$ be the determinant
+of the $n\times n$ matrix whose first $n-1$ columns have entries
+$s_{\mathbf w}(i+j+1)-s_{\mathbf w}(i+j)$ and whose last column is $1$.
+For $m\ge2$ set
+\[
+ U_m(x)=h(2^m-1,x),\qquad V_m(x)=g(2^m-1,x).
+\]
+Direct $3\times3$ determinants give $U_2(x)=3-x$ and $V_2(x)=2-x$.
+The source recurrence, applied on its second branch, gives for $m\ge3$
+\[
+ \begin{aligned}
+ V_m(x)&=C_m(x)V_{m-1}(x/2),\\
+ U_m(x)&=C_m(x)\left(U_{m-1}(x/2)+\frac{V_{m-1}(x/2)}{2-x}\right),\\
+ C_m(x)&=2^{\,2^{m-1}-3}(2-x)^{2^{m-1}}.
+ \end{aligned}                                                \tag{3}
+\]
+These identities follow with $n=2^m-1$ and $a=m-1$; in particular
+$(-1)^n=-1$. Dividing the first two identities and iterating, initially
+as identities of rational functions, gives
+\[
+ \frac{U_m(x)}{V_m(x)}
+ =1+\sum_{j=0}^{m-2}\frac1{2-x/2^j}.                          \tag{4}
+\]
+Iteration of the first identity in (3) at $x=1$ also gives
+\[
+ \begin{aligned}
+ V_m(1)
+ &=\left(2-2^{-(m-2)}\right)
+   \prod_{j=0}^{m-3}
+    2^{\,2^{m-j-1}-3}\left(2-2^{-j}\right)^{2^{m-j-1}}\\
+ &=(2^{m-1}-1)\prod_{j=1}^{m-2}(2^j-1)^{2^{m-j}}
+   =\frac{B_m}{(2^{m-1}-1)(2^m-1)}.
+ \end{aligned}                                                \tag{5}
+\]
+The product is empty at $m=2$. To check the powers of $2$ in the
+second equality, their total exponent is
+\[
+ -(m-2)+\sum_{j=0}^{m-3}\bigl((1-j)2^{m-j-1}-3\bigr)=0.
+\]
+This is the elementary finite geometric-sum identity
+$\sum_{j=0}^{m-3}(1-j)2^{m-j-1}=4m-8$.
+Equation (4) at $x=1$ is $U_m(1)=V_m(1)(1+T_{m-1})$.
+
+Finally use the source recurrence's first branch with $n=2^m+2$,
+$a=m$, and all weights $1$. It is applicable for every $m\ge2$.
+Its scalar prefactor and upper-right matrix entry are both $-1$,
+so
+\[
+ \HH(2^m+2)=U_m(1)+V_m(1).
+\]
+Together with (4)--(5), this proves the first equality in (2).
+The second follows from $T_m-T_{m-1}=X/(2(X-1))$.
+For example, the values at $m=2,3,4,5$ are
+$3,11,2403,1127461923$.
+
+\subsection*{All fixed shifts and prefactors are impossible}
+The positive constant
+\[
+ \lambda=\sum_{j=1}^{\infty}2^{-j}\log(2^j-1)
+\]
+is finite, since the summands are bounded by $j2^{-j}\log2$,
+and it is positive already from $j=2$. Hence
+\[
+ \frac{\log B_m}{2^m}\longrightarrow\lambda.
+\]
+Also
+\[
+ T_m=\frac m2+\frac12\sum_{j=1}^m\frac1{2^j-1}
+     =\frac m2+O(1).                                         \tag{6}
+\]
+By (2), $2^{-m}\log\HH(2^m+2)\to\lambda$.
+If (1) holds with any nonzero rational function $P$, then
+$\log|P(2^m)|=O(m)$ and $\log|c+T_{m-r}|=O(\log m)$.
+Thus the same limit computed from (1) is $2^{-r}\lambda$.
+It follows that $r=0$.
+
+Absorb the sign into $P$ and define $R(X)=A(X)P(X)$.
+Using (2), the remaining equality becomes
+\[
+ (R(2^m)-1)T_m=d(2^m)-cR(2^m).                              \tag{7}
+\]
+If $R\not\equiv1$, its difference from $1$ has only finitely many
+zeros and poles. Consequently (7) would express $T_m$ eventually as
+$F(2^m)$ for the fixed rational function
+\[
+ F(X)=\frac{d(X)-cR(X)}{R(X)-1}.
+\]
+This is impossible by (6): a rational function at infinity either
+has a finite limit, or is asymptotic to $bX^e$ for some $b\ne0$
+and positive integer $e$. Neither behavior at $X=2^m$ is
+asymptotic to $m/2$. If $R\equiv1$, (7) instead forces
+$c=d(2^m)$ for every sufficiently large $m$, also impossible because
+$d(2^m)$ is strictly increasing. This proves the theorem.
+
+The argument concerns the exact eventual identity in the source.
+It does not assert that all asymptotic approximations by related
+products fail. In fact, (2) supplies the correct exact formula at
+offset $2$, with a variable rational additive term.
+
+\section*{Verification and scope}
+The accompanying script checks direct rational Hankel determinants,
+both recurrence branches against their defining matrices, the
+fixed-offset formula at larger indices, and the finite identities
+used in the derivation. These finite checks support the computation;
+the proof excluding every $r,P,c$ is the argument above.
+The determinant recurrences and the special families at offsets
+$-1,0,1$ belong to Sobolewski and Ulas. The new result here is the
+offset-$2$ evaluation and its obstruction to Conjecture 4.6.
+Review is by the authoring agent only, without independent peer review.
+
+\section*{Tasks 2--5. Follow-up directions}
+\begin{enumerate}[start=2,leftmargin=*]
+\item Determine whether every fixed offset admits an eventual formula
+$\HH(2^m+k)=B_m(A_k(2^m)T_m+D_k(2^m))$ with rational functions
+$A_k,D_k$, and construct them from the binary digits of $k$.
+\item Classify offsets for which $D_k/A_k$ is constant, recovering a
+single factor $T_m+c_k$ with a rational prefactor.
+\item Derive complete asymptotic expansions of the offset families,
+including the powers of $2^{-m}$ and the terms proportional to $m$.
+\item Extend the fixed-offset analysis to the polynomial weights $w_j=t^j$
+and identify how the exceptional values $t=2\zeta$ change it.
+\end{enumerate}
+
+\begin{thebibliography}{9}
+\raggedright
+\bibitem{SU} B. Sobolewski and M. Ulas,
+\emph{Hankel determinants of weighted binary sums of digits},
+\href{https://arxiv.org/abs/2607.09376v1}{arXiv:2607.09376v1}, July 10, 2026.
+Theorem 4.2, Proposition 4.3 and Conjecture 4.6.
+\bibitem{DB} MathDB,
+\href{https://mathdb.com/p/375935}{Problem 375935}, accessed September 18, 2026.
+\end{thebibliography}
+\end{document}

@@ -1,0 +1,217 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,hyperref}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newcommand{\Sym}{\operatorname{Sym}}
+\newcommand{\sgn}{\operatorname{sgn}}
+\newcommand{\ord}{\operatorname{ord}}
+\title{Vanishing in Nuttall's normalized determinant expansion\\
+\large A solution of MathDB 322495}
+\author{Principia Math In Progress}
+\date{27 September 2026}
+\begin{document}
+\maketitle
+\begin{abstract}
+We prove Conjecture 3 of Nuttall's \emph{Determinantal approach to a proof
+of the Riemann hypothesis}. In fact, its coefficients vanish whenever
+$m+2i<r(r-1)$, a slightly larger range than requested. The proof is purely
+algebraic: the coefficient of the normalization parameter is a symmetric
+differential operator of controlled order applied to a squared Vandermonde.
+\end{abstract}
+
+\section*{Task 1: the statement and its normalization}
+Fix an integer $r>2$ and put $R=r(r-1)$. In \cite[Section 7.2]{N},
+the coefficients $C(i;m,j)$ arise from the permutation expansion of
+\[
+ D(n,r)=\det_{1\leq a,b\leq r}
+ \left[\frac{b_{n+b-a}}{\Gamma(2(n+b-a)+1)}\right],
+ \qquad y=\frac1{2n},\quad n>r.
+\]
+Here $b_h$ are moments; their values play no role in the coefficient
+identity. The normalization is
+\[
+ \overline D(n,r)=y^R\Gamma(2n+1)^r
+ \prod_{h=1}^{r-1}\bigl((2n+2h)(2n+2h-1)\bigr)^{r-h}D(n,r).
+\]
+Nuttall asks for $C(i;m,j)=0$ when
+\[
+ 0\leq i\leq R/2-1,\qquad 0\leq m\leq R-2i-2,
+ \qquad 1\leq j\leq np(m).
+\]
+We specify these coefficients without integrals. Symmetrization below is
+the average over all permutations of the $r$ variables. For
+$\sigma\in S_r$ define
+\begin{align}
+ \nu_a&=\sigma(a)-a,\qquad
+ M_\sigma(t)=\prod_{a=1}^r t_a^{2(\nu_a+r-1)},\label{eq:monomial}\\
+ Z_\sigma(y)&=\prod_{a=1}^r
+       \prod_{s=2(\sigma(a)-a)+1}^{2(r-a)}(1+sy).\label{eq:weight}
+\end{align}
+An empty product is $1$. All exponents in \eqref{eq:monomial} are
+nonnegative, and every $Z_\sigma$ is a polynomial of degree at most $R$.
+Set
+\begin{equation}\label{eq:P}
+ P_r(y,t)=\sum_{\sigma\in S_r}\sgn(\sigma)Z_\sigma(y)
+                                  \Sym M_\sigma(t).
+\end{equation}
+To check \eqref{eq:weight}, write $z=2n$. Multiplying row $a$ of the
+gamma-ratio matrix by $\Gamma(z+2(r-a)+1)/\Gamma(z+1)$ and its
+column $b$ by $y^{2(r-b)}$ gives the entry
+\[
+ y^{2(r-b)}\frac{\Gamma(z+2(r-a)+1)}{\Gamma(z+2(b-a)+1)}
+ =\prod_{s=2(b-a)+1}^{2(r-a)}(1+sy).
+\]
+The product of these row and column factors is precisely the stated
+normalization of the gamma-ratio determinant. Thus $Z_\sigma$ is its
+unsigned permutation component.
+
+Write $t_a=1+x_a$. The source's symmetrized monomials
+$\mu(m,j)$ form a basis for symmetric homogeneous polynomials of degree
+$m$. Its equations (7.17)--(7.22) therefore say exactly that
+\begin{equation}\label{eq:C}
+ P_r(y,1+x)=\sum_{i,m,j}C(i;m,j)y^i\mu(m,j)(x).
+\end{equation}
+Indeed, replacing the source variables by $\tau(1+x_a)$ extracts the
+common factor $\tau^{2R}$ from every $M_\sigma$, as in (7.19).
+This also fixes all normalizations of $C$.
+
+\begin{theorem}\label{thm:main}
+For every $r\geq1$, the coefficient of $y^i$ in $P_r(y,1+x)$ has no
+monomial of total $x$-degree less than $R-2i$. Consequently
+\[
+ C(i;m,j)=0\quad\hbox{whenever}\quad m+2i<R.
+\]
+In particular, all the coefficients required by Conjecture 3 vanish.
+\end{theorem}
+
+\section*{Polynomial dependence of the weights}
+For any integer $v$ define a formal power series at $y=0$ by
+\[
+ F_v(y)=
+ \begin{cases}
+ \displaystyle\prod_{s=1}^{2v}(1+sy)^{-1},&v\geq0,\\[4pt]
+ \displaystyle\prod_{s=2v+1}^{0}(1+sy),&v<0.
+ \end{cases}
+\]
+Also put
+\[
+ K_r(y)=\prod_{h=1}^{r-1}\bigl((1+2hy)(1+(2h-1)y)\bigr)^{r-h}.
+\]
+Since $\sum_a\nu_a=0$, cancellation of the finite products, or the
+gamma-ratio calculation above, gives
+\begin{equation}\label{eq:factor}
+ Z_\sigma(y)=K_r(y)\prod_{a=1}^r F_{\nu_a}(y).
+\end{equation}
+
+\begin{lemma}\label{lem:degree}
+The coefficient $[y^k]F_v(y)$ is a polynomial in $v$ of degree at most
+$2k$, valid for positive, zero, and negative integers $v$. Hence there
+is a symmetric polynomial $Q_i(v_1,\ldots,v_r)$, of total degree at
+most $2i$, such that
+\[
+ [y^i]Z_\sigma(y)=Q_i(\nu_1,\ldots,\nu_r).
+\]
+\end{lemma}
+\begin{proof}
+Let $S_\ell(u)$ be the polynomial of degree $\ell+1$ satisfying
+$S_\ell(0)=0$ and
+$S_\ell(u)-S_\ell(u-1)=u^\ell$. Such a polynomial exists because the
+finite-difference operator takes degree $\ell+1$ to degree $\ell$ with
+nonzero leading coefficient. Telescoping identifies it with
+$\sum_{s=1}^{u}s^\ell$ for positive integers $u$, and with
+$-\sum_{s=u+1}^{0}s^\ell$ for negative integers $u$. Thus, in both cases,
+\[
+ \log F_v(y)=\sum_{\ell\geq1}\frac{(-1)^\ell}{\ell}
+                              S_\ell(2v)y^\ell.
+\]
+In the coefficient of $y^k$ in its exponential, each product has
+$\sum_\ell \ell a_\ell=k$ and degree at most
+$\sum_\ell(\ell+1)a_\ell\leq2k$ in $v$.
+Multiplication over the $r$ variables preserves the total-degree bound
+and gives a symmetric polynomial. The scalar series $K_r(y)$ preserves
+both properties, proving the assertion.
+\end{proof}
+
+\section*{Symmetrization and differential order}
+Define commuting operators
+\[
+ E_a=\frac12t_a\frac{\partial}{\partial t_a}-(r-1),
+ \qquad 1\leq a\leq r.
+\]
+Equation \eqref{eq:monomial} gives $E_aM_\sigma=\nu_aM_\sigma$.
+Since $Q_i$ is symmetric, $Q_i(E_1,\ldots,E_r)$ commutes with
+symmetrization. Therefore
+\begin{equation}\label{eq:operator}
+ [y^i]P_r(y,t)=Q_i(E_1,\ldots,E_r)B_r(t),\qquad
+ B_r(t)=\Sym\sum_{\sigma\in S_r}\sgn(\sigma)M_\sigma(t).
+\end{equation}
+The operator on the right has differential order at most $2i$.
+
+Put $u_a=t_a^2$ and $V(u)=\prod_{a<b}(u_b-u_a)$. The determinant
+expansion shows that
+\[
+ \sum_{\sigma\in S_r}\sgn(\sigma)M_\sigma(t)
+ =\left(\prod_{a=1}^r u_a^{r-a}\right)V(u).
+\]
+When we symmetrize, $V(u)$ contributes the sign of the variable
+permutation. The resulting alternating sum of the descending powers
+$r-1,r-2,\ldots,0$ is $(-1)^{R/2}V(u)$. Hence
+\begin{equation}\label{eq:V}
+ B_r(t)=\frac{(-1)^{R/2}}{r!}\prod_{a<b}(t_b^2-t_a^2)^2.
+\end{equation}
+
+\begin{proof}[Proof of Theorem \ref{thm:main}]
+At $t=1+x$ every factor in \eqref{eq:V} has the form
+\[
+ (t_b^2-t_a^2)^2=(x_b-x_a)^2(2+x_a+x_b)^2.
+\]
+Thus $B_r(1+x)$ belongs to the $R$th power of the ideal
+$\mathfrak m=(x_1,\ldots,x_r)$. A differential operator of order at most
+$d$ with polynomial coefficients maps $\mathfrak m^R$ into
+$\mathfrak m^{\max(R-d,0)}$: each derivative lowers total degree by at
+most one, and multiplication by a polynomial cannot lower it.
+Apply this with $d=2i$ to \eqref{eq:operator}. All homogeneous components
+of degree $m<R-2i$ vanish. Their coefficients in the independent basis
+$\mu(m,j)$ in \eqref{eq:C} therefore vanish individually.
+\end{proof}
+
+The proof is valid for arbitrary formal moments and uses no analytic
+assumption on Nuttall's function $\Phi$. Its conclusion is the algebraic
+coefficient identity. The analytic positivity and asymptotic questions
+motivating the source require additional arguments.
+
+\section*{Verification and proposed follow-up tasks}
+The accompanying standard-library Python verifier directly expands the
+permutation products \eqref{eq:weight} and the symmetrized binomial
+coefficients. It checks 2,810 zero coefficients in ranks 2--5, including
+the extra degree covered by Theorem \ref{thm:main}. It separately compares
+the product normalization with exact factorial ratios. These finite
+checks supplement the all-rank proof.
+
+\begin{description}
+\item[Task 2 (proposed).] Give a closed formula for the part of $P_r(y,1+x)$
+of weighted degree $R$, with weights $2$ for $y$ and $1$ for every $x_a$.
+\item[Task 3 (proposed).] Determine the exact order of vanishing at $x=0$
+of $[y^i]P_r(y,1+x)$ for every $0\leq i\leq R/2$, including when the
+bound $R-2i$ is attained.
+\item[Task 4 (proposed).] Replace the gamma arguments $2(n+b-a)+1$ by
+$a_0(n+b-a)+b_0$, with integer $a_0>0$, and determine the optimal
+coefficient-vanishing range under the corresponding moment normalization.
+\item[Task 5 (proposed).] For Nuttall's particular $\Phi$, combine the
+vanishing identity with a saddle-point expansion to determine the first
+nonzero asymptotic term of $\overline D(n,r)$, with a proved remainder
+bound for each fixed $r$.
+\end{description}
+
+\begin{thebibliography}{1}
+\bibitem{N} J. Nuttall, \emph{Determinantal approach to a proof of the
+Riemann hypothesis}, arXiv:1111.1128v1 (2011), Sections 6.5 and 7,
+especially Conjecture 3 and equations (7.15)--(7.24).
+\url{https://arxiv.org/abs/1111.1128}.
+\end{thebibliography}
+\smallskip
+\noindent\textit{Review status.} Author-agent review; no independent peer
+review or proof-assistant verification. Dated scope and claim checks
+are documented in the accompanying audits.
+\end{document}

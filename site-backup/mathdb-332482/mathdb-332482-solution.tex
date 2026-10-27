@@ -1,0 +1,386 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,hyperref,verbatim}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newcommand{\E}{\mathbb E}
+\title{A positive moment measure for the\\
+Fennessey--Larcombe--French determinant sequence}
+\author{Principia Math In Progress}
+\date{11 September 2026}
+\begin{document}
+\maketitle
+\begin{abstract}
+We prove Conjecture 5.1 of Sun and Zhao: the sequence
+$V_n^2-V_{n-1}V_{n+1}$, $n\geq2$, is infinitely log-convex.
+In fact it is a Stieltjes moment sequence with an explicit positive
+integral density after normalization. Positivity is proved analytically
+on two endpoint intervals and by four rigorous, finite rational
+certificates on the remaining interval. The certificate uses no
+floating-point arithmetic.
+\end{abstract}
+
+\section*{Task 1: Resolve MathDB problem 332482}
+Let $V_0=1$, $V_1=8$, and, for $n\geq2$, let
+\begin{equation}\label{eq:Vrec}
+ (n-1)n^2V_n
+ =8(n-1)(3n^2-n-1)V_{n-1}-128(n-2)n^2V_{n-2}.
+\end{equation}
+Set $D_n=V_n^2-V_{n-1}V_{n+1}$ for $n\geq2$.
+For a sequence $(a_m)_{m\geq0}$ define
+$(\mathcal La)_m=a_ma_{m+2}-a_{m+1}^2$.
+Infinite log-convexity means that every iterate $\mathcal L^r a$
+is nonnegative. This is the usual convention with its initial index
+shifted at each iteration.
+
+\begin{theorem}\label{thm:main}
+The sequence $(D_{m+2})_{m\geq0}$ is a Stieltjes moment sequence
+represented by a finite positive measure on $[0,256]$ with support
+equal to that interval. It is strictly infinitely log-convex.
+In particular, published Conjecture 5.1 \cite[p.~601]{source} holds.
+\end{theorem}
+
+The MathDB title says Catalan--Larcombe--French, but its statement and
+the published conjecture both specify the Fennessey--Larcombe--French
+numbers $V_n$ used here.
+
+\subsection*{A preliminary density identity}
+We give the needed representation explicitly, including sequence
+identification. Write
+\[
+ L=\frac2\pi,\quad M=2L-1,\quad
+ c_j=\left(\frac{\binom{2j}j}{4^j}\right)^2,\quad
+ K(m)=\int_0^{\pi/2}(1-m\sin^2\theta)^{-1/2}\,d\theta.
+\]
+Thus $K$ uses the parameter convention, not the modulus convention.
+For $u\ne1/2$ in $(0,1)$ set
+\begin{equation}\label{eq:rho}
+ w(u)=\frac4{\pi^2}K(4u(1-u)),\qquad
+ \rho(u)=w(u)+(2u-1)w'(u).
+\end{equation}
+Values at isolated singularities are irrelevant to all measures below.
+
+\begin{lemma}\label{lem:rho}
+The density $\rho$ is positive almost everywhere, symmetric about
+$1/2$, and has mass $M<L$. For $n\geq1$,
+\begin{equation}\label{eq:Vmoment}
+ v_n:=\frac{V_n}{16^n}=L-\int_0^1u^n\rho(u)\,du.
+\end{equation}
+It has the positive series
+\begin{equation}\label{eq:series}
+ \rho(u)=\frac2\pi\sum_{j\geq1}\frac{j}{j+1}c_j
+                 [4u(1-u)]^j.
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+Let $X,Y$ be independent with density $1/(\pi\sqrt{1-x^2})$ on
+$(-1,1)$, and put $U=(1+XY)/2$. The product-density substitution gives
+\[
+ f_{XY}(t)=\frac2{\pi^2}\int_{|t|}^1
+ \frac{dx}{\sqrt{(1-x^2)(x^2-t^2)}}
+ =\frac2{\pi^2}K(1-t^2).
+\]
+The second equality follows by setting
+$x^2=t^2+(1-t^2)\sin^2\theta$ and reversing the angle.
+Consequently $w$ is the probability density of $U$ and
+\[
+ p_n:=\E(U^n)=2^{-n}\sum_{j=0}^{\lfloor n/2\rfloor}\binom n{2j}c_j.
+\]
+Here the arcsine even moments are $\binom{2j}j/4^j$.
+To verify the recurrence identification, let $H(q)=\sum c_jq^j$.
+The coefficient ratio gives
+$q(1-q)H''+(1-2q)H'-H/4=0$.
+The generating function of $p_n$ is
+$A(z)=2(2-z)^{-1}H(z^2/(2-z)^2)$, whence, by substitution,
+\[
+ z(1-z)(2-z)A''+(2-6z+3z^2)A'+(z-1)A=0.
+\]
+Thus $P_n=16^np_n$ satisfies, for $n\geq2$,
+\[
+ E_n:=n^2P_n-8(3n^2-3n+1)P_{n-1}+128(n-1)^2P_{n-2}=0,
+\]
+with $P_0=1,P_1=8$ and $E_1=P_1-8P_0=0$.
+Set $W_n=(2n+1)P_n-16nP_{n-1}$ for $n\geq1$.
+The residual of \eqref{eq:Vrec} with $W$ in place of $V$ is
+$(n-1)(2n+1)E_n-16n^2E_{n-1}$.
+It vanishes, and $W_1=8$, so $W_n=V_n$. In particular,
+\begin{equation}\label{eq:weighted}
+ v_n=\int_0^1\bigl[u^n+n(2u-1)u^{n-1}\bigr]w(u)\,du.
+\end{equation}
+
+Expanding $K(m)=(\pi/2)\sum c_jm^j$ in \eqref{eq:rho} gives
+\eqref{eq:series}; indeed
+$\rho=(4/\pi^2)[K(m)-4(1-m)K'(m)]$ with $m=4u(1-u)$.
+The series proves positivity and symmetry.
+The elementary bound $c_j\leq1/(j+1)$, obtained by induction from
+the coefficient ratio, gives $K(m)=O(1+|\log(1-m)|)$.
+Hence $h(u)=(2u-1)w(u)$ extends continuously through $1/2$ with
+value zero. Its endpoint values are $h(0)=-L,h(1)=L$, and away
+from $1/2$ its derivative is $h'=w+\rho>0$.
+Integrating on each side and taking limits gives
+$\int_0^1(w+\rho)=2L$. Thus $\rho$ is integrable of mass
+$M=2L-1$, and $h$ is absolutely continuous.
+Integration by parts in \eqref{eq:weighted} now gives
+\eqref{eq:Vmoment}. The boundary contribution at zero is zero because
+$n\geq1$. Finally $M<L$ since $L<1$.
+\end{proof}
+
+\subsection*{The determinant density}
+For almost every $0<t<1$ define
+\begin{align}
+ A_0(t)&=L(1-t)^2\rho(t),\label{eq:A}\\
+ N(t)&=\frac12\int_t^1(s-t/s)^2\rho(s)\rho(t/s)\,\frac{ds}{s},
+ \qquad d(t)=A_0(t)-N(t).\label{eq:N}
+\end{align}
+Both $A_0$ and $N$ are integrable and nonnegative: by Tonelli,
+$\int N=\frac12\int\!\int(s-u)^2\rho(s)\rho(u)\,ds\,du\leq M^2/2$.
+Expanding \eqref{eq:Vmoment} and changing variables $t=su$ gives
+\begin{equation}\label{eq:Dmoment}
+ \frac{D_n}{256^n}=v_n^2-v_{n-1}v_{n+1}
+                 =\int_0^1t^{n-1}d(t)\,dt\qquad(n\geq2).
+\end{equation}
+For clarity, if $a_k=\int u^k\rho(u)\,du$, the left side is
+$L(a_{n-1}-2a_n+a_{n+1})-(a_{n-1}a_{n+1}-a_n^2)$;
+the latter parenthesis is
+$\frac12\int\!\int(su)^{n-1}(s-u)^2\rho(s)\rho(u)\,ds\,du$.
+All changes of variables therefore involve finite nonnegative integrals.
+The symmetry $s\leftrightarrow t/s$ also gives
+\begin{equation}\label{eq:half}
+ N(t)=\int_{\sqrt t}^1\frac{(a-t/a)^2}{a}\rho(a)\rho(t/a)\,da.
+\end{equation}
+We will prove $d(t)>0$ almost everywhere.
+
+\subsection*{Positivity for $1/2\leq t<1$}
+The series \eqref{eq:series} shows that $\rho$ decreases on $(1/2,1)$.
+For $\sqrt t\leq a\leq1$, put $b=t/a$. Then $t\leq b\leq a$
+and $\rho(b)\leq\rho(t)$. Moreover
+$a-b\leq a(1-t)$, so $(a-b)^2/a\leq(1-t)^2$.
+Consequently \eqref{eq:half} yields
+\begin{equation}\label{eq:endbound}
+ N(t)\leq M(1-t)^2\rho(t)<L(1-t)^2\rho(t)=A_0(t).
+\end{equation}
+The value at $t=1/2$ may be omitted.
+
+\subsection*{Positivity for $0<t\leq1/4$}
+For $0<u<1/2$, the descending Landen identity \cite[19.8.11--12]{dlmf}
+in parameter convention is
+\[
+ K(4u(1-u))=\frac1{1-u}K\left(\frac{u^2}{(1-u)^2}\right).
+\]
+In DLMF's modulus convention use $k=2\sqrt{u(1-u)}$,
+$k'=1-2u$, and $k_1=u/(1-u)$.
+Differentiation and the series for $K$ give
+\begin{equation}\label{eq:G}
+ \rho(u)=\frac{u}{\pi(1-u)^2}
+ G\left(\frac{u^2}{(1-u)^2}\right),\qquad
+ G(z)=\sum_{j\geq0}\frac{2j+1}{j+1}c_jz^j.
+\end{equation}
+For example, the coefficient calculation uses
+$(1+2j)c_j-2(j+1)c_{j+1}=(2j+1)c_j/(2(j+1))$.
+Expanding the last factor in the following beta integral proves
+\[
+ G(z)=\frac2\pi\int_0^1
+ \frac{r^{1/2}\,dr}{\sqrt{1-r}\sqrt{1-zr}}.
+\]
+It follows pointwise under the integral that
+\begin{equation}\label{eq:Gratio}
+ \frac{G(z_1)}{G(z_0)}\leq
+ \sqrt{\frac{1-z_0}{1-z_1}}\qquad(0\leq z_0\leq z_1<1).
+\end{equation}
+
+We claim that whenever $0<b\leq a\leq1$ and $ab\leq1/4$,
+\begin{equation}\label{eq:kernelrho}
+ \frac{(a-b)^2}{a}\rho(b)\leq(1-ab)^2\rho(ab).
+\end{equation}
+Except at the irrelevant coincident midpoint, $b<1/2$.
+By \eqref{eq:G}--\eqref{eq:Gratio}, the ratio of the left side
+to the right side is at most
+\[
+ F(a,b)=\frac{(a-b)^2}{a^2(1-b)(1-ab)}
+          \sqrt{\frac{1-2ab}{1-2b}}.
+\]
+For $a>b$, its logarithmic derivative in $a$ is
+\[
+ \partial_a\log F=\frac{2b}{a(a-b)}
+       -\frac{ab^2}{(1-ab)(1-2ab)}>0.
+\]
+Indeed, its sign is that of $2-6t+5t^2-a^2t$, where $t=ab$,
+and this is at least
+$2-7t+5t^2=(1-t)(2-5t)>0$ on the required range.
+If $b\leq1/4$, increasing $a$ to $1$ gives $F(a,b)\leq F(1,b)=1$.
+If $1/4<b<1/2$, increase $a$ to $1/(4b)$ instead. There,
+\[
+ F(1/(4b),b)=\frac4{3\sqrt2}
+     \frac{(1-2b)^{3/2}(1+2b)^2}{1-b}.
+\]
+Its logarithmic derivative has the sign of $2-15b+10b^2<0$
+on $[1/4,1/2)$; at $b=1/4$ its value is $1$.
+The case $a=b$ follows directly or by a limit. This proves
+\eqref{eq:kernelrho}. Substituting $b=t/a$ in \eqref{eq:half}
+and integrating against $\rho(a)\,da$ proves \eqref{eq:endbound}
+also for $0<t\leq1/4$.
+
+\subsection*{A finite certificate for $1/4\leq t<1/2$}
+The Cauchy--Schwarz inequality for gamma integrals gives
+$\Gamma(j+1/2)^2\leq\Gamma(j)\Gamma(j+1)$, hence
+$c_j\leq1/(\pi j)$ for $j\geq1$.
+With $m=4s(1-s)$, \eqref{eq:series} implies
+\begin{equation}\label{eq:logbound}
+ \rho(s)\leq\frac2{\pi^2}\sum_{j\geq1}\frac{m^j}{j+1}
+ \leq-\frac2{\pi^2}\log(1-m)
+ =\frac4{\pi^2}\bigl(-\log|1-2s|\bigr).
+\end{equation}
+In \eqref{eq:N}, use $2xy\leq x^2+y^2$ and the change
+$s\leftrightarrow t/s$ in one of the two resulting integrals. This gives
+\begin{equation}\label{eq:Ibound}
+ N(t)\leq\frac8{\pi^4}\int_t^1 Q(s,t)\log^2|1-2s|\,ds,
+ \qquad Q(s,t)=\frac{(s-t/s)^2}{s}.
+\end{equation}
+On the other hand \eqref{eq:G} and $G\geq1$ give
+\begin{equation}\label{eq:Alower}
+ A_0(t)\geq\frac{2t}{\pi^2}.
+\end{equation}
+
+For $j=4,5,6,7$, put $a_j=j/16$, and take
+$t\in[a_j,(j+1)/16]$. For $i=4j,\ldots,63$, define the rational number
+\[
+ B_{j,i}=\max\{Q(s,t):s\in\{i/64,(i+1)/64\},\
+                         t\in\{j/16,(j+1)/16\}\}.
+\]
+These four corner values bound $Q$ on the whole rectangle.
+For fixed $s$, $Q$ is convex in $t$; for fixed $t$,
+\[
+ \partial_sQ=\frac{(s^2-t)(s^2+3t)}{s^4},
+\]
+so its only interior critical point in $s>0$ is a minimum.
+Let
+\[
+ W_i=\int_{i/64}^{(i+1)/64}\log^2|1-2s|\,ds,\qquad
+ I_j=\sum_{i=4j}^{63}B_{j,i}W_i.
+\]
+Enlarging the nonnegative integral in \eqref{eq:Ibound} down to $a_j$
+shows that it is at most $I_j$. The exact certificate below proves
+\begin{center}
+\begin{tabular}{c|c|c}
+ $j$ & certified rational upper bound for $I_j$ & $2a_j$\\\hline
+ 4 & $385126/1000000$ & $1/2$\\
+ 5 & $521335/1000000$ & $5/8$\\
+ 6 & $687221/1000000$ & $3/4$\\
+ 7 & $805114/1000000$ & $7/8$
+\end{tabular}
+\end{center}
+Every middle entry is strictly below the corresponding right entry.
+Since $\pi^2>8$, it follows that
+\[
+ N(t)<\frac{16a_j}{\pi^4}<\frac{2a_j}{\pi^2}
+       \leq\frac{2t}{\pi^2}\leq A_0(t).
+\]
+Together with the endpoint arguments, this proves $d>0$ almost
+everywhere on $(0,1)$.
+
+Here are all details for verifying the finite table. Put
+$\Phi(0)=0$ and
+$\Phi(y)=y(\ell^2+2\ell+2)$ for $y>0$, where $\ell=-\log y$.
+Thus $\Phi'(y)=\log^2y$.
+Only arguments $y=k/32$, $0\leq k\leq32$, occur in the weights.
+For $y>0$, set $z=(1-y)/(1+y)$ and
+\begin{align*}
+ \ell_-&=2\sum_{k=0}^{127}\frac{z^{2k+1}}{2k+1},\\
+ \ell_+&=\ell_-+\frac{2z^{257}}{257(1-z^2)}.
+\end{align*}
+The power series $-\log y=2\operatorname{arctanh}z$ and a geometric
+tail estimate prove $\ell_-\leq\ell\leq\ell_+$.
+The function $y(\ell^2+2\ell+2)$ increases in $\ell\geq0$.
+Round its lower bound down and upper bound up to multiples of $2^{-80}$,
+obtaining $\Phi_-(y)$ and $\Phi_+(y)$. For $i<32$ use
+\[
+ W_i\leq\frac{\Phi_+((32-i)/32)-\Phi_-((31-i)/32)}2;
+\]
+for $i\geq32$ use
+\[
+ W_i\leq\frac{\Phi_+((i-31)/32)-\Phi_-((i-32)/32)}2.
+\]
+These are rational expressions with outward bounds throughout.
+Multiplying by $B_{j,i}$, summing, and rounding up to the next
+multiple of $10^{-6}$ gives the displayed table.
+The accompanying standard-library Python program
+\texttt{verify\_density\_certificate.py} implements these exact
+instructions with \texttt{fractions.Fraction}; its complete rational
+sums are retained in \texttt{density-certificate.json}.
+This finite arithmetic certificate is a part of the proof.
+
+\subsection*{Moment closure and all iterations}
+\begin{proof}[Proof of Theorem \ref{thm:main}]
+Define $\nu$ to be the image under $x=256t$ of the positive measure
+with density $256^2t\,d(t)$ on $(0,1)$.
+It is finite and has support $[0,256]$. Equation \eqref{eq:Dmoment}
+gives $D_{m+2}=\int x^m\,d\nu(x)$ for every $m\geq0$.
+
+For any finite positive measure $\eta$ supported on $[0,B]$, if
+$a_m=\int x^m\,d\eta(x)$, then
+\[
+ a_ma_{m+2}-a_{m+1}^2
+ =\frac12\int\!\int(xy)^m(x-y)^2\,d\eta(x)\,d\eta(y).
+\]
+This is again a moment sequence: use the image under multiplication
+of $(x-y)^2\eta\otimes\eta/2$, supported on $[0,B^2]$.
+Iteration proves infinite log-convexity.
+If $\eta$ has full support $[0,B]$ with $B>0$, this new measure has
+full support $[0,B^2]$: every point in $(0,B^2)$ is a product of two
+distinct points of $(0,B)$, and small neighborhoods have positive
+product measure and positive weight. Thus every iterate has positive
+moments, proving the asserted strictness.
+\end{proof}
+
+\subsection*{Scope}
+The proof covers all iteration orders and all required indices.
+It uses the classical Landen identity, proved endpoint estimates,
+and a reproducible exact finite certificate. It does not infer a
+uniform inequality from numerical samples. The current published
+source and live claim fields were checked before completion; the
+separate literature audit specifies the search scope. No external
+peer review or guaranteed novelty is claimed.
+
+\section*{Task 2: Prove the optimal global density bound}
+Determine the least constant $C$ for which
+$N(t)\leq C(1-t)^2\rho(t)$ almost everywhere on $(0,1)$.
+In particular, prove or refute the candidate $C=M=4/\pi-1$,
+which the endpoint argument already establishes outside $(1/4,1/2)$.
+Seek an analytic argument that also removes the finite certificate.
+
+\section*{Task 3: Derive quantitative bounds for all iterates}
+Use the explicit moment measures to bound
+$(\mathcal L^r(D_{m+2}))_m$ above and below in terms of $m$ and $r$.
+Obtain sharp asymptotics for fixed $r$ as $m\to\infty$, then determine
+how far those estimates remain uniform when $r$ grows with $m$.
+
+\section*{Task 4: Classify shifted determinant densities}
+For each integer $h\geq2$, analyze
+$V_n^2-V_{n-h}V_{n+h}$ for $n\geq h+1$.
+Derive its analogue of $d(t)$ and determine which $h$ yield a
+Stieltjes moment sequence after shifting the initial index.
+Identify any failure by a rigorous obstruction or explicit counterexample.
+
+\section*{Task 5: Extend the measure construction to beta laws}
+Replace the arcsine variables in the preliminary lemma by independent
+densities proportional to $(1-x^2)^{a-1}$ and $(1-y^2)^{b-1}$,
+where $a,b>0$. With $U=(1+XY)/2$ and
+$B_n=(2n+1)\E(U^n)-n\E(U^{n-1})$, determine the parameter region
+where the determinant sequence $B_n^2-B_{n-1}B_{n+1}$ is a positive
+moment sequence. Include the changed endpoint contributions.
+
+\begin{thebibliography}{9}
+\bibitem{source}
+B. Y. Sun and J. J. Y. Zhao, \emph{Log-behavior of Two Sequences Related
+to the Elliptic Integrals}, Acta Mathematicae Applicatae Sinica,
+English Series \textbf{36} (2020), 590--602, Conjecture 5.1, p.~601.
+\url{https://doi.org/10.1007/s10255-020-0952-1}.
+Full publisher PDF:
+\url{https://applmath.cjoe.ac.cn/jweb_yysxxb_en/EN/PDF/10.1007/s10255-020-0952-1}.
+\bibitem{dlmf}
+NIST Digital Library of Mathematical Functions, Section 19.8(ii),
+descending Landen transformation, equations 19.8.11--12.
+\url{https://dlmf.nist.gov/19.8#ii}.
+\end{thebibliography}
+\end{document}

@@ -1,0 +1,279 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,hyperref,enumitem}
+\hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newcommand{\E}{\mathbb E}
+\newcommand{\Pp}{\mathbb P}
+\title{Nonsingularity of the periodic partial-sums system\\with arbitrary support minima}
+\author{Principia Math In Progress}
+\date{22 September 2026}
+\begin{document}
+\maketitle
+\noindent\textbf{MathDB 375984. Full solution of Grigutis--Petkelis Conjecture 1.}
+
+\section*{Task 1: statement and the source conventions}
+Let independent integer increments have period \(N\) in distribution,
+minimum support points \(m_j\), and
+\[
+ D=\sum_{j=1}^Nm_j<0,\qquad
+ \mu=\E\sum_{j=1}^NX_j<0,\qquad
+ \Pp(X_j=m_j)>0.
+\]
+Indices on phases are cyclic. Write
+\(\mathcal M_j=\max(0,X_j,X_j+X_{j+1},\ldots)\) and
+\(\pi^{(j)}_i=\Pp(\mathcal M_j=i)\).
+The source constructs a system for its initial probabilities by
+evaluating generating-function numerators at the nonunit roots
+of \(G_{\sum X_j}(z)=1\), and appending a normalization equation
+[1, (2.7), pp.~7--9]. It conjectures nonsingularity.
+
+Two source conventions matter. A root of multiplicity \(q\)
+gives derivative constraints of orders \(0,\ldots,q-1\)
+[1, Note~1]. Probabilities forced to be zero by support bounds
+are removed, as in the mixed-sign example [1, pp.~17--18].
+The printed block dimensions \(-m_j\) apply directly when
+all \(m_j\leq0\); for general integer minima the forced-zero
+elimination below specifies the \(-D\) actual unknowns.
+
+\begin{theorem}\label{thm}
+Under the assumptions above, the source's coefficient system,
+with these support and multiplicity conventions, is nonsingular.
+This holds for every period, arbitrary integer support minima,
+all multiplicities of interior roots, and roots on the unit circle.
+\end{theorem}
+
+\subsection*{1. Reduce all support minima to nonpositive values}
+Define deterministic heights
+\[
+ \ell_j=\max\left(0,m_j,m_j+m_{j+1},\ldots,
+                         m_j+\cdots+m_{j+N-1}\right).
+\]
+Since \(D<0\), an extra full period cannot increase a partial
+sum of the minima. Consequently
+\[
+ \ell_j=\max(0,m_j+\ell_{j+1}),\qquad
+ \mathcal M_j\geq\ell_j.
+\]
+Set
+\[
+ k_j=\ell_j-m_j-\ell_{j+1}\geq0,\quad
+ C=\sum_j k_j=-D>0,\quad
+ Y_j=X_j+\ell_{j+1}-\ell_j,\quad
+ Z_j=Y_j+k_j=X_j-m_j.
+                                                               \tag{1}
+\]
+Here \(Z_j\geq0\) and \(p_{j,0}:=\Pp(Z_j=0)>0\).
+The transformed increments have minima \(-k_j\) and the same
+period sum as the original increments. Their means are finite:
+each increment is bounded below, and their total mean is finite
+and negative. In particular \(\sum_j\E Z_j=C+\mu<C\).
+
+The translated maxima \(L_j=\mathcal M_j-\ell_j\) obey
+\[
+ L_j\ \buildrel d\over=\ \max(0,Y_j+L_{j+1}).
+                                                               \tag{2}
+\]
+Indeed the original recursion gives
+\(L_j=\max(-\ell_j,Y_j+L_{j+1})\) in distribution.
+If \(\ell_j=0\), this is (2). If \(\ell_j>0\), then \(k_j=0\)
+and \(Y_j\geq0\), so both maxima equal \(Y_j+L_{j+1}\).
+
+In phase \(j\), the source initially uses
+\(\pi^{(j+1)}_i\), \(0\leq i<-m_j\). Those with
+\(i<\ell_{j+1}\) are zero. If \(\ell_j>0\), none remain.
+If \(\ell_j=0\), the remaining indices are precisely
+\[
+ i=\ell_{j+1}+u,\quad 0\leq u<k_j.
+                                                               \tag{3}
+\]
+Thus exactly \(\sum_jk_j=C=-D\) unknowns remain in all cases.
+When every \(m_j\leq0\), all heights vanish and this is
+the displayed source matrix without any change of variables.
+
+\subsection*{2. An equivalent description of every matrix row}
+Put \(g_j(z)=\E z^{Z_j}\), \(F_j(t)=\Pp(Z_j\leq t)\).
+For an arbitrary complex vector \(v=(v_{j,u})_{0\leq u<k_j}\),
+define
+\[
+ Q_j(z)=\sum_{u=0}^{k_j-1}v_{j,u}
+                  \sum_{t=u}^{k_j-1}z^tF_j(t-u),
+ \qquad Q_j=0\ \text{if }k_j=0.                              \tag{4}
+\]
+The map from \(v_j\) to the coefficients of \(Q_j\) is triangular
+with positive diagonal \(F_j(0)=p_{j,0}\).
+Let
+\[
+ K(z)=\prod_{j=1}^Ng_j(z)-z^C,
+ \qquad
+ H_j(z)=\sum_{r=0}^{N-1}
+ z^{\,C-\sum_{t=0}^r k_{j+t}}
+ \left(\prod_{t=0}^{r-1}g_{j+t}(z)\right)Q_{j+r}(z).
+                                                               \tag{5}
+\]
+Empty products equal one. Every exponent in (5) is nonnegative.
+The root-count result used in [1], namely [2, Lemma~4] applied
+with one aggregate variable \(\sum_jZ_j\) and premium \(C\),
+gives \(C\) zeros of \(K\) in the closed unit disk, counted with
+multiplicity. One is \(1\). None is zero, since \(K(0)=\prod_jp_{j,0}>0\).
+
+Up to invertible row operations, the homogeneous system is
+\[
+ H_N^{(t)}(\alpha)=0
+ \quad\left(K(\alpha)=0,\ \alpha\ne1,\
+                     0\leq t<\operatorname{mult}_K(\alpha)\right),
+ \qquad \sum_jQ_j(1)=0.                                    \tag{6}
+\]
+Here and below boundary roots will be shown to be simple.
+To verify the exact source correspondence, let \(B_j^{\rm old}\)
+be the Laurent polynomial in [1, Proposition~1].
+After substituting (3) into its definition, direct index shifting
+gives
+\[
+ B_j^{\rm old}(z)=z^{\ell_j-k_j}Q_j(z),\qquad
+ G_{X_j}(z)=z^{\ell_j-\ell_{j+1}-k_j}g_j(z).                 \tag{7}
+\]
+The first equality is also true when \(\ell_j>0\), since both
+sides vanish. The numerator in the source's phase-\(N\) row,
+with block order \(N,1,\ldots,N-1\), is therefore
+\[
+ B_N^{\rm old}+G_{X_N}B_1^{\rm old}
+       +G_{X_N}G_{X_1}B_2^{\rm old}+\cdots
+       =z^{\ell_N-C}H_N(z).                                \tag{8}
+\]
+At a nonzero root, multiplication by \(z^{\ell_N-C}\)
+changes a vector of derivatives through order \(q-1\)
+by an invertible triangular matrix. The factor \(1-z\)
+in the source identity is likewise invertible at \(\alpha\ne1\).
+At \(z=1\), (7) gives the same normalization row
+\(\sum_jQ_j(1)\), with right-hand side \(-\mu\).
+This proves (6), including the confluent rows.
+
+\subsection*{3. Kernel cancellation gives decaying coefficients}
+Suppose (6) holds. Telescoping (5) gives
+\[
+ g_jH_{j+1}-z^{k_j}H_j=KQ_j,\qquad 1\leq j\leq N.
+                                                               \tag{9}
+\]
+At any nonzero root \(\alpha\) of \(K\), all \(g_j(\alpha)\)
+are nonzero because their product is \(\alpha^C\).
+Equation (9) propagates the prescribed vanishing order from
+\(H_N\) to all \(H_j\). Also
+\(H_j(1)=\sum_rQ_r(1)=0\).
+It follows that \(T_j=H_j/K\) is holomorphic in the open unit disk.
+
+We check continuity on its boundary without imposing exponential
+tails or higher moments. Finite first moments imply that \(g_j\)
+and \(g_j'\) are continuous on the closed disk, by uniform absolute
+convergence of their series. The same holds for \(K,H_j\) and
+their first derivatives.
+
+If \(|\alpha|=1\) and \(K(\alpha)=0\), let \(Z=\sum_jZ_j\).
+Equality in \(|\E\alpha^Z|\leq1\), together with \(\Pp(Z=0)>0\),
+forces \(\alpha^r=1\) on the support of \(Z\), and
+\(\alpha^C=1\). Therefore
+\[
+ K'(\alpha)=\alpha^{-1}(\E Z-C)=\alpha^{-1}\mu\ne0.          \tag{10}
+\]
+All boundary roots are simple. If a function \(f\) and \(f'\)
+are continuous on the closed disk and \(f(\alpha)=0\),
+integration along the segment from \(\alpha\) to \(z\) shows
+\[
+ \frac{f(z)}{z-\alpha}\longrightarrow f'(\alpha)
+ \quad\text{as }z\to\alpha\text{ within the disk}.
+ \]
+Apply this to \(H_j,K\); (10) proves continuous extension
+of \(T_j\) at every boundary root.
+
+Consequently the Taylor coefficients
+\(h_j(u)=[z^u]T_j(z)\) tend to zero. For completeness, if
+\(T\) is holomorphic in the disk and continuous on its closure,
+Cauchy's estimate bounds its coefficients by
+\(M=\max|T|\). For \(0<\rho<1\), apply that estimate to
+\(T(z)-T(\rho z)\) to get
+\[
+ |h(u)|\leq M\rho^u+
+      \max_{|z|\leq1}|T(z)-T(\rho z)|.
+ \]
+First let \(u\to\infty\), then \(\rho\uparrow1\).
+Uniform continuity proves the assertion.
+
+\subsection*{4. A cyclic maximum principle finishes the proof}
+Dividing (9) by \(K\) gives
+\[
+ g_jT_{j+1}-z^{k_j}T_j=Q_j.
+\]
+Since \(\deg Q_j<k_j\) (with \(Q_j=0\) when \(k_j=0\)),
+coefficient comparison yields, for every \(u\geq0\),
+\[
+ h_j(u)=\sum_{r=0}^{u+k_j}p_{j,r}\,
+                        h_{j+1}(u+k_j-r).                 \tag{11}
+\]
+Here \(p_{j,r}=\Pp(Z_j=r)\).
+If these finitely many decaying sequences were not all zero,
+their joint supremum in modulus would be a positive attained
+maximum \(M_*\), say \(|h_j(u)|=M_*\).
+The right side of (11) has modulus at most \(M_*\), because
+the weights are nonnegative and sum to at most one.
+Since \(p_{j,0}>0\), equality forces
+\(|h_{j+1}(u+k_j)|=M_*\).
+Repeating this implication for a complete period gives
+\(|h_j(u+C)|=M_*\), then \(|h_j(u+qC)|=M_*\) for every \(q\).
+As \(C>0\), this contradicts decay.
+
+Thus all \(T_j\), all \(Q_j\), and, by the triangular
+invertibility in (4), all \(v_{j,u}\) vanish. The square
+system of \(C\) rows has trivial kernel. Equations (7)--(8)
+transfer this conclusion to the original system, proving
+Theorem~\ref{thm}.
+
+\section*{Scope and attribution}
+No condition that the source's boundary terms \(b_k(x)\) vanish
+was used. The proof covers unequal negative minima, zero minima,
+positive minima after the exact support reduction, and every
+root multiplicity allowed by Note~1. It does not treat duplicated
+evaluation rows as the intended repeated-root system.
+
+The root count is the established result [2, Lemma~4].
+The analytic cancellation and maximum principle extend the
+earlier campaign proof for MathDB 357004 [3], whose theorem
+assumed a common positive premium and simple nontrivial roots.
+That earlier result is credited as the method's source.
+The additional support-height reduction, variable and zero shifts,
+and all confluent cases are proved here.
+
+\section*{Tasks 2--5: proposed mathematical follow-ups}
+\begin{enumerate}[label=\textbf{Task \arabic*:},start=2,leftmargin=*]
+\item Obtain quantitative lower bounds for the smallest singular
+value of the normalized confluent matrix in terms of the drift,
+minimum masses, root separation, and moment bounds.
+\item Extend the uniqueness theorem to a finite-state Markov
+environment and identify the appropriate drift and irreducibility
+conditions for a matrix-valued kernel.
+\item Determine the rank and compatibility conditions at zero
+period drift, including the degenerate case of an identically
+zero period sum.
+\item Construct a stable algorithm that avoids explicit root
+locations while computing the same initial probabilities, with
+rigorous error bounds for unbounded increment distributions.
+\end{enumerate}
+
+\begin{thebibliography}{9}
+\bibitem{gp}
+A.~Grigutis and J.~Petkelis, \emph{The limit law of the maximum
+of discrete partial-sums distribution II},
+\href{https://arxiv.org/abs/2607.11275}{arXiv:2607.11275v1}
+(13 July 2026), Conjecture~1, Note~1, and Example~1.
+\bibitem{gg}
+S.~Gerv\'e and A.~Grigutis, \emph{Distribution of shifted discrete
+random walk generated by distinct random variables and applications
+in ruin theory}, Modern Stochastics: Theory and Applications
+\textbf{11}(3) (2024), 323--357, Lemma~4, pp.~338--339.
+\href{https://doi.org/10.15559/24-VMSTA249}{doi:10.15559/24-VMSTA249}.
+\bibitem{earlier}
+Principia Math In Progress, \emph{Nonsingularity of the periodic
+random-walk system}, MathDB 357004, 18 September 2026.
+\href{https://github.com/antoshashakov/Principia-Math-In-Progress/blob/mathdb-results/mathdb-open-problems/problems/357004/solution.tex}{Earlier campaign proof}.
+\end{thebibliography}
+\end{document}

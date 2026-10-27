@@ -1,0 +1,114 @@
+\documentclass[10pt]{article}
+\usepackage[margin=0.85in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,hyperref}
+\newtheorem{theorem}{Theorem}
+\newcommand{\SLP}{\mathcal{SL\text{-}P}^{+}}
+\title{A counterexample to positive shifted Laguerre--P\'olya preservation}
+\author{Principia Math in Progress}
+\date{13 September 2026}
+\begin{document}
+\maketitle
+
+\paragraph{Task 1. Resolve the Laguerre-operator preservation conjecture.}
+Wagner's Conjecture 4.3 asserts that \(L_j(\phi)\in\SLP\) for every
+\(\phi\in\SLP\) and every positive integer \(j\) \cite{W}.
+The operators are defined by
+\[
+ |\phi(x+iy)|^2=\sum_{j\ge0}L_j(\phi)(x)y^{2j},\qquad
+ L_1(\phi)=(\phi')^2-\phi\phi''.
+\]
+We disprove this assertion already for \(j=1\).
+
+Recall the defining conditions in \cite[p.~3]{W}. Membership in the
+shifted class of type I requires real polynomials \(p_N\), of degrees
+\(d_N\), converging locally uniformly to \(\phi\), such that for
+each fixed \(d\), the polynomial \(p_N^{(d_N-d)}\) has all its roots
+real and of the same sign for every sufficiently large \(N\).
+Membership in \(\SLP\) additionally requires the exponential Taylor
+coefficients \(\gamma_n=\phi^{(n)}(0)\) to be eventually nonnegative.
+
+\begin{theorem}
+For any \(c>0\) and \(a>0\), the function \(\phi(x)=c+e^{ax}\)
+belongs to \(\SLP\), whereas \(L_j(\phi)\notin\SLP\) for every
+odd positive integer \(j\). In particular, \(\phi(x)=1+e^x\)
+is a counterexample to Conjecture 4.3.
+\end{theorem}
+
+\begin{proof}
+Set \(p_N(x)=c+(1+ax/N)^N\). These real polynomials have degree
+\(N\) and converge to \(c+e^{ax}\) uniformly on each compact subset
+of \(\mathbb C\). For fixed \(d\ge1\) and \(N>d\), differentiation
+annihilates the constant term and gives
+\[
+ p_N^{(N-d)}(x)=\frac{N!}{d!}\left(\frac aN\right)^{N-d}
+                         \left(1+\frac{ax}{N}\right)^d.
+ \tag{1}
+\]
+All \(d\) roots are \(-N/a<0\). Thus the defining approximation
+condition holds, with threshold \(N=d+1\). Moreover,
+\[
+ \gamma_0=c+1>0,\qquad \gamma_n=a^n>0\quad(n\ge1),
+\]
+so \(\phi\in\SLP\).
+
+The coefficient criterion in \cite[Theorem 1.1]{W} gives a separate
+check of membership: for every \(m\ge1\) and \(d\ge1\), the shifted
+Jensen polynomial is
+\[
+ J_\gamma^{d,m}(X)=\sum_{k=0}^d\binom dk\gamma_{m+k}X^k
+                 =a^m(1+aX)^d,
+ \tag{2}
+\]
+whose roots are all negative.
+
+For real \(x,y\), direct multiplication gives
+\[
+ |c+e^{a(x+iy)}|^2=c^2+e^{2ax}+2ce^{ax}\cos(ay).
+\]
+Consequently
+\[
+ L_j(\phi)(x)=\frac{2c(-1)^j a^{2j}}{(2j)!}e^{ax}
+                         \qquad(j\ge1).                 \tag{3}
+\]
+For odd \(j\), every exponential Taylor coefficient of this function
+equals \(-2ca^{2j+n}/(2j)!<0\). Eventual nonnegativity therefore
+fails. In particular, \(L_1(1+e^x)=-e^x\notin\SLP\).
+\end{proof}
+
+\paragraph{Scope.}
+The counterexample has strictly positive Taylor coefficients at every
+index and satisfies both the direct approximation definition and the
+shifted Jensen criterion. Repeated negative Jensen roots are allowed
+in the source. The conclusion concerns the positive shifted class;
+the negative exponential remains in the unsigned shifted class.
+
+\paragraph{Task 2. Analyze polynomial perturbations.}
+For \(a>0\) and real polynomials \(P\), characterize when
+\(L_j(e^{ax}+P(x))\) belongs to \(\SLP\), and identify which
+features of \(P\) control eventual coefficient signs.
+
+\paragraph{Task 3. Investigate preservation after differentiation.}
+Determine sufficient conditions on \(\phi\in\SLP\) under which,
+for each \(j\), some \(N\) satisfies
+\(L_j(\phi^{(n)})\in\SLP\) for every \(n\ge N\).
+
+\paragraph{Task 4. Test strict shifted hyperbolicity.}
+Determine whether counterexamples persist when every fixed-degree
+shifted Jensen polynomial eventually has distinct negative roots.
+
+\paragraph{Task 5. Examine the even operators.}
+Decide whether the operators \(L_{2j}\), which preserve positivity
+on the family in (3), preserve \(\SLP\) in general, or construct
+counterexamples to that restricted assertion.
+
+\begin{thebibliography}{1}
+\bibitem{W} I.~Wagner,
+\emph{On a new class of Laguerre--P\'olya type functions with applications
+in number theory},
+\href{https://arxiv.org/abs/2108.01827v2}{arXiv:2108.01827v2} (2022),
+pp.~3--4 and Conjecture 4.3 on p.~11.
+Published in \emph{Pacific Journal of Mathematics} \textbf{320} (2022),
+177--192, \href{https://doi.org/10.2140/pjm.2022.320.177}
+{doi:10.2140/pjm.2022.320.177}.
+\end{thebibliography}
+\end{document}

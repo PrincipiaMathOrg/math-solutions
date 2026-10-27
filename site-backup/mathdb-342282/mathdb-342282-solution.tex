@@ -1,0 +1,266 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,hyperref,enumitem}
+\hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue}
+\setlength{\emergencystretch}{1em}
+\newtheorem{theorem}{Theorem}
+\newcommand{\E}{\mathbb E}
+\newcommand{\Pp}{\mathbb P}
+\newcommand{\Var}{\operatorname{Var}}
+\newcommand{\Cov}{\operatorname{Cov}}
+\newcommand{\N}{\mathbb N}
+\newcommand{\R}{\mathbb R}
+\title{All-gap moments and Gaussian limits\\for ballistic-deposition roots}
+\author{Principia Math In Progress}
+\date{22 September 2026}
+\begin{document}
+\maketitle
+\noindent\textbf{MathDB 342282. Full intended theorem.}
+The complete accepted manuscript and current preprint have been read;
+the refreshed bounded source and claim audit is recorded with this proof.
+
+\section*{Task 1: statement and scope}
+Consider the cyclic strip with \(K\) sites. At each step a uniform site
+\(j\) is selected and its height becomes
+\(1+\max(H(j-1),H(j),H(j+1))\); other heights are unchanged.
+Initially all heights are zero. A root is a site that ever receives a
+particle at height one. For \(i\geq1\), \(D_{i,K}\) counts consecutive
+roots at cyclic distance \(g=i+1\), including the wrapping pair.
+
+The first conjecture in Section 3.5 of Mansour--Rastegar--Roitershtein
+[1] asks for linear moments and a normal limit. It prints
+\(\sigma(D_{i,K})=b_iK\), although \(\sigma\) denotes standard deviation.
+The surrounding discussion and Theorems 3.3 and 3.5 concern linear
+\emph{variance}. We prove that intended all-\(i\) assertion and both
+Gaussian conjectures. The elementary variance/standard-deviation
+wording discrepancy earns no research credit.
+
+\begin{theorem}
+For every fixed \(i\geq1\), there are positive rational numbers \(a_i,b_i\)
+such that, whenever \(K\geq2(i+4)\),
+\[
+ \E D_{i,K}=a_iK,\qquad \Var(D_{i,K})=b_iK.                 \tag{1}
+\]
+Moreover,
+\[
+ \frac{D_{i,K}-a_iK}{\sqrt{b_iK}}\ \Longrightarrow\ N(0,1).
+                                                               \tag{2}
+\]
+The vector of all coordinates standardized by their actual means and
+standard deviations converges weakly in
+\(\R^{\N}\), with its product topology, to a centered Gaussian process.
+For the finitely small sizes where a coordinate has zero variance,
+define that standardized coordinate as zero; also set coordinates
+\(i\geq K\) to zero.
+\end{theorem}
+
+\section*{Independent priorities and local gap indicators}
+Run independent rate-one Poisson clocks at the sites. Their merged
+sequence of site labels is independent and uniform, so it gives the
+same deposition process. Its first arrival times are independent
+exponentials. A root forms at \(j\) exactly when its first arrival
+precedes the first arrivals at both neighbors: otherwise a neighbor
+already has positive height. Later arrivals cannot create a root at
+a previously occupied site. Applying the exponential distribution
+function gives independent uniform priorities \(U_j\) and the exact
+joint representation
+\[
+ \xi_j={\bf1}\{U_j<U_{j-1},\ U_j<U_{j+1}\}.
+\]
+All indices here are cyclic. If \(K>g+2\), put
+\[
+ Y_j^{(g)}=\xi_j\xi_{j+g}
+              \prod_{t=1}^{g-1}(1-\xi_{j+t}).
+ \qquad D_{i,K}=\sum_{j=1}^K Y_j^{(g)}.                       \tag{3}
+\]
+The indicator depends only on
+\(U_{j-1},\ldots,U_{j+g+1}\), a window of length
+\(m=g+3=i+4\).
+
+Use the same definition on a two-sided infinite independent sequence.
+Its indicators are stationary and \((m-1)\)-dependent: disjoint
+priority windows give independent families. Define
+\[
+ a_i=\E Y_0^{(g)},\qquad
+ b_i=\Var(Y_0^{(g)})
+       +2\sum_{h=1}^{m-1}\Cov(Y_0^{(g)},Y_h^{(g)}).           \tag{4}
+\]
+Each probability in (4) is a finite sum of equally likely strict
+orders of finitely many continuous priorities. Thus \(a_i,b_i\) are
+rational. A configuration with low values at \(0,g\), high external
+neighbors, and increasing interior values has exactly those two
+roots in \([0,g]\). It occupies a nonempty open set, so \(a_i>0\).
+
+For \(K\geq2m\), a single window has the line law. A pair of overlapping
+windows has the line law at offset \(h\), or at offset \(-h\) across the
+cyclic seam. All other pairs are independent. Summing covariances gives
+(1) with the constants (4), except that positivity of \(b_i\) still
+requires proof.
+
+\section*{Strictly positive variance density}
+Fix \(g\geq2\), and write \(q=2g-1\), \(L=2g+3\).
+Partition \(\lfloor K/L\rfloor\) disjoint consecutive blocks of length
+\(L\), leaving any remaining sites aside. Label sites within each block
+\(-1,0,1,\ldots,2g,2g+1\). Its anchors are \(0,2g\), guards are
+\(-1,2g+1\), and interior sites are \(1,\ldots,q\).
+A block is good if both anchors have priority below \(1/4\), both guards
+have priority above \(3/4\), and all interior priorities exceed \(1/4\).
+Its probability is
+\[
+ p=4^{-4}(3/4)^q>0.                                         \tag{5}
+\]
+
+Reveal all anchor, guard, and leftover priorities, and for every block
+reveal whether all its interior priorities exceed \(1/4\). In blocks
+that are not good, reveal the whole interior as well. Conditional on
+this information, the interiors of the good blocks are independent;
+in each good block they are independent uniforms on \((1/4,1)\).
+Both anchors are forced roots and both guards are forced nonroots.
+All roots outside the good interiors are determined.
+
+Consequently \(D_{i,K}\), conditionally, is a constant plus the sum
+of independent quantities \(H\), one per good block, where \(H\)
+counts gaps of length \(g\) inside its anchored segment \([0,2g]\).
+The fixed anchor roots separate all such gaps from exterior gaps.
+Two interior order patterns have different values of \(H\).
+If \(U_1<\cdots<U_q\), there are no interior roots, so \(H=0\).
+For the second pattern make \(U_g\) the least interior priority,
+make \(U_1,\ldots,U_{g-1}\) increase, and make
+\(U_{g+1},\ldots,U_q\) decrease. Choose one fixed total order with these
+properties. Its only interior root is \(g\), so \(H=2\).
+These descriptions also hold when \(g=2\).
+
+Each of the two selected total orders has conditional probability
+\(1/q!\). For an independent conditional copy \(H'\),
+\[
+ \Var(H\mid\text{revealed})
+ =\tfrac12\E((H-H')^2\mid\text{revealed})
+ \ \geq\frac4{(q!)^2}.                                     \tag{6}
+\]
+Conditional independence, total variance, and (5) now give
+\[
+ \Var(D_{i,K})\geq
+ \left\lfloor\frac K L\right\rfloor
+                  \frac{4p}{(q!)^2}.
+\]
+Combining this with (1) and sending \(K\) to infinity proves the explicit
+positive bound
+\[
+ b_i\geq \frac{4^{\, -3}(3/4)^{\,2g-1}}
+                    {(2g+3)((2g-1)!)^2}>0.                 \tag{7}
+\]
+
+\section*{The scalar central limit theorem}
+We include a blocking argument. On the infinite line let
+\(X_j=Y_j^{(g)}-a_i\) and \(S_K=\sum_{j=1}^K X_j\).
+Finite dependence gives
+\(\Var(S_K)=Kb_i+O(1)\). Take consecutive long blocks of length
+\(\ell=\lfloor K^{1/4}\rfloor\), separated by \(m-1\) discarded
+indices, and discard the final incomplete block. The long-block sums
+\(B_r\) are independent and centered, and \(|B_r|\leq\ell\).
+The discarded sum \(R_K\) has variance
+\[
+ \Var(R_K)=O(K/\ell+\ell)=o(K),
+\]
+since each discarded index has at most \(2m-2\) dependent neighbors.
+The \(L^2\) triangle inequality yields
+\(s_K^2:=\sum_r\Var(B_r)\sim b_iK\).
+
+For completeness, the independent-block normal limit follows from
+the Taylor expansion of characteristic functions. For each fixed real
+\(t\), the total third-order remainder is bounded by
+\[
+ \frac{|t|^3}{6s_K^3}\sum_r\E|B_r|^3
+ \leq\frac{|t|^3\ell}{6s_K}\longrightarrow0.
+\]
+Also \(\max_r\Var(B_r)/s_K^2\leq\ell^2/s_K^2\to0\).
+Multiplying the characteristic functions, or taking their logarithms
+near one, therefore gives
+\(\E\exp(it\sum_r B_r/s_K)\to e^{-t^2/2}\).
+Thus \(S_K/\sqrt{b_iK}\) converges to \(N(0,1)\).
+
+Couple the cycle to the line by using the same priorities at sites
+\(1,\ldots,K\). Only a bounded number, depending on \(m\), of indicator
+windows cross the seam. The cyclic and line sums therefore differ by
+a deterministically bounded amount. Dividing by \(\sqrt{b_iK}\)
+proves (2).
+
+\section*{The joint product-space limit}
+For fixed \(r\), apply the same argument to any real linear combination
+of the first \(r\) local indicators, centered and divided by
+\(\sqrt{b_i}\). This remains bounded and finitely dependent.
+Its variance density is nonnegative. If positive, the blocking proof
+applies after rescaling; if zero, its line-sum variance is \(O(1)\),
+so its sum divided by \(\sqrt K\) converges to zero in \(L^2\).
+The bounded seam correction still vanishes.
+
+The Cramer--Wold criterion gives a centered Gaussian limit for every
+finite set of coordinates, with covariance matrix
+\[
+ \Sigma_{ij}=\frac{1}{\sqrt{b_i b_j}}
+       \sum_{h\in\mathbb Z}
+       \Cov\bigl(Y_0^{(i+1)},Y_h^{(j+1)}\bigr).              \tag{8}
+\]
+Each sum is finite. These matrices are consistent and positive
+semidefinite, as limits of covariance matrices; their diagonals are one.
+They define a Gaussian law on the countable product.
+
+Every standardized coordinate has second moment at most one.
+Given \(\varepsilon>0\), choose \(M_i>0\) with
+\(\sum_i M_i^{-2}<\varepsilon\). By Chebyshev and the union bound,
+all these vector laws give mass at least \(1-\varepsilon\) to the
+compact product \(\prod_i[-M_i,M_i]\). They are uniformly tight.
+Finite-dimensional convergence and tightness prove convergence in
+the product topology to the Gaussian law with covariance (8).
+
+\section*{Tasks 2--5: four proposed mathematical follow-ups}
+\begin{enumerate}[label=\textbf{Task \arabic*:},start=2,leftmargin=*]
+\item Derive closed formulas, or generating functions, for all
+mean and variance constants \(a_i,b_i\) in (4).
+\item Prove a quantitative normal approximation and a local central
+limit theorem for \(D_{i,K}\), with explicit dependence on fixed \(i\).
+\item Classify Gaussian and Poisson limiting regimes when the gap
+index \(i=i(K)\) grows with the strip size.
+\item Determine sufficient conditions on nonuniform site arrival
+rates for analogous linear-variance and joint Gaussian limits.
+\end{enumerate}
+These are proposed directions, not additional claimed solutions.
+
+\noindent\textbf{Recorded verification.}
+Four exact groups check 1,093 adjacent-order patterns; evaluate
+the constants for \(1\leq i\leq10\), agreeing with all seven known
+pairs; check 409,112 first-arrival orders modulo rotation for
+\(3\leq K\leq10\); and check variance witnesses for \(2\leq g\leq50\),
+including exhaustive conditional variances for \(g=2,3,4\).
+These finite computations supplement the proof; they do not establish
+an infinite-parameter statement or a normal limit by numerical fitting.
+The proof has been checked only by its authoring agent, without
+independent peer review or formal proof-assistant verification.
+
+\section*{Sources and status}
+[1] T. Mansour, R. Rastegar, A. Roitershtein.\\
+\emph{On ballistic deposition process on a strip}.\\
+\href{https://arxiv.org/abs/1903.12548}{arXiv:1903.12548v2}
+(19 June 2019), all 27 PDF pages read.
+The target is Section 3.5, p.~23; the gap definition is on p.~10.
+\par\smallskip\noindent Journal article: \emph{J. Stat. Phys.} 177 (2019), 626--650,
+\href{https://doi.org/10.1007/s10955-019-02383-4}
+{journal DOI}. The complete
+\href{https://pmc.ncbi.nlm.nih.gov/articles/PMC6913540/}{accepted manuscript,
+PMC6913540 / NIHMS1058046}, including Sections 1--3.5, all three tables,
+references, and all seven figures, was read on 22 September 2026.
+Its Section 3.5 retains both target conjectures.
+\href{https://pmc.ncbi.nlm.nih.gov/about/authorms/}{PMC's version policy}
+identifies this as the manuscript accepted after peer review.
+The separately typeset publisher version remains unread; no identity
+with that version is asserted. The accepted final supplies the
+source-scope check, replacing the earlier pending assessment.
+
+\medskip\noindent
+Status at 22 September 2026: complete intended mathematical result;
+eligible within the recorded bounded audit. Initial and refreshed MathDB and
+bounded public-claim checks are recorded in the package. No credit is
+claimed for correcting the printed standard-deviation formula, for
+known finite-\(i\) moment calculations, or separately for the joint
+strengthening.
+\end{document}

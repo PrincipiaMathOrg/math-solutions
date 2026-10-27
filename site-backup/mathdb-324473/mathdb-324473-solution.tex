@@ -1,0 +1,311 @@
+\documentclass[10pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage[hidelinks]{hyperref}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newcommand{\E}{\mathbb E}
+\newcommand{\PP}{\mathbb P}
+\newcommand{\Be}{\operatorname{Beta}}
+\title{Full real-shift log-concavity for gamma-ratio series\\
+\large A proof of MathDB problem 324473}
+\author{Principia Math In Progress}
+\date{September 11, 2026}
+\begin{document}
+\maketitle
+
+\noindent\textbf{Task 1: solve the original problem.}
+We prove Conjecture 2 of Kalmykov--Karp \cite[p.~413]{KK},
+with precisely the hypotheses of their Theorem 4. Here \emph{\(q\)-log-concave}
+means that the coefficients of a product difference are nonnegative;
+there is no basic-hypergeometric parameter \(q\).
+
+\begin{theorem}\label{thm:main}
+Let \(a\ge c>0\) and
+\[
+ G(\mu;x)=\sum_{j\ge0}g_j\frac{\Gamma(a+\mu+j)}{\Gamma(c+\mu+j)}
+                    \frac{x^j}{j!}.
+\]
+Suppose either \(0\le a-c\le1\) and \(g_j\ge0\) are arbitrary, or
+\(a-c>1\) and the nonnegative sequence \(g\) is log-concave without
+internal zeros. Then, for every \(\mu,\nu\ge0\), every coefficient of
+\[
+ G(\mu;x)G(\nu;x)-G(0;x)G(\mu+\nu;x)
+ \tag{1}
+\]
+is nonnegative. The statement holds for formal series, and consequently
+also gives Wright log-concavity for nonnegative \(x\) in the common
+domain of convergence.
+\end{theorem}
+
+We first prove a distributional statement that supplies the main case.
+A probability law on \([0,1]\) is called symmetric if it is invariant under
+\(z\mapsto1-z\). For symmetric laws write \(X\succeq Y\) if
+\[
+ \PP(a\le X\le1-a)\ge \PP(a\le Y\le1-a)\qquad(0\le a\le\tfrac12).
+ \tag{2}
+\]
+By integrating superlevel sets, (2) implies
+\(\E h(X)\ge\E h(Y)\) for every bounded nonnegative symmetric function
+\(h\) that is nondecreasing on \([0,1/2]\). We call such functions
+symmetrically unimodal. A transition kernel preserves (2) whenever it is
+symmetric and the conditional probability of each centered interval is
+symmetrically unimodal as a function of its starting point.
+
+\begin{lemma}\label{lem:beta}
+At fixed \(S=u+v>0\), the symmetrization of \(\Be(u,v)\) becomes more
+concentrated in the order (2) as \(|u-v|\) decreases.
+\end{lemma}
+\begin{proof}
+Put \(\delta=|u-v|/2<S/2\). The symmetrized density is
+\[
+ \frac{[z(1-z)]^{S/2-1}}{B(S/2-\delta,S/2+\delta)}
+ \cosh\!\left(\delta\log\frac z{1-z}\right).
+ \tag{3}
+\]
+For \(\delta_2\ge\delta_1\ge0\), the ratio of the two densities is
+nondecreasing with \(|z-1/2|\). Indeed, for \(t\ge0\),
+\[
+ \frac{d}{dt}\log\frac{\cosh(\delta_2t)}{\cosh(\delta_1t)}
+ =\delta_2\tanh(\delta_2t)-\delta_1\tanh(\delta_1t)\ge0.
+\]
+Both densities integrate to one, so this ratio can cross one only from
+below to above as the distance from the center increases. Integration
+over centered intervals proves the claim.
+\end{proof}
+
+\begin{lemma}\label{lem:coin}
+For \(s>0\), let \(U\sim\Be(s,1)\) and let \(\epsilon\) be an independent
+fair coin taking the values \(0,1\). The transition
+\[
+ x\longmapsto Ux+(1-U)\epsilon
+ \tag{4}
+\]
+preserves (2).
+\end{lemma}
+\begin{proof}
+The kernel is symmetric. For \(0<a<1/2\) and \(x\ge1/2\), its conditional
+probability of \([a,1-a]\) is
+\[
+ p_s(x)=
+ \begin{cases}
+ 1-\dfrac{a^s}{2}\bigl(x^{-s}+(1-x)^{-s}\bigr),
+                          &\frac12\le x\le1-a,\\[4pt]
+ \dfrac{(1-a)^s-a^s}{2x^s},&1-a\le x\le1.
+ \end{cases}                                           \tag{5}
+\]
+This follows directly from \(\PP(U\le t)=t^s\), separately for each
+coin outcome. Both pieces decrease with \(x\), and their values agree
+at \(1-a\). Symmetry and the endpoint cases by limits prove the assertion.
+\end{proof}
+
+\begin{lemma}\label{lem:convolution}
+Let \(Y\) have a symmetrically unimodal density on \([0,1]\). If \(U\)
+is any independent random variable with values in \((0,1)\), then
+\[
+ x\longmapsto Ux+(1-U)Y
+ \tag{6}
+\]
+preserves (2).
+\end{lemma}
+\begin{proof}
+Fix \(U=\lambda\). Center all variables at \(1/2\). The probability that
+\(\lambda(x-1/2)+(1-\lambda)(Y-1/2)\) belongs to a centered interval
+is the mass of an interval of fixed length translated through a symmetric
+density that decreases away from zero. That mass decreases with the
+absolute value of its center: for a continuous density \(f\), its
+derivative at a nonnegative center \(t\), for interval radius \(b\), is
+\(f(t+b)-f(t-b)\le0\). Approximation gives the same conclusion for a
+general unimodal density. Thus the conditional probability is
+symmetrically unimodal in \(x\). Averaging over \(\lambda\) proves (6).
+\end{proof}
+
+We use elementary beta--gamma addition identities. If \(A,B\) are
+independent gamma variables with respective positive shapes \(u,v\)
+and unit rate, then \(A/(A+B)\sim\Be(u,v)\) is independent of
+\(A+B\), whose shape is \(S=u+v\). These assertions follow by the change
+of variables \(A=tz,\ B=t(1-z)\) in their product density. In particular,
+for independent
+\[
+ X\sim\Be(u,v),\quad U\sim\Be(S,n),\quad
+ Y\sim\Be(k,n-k),\qquad 1\le k\le n-1,
+\]
+we have
+\[
+ UX+(1-U)Y\sim\Be(u+k,v+n-k).                \tag{7}
+\]
+To see this, use independent gamma pairs of shapes \((u,v)\) and
+\((k,n-k)\), then add corresponding components.
+
+\begin{proposition}\label{prop:weights}
+Fix \(n\ge0,\ d\ge0\), and nonnegative weights satisfying
+\[
+ w_k=w_{n-k},\qquad w_0\le w_1\le\cdots\le w_{\lfloor n/2\rfloor}.
+ \tag{8}
+\]
+With \(r_d(z)=\Gamma(z+d)/\Gamma(z)\), the function
+\[
+ H_w(u,v)=\sum_{k=0}^n\binom nk w_k r_d(u+k)r_d(v+n-k),\qquad u,v>0,
+ \tag{9}
+\]
+is nondecreasing as \(u,v\) are balanced at fixed sum.
+\end{proposition}
+\begin{proof}
+The case \(d=0\) is constant in \(u,v\), so assume \(d>0\). Write
+\(\phi_d(z)=[z(1-z)]^d\), a bounded symmetrically unimodal function.
+For fixed \(S=u+v\), the beta integral gives
+\[
+ r_d(u+k)r_d(v+n-k)
+ =\frac{\Gamma(S+n+2d)}{\Gamma(S+n)}
+   \E\phi_d(B_{u+k,v+n-k}),                 \tag{10}
+\]
+where \(B_{p,q}\sim\Be(p,q)\). The multiplier depends only on \(S,n,d\).
+
+First take \(w_k=1\). The mixture of beta laws with probabilities
+\(2^{-n}\binom nk\) can be obtained by starting with independent
+gamma variables of shapes \(u,v\) and adding \(n\) independent unit-rate
+exponentials, each assigned to either component by a fair coin.
+Conditional on \(k\) assignments to the first component, the normalized
+first component has law \(\Be(u+k,v+n-k)\).
+After \(j\) additions, the total has gamma shape \(S+j\) and is
+independent of the normalized first component. Thus the next addition
+acts on that component by (4) with \(s=S+j\), for \(j=0,\ldots,n-1\).
+Symmetrizing the initial beta law does not change expectations of
+symmetric functions after these symmetric transitions.
+Lemma~\ref{lem:beta}, followed by \(n\) applications of
+Lemma~\ref{lem:coin}, therefore proves the required monotonicity in
+(10) for \(w_k=1\), including \(n=0\).
+
+For general \(w\), put \(b_k=w_k-w_0\). Then
+\[
+ H_w=w_0H_{\boldsymbol 1}+H_b,\qquad b_0=b_n=0,
+ \tag{11}
+\]
+and \(b\) still satisfies (8). If \(b\) vanishes identically there is
+nothing more to prove; otherwise \(n\ge2\). Set
+\[
+ Z=\sum_{k=1}^{n-1}\binom nk b_k>0,\qquad
+ \PP(K=k)=Z^{-1}\binom nk b_k.
+\]
+Conditional on \(K=k\), let \(Y\sim\Be(k,n-k)\). For the Bernstein
+polynomials \(\mathcal B_{N,j}(y)=\binom Nj y^j(1-y)^{N-j}\), the density
+of \(Y\) is
+\[
+ f_Y(y)=\frac{n-1}{Z}\sum_{j=0}^{n-2}\alpha_j\mathcal B_{n-2,j}(y),
+ \qquad \alpha_j=\binom n{j+1}b_{j+1}.       \tag{12}
+\]
+The coefficients \(\alpha_j\) are symmetric and nondecreasing toward
+their center, since both factors defining them have those properties.
+Consequently (12) is symmetrically unimodal. For completeness, if
+\(N=n-2\ge1\), differentiate the Bernstein sum to obtain
+\[
+ N\sum_{j=0}^{N-1}(\alpha_{j+1}-\alpha_j)\mathcal B_{N-1,j}(y).
+ \tag{13}
+\]
+The coefficient differences are antisymmetric and nonnegative on
+their lower-index half. Pair reflected indices in (13); for
+\(y\le1/2\) the lower-index Bernstein polynomial is at least the
+higher-index one. The derivative is therefore nonnegative. If \(N=0\),
+the density is constant.
+
+Take independent \(X\sim\Be(u,v)\), \(U\sim\Be(S,n)\), and this \(Y\).
+Identity (7), conditional on \(K\), shows that \(UX+(1-U)Y\) is exactly
+the beta mixture corresponding to \(H_b/Z\) in (10).
+Its symmetrization becomes more concentrated under balancing, by
+Lemmas~\ref{lem:beta} and \ref{lem:convolution}; the law of \(U\) depends
+only on the fixed sum \(S\). Its expectation of \(\phi_d\) thus increases.
+This proves the assertion for \(H_b\), and (11) completes the proof.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:main}]
+Put \(d=a-c\). If \(g\) is log-concave without internal zeros, the
+weights \(w_k=g_kg_{n-k}\) satisfy (8). Indeed, on their positive support,
+\[
+ \frac{w_{k+1}}{w_k}
+ =\frac{g_{k+1}/g_k}{g_{n-k}/g_{n-k-1}}\ge1\quad(k<n/2),
+ \tag{14}
+\]
+because successive ratios of a log-concave sequence decrease.
+The positive support of \(w\) is a centered interval, so zeros cause
+no exception; identically zero weights are harmless.
+
+By the Cauchy product, \(n!\) times the coefficient of \(x^n\) in (1) is
+\[
+ H_w(c+\mu,c+\nu)-H_w(c,c+\mu+\nu).           \tag{15}
+\]
+The pairs have equal sums, and the first has smaller absolute
+difference since \(|\mu-\nu|\le\mu+\nu\). Proposition~\ref{prop:weights}
+proves (15) nonnegative. This proves the required \(d>1\) case, and
+also proves the result for log-concave \(g\) for every \(d\ge0\).
+
+It remains to allow arbitrary nonnegative \(g\) when \(0\le d\le1\).
+For \(0<d<1\), integration by parts and the beta integral give
+\[
+ r_d(z)=\frac d{\Gamma(1-d)}
+ \int_0^1 (1-t^z)t^{d-1}(1-t)^{-d-1}\,dt.     \tag{16}
+\]
+The boundary terms vanish: at zero the relevant factor is \(t^d\),
+and at one it is \(O((1-t)^{1-d})\). Differentiating under this
+convergent integral shows \(r_d'(z)>0\) and \(r_d''(z)<0\).
+For \(d=1\), \(r_d(z)=z\) is increasing and concave as well.
+
+If \(r\) is nonnegative, increasing, differentiable and concave, then,
+for any \(k,l\ge0\), its symmetrized product
+\[
+ P(u,v)=r(u+k)r(v+l)+r(v+k)r(u+l)
+\]
+increases under balancing. For \(u<v\), group its directional derivative as
+\begin{align*}
+ (\partial_u-\partial_v)P
+ &=\bigl[r'(u+k)r(v+l)-r'(v+k)r(u+l)\bigr]\\
+ &\quad+\bigl[r'(u+l)r(v+k)-r'(v+l)r(u+k)\bigr]\ge0.
+\end{align*}
+Each bracket is nonnegative because \(r'\) is nonnegative and decreasing
+and \(r\) is increasing. Pairing the \(k\) and \(n-k\) terms in (9)
+therefore proves balancing monotonicity for any nonnegative symmetric
+weights; the central term, if present, is half such a pair.
+Apply this to \(w_k=g_kg_{n-k}\) in (15). Finally, \(d=0\) makes \(G\)
+independent of \(\mu\), so (1) vanishes. Replacing \((a,c)\) by
+\((a+t,c+t)\) also gives the inequality after any common base shift
+\(t\ge0\), as required by the Wright definition. All cases are covered.
+\end{proof}
+
+\noindent\textbf{Verification and scope.}
+The proof above is analytic for every allowed parameter and coefficient
+sequence. The companion program checks 216 independent beta moment
+identities, 24 coin-kernel cases, 225 exact Bernstein-density cases,
+9 gamma integral evaluations, and 135 full coefficients. These finite
+checks support the identities; they are not substitutes for the proof.
+The final status and claim checks are recorded separately in the
+literature audit.
+
+\paragraph{Task 2.}
+Characterize all symmetric nonnegative weight vectors \(w\) for which
+(9) increases under balancing for every \(u,v,d>0\), and determine
+whether condition (8) can be weakened sharply.
+
+\paragraph{Task 3.}
+Develop a basic-hypergeometric counterpart of the beta-mixture argument,
+and prove or refute the corresponding real-shift inequalities for
+series formed with \(q\)-gamma ratios.
+
+\paragraph{Task 4.}
+Determine the exact equality conditions in (1) coefficient by
+coefficient, and obtain quantitative lower bounds from the
+concentration comparisons used in the proof.
+
+\paragraph{Task 5.}
+Extend the concentration argument to Dirichlet mixtures in three or more
+coordinates, and identify coefficient conditions that make the resulting
+gamma-ratio sums monotone under majorization of their parameters.
+
+\begin{thebibliography}{9}
+\bibitem{KK}
+S.~I. Kalmykov and D.~B. Karp,
+Log-convexity and log-concavity for series in gamma ratios and applications,
+\emph{J. Math. Anal. Appl.} \textbf{406} (2013), 400--418.
+\href{https://doi.org/10.1016/j.jmaa.2013.04.061}{doi:10.1016/j.jmaa.2013.04.061};
+\href{https://arxiv.org/abs/1211.2882}{arXiv:1211.2882}.
+\end{thebibliography}
+\end{document}

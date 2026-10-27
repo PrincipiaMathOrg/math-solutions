@@ -1,0 +1,150 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[colorlinks=true,urlcolor=blue,linkcolor=blue]{hyperref}
+\newcommand{\D}{\mathbb D}
+\newcommand{\C}{\mathbb C}
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}[theorem]{Proposition}
+\title{A cubic symmetric curve avoiding the diagonal\\
+\large A solution to MathDB 398865}
+\author{Principia Math in Progress}
+\date{September 12, 2026}
+\begin{document}
+\maketitle
+
+\paragraph{Task 1. Construct the requested polynomial.}
+Let $\D=\{z\in\C:|z|<1\}$. The problem asks for a symmetric polynomial
+$P(z_1,z_2)$ whose zero set in $\D^2$ is nonempty and connected, but does
+not meet $\{(z,z):z\in\D\}$. This is the two-variable construction requested
+by Khavinson in \cite[p.~381]{source}. The answer has the least
+possible total degree.
+
+\begin{theorem}
+The polynomial
+\[
+\boxed{\quad P(z_1,z_2)=(z_1+z_2)(z_1-z_2)^2-\frac12 \quad}
+\]
+is symmetric. Its zero set $V=\{P=0\}\cap\D^2$ is nonempty and
+path connected, and it does not meet the diagonal, even in $\C^2$.
+\end{theorem}
+
+\begin{proof}
+Symmetry follows from the square, and $P(z,z)=-1/2$.
+Introduce coordinates
+\[
+u=\frac{z_1+z_2}{2},\qquad w=\frac{z_1-z_2}{2}.
+\]
+The equation $P=0$ becomes $uw^2=1/16$. In particular $w\ne0$.
+Set $a=1/16$. The map
+\[
+\Phi(w)=\left(\frac{a}{w^2}+w,\frac{a}{w^2}-w\right),\qquad w\in\C\setminus\{0\},
+\]
+is a bijective parametrization of the entire affine zero set, with
+continuous inverse $w=(z_1-z_2)/2$. Consequently $V$ is homeomorphic to
+\[
+\Omega=\left\{w\ne0:
+ \left|\frac{a}{w^2}+w\right|<1,\quad
+ \left|\frac{a}{w^2}-w\right|<1\right\}.
+\]
+It remains to establish connectedness of this entire parameter set.
+
+Write $w=re^{i\theta}$ and $c=|\cos(3\theta)|\in[0,1]$. Direct expansion gives
+\begin{equation}\label{eq:radial}
+\max\left\{\left|\frac{a}{w^2}+w\right|^2,
+           \left|\frac{a}{w^2}-w\right|^2\right\}
+=F_c(r):=r^2+\frac{a^2}{r^4}+\frac{2ac}{r}.
+\end{equation}
+For every fixed $c\in[0,1]$ and $r>0$,
+\[
+F_c''(r)=2+\frac{20a^2}{r^6}+\frac{4ac}{r^3}>0.
+\]
+Thus $\{r>0:F_c(r)<1\}$ is an interval. Moreover,
+\[
+F_c(1/2)=\frac{5+4c}{16}\le\frac9{16}<1.
+\]
+The circle $|w|=1/2$ therefore lies wholly in $\Omega$. If
+$re^{i\theta}\in\Omega$, the radial segment
+\[
+s\longmapsto\bigl((1-s)r+s/2\bigr)e^{i\theta},
+\qquad 0\le s\le1,
+\]
+also lies in $\Omega$, by convexity of $F_c$. Any two points of $\Omega$
+can now be joined by following their radial segments to that circle and
+then following the circle. This proves path connectedness and nonemptiness.
+An explicit zero is $\Phi(1/2)=(3/4,-1/4)$.
+\end{proof}
+
+The radial formula is a strong deformation retraction of $\Omega$
+onto $|w|=1/2$: written as
+$R_s(w)=((1-s)+s/(2|w|))w$, it is continuous without choosing an argument.
+It transports through $\Phi$ to a deformation retraction of $V$ onto a
+circle. In particular the construction does not assert simple connectedness.
+The affine curve is smooth, since the derivative with respect to $u$ of
+$8uw^2-1/2$ is nonzero on it.
+
+\begin{proposition}
+No symmetric polynomial of total degree at most two has a nonempty,
+connected zero set in $\D^2$ that avoids the diagonal.
+\end{proposition}
+
+\begin{proof}
+In the same coordinates, any such polynomial has the form
+$A w^2+Q(u)$, where $A\in\C$ and $\deg Q\le2$.
+Diagonal avoidance implies $Q(u)\ne0$ for every $u\in\D$.
+If $A=0$, there are no zeros in $\D^2$, because
+$|u|\le(|z_1|+|z_2|)/2<1$.
+
+If $A\ne0$, the nonvanishing holomorphic function $-Q/A$ has a
+nonvanishing holomorphic square root $g$ on the simply connected disk.
+Every zero in $\D^2$ belongs to one of the disjoint sets $w=g(u)$ and
+$w=-g(u)$. The continuous function $w/g(u)$ on the zero set takes values
+in $\{1,-1\}$, so these sets are both relatively open and closed.
+If the zero set is nonempty, both signs occur: interchanging $z_1,z_2$
+preserves the bidisk and replaces $w$ by $-w$. Thus the zero set is
+disconnected.
+\end{proof}
+
+\paragraph{Scope and verification.}
+The argument treats all zeros in the open bidisk, rather than a selected
+component or a finite sample. Separate linearity belongs to the preceding
+Walsh theorem in the source, and is not imposed on the two-variable request.
+The source's three-variable example is background and receives no credit here.
+Symbolic identities and exact rational path checks are saved alongside
+this note; the proofs above establish the universal claims.
+
+\paragraph{Task 2. Classify cubic examples.}
+Characterize the symmetric polynomials of total degree three whose
+nonempty zero set in the bidisk is connected and avoids the diagonal.
+Identify useful normal forms and the role of zeros of the coefficient
+of $w^2$ in the $(u,w)$ coordinates.
+
+\paragraph{Task 3. Determine the topology of the parameter family.}
+For $P_c(z_1,z_2)=(z_1+z_2)(z_1-z_2)^2-c$, determine every value
+$c\in\C\setminus\{0\}$ for which the zero set in $\D^2$ is nonempty and
+connected. Determine the number and topology of components at the
+remaining parameter values and at transition values.
+
+\paragraph{Task 4. Quantify the conformal geometry.}
+For the connected curves in Task 3, determine their annulus moduli,
+or sharp asymptotics for those moduli as $c$ tends to zero and as the
+connected region approaches a topology transition.
+
+\paragraph{Task 5. Avoid all coordinate coincidences in more variables.}
+For each $N\ge3$, construct, or rule out, a symmetric polynomial whose
+nonempty zero set in $\D^N$ is connected and avoids every hyperplane
+$z_i=z_j$ with $i\ne j$. Determine the least possible total degree when
+such a polynomial exists.
+
+\begin{thebibliography}{9}
+\bibitem{source}
+D.~Khavinson, \emph{Problems for Polynomials of One and several Variables},
+in \emph{Dirichlet Series and Function Theory in Polydiscs},
+Oberwolfach Reports 2014/6, pp.~381--383, specifically p.~381.
+\url{https://ems.press/journals/owr/articles/12866}.
+\bibitem{mathdb}
+MathDB 398865, \emph{Symmetric polynomial zero sets in the bidisk}.
+\url{https://mathdb.com/p/398865}. Live status and public-claim checks
+archived September 12, 2026.
+\end{thebibliography}
+\end{document}

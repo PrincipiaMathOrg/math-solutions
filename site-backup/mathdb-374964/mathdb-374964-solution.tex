@@ -1,0 +1,204 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,enumitem,hyperref}
+\hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue,citecolor=blue}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newcommand{\Z}{\mathbb Z}
+\newcommand{\R}{\mathbb R}
+\newcommand{\one}{\mathbf1}
+\title{Ordinal-sum factorization for polar preorder polytopes\\\large MathDB 374964}
+\author{Principia Math In Progress}
+\date{September 18, 2026}
+\begin{document}
+\maketitle
+\begin{abstract}
+We prove that the $h^*$-polynomial of the polar reflexive preorder
+polytope factors under ordinal sums, as conjectured by Athanasiadis
+and Chapoton. An explicit piecewise linear bijection of integer
+lattices makes the corresponding Minkowski functionals additive.
+Their lattice generating functions, and hence their $h^*$-polynomials,
+therefore multiply.
+\end{abstract}
+
+\section*{Task 1. Full solution}
+For a preorder $\tau$ on a nonempty finite set $E$, let
+\begin{equation}\label{eq:K}
+ K_\tau=\operatorname{conv}\bigl(\{-e_i:i\in E\}
+       \cup\{\one_I:\varnothing\ne I\text{ an order ideal of }\tau\}\bigr).
+\end{equation}
+Here $e_i$ is a standard basis vector and $\one_I$ is the
+indicator vector of $I$. By \cite[Section 6]{AC}, this is precisely
+the polar polytope $\mathcal R_\tau^\vee$ in the question.
+An ordinal sum $\tau_1\oplus\tau_2$ on disjoint sets $E_1,E_2$
+retains each internal preorder and declares every element of $E_1$
+smaller than every element of $E_2$.
+
+\begin{theorem}\label{thm:main}
+For arbitrary finite preorders $\tau_1,\tau_2$,
+\[
+ \boxed{h^*(K_{\tau_1\oplus\tau_2},t)
+       =h^*(K_{\tau_1},t)h^*(K_{\tau_2},t).}
+\]
+Thus Conjecture 6.3 of \cite{AC} holds.
+\end{theorem}
+
+\subsection*{An explicit Minkowski functional}
+The order polytope in the decreasing convention is
+\[
+ O_\tau=\{u\in[0,1]^E:u_i\ge u_j\text{ whenever }i\le_\tau j\}.
+\]
+It equals the convex hull of the indicators of all order ideals,
+including the empty ideal. For completeness, for any $u\in O_\tau$
+each nonempty superlevel set $\{i:u_i\ge a\}$ is an ideal.
+Writing $u$ as the sum of its successive level differences times
+these indicators, and adding the remaining coefficient at $0$,
+gives the required convex combination. The reverse inclusion is immediate.
+
+The origin is in the interior of $K_\tau$: it is a convex
+combination with strictly positive coefficients of the affinely
+independent vertices $-e_i$ and $\one_E$. Consequently $K_\tau$
+is full dimensional, and
+\[
+ K_\tau=\operatorname{conv}(O_\tau\cup(-\Delta_E)),
+ \qquad \Delta_E=\operatorname{conv}(0,e_i:i\in E).
+\]
+For $z\in\R^E$, define
+\[
+ M(z)=\max(\{0\}\cup\{z_i:i\in E\}),\qquad
+ U_i(z)=\max(\{0\}\cup\{z_j:i\le_\tau j\}).
+\]
+Let $g_\tau(z)=\inf\{k\ge0:z\in kK_\tau\}$ be its Minkowski
+functional, also called its gauge.
+
+\begin{lemma}\label{lem:gauge}
+For every $z\in\R^E$,
+\begin{equation}\label{eq:gauge}
+ g_\tau(z)=M(z)+\sum_{i\in E}U_i(z)-\sum_{i\in E}z_i.
+\end{equation}
+In particular, $g_\tau$ is integer valued on $\Z^E$.
+\end{lemma}
+\begin{proof}
+The convex-hull description says that $z\in kK_\tau$ exactly
+when $z=u-v$, where $u$ is nonnegative and weakly decreasing
+along $\tau$, $v$ is nonnegative, and
+\[
+ \max_i u_i+\sum_i v_i\le k.
+\]
+Indeed, $u$ belongs to $(\max_i u_i)O_\tau$ and $-v$ belongs
+to $(\sum_i v_i)(-\Delta_E)$; this proves one direction.
+Conversely a convex combination from the two polytopes gives
+such a decomposition with these two quantities bounded by its
+respective coefficients times $k$.
+
+Equivalently, minimize $\max_i u_i+\sum_i(u_i-z_i)$ among
+nonnegative decreasing vectors $u$ with $u\ge z$ coordinatewise.
+The coordinatewise least such vector is $U(z)$. Reflexivity gives
+$U_i(z)\ge z_i$, and transitivity gives $U_i(z)\ge U_j(z)$
+when $i\le_\tau j$. Every other feasible $u$ satisfies
+$u_i\ge u_j\ge z_j$ for all $j$ above $i$, so $u_i\ge U_i(z)$.
+The objective is nondecreasing in every coordinate of $u$ and
+therefore takes its minimum at $U(z)$. Finally
+$\max_i U_i(z)=M(z)$, proving \eqref{eq:gauge}.
+\end{proof}
+
+\subsection*{The lattice bijection for an ordinal sum}
+Put $\tau=\tau_1\oplus\tau_2$ and write $z=(x,y)$ according
+to $E_1\sqcup E_2$. Set $c=M(y)$. Define
+\begin{equation}\label{eq:phi}
+ \Phi(x,y)=(x-c\one_{E_1},y).
+\end{equation}
+This is a bijection of $\Z^{E_1}\times\Z^{E_2}$, with inverse
+$(x',y)\mapsto(x'+M(y)\one_{E_1},y)$.
+We claim the stronger identity
+\begin{equation}\label{eq:add}
+ g_\tau(x,y)=g_{\tau_1}(x-c\one_{E_1})+g_{\tau_2}(y)
+ \qquad(x,y\text{ real}).
+\end{equation}
+Write $U_i^1(x)$ and $U_j^2(y)$ for the maxima within the two
+preorders. The maxima for the ordinal sum are
+\[
+ U_i(x,y)=\max(U_i^1(x),c)\quad(i\in E_1),\qquad
+ U_j(x,y)=U_j^2(y)\quad(j\in E_2).
+\]
+Since $c\ge0$, with $a_+=\max(a,0)$ one also has
+\[
+ U_i^1(x-c\one)=(U_i^1(x)-c)_+,
+ \qquad M(x-c\one)=(M(x)-c)_+.
+\]
+If $p=|E_1|$, formula \eqref{eq:gauge} now gives
+\begin{align*}
+ g_{\tau_1}(x-c\one)
+ &= (M(x)-c)_++\sum_{i\in E_1}(U_i^1(x)-c)_+
+                  -\sum_{i\in E_1}x_i+pc\\
+ &=\max(M(x),c)-c+\sum_{i\in E_1}\max(U_i^1(x),c)
+                  -\sum_{i\in E_1}x_i.
+\end{align*}
+Adding $g_{\tau_2}(y)=c+\sum_j U_j^2(y)-\sum_j y_j$
+is exactly \eqref{eq:gauge} for $\tau$, proving \eqref{eq:add}.
+
+\subsection*{Multiplication of the generating functions}
+Define the formal series
+\[
+ \Theta_\tau(t)=\sum_{z\in\Z^E}t^{g_\tau(z)}.
+\]
+Its exponents are nonnegative integers. Its coefficients are finite
+because $\{z:g_\tau(z)\le k\}=kK_\tau$ is bounded.
+The bijection \eqref{eq:phi} and identity \eqref{eq:add} imply
+\[
+ \Theta_{\tau_1\oplus\tau_2}(t)
+ =\Theta_{\tau_1}(t)\Theta_{\tau_2}(t).
+\]
+For $n=|E|$, summing over all dilates containing each lattice point
+gives
+\[
+ \sum_{k\ge0}\#(kK_\tau\cap\Z^E)t^k
+ =\frac{\Theta_\tau(t)}{1-t}
+ =\frac{h^*(K_\tau,t)}{(1-t)^{n+1}}.
+\]
+Thus $\Theta_\tau(t)=h^*(K_\tau,t)/(1-t)^n$.
+Substitution into the multiplicative identity proves
+Theorem~\ref{thm:main}.\hfill$\square$
+
+The proof allows equivalent distinct elements in either preorder.
+It also extends to an empty factor by assigning it the one-point
+polytope and polynomial $1$. The map $\Phi$ is linear with an
+integer matrix of determinant $1$ on each region where $M(y)$
+is a fixed coordinate or zero. The argument requires this
+piecewise linear lattice bijection, not a global linear equivalence.
+
+\subsection*{Verification and attribution}
+The polar vertex description and the conjecture are due to
+Athanasiadis and Chapoton \cite{AC}. The explicit gauge formula
+and lattice bijection supply the proof. The verifier compares the
+gauge with independently enumerated rational facets, then checks
+the bijection and full $h^*$-factorization for every ordinal pair
+of total size at most four. Larger examples include equivalent
+elements. All four exact verification groups pass.
+
+All 26 pages of the current primary were read. Bounded checks
+found no earlier full target claim or identified journal final.
+The related support-enumerator duality and reflexive-polytope
+word formulas concern different statements, as recorded in the
+literature audit. Review is by the authoring agent only, without
+independent peer review or proof-assistant certification.
+
+\section*{Tasks 2--5. Proposed follow-up directions}
+\begin{enumerate}[label=\textbf{Task \arabic*.},start=2,leftmargin=*]
+\item Use the piecewise linear bijection to transport lattice
+triangulations between the ordinal-sum polytope and the free sum
+of the two polar polytopes.
+\item Extend the gauge formula to weighted ideal indicators and
+determine which integral weights preserve ordinal-sum factorization.
+\item Find analogous lattice bijections for other operations on
+preorders, including disjoint unions and substitutions at a vertex.
+\item Study when the factorization of $h^*(K_\tau,t)$ detects
+an ordinal-sum decomposition of the underlying preorder.
+\end{enumerate}
+\begin{thebibliography}{9}
+\raggedright
+\bibitem{AC} C. A. Athanasiadis and F. Chapoton,
+\emph{Polytopes and posets associated to preorders},
+\href{https://arxiv.org/abs/2605.26916v1}{arXiv:2605.26916v1}, 2026.
+\end{thebibliography}
+\end{document}

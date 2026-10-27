@@ -1,0 +1,204 @@
+\documentclass[11pt]{article}
+\usepackage{amsmath,amssymb,amsthm,booktabs,longtable,hyperref}
+\usepackage[margin=1in]{geometry}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newcommand{\Rea}{\operatorname{Re}}
+\title{A strict strip for Ehrhart roots in dimensions six and seven}
+\author{Principia Math In Progress}
+\date{29 September 2026}
+\begin{document}\maketitle
+\begin{abstract}
+We prove that every root $z$ of the Ehrhart polynomial of a reflexive
+lattice polytope of dimension six or seven satisfies $-3<\Rea z<2$.
+This proves the nonreal-root assertion in MathDB 330132, namely
+Conjecture 6.4 of the 2015 Heged\H{u}s--Higashitani--Kasprzyk manuscript.
+The proof applies to a larger cone of palindromic binomial-basis
+polynomials. Its only computation is an exact determinant expansion:
+all 112 coefficients used in the proof are printed in the appendix and
+verified by an independent integer-arithmetic program.
+\end{abstract}
+
+\section*{Task 1: the original problem and the stronger result}
+For a six- or seven-dimensional reflexive polytope $P$, the question asks
+whether a root $-1/2+u+iv$ of $L_P$, with $u,v\ne0$, necessarily has
+$|u|<5/2$. This is Conjecture 6.4 on page 15 of \cite{HHKpre}.
+The final article \cite{HHK} omits the preprint's conjecture section;
+its page 5 still explicitly leaves the six- and seven-dimensional strip
+case unproved. We address the preprint's complete assertion, with the
+stronger conclusion that also includes real roots.
+
+\begin{theorem}\label{thm}
+Let $d\in\{6,7\}$ and
+\[
+ F(z)=\sum_{j=0}^d h_j\binom{z+d-j}{d},\qquad h_j=h_{d-j},
+\]
+where
+\[
+ h_0>0,\quad h_1\ge h_0,\quad h_2\ge h_1,\quad h_3\ge h_1.
+\]
+Then every root of $F$ satisfies $-3<\Rea z<2$.
+In particular, every root of the Ehrhart polynomial of a reflexive
+lattice polytope in either dimension satisfies this strict strip bound.
+\end{theorem}
+
+The last assertion follows from the standard Ehrhart expansion and
+Hibi's lower bound: the $h^*$-vector of a reflexive polytope is
+palindromic, $h_0=h_d=1$, $h_1\ge1$, and $h_j\ge h_1$ for
+$2\le j\le d-1$. These facts and their original references are stated
+on page 2 of \cite{HHK}. No unimodality assumption is made.
+
+Write
+\begin{equation}\label{params}
+ h_0=a,\quad h_1=a+b,\quad h_2=a+b+c,\quad h_3=a+b+e,
+ \qquad a>0,\quad b,c,e\ge0.
+\end{equation}
+Define degree-six polynomials
+\[
+ Q_6(x)=6!F(x+2),\qquad
+ Q_7(x)=\frac{7!F(x+2)}{2x+5}.
+\]
+The quotient in dimension seven is a polynomial: binomial symmetry gives
+$F(-1-z)=(-1)^dF(z)$, so $F(-1/2)=0$ when $d=7$.
+In both cases write $Q_d(x)=\sum_{r=0}^6 q_r x^{6-r}$.
+Expanding the binomial products gives the following exact coefficient
+matrices, whose rows are indexed by $r=0,\ldots,6$:
+\begin{equation}\label{matrix}
+ (q_0,\ldots,q_6)^T=C_d(a,b,c,e)^T,
+\end{equation}
+\[
+ C_6=\begin{pmatrix}
+ 7&5&2&1\\105&75&30&15\\1015&575&200&85\\5775&2625&750&225\\
+ 19138&6980&1598&274\\34440&9900&1740&120\\25920&5760&720&0
+ \end{pmatrix},\qquad
+ C_7=\begin{pmatrix}
+ 4&3&1&1\\60&45&15&15\\760&423&127&85\\5100&2355&645&225\\
+ 20836&7542&1744&274\\46680&12960&2220&120\\45360&9072&1008&0
+ \end{pmatrix}.
+\]
+In particular $q_0,q_6>0$ throughout \eqref{params}.
+
+\section*{Excluding crossings of the imaginary axis}
+For a real sextic $Q(x)=q_0x^6+q_1x^5+\cdots+q_6$, define
+\begin{equation}\label{delta}
+ D(Q)=\det\begin{pmatrix}
+ q_1&q_3&q_5&0&0\\
+ q_0&q_2&q_4&q_6&0\\
+ 0&q_1&q_3&q_5&0\\
+ 0&q_0&q_2&q_4&q_6\\
+ 0&0&q_1&q_3&q_5
+ \end{pmatrix}.
+\end{equation}
+This is the fifth Hurwitz determinant, but the proof below needs no
+stability criterion as a black box.
+
+\begin{lemma}\label{axis}
+If $q_6\ne0$ and $D(Q)\ne0$, the polynomial $Q$ has no root on the
+imaginary axis.
+\end{lemma}
+\begin{proof}
+Zero is not a root. If $iy$ were a root for a nonzero real $y$, then
+$t=y^2$ would be a common root of
+\[
+ E(t)=-q_0t^3+q_2t^2-q_4t+q_6,\qquad
+ O(t)=q_1t^2-q_3t+q_5.
+\]
+Consequently the nonzero vector $(t^4,t^3,t^2,t,1)^T$ would lie in the
+kernel of
+\[
+ K=\begin{pmatrix}
+ -q_0&q_2&-q_4&q_6&0\\0&-q_0&q_2&-q_4&q_6\\
+ q_1&-q_3&q_5&0&0\\0&q_1&-q_3&q_5&0\\0&0&q_1&-q_3&q_5
+ \end{pmatrix}.
+\]
+Row permutations and column sign changes give $\det K=-D(Q)$,
+contradicting its nonzero value.
+\end{proof}
+
+For the two matrices \eqref{matrix}, exact expansion of \eqref{delta}
+has the form
+\begin{equation}\label{certificate}
+ D(Q_d)=g_d\sum_{i+j+\ell+m=5} A^{(d)}_{i,j,\ell,m}
+              a^i b^j c^\ell e^m,
+ \qquad g_6=3888000,\quad g_7=21168000.
+\end{equation}
+The appendix gives every coefficient. Each is a positive integer;
+the smallest is $1176$ for $d=6$ and $216$ for $d=7$.
+There are exactly $\binom{8}{3}=56$ monomials in each expansion.
+In particular the coefficient of $a^5$ is positive, so
+\begin{equation}\label{pos}
+ D(Q_6)>0,\qquad D(Q_7)>0
+ \quad(a>0,\ b,c,e\ge0).
+\end{equation}
+This is a finite exact algebraic certificate valid on the entire
+unbounded parameter domain, not extrapolation from numerical tests.
+It can be verified by substituting \eqref{matrix} into \eqref{delta}
+and using the determinant's permutation formula. The accompanying
+\texttt{verify.py} does this using only integer arithmetic; it also
+reconstructs \eqref{matrix} directly from the binomial products and
+checks $\det K=-D(Q_d)$ independently.
+
+\section*{A stable base polynomial and the full argument}
+At $b=c=e=0$, all $h_j=a$. The polynomial binomial summation identity gives
+\[
+ a^{-1}F(z)=\sum_{j=0}^d\binom{z+d-j}{d}
+ =\binom{z+d+1}{d+1}-\binom{z}{d+1}.
+\]
+Every root of this difference has real part $-1/2$. Indeed, put
+$z=w-1/2$ and $s_k=k+1/2$, $0\le k\le d$.
+The two products to be compared, up to the common factor $(d+1)!$,
+are $\prod_k(w+s_k)$ and $\prod_k(w-s_k)$. If $\Rea w>0$, then
+$|w+s_k|>|w-s_k|$ for every $k$, so the products cannot be equal.
+If $\Rea w<0$, all inequalities reverse. This proves the assertion,
+including the possibility that one product is zero.
+Thus all roots of $Q_6$ and $Q_7$ at this base point have real part
+$-5/2$; removal of the root $z=-1/2$ in the odd case does not affect this.
+
+Fix any parameters \eqref{params} and replace $(b,c,e)$ by
+$(tb,tc,te)$, $0\le t\le1$. Along this continuous path, $q_0>0$ and
+$q_6>0$, and \eqref{pos} and Lemma~\ref{axis} exclude every imaginary-axis
+root. The degrees stay equal to six. After division by $q_0$, the
+coefficients vary continuously on a compact interval and remain bounded,
+so the roots have a uniform bound. Continuity of polynomial roots
+(equivalently, local invariance of the root count by the argument
+principle) implies that the number of roots in each open half-plane
+cannot change along the path. Initially all six have negative real
+part, so the same is true at $t=1$.
+
+Therefore every root of $F$ has real part less than $2$, including the
+removed root $-1/2$ when $d=7$. The identity
+$F(-1-z)=(-1)^d F(z)$ also sends every root $z$ to $-1-z$.
+Applying the upper bound to this reflected root gives $\Rea z>-3$.
+This proves Theorem~\ref{thm} and the requested strict inequality
+$|\Rea(z)+1/2|<5/2$.\hfill$\square$
+
+\section*{Four proposed follow-up tasks}
+\begin{enumerate}
+\item[Task 2.] Determine the sharp supremum of
+$|\Rea z+1/2|$ among roots with both nonzero imaginary part and
+$\Rea z\ne-1/2$, separately for the two coefficient cones in
+Theorem~\ref{thm}.
+\item[Task 3.] Decide the half-strip assertion in dimensions eight and
+nine, first for palindromic coefficient vectors satisfying Hibi's lower
+bounds, and then for vectors realized by reflexive lattice polytopes.
+\item[Task 4.] Characterize which boundary coefficient directions that
+approach the extremal strip in dimensions six and seven can be realized
+by reflexive polytopes, and obtain any resulting sharper geometric bound.
+\item[Task 5.] Find an analytic factorization or positivity representation
+for the determinant in \eqref{delta} that explains the two positive
+coefficient expansions and identifies the dimensions in which it persists.
+\end{enumerate}
+
+\begin{thebibliography}{9}
+\bibitem{HHKpre} G.~Heged\H{u}s, A.~Higashitani, A.~M.~Kasprzyk,
+\emph{Ehrhart polynomial roots of reflexive polytopes},
+\href{https://arxiv.org/abs/1503.05739v1}{arXiv:1503.05739v1} (2015),
+Conjecture~6.4, p.~15.
+\bibitem{HHK} G.~Heged\H{u}s, A.~Higashitani, A.~M.~Kasprzyk,
+\emph{Ehrhart polynomial roots of reflexive polytopes},
+Electronic Journal of Combinatorics 26(1) (2019), P1.38,
+\href{https://doi.org/10.37236/7780}{doi:10.37236/7780}.
+\end{thebibliography}
+\clearpage
+\input{certificate-tables.tex}
+\end{document}

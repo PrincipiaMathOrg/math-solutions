@@ -1,0 +1,192 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[hidelinks]{hyperref}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newcommand{\fall}[2]{(#1)_{\underline{#2}}}
+\title{The odd-degree derivative-root mean identity\\
+\large A solution to MathDB 336466}
+\author{Principia Math In Progress}
+\date{18 September 2026}
+\begin{document}
+\maketitle
+\begin{abstract}
+We prove the conjectured alternating binomial relation between the
+means of an odd-degree polynomial evaluated at the roots of its
+successive derivatives. The proof interpolates the means as a
+polynomial in the degree of the derivative. Its otherwise missing
+endpoint is an alternating coefficient pairing, which vanishes in
+odd degree. The argument includes arbitrary complex coefficients
+and roots counted with multiplicity, and gives an explicit
+correction in every even degree.
+\end{abstract}
+
+\section*{Task 1: the original problem and its full solution}
+Let $f\in\mathbb C[x]$ have degree $D\geq1$. For $0\leq\rho<D$,
+define
+\[
+ M_\rho(f)=\frac1{D-\rho}\sum_{f^{(\rho)}(r)=0}f(r),
+\]
+where roots are counted with their algebraic multiplicities.
+In the notation of Wojnar, Wojnar and Brin \cite{W}, this is
+$\varphi_{D,0,\rho}$. Their Conjecture 2 (page 9) asserts that
+\begin{equation}\label{odd}
+ \sum_{\rho=1}^{D-1}(-1)^\rho\binom D\rho M_\rho(f)=0
+ \qquad(D\text{ odd}).
+\end{equation}
+We prove the following stronger formula.
+
+\begin{theorem}\label{main}
+Write $f(x)=a g(x)$, where $a\ne0$ and
+$g(x)=\sum_{j=0}^D c_jx^{D-j}$ is monic, so $c_0=1$. Then
+\begin{equation}\label{general}
+ \sum_{\rho=1}^{D-1}(-1)^\rho\binom D\rho M_\rho(f)
+ =a(-1)^{D+1}J_D(c),\qquad
+ J_D(c)=\sum_{m=0}^D\frac{(-1)^m c_m c_{D-m}}{\binom Dm}.
+\end{equation}
+In particular, \eqref{odd} holds for every odd $D$.
+\end{theorem}
+
+\subsection*{Polynomial interpolation of root power sums}
+For an indeterminate $u$ and $0\leq j\leq D$, set
+\[
+ A_j(u)=c_j\frac{\fall uj}{\fall Dj},\qquad
+ \fall uj=u(u-1)\cdots(u-j+1),\qquad \fall u0=1.
+\]
+For each integer $1\leq n\leq D$, direct differentiation gives
+\begin{equation}\label{derivative}
+ g_n(x):=\frac{n!}{D!}g^{(D-n)}(x)
+       =\sum_{j=0}^n A_j(n)x^{n-j}.
+\end{equation}
+This is monic of degree $n$, and $A_j(n)=0$ for $j>n$.
+Introduce the formal power series
+\[
+ B(u,z)=\sum_{j=0}^D A_j(u)z^j,\qquad
+ P_m(u)=-m[z^m]\log B(u,z)\quad(1\leq m\leq D).
+\]
+Here $A_0=1$, so the formal logarithm is well-defined. All
+coefficient extractions involve only finite sums; analytic
+convergence is irrelevant.
+
+\begin{lemma}\label{powers}
+Each $P_m$ is a polynomial in $u$ of degree at most $m$, divisible
+by $u$. If $r_1,\ldots,r_n$ are the roots of $g_n$, with
+multiplicities, then $P_m(n)=\sum_{i=1}^n r_i^m$.
+\end{lemma}
+\begin{proof}
+For integer $n\geq1$, \eqref{derivative} implies
+$B(n,z)=\prod_{i=1}^n(1-r_i z)$. Taking formal logarithms and
+using $\log(1-rz)=-\sum_{m\geq1}r^mz^m/m$ proves the power-sum
+identity, including repeated roots.
+
+In the coefficient of $z^m$ in
+$\log(1+\sum_{j\geq1}A_j(u)z^j)$, each product has indices
+whose sum is $m$. Since $\deg_u A_j\leq j$, its degree is at
+most $m$. Finally, $A_j(0)=0$ for $j\geq1$, so $B(0,z)=1$
+and $P_m(0)=0$.
+\end{proof}
+
+Consequently,
+\begin{equation}\label{H}
+ H(u)=c_D+\sum_{m=1}^D c_{D-m}\frac{P_m(u)}u
+\end{equation}
+is a polynomial of degree at most $D-1$. The quotients in this
+definition are polynomial quotients, so evaluation at $u=0$ is
+legitimate. For $1\leq n\leq D$, the lemma gives
+\begin{equation}\label{means}
+ H(n)=\frac1n\sum_{i=1}^n g(r_i)=M_{D-n}(g).
+\end{equation}
+In particular, $H(D)=M_0(g)=0$.
+
+\subsection*{The missing endpoint and the finite difference}
+At $u=0$, differentiating the formal logarithm yields
+\[
+ P_m'(0)=-m[z^m]\left.\frac{\partial B/\partial u}{B}\right|_{u=0}
+        =-m A_m'(0).
+\]
+The derivative of $\fall um$ at zero is
+$(-1)^{m-1}(m-1)!$. It follows that
+\[
+ P_m'(0)=\frac{(-1)^m m!c_m}{\fall Dm}
+        =\frac{(-1)^m c_m}{\binom Dm}.
+\]
+Substitution into \eqref{H} proves
+\begin{equation}\label{endpoint}
+ H(0)=c_D+\sum_{m=1}^D c_{D-m}P_m'(0)=J_D(c).
+\end{equation}
+
+\begin{proof}[Proof of Theorem \ref{main}]
+The $D$th finite difference of a polynomial of degree at most
+$D-1$ is zero. Apply this to $H$:
+\[
+ 0=\sum_{\rho=0}^D(-1)^\rho\binom D\rho H(D-\rho)
+  =\sum_{\rho=1}^{D-1}(-1)^\rho\binom D\rho M_\rho(g)
+    +(-1)^D J_D(c).
+\]
+We used $H(D)=0$, \eqref{means}, and \eqref{endpoint}.
+Since multiplying by $a\ne0$ leaves derivative roots unchanged
+and multiplies every mean by $a$, this proves \eqref{general}.
+
+If $D$ is odd, the terms with indices $m$ and $D-m$ in $J_D$
+have equal denominators and opposite signs. There is no unpaired
+middle index, so $J_D=0$. This proves \eqref{odd}. For $D=1$
+the asserted sum is empty and the same proof applies.
+\end{proof}
+
+For example, the cubic relation is $-3M_1+3M_2=0$, and the
+quintic relation is $-5M_1+10M_2-10M_3+5M_4=0$.
+In degree two, \eqref{general} reads
+$-2M_1(f)=a(c_1^2/2-2c_2)$, confirming the sign of the even-degree
+correction. No assumption of distinct or real roots was used.
+
+\section*{Task 2: the dimension of all universal mean relations}
+For each $D$, classify the vectors $(b_1,\ldots,b_{D-1})$ for
+which $\sum b_\rho M_\rho(f)=0$ for every degree-$D$ polynomial.
+The source's computations suggest dimension one for even $D>2$
+and dimension two for odd $D>3$. Prove or correct these dimension
+claims, with all small-degree exceptions stated explicitly.
+
+\section*{Task 3: explicit bases for the relation spaces}
+Find closed formulas for a basis of each space in Task 2. In odd
+degree, complete the binomial vector proved here to a basis.
+Determine whether the coefficients of $H(u)$ provide a uniform
+construction, and recover the source's tabulated low-degree
+relations as checks.
+
+\section*{Task 4: other polynomials evaluated at derivative roots}
+Fix $D$ and $0\leq s\leq D$. Replace the value $f(r)$ by an
+arbitrary polynomial $h(r)$ of degree at most $s$, while retaining
+the roots of $f^{(D-n)}$. Determine the universal finite-difference
+identities for these means, including their polynomial continuation
+at $n=0$, and characterize the choices of $h$ for which that
+endpoint vanishes for every $f$.
+
+\section*{Task 5: relations involving antiderivatives}
+The source also studies means over roots of antiderivatives and
+proves independence from their integration constants for the
+relevant polynomial evaluations. Building on that result, classify
+all universal linear relations for a fixed finite collection of
+derivative and antiderivative orders. Determine whether one
+interpolating polynomial accounts for the whole collection.
+
+\paragraph{Verification and status.}
+The accompanying exact verifier checks generic symbolic
+coefficients through degree nine and separately computes means
+using traces of polynomial evaluations on companion matrices.
+The tests include even degrees, nonmonic polynomials, complex
+coefficients, and repeated roots. They supplement the all-degree
+proof. Tasks 2--5 are proposed directions and receive no solved
+credit. The complete 27-page current primary and a bounded
+prior-claim search were checked by the authoring agent; no
+independent peer review or proof assistant verification is claimed.
+
+\begin{thebibliography}{9}
+\bibitem{W} G. G. Wojnar, D. Sz. Wojnar and L. Q. Brin,
+\emph{Universal Peculiar Linear Mean Relationships in All
+Polynomials}, arXiv:1706.08381v2 (23 October 2017),
+definitions on pages 1--2 and Conjecture 2 on page 9.
+The PDF title omits ``Peculiar.''
+\url{https://arxiv.org/abs/1706.08381}.
+\end{thebibliography}
+\end{document}

@@ -1,0 +1,213 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[colorlinks=true,urlcolor=blue,linkcolor=blue,citecolor=blue]{hyperref}
+\newtheorem{theorem}{Theorem}
+\newcommand{\Med}{\operatorname{Med}}
+\newcommand{\Prob}{\mathbb P}
+\newcommand{\E}{\mathbb E}
+\title{A proof of the generalized hyperbolic\\median lower bound}
+\author{Principia Math in Progress}
+\date{12 September 2026}
+\begin{document}
+\maketitle
+
+\paragraph{Task 1: Resolve MathDB 345412.}
+We prove Gaunt--Merkle's Conjecture 3.7 \cite{GM}, including the
+variance-gamma boundary \(\delta=0\).
+The proof uses the normal mixture representation, reciprocal pairing
+of the mixing variable, and Cauchy--Schwarz.
+
+\begin{theorem}\label{thm:main}
+Let \(X\sim GH(\lambda,\alpha,\beta,\delta,0)\), where
+\(\lambda>\tfrac12\), \(\beta>0\), \(\delta\geq0\), and
+\(\gamma=\sqrt{\alpha^2-\beta^2}>0\). Then
+\[
+ \Med(X)>
+ \frac{\beta}{\gamma^2}
+ \left(\lambda-\frac12+
+ \sqrt{\left(\lambda-\frac12\right)^2+\delta^2\gamma^2}\right).
+\]
+\end{theorem}
+
+\paragraph{The mixing law and its reciprocal center.}
+Let \(N\) be a standard normal variable independent of \(W\), and write
+\begin{equation}\label{eq:mixture}
+ X\ \stackrel d=\ \beta W+\sqrt W\,N.
+\end{equation}
+For \(\delta>0\), the generalized inverse Gaussian mixing density is
+\begin{equation}\label{eq:gig}
+ p(w)=C w^{\lambda-1}
+       \exp\left\{-\frac12\left(\gamma^2w+\frac{\delta^2}{w}\right)\right\},
+ \qquad w>0,\quad
+ C=\frac{(\gamma/\delta)^\lambda}{2K_\lambda(\delta\gamma)}.
+\end{equation}
+For \(\delta=0\), use the gamma law with shape \(\lambda\) and rate
+\(\gamma^2/2\). Integration of the conditional normal density in
+\eqref{eq:mixture} gives precisely the GH density of \cite[eq.\ (1.1)]{GM}:
+the exponent inside the mixing integral is
+\[
+ \beta x-\frac12\left((\gamma^2+\beta^2)w+
+                            \frac{\delta^2+x^2}{w}\right),
+\]
+and \(\gamma^2+\beta^2=\alpha^2\).
+Thus the representation uses exactly the source's parametrization.
+
+Put \(k=\lambda-\tfrac12>0\), and define
+\begin{equation}\label{eq:center}
+ w_0=\frac{k+\sqrt{k^2+\delta^2\gamma^2}}{\gamma^2}>0,
+ \qquad
+ \gamma^2w_0-\frac{\delta^2}{w_0}=2k.
+\end{equation}
+We will show \(\Prob(X>\beta w_0)>1/2\).
+Since the mixture has a continuous, strictly increasing distribution
+function, this is equivalent to the theorem.
+
+\paragraph{A half-moment comparison.}
+We first establish
+\begin{equation}\label{eq:moment}
+ \E W^{1/2}-w_0\E W^{-1/2}\ \geq\ 0,
+\end{equation}
+with strict inequality for \(\delta>0\).
+In that case all real moments of \(W\) are finite. Set
+\(A=\E W^{1/2}\), \(B=\E W^{-1/2}\), and \(D=\E W^{-3/2}\).
+Integration of the derivative of
+\(w^{\lambda-1/2}\exp\{-(\gamma^2w+\delta^2/w)/2\}\)
+over \((0,\infty)\), whose two boundary values vanish, gives
+\begin{equation}\label{eq:recurrence}
+ \gamma^2 A=2kB+\delta^2D.
+\end{equation}
+Strict Cauchy--Schwarz applied to \(W^{1/4}\) and \(W^{-3/4}\) gives
+\(B^2<AD\); equality would require the nondegenerate variable \(W\)
+to be constant. With \(R=A/B>0\), \eqref{eq:recurrence} implies
+\[
+ \gamma^2R^2-2kR
+   =\delta^2\frac{AD}{B^2}>\delta^2.
+\]
+The quadratic has the unique positive root \(w_0\), so \(R>w_0\).
+If \(\delta=0\), the gamma moment formula instead gives
+\[
+ \frac{\E W^{1/2}}{\E W^{-1/2}}
+ =\frac{2}{\gamma^2}
+     \frac{\Gamma(\lambda+1/2)}{\Gamma(\lambda-1/2)}
+ =\frac{2k}{\gamma^2}=w_0.
+\]
+The negative half-moment is finite because \(\lambda>1/2\).
+No negative three-half moment is required in this boundary case.
+
+\paragraph{One change of sign after reciprocal pairing.}
+Let \(U=\log(W/w_0)\), with density \(h\).
+For both mixing laws above,
+\[
+ h(u)=C_0\exp\left\{\lambda u-
+       \frac12\left(\gamma^2w_0e^u+
+                       \frac{\delta^2}{w_0}e^{-u}\right)\right\},
+ \qquad u\in\mathbb R,\quad C_0>0.
+\]
+By \eqref{eq:center},
+\begin{equation}\label{eq:reflection}
+ \log\frac{h(u)}{h(-u)}
+      =2\lambda u-2k\sinh u.
+\end{equation}
+The function \(\sinh u/u\) increases strictly from \(1\) to infinity
+on \(u>0\): its derivative has numerator \(u\cosh u-\sinh u>0\).
+Since \(\lambda/k>1\), there is a unique \(u_*>0\) such that
+\(\sinh u_*/u_*=\lambda/k\).
+Consequently, with \(\Delta(u)=h(u)-h(-u)\),
+\begin{equation}\label{eq:sign}
+ \Delta(u)>0\quad(0<u<u_*),\qquad
+ \Delta(u)<0\quad(u>u_*).
+\end{equation}
+Writing \(s(u)=\sinh(u/2)\), the half-moment comparison becomes
+\begin{equation}\label{eq:weighted}
+ \int_0^\infty s(u)\Delta(u)\,du
+ =\E\sinh(U/2)
+ =\frac{\E W^{1/2}-w_0\E W^{-1/2}}{2\sqrt{w_0}}
+ \geq0.
+\end{equation}
+All terms are integrable by the moment conditions already checked.
+
+\paragraph{The normal tail preserves the needed sign.}
+Let \(\Phi\) and \(\varphi\) be the standard normal distribution function
+and density, and let \(c=2\beta\sqrt{w_0}>0\).
+Conditional on \(W=w_0e^u\),
+\[
+ \Prob(X>\beta w_0\mid U=u)
+ =\Phi\left(\beta\,\frac{W-w_0}{\sqrt W}\right)
+ =\Phi(c\sinh(u/2)).
+\]
+For \(s>0\), define
+\[
+ \rho(s)=\frac{\Phi(cs)-1/2}{s}
+        =c\int_0^1\varphi(csv)\,dv.
+\]
+This function is positive and strictly decreasing. Pairing \(u\) with
+\(-u\) therefore gives
+\begin{align}
+ \Prob(X>\beta w_0)-\frac12
+ &=\int_0^\infty \rho(s(u))s(u)\Delta(u)\,du \notag\\
+ &=\rho(s(u_*))\int_0^\infty s(u)\Delta(u)\,du \notag\\
+ &\quad+\int_0^\infty
+       [\rho(s(u))-\rho(s(u_*))]s(u)\Delta(u)\,du.            \label{eq:conclusion}
+\end{align}
+The first term is nonnegative by \eqref{eq:weighted}.
+The integrand in the second term is strictly positive on both
+\((0,u_*)\) and \((u_*,\infty)\), by \eqref{eq:sign} and the strict
+decrease of \(\rho\). Both integrals are finite, since \(\rho\) is bounded
+and \(\int s|\Delta|<\infty\).
+Thus the right-hand side is strictly positive. This proves
+Theorem \ref{thm:main}, including strictness when \(\delta=0\), where
+the first term vanishes.
+
+\paragraph{An extension of the parameter range.}
+For \(\delta>0\), the same bound actually holds for every real \(\lambda\).
+If \(\lambda\leq1/2\), keep \(k=\lambda-1/2\) and the positive root
+\eqref{eq:center}. Then, for \(u>0\), \eqref{eq:reflection} equals
+\[
+ u+(1-2\lambda)(\sinh u-u)>0.
+\]
+In this case \(\Delta(u)>0\) everywhere, and the first paired integral
+in \eqref{eq:conclusion} is positive directly. The half-moment argument
+and a sign-change point are unnecessary for this extension.
+
+\paragraph{Verification and status.}
+The companion verifier checks the exact reflection and moment algebra,
+computes the normal-mixture distribution function at the proposed bound,
+and cross-checks special cases using the direct GH density and the
+asymmetric Laplace law. These calculations supplement the analytic proof.
+The live MathDB entry remained open with empty claim fields.
+The current source, its indexed published statement, and subsequent
+public literature were checked; no matching full claim was located.
+The dated audit records the scope of those searches.
+
+\paragraph{Task 2: Find the best bound uniform in the skew parameter.}
+For fixed mixing parameters, determine the infimum of
+\(\Med(\beta W+\sqrt W N)/\beta\) over \(\beta>0\), and compare it
+with the reciprocal center \(w_0\) and the half-moment ratio.
+
+\paragraph{Task 3: Quantify the gap above the lower bound.}
+Derive explicit positive lower estimates for
+\(\Med(X)-\beta w_0\), including uniform asymptotic formulas as
+\(\delta\gamma\) tends to zero or infinity.
+
+\paragraph{Task 4: Extend reciprocal pairing to other mixing laws.}
+Characterize positive mixing densities for which the reflected
+log-density has the sign pattern \eqref{eq:sign}, and develop
+median bounds from appropriate half-moment inequalities.
+
+\paragraph{Task 5: Replace the normal mixing noise.}
+Determine which symmetric noise densities allow the same argument,
+including the strict decrease of the corresponding tail-average
+function \(\rho\), and identify the resulting mixture families.
+
+\begin{thebibliography}{9}
+\bibitem{GM}
+R.\ E.\ Gaunt and M.\ Merkle,
+On bounds for the mode and median of the generalized hyperbolic and
+related distributions,
+\emph{J.\ Math.\ Anal.\ Appl.} \textbf{493} (2021), 124508.
+\href{https://doi.org/10.1016/j.jmaa.2020.124508}{doi:10.1016/j.jmaa.2020.124508}.
+\href{https://arxiv.org/abs/2002.01884}{arXiv:2002.01884v4},
+Conjecture 3.7.
+\end{thebibliography}
+\end{document}

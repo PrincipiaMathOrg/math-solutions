@@ -1,0 +1,217 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools,hyperref}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newcommand{\Id}{I}
+\newcommand{\norm}[1]{\lVert#1\rVert}
+\title{The two noncommutative $Q$-Gauss summations}
+\author{Principia Math In Progress}
+\date{27 September 2026}
+\begin{document}
+\maketitle
+\begin{abstract}
+We justify the limit in Schlosser's terminating noncommutative
+$Q$-Pfaff--Saalsch\"utz identities and prove both parts of Conjecture 7.1.
+A common geometric majorant works for the two orders of multiplication.
+A block-matrix argument includes noninvertible bases $Q$.
+\end{abstract}
+
+\section*{Task 1: statement in explicit product notation}
+Let $R$ be a unital Banach algebra. Let $A,B,C$ be invertible, and suppose
+that $Q$ commutes with $A,B,C$, and that $D=BC^{-1}A$ also commutes with
+$A,B,C$. Put
+\[
+ Z=A^{-1}CB^{-1}=D^{-1},\qquad q=\norm Q<1,\quad z=\norm Z<1.
+\]
+As in the source, all displayed denominator factors are assumed
+invertible; here this requires $I-CQ^j$ invertible for every $j\geq0$.
+The factors $I-Q^{j+1}$ and $I-ZQ^j$ are automatically invertible.
+The condition $\norm Q<1$ is the standing convention immediately before
+Conjecture 7.1 in Section 7 of~\cite{S}; it is not an added restriction.
+The norm may be taken to satisfy $\norm I=1$: if needed, the equivalent
+left-regular operator norm has this property and does not increase
+$\norm Q$ or $\norm Z$.
+
+The element $Z$ commutes with $A,B,C,Q$. Consequently
+\[
+ C=ABZ,\qquad CB^{-1}=AZ,\qquad A^{-1}C=BZ.
+\]
+For $j\geq0$, define
+\begin{align*}
+ X_j&=(I-CQ^j)^{-1}(I-AQ^j)(I-BQ^j),\\
+ Y_j&=(I-CQ^j)^{-1}(I-AZQ^j)(I-ZQ^j)^{-1}(I-BZQ^j),\\
+ V_j&=(I-CQ^j)^{-1}(I-AZQ^{j+1})(I-ZQ^j)^{-1}(I-BZQ^{j+1}),\\
+ H&=(I-AZ)(I-BZ),\qquad
+ K_k=\prod_{j=1}^k(I-Q^j)^{-1}.
+\end{align*}
+All products written with increasing indices are read from left to right.
+Set $T_0^{\rm I}=T_0^{\rm II}=I$, and, for $k\geq1$, set
+\[
+ T_k^{\rm I}=X_{k-1}\cdots X_0K_k,\qquad
+ T_k^{\rm II}=X_0\cdots X_{k-1}K_k.
+\]
+These are exactly the coefficients of the source's two ${}_2\phi_1$
+series after their central argument $Z$ has been moved to the right.
+
+\begin{theorem}\label{main}
+Under these hypotheses both series and both products below converge in
+norm, and
+\begin{align}
+ \sum_{k=0}^\infty T_k^{\rm I}Z^k
+   &=\lim_{n\to\infty}Y_{n-1}\cdots Y_0,\label{I}\\
+ \sum_{k=0}^\infty T_k^{\rm II}Z^k
+   &=\left(\lim_{n\to\infty}V_0\cdots V_{n-1}\right)H.\label{II}
+\end{align}
+Thus both identities (7.1) and (7.2) of Schlosser's Conjecture 7.1,
+equivalently MathDB 378712, hold. In particular, $Q$ need not be invertible.
+\end{theorem}
+
+\section*{The terminating identities with nonnegative powers}
+For $0\leq k\leq n$, put
+\begin{equation}\label{weights}
+ W_{n,k}=Z^k\prod_{r=n-k}^{n-1}(I-Q^{r+1})(I-ZQ^r)^{-1}.
+\end{equation}
+The empty product is $I$. All the factors in $W_{n,k}$ commute with
+all the $X_j$ and with one another.
+
+\begin{lemma}\label{finite}
+For every sufficiently large integer $n$,
+\begin{align}
+ \sum_{k=0}^nT_k^{\rm I}W_{n,k}&=Y_{n-1}\cdots Y_0,\label{finiteI}\\
+ \sum_{k=0}^nT_k^{\rm II}W_{n,k}
+ &=V_0\cdots V_{n-1}(I-BZQ^n)^{-1}(I-AZQ^n)^{-1}H.
+ \label{finiteII}
+\end{align}
+\end{lemma}
+\begin{proof}
+First suppose $Q$ is invertible. Apply Theorem 5.2 of~\cite{S}, with
+upper parameters $A,B,Q^{-n}$, lower parameters $C,Z^{-1}Q^{1-n}$,
+and argument $Q$. Its sum terminates at $k=n$. In each summand, the
+additional factors, at exponent $j$ with $0\leq j<k$, can be moved
+past the $A,B,C$ factors and rewritten as
+\begin{equation}\label{cancellation}
+ (I-Z^{-1}Q^{1-n+j})^{-1}(I-Q^{j-n})Q
+ =Z(I-Q^{n-j})(I-ZQ^{n-j-1})^{-1}.
+\end{equation}
+For example, factor the denominator on the left as
+$-Z^{-1}Q^{1-n+j}(I-ZQ^{n-j-1})$ and the numerator as
+$-Q^{j-n}(I-Q^{n-j})$. Their negative powers cancel exactly.
+Multiplication over $j=0,\ldots,k-1$ gives~\eqref{weights}.
+The two right sides of Theorem 5.2 are exactly the right sides of
+\eqref{finiteI} and~\eqref{finiteII}, respectively. All denominators
+in the terminating sums exist, by~\eqref{cancellation} and $z,q<1$.
+Choose $n$ large enough that $\norm{AZ}q^n<1$ and $\norm{BZ}q^n<1$;
+the two extra inverses in~\eqref{finiteII} then also exist.
+
+To remove invertibility of $Q$, fix such an $n$ and work in $M_2(R)$,
+with the maximum row-sum norm. Replace each $U\in\{A,B,C,Z\}$ by
+$\widehat U=\operatorname{diag}(U,U)$ and replace $Q$ by
+\[
+ Q_\varepsilon=\begin{pmatrix}Q&\varepsilon I\\\varepsilon I&0\end{pmatrix},
+ \qquad
+ Q_\varepsilon^{-1}=\begin{pmatrix}0&\varepsilon^{-1}I\\
+              \varepsilon^{-1}I&-\varepsilon^{-2}Q\end{pmatrix}
+ \quad(\varepsilon\ne0).
+\]
+These replacements preserve every commutation relation and
+$\widehat C=\widehat A\widehat B\widehat Z$.
+Moreover $\norm{Q_\varepsilon}\leq q+|\varepsilon|<1$ for sufficiently
+small $\varepsilon$. At $\varepsilon=0$, the finitely many factors
+$I-\widehat C Q_0^j$ needed for the two identities are invertible:
+for $j=0$ both diagonal blocks are $I-C$, and for $j\geq1$ the blocks
+are $I-CQ^j$ and $I$. The terminal factors have the same property.
+Invertibility is open, so these finitely many inverses persist for
+sufficiently small $\varepsilon$. Apply the invertible-base identities
+just established, written entirely in nonnegative powers, and let
+$\varepsilon\to0$. Each side is a continuous finite expression.
+Its upper-left diagonal block at the limit is the corresponding
+expression for the original $Q$. This proves both identities for
+arbitrary $Q$. No density assertion about invertibles in $R$ is used.
+\end{proof}
+
+\section*{A uniform bound and the limit}
+For large $j$ we have $\norm Cq^j\leq1/2$ and therefore
+\[
+ \norm{X_j-I}
+ =\norm{(I-CQ^j)^{-1}\big((C-A-B)Q^j+ABQ^{2j}\big)}
+ \leq2\big((\norm C+\norm A+\norm B)q^j
+                      +\norm A\norm Bq^{2j}\big).
+\]
+Thus $\sum_{j\geq0}\norm{X_j-I}<\infty$. In particular, the number
+\[
+ L=\prod_{j=0}^{\infty}(1+\norm{X_j-I})
+      \prod_{j=1}^{\infty}(1-q^j)^{-1}
+\]
+is finite and bounds $\norm{T_k^{\rm I}}$ and $\norm{T_k^{\rm II}}$
+for every $k$. This already proves absolute convergence of both
+series in the theorem.
+
+Neumann's bound applied to~\eqref{weights} gives, uniformly in
+$0\leq k\leq n$,
+\begin{equation}\label{majorant}
+ \norm{W_{n,k}}\leq z^k
+ \prod_{r=n-k}^{n-1}\frac{1+q^{r+1}}{1-zq^r}
+ \leq Mz^k,\qquad
+ M=\prod_{r=0}^\infty\frac{1+q^{r+1}}{1-zq^r}<\infty.
+\end{equation}
+The last scalar product is finite because its factors are positive,
+their deviations from $1$ are summable, and $z<1$.
+For each fixed $k$, every factor of the finite product in~\eqref{weights}
+tends to $I$ as $n\to\infty$, so $W_{n,k}\to Z^k$.
+Extend $T_k^\sigma W_{n,k}$ by zero for $k>n$, where
+$\sigma\in\{\mathrm I,\mathrm {II}\}$. The common summable bound
+$LMz^k$ proves
+\begin{equation}\label{dct}
+ \lim_{n\to\infty}\sum_{k=0}^nT_k^\sigma W_{n,k}
+       =\sum_{k=0}^\infty T_k^\sigma Z^k.
+\end{equation}
+For completeness, this follows directly by choosing a common tail
+$\sum_{k>K}LMz^k$ small and then passing to the limit in the finitely
+many terms $k\leq K$; no commutative summation theorem is needed.
+
+Similarly $Y_j-I=O(q^j)$ and $V_j-I=O(q^j)$ in norm, since the
+inverses in their definitions are $I+O(q^j)$ for large $j$.
+If $\sum_j\norm{E_j-I}<\infty$, the finite products of $E_j$ are
+bounded by $\prod_j(1+\norm{E_j-I})$, and a telescoping estimate
+makes both the ascending and descending products Cauchy.
+Consequently both product limits in the theorem exist.
+Finally
+\[
+ (I-BZQ^n)^{-1}(I-AZQ^n)^{-1}H\longrightarrow H.
+\]
+Pass to the limit in Lemma~\ref{finite}, using~\eqref{dct} and the
+bounded product prefixes. This proves~\eqref{I} and~\eqref{II}.
+\qed
+
+\section*{Tasks 2--5: proposed follow-up problems}
+The following are proposed further tasks, not additional solved results.
+\begin{description}
+\item[Task 2.] Determine whether both identities remain valid when
+$\norm Q<1$ and $\norm Z<1$ are replaced by $r(Q)<1$ and $r(Z)<1$,
+where $r$ denotes spectral radius, with the same inverse hypotheses.
+\item[Task 3.] Derive an explicit computable bound for the error between
+each infinite sum and its $n$th terminating approximation in
+Lemma~\ref{finite}, in terms of $q,z,A,B,C$ and a finite list of
+resolvent norms.
+\item[Task 4.] Retain the stated commutation relations and $C=ABZ$, but
+dispense with invertibility of the five parameters. Prove the two finite
+identities by induction whenever their denominator factors are invertible.
+\item[Task 5.] Classify the boundary cases with central $Z$, $r(Z)=1$
+and $r(Q)<1$ for which the type I or type II series converges, and
+determine whether a corresponding product or Abel-limit formula holds.
+\end{description}
+
+\begin{thebibliography}{9}
+\bibitem{S} M. J. Schlosser,
+\emph{Summation formulas for noncommutative hypergeometric series},
+in Z. Nashed and X. Li (eds.),
+\emph{Frontiers in Orthogonal Polynomials and $q$-Series},
+World Scientific, 2018, pp. 451--496,
+\href{https://doi.org/10.1142/9789813228887_0024}{doi:10.1142/9789813228887\_0024}.
+Author's updated 36-page version:
+\href{https://www.mat.univie.ac.at/~schlosse/pdf/noncomhyp.pdf}{author-hosted PDF}.
+Original 35-page version: \url{https://arxiv.org/abs/math/0411136}.
+Theorem 5.2 and Conjecture 7.1 have the same numbering in both.
+\end{thebibliography}
+\end{document}

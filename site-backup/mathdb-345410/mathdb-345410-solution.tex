@@ -1,0 +1,291 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[colorlinks=true,urlcolor=blue,linkcolor=blue,citecolor=blue]{hyperref}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newcommand{\Med}{\operatorname{Med}}
+\newcommand{\Prob}{\mathbb P}
+\newcommand{\E}{\mathbb E}
+\title{Strict monotonicity and the limiting median\\of the variance-gamma distribution}
+\author{Principia Math in Progress}
+\date{12 September 2026}
+\begin{document}
+\maketitle
+
+\paragraph{Task 1: Resolve MathDB 345410.}
+We prove Conjecture 3.5 of Gaunt--Merkle \cite{GM}, including strict
+monotonicity, both limiting regimes, and all its median bounds.
+The argument compares the distribution function at the decreasing mode
+of a law whose gamma shape is one larger.
+
+\begin{theorem}\label{thm:main}
+Fix \(r,\theta>0\), and let \(V_{r,\theta,\sigma}\) have the
+\(\operatorname{VG}(r,\theta,\sigma,0)\) law. Its median is positive and
+strictly decreasing in \(\sigma>0\). If \(q(a)\) denotes the median of
+a gamma variable with shape \(a\) and unit rate, then
+\begin{align}
+ \lim_{\sigma\downarrow0}\Med(V_{r,\theta,\sigma})
+   &=2\theta q(r/2),                                       \label{eq:limit0}\\
+ \lim_{\sigma\to\infty}\Med(V_{r,\theta,\sigma})
+   &=\theta\max\{r-1,0\}.                                  \label{eq:limitinf}
+\end{align}
+In particular, for every \(\sigma>0\),
+\begin{equation}\label{eq:envelopes}
+ \theta\max\{r-1,0\}<\Med(V_{r,\theta,\sigma})
+                <2\theta q(r/2).
+\end{equation}
+Consequently,
+\begin{align}
+ (r-1)\theta
+ &<\Med(V_{r,\theta,\sigma})<r\theta e^{-2/(3r)}
+   <\left(r-\frac23+\frac{2}{9r}\right)\theta,               \label{eq:bounds}\\
+ \Med(V_{r,\theta,\sigma})
+ &<(r+2\log2-2)\theta,\qquad r\geq2.                        \label{eq:linear}
+\end{align}
+The last inequality strengthens the non-strict version in the conjecture.
+\end{theorem}
+
+\paragraph{Normalization and a shape-shift identity.}
+Let \(a=r/2>0\), \(v=(\sigma/\theta)^2>0\), and \(q_v=\sqrt{1+v}\).
+For independent \(X,Y\sim\Gamma(a,1)\), the standard gamma-difference
+representation \cite[eq.\ (3.43)]{GM} gives
+\begin{equation}\label{eq:representation}
+ V_{r,\theta,\sigma}/\theta\ \stackrel d=\ 
+ W_{a,v}:=(q_v+1)X-(q_v-1)Y.
+\end{equation}
+Write \(F_{a,v},f_{a,v}\), and \(M_a(v)\) for its distribution function,
+density, and unique median.
+Its bilateral Laplace transform, in a neighborhood of zero, is
+\[
+ L_{a,v}(s)=\E e^{-sW_{a,v}}=(1+2s-vs^2)^{-a}.
+\]
+For sufficiently small \(s>0\), the transform of its distribution
+function is \(L_{a,v}(s)/s\), and hence
+\[
+ \partial_v\{L_{a,v}(s)/s\}=a\,sL_{a+1,v}(s).
+\]
+Inversion gives
+\begin{equation}\label{eq:pde}
+ \partial_vF_{a,v}(x)=a f'_{a+1,v}(x),\qquad x>0.
+\end{equation}
+To justify this calculation, restrict \(v\) to a compact subset of
+\((0,\infty)\) and use the convolution of the two scaled gamma densities.
+Parameter derivatives admit integrable bounds with exponential tails;
+a common open strip of bilateral Laplace convergence is available.
+The shifted density is continuously differentiable, tends to zero at
+both infinities, and its derivative has transform \(sL_{a+1,v}(s)\).
+Uniqueness of the bilateral transform and continuity give
+\eqref{eq:pde} pointwise on \(x>0\).
+
+\paragraph{A Bessel-ratio lemma.}
+The auxiliary density \(f_{a+1,v}\) has, for \(x>0\), the form
+\[
+ f_{a+1,v}(x)=C_{a,v}e^{x/v}x^\nu K_\nu(q_vx/v),
+ \qquad \nu=a+\tfrac12,\quad C_{a,v}>0.
+\]
+The next lemma establishes the parameter behavior of its mode directly.
+
+\begin{lemma}\label{lem:bessel}
+For \(\nu>\tfrac12\), put \(d=2\nu-1>0\) and
+\[
+ R(z)=\frac{K_{\nu-1}(z)}{K_\nu(z)},\qquad
+ H(z)=z\left(\frac1{R(z)}-R(z)\right),\qquad z>0.
+\]
+Then \(R\) increases strictly from \(0\) to \(1\), and \(H\) increases
+strictly from \(\max\{d-1,0\}\) to \(d\).
+\end{lemma}
+\begin{proof}
+Use the standard integral
+\[
+ K_\eta(z)=\int_0^\infty e^{-z\cosh u}\cosh(\eta u)\,du.
+\]
+The quotient \(R(z)\) is the expectation of
+\(g(u)=\cosh((\nu-1)u)/\cosh(\nu u)\) under the probability measure
+proportional to \(e^{-z\cosh u}\cosh(\nu u)\,du\).
+Since \(|\nu-1|<\nu\), \(g\) is strictly decreasing for \(u>0\):
+its logarithmic derivative is
+\[
+ |\nu-1|\tanh(|\nu-1|u)-\nu\tanh(\nu u)<0.
+\]
+Thus \(0<R<1\), and differentiation under the integral gives
+\[
+ R'(z)=-\operatorname{Cov}_z(g(u),\cosh u)>0.
+\]
+The strict covariance sign follows, for example, by writing the
+covariance as half the expectation of
+\((g(U)-g(\widetilde U))(\cosh U-\cosh\widetilde U)\)
+for independent copies. Standard small- and large-argument expansions
+of \(K_\eta\) give the claimed endpoints of \(R\).
+
+The Bessel recurrences give the Riccati equation
+\[
+ R'=R^2-1+\frac d zR.
+\]
+Put \(A=(1-R^2)/(1+R^2)\) and \(B=R+1/R\).
+Direct differentiation then gives
+\begin{equation}\label{eq:Hprime}
+ H'=B(H-d+A).
+\end{equation}
+At any zero of \(H'\), another differentiation gives
+\begin{equation}\label{eq:critical}
+ H''=BA'=-B\frac{4RR'}{(1+R^2)^2}<0.
+\end{equation}
+Every critical point would therefore change the derivative from positive
+to negative. But the differentiable large-\(z\) expansion is
+\[
+ R(z)=1-\frac d{2z}+\frac{d(d+2)}{8z^2}+O(z^{-3}),\quad
+ H(z)=d-\frac d{2z}+O(z^{-2}),\quad
+ H'(z)=\frac d{2z^2}+O(z^{-3})>0
+\]
+for sufficiently large \(z\). Equations \eqref{eq:Hprime}--\eqref{eq:critical}
+exclude a nonpositive value of \(H'\) anywhere: such a value would force
+a later change from negative to positive before reaching that final
+positive interval. Hence \(H'>0\) everywhere.
+
+Finally, \(H(\infty)=d\). If \(\nu>1\), the small-\(z\) expansion
+\(R(z)\sim z/(2\nu-2)\) gives \(H(0+)=2\nu-2=d-1\).
+If \(\nu=1\), \(R(z)\sim z\log(1/z)\), giving \(H(0+)=0\).
+If \(\tfrac12<\nu<1\), \(R(z)\) is asymptotic to a positive constant
+times \(z^{2\nu-1}\), again giving \(H(0+)=0\).
+\end{proof}
+
+\paragraph{The mode of the shifted density decreases.}
+For \(x>0\), Bessel differentiation gives
+\begin{equation}\label{eq:slope}
+ \frac{f'_{a+1,v}(x)}{f_{a+1,v}(x)}
+ =\frac1v\{1-q_vR(q_vx/v)\},
+ \qquad \nu=a+\tfrac12.
+\end{equation}
+There is a unique positive zero \(D_a(v)\), determined by
+\(R(z_v)=1/q_v\) and \(D_a(v)=vz_v/q_v\).
+The derivative is positive for \(0<x<D_a(v)\) and negative for
+\(x>D_a(v)\). On the negative half-line it is positive, so \(D_a(v)\)
+is the unique mode. As \(v\) increases, \(q_v\) increases and \(z_v\)
+decreases strictly. At the defining root,
+\[
+ D_a(v)=z_v(q_v-q_v^{-1})=H(z_v).
+\]
+Lemma \ref{lem:bessel}, with \(d=2a\), proves
+\begin{equation}\label{eq:mode}
+ D_a'(v)<0,\qquad
+ \lim_{v\downarrow0}D_a(v)=2a,\qquad
+ \lim_{v\to\infty}D_a(v)=\ell_a:=\max\{2a-1,0\}.
+\end{equation}
+In particular \(\ell_a<D_a(v)<2a\).
+
+\paragraph{The median is below this moving mode.}
+The representation \eqref{eq:representation} implies
+\[
+ \frac{W_{a,v}}{q_v}
+   =X-Y+\frac{X+Y}{q_v}\longrightarrow X-Y
+ \quad\hbox{almost surely as }v\to\infty.
+\]
+The limiting law is symmetric and has no atom at zero.
+Consequently, for every bounded deterministic \(x_v\),
+\begin{equation}\label{eq:half}
+ F_{a,v}(x_v)\longrightarrow\frac12.
+\end{equation}
+For example, this follows by squeezing \(x_v/q_v\) between any fixed
+positive and negative numbers and then using continuity at zero.
+
+Let \(J(v)=F_{a,v}(D_a(v))\). By \eqref{eq:pde} and the mode equation,
+\[
+ J'(v)
+ =a f'_{a+1,v}(D_a(v))+f_{a,v}(D_a(v))D_a'(v)
+ =f_{a,v}(D_a(v))D_a'(v)<0.
+\]
+The bound \(D_a(v)<2a\) allows \eqref{eq:half} to be applied, so
+\(J(v)\to1/2\). Strict decrease then implies \(J(v)>1/2\) for every
+finite \(v>0\).
+
+Also \(M_a(v)>0\). Indeed the gamma-difference density satisfies
+\(f_{a,v}(x)/f_{a,v}(-x)=e^{2x/v}>1\) for \(x>0\); integration
+shows \(F_{a,v}(0)<1/2\), even when the density is unbounded at zero.
+We have proved
+\begin{equation}\label{eq:medianmode}
+ 0<M_a(v)<D_a(v).
+\end{equation}
+Implicit differentiation of the median equation and \eqref{eq:slope}
+now give
+\begin{equation}\label{eq:Mprime}
+ M_a'(v)
+ =-a\,\frac{f'_{a+1,v}(M_a(v))}{f_{a,v}(M_a(v))}<0.
+\end{equation}
+Since \(v=(\sigma/\theta)^2\) is strictly increasing in \(\sigma\),
+the desired strict monotonicity follows.
+
+\paragraph{Both limits and all the conjectured bounds.}
+When \(a\leq1/2\), \eqref{eq:medianmode} and \eqref{eq:mode} already
+give \(M_a(v)\to0=\ell_a\). If \(a>1/2\), then
+\(\ell_a=2a-1>0\) is strictly below \(D_a(v)\). Hence
+\[
+ \partial_v F_{a,v}(\ell_a)=a f'_{a+1,v}(\ell_a)>0.
+\]
+By \eqref{eq:half}, this increasing function tends to \(1/2\), so
+\(F_{a,v}(\ell_a)<1/2\), and
+\(\ell_a<M_a(v)<D_a(v)\). Taking \(v\to\infty\) proves
+\(M_a(v)\to\ell_a\) in this remaining range.
+
+As \(v\downarrow0\), the same gamma coupling gives
+\(W_{a,v}\to2X\) almost surely. The limit has a continuous, strictly
+increasing distribution function on its support, so medians converge:
+\(M_a(v)\to2q(a)\). Combined with strict monotonicity, this proves
+\eqref{eq:limit0}--\eqref{eq:envelopes}.
+The standard gamma-median bounds recorded and proved in
+\cite[Section 3]{GM} give
+\[
+ q(a)<a e^{-1/(3a)}\quad(a>0),\qquad
+ q(a)\leq a-1+\log2\quad(a\geq1).
+\]
+Substitution in the strict upper envelope proves
+\eqref{eq:bounds}--\eqref{eq:linear}; the last bound in
+\eqref{eq:bounds} also uses \(e^{-u}<1-u+u^2/2\) for \(u>0\).
+This completes the full conjecture. The equivalent gamma-difference
+formulation in \cite[Conjecture 3.3]{GM} is included, with no separate
+campaign credit.
+
+\paragraph{Verification and status.}
+The companion verifier checks the transform and Bessel differential
+identities symbolically and tests the density, mode, and CDF comparisons
+numerically. The numerical checks are supplementary to the proof.
+The live MathDB claim fields, the current source, its indexed published
+text, the 2025 variance-gamma review \cite{FGS}, and later public
+literature were checked. No matching full solution claim was located;
+the dated audit records the scope and access limitations.
+
+\paragraph{Task 2: Derive rates for the limiting median.}
+Find the leading term and a rigorous remainder for
+\(M_a(v)-\max\{2a-1,0\}\) as \(v\to\infty\), including the transition
+at \(a=1/2\) and any further changes of asymptotic regime.
+
+\paragraph{Task 3: Determine the curvature of the median.}
+Classify the signs of \(M_a''(v)\) and of higher variance derivatives,
+and determine whether a complete monotonicity statement holds after
+subtracting the limiting median.
+
+\paragraph{Task 4: Extend the comparison to unequal gamma shapes.}
+Replace \(X,Y\) by independent gamma variables with unequal positive
+shapes, choose the positive and negative weights to preserve the mean,
+and determine the parameter ranges with a monotone median.
+
+\paragraph{Task 5: Prove the generalized hyperbolic median lower bound.}
+Extend the moving-mode argument or its distribution-function identity
+to the generalized hyperbolic family and resolve
+\cite[Conjecture 3.7]{GM}, including the nonzero mixing-scale parameter.
+
+\begin{thebibliography}{9}
+\bibitem{GM}
+R.\ E.\ Gaunt and M.\ Merkle,
+On bounds for the mode and median of the generalized hyperbolic and
+related distributions,
+\emph{J.\ Math.\ Anal.\ Appl.} \textbf{493} (2021), 124508.
+\href{https://doi.org/10.1016/j.jmaa.2020.124508}{doi:10.1016/j.jmaa.2020.124508}.
+\href{https://arxiv.org/abs/2002.01884}{arXiv:2002.01884v4}.
+\bibitem{FGS}
+A.\ Fischer, R.\ E.\ Gaunt, and A.\ Sarantsev,
+The variance-gamma distribution: A review,
+\emph{Statistical Science} \textbf{40} (2025), 235--258.
+\href{https://doi.org/10.1214/24-STS929}{doi:10.1214/24-STS929}.
+\end{thebibliography}
+\end{document}

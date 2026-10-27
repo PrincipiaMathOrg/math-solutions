@@ -1,0 +1,132 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[hidelinks]{hyperref}
+\newtheorem{theorem}{Theorem}
+\title{Nonconvexity of non-completable probability tables\\
+\large A counterexample to MathDB 400968}
+\author{Principia Math in Progress}
+\date{12 September 2026}
+\begin{document}
+\maketitle
+\section*{Task 1. Resolve the original convexity question}
+The problem in Kummer's Oberwolfach report \cite[p.~1271]{report}
+asks whether the nonnegative partial tensors which have no completion
+as the joint distribution of independent random variables always form
+a convex set. The stated setting has a full-dimensional completion
+image and $|E|=\sum_i(d_i-1)$ observed coordinates.
+
+\begin{theorem}
+The answer is negative, already for a $3\times3$ table with
+\[
+ E=\{(1,1),(1,2),(2,1),(3,3)\}.
+\]
+This pattern observes every row and every column, and its completion
+image has nonempty interior in $\mathbb R^4$.
+\end{theorem}
+\begin{proof}
+Use the coordinate order $(11,12,21,33)$, and define
+\[
+ P=\left(\frac1{32},\frac18,\frac18,\frac1{16}\right),
+ \qquad
+ Q=\left(\frac{15}{32},\frac18,\frac18,\frac1{16}\right).
+\]
+All entries are positive, and their respective observed sums are
+$11/32$ and $25/32$, both less than one.
+
+We first obtain a necessary condition for completion. Write a putative
+completed table as $T_{ij}=a_i b_j$, where $a,b$ are nonnegative
+probability vectors. If its observed coordinates are $(x,y,z,w)$
+with $x>0$, rank one forces $T_{22}=yz/x$. Consequently
+\[
+ S:=x+y+z+\frac{yz}{x}=(a_1+a_2)(b_1+b_2),
+ \qquad w=a_3b_3.
+\]
+Cauchy--Schwarz, applied to the two unit vectors
+$(\sqrt{1-a_3},\sqrt{a_3})$ and
+$(\sqrt{1-b_3},\sqrt{b_3})$, gives
+\[
+ \sqrt S+\sqrt w\leq1.
+\]
+In particular, when $w=1/16$, every completion must satisfy
+$S\leq9/16$. For our two points, however,
+\[
+ S(P)=\frac{25}{32}>\frac9{16},
+ \qquad
+ S(Q)=\frac{361}{480}>\frac9{16}.
+\]
+Thus both $P$ and $Q$ are non-completable.
+
+Their midpoint is completable:
+\[
+ \frac{P+Q}{2}
+ =\left(\frac14,\frac18,\frac18,\frac1{16}\right),
+ \qquad
+ T=\frac1{16}
+ \begin{pmatrix}
+ 4&2&2\\2&1&1\\2&1&1
+ \end{pmatrix}
+ =
+ \begin{pmatrix}1/2\\1/4\\1/4\end{pmatrix}
+ \begin{pmatrix}1/2&1/4&1/4\end{pmatrix}.
+\]
+The entries of $T$ are positive and sum to one, and its entries in
+$E$ are exactly the midpoint. This proves nonconvexity.
+
+It remains to check the full-dimensional hypothesis.
+Parameterize the two probability vectors by
+$a=(a_1,a_2,1-a_1-a_2)$ and
+$b=(b_1,b_2,1-b_1-b_2)$. The observed-coordinate map is
+\[
+ F(a_1,a_2,b_1,b_2)=
+ \bigl(a_1b_1,a_1b_2,a_2b_1,
+       (1-a_1-a_2)(1-b_1-b_2)\bigr).
+\]
+Its Jacobian determinant is
+\[
+ \det DF=a_1b_1(a_1+a_2-b_1-b_2).
+\]
+At the interior parameter point
+$(a_1,a_2,b_1,b_2)=(1/2,1/4,1/3,1/3)$ it equals $1/72$.
+The inverse function theorem therefore shows that the image contains
+an open subset of $\mathbb R^4$. Finally,
+$|E|=4=(3-1)+(3-1)$, as required.
+\end{proof}
+
+The necessary completion inequality used above agrees with the
+general matrix-completion framework of Kubjas and Rosen \cite{KR}.
+The counterexample is verified directly here, without requiring a
+sufficiency criterion for arbitrary partial tables.
+
+\section*{Task 2. Classify the convex matrix patterns}
+Characterize the observed bipartite forests $E$ with
+$|E|=d_1+d_2-2$ for which the set of non-completable positive partial
+tables is convex. Include a criterion stated in terms of the connected
+components of the observation graph.
+
+\section*{Task 3. Determine the smallest counterexample patterns}
+Determine the smallest table formats and observation counts admitting
+nonconvexity when every row and column is observed and the completion
+image has nonempty interior.
+
+\section*{Task 4. Describe the convex hull}
+For the displayed $3\times3$ pattern, determine the convex hull of the
+non-completable region inside
+$\{(x,y,z,w)\geq0:x+y+z+w\leq1\}$, including its boundary faces.
+
+\section*{Task 5. Extend the analysis to higher-order tensors}
+Find structural criteria for convexity or nonconvexity for tensor
+orders at least three, requiring every coordinate value to occur in
+the observation pattern and retaining the full-dimensional hypothesis.
+
+\begin{thebibliography}{9}
+\bibitem{report}
+M.~Kummer, Rank One Tensor Completion, in \emph{Algebraic Statistics},
+Oberwolfach Reports 14 (2017), 1270--1272, published 2018.
+\href{https://doi.org/10.4171/OWR/2017/20}{doi:10.4171/OWR/2017/20}.
+\bibitem{KR}
+K.~Kubjas and Z.~Rosen, Matrix Completion for the Independence Model,
+Journal of Algebraic Statistics 8 (2017), 1--21.
+\href{https://arxiv.org/abs/1407.3254}{arXiv:1407.3254}.
+\end{thebibliography}
+\end{document}

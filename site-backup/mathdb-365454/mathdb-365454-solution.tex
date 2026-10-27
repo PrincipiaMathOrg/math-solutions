@@ -1,0 +1,220 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,booktabs,hyperref}
+\hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newcommand{\J}{J_0}
+\title{A two-term counterexample to the Bessel-kernel\\
+nonnegativity conjecture}
+\author{Principia Math in Progress}
+\date{12 September 2026}
+\begin{document}
+\maketitle
+
+\paragraph{Task 1: Resolve MathDB 365454.}
+Let \(j_m=j_{0,m}\) be the \(m\)-th positive zero of \(\J\), and put
+\[
+ K_M^\alpha(x)=
+ \sum_{m=1}^M\left(1-\frac{m}{M+1}\right)j_m^\alpha\J(j_mx).
+\]
+The question asks whether this is nonnegative for every
+\(M\ge1\), \(0\le x\le1\), and \(0\le\alpha\le\tfrac12\).
+This is Conjecture 1 of Acosta Babb's current author preprint~\cite{preprint}
+and of the published paper~\cite{published}, where the kernel is defined
+on page 7 and the conjecture appears in the order-zero section on page 11.
+We use that intended order-zero case throughout.
+
+\begin{theorem}
+The conjecture is false. More precisely,
+\[
+ K_2^{2/5}(99/100)
+ < -\frac{641}{5250000}<-\frac1{10000}.
+\]
+At the same point, \(K_2^\alpha(99/100)<0\) for every
+\(\alpha\ge2/5\), in particular for the whole interval
+\([2/5,1/2]\) within the conjectured range. The number of terms \(M=2\)
+is minimal for a counterexample.
+\end{theorem}
+
+All estimates below are rational inequalities. Numerical approximations
+are unnecessary for the proof.
+
+\paragraph{A finite Bessel certificate.}
+For rational \(z\), define the rational polynomial value
+\[
+ P_N(z)=\sum_{k=0}^N\frac{(-1)^k(z^2/4)^k}{(k!)^2}.
+\]
+For \(0<z<6\), the terms decrease in modulus from index \(3\) onward.
+Consequently the alternating-series remainder gives
+\begin{equation}\label{alternating}
+ P_{13}(z)<\J(z)<P_{12}(z).
+\end{equation}
+Here is the complete table of finite comparisons used in the proof:
+\begin{center}
+\begin{tabular}{ccc}
+\toprule
+\(z\) & polynomial & exact comparison\\
+\midrule
+\(24048/10000\) & \(P_{13}(z)\) & \(>1/100000\)\\
+\(24049/10000\) & \(P_{12}(z)\) & \(<-3/100000\)\\
+\(55200/10000\) & \(P_{12}(z)\) & \(<-2/100000\)\\
+\(55201/10000\) & \(P_{13}(z)\) & \(>7/1000000\)\\
+\(23808/10000\) & \(P_{12}(z)\) & \(<63/5000\)\\
+\(54649/10000\) & \(P_{12}(z)\) & \(<-47/2500\)\\
+\bottomrule
+\end{tabular}
+\end{center}
+These comparisons can be checked using
+\(t_0=1\), \(t_k=-z^2t_{k-1}/(4k^2)\), and
+\(P_N=\sum_{k=0}^Nt_k\). The accompanying verifier performs exactly
+these operations with integer fractions and records every positive
+comparison margin.
+
+\paragraph{Identifying the two zeros.}
+Write
+\[
+ L_1=\frac{24048}{10000},\quad U_1=\frac{24049}{10000},
+ \qquad L_2=\frac{55200}{10000},\quad U_2=\frac{55201}{10000}.
+\]
+The first four rows of the table and~\eqref{alternating} give a zero
+in each interval \((L_i,U_i)\). We check their indices, rather than
+assuming them from decimal approximations.
+The series for \(J_1\) gives, for \(0<x\le5/2\),
+\[
+ J_1(x)=\frac{x}{2}\sum_{k=0}^\infty
+       \frac{(-x^2/4)^k}{k!(k+1)!}
+ >\frac{x}{2}\left(1-\frac{x^2}{8}\right)>0.
+\]
+Thus \(\J'=-J_1<0\) there, and the zero in \((L_1,U_1)\)
+is precisely the first positive zero \(j_1\).
+
+To count subsequent zeros, \(u(x)=\sqrt{x}\J(x)\) satisfies
+\[
+ u''+\left(1+\frac{1}{4x^2}\right)u=0.
+\]
+If \(a<b\) are any two consecutive zeros with \(a>2\), integration
+by parts and the elementary Wirtinger inequality imply
+\[
+ \frac{\pi^2}{(b-a)^2}\int_a^bu^2
+ \le\int_a^b(u')^2
+ =\int_a^b\left(1+\frac{1}{4x^2}\right)u^2
+ \le\frac{17}{16}\int_a^bu^2.
+\]
+Hence \(b-a\ge4\pi/\sqrt{17}>2\). Two zero gaps after \(j_1\)
+would therefore require a distance greater than \(4\), whereas
+\(U_2-L_1<4\). The zero in \((L_2,U_2)\) must be \(j_2\).
+This proves the certified enclosures
+\begin{equation}\label{zeros}
+ L_1<j_1<U_1,\qquad L_2<j_2<U_2.
+\end{equation}
+
+\paragraph{Values at the counterexample point.}
+The elementary integral representation
+\[
+ \J(t)=\frac1\pi\int_0^\pi\cos(t\sin\theta)\,d\theta
+\]
+follows by expanding the cosine and integrating its even powers.
+Differentiation under the integral gives \(|\J'(t)|\le1\).
+In particular \(\J\) is \(1\)-Lipschitz on the real line.
+Put \(x_*=99/100\), \(a_*=23808/10000\), and
+\(b_*=54649/10000\). Direct rational interval arithmetic
+in~\eqref{zeros} gives
+\[
+ |x_*j_1-a_*|<\frac1{10000},
+ \qquad |x_*j_2-b_*|<\frac1{10000}.
+\]
+The last two table rows therefore yield
+\begin{equation}\label{values}
+ 0< A:=\J(x_*j_1)<\frac{127}{10000},
+ \qquad B:=\J(x_*j_2)<-\frac{187}{10000}.
+\end{equation}
+The positivity of \(A\) holds because \(0<x_*j_1<j_1\).
+Two more finite rational comparisons are
+\[
+ U_1^2<\left(\frac{10}{7}\right)^5,
+ \qquad L_2^2>\left(\frac{49}{25}\right)^5.
+\]
+Since all quantities are positive, these prove
+\[
+ j_1^{2/5}<\frac{10}{7},
+ \qquad j_2^{2/5}>\frac{49}{25}.
+\]
+Using the signs in~\eqref{values}, we conclude
+\[
+\begin{split}
+ K_2^{2/5}(x_*)
+ &=\frac13\left(2j_1^{2/5}A+j_2^{2/5}B\right)\\
+ &<\frac13\left(
+ 2\frac{10}{7}\frac{127}{10000}
+ -\frac{49}{25}\frac{187}{10000}\right)
+ =-\frac{641}{5250000}<-\frac1{10000}.
+\end{split}
+\]
+This counterexample has both \(x_*\) and \(\alpha=2/5\) strictly
+inside the asserted parameter intervals.
+
+For the stated extension in \(\alpha\), factor
+\[
+ K_2^\alpha(x_*)=\frac{j_1^\alpha}{3}
+       \left(2A+(j_2/j_1)^\alpha B\right).
+\]
+Because \(j_2/j_1>1\) and \(B<0\), the expression in parentheses
+strictly decreases with \(\alpha\). It is already negative at \(2/5\).
+Finally \(K_1^\alpha(x)=\tfrac12j_1^\alpha\J(j_1x)\ge0\)
+on \(0\le x\le1\), which proves minimality of \(M=2\).
+\hfill\(\square\)
+
+\paragraph{Interpretation and verification.}
+The conjectured nonnegativity fails; this alone does not disprove the
+paper's separate coefficient-existence conjectures.
+The exact verifier passes 28 rational checks. Six supplementary checks
+at 75 decimal digits give, for example,
+\[
+ K_2^{2/5}(99/100)\approx-0.00057495277682936770,\qquad
+ K_2^{1/2}(99/100)\approx-0.00180586383473877418.
+\]
+MathDB was still marked open, with no claims in its discussion or
+solution fields, during the dated checks saved alongside this note.
+No matching full public solution claim was located in the documented
+literature and public-catalogue searches.
+
+\paragraph{Task 2: Determine the exact positivity range for \(M=2\).}
+Find all real \(\alpha\) for which \(K_2^\alpha(x)\ge0\) on \([0,1]\).
+Determine whether the boundary derivative at \(x=1\) detects the
+first loss of positivity, or whether an interior point does so first.
+
+\paragraph{Task 3: Analyze the boundary layer for large truncations.}
+Obtain an asymptotic expansion of \(K_M^{1/2}(1-y/M)\), including
+the dependence on the parity of \(M\), with a uniform error bound
+on a specified interval of \(y\). Use it to decide which large
+truncations take negative values near the boundary.
+
+\paragraph{Task 4: Construct a positive replacement kernel.}
+Find explicit nonnegative weights replacing \(1-m/(M+1)\) that
+make the order-zero Bessel kernel nonnegative and retain enough
+coefficient control for the applications in the source paper.
+
+\paragraph{Task 5: Resolve the coefficient-existence conjectures directly.}
+Prove or refute the endpoint coefficient-existence statement and
+its parity-restricted version in the published paper without
+assuming nonnegativity of the present kernel. Specify the required
+weighted \(L^1\) space in each result.
+
+\begin{thebibliography}{9}
+\bibitem{preprint}
+R.~L. Acosta Babb,
+\emph{A partial converse to the Riemann--Lebesgue lemma for
+Bessel--Fourier series of order zero},
+arXiv:2410.17681v1, 23 October 2024.
+\url{https://arxiv.org/abs/2410.17681}.
+\bibitem{published}
+R.~L. Acosta Babb,
+\emph{On the rate of growth of Bessel--Fourier coefficients for
+integrable functions},
+J. Math. Anal. Appl. \textbf{559} (2026), 130440.
+\url{https://doi.org/10.1016/j.jmaa.2026.130440}.
+Published PDF:
+\url{https://wrap.warwick.ac.uk/id/eprint/199656/1/1-s2.0-S0022247X26000521-main.pdf}.
+\end{thebibliography}
+\end{document}

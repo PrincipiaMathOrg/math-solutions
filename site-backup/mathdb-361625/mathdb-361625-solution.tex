@@ -1,0 +1,215 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,hyperref,enumitem}
+\newtheorem{theorem}{Theorem}
+\newcommand{\Si}{\operatorname{Si}}
+\newcommand{\Ci}{\operatorname{Ci}}
+\title{The endpoint slope of the first zero of $E_{a,2}(-t^a)$}
+\author{Principia Math In Progress}
+\date{21 September 2026}
+\begin{document}
+\maketitle
+\noindent\textbf{Task 1: MathDB 361625.}
+Chaudhary, Diethelm and Hashemishahraki \cite{CDH} conjecture
+\begin{equation}\label{conjecture}
+ Z_2(a)=\pi+(2-a)+o(2-a)\qquad(a\uparrow2),
+\end{equation}
+where $Z_2(a)$ is the smallest positive zero of
+\[
+ G(a,t)=E_{a,2}(-t^a)=\sum_{k\geq0}\frac{(-1)^kt^{ak}}{\Gamma(ak+2)}.
+\]
+The coefficient in \eqref{conjecture} is stated as exactly $1$, both in
+current preprint Conjecture 2(a)(i) and journal-final Conjecture 2(b)(i).
+Here is its exact correction.
+
+\begin{theorem}\label{main}
+For $a$ sufficiently close to $2$, $G(a,\cdot)$ has a smallest positive
+zero, and
+\[
+ \boxed{Z_2(a)=\pi+c(2-a)+O((2-a)^2),\qquad
+ c=\frac{\pi\Ci(\pi)+\Si(\pi)}2.}
+\]
+Moreover $1041/1000<c<1043/1000$, so $c\ne1$.
+Consequently \eqref{conjecture} is false.
+\end{theorem}
+
+Our conventions are
+\[
+ \Si(x)=\int_0^x\frac{\sin u}{u}\,du,\qquad
+ \Ci(x)=\gamma+\log x+\int_0^x\frac{\cos u-1}{u}\,du
+ \quad(x>0),
+\]
+where $\gamma$ is Euler's constant. Numerically,
+$c=1.0416858116364077542380757295\ldots$; the rational enclosure
+below, rather than these digits, proves the separation from $1$.
+The source's conjecture about its threshold near $1.599115206$, its
+collision expansion there, and global monotonicity is not proved or
+refuted individually by this endpoint result. Their conjunction with
+\eqref{conjecture}, as recorded in MathDB, is refuted.
+
+\section*{The first zero is a smooth local branch}
+Put $F(a,t)=tG(a,t)$. At $a=2$ we have
+\[
+ F(2,t)=\sin t,\qquad F(2,\pi)=0,\qquad F_t(2,\pi)=-1.
+\]
+The defining series and its first two parameter and $t$ derivatives
+converge locally uniformly near $(2,\pi)$. For example, on a compact
+rectangle with $3/2\leq a\leq5/2$ and $t$ bounded away from zero,
+$\Gamma(ak+2)\geq(k+1)!$, while derivatives add only polynomial
+factors in $k$ and $\log(k+2)$. A convergent factorial majorant applies.
+Thus the implicit function theorem gives a $C^2$ branch $t=z(a)$,
+with $z(2)=\pi$, and
+\begin{equation}\label{slope}
+ z'(2)=-\frac{F_a(2,\pi)}{F_t(2,\pi)}=F_a(2,\pi).
+\end{equation}
+
+This branch is the \emph{first} positive zero. Choose a small fixed
+$\eta>0$ so that $\cos t<-1/2$ on $[\pi-\eta,\pi+\eta]$.
+For $a$ close enough to $2$, uniform continuity of $F_t$ gives
+$F_t(a,t)<-1/4$ on this interval. Hence it contains exactly one zero,
+namely $z(a)$. On $[0,\pi-\eta]$, the series for $G$ converges
+uniformly for $a$ near $2$, including $t=0$. Its limit
+$G(2,t)=\sin t/t$ (value $1$ at zero) has a positive minimum there.
+It follows that $G(a,t)>0$ throughout that earlier interval. There
+are therefore no positive zeros before $z(a)$.
+
+\section*{An exact expression for the derivative}
+Let $w(t)=F_a(2,t)$ and $H_m=\sum_{j=1}^m1/j$. Differentiating the
+series and using $\psi(2k+2)=H_{2k+1}-\gamma$ gives
+\begin{equation}\label{series}
+ w(t)=\sum_{k\geq1}\frac{(-1)^k k t^{2k+1}}{(2k+1)!}
+               (\log t+\gamma-H_{2k+1}).
+\end{equation}
+Equivalently,
+\begin{equation}\label{integral}
+ w(t)=-\frac12\int_0^t(\log(t-u)+\gamma)u\sin u\,du.
+\end{equation}
+To verify this identity without an inversion formula, use
+\[
+ \int_0^t u^m(\log(t-u)+\gamma)\,du
+ =\frac{t^{m+1}}{m+1}(\log t+\gamma-H_{m+1})
+ \quad(m\geq0).
+\]
+After $u=tv$, the identity follows from
+$\int_0^1v^m\log(1-v)\,dv=-H_{m+1}/(m+1)$, itself obtained by
+integrating the logarithm series. Expand $u\sin u$ in
+\eqref{integral} and integrate termwise, justified by absolute
+convergence against the integrable logarithmic singularity.
+The coefficient identity
+\[
+ \frac{1}{2(2k-1)!(2k+1)}=\frac{k}{(2k+1)!}
+\]
+then gives precisely \eqref{series}.
+
+By \eqref{slope}, the desired coefficient is $c=-w(\pi)$. Changing
+variables $v=\pi-u$ in \eqref{integral} yields
+\begin{equation}\label{cint}
+ c=\frac12\int_0^\pi(\log v+\gamma)(\pi-v)\sin v\,dv.
+\end{equation}
+The following integrations by parts evaluate it:
+\begin{align*}
+ \int_0^\pi\log v\sin v\,dv&=\log\pi+\Ci(\pi)-\gamma,\\
+ \int_0^\pi v\log v\sin v\,dv&=\pi\log\pi-\Si(\pi),\\
+ \int_0^\pi(\pi-v)\sin v\,dv&=\pi.
+\end{align*}
+For the first identity the primitive is
+$-\log v\cos v+\Ci(v)$, with limit $\gamma$ at zero. For the
+second it is $-v\log v\cos v+(\log v+1)\sin v-\Si(v)$, with
+limit zero at zero. Substitution in \eqref{cint} cancels both
+$\gamma$ and $\log\pi$, giving the stated formula. Taylor's theorem
+for the $C^2$ branch gives the $O((2-a)^2)$ remainder.
+
+\section*{A rational certificate that $c\ne1$}
+Here are fully specified finite rational bounds, reproduced by the
+accompanying verifier. No floating-point special-function evaluation
+is used for this certificate. First enclose
+\[
+ p_-:=\frac{31415926535}{10^{10}}<\pi<
+ p_+:=\frac{31415926536}{10^{10}}.
+\]
+These inequalities follow from Machin's identity
+$\pi=16\arctan(1/5)-4\arctan(1/239)$: in each arctangent use
+the first 12 terms of its alternating series and its next term
+as the remainder bound.
+
+For a positive rational $x>1$, put $y=(x-1)/(x+1)$ and
+\[
+ A(x)=2\sum_{j=0}^{49}\frac{y^{2j+1}}{2j+1},\qquad
+ B(x)=A(x)+\frac{2y^{101}}{101(1-y^2)}.
+\]
+The positive series for $\log x$ gives $A(x)<\log x<B(x)$.
+Let $N=2048=2^{11}$. The elementary harmonic-sum bounds give
+\[
+ H_N-11B(2)-\frac1N<\gamma<H_N-11A(2).
+\]
+Indeed, $H_N-\log N-\gamma$ is the positive series
+$\sum_{j\geq N}(\log(1+1/j)-1/(j+1))$, which is less than
+$\sum_{j\geq N}(1/j-1/(j+1))=1/N$.
+Also $A(p_-)<\log\pi<B(p_+)$.
+
+Finally use
+\begin{align*}
+ \Ci(\pi)&=\gamma+\log\pi+
+       \sum_{k=1}^{10}\frac{(-1)^k\pi^{2k}}{2k(2k)!}+R_C,
+ &-\frac{p_+^{22}}{22\cdot22!}<R_C<0,\\
+ \Si(\pi)&=\sum_{k=0}^{10}
+       \frac{(-1)^k\pi^{2k+1}}{(2k+1)(2k+1)!}+R_S,
+ &-\frac{p_+^{23}}{23\cdot23!}<R_S<0.
+\end{align*}
+The term magnitudes decrease since $\pi^2<10$; direct ratios of
+successive terms verify this for both series. Evaluate each positive
+power in $[p_-^j,p_+^j]$, add intervals with the displayed signs,
+and multiply intervals using all four endpoint products. These
+specified rational operations give an enclosing interval
+$[c_-,c_+]$ satisfying the exact integer comparisons
+\[
+ \frac{1041}{1000}<c_-<c_+<\frac{1043}{1000}.
+\]
+The verifier stores both exact rational endpoints. For orientation
+only, they are approximately $1.041302284865325$ and
+$1.042069276032071$. Thus $c>1$ rigorously, finishing the disproof.
+
+\section*{Verification, attribution, and follow-ups}
+The implicit-function argument and parameter differentiation are
+standard methods. Earlier perturbation work on fractional oscillators,
+including \cite{TZ}, is relevant background; these methods are not
+claimed as new. The target result here is the exact first-zero slope
+and its rigorous separation from the source's coefficient. This
+endpoint result for second parameter $2$ is distinct from the
+order-one logarithmic asymptotic for second parameter $1$ in MathDB
+361626. All source and priority checks are recorded separately.
+
+The verifier checks the rational certificate, derivative primitives,
+and series coefficient identity exactly. Supplemental high-precision
+computations compare \eqref{series}, \eqref{integral}, and the closed
+formula, and check the slope with zeros at orders approaching $2$.
+Those supplemental computations do not establish first-zero minimality.
+Review is by the authoring agent only.
+
+\begin{enumerate}[label=\textbf{Task \arabic*:},start=2,leftmargin=*]
+\item Determine the quadratic coefficient of $(2-a)^2$ in $Z_2(a)$
+and give a rigorous enclosure for it.
+\item Derive the corresponding endpoint expansion for every fixed
+positive zero approaching $n\pi$, with its dependence on $n$ explicit.
+\item Prove or refute strict decrease of $Z_2(a)$ throughout the
+whole interval on which the source conjectures its existence.
+\item Rigorously locate the first double-zero threshold and prove
+or refute the proposed square-root collision law there.
+\end{enumerate}
+
+\small
+\begin{thebibliography}{9}
+\bibitem{CDH} R. Chaudhary, K. Diethelm and S. Hashemishahraki,
+On the separation of solutions to fractional differential equations
+of order $\alpha\in(1,2)$, \emph{Applied Numerical Mathematics}
+\textbf{203} (2024), 84--96,
+\href{https://doi.org/10.1016/j.apnum.2024.05.020}{doi:10.1016/j.apnum.2024.05.020}.
+Current preprint: \href{https://arxiv.org/abs/2401.14771}{arXiv:2401.14771v3}.
+\bibitem{TZ} V. E. Tarasov and G. M. Zaslavsky,
+Dynamics with low-level fractionality, \emph{Physica A}
+\textbf{368} (2006), 399--415,
+\href{https://doi.org/10.1016/j.physa.2005.12.015}{doi:10.1016/j.physa.2005.12.015}.
+Inspected preprint: \href{https://arxiv.org/abs/physics/0511138}{arXiv:physics/0511138v1},
+Sections 1--3.2 (through preprint p.~10).
+\end{thebibliography}
+\end{document}

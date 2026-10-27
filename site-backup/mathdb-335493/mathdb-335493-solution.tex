@@ -1,0 +1,121 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[colorlinks=true,urlcolor=blue,linkcolor=blue]{hyperref}
+\newtheorem{theorem}{Theorem}
+\title{A three-vertex counterexample to the\protect\\cospectral quiver mutation conjecture}
+\author{Principia Math in Progress}
+\date{28 September 2026}
+\begin{document}
+\maketitle
+
+\section*{Task 1: resolve MathDB 335493}
+For a cluster quiver $Q$, let $\operatorname{Mut}(Q)$ denote its mutation
+class. Li and Liu's Conjecture 4.6 asks whether any two quivers in this
+class with the same exchange spectrum can be connected by mutations
+at sinks and sources, after allowing an initial quiver isomorphism
+\cite{LL}. We disprove this assertion.
+
+We use the convention $b_{ij}>0$ for $b_{ij}$ arrows from $i$ to $j$.
+Changing the exchange-matrix sign convention does not change the proof.
+Multiple arrows are permitted; loops and oriented two-cycles are not.
+A sink has no outgoing arrows, and a source has no incoming arrows.
+
+\begin{theorem}
+Let $Q$ have three vertices and exactly the following arrow bundles:
+\[
+1\xrightarrow{\ 3\ }2,\qquad
+2\xrightarrow{\ 4\ }3,\qquad
+3\xrightarrow{\ 6\ }1.
+\]
+Then $Q$ and its opposite quiver $Q^{\mathrm{op}}$ belong to the same
+mutation class and have equal exchange spectra. There is no quiver
+isomorphic to $Q$ from which $Q^{\mathrm{op}}$ can be obtained by
+mutations at sinks and sources.
+\end{theorem}
+
+\begin{proof}
+Mutate at vertex $2$. The three arrows $1\to2$ and four arrows
+$2\to3$ create twelve arrows $1\to3$. Cancelling against the six
+existing arrows $3\to1$ leaves six arrows $1\to3$. Reversing the
+arrows incident to vertex $2$ leaves three arrows $2\to1$ and four
+arrows $3\to2$. Thus
+\[
+\mu_2(Q)=Q^{\mathrm{op}},\qquad
+B(Q)=\begin{pmatrix}0&3&-6\\-3&0&4\\6&-4&0\end{pmatrix},
+\qquad B(Q^{\mathrm{op}})=-B(Q).
+\]
+In particular both quivers lie in $\operatorname{Mut}(Q)$.
+Direct expansion gives
+\[
+\det(\lambda I-B(Q))
+=\lambda^3+(3^2+4^2+6^2)\lambda
+=\lambda(\lambda^2+61)
+=\det(\lambda I-B(Q^{\mathrm{op}})).
+\]
+Both exchange spectra are therefore $\{0,i\sqrt{61},-i\sqrt{61}\}$,
+with the displayed algebraic multiplicities.
+
+The quivers are not isomorphic. An isomorphism must preserve the number
+of arrows between each unordered pair of vertices. The three such
+numbers are distinct, so each of the three underlying edges must map
+to itself. Intersecting two edges forces each vertex to be fixed.
+The resulting identity vertex map cannot reverse an arrow, whereas
+every arrow of $Q^{\mathrm{op}}$ is reversed from $Q$.
+
+Finally, every vertex of $Q$ has both an incoming and an outgoing
+arrow. This property is invariant under quiver isomorphism. Hence
+no quiver $R$ isomorphic to $Q$ admits even a first mutation at a
+sink or source. The only possible such sequence is the empty one;
+it would require $R=Q^{\mathrm{op}}$, contradicting the
+nonisomorphism just proved. This rules out every possible $R$ in
+the conjecture and proves the counterexample.
+\end{proof}
+
+\paragraph{Source scope.}
+The conjecture is unchanged between the 19-page arXiv manuscript
+(Conjecture 4.6, p.~15) and the final 29-page article
+(Conjecture 4.6, printed p.~1555). Both entire versions were read.
+The neighboring Theorem 4.5 excludes three-cycles; the conjecture
+has no such restriction. The source's definition allows multiple
+arrows, so the example satisfies the intended hypotheses. The
+argument does not address a modified conjecture restricted to
+acyclic or finite-type mutation classes.
+
+\paragraph{Verification and review.}
+The accompanying integer-arithmetic verifier checks the mutation
+formula, both characteristic polynomials, all six vertex permutations,
+and the absence of sinks and sources. These checks certify the finite
+example; the proof above explains why no arbitrarily long allowed
+sequence can work. The live MathDB and bounded literature checks
+found no prior full resolution claim. Their sources and limitations
+are recorded in the separate audit. This is author-agent review,
+not independent peer review.
+
+\section*{Tasks 2--5: proposed follow-up problems}
+These are separate research proposals, not completed results.
+\begin{enumerate}
+\setcounter{enumi}{1}
+\item For each mutation class on three vertices, classify the
+isomorphism classes of quivers having a prescribed exchange polynomial,
+and determine their components under sink and source mutations.
+\item Determine whether Conjecture 4.6 holds for every quiver whose
+mutation class is of finite Dynkin type, including types $D$ and $E$.
+\item Characterize all four-vertex quivers and vertices $k$ for which
+mutation at $k$ preserves the exchange polynomial, using explicit
+conditions on the six signed arrow multiplicities.
+\item Decide whether two cospectral quivers in one mutation class must
+be connected, up to isomorphism, by a sequence of mutations each of
+which preserves the exchange polynomial; if false, construct a
+counterexample of minimum vertex number.
+\end{enumerate}
+
+\begin{thebibliography}{9}
+\bibitem{LL} Fang Li and Siyang Liu,
+\emph{On exchange spectra of valued quivers and cluster algebras},
+Pure Appl. Math. Q. \textbf{16} (2020), no.~5, 1533--1561.
+\href{https://doi.org/10.4310/PAMQ.2020.v16.n5.a6}{doi:10.4310/PAMQ.2020.v16.n5.a6}.
+Preprint: \href{https://arxiv.org/abs/1703.02225}{arXiv:1703.02225v1},
+\emph{On Exchange Spectra of Valued Cluster Quivers and Cluster Algebras}.
+\end{thebibliography}
+\end{document}

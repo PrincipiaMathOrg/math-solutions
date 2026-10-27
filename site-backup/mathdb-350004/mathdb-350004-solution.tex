@@ -1,0 +1,290 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[colorlinks=true,urlcolor=blue,linkcolor=blue,citecolor=blue]{hyperref}
+\setlength{\emergencystretch}{1em}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\title{Positive coefficients for the elliptic-integral\\upper remainder and its companion functions}
+\author{Principia Math in Progress}
+\date{12 September 2026}
+\begin{document}
+\maketitle
+
+\paragraph{Task 1: Resolve MathDB 350004.}
+We complete Conjecture 5.1 of Qiu--Bao--Ma--Jiang \cite{QBMJ}.
+The principal new step is positivity of every coefficient of the
+upper remainder \(h_{11}\). For the quotient \(G\), we explicitly use
+the recently published theorem of Yang--Zhao \cite{YZ}; the resulting
+proof does not claim that already established part as new.
+
+Put \(x=r^2\), and write
+\[
+ F_0(x)={}_2F_1(\tfrac12,\tfrac12;1;x)
+       =\frac2\pi\mathcal K(\sqrt x),\qquad
+ F_1(x)={}_2F_1(\tfrac12,1;\tfrac32;x)
+       =\frac{\operatorname{arctanh}\sqrt x}{\sqrt x}.
+\]
+Let \(A=\log F_0\), \(L=\log F_1\), and \(Q=A/L\), with the
+removable value \(Q(0)=3/4\). The six functions in the conjecture are
+\begin{align*}
+ G(r)&=Q(x),&
+ f(r)&=\frac{Q(x)-3/4}{x},&
+ f_7(r)&=\frac{L(x)}x,\\
+ h_{11}(r)&=\frac{H(x)}{x^2},&
+ H(x)&=\frac{3+x}{4}L(x)-A(x),&
+ h_{13}(r)&=\frac{A(x)}x,\\
+ h_{12}(r)&=\frac{A(x)-(3/4+x/320)L(x)}{x^3}.
+\end{align*}
+
+\begin{theorem}\label{thm:main}
+Each of \(f,G,f_7,h_{11},h_{12},h_{13}\) has a convergent expansion
+\(\sum_{n\geq0}c_nr^{2n}\) for \(0\leq r<1\), with \(c_n>0\)
+for every \(n\). In particular all six functions are strictly
+absolutely monotone on \((0,1)\): every derivative, including order
+zero, is positive there. The function \(f\) is strictly convex, and
+\(h_{11},h_{12}\) are strictly increasing and strictly convex, with ranges
+\[
+ h_{11}((0,1))=(79/960,\log(\pi/2)),\qquad
+ h_{12}((0,1))=(517/604800,\infty).
+\]
+\end{theorem}
+
+As the displayed source expansions make clear, positive
+coefficients refers to the even-power series. Odd powers have
+zero coefficients, since all six functions are even.
+
+\paragraph{A coefficient-sign lemma.}
+We give the elementary reciprocal argument underlying the proof,
+so no unproved coefficient-positivity criterion is needed.
+
+\begin{lemma}\label{lem:sign}
+Suppose \(B(x)=\sum_{n\geq0}b_nx^n\), \(b_0=1\), \(b_n>0\),
+has radius of convergence at least one, and \(b_n/b_{n-1}\) is
+nondecreasing. Then
+\[
+ \frac1{B(x)}=1-\sum_{n\geq1}c_nx^n,\qquad 0\leq c_n\leq b_n.
+\]
+If the ratios are strictly increasing, every \(c_n\) is positive.
+If \(U(x)=\sum_{n\geq0}u_nx^n\) has positive coefficients and
+\(u_n/b_n\) is nonincreasing, every nonconstant coefficient of \(U/B\)
+is nonpositive. It is strictly negative when both ratio
+conditions are strict.
+\end{lemma}
+\begin{proof}
+Coefficient comparison determines
+\[
+ c_n=b_n-\sum_{j=1}^{n-1}c_jb_{n-j}.
+\]
+Inductively, \(c_1=b_1>0\), and
+\[
+ \sum_{j=1}^{n-1}c_jb_{n-j}
+ \leq\frac{b_n}{b_{n-1}}
+      \sum_{j=1}^{n-1}c_jb_{n-1-j}
+ =b_n.
+\]
+Thus \(0\leq c_n\leq b_n\). For strictly increasing ratios the
+inequality is strict when \(n\geq2\), already in the \(j=1\) term.
+The bound \(c_n\leq b_n\) ensures convergence on the unit disk.
+For \(n\geq1\), set \(\rho_n=u_n/b_n\). Then
+\[
+ [x^n]\frac{U}{B}
+ =u_n-\sum_{j=1}^nc_ju_{n-j}
+ =\sum_{j=1}^nc_jb_{n-j}(\rho_n-\rho_{n-j})\leq0.
+\]
+Strictness follows from the \(j=n\) term.
+\end{proof}
+
+\paragraph{Three quotients with negative coefficients.}
+Define
+\[
+ G_0(x)={}_2F_1(\tfrac12,\tfrac12;2;x),\qquad
+ G_1(x)={}_2F_1(\tfrac12,1;\tfrac52;x).
+\]
+Direct series comparison gives
+\begin{equation}\label{eq:derivatives}
+ F_0'=\frac{G_0}{4(1-x)},\qquad
+ F_1'=\frac{G_1}{3(1-x)}.
+\end{equation}
+Write \(a_n=( (1/2)_n/n!)^2\). The four coefficient sequences are
+\[
+ [x^n]F_0=a_n,\quad [x^n]F_1=\frac1{2n+1},\quad
+ [x^n]G_0=\frac{a_n}{n+1},\quad
+ [x^n]G_1=\frac3{(2n+1)(2n+3)}.
+\]
+The denominator sequences of \(G_0/F_0\), \(G_1/F_1\), and \(G_0/G_1\)
+are strictly log-convex: their consecutive ratios are respectively
+\[
+ \left(\frac{n-1/2}{n}\right)^2,\qquad
+ \frac{2n-1}{2n+1},\qquad
+ \frac{2n-1}{2n+3}\qquad(n\geq1),
+\]
+all strictly increasing.
+For the first two quotients, the ratios of numerator to denominator
+coefficients are \(1/(n+1)\) and \(3/(2n+3)\), both strictly decreasing.
+For the third, if \(\rho_n=[x^n]G_0/[x^n]G_1\), then
+\[
+ \frac{\rho_{n+1}}{\rho_n}
+ =\frac{(n+1/2)(n+5/2)}{(n+1)(n+2)}<1.
+\]
+Lemma \ref{lem:sign} therefore proves that all three quotients have
+constant coefficient one and strictly negative coefficients
+at every positive degree.
+
+\paragraph{The upper remainder has positive coefficients.}
+First, Lemma \ref{lem:sign} gives \(1/F_1=1-C\), where every
+coefficient of \(C\), starting at degree one, is positive.
+For \(0<x<1\), \(C(x)<1\). Thus
+\[
+ L(x)=-\log(1-C(x))=\sum_{j\geq1}\frac{C(x)^j}{j}
+\]
+has strictly positive coefficients at all positive degrees.
+The same argument applies to \(A=\log F_0\).
+
+Next set
+\[
+ P_0(x)=\frac{(1-x)^{-1/4}}{F_0(x)},\qquad
+ P_1(x)=\frac{(1-x)^{-1/3}}{F_1(x)}.
+\]
+By \eqref{eq:derivatives},
+\[
+ (\log P_0)'=\frac{1-G_0/F_0}{4(1-x)},\qquad
+ (\log P_1)'=\frac{1-G_1/F_1}{3(1-x)}.
+\]
+Both right sides have nonnegative coefficients. Integration from
+zero and exponentiation show that \(P_0,P_1\) have nonnegative
+coefficients and constant coefficient one. Consequently so does
+\begin{equation}\label{eq:positivefactor}
+ \frac1{(1-x)F_0F_1}=(1-x)^{-5/12}P_0P_1.
+\end{equation}
+
+Introduce the source's auxiliary function
+\[
+ J(x)=F_0(x)-F_1(x)\frac{F_0'(x)}{F_1'(x)}
+     =F_0(x)-\frac34F_1(x)\frac{G_0(x)}{G_1(x)}.
+\]
+Differentiation cancels the first-order terms:
+\[
+ J'(x)=-\frac34F_1(x)\left(\frac{G_0(x)}{G_1(x)}\right)'.
+\]
+The preceding quotient-sign result proves that every coefficient
+of \(J'\) is strictly positive, and \(J(0)=1/4\).
+Since \(a_n<a_{n-1}\) for \(n\geq1\), the series \((1-x)F_0\)
+has constant coefficient one and negative coefficients thereafter.
+It follows that
+\[
+ T(x)=4J(x)-(1-x)F_0(x)
+\]
+has zero constant coefficient and strictly positive coefficients
+at every positive degree.
+
+The following identity now closes the proof for \(h_{11}\):
+\begin{equation}\label{eq:key}
+ 4H'(x)=L(x)+\frac{G_1(x)T(x)}{3(1-x)F_0(x)F_1(x)}.
+\end{equation}
+It follows directly by differentiating \(H\) and using
+\eqref{eq:derivatives}. Every factor on the right has nonnegative
+coefficients, by \eqref{eq:positivefactor}; \(L\) supplies a strictly
+positive coefficient at every positive degree.
+The constant coefficient is zero. As \(H(0)=0\), integration proves
+\[
+ H(x)=\sum_{n\geq2}d_nx^n,\qquad d_n>0.
+\]
+Dividing by \(x^2\) proves precisely the required coefficient
+positivity of \(h_{11}\).
+
+\paragraph{The other five functions.}
+Yang--Zhao's Theorem 1.1 and its coefficient conclusion
+(6.11)--(6.15) \cite{YZ} establish
+\begin{equation}\label{eq:known}
+ Q(x)=\sum_{n\geq0}q_nx^n,\quad
+ q_n>0,\quad q_0=\frac34,\quad q_1=\frac1{320},\quad
+ q_2=\frac{517}{201600},\qquad 0\leq x<1.
+\end{equation}
+We use this established result with attribution.
+It immediately proves the positive coefficients of \(G\) and
+\(f=(Q-q_0)/x\). The previous logarithm argument proves those
+of \(f_7=L/x\) and \(h_{13}=A/x\). Finally,
+\[
+ h_{12}(r)
+ =\frac{L(x)}x\,
+   \frac{Q(x)-q_0-q_1x}{x^2}
+\]
+is a product of two series having strictly positive coefficients.
+This proves every coefficient assertion.
+
+All series converge on the unit disk. This follows from the
+coefficient bounds in Lemma \ref{lem:sign}, the displayed convergent
+products and logarithms, and \eqref{eq:known}. Termwise
+differentiation is therefore valid locally on \((0,1)\).
+For any derivative order in \(r\), infinitely many even monomials
+of sufficiently high degree give positive contributions.
+This proves strict absolute monotonicity, strict increase,
+and strict convexity as stated.
+
+\paragraph{Endpoint values and ranges.}
+The first two logarithm coefficients are
+\[
+ A(x)=\frac x4+\frac{7x^2}{64}+O(x^3),\qquad
+ L(x)=\frac x3+\frac{13x^2}{90}+O(x^3).
+\]
+Thus \(H(x)=79x^2/960+O(x^3)\); also \eqref{eq:known} gives
+\[
+ h_{12}(0+)=\frac13q_2=\frac{517}{604800}.
+\]
+As \(x\uparrow1\), the standard elementary/elliptic asymptotics give
+\[
+ F_0(x)\sim\frac1\pi\log\frac1{1-x},\qquad
+ F_1(x)\sim\frac12\log\frac1{1-x}.
+\]
+Consequently \(L-A\to\log(\pi/2)\), \(L\to\infty\), and
+\((1-x)L\to0\). Therefore
+\[
+ H=L-A-\frac{1-x}{4}L\longrightarrow\log(\pi/2),
+\]
+while
+\[
+ A-(3/4+x/320)L
+ =\left(1-\frac34-\frac{x}{320}\right)L+(A-L)
+ \longrightarrow+\infty.
+\]
+Strict increase and continuity give both exact open ranges.
+Theorem \ref{thm:main}, and hence the entire conjecture, follows.
+
+\paragraph{Task 2: Extend the upper-remainder argument.}
+Determine the hypergeometric parameter pairs for which an analogue of
+\(H(x)=((3+x)/4)\log F_1(x)-\log F_0(x)\) has positive coefficients
+after removing its initial zeros.
+
+\paragraph{Task 3: Optimize bounds from truncated remainders.}
+Use the positive coefficients of \(h_{11}\) and \(h_{12}\), together
+with their endpoint behavior, to derive sharp two-sided bounds for
+\(\mathcal K(r)\) at any prescribed truncation degree.
+
+\paragraph{Task 4: Describe the upper-remainder coefficients.}
+Determine asymptotic formulas and any Hausdorff-moment or
+log-convexity properties of the sequence \((d_{n+2})_{n\geq0}\).
+
+\paragraph{Task 5: Find a direct proof for the quotient coefficients.}
+Seek an elementary coefficient argument for \eqref{eq:known}
+that integrates with Lemma \ref{lem:sign} and extends to nearby
+hypergeometric parameter families.
+
+\begin{thebibliography}{9}
+\bibitem{QBMJ}
+S.-L.\ Qiu, Q.\ Bao, X.-Y.\ Ma, and H.-B.\ Jiang,
+On a Conjecture Concerning the Approximates of Complete Elliptic
+Integral of the First Kind by Inverse Hyperbolic Tangent,
+\href{https://arxiv.org/abs/2103.04072}{arXiv:2103.04072v1} (2021),
+Conjecture 5.1, p.~21; Lemma 2.2 and equation (4.2).
+
+\bibitem{YZ}
+Z.-H.\ Yang and T.-H.\ Zhao,
+On the absolute monotonicity related to Alzer--Qiu's conjecture,
+\emph{Integral Transforms and Special Functions}, published online
+13 April 2026,
+\href{https://doi.org/10.1080/10652469.2026.2657542}
+{doi:10.1080/10652469.2026.2657542},
+Theorem 1.1 and equations (6.11)--(6.15).
+\end{thebibliography}
+\end{document}

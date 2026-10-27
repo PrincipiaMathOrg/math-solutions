@@ -1,0 +1,148 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,hyperref}
+\newtheorem{proposition}{Proposition}
+\newcommand{\R}{\mathbb R}
+\title{Two matrices with identical central zonotopal algebras\newline
+but different projective configurations}
+\author{Principia Math in Progress}
+\date{27 September 2026}
+\begin{document}
+\maketitle
+\begin{abstract}
+The central matrix-algebra conjecture in MathDB 338791 is false.
+Two explicit bridge-free $2\times4$ integer matrices have identical central
+zonotopal ideals, but their column configurations have disjoint cross-ratio
+orbits and hence are not $z$-equivalent.
+\end{abstract}
+
+\section*{Task 1. The original conjecture}
+For a full-row-rank real matrix $A$ with columns $v_1,\ldots,v_m$, put
+$Z_A=\sum_i[0,v_i]$. For each facet $H$ of $Z_A$, choose a nonzero normal
+$\eta_H$, and let $m(H)$ count the nonzero entries of $\eta_H A$.
+The central zonotopal algebra is
+\[
+ C_A^{\mathcal C}=\R[x_1,\ldots,x_n]/I_A^{\mathcal C},\qquad
+ I_A^{\mathcal C}=\langle(\eta_H\cdot x)^{m(H)}:H\text{ a facet}\rangle.
+\]
+Two matrices are $z$-equivalent if their row spaces differ by an invertible
+diagonal coordinate change and a coordinate permutation. A bridge-column
+is a column whose deletion lowers the rank. The conjecture asserts that
+isomorphism of central algebras, graded or ungraded, is equivalent to
+$z$-equivalence after removing bridge-columns and corresponding dependent
+rows. This is Conjecture 2 in the preprint and Conjecture 16 in the final
+article \cite{N}. The following examples have no bridge-columns, so no
+reduction is needed.
+
+\begin{proposition}
+For $t\in\R\setminus\{0,1\}$ let
+\[
+ A_t=\begin{pmatrix}1&0&1&1\\0&1&1&t\end{pmatrix}.
+\]
+Then $I_{A_t}^{\mathcal C}=(x,y)^3$. Nevertheless, $A_2$ and $A_3$ are not
+$z$-equivalent. Thus they disprove the conjecture.
+\end{proposition}
+
+\begin{proof}
+Every two columns of $A_t$ are independent. Hence its rank is two and
+deleting any single column leaves rank two. Its zonotope has four pairs
+of parallel edges, parallel to its four distinct column directions.
+Indeed, for any normal $\eta$, the face maximizing $\eta\cdot z$ fixes an
+endpoint of each segment with $\eta\cdot v_i\ne0$, and leaves free the
+segments with $\eta\cdot v_i=0$. Such a face is an edge exactly when one
+column direction is perpendicular to $\eta$.
+
+We may therefore use the four normal directions
+$(1,0),(0,1),(1,-1),(t,-1)$. Each normal annihilates exactly one column,
+so all four exponents are three. Consequently
+\begin{equation}\label{ideal}
+ I_{A_t}^{\mathcal C}
+ =\langle x^3,y^3,(x-y)^3,(tx-y)^3\rangle.
+\end{equation}
+Modulo $\langle x^3,y^3\rangle$, the last two generators have coefficient
+matrix, in the basis $x^2y,xy^2$,
+\[
+ \begin{pmatrix}-3&3\\-3t^2&3t\end{pmatrix},
+ \qquad\det=9t(t-1)\ne0.
+\]
+They therefore generate both mixed cubic monomials as well. All four
+generators in \eqref{ideal} are homogeneous cubics, proving equality with
+$(x,y)^3$. In particular both algebras are literally
+\[
+ \R[x,y]/(x,y)^3,
+\]
+with graded basis $1,x,y,x^2,xy,y^2$ and Hilbert series $1+2q+3q^2$.
+
+It remains to rule out $z$-equivalence. For four nonproportional vectors
+$w_1,\ldots,w_4\in\R^2$, define
+\[
+ r(w_1,w_2,w_3,w_4)
+ =\frac{\det(w_1,w_3)\det(w_2,w_4)}
+ {\det(w_1,w_4)\det(w_2,w_3)}.
+\]
+This number is unchanged by a common invertible linear transformation or
+by independent nonzero rescalings of the vectors: the determinant factors
+cancel. Permuting the vectors gives the set
+\begin{equation}\label{orbit}
+ \left\{r,\frac1r,1-r,\frac1{1-r},
+ \frac r{r-1},\frac{r-1}r\right\}.
+\end{equation}
+For completeness, adjacent transpositions change the ratio by $r\mapsto
+1/r$ or $r\mapsto1-r$; these generate precisely the six displayed
+expressions. Coincidences can reduce the number of distinct values.
+For the columns of $A_t$ in their displayed order, the ratio is $1/t$.
+Thus the two permutation orbits are
+\[
+ \mathcal R(A_2)=\{-1,\tfrac12,2\},\qquad
+ \mathcal R(A_3)=\{-2,-\tfrac12,\tfrac13,\tfrac23,\tfrac32,3\}.
+\]
+They are disjoint. If the row spaces of $A_2$ and a column-permuted and
+column-rescaled $A_3$ were equal, their two row bases would differ by an
+invertible $2\times2$ matrix. This would give projectively equivalent
+column configurations, contradicting the disjoint orbits. Both algebra
+isomorphism conditions hold, while the third conjectured condition fails.
+\end{proof}
+
+The same computation gives infinitely many inequivalent realizations with
+this one central algebra. In fact, for $s,t>2$, \eqref{orbit} contains just
+one value greater than two, namely the parameter itself; hence
+$A_s\sim_z A_t$ forces $s=t$. All these matrices represent the same uniform
+matroid $U_{2,4}$. The result concerns arbitrary real matrices and does not
+resolve the separate conjecture for graphical or totally unimodular
+configurations.
+
+\section*{Verification and scope}
+The accompanying exact verifier checks every column deletion, enumerates
+the zonotope vertices and facet directions, computes the full cubic
+coefficient matrices, and evaluates all 24 column orderings. As a separate
+check, it rules out all 24 projective matchings by rational linear algebra,
+with self-equivalences as positive controls. Computation supports the
+explicit proof; no numerical approximation is needed. The source's
+displayed square dimension for the reduced matrix is inconsistent with
+the stated deletion operation. Here that operation deletes nothing, so
+the counterexample addresses its intended meaning without using that typo.
+The proof was checked by its authoring agent, without independent peer
+review or a proof assistant.
+
+\section*{Four follow-up tasks}
+These are further questions, not additional campaign credits or claims of
+new open problems.
+\begin{description}
+\item[Task 2.] Classify the central algebras of rank-two configurations
+with repeated column directions, in terms of their multiplicities and
+projective parameters.
+\item[Task 3.] Determine for each uniform matroid $U_{n,m}$ whether all
+real realizations have the same central algebra, and describe that algebra.
+\item[Task 4.] Resolve the separate graphical conjecture: does the central
+algebra determine the graphical matroid after bridge deletion?
+\item[Task 5.] Find a natural additional structure on the central algebra
+that recovers the projective column configuration, including its cross ratios.
+\end{description}
+
+\begin{thebibliography}{1}
+\bibitem{N} G. Nenashev, \emph{Classification of external Zonotopal algebras},
+Electronic Journal of Combinatorics 26(1) (2019), P1.32,
+\href{https://doi.org/10.37236/8299}{doi:10.37236/8299};
+preprint \href{https://arxiv.org/abs/1803.09966}{arXiv:1803.09966v1}.
+\end{thebibliography}
+\end{document}

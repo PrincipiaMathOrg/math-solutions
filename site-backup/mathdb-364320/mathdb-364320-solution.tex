@@ -1,0 +1,260 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,hyperref}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newcommand{\dd}{\,d}
+\newcommand{\R}{\mathbb R}
+\title{All-order monotonicity of iterated parabolic-cylinder ratios\\
+\large MathDB 364320: a spectral proof}
+\author{Principia Math In Progress}
+\date{17 September 2026; source audit updated 22 September 2026}
+\begin{document}
+\maketitle
+
+\paragraph{Task 1: the original problem.}
+For $n>1/2$ and $x\in\R$, set
+\[
+ R_n^{[1]}(x)=\frac{U(n-1,x)}{U(n,x)},\qquad
+ R_n^{[k+1]}(x)=\frac{R_n^{[k]}(x)}{R_{n+1}^{[k]}(x)}.
+\]
+Here $U$ is the standard parabolic cylinder function. We prove the substantive
+all-order assertions of Segura's Conjecture 3.6 in \cite{Segura}.
+The comparison between successive orders starts at $k=2$:
+the unqualified comparison printed in the source cannot include $k=1$,
+since $R_n^{[1]}(x)\sim x$ and $R_n^{[2]}(x)\to1$ as $x\to+\infty$.
+We do not use that indexing issue as a counterexample or as research credit.
+
+\begin{theorem}\label{thm:main}
+For every real $n>1/2$, every real $x$, and every integer $k\ge1$,
+$R_n^{[k]}(x)>0$ and
+\[
+ \frac{d}{dx}R_n^{[k]}(x)>0.
+\]
+For every integer $k\ge2$,
+\[
+ 0<R_n^{[k]}(x)<R_n^{[k+1]}(x)<1,
+ \qquad \lim_{x\to+\infty}R_n^{[k]}(x)=1.
+\]
+Furthermore, for every fixed $n>1/2$ and finite real $x$,
+\[
+ \lim_{k\to\infty}R_n^{[k]}(x)=1.
+\]
+\end{theorem}
+
+\paragraph{Publication scope.}
+The proof below is complete for these quantifiers. All 23 pages of the
+author's manuscript announced as forthcoming in AMS Contemporary Mathematics
+have now been read; Conjecture 3.6 remains unresolved there. Acceptance is
+inferred from the explicit author announcement, supported by the reviewer
+acknowledgement and publication list. The audit assigns one new campaign
+credit on that source basis. The separate typeset publisher chapter remains
+unread; no identity with it is asserted. The accompanying audit records this
+revision of the earlier stricter publisher-copy requirement and the bounded
+public-claim checks. The mathematical proof is unchanged.
+
+\section*{A positive spectral representation}
+Write $D_{-a}(t)=U(a-1/2,t)$. For $a>0$,
+\begin{equation}\label{eq:integral}
+ D_{-a}(t)=\frac{e^{-t^2/4}}{\Gamma(a)}
+ \int_0^\infty s^{a-1}e^{-s^2/2-ts}\dd s>0,
+ \qquad D_0(t)=e^{-t^2/4}.
+\end{equation}
+In particular all ratios in the theorem are defined and positive. The
+integral also gives Gaussian decay, with at most polynomial factors,
+as $t\to+\infty$, including the first two $t$-derivatives. The standard
+equation and derivative identity are
+\begin{equation}\label{eq:ode}
+ D_{-a}''(t)=\left(\frac{t^2}{4}-\frac12+a\right)D_{-a}(t),
+ \qquad
+ D_\nu'(t)=\frac t2D_\nu(t)-D_{\nu+1}(t).
+\end{equation}
+They can also be obtained by differentiating \eqref{eq:integral} and
+integrating by parts; see \cite{DLMF} for the normalizations.
+
+Fix a real endpoint $x$. Let $H_x$ be the Dirichlet self-adjoint realization
+on $L^2(x,\infty)$ of
+\[
+ -\frac{d^2}{dt^2}+\frac{t^2}{4}-\frac12.
+\]
+More explicitly it is the Friedrichs operator of the closure, initially on
+$C_c^\infty(x,\infty)$, of the quadratic form
+\begin{equation}\label{eq:factor}
+ \int_x^\infty\left(|u'|^2+
+       \left(\frac{t^2}{4}-\frac12\right)|u|^2\right)\dd t
+ =\int_x^\infty\left|u'+\frac t2u\right|^2\dd t.
+\end{equation}
+Thus $H_x\ge0$. It has no zero eigenvector: equality in
+\eqref{eq:factor} would imply $u(t)=c e^{-t^2/4}$, and its Dirichlet
+boundary value forces $c=0$.
+
+Put
+\[
+ v_a(t)=\frac{D_{-a}(t)}{D_{-a}(x)},\qquad
+ v_0(t)=e^{-(t^2-x^2)/4},\qquad
+ m_x(a)=-\frac{D_{-a}'(x)}{D_{-a}(x)}.
+\]
+The function $v_0$ is a nonzero vector of $L^2(x,\infty)$; it is not
+asserted to satisfy the Dirichlet boundary condition. Let $E_x$ be the
+spectral resolution of $H_x$ and define the finite positive measure
+\[
+ \nu_x(B)=\langle v_0,E_x(B)v_0\rangle.
+\]
+It has positive total mass and is supported on $(0,\infty)$, since
+$H_x\ge0$ and $\ker H_x=\{0\}$.
+
+\begin{lemma}\label{lem:weyl}
+For every $a>0$,
+\begin{equation}\label{eq:mrep}
+ m_x(a)=\frac x2+
+ \int_{(0,\infty)}\frac{a\lambda}{\lambda+a}\dd\nu_x(\lambda).
+\end{equation}
+Consequently,
+\begin{equation}\label{eq:increment}
+ m_x(a+1)-m_x(a)=
+ \int_{(0,\infty)}
+ \frac{\lambda^2}{(\lambda+a)(\lambda+a+1)}\dd\nu_x(\lambda).
+\end{equation}
+\end{lemma}
+\begin{proof}
+Both $v_a$ and $v_0$ have boundary value $1$. Their difference has zero
+boundary value, is square integrable, and, by \eqref{eq:ode} and the
+decay stated above, belongs to the Dirichlet operator domain. The equation
+for this difference is
+\[
+ (H_x+a)(v_a-v_0)=-a v_0.
+\]
+The resolvent exists for $a>0$, so
+\begin{equation}\label{eq:resolvent}
+ v_a=v_0-a(H_x+a)^{-1}v_0.
+\end{equation}
+On the other hand, the Wronskian
+$W(t)=v_0(t)v_a'(t)-v_0'(t)v_a(t)$ satisfies
+$W'(t)=a v_0(t)v_a(t)$. Its limit at infinity is zero, and
+$W(x)=-m_x(a)+x/2$. Integration therefore gives
+\[
+ m_x(a)-\frac x2
+ =a\langle v_0,v_a\rangle
+ =a\langle v_0,[I-a(H_x+a)^{-1}]v_0\rangle.
+\]
+The spectral theorem and \eqref{eq:resolvent} give \eqref{eq:mrep}.
+Its integral is finite because $0\le a\lambda/(\lambda+a)\le a$ and
+$\nu_x$ is finite. Subtracting the two representations proves
+\eqref{eq:increment}; its integrand lies between zero and one.
+\end{proof}
+
+\section*{An explicit positive formula at every order}
+Set $a=n-1/2>0$. Since $R_n^{[1]}=D_{-a}/D_{-a-1}$,
+\eqref{eq:increment} gives
+\begin{equation}\label{eq:base}
+ \frac{d}{dx}\log R_n^{[1]}(x)
+ =m_x(a+1)-m_x(a)
+ =\int\frac{\lambda^2}{(\lambda+a)(\lambda+a+1)}\dd\nu_x(\lambda).
+\end{equation}
+The measure is held fixed while taking differences in $a$. No derivative
+of the endpoint-dependent measure with respect to $x$ is being taken.
+
+Let $\Delta f(a)=f(a+1)-f(a)$ and $(b)_j=b(b+1)\cdots(b+j-1)$.
+The defining ratio recurrence implies
+\[
+ \log R_n^{[k]}(x)=(-1)^{k-1}\Delta^{k-1}
+                        \log R_n^{[1]}(x).
+\]
+For $b>0$ and $p\ge0$, the elementary identity
+\begin{equation}\label{eq:fd}
+ (-1)^p\Delta^p\frac1{b(b+1)}=\frac{(p+1)!}{(b)_{p+2}}
+\end{equation}
+follows by induction from
+$1/(b)_j-1/(b+1)_j=j/(b)_{j+1}$.
+Taking this finite linear combination in \eqref{eq:base} yields
+\begin{equation}\label{eq:positive}
+ \boxed{\quad
+ \frac{d}{dx}\log R_n^{[k]}(x)=
+ k!\int_{(0,\infty)}
+ \frac{\lambda^2}{(\lambda+a)_{k+1}}\dd\nu_x(\lambda)>0.
+ \quad}
+\end{equation}
+All integrals converge: the kernel for $k=1$ is bounded by one, and the
+ratio of the kernel for $k+1$ to that for $k$ is
+\begin{equation}\label{eq:kernelratio}
+ \frac{k+1}{\lambda+a+k+1}<1.
+\end{equation}
+Strict positivity follows from the nonzero positive measure on $(0,\infty)$.
+Since the ratios themselves are positive, \eqref{eq:positive} proves their
+strict increase in $x$ for every $k\ge1$.
+
+\section*{The upper bound and both limits}
+In \eqref{eq:integral}, substitute $s=u/x$ for $x>0$.
+Dominated convergence, with majorant $u^{a-1}e^{-u}$, proves
+\[
+ D_{-a}(x)\sim e^{-x^2/4}x^{-a},\qquad
+ R_n^{[1]}(x)\sim x\qquad(x\to+\infty).
+\]
+For every fixed $k\ge2$, the expression for $\log R_n^{[k]}$ is a finite
+difference of $\log x+o(1)$, so its limit is zero. Strict increase in $x$
+then gives $\log R_n^{[k]}(x)<0$ for every finite $x$, proving
+$R_n^{[k]}(x)<1$. The recurrence immediately gives
+\[
+ R_n^{[k+1]}(x)=R_n^{[k]}(x)/R_{n+1}^{[k]}(x)>R_n^{[k]}(x)
+ \qquad(k\ge2).
+\]
+
+For completeness, the limit in the order also follows from the same
+kernel. For fixed $b=\lambda+a>0$,
+$k!/(b)_{k+1}\to0$: by \eqref{eq:kernelratio}, its successive ratios
+are $(k+1)/(b+k+1)$, whose product tends to zero because
+$\sum_k\log(1+b/(k+1))=\infty$.
+Dominated convergence in \eqref{eq:positive} shows, for each fixed real $t$,
+\[
+ q_k(t):=\frac{d}{dt}\log R_n^{[k]}(t)\longrightarrow0,
+ \qquad 0<q_k(t)\le q_2(t)\quad(k\ge2).
+\]
+Moreover, the already proved limit at $+\infty$ gives
+\[
+ -\log R_n^{[k]}(x)=\int_x^\infty q_k(t)\dd t,
+ \qquad \int_x^\infty q_2(t)\dd t=-\log R_n^{[2]}(x)<\infty.
+\]
+A second application of dominated convergence proves
+$\log R_n^{[k]}(x)\to0$. This completes the proof of Theorem
+\ref{thm:main}.
+
+\paragraph{Verification scope.}
+This is an analytic proof for every required order and parameter.
+The accompanying symbolic checker verifies the rational kernel identities
+used in the proof; numerical checks verify conventions and offsets only.
+Neither finite computation is used to infer an infinite sign assertion.
+The audit was performed by the authoring agent, with no independent peer
+review claimed.
+
+\section*{Four follow-up tasks}
+\paragraph{Task 2.}
+Determine the sharp asymptotic size of $1-R_n^{[k]}(x)$ as $k\to\infty$
+in terms of the lowest Dirichlet eigenvalue of $H_x$, including uniform
+estimates as $n\downarrow1/2$ and $x\to-\infty$.
+\paragraph{Task 3.}
+Compute explicit spectral weights for $\nu_x$, including closed formulas
+at $x=0$, and turn truncated versions of \eqref{eq:positive} into certified
+two-sided bounds with effective tail estimates.
+\paragraph{Task 4.}
+Identify other contiguous special-function ratios admitting the same
+positive-resolvent argument, specifying the parameter ranges in which the
+associated Dirichlet operator is nonnegative and the required ratio
+identities hold.
+\paragraph{Task 5.}
+Determine whether each $R_n^{[k]}(x)$ with $k\ge2$ has exactly one
+inflection point, and how that point depends on $n$ and $k$.
+
+\begin{thebibliography}{9}
+\bibitem{Segura} J. Segura, \emph{On bounds for ratios of contiguous
+hypergeometric functions}, arXiv:2408.05573v1 (2024), Conjecture 3.6,
+p.~9. All 23 manuscript pages were reviewed. Published in
+\emph{Contemporary Mathematics} \textbf{818} (2025),
+71--93, DOI \href{https://doi.org/10.1090/conm/818/16368}
+{10.1090/conm/818/16368}. Published Conjecture 3.6 is on p.~79;
+only searchable excerpts of the published chapter were accessible.
+\bibitem{DLMF} NIST Digital Library of Mathematical Functions,
+\href{https://dlmf.nist.gov/12.5}{\S12.5} and
+\href{https://dlmf.nist.gov/12.8}{\S12.8}, integral, recurrence, and
+derivative conventions for parabolic cylinder functions.
+\end{thebibliography}
+\end{document}

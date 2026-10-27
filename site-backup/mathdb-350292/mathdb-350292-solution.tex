@@ -1,0 +1,181 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,hyperref,enumitem}
+\hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue}
+\newtheorem{theorem}{Theorem}
+\newcommand{\rev}{\mathcal R}
+\title{The algebraic Robbins Hankel conjecture}
+\author{Principia Math In Progress}
+\date{22 September 2026}
+\begin{document}
+\maketitle
+\noindent\textbf{MathDB 350292. A proof of Barry's Conjecture 32.}
+
+\section*{Task 1: the full determinant identity}
+For a formal power series \(D\) with \(D(0)=1\), define its
+revert transform by
+\[
+ \rev(D)(x)=\frac{(tD(t))^{\langle-1\rangle}(x)}x,
+ \qquad H_n(D)=\det([x^{j+k}]D)_{0\le j,k\le n}.
+\]
+The inverse is compositional. Set \(H_{-1}(D)=1\), and let
+\[
+ A_n=\prod_{k=0}^{n-1}\frac{(3k+1)!}{(n+k)!},\qquad A_0=1
+\]
+be the Robbins numbers. All series below are formal over
+\(\mathbb Q\), extended to \(\mathbb Q(i)\) when needed.
+
+Use the constant-term-one square root to define
+\[
+ F(t)=\frac{\sqrt{1+2t+5t^2}-1-t}{2t^2},\qquad
+ A(t)=\frac1{1-t^2/(1+t^2F(t))}.                       \tag{1}
+\]
+Then \(F(0)=1\) and
+\[
+ t^2F(t)^2+(1+t)F(t)-1=0.                             \tag{2}
+\]
+Consequently \(F=1/(1+t+t^2F)\), so \(A(ix)\) is precisely
+the normalized continued fraction in [1, Conjecture~32]:
+\[
+ A(ix)=\cfrac1{1+\cfrac{x^2}{1-\cfrac{x^2}{1+ix-
+              \cfrac{x^2}{1+ix-\cdots}}}}.
+\]
+
+\begin{theorem}
+For every integer \(n\ge0\),
+\[
+ \boxed{\displaystyle H_n\bigl(\rev(A(i\,\cdot))\bigr)=A_n.} \tag{3}
+\]
+Equivalently, if \(U=\rev(A)\), then
+\(H_n(U)=(-1)^{n(n+1)/2}A_n\).
+\end{theorem}
+
+\section*{Reduction to a rational reversion}
+Let
+\[
+ G(t)=\frac{1+t}{1+t-2t^2-t^3},\qquad V=\rev(G).
+\]
+We prove the exact identity
+\[
+                         U(x)=\frac1{1+x^2V(x)}.       \tag{4}
+\]
+Indeed, put \(u=xU(x)\), so that \(uA(u)=x\). From (1),
+\[
+ U=1-\frac{u^2}{1+u^2F(u)}.
+\]
+Since \(U=1-x^2+O(x^3)\), the series
+\(V_0=(U^{-1}-1)/x^2\) has constant term one. The last equation
+gives \(V_0=U/(1+u^2F(u))\), hence
+\[
+ F(u)=\frac{U/V_0-1}{u^2},\qquad
+ u=\frac{x}{1+x^2V_0}.
+\]
+Substitution in (2), followed by clearing denominators, gives
+\[
+ x^3V_0^3+2x^2V_0^2+xV_0^2-xV_0+V_0-1=0,
+\]
+or
+\[
+ (1-V_0)(1+xV_0)-x^2V_0^2(2+xV_0)=0.                \tag{5}
+\]
+Temporary division by \(x^2\) is legitimate in the Laurent
+series field; all resulting expressions are the stated power
+series. Equation (5) is equivalent to
+\(xV_0G(xV_0)=x\). The unique compositional inverse with linear
+coefficient one therefore gives \(V_0=V\), proving (4).
+
+\section*{Deleting one Hankel row and column}
+For any series \(D\), its Hankel matrix has generating kernel
+\[
+ K_D(x,y)=\frac{xD(x)-yD(y)}{x-y}
+         =\sum_{j,k\ge0}[t^{j+k}]D(t)\,x^jy^k.
+\]
+Identity (4) implies
+\[
+ \frac{K_U(x,y)}{U(x)U(y)}=1-xyK_V(x,y).             \tag{6}
+\]
+Multiplication of a matrix kernel by \(1/U(x)\) on the left
+and \(1/U(y)\) on the right is congruence by the lower triangular
+Toeplitz matrix of \(1/U\). Its diagonal entries are one.
+For each finite leading principal block, (6) therefore yields
+\[
+                  H_n(U)=(-1)^n H_{n-1}(V).          \tag{7}
+\]
+This also holds at \(n=0\) with the empty determinant convention.
+
+\section*{The established rational input and the signs}
+Barry's later paper [2, Proposition~9] proves the known formula
+\[
+ J(t)=\frac{1-t}{1-2t-t^2+t^3}
+ \quad\Longrightarrow\quad
+ H_m(\rev(J))=(-1)^{m(m+1)/2}A_{m+1}.                \tag{8}
+\]
+We explicitly credit this rational-series evaluation. Its
+application to \(G\) can also be read in [2, Proposition~14].
+For completeness the required invariance is proved here.
+Put \(B(t)=G(-t)\) and \(W=\rev(B)\). Direct algebra gives
+\(J=B/(1-tB)\). Inverting the functions \(tJ(t)\) and
+\(tB(t)\) consequently gives
+\[
+ \rev(J)(x)=\frac1{1+x}W\!\left(\frac{x}{1+x}\right). \tag{9}
+\]
+Its coefficient of \(x^k\) is
+\(\sum_{j=0}^k\binom kj(-1)^{k-j}[x^j]W\).
+The resulting Hankel matrix is the congruence of the Hankel
+matrix of \(W\) by the unipotent Pascal matrix
+\(P_{kj}=\binom kj(-1)^{k-j}\).
+Thus these Hankel determinants agree. Also \(V(x)=W(-x)\);
+scaling coefficient \(k\) by \((-1)^k\) multiplies a size
+\(m+1\) Hankel determinant by \((-1)^{m(m+1)}=1\).
+We conclude from (8) that
+\[
+ H_m(V)=(-1)^{m(m+1)/2}A_{m+1}.
+\]
+Combining this with (7) proves
+\(H_n(U)=(-1)^{n(n+1)/2}A_n\).
+Finally, compositional inversion commutes with coefficient
+scaling: \(\rev(A(c\,\cdot))(x)=U(cx)\) for \(c\ne0\).
+At \(c=i\), the determinant multiplier is
+\(i^{n(n+1)}=(-1)^{n(n+1)/2}\). The two signs cancel,
+giving (3) at every \(n\ge0\).
+
+The first real coefficients are
+\(1,0,-1,0,3,-1,-12,11,51,-89,-204,628,646\), as in [1].
+The proof uses the normalized definition (1) and the exact
+Conjecture~32 continued fraction. The stray numerator \(x\)
+in the preceding real continued-fraction display in [1] is
+not used as grounds for any counterexample or research credit.
+
+\section*{Tasks 2--5: proposed mathematical follow-ups}
+\begin{enumerate}[label=\textbf{Task \arabic*:},start=2,leftmargin=*]
+\item Classify the parameters in quadratic tails
+\(at^2F^2+(1+bt)F-1=0\) and transforms
+\(A=1/(1-ct^2/(1+dt^2F))\) for which the reduced series
+\((\rev(A)^{-1}-1)/x^2\) is the reversion of a rational function.
+\item Seek a weighted extension of (3) whose determinants
+enumerate alternating sign matrices by their number of
+negative entries, and determine the corresponding tail equation.
+\item Determine explicit three-term recurrence coefficients
+for the formal orthogonal polynomials associated with \(U\),
+including the coefficients not determined by the Hankel products.
+\item Construct a direct cancellation or nonintersecting-path
+proof of (3) from the continued fraction, explaining why the
+surviving objects are counted by \(A_n\).
+\end{enumerate}
+
+\begin{thebibliography}{9}
+\bibitem{pre}
+P.~Barry, \emph{Centered polygon numbers, heptagons and nonagons,
+and the Robbins numbers},
+\href{https://arxiv.org/abs/2104.01644}{arXiv:2104.01644v2}
+(7 April 2021), Section~10, pp.~40--41, Conjecture~32.
+\bibitem{final}
+P.~Barry, \emph{From Fibonacci to Robbins: Series Reversion
+and Hankel Transforms}, Journal of Integer Sequences
+\textbf{24} (2021), Article 21.10.2,
+\href{https://cs.uwaterloo.ca/journals/JIS/VOL24/Barry2/barry461.pdf}
+{Propositions~9 and~14, pp.~8--11}.
+This is the shortened and updated publication of [1];
+the algebraic-series Conjecture~32 is not carried over.
+\end{thebibliography}
+\end{document}

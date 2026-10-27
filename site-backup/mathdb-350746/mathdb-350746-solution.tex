@@ -1,0 +1,181 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools,hyperref}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newcommand{\Z}{\mathbb Z}
+\newcommand{\Q}{\mathbb Q}
+\title{A denominator bound for a contiguous basic hypergeometric ratio}
+\author{Principia Math In Progress}
+\date{27 September 2026}
+\begin{document}
+\maketitle
+\begin{abstract}
+We prove Kim and Stanton's Conjecture 8.3 in the final 2023 version of
+\emph{Three families of $q$-Lommel polynomials}. A quadratic coefficient
+recurrence, obtained directly from the basic hypergeometric equation,
+preserves the conjectured denominator bound. The argument is over an
+integer polynomial ring and applies to every coefficient.
+\end{abstract}
+
+\section*{Task 1: the conjecture and its resolution}
+Let $a,b,c,q$ be indeterminates, put $K=\Q(a,b,c,q)$, and work in $K[[z]]$.
+Write $(x;q)_m=\prod_{j=0}^{m-1}(1-xq^j)$, with empty product $1$, and set
+\[
+ F(z)={}_2\phi_1(a,b;c;q,z)
+ =\sum_{m\geq0}\frac{(a;q)_m(b;q)_m}{(c;q)_m(q;q)_m}z^m,
+ \qquad G(z)={}_2\phi_1(aq,bq;cq;q,z).
+\]
+Since $F(0)=1$, its inverse exists. Define
+\[
+ R(z)=\frac{G(z)}{(1-c)F(z)}=\sum_{n\geq0}r_nz^n,
+ \qquad
+ D_n=\prod_{k=0}^n(1-cq^k)^{\lfloor(n+1)/(k+1)\rfloor}.
+\]
+Thus $r_n=\gamma_n(a,b,c)/(1-c)$ in the notation of the conjecture.
+
+\begin{theorem}\label{thm:main}
+For every $n\geq0$, $P_n:=D_nr_n$ belongs to $\Z[a,b,c,q]$.
+Consequently MathDB 350746, equivalently Conjecture 8.3 of
+Kim--Stanton~\cite{KS}, holds in full.
+\end{theorem}
+
+The assertion is a denominator bound, not an assertion that $D_n$ is
+the reduced denominator or that $P_n$ has nonnegative coefficients.
+The latter is not part of the source conjecture.
+
+\begin{lemma}\label{lem:rec}
+Put $A=(1-a)(1-b)$. Then $r_0=1/(1-c)$ and, for $n\geq1$,
+\begin{align}
+ (1-cq^n)r_n={}&\bigl(a+b-ab-abq^n\bigr)r_{n-1}
+ -Ac\sum_{i+j=n-1}q^j r_i r_j\notag\\
+ &+Aabq\sum_{i+j=n-2}q^j r_i r_j .\label{eq:rec}
+\end{align}
+Every summation index is nonnegative; a sum with negative total is zero.
+\end{lemma}
+\begin{proof}
+If $f_m=[z^m]F(z)$, the defining product gives, for $m\geq1$,
+\[
+ (1-q^m)(1-cq^{m-1})f_m
+ =(1-aq^{m-1})(1-bq^{m-1})f_{m-1}.
+\]
+Multiplying this equality by $qz^m$ and summing, or simply comparing
+coefficients, yields
+\begin{equation}
+ (c-abqz)F(q^2z)-\bigl(c+q-(a+b)qz\bigr)F(qz)
+       +q(1-z)F(z)=0.\label{eq:linear}
+\end{equation}
+The same product formula also gives
+\begin{equation}
+ F(z)-F(qz)=\frac{Az}{1-c}G(z).\label{eq:shift}
+\end{equation}
+In fact, the coefficient of $z^{m+1}$ on the left is
+$(1-q^{m+1})f_{m+1}=A[z^m]G(z)/(1-c)$.
+
+Let $H(z)=F(qz)/F(z)$. Equation~\eqref{eq:shift} says
+$H(z)=1-AzR(z)$, and $F(q^2z)/F(z)=H(qz)H(z)$.
+Divide~\eqref{eq:linear} by $F(z)$, substitute these expressions,
+and cancel the common factor $Aqz$. This is legitimate over $K[[z]]$,
+where $Aq$ is nonzero and multiplication by $z$ is injective. The result is
+\begin{align}
+ R(z)-cR(qz)={}&1+z\bigl((a+b-ab)R(z)-abqR(qz)\bigr)\notag\\
+ &-AczR(z)R(qz)+Aabqz^2R(z)R(qz).\label{eq:riccati}
+\end{align}
+The constant coefficient gives $r_0=1/(1-c)$. Taking the coefficient of
+$z^n$ for $n\geq1$ gives~\eqref{eq:rec}.
+\end{proof}
+
+\begin{lemma}\label{lem:den}
+For $n\geq1$, put $E_n=D_n/(1-cq^n)$. In $\Z[c,q]$ one has
+\[
+ D_{n-1}\mid E_n,
+ \qquad D_iD_j\mid E_n\quad\text{if }i,j\geq0\text{ and }i+j\leq n-1.
+\]
+\end{lemma}
+\begin{proof}
+The factor with $k=n$ in $D_n$ has exponent $1$, so
+$E_n=\prod_{k=0}^{n-1}(1-cq^k)^{\lfloor(n+1)/(k+1)\rfloor}$.
+For every $0\leq k<n$,
+\[
+ \left\lfloor\frac{n}{k+1}\right\rfloor
+ \leq\left\lfloor\frac{n+1}{k+1}\right\rfloor,
+\]
+which proves the first divisibility. The exponent of the displayed factor
+in the product presentation of $D_iD_j$ is
+\[
+ \left\lfloor\frac{i+1}{k+1}\right\rfloor+
+ \left\lfloor\frac{j+1}{k+1}\right\rfloor
+ \leq\left\lfloor\frac{i+j+2}{k+1}\right\rfloor
+ \leq\left\lfloor\frac{n+1}{k+1}\right\rfloor.
+\]
+Here a floor is zero when $k$ exceeds the relevant index. As $i,j<n$,
+neither product has a factor indexed by $k\geq n$. Thus each quotient is
+explicitly a product of factors $1-cq^k$ with nonnegative integer exponents.
+No coprimality assertion is needed.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:main}]
+We have $D_0r_0=1$. Suppose $P_i=D_ir_i\in\Z[a,b,c,q]$ for all $i<n$.
+Multiplication of~\eqref{eq:rec} by $E_n$ gives the constructive recurrence
+\begin{align}
+ P_n={}&(a+b-ab-abq^n)\frac{E_n}{D_{n-1}}P_{n-1}\notag\\
+ &-Ac\sum_{i+j=n-1}q^j\frac{E_n}{D_iD_j}P_iP_j\notag\\
+ &+Aabq\sum_{i+j=n-2}q^j\frac{E_n}{D_iD_j}P_iP_j.\label{eq:P}
+\end{align}
+Every quotient in~\eqref{eq:P} lies in $\Z[c,q]$ by
+Lemma~\ref{lem:den}. All remaining factors are integer polynomials by
+induction. This proves $P_n\in\Z[a,b,c,q]$ and completes the induction.
+\end{proof}
+
+For example,
+\[
+ P_0=1,\qquad P_1=a+b-ab(1+q)-c+abcq.
+\]
+The proof is a formal rational-function identity. It therefore covers
+all specializations where the coefficients are defined, including $a=1$
+or $b=1$; the temporary generic cancellation of $A$ loses no such cases.
+At poles, the assertion retains its rational-function meaning. Values
+such as $q=1$, where the original coefficient formula is singular, may
+only be interpreted after any indicated rational continuation.
+
+\paragraph{Relation to earlier work.}
+The recurrence method extends the $q$-Kishore strategy used by Kim and
+Stanton~\cite{KSB}, especially their Proposition 3.3 and Theorem 3.2 for
+Jackson's first $q$-Bessel function. Their earlier manuscript states the
+present full-parameter assertion as Conjecture 7.2; the final paper
+\cite{KS} retains it as Conjecture 8.3. The introduction of the final
+paper attributes the earlier $q$-Kishore results to Lalanne's work of
+1992--1993; those special cases are not new results here. The new step is
+\eqref{eq:rec} for arbitrary $a,b,c$, with the integral induction
+\eqref{eq:P}. All identities used in the proof have been derived above.
+
+\section*{Proposed follow-up Tasks 2--5}
+These are research directions, not additional solved claims.
+\begin{enumerate}
+\setcounter{enumi}{1}
+\item Determine, for each $n$ and $0\leq k\leq n$, the exact generic pole
+order of $r_n$ along $1-cq^k=0$, and hence the reduced denominator.
+\item Find a finite weighted-tree formula for $P_n$ realizing all three
+terms of~\eqref{eq:P}, with polynomial edge or vertex weights.
+\item Classify the specializations $a=q^{-u}, b=q^{-v}$, for nonnegative
+integers $u,v$, for which the pole orders are smaller than their generic
+values, and give the resulting reduced denominator in $\Q(q)[c]$.
+\item For fixed nonnegative integers $u,v,w$, determine a denominator
+bound in $\Z[a,b,c,q]$ for the coefficients of
+${}_2\phi_1(aq^u,bq^v;cq^w;q,z)/{}_2\phi_1(a,b;c;q,z)$,
+including necessary factors that depend only on $q$.
+\end{enumerate}
+
+\begin{thebibliography}{9}
+\bibitem{KS} J. S. Kim and D. Stanton,
+\emph{Three families of $q$-Lommel polynomials},
+S\'eminaire Lotharingien de Combinatoire \textbf{87B} (2023), Article 8,
+25 pp., Conjecture 8.3, p.~24.
+\href{https://www.mat.univie.ac.at/~slc/wpapers/lattpath/KimStanton/KimStanton.pdf}{Final article}.
+\bibitem{KSB} J. S. Kim and D. Stanton,
+\emph{Ratios of Jackson's $q$-Bessel functions and $q$-Lommel polynomials},
+author manuscript dated 7 September 2020, 25 pp., Sections 2--3 and
+Conjecture 7.2, pp.~23--24.
+\href{https://www-users.cse.umn.edu/~stant001/PAPERS/bessel_functions_final.pdf}{Author manuscript}.
+\end{thebibliography}
+\end{document}

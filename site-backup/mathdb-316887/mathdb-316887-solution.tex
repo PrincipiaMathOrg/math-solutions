@@ -1,0 +1,248 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=28mm]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[hidelinks]{hyperref}
+\usepackage{enumitem}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newtheorem{corollary}{Corollary}
+\newcommand{\E}{\mathbb E}
+\newcommand{\dd}{\,\mathrm d}
+\title{A uniform harmonic limit for Hermite interpolation means}
+\author{Principia Math In Progress}
+\date{11 September 2026}
+\begin{document}
+\maketitle
+
+\begin{abstract}
+We prove Conjecture~22 of Horwitz's \emph{Means and Hermite Interpolation}.
+For every fixed real power parameter, the means converge to the harmonic
+mean as the sum of the interpolation orders tends to infinity. The error
+is $O(1/n)$ uniformly over all admissible pairs of orders, including pairs
+whose difference stays fixed. The proof transforms a divided difference
+into a bounded moment of reciprocal nodes on a simplex, then couples the
+two moments whose ratio defines the mean.
+\end{abstract}
+
+\section*{Task 1: the source conjecture and its conventions}
+Fix $0<a<b$ and nonnegative integers $m_2<m_1$, and set
+\[
+n=m_1+m_2+1,\quad k=m_1-m_2,\quad
+\alpha=m_1+1,\quad\beta=m_2+1,\quad d=n+2=\alpha+\beta+1.
+\]
+For a function $f$, let $P,Q$ be the Hermite interpolants of degree at most
+$n$ matching $f$ through orders $m_1,m_2$ at $a,b$, respectively, with
+the orders interchanged for $Q$. Horwitz defines $M_{f,m_1,m_2}(a,b)$
+as the unique $x\in(a,b)$ satisfying $P(x)=Q(x)$ when $k$ is even, and
+$f(x)=(P(x)+Q(x))/2$ when $k$ is odd.
+
+For $p\notin\{0,1,\ldots,n\}$, write $M_{p,m_1,m_2}=M_{f,m_1,m_2}$
+with $f(t)=t^p$. At $p=j\in\{0,1,\ldots,n\}$ the source explicitly
+defines the continuous extension using $f(t)=t^j\log t$.
+These conventions are stated immediately before Remark~5 of
+\cite{horwitz}; the conjecture is on its final page, p.~95.
+
+\begin{theorem}\label{thm:main}
+For every fixed $p\in\mathbb R$ and every $a,b>0$,
+\[
+\lim_{m_1+m_2\to\infty\atop 0\le m_2<m_1}
+M_{p,m_1,m_2}(a,b)=H(a,b)=\frac{2ab}{a+b}.
+\]
+More precisely, for $a<b$ let
+\[
+q=-p-1,\qquad
+c=\min_{1/b\le r\le1/a}r^q>0,\qquad
+L=\max_{1/b\le r\le1/a}|q|r^{q-1},\qquad
+C=\frac{L}{c}\left(\frac1a-\frac1b\right).
+\]
+The value $L=0$ is used when $q=0$. Then for every admissible pair,
+\begin{equation}\label{eq:log-bound}
+\left|\log\frac{(M_{p,m_1,m_2}(a,b)-a)b}
+ {(b-M_{p,m_1,m_2}(a,b))a}\right|\le\frac{C}{n+2},
+\end{equation}
+and
+\begin{equation}\label{eq:main-bound}
+|M_{p,m_1,m_2}(a,b)-H(a,b)|
+ \le\frac{(b-a)C}{4(n+2)}.
+\end{equation}
+The constants depend only on $a,b,p$, not on the split of the orders.
+\end{theorem}
+
+Symmetry handles $a>b$, and all means agree when $a=b$. The parameter
+$p$ is fixed in this conjecture. A sequence of parameters growing with
+$n$, such as the source's arithmetic-mean specialization $p=n+1$, is
+not covered by the asserted limit.
+
+\section*{A reciprocal-node identity}
+Let $V=(V_1,\ldots,V_d)$ be uniform on the simplex
+$\{v_j\ge0:\sum_j v_j=1\}$. Equivalently, $V$ has the
+Dirichlet distribution with all $d$ parameters equal to one.
+
+\begin{lemma}\label{lem:projective}
+For positive nodes $z_1,\ldots,z_d$ (repetitions allowed), set
+$N=d-1$ and
+$B_N(p)=p(p-1)\cdots(p-N+1)/N!$. For $f_p(t)=t^p$,
+\begin{equation}\label{eq:projective}
+f_p[z_1,\ldots,z_d]
+ =B_N(p)\left(\prod_{j=1}^d z_j^{-1}\right)
+   \E\left(\sum_{j=1}^d\frac{V_j}{z_j}\right)^{-p-1}.
+\end{equation}
+At $p=j\in\{0,\ldots,N-1\}$, the divided difference of $t^j\log t$
+equals the right side with $B_N(p)$ replaced by $B_N'(j)\ne0$ and
+the exponent replaced by $-j-1$.
+\end{lemma}
+\begin{proof}
+The Hermite--Genocchi formula, obtained by iterating the fundamental
+theorem of calculus, is
+\[
+f_p[z_1,\ldots,z_d]=B_N(p)\E\left(\sum_{j=1}^d U_jz_j\right)^{p-N},
+\]
+where $U$ is uniform on the same simplex. The factor $1/N!$ in $B_N$
+accounts for its Euclidean coordinate volume $1/N!$.
+Repeated nodes follow by continuity.
+
+Make the change of variables
+\[
+R=\sum_{j=1}^d\frac{v_j}{z_j},\qquad
+u_j=\frac{v_j/z_j}{R}.
+\]
+It maps the simplex interior bijectively onto itself and gives
+$\sum_j u_jz_j=1/R$. Its Jacobian in the first $d-1$ coordinates is
+\begin{equation}\label{eq:jacobian}
+\left|\frac{\partial(u_1,\ldots,u_{d-1})}
+ {\partial(v_1,\ldots,v_{d-1})}\right|
+ =\frac{\prod_j z_j^{-1}}{R^d}.
+\end{equation}
+For clarity, writing $r_j=1/z_j$ and
+$R=r_d+\sum_{j<d}(r_j-r_d)v_j$, the derivative matrix is
+\[
+\frac1R\operatorname{diag}(r_1,\ldots,r_{d-1})
+ -\frac1{R^2}(r_jv_j)_{j<d}(r_j-r_d)_{j<d}^{\mathsf T}.
+\]
+The determinant lemma gives the diagonal determinant times $r_d/R$,
+which proves \eqref{eq:jacobian}. The transformed exponent is
+$R^{N-p-d}=R^{-p-1}$, proving \eqref{eq:projective}.
+
+At an excluded integer, differentiate the identity with respect to $p$.
+The simple zero of $B_N$ makes its derivative the only surviving factor;
+the left side differentiates to the divided difference of $t^j\log t$.
+All differentiation is valid on a compact positive interval. This also
+verifies the source's extension without dividing by zero.
+\end{proof}
+
+\section*{The equation for the mean}
+Write $D_P=f[x,a^{[\alpha]},b^{[\beta]}]$ and
+$D_Q=f[x,a^{[\beta]},b^{[\alpha]}]$, where brackets denote node
+multiplicity, not numerical powers. The Hermite error formula gives
+\[
+f(x)-P(x)=(x-a)^\alpha(x-b)^\beta D_P,\qquad
+f(x)-Q(x)=(x-a)^\beta(x-b)^\alpha D_Q.
+\]
+In both parity cases the defining equation for the mean is
+\begin{equation}\label{eq:mean-equation}
+(x-a)^kD_P=(b-x)^kD_Q.
+\end{equation}
+This is also equation (4) of \cite{horwitz}.
+
+For the power functions, including their integer extensions, define
+\[
+A_P(x)=\E R_P(x)^q,\qquad A_Q(x)=\E R_Q(x)^q,
+\]
+where $R_P$ is the simplex average of the reciprocals of
+$\alpha$ copies of $a$, $\beta$ copies of $b$, and one $x$;
+$R_Q$ interchanges $\alpha$ and $\beta$.
+By Lemma~\ref{lem:projective}, the divided differences have a common
+nonzero real factor, and hence
+\[
+\frac{D_Q}{D_P}=\left(\frac ab\right)^k\frac{A_Q(x)}{A_P(x)}.
+\]
+All quantities $A_P,A_Q$ are strictly positive. Taking logarithms in
+\eqref{eq:mean-equation} yields the exact identity
+\begin{equation}\label{eq:mean-log}
+\log\frac{(x-a)b}{(b-x)a}
+ =\frac{\log A_Q(x)-\log A_P(x)}k.
+\end{equation}
+
+\section*{Coupling the moments, uniformly in the orders}
+Use the same uniform vector $V$ for both averages, arranged as follows:
+$\beta$ coordinates have coefficient $1/a$ in both averages,
+$\beta$ coordinates have coefficient $1/b$ in both, and one coordinate
+has coefficient $1/x$ in both. On the remaining $k$ coordinates,
+$R_P$ uses $1/a$ and $R_Q$ uses $1/b$. Permutation invariance of the
+uniform law gives exactly the required two marginal distributions.
+Consequently
+\[
+R_P-R_Q=\left(\frac1a-\frac1b\right)T,\qquad
+T=\sum_{j\text{ in the }k\text{ differing coordinates}}V_j,\qquad
+\E T=\frac{k}{d}.
+\]
+For every $x\in[a,b]$, both $R_P$ and $R_Q$ lie in $[1/b,1/a]$.
+The function $g(r)=r^q$ is $L$-Lipschitz there and is at least $c$.
+Thus
+\[
+|A_P-A_Q|\le L\E|R_P-R_Q|
+ =L\left(\frac1a-\frac1b\right)\frac{k}{d},
+\qquad \min(A_P,A_Q)\ge c,
+\]
+and the mean value theorem for the logarithm gives
+\begin{equation}\label{eq:coupling-bound}
+\frac{|\log A_Q-\log A_P|}{k}
+ \le\frac{L}{c}\left(\frac1a-\frac1b\right)\frac1d
+ =\frac{C}{n+2}.
+\end{equation}
+Together with \eqref{eq:mean-log}, this proves \eqref{eq:log-bound}.
+The cancellation of $k$ is why the estimate holds even when $k=1$.
+
+To pass to an ordinary distance, put $r=(a/b)e^y$ and
+\[
+\Phi(y)=\frac{a+br}{1+r}.
+\]
+Then $\Phi(0)=H(a,b)$ and
+$0<\Phi'(y)=(b-a)r/(1+r)^2\le(b-a)/4$ for all real $y$.
+Apply this global Lipschitz bound to
+$y=\log((x-a)b/((b-x)a))$. It gives \eqref{eq:main-bound} and completes
+the proof of Theorem~\ref{thm:main}.
+
+\begin{corollary}
+For $a<b$, $M_{p,m_1,m_2}(a,b)$ is strictly above $H(a,b)$ if $p>-1$,
+strictly below it if $p<-1$, and equal to it if $p=-1$.
+\end{corollary}
+\begin{proof}
+In the coupling $R_P>R_Q$ almost surely. Thus $A_P>A_Q$ for $q>0$,
+and $A_P<A_Q$ for $q<0$. Use \eqref{eq:mean-log} and the strict
+increasingness of $\Phi$. If $p=-1$, then $q=0$ and both moments are one.
+The last case recovers the source's Theorem~7.
+\end{proof}
+
+\section*{Follow-up tasks}
+These directions follow the full solution of Task~1; they are not
+additional completed or independently screened open problems.
+\begin{enumerate}[label=\textbf{Task \arabic*:},start=2,leftmargin=*]
+\item Compute the first nonzero asymptotic term of $M_{p,m_1,m_2}-H$
+when $k/n\to\lambda\in[0,1]$. Treat the regime $\lambda=0$ uniformly,
+including both bounded and unbounded differences $k$.
+\item Classify the limits when the parameter also varies, especially
+$p_n/n\to\theta$. Relate the resulting limits to the source's geometric
+and arithmetic specializations, and identify transitions between regimes.
+\item Give verifiable conditions on an analytic function $f$ under which
+its Hermite means converge to an arithmetic or a shifted harmonic mean.
+Determine the role of the position and order of its nearest singularities.
+\item Construct an algorithm with certified errors for high-order
+Hermite means using the bounded reciprocal moments. Obtain explicit
+complexity bounds uniform over the order split and compact sets of $p$.
+\end{enumerate}
+
+\section*{Status and checks}
+The accompanying dated audit records live MathDB status and searches for
+earlier solution claims. The current proof is internally checked, not
+externally peer reviewed. Its error bound is analytic; the accompanying
+exact and numerical tests only check formulas and examples.
+
+\begin{thebibliography}{9}
+\bibitem{horwitz} A. Horwitz, \emph{Means and Hermite Interpolation},
+Journal of Mathematical Inequalities \textbf{2}(1) (2008), 75--95,
+Conjecture~22. \url{https://doi.org/10.7153/jmi-02-08}.
+Preprint: arXiv:0711.4940v2,
+\url{https://arxiv.org/abs/0711.4940}.
+\end{thebibliography}
+\end{document}

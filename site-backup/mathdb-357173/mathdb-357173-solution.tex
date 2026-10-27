@@ -1,0 +1,160 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,hyperref}
+\newtheorem{theorem}{Theorem}
+\newcommand{\fl}[1]{\left\lfloor #1\right\rfloor}
+\title{An explicit estimate for Garcia's paired floor sum}
+\author{Principia Math In Progress}
+\date{29 September 2026}
+\begin{document}
+\maketitle
+
+\paragraph{Task 1 (original problem).}
+MathDB \href{https://mathdb.com/p/357173}{357173} records Conjecture 6.6
+of Garcia \cite[p.~30]{Garcia}. For positive integers \(n\) with
+\(p=4n-1\) prime, put
+\[
+ M=\fl{\frac{n^2}{p}},\qquad R_m=\sqrt{mp},\qquad
+ Q_m=\frac{1+\sqrt{4mp+3p-4}}2,
+\]
+and
+\[
+ A_n=\sum_{m=1}^M\fl{R_m}+\sum_{m=0}^{M-1}\fl{Q_m},
+ \qquad D_n=Mp+2n.
+\]
+Prove that \(A_n/D_n\to1/3\). The source also proposes
+\(\fl{D_n/3}\) as a \emph{good estimate} without specifying an error.
+The following theorem proves the limit and gives a precise relative-error
+interpretation of that estimate.
+
+\begin{theorem}
+For every integer \(n\ge4\), with the definitions above and without any
+primality assumption,
+\[
+ \left|A_n-\frac{D_n}{3}\right|\le4n,\qquad
+ \left|A_n-\fl{D_n/3}\right|\le4n+1,\qquad
+ \left|\frac{A_n}{D_n}-\frac13\right|\le\frac8n.
+\]
+In particular the conjectured limit holds along the prime subsequence.
+\end{theorem}
+
+\begin{proof}
+First,
+\[
+ \frac{n^2}{4n-1}=\frac n4+\frac{n}{4(4n-1)},\qquad
+ 0<\frac{n}{4(4n-1)}<\frac14.
+\]
+The fractional part of \(n/4\) is one of \(0,1/4,1/2,3/4\), so
+\(M=\fl{n/4}\). In particular \(M\ge1\).
+
+Write
+\[
+ B=\sum_{m=1}^M\fl{\sqrt{mp}},\qquad
+ T=\sqrt p\sum_{m=1}^M\sqrt m,\qquad
+ V=\frac23\sqrt p\,M^{3/2}.
+\]
+Monotonicity of \(\sqrt x\) gives
+\[
+ V=\sqrt p\int_0^M\sqrt x\,dx\ \le T\le V+\sqrt{pM}.
+\]
+For the upper bound, apply the integral comparison to the terms with
+\(m<M\), and then add \(\sqrt M\). Rounding each summand gives
+\[
+ T-M\le B\le T.
+\]
+Since \(p\ge15\), for every \(0\le m<M\),
+\[
+ R_m\le Q_m=\frac12+\sqrt{mp+\frac{3p}{4}-1}
+          \le R_{m+1}+1.
+\]
+Consequently, if \(C=\sum_{m=0}^{M-1}\fl{Q_m}\), then
+\[
+ B-\fl{R_M}\le C\le B+M.
+\]
+Combining these estimates and writing \(W=2V\) proves the useful sandwich
+\begin{equation}\label{sandwich}
+ W-2M-\sqrt{pM}\le A_n\le W+2\sqrt{pM}+M.
+\end{equation}
+This argument retains every endpoint, including integral square roots.
+
+For completeness we turn the sandwich into explicit bounds. Write
+\(r=n-4M\in\{0,1,2,3\}\). Then
+\[
+ W=\frac{n^2}{3}
+       \sqrt{1-\frac1{4n}}\left(1-\frac rn\right)^{3/2}.
+\]
+For \(0\le x,y\le1\),
+\[
+ 1-\sqrt{1-x}\le x,\qquad
+ 1-(1-y)^{3/2}\le\frac32y .
+\]
+The second inequality follows by integrating the derivative
+\(\frac32\sqrt{1-y}\le\frac32\). Since \(1-ab\le(1-a)+(1-b)\)
+for \(a,b\in[0,1]\), we get
+\[
+ 0\le\frac{n^2}{3}-W
+ \le\frac n{12}+\frac{rn}{2}\le\frac{19n}{12}.
+\]
+Also \(M\le n/4\) and \(\sqrt{pM}\le n\). Thus \eqref{sandwich} yields
+\[
+ -\frac{37n}{12}\le A_n-\frac{n^2}{3}\le\frac{9n}{4},
+ \qquad
+ \left|A_n-\frac{n^2}{3}\right|\le\frac{37n}{12}.
+\]
+Direct expansion gives
+\[
+ D_n=n^2+\frac{(7-4r)n+r}{4},\qquad
+ \left|\frac{D_n}{3}-\frac{n^2}{3}\right|\le\frac{2n}{3}.
+\]
+The last inequality holds for each of the four possible \(r\).
+It follows that
+\[
+ \left|A_n-\frac{D_n}{3}\right|
+ \le\frac{45n}{12}\le4n.
+\]
+Rounding \(D_n/3\) changes it by less than one, proving the second claim.
+Finally,
+\[
+ D_n\ge n^2-\frac{5n}{4}\ge\frac{n^2}{2}\qquad(n\ge4).
+\]
+Dividing the first bound by \(D_n\) proves the third claim and the limit.
+\end{proof}
+
+\paragraph{Scope and verification.}
+The proof uses only the definitions of the two roots, an integral
+comparison, and bounded rounding errors. It does not assume any of the
+source's class-number or jump-count identities. The source's qualitative
+phrase \emph{good estimate} is made precise here as an \(O(n)\) absolute
+error on a quantity of order \(n^2\); no bounded absolute error was
+specified or is asserted.
+The accompanying integer-arithmetic verifier checks the original two
+sums, their root inequalities, and the explicit bounds for every
+\(4\le n\le4000\), together with larger examples. These finite checks
+support the proof but do not establish the infinite limit.
+
+\paragraph{Task 2 (proposed follow-up).}
+Determine the optimal constant in a uniform bound
+\(\lvert A_n-D_n/3\rvert\le c n+O(1)\).
+
+\paragraph{Task 3 (proposed follow-up).}
+For each residue class of \(n\) modulo four, determine whether
+\((A_n-D_n/3)/n\) converges, and compare unrestricted and prime subsequences.
+
+\paragraph{Task 4 (proposed follow-up).}
+Obtain smaller remainder terms after subtracting any second-order main
+term, including the effect of square divisors of \(4n-1\).
+
+\paragraph{Task 5 (proposed follow-up).}
+Determine the corresponding limit and explicit error when
+\(p/n\to c>0\), \(M=\fl{n^2/p}\), and \(Q_m\) is replaced by
+\(\alpha+\sqrt{mp+\beta p+\gamma}\), for fixed real parameters whenever
+all summands are defined.
+
+\begin{thebibliography}{1}
+\bibitem{Garcia}
+J. Garcia, \emph{Class Number of the Imaginary Quadratic Field and
+Quadratic Residues Identities}, arXiv:2301.02951v1 (2023), 31 pages,
+\url{https://arxiv.org/abs/2301.02951}.
+Definitions: Notation 2.2; target: Conjecture 6.6.
+\end{thebibliography}
+\end{document}

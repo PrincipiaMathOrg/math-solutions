@@ -1,0 +1,130 @@
+\documentclass[11pt]{article}
+\usepackage{amsmath,amssymb,amsthm,booktabs,hyperref}
+\usepackage[margin=1in]{geometry}
+\newtheorem{theorem}{Theorem}
+\title{A three-cycle and a four-period obstruction\protect\\for an equal-parameter delay recurrence}
+\author{Principia Math In Progress}
+\date{29 September 2026}
+\begin{document}\maketitle
+\begin{abstract}
+We disprove MathDB 333489, the proposed period rule $p=k+3$ for
+$z_{n+1}=\tau(1+z_{n-k})/(\tau-z_n)$.
+The parameter $\tau=-2/3$ gives an exact three-cycle for every positive
+delay $k\equiv1\pmod3$, so $k+3$ is not even a period of these solutions.
+We also prove that for delay one and every nonzero complex parameter,
+all solutions having period four already have period two. Thus the
+conjecture also fails if interpreted as asserting the existence of an
+orbit of least period $k+3$ for every delay.
+\end{abstract}
+
+\section*{Task 1: source scope and full counterexample}
+Conjecture 3.2 on page 14 of Hassan's manuscript \cite{Hassan} proposes
+$p=k+3$ when $\alpha=\beta=\gamma$ in
+\[
+ z_{n+1}=\frac{\alpha+\beta z_{n-k}}{\gamma-z_n}.
+\]
+Pages 1--2 allow arbitrary complex parameters and initial conditions;
+Definition 3 distinguishes a period from its least (``prime'') period.
+The conjecture has no extra stability or initial-value hypothesis.
+We use nonconstant, everywhere-defined solutions, and address both
+the universal-period and least-period existence readings.
+
+\begin{theorem}\label{counter}
+Let $k\ge1$ satisfy $k\equiv1\pmod3$ and set
+$\alpha=\beta=\gamma=\tau=-2/3$. For every integer $n$, define
+\[
+ z_n=\begin{cases}
+ 0,&n\equiv0\pmod3,\\
+ -1,&n\equiv1\pmod3,\\
+ -2,&n\equiv2\pmod3.
+ \end{cases}
+\]
+With the initial history $z_{-k},\ldots,z_0$ so defined, this is a
+solution of the recurrence of least period three. The number $k+3$
+is not a period of this solution.
+\end{theorem}
+\begin{proof}
+Because $k\equiv1\pmod3$, the delayed entry is $z_{n-k}=z_{n-1}$.
+All possible transitions are listed below.
+\[
+\begin{array}{c|r|r|c|r}
+n\bmod3&z_{n-k}&z_n&\tau-z_n&
+\tau(1+z_{n-k})/(\tau-z_n)\\\hline
+0&-2&0&-2/3&-1\\
+1&0&-1&1/3&-2\\
+2&-1&-2&4/3&0
+\end{array}
+\]
+No denominator is zero, and the last column is exactly $z_{n+1}$.
+The three entries are distinct, so a shift is a period if and only if
+it is divisible by three. But $k+3\equiv1\pmod3$.
+In particular, $k=1$ gives an exact three-cycle instead of the proposed
+period four, disproving the conjecture. Real parameters and initial
+values are included in the source's complex domain.
+\end{proof}
+
+\section*{There is no orbit of least period four at delay one}
+\begin{theorem}\label{four}
+Fix any $\tau\in\mathbb C\setminus\{0\}$ and $k=1$. Every
+everywhere-defined solution of period four of
+\[
+ z_{n+1}=\frac{\tau(1+z_{n-1})}{\tau-z_n}
+\]
+has period two. More precisely, its repeating entries are $a,b,a,b$
+with $ab=-\tau$ and $a,b\ne\tau$.
+Conversely, every such pair gives a solution of period dividing two.
+\end{theorem}
+\begin{proof}
+Write a hypothetical four-periodic solution as $a,b,c,d,a,b,c,d,\ldots$.
+Clearing its nonzero denominators gives
+\begin{align*}
+b(\tau-a)&=\tau(1+d),&
+c(\tau-b)&=\tau(1+a),\\
+d(\tau-c)&=\tau(1+b),&
+a(\tau-d)&=\tau(1+c).
+\end{align*}
+Adding the first and third equations, and then the second and fourth,
+gives $ab+cd=-2\tau=bc+ad$. Consequently
+\[
+ (a-c)(b-d)=0.
+\]
+After a cyclic relabeling if necessary, we may assume $a=c$.
+The second equation shows that $a\ne0$, since $a=c=0$ would imply
+$\tau=0$. Subtracting the second and fourth equations now gives
+$a(d-b)=0$, hence $b=d$. The first equation then reduces to
+$ab=-\tau$. Conversely, if $ab=-\tau$ and both denominators are
+nonzero, then
+\[
+ b(\tau-a)=\tau(1+b),\qquad
+ a(\tau-b)=\tau(1+a),
+\]
+which verifies the alternating solution.
+\end{proof}
+
+Theorem~\ref{four} applies also when $\tau$ is nonreal, including the
+common parameter displayed in the source's numerical tables. It makes
+no assertion about attraction, and does not rely on finite numerical
+trajectories. Theorem~\ref{counter} already disproves the stated
+universal period rule even when ``period'' is not required to be least.
+
+\section*{Four proposed follow-up tasks}
+\begin{enumerate}
+\item[Task 2.] Classify the nonconstant three-cycles at delay one as
+functions of the common complex parameter, including all forbidden poles.
+\item[Task 3.] Determine for which delays and nonzero common parameters
+an orbit of least period $k+3$ actually exists.
+\item[Task 4.] Determine the stability of the periodic orbits in the
+preceding classifications, separating existence from attraction.
+\item[Task 5.] Reassess the source's numerical period tables using
+specified initial histories, rigorous residual bounds, and certified
+exclusion of shorter periods or long transients.
+\end{enumerate}
+
+\begin{thebibliography}{9}
+\bibitem{Hassan} Sk.~Sarif Hassan,
+\emph{Dynamics of the complex rational delay recursive sequence
+$z_{n+1}=(\alpha+\beta z_{n-k})/(\gamma-z_n)$},
+\href{https://arxiv.org/abs/1606.08887v1}{arXiv:1606.08887v1} (2016),
+Definitions 1--3, pp.~1--2, and Conjecture~3.2, p.~14.
+\end{thebibliography}
+\end{document}

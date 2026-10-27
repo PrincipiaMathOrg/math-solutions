@@ -1,0 +1,178 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,hyperref}
+\newtheorem{theorem}{Theorem}
+\newcommand{\Ree}{\operatorname{Re}}
+\newcommand{\Imm}{\operatorname{Im}}
+\title{High-frequency roots and diffusive boundary feedback}
+\author{Principia Math In Progress}
+\date{28 September 2026}
+\begin{document}
+\maketitle
+\begin{abstract}
+For the scalar transport--diffusion feedback system of Bastin, Coron
+and Hayat, we prove that the spectral abscissa is nonnegative for every
+positive diffusion coefficient. The characteristic roots approach the
+odd imaginary multiples of $\pi$ at high frequency. This proves their
+Conjecture 2, with a stronger quantifier in the diffusion coefficient.
+\end{abstract}
+
+\section*{Task 1: the conjecture and a stronger assertion}
+The system in Section 6 of \cite{BCH} is
+\[
+ y_t+y_x-\eta y_{xx}=0,\qquad \widehat y_t+\widehat y_x=0,
+ \qquad 0<x<1,
+\]
+with $\eta>0$ and boundary conditions
+\[
+ y(t,0)=y(t,1)-\widehat y(t,1),\qquad
+ \widehat y(t,0)=y(t,0),\qquad y_x(t,1)=0.
+\]
+Write
+\[
+ z(s)=\sqrt{1+4\eta s},\qquad
+ \lambda_1(s)=\frac{1+z(s)}{2\eta},\quad
+ \lambda_2(s)=\frac{1-z(s)}{2\eta},
+\]
+using the principal square root. The source's characteristic function is
+\[
+ F_\eta(s)=
+ \frac{(\lambda_1e^{\lambda_1}-\lambda_2e^{\lambda_2})(1+e^{-s})}
+      {(\lambda_1-\lambda_2)e^{\lambda_1+\lambda_2}}.
+\]
+Set $\mathcal S_\eta=\{s:F_\eta(s)=1\}$ and
+$\sigma_\eta=\sup\{\Ree s:s\in\mathcal S_\eta\}$.
+Conjecture 2 asserts that for every $\varepsilon>0$ there is $\eta_1>0$
+such that $\sigma_\eta>-\varepsilon$ whenever $0<\eta<\eta_1$.
+
+\begin{theorem}\label{thm}
+For every fixed $\eta>0$ there are characteristic roots
+\[
+ s_k=i(2k+1)\pi+o(1)\qquad(k\longrightarrow\infty).
+\]
+Consequently $\sigma_\eta\geq0$ for every $\eta>0$, and Conjecture 2 holds.
+\end{theorem}
+
+\section*{The transfer factor on high-frequency disks}
+Factor $F_\eta(s)=H_\eta(s)(1+e^{-s})$, where
+\begin{equation}\label{H}
+ H_\eta(s)=\frac{\lambda_1 e^{-\lambda_2}-\lambda_2e^{-\lambda_1}}
+                  {\lambda_1-\lambda_2}
+ =\frac{1+z}{2z}e^{(z-1)/(2\eta)}
+   -\frac{1-z}{2z}e^{-(z+1)/(2\eta)}.
+\end{equation}
+Fix $0<r<1/2$, let $\omega_k=(2k+1)\pi$, and consider
+$s=i\omega_k+w$ with $|w|\leq r$. For large $k$,
+$\Imm(1+4\eta s)\geq4\eta(\omega_k-r)>0$, so the principal square
+root and $H_\eta$ are holomorphic on a neighborhood of this closed disk.
+For a number $t$ in the upper half-plane,
+\[
+ \Ree\sqrt t=\sqrt{\frac{|t|+\Ree t}{2}}.
+\]
+It follows throughout the disk that
+\begin{equation}\label{zbound}
+ \Ree z\geq L_k:=\sqrt{2\eta\omega_k+\tfrac12-4\eta r},
+ \qquad |z|^2\geq4\eta(\omega_k-r).
+\end{equation}
+In particular $L_k\to\infty$ and $|z|\geq2$ for all sufficiently large
+$k$. For these $k$,
+\[
+ \left|\frac{1+z}{2z}\right|\geq\frac14,
+ \qquad \left|\frac{1-z}{2z}\right|\leq\frac34.
+\]
+The reverse triangle inequality in \eqref{H} therefore gives the uniform
+lower bound
+\begin{equation}\label{B}
+ |H_\eta(s)|\geq B_k:={1\over4}e^{(L_k-1)/(2\eta)}
+                         -{3\over4}e^{-(L_k+1)/(2\eta)}
+ \longrightarrow\infty.
+\end{equation}
+Thus $H_\eta$ has no zeros on these disks for large $k$, and its reciprocal
+converges uniformly to zero there. All limits in this paragraph keep
+$\eta$ fixed; no uniformity as $\eta\to0$ is needed.
+
+\section*{Root existence and the spectral abscissa}
+Because $e^{-i\omega_k}=-1$, the equation $F_\eta(s)=1$ in the disk is
+equivalent to
+\begin{equation}\label{G}
+ G_k(w):=1-e^{-w}-H_\eta(i\omega_k+w)^{-1}=0.
+\end{equation}
+On $|w|=r$ the exponential series and the geometric series give
+\begin{equation}\label{m}
+ |1-e^{-w}|\geq r-\sum_{j=2}^{\infty}\frac{r^j}{j!}
+ \geq r-\frac{r^2}{1-r}
+ =:m_r=\frac{r(1-2r)}{1-r}>0.
+\end{equation}
+For all sufficiently large $k$, \eqref{B} implies
+$|H_\eta(i\omega_k+w)^{-1}|<m_r$ on that circle.
+Rouch\'e's theorem applied to \eqref{G} shows that $G_k$ and
+$1-e^{-w}$ have the same number of zeros inside it. Since $r<1/2$,
+the latter has exactly one zero, the simple zero $w=0$.
+There is therefore exactly one characteristic root in
+$|s-i\omega_k|<r$, counted with multiplicity.
+
+First choose $r=1/4$ to define $s_k$ uniquely for all sufficiently large
+$k$. Repeating the argument for any smaller positive radius shows that
+these same roots satisfy $s_k-i\omega_k\to0$. In particular
+$\Ree s_k\to0$, so $\sigma_\eta\geq0$. Since $\eta>0$ was arbitrary,
+this proves Theorem \ref{thm}. For any $\varepsilon>0$ the desired
+strict inequality follows from $\sigma_\eta\geq0>-\varepsilon$;
+one may take, for example, $\eta_1=1$.
+
+These roots also give actual separated solutions of the boundary system,
+without a possible artifact from multiplying a characteristic equation.
+At any of the roots, put
+\[
+ \phi(x)=\frac{-\lambda_2e^{\lambda_1(x-1)}
+                         +\lambda_1e^{\lambda_2(x-1)}}{\lambda_1-\lambda_2},
+ \qquad \psi(x)=H_\eta(s)e^{-sx}.
+\]
+The identities $\eta\lambda_j^2-\lambda_j-s=0$ give the differential
+equations for $(y,\widehat y)=e^{st}(\phi,\psi)$. Moreover,
+$\phi(1)=1$, $\phi'(1)=0$, $\phi(0)=\psi(0)=H_\eta(s)$, and
+$\phi(0)=\phi(1)-\psi(1)$ follows from $H_\eta(s)(1+e^{-s})=1$.
+The mode is nonzero since $\phi(1)=1$.
+
+\section*{Exact reproducible disk certificates}
+For rational $\eta>0$ and $0<r<1/2$, choose an integer $A>0$ and an
+integer $N\geq0$ such that
+\[
+ P_N(A):=\sum_{j=0}^N\frac{A^j}{j!}>\frac4{m_r}+3.
+\]
+Using $\pi>3$, the following rational inequalities suffice for the
+Rouch\'e comparison:
+\[
+ 4\eta\bigl(3(2k+1)-r\bigr)>4,\qquad
+ 6\eta(2k+1)+\tfrac12-4\eta r>(1+2\eta A)^2.
+\]
+Indeed, they imply $|z|>2$, $L_k>1+2\eta A$ and
+$B_k> P_N(A)/4-3/4>1/m_r$. The accompanying verifier checks
+24 such certificates exactly, as well as the algebraic factorization
+and mode identities. These are certified disks, not numerical root
+approximations. The analytic argument proves the full parameter range.
+
+\section*{Proposed follow-up tasks}
+\begin{description}
+\item[Task 2.] Determine whether every $\eta>0$ produces infinitely many
+roots with strictly positive real part, rather than merely real parts
+approaching zero.
+\item[Task 3.] Derive a two-term asymptotic expansion for
+$s_k-i(2k+1)\pi$, with an explicit remainder for fixed $\eta$.
+\item[Task 4.] Replace the observer transport equation by
+$\widehat y_t+c\widehat y_x=0$, $c>0$, and determine the corresponding
+high-frequency root lattice and spectral-abscissa obstruction.
+\item[Task 5.] For feedback $y(t,0)=a y(t,1)-b\widehat y(t,1)$ with
+real $a,b$, classify which parameters retain roots approaching the
+imaginary axis for every $\eta>0$.
+\end{description}
+
+\begin{thebibliography}{9}
+\bibitem{BCH} G. Bastin, J.-M. Coron and A. Hayat,
+\emph{Diffusion and robustness of boundary feedback stabilization of
+hyperbolic systems}, Mathematics of Control, Signals, and Systems
+\textbf{35} (2023), 159--185,
+\href{https://doi.org/10.1007/s00498-022-00335-0}{doi:10.1007/s00498-022-00335-0}.
+Conjecture 2 and equations (97)--(100), p.~179;
+\href{https://arxiv.org/abs/2212.04879}{arXiv:2212.04879v1}, pp.~16--17.
+\end{thebibliography}
+\end{document}

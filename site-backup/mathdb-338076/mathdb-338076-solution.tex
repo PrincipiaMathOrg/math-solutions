@@ -1,0 +1,154 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=26mm]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[hidelinks]{hyperref}
+\newtheorem{theorem}{Theorem}
+\title{Diagonal concavity does not imply global concavity\\
+\large A counterexample to MathDB 338076}
+\author{Principia Math In Progress}
+\date{28 September 2026}
+\begin{document}
+\maketitle
+\begin{abstract}
+We disprove Lachaume's diagonal-concavity conjecture with four variables
+and strictly positive integer coefficients. The fourth root is strictly
+concave on the entire positive diagonal, but has a strictly positive
+second directional derivative at a point of the positive orthant.
+The proof consists of two explicit polynomial identities.
+\end{abstract}
+
+\section*{Task 1: full resolution}
+For $x=(x_1,\ldots,x_n)$, let
+\[
+ \sigma_k(x)=\sum_{1\le i_1<\cdots<i_k\le n}x_{i_1}\cdots x_{i_k},
+ \qquad \sigma_0(x)=1.
+\]
+Conjecture 1 of \cite{Lachaume}, stated on pages 3 and 8 and repeated
+on page 18, asserts that for nonnegative coefficients $a_0,\ldots,a_p$,
+concavity of
+\[
+ \left(\sum_{k=0}^p a_k\sigma_k(x)\right)^{1/p}
+\]
+on the diagonal $x_1=\cdots=x_n>0$ is equivalent to concavity on
+$\Gamma_n=(0,\infty)^n$. Here $1/p$-concavity means concavity of the
+$1/p$ power, as in the source's Definition 1.2.
+
+\begin{theorem}
+Take $n=p=4$ and
+\begin{equation}\label{eq:f}
+ F(x)=20+40\sigma_1(x)+21\sigma_2(x)+40\sigma_3(x)+20\sigma_4(x).
+\end{equation}
+Then $t\mapsto F(t,t,t,t)^{1/4}$ has negative second derivative for
+every $t>0$, whereas $F^{1/4}$ is not concave on $(0,\infty)^4$.
+Consequently $\mathcal K_4^4\ne\mathcal X_4^4$, and the conjecture is false.
+\end{theorem}
+
+\begin{proof}
+For any positive twice differentiable function $h$ of one real variable,
+\begin{equation}\label{eq:calculus}
+ (h^{1/4})''=\frac{4hh''-3(h')^2}{16h^{7/4}}.
+\end{equation}
+On the positive diagonal, the binomial counts in $\sigma_k$ give
+\[
+ Q(t):=F(t,t,t,t)=20t^4+160t^3+126t^2+160t+20.
+\]
+Direct differentiation and expansion give the identity
+\begin{equation}\label{eq:diagonal}
+ 3(Q')^2-4QQ''
+ =48\bigl[1180(t^2-1)^2+80t(t^2+1)+83t^2\bigr].
+\end{equation}
+Its right-hand side is strictly positive whenever $t>0$.
+Since $Q(t)>0$, formula \eqref{eq:calculus} proves strict concavity
+on the whole positive diagonal.
+
+Next set
+\[
+ x_0=(2,\tfrac12,\tfrac12,\tfrac12),\qquad v=(1,1,1,1),
+ \qquad H(u)=F(x_0+uv).
+\]
+This line lies in the positive orthant for $u>-1/2$.
+Substitution into \eqref{eq:f} yields
+\begin{equation}\label{eq:line}
+ H(u)=20u^4+230u^3+621u^2+713u+\frac{1235}{4}.
+\end{equation}
+In particular,
+\[
+ H(0)=\frac{1235}{4},\qquad H'(0)=713,\qquad H''(0)=1242,
+\]
+and hence
+\begin{equation}\label{eq:witness}
+ 4H(0)H''(0)-3H'(0)^2
+ =1235\cdot1242-3\cdot713^2=8763>0.
+\end{equation}
+Formula \eqref{eq:calculus} now gives
+\[
+ \left.\frac{d^2}{du^2}F(x_0+uv)^{1/4}\right|_{u=0}
+ =\frac{8763}{16(1235/4)^{7/4}}>0.
+\]
+The restriction of a concave function to any line segment in its domain
+is concave, and a twice differentiable concave function has nonpositive
+second derivative. This contradiction proves the assertion.
+\end{proof}
+
+\paragraph{Scope.}
+Every coefficient and every coordinate in the example is strictly
+positive. The failure occurs inside the domain, while diagonal concavity
+is strict everywhere. No endpoint convention or zero coefficient is used.
+One counterexample settles the universally quantified equivalence;
+the forward restriction implication remains valid.
+
+The weaker real-rootedness criterion is a distinct question. Indeed,
+for $t\ne0$ we have
+\[
+ \frac{Q(t)}{t^2}=20w^2+160w+86,\qquad w=t+t^{-1}.
+\]
+The quadratic in $w$ has a root in $(-2,2)$, since its values at $-2$
+and $2$ are $-154$ and $486$. The corresponding roots of
+$t^2-wt+1$ are nonreal. Thus $Q$ is not real-rooted, and the example
+does not challenge the real-rootedness sufficient condition in
+\cite[Theorem 2.7(d)]{Gravity}. It is also distinct from the derivative
+convolution result previously recorded under MathDB 338079.
+
+\section*{Proposed follow-up tasks}
+The original conjecture has been fully refuted above. The following
+are four further research tasks, not additional solution claims.
+\begin{enumerate}
+\setcounter{enumi}{1}
+\item Determine whether diagonal $1/3$-concavity implies global
+$1/3$-concavity for every $n\ge3$ and every strictly positive
+coefficient vector $(a_0,a_1,a_2,a_3)$.
+\item Give necessary and sufficient conditions on positive
+$(a_0,a_1,a_2,a_3,a_4)$ for
+$(\sum_{k=0}^4a_k\sigma_k)^{1/4}$ to be concave on $(0,\infty)^4$.
+\item Determine all $b>0$ for which
+$(1+2\sigma_1+b\sigma_2+2\sigma_3+\sigma_4)^{1/4}$
+is concave on $(0,\infty)^4$; compare this set with the parameters
+giving concavity on the positive diagonal.
+\item Decide whether for every pair of integers $n\ge p\ge4$ there
+are strictly positive coefficients for which
+$(\sum_{k=0}^pa_k\sigma_k)^{1/p}$ has negative second derivative
+everywhere on the positive diagonal but is not globally concave.
+\end{enumerate}
+
+\paragraph{Verification and attribution.}
+The accompanying standard-library Python verifier reconstructs both
+restrictions from elementary-symmetric sums and checks
+\eqref{eq:diagonal}--\eqref{eq:witness} in exact rational arithmetic.
+The argument is a complete analytic counterexample, not an inference
+from sampled values. This manuscript received author-agent self-review;
+independent peer review and proof-assistant verification are not claimed.
+The dated literature audit states the public sources checked and its
+access limits.
+
+\begin{thebibliography}{9}
+\raggedright
+\bibitem{Lachaume}
+X. Lachaume, \emph{On the concavity of a sum of elementary symmetric
+polynomials}, arXiv:1712.10327v1 (2017),
+\url{https://arxiv.org/abs/1712.10327}.
+\bibitem{Gravity}
+X. Lachaume, \emph{The constraint equations of Lovelock gravity theories:
+a new $\sigma_k$-Yamabe problem}, arXiv:1712.04528v2 (2018),
+\url{https://arxiv.org/abs/1712.04528}.
+\end{thebibliography}
+\end{document}

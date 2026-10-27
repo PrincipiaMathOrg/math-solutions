@@ -1,0 +1,230 @@
+\documentclass[11pt]{article}
+\usepackage[margin=0.9in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,hyperref}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newcommand{\RR}{\mathbb R}
+\title{Coinciding symmetries determine a homogeneous mean}
+\author{Principia Math In Progress}
+\date{27 September 2026}
+\begin{document}
+\maketitle
+\begin{abstract}
+We prove Hypothesis 1 in the final version of Mihokovi\'c's
+\emph{Coinciding Mean of the Two Symmetries on the Set of Mean Functions}.
+In fact the two symmetry operations, together with only a second-order
+diagonal expansion, determine the entire symmetric homogeneous mean.
+The result applies to every real parameter, as required by the final
+article, and does not assume differentiability away from the diagonal.
+\end{abstract}
+
+\section*{Task 1: the current source question}
+A strict symmetric mean is a function $M:(0,\infty)^2\to(0,\infty)$
+with $M(a,a)=a$, $M(a,b)=M(b,a)$ and
+$a<M(a,b)<b$ whenever $a<b$. It is homogeneous when
+$M(\lambda a,\lambda b)=\lambda M(a,b)$ for $\lambda>0$.
+For another strict symmetric mean $N$, the group symmetry in
+\cite[Definition 1 and (4)]{M} is, off the diagonal,
+\begin{equation}\label{S}
+ S_M(N)(a,b)=
+ \frac{a(u-a)(m-b)^2-b(m-a)^2(u-b)}
+ {(u-a)(m-b)^2-(m-a)^2(u-b)},\quad
+ m=M(a,b),\quad u=N(a,b).
+\end{equation}
+On the diagonal its value is $a$.
+The functional symmetry is characterized by
+\begin{equation}\label{F}
+ M\bigl(N(a,b),\sigma_M(N)(a,b)\bigr)=M(a,b).
+\end{equation}
+The question concerns means for which these symmetries coincide for
+every $N$. Hypothesis 1 on page 15 of the final article asks whether
+the asymptotic coefficients of every such homogeneous mean agree
+with those of $L_c$ for some $c\in\RR$.
+
+The MathDB wording and arXiv manuscript restrict $c$ to $[-1,\infty)$.
+The final article corrects this to $\RR$: its Corollary 1 and Theorem 3
+also use all real $c$. We solve this current formulation. The old
+restricted-range statement is already superseded and is not the basis
+for new credit here.
+
+\begin{theorem}\label{main}
+Suppose $M$ is a strict symmetric homogeneous mean, the identity
+\eqref{F} holds with $\sigma_M(N)=S_M(N)$ for every strict symmetric
+mean $N$, and there are real $\beta,c$ such that
+\begin{equation}\label{exp}
+ M(x-1,x+1)=x+\beta+\frac{c}{x}+o(x^{-1})\qquad(x\to\infty).
+\end{equation}
+Then $\beta=0$ and $M=L_c$ everywhere, where
+\begin{equation}\label{Lc}
+ L_c(a,b)=
+ \begin{cases}
+ \displaystyle\frac{(1+2c)(a+b)+
+ \sqrt{(a+b)^2+4c(1+c)(b-a)^2}}{4(1+c)},&c\ne-1,\\[6pt]
+ \displaystyle\frac{2ab}{a+b},&c=-1.
+ \end{cases}
+\end{equation}
+Conversely, for every real $c$, $L_c$ is a strict symmetric homogeneous
+mean and its two symmetries coincide for every $N$.
+\end{theorem}
+
+The source's full asymptotic expansion implies \eqref{exp}. Thus the
+theorem proves more than coefficient agreement, under weaker expansion
+requirements. The possible constant $\beta$ is included to avoid
+assuming in advance that symmetry alone excludes an absolute-value
+term at the diagonal.
+
+\section*{The local perturbation}
+Fix $0<a<b$, let $m=M(a,b)$, and write $d=m-a>0$, $e=b-m>0$.
+For $u=m+h$ let $v$ denote the right side of \eqref{S}. Its denominator
+is positive for $a<u<b$: it is $(u-a)e^2+d^2(b-u)$.
+Direct simplification gives
+\begin{equation}\label{reflection}
+ v=m-\frac{h}{1+\alpha h},\qquad
+ \alpha=\frac{e-d}{de}=\frac{a+b-2m}{(m-a)(b-m)}.
+\end{equation}
+In particular, as $h\to0$,
+\[
+ v=m-h+\alpha h^2+O(h^3),\qquad
+ s:=\frac{u+v}{2}=m+\frac\alpha2h^2+O(h^3),\qquad
+ r:=\frac{|u-v|}{2}=|h|+O(h^2).
+\]
+
+These perturbations are realized by admissible means. Choose $R=A$,
+the arithmetic mean, if $A(a,b)\ne m$; otherwise choose the harmonic
+mean $R=H$, since $H(a,b)<A(a,b)$ off the diagonal. For
+$0<\lambda<1$, the mean $N_\lambda=(1-\lambda)M+\lambda R$ is strict,
+symmetric and homogeneous, and
+$h=\lambda(R(a,b)-m)$ is nonzero and tends to zero from one side.
+The symmetry hypothesis therefore gives $M(u,v)=m$ along this limit.
+If the tested means are also required to possess full asymptotic
+expansions, these convex combinations do whenever $M$ does.
+
+By homogeneity, \eqref{exp} is equivalent to
+\[
+ M(1-z,1+z)=1+\beta z+c z^2+o(z^2)\qquad(z\downarrow0).
+\]
+Since $M$ is symmetric, we may apply it with $z=r/s\ge0$ and obtain
+\begin{equation}\label{local}
+ m=M(u,v)=s+\beta r+c\frac{r^2}{s}+o(r^2/s).
+\end{equation}
+After subtracting $m$ and dividing by $|h|$, the limit in
+\eqref{local} gives $\beta=0$. Dividing next by $h^2$ yields
+\[
+ \frac\alpha2+\frac{c}{m}=0.
+\]
+Substituting \eqref{reflection} and multiplying by the nonzero
+quantity $m(m-a)(b-m)$ shows that
+\begin{equation}\label{quad}
+ Q_c(a,b;m):=2(1+c)m^2-(1+2c)(a+b)m+2cab=0.
+\end{equation}
+All limits were one-sided along admissible means; no differentiation
+of $M$ at $(a,b)$ was used.
+
+\section*{The unique interior root and the converse}
+For every real $c$,
+\[
+ Q_c(a,b;a)=a(a-b)<0,\qquad Q_c(a,b;b)=b(b-a)>0.
+\]
+A polynomial of degree at most two with these endpoint signs has
+exactly one root in $(a,b)$. Indeed, existence follows by continuity;
+two distinct interior roots would force the endpoint signs to agree,
+and a double root does not change sign. For $c=-1$, the polynomial
+is linear and the root is $2ab/(a+b)$.
+For $c\ne-1$ its discriminant is
+\[
+ (a+b)^2+4c(1+c)(b-a)^2
+ =(1+2c)^2(a-b)^2+4ab>0.
+\]
+The root where the polynomial crosses from negative to positive is
+exactly the plus-square-root expression in \eqref{Lc}, for either
+sign of $1+c$. This proves $M=L_c$ and also proves strict internality
+of $L_c$. Its symmetry, homogeneity and diagonal identity follow
+directly from the formula, or from uniqueness of the interior root.
+
+For completeness we prove symmetry coincidence on this entire real
+parameter range. Fix $a<b$, put $m=L_c(a,b)$, $u=N(a,b)$, and let
+$v$ be \eqref{S}. The positive odds relation
+\[
+ \frac{v-a}{b-v}=
+ \left(\frac{m-a}{b-m}\right)^2\frac{b-u}{u-a}
+\]
+shows $a<v<b$. It also shows that $u$ and $v$ lie on opposite sides
+of $m$, unless both equal $m$. Thus this pointwise construction
+defines a strict symmetric mean $V=S_{L_c}(N)$.
+If $D=(u-a)(m-b)^2-(m-a)^2(u-b)>0$ is its denominator, polynomial
+expansion gives the identity
+\begin{equation}\label{certificate}
+ D\,Q_c(u,v;m)=-(a-b)(u-m)^2 Q_c(a,b;m)=0.
+\end{equation}
+For $u\ne v$, $m$ is between $u$ and $v$ and hence is the unique
+interior root, giving $L_c(u,v)=m$. For $u=v=m$ the same assertion
+is immediate. The diagonal $a=b$ is also immediate.
+
+Finally, a value $w$ satisfying $L_c(u,w)=m$ must satisfy the equation
+$Q_c(u,w;m)=0$, which is linear in $w$. Its coefficient is
+$2cu-(1+2c)m$. This cannot vanish for a solvable equation: for $c=0$
+it equals $-m$; for $c\ne0$, if it vanished the constant term would
+be $-m^2/(2c)\ne0$. Therefore $v$ is the unique functional-symmetry
+value. This proves the converse and finishes Theorem \ref{main}.
+
+\section*{All asymptotic coefficients}
+Writing $L_c(x-t,x+t)=x+h$, \eqref{quad} reduces to
+\[
+ xh+(1+c)h^2=ct^2.
+\]
+With $H=h/x$ and $z=t^2/x^2$, this becomes
+$H+(1+c)H^2=cz$. The branch $H(0)=0$ is analytic in $z$.
+Its coefficients $h=\sum_{n\ge1}b_n t^{2n}x^{1-2n}$ satisfy
+\[
+ b_1=c,\qquad
+ b_n=-(1+c)\sum_{j=1}^{n-1}b_jb_{n-j}\quad(n\ge2).
+\]
+The Catalan recurrence therefore proves
+\[
+ b_n=(-1)^{n-1}C_{n-1}c^n(1+c)^{n-1},\qquad
+ C_k=\frac1{k+1}\binom{2k}{k}.
+\]
+This includes $c=-1$ (the harmonic mean) and $c=0$ (the arithmetic
+mean), where the higher terms vanish. Since $M=L_c$ globally, its
+two-variable expansion also agrees after replacing $x$ by
+$x+(s+t)/2$ and the half-difference by $(t-s)/2$.
+
+\section*{Four follow-up tasks}
+These are proposed questions, not additional solved credits.
+\begin{description}
+\item[Task 2.] Classify all continuous strict symmetric homogeneous
+means whose two symmetries coincide for every strict symmetric mean,
+without assuming any diagonal asymptotic expansion.
+\item[Task 3.] Classify all $C^2$ strict symmetric means on
+$(0,\infty)^2$ whose two symmetries coincide for every strict symmetric
+mean, without assuming homogeneity.
+\item[Task 4.] Classify the analytic strict symmetric homogeneous means
+$M$ satisfying only $M(A,S_M(A))=M$, where $A$ is the arithmetic mean.
+Determine whether this single test forces $M=L_c$.
+\item[Task 5.] For fixed $R>1$, $K>0$ and $0<\eta<1/2$, determine the
+optimal modulus $\omega(\varepsilon)\to0$, if one exists, bounding
+$\inf_c\sup_{[1,R]^2}|M-L_c|$ for $C^4$ symmetric homogeneous means
+with $\|M\|_{C^4([1,R]^2)}\le K$, with
+$a+\eta(b-a)\le M(a,b)\le b-\eta(b-a)$ for $1\le a<b\le R$,
+and with $|M(u,S_m(u))-m|\le\varepsilon$ for all such $a,b$ and
+$a<u<b$. Here $m=M(a,b)$ and $S_m(u)$ is \eqref{S}.
+\end{description}
+
+\section*{Verification and review}
+The proof is analytic and algebraic. The accompanying exact SymPy
+verifier checks the rational identities, quadratic endpoint signs,
+discriminant, local second-order coefficient and Catalan recurrence.
+These checks supplement the proof; they do not replace the limiting
+argument or the universal quantifiers. The current 16-page manuscript
+and 15-page final article were read completely. Source discrepancies
+and the limits of the prior-claim search are in the literature audit.
+This is author-agent review, without independent peer review.
+
+\begin{thebibliography}{9}
+\raggedright
+\bibitem{M} L. Mihokovi\'c, \emph{Coinciding Mean of the Two Symmetries
+on the Set of Mean Functions}, Axioms \textbf{12}(3) (2023), 238,
+\href{https://doi.org/10.3390/axioms12030238}{doi:10.3390/axioms12030238}.
+Current manuscript: \href{https://arxiv.org/abs/2112.07489}{arXiv:2112.07489v3}.
+\end{thebibliography}
+\end{document}

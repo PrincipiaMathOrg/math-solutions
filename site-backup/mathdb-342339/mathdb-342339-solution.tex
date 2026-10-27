@@ -1,0 +1,261 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,hyperref}
+\newtheorem{lemma}{Lemma}
+\newtheorem{theorem}{Theorem}
+\newcommand{\Tr}{\operatorname{Tr}}
+\newcommand{\nn}[1]{\left\lVert#1\right\rVert}
+\newcommand{\uin}[1]{\left|\!\left|\!\left|#1\right|\!\right|\!\right|}
+\title{Ando-type product norm inequalities\\MathDB 342339}
+\author{Principia Math in Progress}
+\date{12 September 2026}
+\begin{document}
+\maketitle
+
+\section*{Task 1. Resolve both proposed norm inequalities}
+Conjecture 2.1 of the published paper \cite{DHLV} (Conjecture 2.4 in
+its arXiv version) proposes two inequalities for every unitarily
+invariant norm. We prove both in the nonnegative function class used
+by its surrounding Theorems 2.1 and 2.2. The conjecture sentence omits
+nonnegativity in its operator-convex clause; we also resolve that
+literal signed version by an explicit counterexample below.
+
+\begin{theorem}\label{main}
+Let $A,B$ be positive semidefinite complex $n\times n$ matrices and
+let $f(0)=0$.
+If $f$ is operator monotone on $[0,\infty)$, then
+\begin{equation}\label{mono}
+ \uin{(A-B)(f(A)-f(B))}\leq\uin{|A-B|f(|A-B|)}.
+\end{equation}
+If $f$ is nonnegative and operator convex on $[0,\infty)$, then
+\begin{equation}\label{convex}
+ \uin{(A-B)(f(A)-f(B))}\geq\uin{|A-B|f(|A-B|)}.
+\end{equation}
+Both assertions hold for every unitarily invariant norm.
+\end{theorem}
+
+Write $s_1(X)\geq\cdots\geq s_n(X)$ for singular values and
+$\nn{X}_{(k)}=\sum_{i=1}^k s_i(X)$ for the Ky Fan norms. By the
+Ky Fan dominance theorem, it suffices to prove each assertion for
+all $k$. The product $ (A-B)(f(A)-f(B))$ need not be Hermitian.
+
+\subsection*{The operator-monotone assertion}
+Put $C=A-B$, $H=f(A)-f(B)$, $x_i=s_i(C)$, and $y_i=s_i(H)$.
+Ando's classical norm inequality \cite{Ando} gives
+\[
+ \sum_{i=1}^j y_i\leq\sum_{i=1}^j f(x_i)\qquad(1\leq j\leq n).
+\]
+Here $f$ is nonnegative because it is increasing and $f(0)=0$.
+Set $z_i=f(x_i)$. The singular-value product inequality and Abel
+summation imply
+\begin{align*}
+ \nn{CH}_{(k)}&\leq\sum_{i=1}^k x_i y_i,\\
+ \sum_{i=1}^k x_i(y_i-z_i)
+ &=x_k\sum_{i=1}^k(y_i-z_i)
+   +\sum_{j=1}^{k-1}(x_j-x_{j+1})\sum_{i=1}^j(y_i-z_i)\leq0.
+\end{align*}
+Since $x_i f(x_i)$ is decreasing in $i$, this proves
+$\nn{CH}_{(k)}\leq\nn{|C|f(|C|)}_{(k)}$, and hence \eqref{mono}.
+The product inequality follows by the von Neumann trace inequality
+applied to
+$\Tr(U^*CHV)=\Tr(HVU^*C)$, where $U,V$ are $n\times k$
+isometries: $VU^*C$ has rank at most $k$ and
+$s_i(VU^*C)\leq s_i(C)$. Maximizing over $U,V$ gives the claim.
+
+If operator monotonicity is defined to permit a jump at the endpoint
+zero, the same argument follows by approximation. In that convention
+$f(t)=h(t)+a\mathbf1_{t>0}$, where $a\geq0$ and $h$ is continuous
+operator monotone with $h(0)=0$. Apply the continuous case to
+$h(t)+at/(t+\varepsilon)$ and let $\varepsilon\downarrow0$ in
+finite-dimensional functional calculus.
+
+\subsection*{A weighted resolvent inequality}
+The following elementary argument extends the power weights in the
+trace method of \cite{DDFL} to spectral cutoffs.
+
+\begin{lemma}\label{frob}
+Suppose $D,E$ are commuting positive semidefinite matrices, with
+simultaneous diagonal entries $d_i,e_i$ ordered in the same direction.
+If $W=W^*$ and $\nn{W}\leq1$, then
+\[
+ \nn{DWE}_F^2\leq\nn{WDE}_F^2\leq\Tr(D^2E^2),
+\]
+where $\nn{\cdot}_F$ is the Frobenius norm.
+\end{lemma}
+\begin{proof}
+In a common eigenbasis, $|W_{ij}|^2=|W_{ji}|^2$ and
+\[
+ \nn{WDE}_F^2-\nn{DWE}_F^2
+ =\frac12\sum_{i,j}(d_i^2-d_j^2)(e_i^2-e_j^2)|W_{ij}|^2\geq0.
+\]
+The other inequality follows from $W^2\leq I$ by taking a trace
+against $D^2E^2\geq0$.
+\end{proof}
+
+Fix $\rho\geq0$ and $0\leq\theta\leq1$, and define
+\begin{equation}\label{cut}
+ q(t)=t\bigl(\mathbf1_{t>\rho}+\theta\mathbf1_{t=\rho}\bigr)
+ \quad(t\geq0).
+\end{equation}
+Both $q(t)$ and $q(t)/(t+s)$ are nondecreasing for every $s>0$.
+
+\begin{lemma}\label{ordered}
+If $B,C\geq0$, $Q=q(C)$, and $f$ is nonnegative operator convex
+with $f(0)=0$, then
+\begin{equation}\label{ord}
+ \Tr\bigl(Q(f(B+C)-f(B))\bigr)\geq\Tr(Qf(C)).
+\end{equation}
+\end{lemma}
+\begin{proof}
+For $s>0$ put
+\[
+ g_s(t)=\frac{st}{s+t},\qquad
+ h_s(t)=\frac{st^2}{s+t}=st-sg_s(t).
+\]
+Let $X=(C+sI)^{-1/2}$ and introduce the positive contractions
+\[
+ W=s(B+sI)^{-1},\qquad
+ V=(C+sI)^{1/2}(B+C+sI)^{-1}(C+sI)^{1/2}.
+\]
+The resolvent identity gives
+\[
+ g_s(B+C)-g_s(B)=sWCXVX.
+\]
+Using cyclicity of trace, set
+\[
+ M=XQ^{1/2}WC^{1/2},\qquad N=C^{1/2}XVQ^{1/2}.
+\]
+Then
+\begin{align*}
+ \Tr\bigl(Q(g_s(B+C)-g_s(B))\bigr)
+ &=s\Tr(MN)\\
+ &\leq s\nn{M}_F\nn{N}_F
+ \leq s\Tr\bigl(QC(C+sI)^{-1}\bigr)=\Tr(Qg_s(C)).
+\end{align*}
+To justify the last bound, apply Lemma~\ref{frob} first with
+$D=XQ^{1/2}$, $E=C^{1/2}$, and contraction $W$, and then with
+$D=C^{1/2}X$, $E=Q^{1/2}$, and contraction $V$.
+The two required monotone pairs of squared entries are respectively
+$q(t)/(t+s),t$ and $t/(t+s),q(t)$.
+Thus \eqref{ord} holds for $h_s=st-sg_s$.
+It is equality for $f(t)=t$, and for $f(t)=t^2$ its difference is
+\[
+ \Tr\bigl(Q((B+C)^2-B^2-C^2)\bigr)=2\Tr(QCB)\geq0.
+\]
+
+The standard integral representation of nonnegative operator-convex
+functions vanishing at zero is
+\begin{equation}\label{repr}
+ f(t)=\beta t+\gamma t^2+\int_{(0,\infty)}h_s(t)\,d\mu(s),
+ \qquad \beta,\gamma\geq0,\quad \mu\geq0.
+\end{equation}
+One obtains it by applying the positive operator-monotone
+representation to $f(t)/t$; its value at zero is the nonnegative
+right derivative $\beta$. This is the representation used in
+\cite{DHLV}. Integrating the established inequalities proves
+\eqref{ord}. Truncated integrals pass to the full integral by
+finite-dimensional functional calculus, since the scalar
+representation converges at every eigenvalue.
+\end{proof}
+
+\begin{lemma}\label{cross}
+If $T,D,Q\geq0$, $QD=0$, and $f$ is as in Lemma~\ref{ordered}, then
+\begin{equation}\label{crossineq}
+ \Tr\bigl(Q(f(T)-f(T+D))\bigr)\geq0.
+\end{equation}
+\end{lemma}
+\begin{proof}
+For the linear and quadratic functions the trace in
+\eqref{crossineq} vanishes: every term contains $QD$ or $DQ$
+after a cyclic permutation. For $h_s$ it equals
+\[
+ s\Tr\bigl(Q(g_s(T+D)-g_s(T))\bigr)\geq0.
+\]
+Indeed, $g_s$ is operator monotone, as follows directly from
+inverse order and $g_s(T)=sI-s^2(T+sI)^{-1}$.
+Now integrate using \eqref{repr}.
+\end{proof}
+
+\subsection*{The operator-convex assertion}
+Let $C=A-B=C_+-C_-$, with $C_+C_-=0$, and put
+$Z=A+C_-=B+C_+$. For each $k$, choose a cutoff $\rho$ and a
+fraction $\theta$ so that
+\[
+ P=\mathbf1_{|C|>\rho}+\theta\mathbf1_{|C|=\rho},
+ \qquad 0\leq P\leq I,\qquad\Tr P=k.
+\]
+For example, take $\rho$ to be the $k$th largest eigenvalue of
+$|C|$ and divide the remaining required trace equally across its
+eigenspace. This also covers zero eigenvalues and ties.
+With $q$ from \eqref{cut}, put $Q_+=q(C_+)$ and $Q_-=q(C_-)$.
+Then $PC=Q_+-Q_-$ and $Q_+C_-=Q_-C_+=0$. Consequently,
+\begin{align*}
+ \Tr\bigl(PC(f(A)-f(B))\bigr)
+ &=\Tr\bigl(Q_+(f(A)-f(Z))\bigr)
+   +\Tr\bigl(Q_+(f(Z)-f(B))\bigr)\\
+ &\quad+\Tr\bigl(Q_-(f(Z)-f(A))\bigr)
+   +\Tr\bigl(Q_-(f(B)-f(Z))\bigr)\\
+ &\geq\Tr(Q_+f(C_+))+\Tr(Q_-f(C_-))\\
+ &=\Tr\bigl(P|C|f(|C|)\bigr).
+\end{align*}
+The first and fourth terms are nonnegative by
+Lemma~\ref{cross}; the second and third are bounded by
+Lemma~\ref{ordered}. Since $f$ is nonnegative convex and
+$f(0)=0$, $tf(t)$ is nondecreasing. Thus the last trace equals
+$\nn{|C|f(|C|)}_{(k)}$.
+
+For every matrix $Y$, the von Neumann trace inequality gives
+$|\Tr(PY)|\leq\nn{Y}_{(k)}$ whenever $0\leq P\leq I$ and
+$\Tr P=k$: the singular values of $P$ lie in $[0,1]$ and sum
+to $k$. Applying this to $Y=C(f(A)-f(B))$ proves
+\[
+ \nn{C(f(A)-f(B))}_{(k)}\geq\nn{|C|f(|C|)}_{(k)}.
+\]
+Ky Fan dominance proves \eqref{convex} and completes the theorem.
+
+\subsection*{The omitted sign assumption}
+Without nonnegativity, the operator-convex clause is false already
+for scalars. Take $f(t)=t^2-3t$, $A=2$, and $B=1$. This $f$ is
+operator convex and $f(0)=0$, but $f(2)=f(1)=-2$, so its proposed
+inequality reads $0\geq2$ in the absolute-value norm.
+The theorem above supplies the substantive nonnegative version,
+as well as settling the literal statement's scope.
+
+\section*{Task 2. Classify equality in the norm inequalities}
+Determine equality cases for individual Ky Fan and Schatten norms,
+tracking equality in the resolvent contractions and the spectral
+cutoff trace bound.
+
+\section*{Task 3. Classify admissible weights}
+Determine which scalar weights $q$ preserve the ordered inequality
+\eqref{ord}, and whether monotonicity of $q$ and $q(t)/(t+s)$
+for all $s>0$ is necessary for a universal statement.
+
+\section*{Task 4. Find the maximal function classes}
+Characterize functions satisfying \eqref{mono} or \eqref{convex}
+for all positive matrices and all unitarily invariant norms, and
+decide how far the operator-monotone and operator-convex
+hypotheses can be weakened.
+
+\section*{Task 5. Extend the inequalities to operator ideals}
+Establish analogues for compact operators and semifinite
+noncommutative integration, specifying the integrability and
+approximation assumptions needed for singular-value dominance.
+
+\enlargethispage{2\baselineskip}
+\begin{thebibliography}{9}
+\bibitem{DHLV} T. H. Dinh, M. T. Ho, C. T. Le, and B. K. Vo,
+\emph{Two trace inequalities for operator functions},
+Mathematical Inequalities \& Applications 22 (2019), 1021--1026.
+\href{https://files.ele-math.com/articles/mia-22-69.pdf}{Published paper},
+Conjecture 2.1; \href{https://arxiv.org/abs/1904.01961}{arXiv:1904.01961v1},
+Conjecture 2.4.
+\bibitem{DDFL} T. H. Dinh, R. Dumitru, J. A. Franco, and C. T. Le,
+\emph{On some trace inequalities}, Mathematical Inequalities
+\& Applications 23 (2020), 467--476.
+\href{https://files.ele-math.com/articles/mia-23-38.pdf}{Published paper}.
+\bibitem{Ando} T. Ando, \emph{Comparison of norms
+$\uin{f(A)-f(B)}$ and $\uin{f(|A-B|)}$},
+Mathematische Zeitschrift 197 (1988), 403--409.
+\end{thebibliography}
+\end{document}

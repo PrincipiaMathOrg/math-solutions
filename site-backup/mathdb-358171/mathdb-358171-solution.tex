@@ -1,0 +1,274 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[hidelinks]{hyperref}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newcommand{\Res}{\operatorname*{Res}}
+\title{Explicit polynomial solutions of Cohen's\\two difference equations}
+\author{Principia Math In Progress}
+\date{18 September 2026}
+\begin{document}
+\maketitle
+\begin{abstract}
+We prove the existence assertion in Cohen's Conjecture 4.2 for every
+nonnegative integer parameter. An explicit finite polynomial is
+constructed by a residue of a terminating hypergeometric expression.
+Together with the previously observed degree, uniqueness, and reflection
+properties, this settles both equations in MathDB 358171.
+The proof uses two symbolic coefficient identities and does not depend
+on a finite computational search.
+\end{abstract}
+
+\section*{Task 1: the conjecture and its complete proof}
+For \(u\in\mathbb Z_{\ge0}\), put
+\[
+ N=u(u+3),\qquad n=N/2,\qquad
+ \lambda=2u^2+8u+7,\qquad \mu=(2u+3)(N+1).
+\]
+The number \(N\) is even. Cohen's Conjecture 4.2 \cite{C},
+on pages 7--8, asks for nonzero polynomial solutions of
+\begin{equation}\label{first}
+\begin{split}
+ &(x+2u+4)(x+u+1)P(x+1)-(x-1)(x+u-1)P(x-1)\\
+ &\hspace{25mm}=(\lambda x+\mu)P(x),
+\end{split}
+\end{equation}
+\begin{equation}\label{second}
+\begin{split}
+ &(x+2u+4)(x+u+4)Q(x+1)-(x-1)(x+u+2)Q(x-1)\\
+ &\hspace{25mm}=\bigl(\lambda x+(2u+3)(u+2)(u+3)\bigr)Q(x).
+\end{split}
+\end{equation}
+The conjecture predicts degree \(N\) and uniqueness up to nonzero
+scalar multiples for each equation. The degree, uniqueness conditional
+on existence, and equivalence of the two equations are already due to
+Peter Mueller \cite{M}; they are also credited on page 8 of \cite{C}.
+We supply the missing existence proof and repeat those short arguments
+to make the result self-contained.
+
+\begin{theorem}\label{main}
+For every nonnegative integer \(u\), the solution space in
+\(\mathbb Q[x]\) of each equation \eqref{first} and \eqref{second}
+is one-dimensional, and every nonzero solution has degree \(N=u(u+3)\).
+\end{theorem}
+
+\subsection*{The explicit construction}
+Define
+\[
+ D=N+2u+5,\qquad K=N+u+3=(u+1)(u+3),\qquad
+ e_k=\frac{(-n)_k(1/2)_k}{(-D/2)_k\,k!}\quad(0\le k\le n)
+\]
+and
+\begin{equation}\label{H}
+ H(z)=\sum_{k=0}^{n}e_k
+       \left(z^{2k}+\frac{2k-K}{2k-D}z^{2k+1}\right)
+      =\sum_{j=0}^{N+1}h_jz^j.
+\end{equation}
+All coefficients are rational and all denominators are nonzero:
+\(D>N\), and \(-D/2\) is a negative half-integer.
+The required polynomial is
+\begin{equation}\label{res}
+ P(x)=\Res_{t=0}
+       e^{(x+u)t}H\bigl(\coth(t/2)\bigr)\,dt .
+\end{equation}
+This means the coefficient of \(t^{-1}\) in the indicated Laurent
+series. Equivalently, it is the following completely finite expression:
+\begin{equation}\label{finite}
+ P(x)=\sum_{j=1}^{N+1}h_j
+           \sum_{\ell=0}^{j-1}
+           2^{\ell+1}\binom{j}{\ell+1}
+                         \binom{x+u-1}{\ell},
+ \qquad
+ Q(x)=P(-x-2u-3).
+\end{equation}
+Here the generalized binomial is a polynomial in its upper argument.
+The equivalence follows from \(w=e^t\), \(v=w-1\):
+\[
+ P(x)=\Res_{v=0}(1+v)^{x+u-1}
+                 H\bigl((v+2)/v\bigr)\,dv.
+\]
+Expanding each finite power \((v+2)^j\) gives \eqref{finite}.
+
+\subsection*{A polynomial differential equation}
+\begin{lemma}\label{odeH}
+The polynomial \eqref{H} satisfies
+\begin{equation}\label{Heqn}
+ z(z^2-1)H''(z)+(-Nz^2+3z+D)H'(z)-KH(z)=0.
+\end{equation}
+\end{lemma}
+\begin{proof}
+For any coefficients \(h_j\), the coefficient of \(z^j\) on the
+left of \eqref{Heqn} is
+\begin{equation}\label{rec}
+ (j-1)(j-2-N)h_{j-1}+(3j-K)h_j
+                       +(j+1)(D-j)h_{j+1}.
+\end{equation}
+Take coefficients outside \(0\le j\le N+1\) to be zero.
+Write \(o_k=h_{2k+1}\), so that
+\[
+ h_{2k}=e_k,\qquad o_k=\frac{2k-K}{2k-D}e_k,\qquad
+ \frac{e_{k+1}}{e_k}
+ =\frac{(2k-N)(2k+1)}{2(k+1)(2k-D)}.
+\]
+The last relation also gives \(e_{n+1}=0\).
+For \(j=2k\), substitution in \eqref{rec} reduces to
+\[
+ \bigl[2k(2k-2-K)+(6k-K)-(2k+1)(2k-K)\bigr]e_k=0.
+\]
+At \(k=0\) the first term is absent and the same identity applies.
+For \(j=2k+1\), multiply \eqref{rec} by \((2k-D)/e_k\).
+The result is
+\begin{align*}
+ &2k(2k-1-N)(2k-D)+(6k+3-K)(2k-K)\\
+ &\hspace{35mm}+(D-2k-1)(2k-N)(2k+1).
+\end{align*}
+Using \(D=N+2u+5\) and \(K=N+u+3\), this expression is
+\[
+ u^2+3u-N=0.
+\]
+This includes \(k=n\), where the last term vanishes.
+The only remaining possible coefficient is \(j=N+2\);
+its factor \(j-2-N\) is zero. Higher coefficients vanish.
+This proves the differential equation for every \(u\).
+\end{proof}
+
+\subsection*{Transporting the differential equation to a residue}
+Set
+\[
+ g(w)=w^u H\!\left(\frac{w+1}{w-1}\right),
+ \qquad f(t)=g(e^t)=e^{ut}H\bigl(\coth(t/2)\bigr).
+\]
+The chain rule transforms \eqref{Heqn} into
+\begin{equation}\label{gode}
+ w(w^2-1)g''+
+ \bigl(-(3u+2)w^2+\lambda w+u-1\bigr)g'
+ +\bigl(u(2u+3)w-\mu\bigr)g=0.
+\end{equation}
+Here are explicit coefficient checks for that transformation.
+With \(z=(w+1)/(w-1)\), let \(a=w(w^2-1)\),
+\(b=-(3u+2)w^2+\lambda w+u-1\), and
+\(c=u(2u+3)w-\mu\).
+After division by \(w^u\), the coefficients of \(H'',H',H\) are
+\[
+ a(z')^2,\qquad a\left(z''+\frac{2u}{w}z'\right)+bz',
+ \qquad \frac{u(u-1)}{w^2}a+\frac{u}{w}b+c.
+\]
+Substitution of \(w=(z+1)/(z-1)\) gives, respectively,
+\(z(z^2-1)\), \(-Nz^2+3z+D\), and \(-K\).
+In turn, \(w=e^t\) converts \eqref{gode} into
+\begin{equation}\label{fode}
+ (e^t-e^{-t})f''+
+ \bigl(\lambda-3(u+1)e^t+u e^{-t}\bigr)f'
+ +\bigl(u(2u+3)e^t-\mu\bigr)f=0.
+\end{equation}
+
+We now verify \eqref{first} directly. Set
+\[
+ A(x)=x^2+(3u+5)x+(2u+4)(u+1),\qquad
+ B(x)=x^2+(u-2)x+1-u.
+\]
+For any meromorphic germ \(F(t)\),
+\[
+ \Res_{t=0}(e^{xt}F(t))'\,dt=0,\qquad
+ x\Res e^{xt}F\,dt=-\Res e^{xt}F'\,dt.
+\]
+Applying this identity twice shows that the left side of
+\eqref{first} minus its right side equals the residue of
+\[
+ e^{xt}\left\{
+ A(-\partial_t)(e^tf)-B(-\partial_t)(e^{-t}f)
+                    +\lambda f'-\mu f\right\}dt .
+\]
+Expanding the braces gives exactly the left side of \eqref{fode}.
+That expression vanishes identically, proving \eqref{first}.
+All operations concern germs with finite-order poles, so no limiting
+integral, summability, or exchange of infinite tails is needed.
+
+\subsection*{Nonvanishing, degree, uniqueness, and the second equation}
+The leading coefficient of \(H\) is
+\[
+ h_{N+1}=e_n\frac{u+3}{2u+5}\ne0.
+\]
+Since \(\coth(t/2)=2/t+O(t)\), equation \eqref{res} is a polynomial
+of degree exactly \(N\), with leading coefficient
+\[
+ [x^N]P(x)=\frac{2^{N+1}h_{N+1}}{N!}\ne0.
+\]
+Its coefficients are rational, also directly evident from
+\eqref{finite}. This proves the previously unresolved existence.
+
+For clarity, the short uniqueness argument from \cite{M} is as follows.
+If a nonzero polynomial of degree \(d\), with leading coefficient \(a\),
+satisfies \eqref{first}, the coefficient of \(x^{d+1}\) in the residual is
+\[
+ a(2d+2u+7-\lambda)=2a(d-N).
+\]
+Thus \(d=N\). Two monic solutions would have a difference of smaller
+degree, hence must coincide.
+Finally, substitute \(y=-x-2u-3\) into \eqref{first} and multiply by
+\(-1\). The two shifted coefficients interchange and
+\[
+ \lambda(2u+3)-\mu=(2u+3)(u+2)(u+3).
+\]
+Therefore \(Q(x)=P(-x-2u-3)\) satisfies \eqref{second}.
+This substitution is invertible, so its solution space is also
+one-dimensional. Theorem \ref{main} follows.
+
+For example, the monic solutions of \eqref{first} at \(u=0,1\) are
+\[
+ 1,\qquad x^4+\frac{15}{2}x^3+\frac{85}{2}x^2+105x+144.
+\]
+The construction also works for real \(u\ge0\) whenever \(u(u+3)\)
+is an even integer; then the coefficients lie in \(\mathbb Q(u)\).
+This follows from the same proof and earns no additional problem credit.
+
+\small
+\section*{Task 2: remove the logarithmic term in Cohen's application}
+Using the explicit \(P\), settle the separate assertion on page 8
+of \cite{C} that the associated alternating rational series has no
+\(\log 2\) term. Verify the coprimality conditions needed for
+Proposition 4.1 and obtain the initial constants in the resulting
+continued fractions for \(\pi^2\).
+
+\section*{Task 3: determine the arithmetic of the monic solution}
+Determine the least integer clearing the denominators of the monic
+\(P\), including its prime valuations as functions of \(u\).
+Test and, if true, prove positivity of its ordinary coefficients and
+irreducibility over \(\mathbb Q\). These properties are not assumed
+in the existence proof.
+
+\section*{Task 4: classify the full parameter locus}
+For even \(N\ge0\), classify all pairs \(D,K\) for which
+\[
+ z(z^2-1)H''+(-Nz^2+3z+D)H'-KH=0
+\]
+has a polynomial solution of degree \(N+1\).
+The construction identifies the component
+\(D=N+2u+5,\ K=N+u+3,\ N=u(u+3)\).
+Describe additional components, exceptional denominators, and their
+corresponding difference equations.
+
+\section*{Task 5: use the hypergeometric form to study zeros}
+The even part of \(H\) is
+\({}_2F_1(-N/2,1/2;-D/2;z^2)\).
+Use this terminating representation and its contiguous odd part
+to locate the zeros of \(H\) and \(P\), and to derive their scaled
+zero distributions as \(u\) tends to infinity.
+Determine whether these formulas yield faster exact construction
+than solving for the coefficients by descending elimination.
+
+\begin{thebibliography}{9}
+\small
+\bibitem{C}
+H.~Cohen, \emph{Parametric Continued Fractions for \(\pi^2\),
+\(\zeta(3)\), and other Constants}, arXiv:2304.11727v1 (2023),
+\url{https://arxiv.org/abs/2304.11727}.
+Conjecture 4.2 and the credited partial results are on pp.~7--8.
+\bibitem{M}
+P.~Mueller, answer to H.~Cohen,
+\emph{Polynomial solutions to a difference equation},
+MathOverflow, 10 April 2023,
+\url{https://mathoverflow.net/questions/444367/}.
+\end{thebibliography}
+\end{document}

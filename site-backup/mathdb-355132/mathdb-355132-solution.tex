@@ -1,0 +1,214 @@
+\documentclass[10pt]{article}
+\usepackage[margin=0.85in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,hyperref}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newcommand{\per}{\operatorname{per}}
+\newcommand{\fall}[2]{#1^{\underline{#2}}}
+\title{Two permanent congruences for shifted difference matrices}
+\author{Principia Math in Progress}
+\date{13 September 2026}
+\begin{document}
+\maketitle
+
+\paragraph{Task 1. Prove both permanent congruences.}
+Let \(D_N=[i-j]_{1\le i,j\le N}\) and \(B_N=I_N+D_N\).
+Wang and Sun \cite{WS}, p.~3, conjecture
+\[
+ \per B_{p-1}\equiv3\pmod p,\qquad
+ \per B_p\equiv1+4p\pmod{p^2}
+\]
+for odd primes \(p\). MathDB also includes \(p=2\) in the first
+assertion; that case is immediate from \(B_1=(1)\).
+We prove the stronger polynomial statements below. Congruences of
+polynomials mean coefficientwise congruences.
+
+\begin{theorem}\label{main}
+For every odd prime \(p\),
+\[
+ \per(I_{p-1}+tD_{p-1})\equiv1+2t^{p-1}\pmod p,
+ \qquad
+ \per(I_p+tD_p)\equiv1+4pt^{p-1}\pmod{p^2}.
+\]
+\end{theorem}
+
+We first prove a symmetric-polynomial fact. For variables
+\(x_1,\ldots,x_N\), write
+\[
+ \per[\delta_{ij}+t(x_i-x_j)]
+ =\sum_{d=0}^N c_d(x_1,\ldots,x_N)t^d,
+ \qquad P_j=\sum_{i=1}^N x_i^j.
+\]
+The polynomial \(c_d\) is symmetric and homogeneous of degree \(d\).
+Also \(c_0=1\), and \(c_d=0\) for odd \(d\), since transposition
+replaces \(t\) by \(-t\).
+
+\begin{lemma}\label{linear}
+For \(1\le2m\le N\), the expression of \(c_{2m}\) in the power sums
+has the form
+\[
+ c_{2m}=-(m-1)!\fall{N}{m}P_{2m}
+    +\text{terms containing at least two positive-index power sums},
+\]
+where \(\fall{N}{m}=N(N-1)\cdots(N-m+1)\).
+Every coefficient in this expression has denominator divisible only
+by primes at most \(2m\).
+\end{lemma}
+
+\begin{proof}
+The denominator assertion follows from the fundamental theorem of
+symmetric polynomials and Newton's identities: an integral symmetric
+polynomial of degree \(2m\) is integral in the elementary symmetric
+polynomials, and converting those of degree at most \(2m\) to power
+sums introduces only the integers \(1,\ldots,2m\) as divisors.
+There is no constant term by homogeneity.
+
+Here is an explicit calculation of the coefficient of \(P_{2m}\).
+Define a linear functional \(\mathcal W\) on monomials in four
+auxiliary variables by
+\[
+ \mathcal W(u^a r^b v^c s^d)=
+ \begin{cases}a!c!,&a=b,\ c=d,\\0,&\text{otherwise}.\end{cases}
+\]
+Expansion of the rank-two factorization \(t(x_i-x_j)
+=(tx_i,1)(1,-tx_j)^T\) gives
+\begin{equation}\label{functional}
+ \per[\delta_{ij}+t(x_i-x_j)]
+ =\mathcal W\prod_{i=1}^N
+ \bigl(1+vr+tx_i(ur-vs)-t^2x_i^2us\bigr).
+\end{equation}
+Indeed, selecting a subset of the factors selects a principal
+permanent; the factorials count all matchings between the two
+types of chosen row and column terms.
+
+Put
+\[
+ \ell_j=[z^j]\log\bigl(1+vr+z(ur-vs)-z^2us\bigr),\quad j\ge1.
+\]
+The product in \eqref{functional} is
+\[
+ (1+vr)^N\exp\left(\sum_{j\ge1}t^jP_j\ell_j\right).
+\]
+Consequently the coefficient of \(P_{2m}\) in \(c_{2m}\) is
+\(C_{2m}(N)=\mathcal W((1+vr)^N\ell_{2m})\).
+These are formal coefficient calculations: only finitely many
+auxiliary monomials can survive \(\mathcal W\) at any fixed power
+of \(t\), so no analytic convergence is involved.
+
+For clarity, expand the logarithm and let \(q\) be the number of
+quadratic terms \(-z^2us\) chosen. The remaining \(2m-2q\) terms
+come from \(zur\) and \(-zvs\). The functional forces us to take
+exactly \(q\) factors \(vr\) from
+\((1+vr)^{N-(2m-q)}\). Summing over the two linear choices gives
+\[
+ \sum_{a+b=2m-2q}(-1)^b
+       \frac{(a+q)!}{a!}\frac{(b+q)!}{b!}
+ =(q!)^2[z^{2m-2q}](1-z^2)^{-q-1}
+ =(q!)^2\binom mq.
+\]
+Thus
+\begin{equation}\label{finite}
+ C_{2m}(N)=-\sum_{q=0}^m
+ (2m-q-1)!q!\binom mq\binom{N-2m+q}{q}.
+\end{equation}
+The finite Chu--Vandermonde identity evaluates this sum as
+\[
+ C_{2m}(N)=-(2m-1)!
+ \frac{(-N)_m}{(1-2m)_m}
+ =-(m-1)!\fall{N}{m},
+\]
+where \((a)_m=a(a+1)\cdots(a+m-1)\).
+For example, after dividing the sum in \eqref{finite} by
+\(-(2m-1)!\), its summand is
+\(\frac{(-m)_q(N-2m+1)_q}{(1-2m)_q q!}\), the terminating
+binomial identity. None of its denominator factors is zero.
+This proves the lemma.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{main}]
+First let \(N=p-1\) and reduce modulo \(p\).
+Simultaneously permuting the row and column indices by multiplication
+by any \(a\in\mathbb F_p^\times\) replaces \(t\) by \(at\).
+Hence the polynomial \(\per(I+tD_N)\), of degree at most \(p-1\),
+has no terms except degrees \(0\) and \(p-1\).
+Its constant term is one. To calculate the top coefficient, for
+arbitrary \(x_i\) the rank-two expansion gives
+\[
+ \per[x_i-x_j]=\sum_{k=0}^N
+ (-1)^{N-k}k!(N-k)!e_k(x)e_{N-k}(x),
+\]
+where \(e_k\) denotes the elementary symmetric polynomial.
+For \(x_i\) running through \(\mathbb F_p^\times\),
+\(\prod_i(X-x_i)=X^{p-1}-1\). Thus only \(k=0,N\) remain,
+\(e_N=-1\), and Wilson's theorem gives \(N!=-1\).
+Since \(N\) is even, the two terms each equal one. This proves
+the first polynomial congruence.
+
+Now set \(N=p\), \(x_i=i\), and work modulo \(p^2\).
+The usual finite-field power sums give
+\[
+ P_j\equiv0\pmod p\quad(1\le j<p-1),\qquad
+ P_{p-1}\equiv-1\pmod p.
+\]
+For \(1\le2m\le p-1\), all denominators in Lemma~\ref{linear}
+are invertible modulo \(p^2\). Every term with at least two power
+sums vanishes modulo \(p^2\): each of its indices is less than
+\(p-1\), and each factor is divisible by \(p\). Therefore
+\begin{equation}\label{reduction}
+ c_{2m}(1,\ldots,p)\equiv-(m-1)!\fall{p}{m}P_{2m}
+ \pmod{p^2}.
+\end{equation}
+If \(2m<p-1\), both \(\fall p m\) and \(P_{2m}\) are divisible
+by \(p\), so this coefficient is zero modulo \(p^2\).
+For \(m=(p-1)/2\), we have
+\[
+ -(m-1)!\fall p m
+ \equiv(-1)^m p\bigl((m-1)!\bigr)^2\pmod{p^2}.
+\]
+Wilson's theorem, paired around the midpoint, says
+\((m!)^2\equiv(-1)^{m+1}\pmod p\); also
+\(m^2\equiv1/4\pmod p\). It follows that
+\[
+ (-1)^m\bigl((m-1)!\bigr)^2\equiv-4\pmod p.
+\]
+Using \(P_{p-1}\equiv-1\pmod p\) in \eqref{reduction} gives
+\(c_{p-1}\equiv4p\pmod{p^2}\).
+The odd coefficients, including degree \(p\), vanish identically.
+Together with \(c_0=1\), this proves the second polynomial
+congruence. Specializing \(t=1\) proves both original assertions.
+\end{proof}
+
+\paragraph{Verification.}
+The general proof above applies to every required prime. The accompanying
+script checks the finite coefficient identity symbolically, isolates its
+linear power-sum coefficient using finite-field roots of unity, and
+compares complete permanent polynomials with the two polynomial
+congruences for small primes. Independent direct permutation sums
+also check the permanent algorithm at small orders.
+
+\paragraph{Task 2. Lift the congruence.}
+Determine the complete polynomial \(\per(I_p+tD_p)\) modulo \(p^3\),
+including the contributions from products of two power sums.
+
+\paragraph{Task 3. Vary the matrix order.}
+Determine coefficientwise congruences modulo \(p^2\) for
+\(\per(I_{kp}+tD_{kp})\) when \(k\ge2\), accounting for the
+higher-degree terms whose power-sum expansions can have denominators
+divisible by \(p\).
+
+\paragraph{Task 4. Extend the kernel.}
+Find analogous congruences for low-rank antisymmetric polynomial
+kernels \(K(x,y)=-K(y,x)\).
+
+\paragraph{Task 5. Evaluate exact permanents.}
+Derive a closed formula or a short recurrence for
+\(\per(I_N+tD_N)\) at arbitrary integer orders \(N\).
+
+\begin{thebibliography}{1}
+\bibitem{WS} H.~Wang and Z.-W.~Sun,
+\emph{Evaluations of some Toeplitz-type determinants},
+\href{https://arxiv.org/abs/2206.12317}{arXiv:2206.12317v8},
+14 February 2023. The two conjectures appear together on p.~3
+of the actual 22-page PDF.
+\end{thebibliography}
+\end{document}

@@ -1,0 +1,251 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[hidelinks]{hyperref}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newcommand{\tr}{\operatorname{tr}}
+\newcommand{\HH}{\operatorname{ht}}
+\begin{document}
+\begin{center}
+{\Large Markov Sail Duality from Christoffel matrix paths}\\[0.5em]
+MathDB 366807\\ September 12, 2026
+\end{center}
+
+\paragraph{Task 1.}
+Prove the Markov Sail Duality conjecture of Evans, Veselov, and Winn
+\cite[Conjecture 8.3]{EVW}. We prove an explicit formula for every
+interior coefficient on the sail segments involved in that conjecture.
+Throughout, $2\leq a<b$ are coprime, $P=P_{a/b}(u,v,1)$ is the
+homogeneous numerator specialized at $w=1$, and
+\[
+ \HH(i,j)=bi+aj-ab.
+\]
+The critical triangle consists of integer points with $i<a$, $j<b$,
+and $\HH(i,j)>0$. Coefficients retain their individual identities
+under $w=1$ by homogeneity.
+
+\begin{theorem}\label{main}
+At every interior integer point $(i,j)$ on a Markov sail segment
+$B_rB_{r+1}$ or $A_{r+1}A_{r+2}$, the coefficient is
+\[
+ \mathcal M(i,j)=4\HH(i,j).
+ \tag{1}
+\]
+Consequently both Markov Sail Duality identities hold.
+\end{theorem}
+
+We use the established generalized Cohn-matrix formula
+\cite[Theorem 10.1]{EVW}, with its Christoffel-word realization
+\cite[Sections 2.1.2, 2.7.2 and Theorem 2.7.5]{E}.
+Put $S=1+u+v$ and
+\[
+ M=\begin{pmatrix}v&1\\uv&1+u\end{pmatrix},\qquad
+ N=\begin{pmatrix}1+v&1\\uv&u\end{pmatrix}.
+ \tag{2}
+\]
+If $C$ is the product along the lower Christoffel word with $b$
+letters $M$ and $a$ letters $N$, then
+\[
+ \tr C=SP.
+ \tag{3}
+\]
+Indeed, after $z=1$, $u=x^2$, $v=y^2$, and conjugation by
+$\operatorname{diag}(x,1)$, the source's initial matrices are $M$
+and $MN$. Its modified Christoffel word replaces a horizontal-vertical
+pair by the latter matrix, giving precisely (3).
+
+\begin{lemma}\label{count}
+For $0<h<a$, the coefficient of the unique critical-triangle
+monomial of height $h$ in $\tr C$ receives a contribution $4h$
+from matrix paths with exactly one transition of each type.
+Every path with $k\geq1$ transitions of each type has minimum
+monomial height at least $k$.
+\end{lemma}
+\begin{proof}
+Expand the trace as a sum over cyclic states in $\{0,1\}$, one
+matrix entry per letter. A $0\to1$ entry is $1$, and a $1\to0$
+entry is $uv$. The diagonal entries have minimum monomials
+\[
+ M_{00}=v,\quad M_{11}:1,\qquad
+ N_{00}:1,\quad N_{11}=u.
+ \tag{4}
+\]
+Choosing the other summand in a diagonal entry increases height by
+$a$ or $b$.
+
+Let $L=a+b$. At the gaps of the Christoffel word, let $H$ be
+$b$ times the number of preceding $N$'s minus $a$ times the number
+of preceding $M$'s. Its $L$ values are the integers
+$-L+1,\ldots,0$, each once. One direct construction starts at zero
+and subtracts $a$ if the result stays in this interval, otherwise
+adds $b$. These steps give the lower Christoffel path; the values
+are distinct because each step is $-a$ modulo $L$ and
+$\gcd(a,L)=1$. A letter $M$ starts at a height in $[-b+1,0]$;
+a letter $N$ starts in $[-L+1,-b]$.
+
+Consider a single state-1 arc, beginning with a $0\to1$ transition
+at letter $r$ and ending with a $1\to0$ transition at a distinct
+letter $s$, in cyclic order. Let $m_r,m_s$ be $1$ for an $M$
+and $0$ for an $N$. If $H_{r-1},H_{s-1}$ are the gap heights just
+before these letters, its minimum monomial has height
+\[
+ h=(H_{s-1}-a m_s)-(H_{r-1}-b m_r)+a.
+ \tag{5}
+\]
+To check this, if the arc's interior has $n$ letters $N$ and its
+whole arc, including endpoints, has $m$ letters $M$, its monomial
+is $u^{n+1}v^{b-m+1}$. Its height is $b(n+1)-a(m-1)$,
+which gives (5). The total word has net height zero, so the same
+calculation holds for an arc crossing its chosen initial gap.
+
+Write $U_s=H_{s-1}-a m_s$ and $V_r=H_{r-1}-b m_r$.
+Their multisets are the unions, with multiplicity, of
+\[
+\begin{split}
+ U &: [-L+1,-a]\ \cup\ [-L+1,-b],\\
+ V &: [-2b+1,-b]\ \cup\ [-L+1,-b].
+\end{split}
+ \tag{6}
+\]
+In particular, (5) is always at least $1$. For $0<h<a$, it is
+equivalent to
+\[
+ (U_s+L-1)+(-b-V_r)=h-1.
+\]
+There are $h$ nonnegative pairs on the left. Every participating
+value in each multiset has multiplicity two, so there are $4h$
+ordered endpoint pairs. None has $r=s$: that choice would give
+height $b$ for an $M$ or $a$ for an $N$.
+
+These monomials have both exponents positive. Height $h<a\leq b$
+therefore forces $i<a$ and $j<b$. For a given $h$, coprimality
+gives at most one such pair of exponents, since the difference of
+two solutions of $bi+aj=ab+h$ is a multiple of $(a,-b)$.
+Thus the $4h$ paths contribute to the same coefficient.
+
+Finally, a path with $k$ state-1 arcs is obtained from the all-zero
+state path by making those disjoint local changes. Its minimum
+height is the sum of the $k$ single-arc heights in (5), each
+positive. This proves the last assertion too.
+\end{proof}
+
+\begin{lemma}\label{sail}
+An interior point on the lower integer hull above the segment
+joining $O=(0,b)$ and $T=(a,0)$, of height $0<h<a$, receives
+no contribution from paths with two or more transitions of each type.
+\end{lemma}
+\begin{proof}
+Such a point $Q$ minimizes a linear function $\ell(i,j)=\alpha i+
+\beta j$, where $\alpha,\beta\geq0$ and not both zero, over the
+integer points of $[0,a]\times[0,b]$ strictly above $OT$.
+Write $d=\ell(Q)$. Then
+\[
+ \min\{\ell(O),\ell(T)\}<d.
+ \tag{7}
+\]
+For example, if $\alpha a\leq\beta b$, the inequality
+$i/a+j/b>1$ gives $\ell(i,j)>\alpha a$ when both coefficients
+are positive. If a coefficient is zero, (7) follows from $i,j>0$.
+The other case is symmetric.
+
+Suppose a path with $k\geq2$ arcs contributes at $Q$.
+There can be no nonminimum diagonal choice, since it would add at
+least $a$ to the already positive height. For each individual
+state-1 arc, make that change alone to the all-zero path and let
+$Q_r$ be the resulting exponent point. Then
+\[
+ Q=O+\sum_{r=1}^k(Q_r-O),\qquad
+ h=\sum_{r=1}^k\HH(Q_r).
+ \tag{8}
+\]
+By Lemma \ref{count}, every summand height is positive and less
+than $a$, and both exponents are positive. Thus each $Q_r$ is
+itself a critical-triangle integer point, so $\ell(Q_r)\geq d$.
+If $\ell(O)<d$, applying $\ell$ to (8) yields
+$d-\ell(O)\geq k(d-\ell(O))$, a contradiction.
+
+If instead $\ell(T)<d$, make each individual state-0 arc alone
+to the all-one path. The resulting points $R_r$ likewise have
+positive heights summing to $h$ and positive exponents: each is
+a path with one transition of each type. They are therefore in
+the critical triangle, and
+\[
+ Q=T+\sum_{r=1}^k(R_r-T).
+\]
+The same argument with $T$ gives a contradiction. Equation (7)
+ensures that one of these arguments applies.
+\end{proof}
+
+\begin{proof}[Proof of Theorem \ref{main}]
+The source identifies the combined Markov sail with the lower
+integer hull used in Lemma \ref{sail}; see \cite[pages 20--21]{EVW}.
+Write $b/a=[c_1,\ldots,c_n]$, with convergents $p_k/q_k$,
+$p_{-1}=0,q_{-1}=1,p_0=1,q_0=0$. Its vertices in the
+numerator's coordinate frame are
+\[
+ A_r=(q_{2r-1},b-p_{2r-1}),\qquad
+ B_r=(a-q_{2r},p_{2r}).
+ \tag{9}
+\]
+The positive Euclidean remainders $|bq_k-ap_k|$ strictly decrease
+from $a$ at $k=0$ to zero at the final convergent. In particular,
+$\HH(A_1)=b-c_1a<a$, and $\HH(B_0)=a$.
+Height is affine on a segment. Consequently every interior
+critical-triangle point on $B_rB_{r+1}$ or $A_{r+1}A_{r+2}$ has
+height strictly between $0$ and $a$; the boundary point $B_0$
+is excluded.
+
+Lemmas \ref{count} and \ref{sail} show that its coefficient in
+$\tr C$ is $4h$. Paths with no transitions have monomials
+divisible by $v^b$ or $u^a$, so do not contribute.
+Equation (3) gives the same coefficient in $P$: the possible
+contributions from $uP$ and $vP$ would have predecessor heights
+$h-b<0$ and $h-a<0$, outside the established Newton polygon
+\cite[Theorem 3.2]{EVW}. This proves (1).
+
+For each identity whose opposite vertex is interior, the primitive
+direction along $B_rB_{r+1}$ is
+$(-q_{2r+1},p_{2r+1})$, by the convergent recurrence. Its height
+increment is $-\HH(A_{r+1})$. Similarly, the primitive direction
+along $A_{r+1}A_{r+2}$ is $(q_{2r+2},-p_{2r+2})$, with height
+increment $-\HH(B_{r+1})$. Applying (1) gives exactly
+\[
+ d(B_rB_{r+1})=-\mathcal M(A_{r+1}),\qquad
+ d(A_{r+1}A_{r+2})=-\mathcal M(B_{r+1}).
+\]
+As in the source, $\mathcal M$ and differences here concern
+interior points only. No formula is asserted for the excluded
+boundary coefficients, and a segment with fewer than two interior
+integer points supplies no adjacent-difference condition.
+The Fibonacci cases $a=1$ have empty critical triangles.
+\end{proof}
+
+\paragraph{Task 2.}
+Determine the coefficients on the initial sail segment $A_0A_1$,
+including the points with height at least $a$.
+
+\paragraph{Task 3.}
+Count matrix paths with exactly two transition pairs and obtain
+explicit formulas for the next layer of coefficients above the sail.
+
+\paragraph{Task 4.}
+Relate the transition-pair decomposition to local operations on
+weighted snake-graph perfect matchings.
+
+\paragraph{Task 5.}
+Use the path expansion to investigate log-concavity along lines
+in the full Markov Newton polygon.
+
+\begin{thebibliography}{9}
+\raggedright
+\bibitem{EVW} S. J. Evans, A. P. Veselov, and B. Winn,
+\emph{Arithmetic and geometry of Markov polynomials},
+arXiv:2501.14882v3 (2025); current 28-page journal-hosted manuscript.
+\url{https://armj.math.stonybrook.edu/Articles/250708-Winn/article.pdf}.
+\bibitem{E} S. J. Evans, \emph{Quantum numbers and Markov polynomials},
+doctoral thesis, Loughborough University, December 2025;
+deposited February 9, 2026.
+\url{https://doi.org/10.26174/thesis.lboro.31250974.v1}.
+\end{thebibliography}
+\end{document}

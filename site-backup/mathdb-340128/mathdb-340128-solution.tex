@@ -1,0 +1,249 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,hyperref}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newtheorem{corollary}{Corollary}
+\newcommand{\tr}{\operatorname{tr}}
+\newcommand{\Rea}{\operatorname{Re}}
+\newcommand{\Ima}{\operatorname{Im}}
+\newcommand{\HH}{\mathcal H}
+\title{Trace-small imaginary parts preserve spectral symbols}
+\author{Principia Math in Progress}
+\date{September 12, 2026}
+\begin{document}
+\maketitle
+
+\section*{Task 1. Solve the real-part spectral-symbol conjecture}
+We prove Conjecture~2 on page~6 of Barbarino's
+\emph{Conjectures on Perturbations of Hermitian Sequences}
+\cite{Barbarino}, corresponding to MathDB~340128.
+For a matrix \(X\), put
+\(\Rea X=(X+X^*)/2\) and \(\Ima X=(X-X^*)/(2i)\);
+\(\|X\|_1\) denotes the sum of its singular values.
+For \(n\times n\) matrices, write \(X_n\sim_\lambda f\) when
+\[
+ \frac1n\sum_{j=1}^n F(\lambda_j(X_n))
+ \longrightarrow \frac1{|D|}\int_D F(f(x))\,dx
+ \qquad(F\in C_c(\mathbb C)),
+ \tag{1}
+\]
+where \(f:D\to\mathbb C\) is measurable and \(0<|D|<\infty\).
+Eigenvalues are counted with algebraic multiplicity.
+
+\begin{theorem}\label{main}
+If \(X_n\sim_\lambda f\) and \(\|\Ima X_n\|_1=o(n)\), then
+\(\Rea X_n\sim_\lambda f\). In particular \(f\) is real almost everywhere.
+No bound on \(\|X_n\|\) is required.
+\end{theorem}
+
+The main estimate is a finite-dimensional weak trace-norm inequality
+for triangular truncation. Such inequalities are classical; see, for
+example, the estimate cited in the proof of Lemma~3.2 in \cite{CPSZ}.
+We include an elementary determinant proof, so the argument does not
+depend on that result.
+
+For Hermitian \(B=(b_{jk})\), let \(U(B)\) be its strictly upper triangular
+part and define the Hermitian matrix
+\[
+ \HH(B)=i\bigl(U(B)-U(B)^*\bigr).
+\]
+For any matrix \(A\), let \(N_t(A)=\#\{j:s_j(A)>t\}\), for \(t>0\).
+
+\begin{lemma}\label{weak}
+For every Hermitian matrix \(B\) of any size,
+\[
+ N_t(\HH(B))\le \frac{4}{\log 2}\frac{\|B\|_1}{t}.
+ \tag{2}
+\]
+\end{lemma}
+\begin{proof}
+First suppose \(B\ge0\) and write \(H=\HH(B)\).
+The matrix \(B+iH=\operatorname{diag}(B)+2U(B)^*\) is lower triangular.
+Hence
+\[
+ \left|\det(I+B/t+iH/t)\right|
+ =\prod_j(1+b_{jj}/t)
+ \le \exp(\tr B/t).
+ \tag{3}
+\]
+We also have
+\[
+ |\det(I+B/t+iH/t)|\ge |\det(I+iH/t)|.
+ \tag{4}
+\]
+Indeed, put \(P=B/t\ge0\), \(Q=H/t=Q^*\), and
+\(Z=P^{1/2}(I+iQ)^{-1}P^{1/2}\).
+Since
+\[
+ \Rea Z=P^{1/2}(I+Q^2)^{-1}P^{1/2}\ge0,
+\]
+every eigenvalue \(z\) of \(Z\) satisfies \(\Rea z\ge0\).
+Thus \(|\det(I+Z)|=\prod_z|1+z|\ge1\).
+Factoring \(I+P+iQ\) and using
+\(\det(I+AB)=\det(I+BA)\) proves (4).
+
+Combining (3)--(4) and taking logarithms gives
+\[
+ \frac12\sum_j\log\bigl(1+\lambda_j(H)^2/t^2\bigr)
+ \le \frac{\tr B}{t}.
+\]
+Each term with \(|\lambda_j(H)|>t\) exceeds \((\log 2)/2\).
+Consequently \(N_t(H)\le 2\tr B/(t\log 2)\).
+
+For general \(B\), use its positive and negative spectral parts:
+\(B=B_+-B_-\), with \(B_\pm\ge0\) and
+\(\tr B_++\tr B_-=\|B\|_1\). Linearity and the singular-value
+counting inequality give
+\[
+ N_t(\HH(B))
+ \le N_{t/2}(\HH(B_+))+N_{t/2}(\HH(B_-))
+ \le \frac{4\|B\|_1}{t\log2}.
+\]
+For completeness, the counting inequality follows by splitting each
+summand into its singular directions above \(t/2\) and a remainder
+of norm at most \(t/2\). The sum of the former pieces has rank at most
+the sum of the two counts, and the total remainder has norm at most \(t\).
+\end{proof}
+
+\begin{lemma}\label{stability}
+Suppose \(A_n,D_n\) are Hermitian, of size \(n\), and
+\(N_t(A_n-D_n)=o(n)\) for every fixed \(t>0\).
+Then, for every \(g\in C_c(\mathbb R)\),
+\[
+ \frac1n\tr g(A_n)-\frac1n\tr g(D_n)\longrightarrow0.
+ \tag{5}
+\]
+\end{lemma}
+\begin{proof}
+Fix \(t>0\). Spectrally truncate \(A_n-D_n=R_n+E_n\), retaining in
+\(R_n\) only the eigenvalues whose absolute values exceed \(t\).
+Then both pieces are Hermitian, \(\operatorname{rank}R_n=o(n)\),
+and \(\|E_n\|\le t\).
+The min--max principle bounds the difference of the empirical
+distribution functions of \(D_n+R_n\) and \(D_n\) by
+\(\operatorname{rank}R_n/n\).
+For \(g\in C_c^1(\mathbb R)\), integration by parts therefore bounds
+the difference of their normalized traces by
+\[
+ \frac{\operatorname{rank}R_n}{n}\int_{\mathbb R}|g'(x)|\,dx.
+\]
+The ordered eigenvalues of \(A_n=D_n+R_n+E_n\) and \(D_n+R_n\)
+differ by at most \(t\), again by min--max. Their normalized
+\(g\)-traces differ by at most
+\(\omega_g(t)=\sup_{|x-y|\le t}|g(x)-g(y)|\).
+First let \(n\to\infty\), then \(t\downarrow0\).
+Uniform approximation by \(C_c^1(\mathbb R)\) extends the conclusion
+to all \(g\in C_c(\mathbb R)\).
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{main}]
+Take a unitary Schur decomposition
+\[
+ V_n^*X_nV_n=L_n+T_n,\qquad
+ L_n=\operatorname{diag}(\lambda_1(X_n),\ldots,\lambda_n(X_n)),
+\]
+where \(T_n\) is strictly upper triangular.
+Put \(K_n=\Ima(L_n+T_n)\) and
+\(D_n=\operatorname{diag}(\Rea\lambda_j(X_n))\).
+Then \(\|K_n\|_1=\|\Ima X_n\|_1=o(n)\), and a direct entry calculation gives
+\[
+ V_n^*(\Rea X_n)V_n=D_n+\HH(K_n).
+ \tag{6}
+\]
+Indeed \(U(K_n)=T_n/(2i)\), so
+\(\HH(K_n)=(T_n+T_n^*)/2\).
+Lemma~\ref{weak} implies
+\(N_t(\HH(K_n))=o(n)\) for every \(t>0\).
+Lemma~\ref{stability} then shows that \(\Rea X_n\) and \(D_n\)
+have asymptotically equal normalized traces against every continuous
+compactly supported function on the real line.
+
+The diagonal entries of \(K_n\) are \(\Ima\lambda_j(X_n)\).
+The diagonal trace-norm bound gives
+\[
+ \sum_j|\Ima\lambda_j(X_n)|\le\|K_n\|_1=o(n).
+ \tag{7}
+\]
+To verify this bound directly, choose a diagonal matrix \(S\) whose
+entries are the signs of these real diagonal entries. Then
+\(\sum_j|(K_n)_{jj}|=\tr(SK_n)\le\|K_n\|_1\), since \(\|S\|\le1\).
+
+Given \(F\in C_c(\mathbb C)\), it is uniformly continuous on \(\mathbb C\).
+For every \(\delta>0\), (7) bounds the difference between its eigenvalue
+averages on \(X_n\) and \(D_n\) by
+\[
+ \omega_F(\delta)
+ +2\|F\|_\infty\frac{\|K_n\|_1}{n\delta}.
+ \tag{8}
+\]
+Let \(n\to\infty\) and then \(\delta\downarrow0\).
+Thus \(D_n\sim_\lambda f\); applying (5) to \(F|_{\mathbb R}\)
+and using (6) proves the required conclusion.
+Finally the limiting probability measure in (1) is supported on
+\(\mathbb R\): every nonnegative compactly supported continuous test
+function away from \(\mathbb R\) has integral zero.
+An exhaustion of \(\mathbb C\setminus\mathbb R\) by compact subsets
+shows that \(f\) is real almost everywhere.
+\end{proof}
+
+\begin{corollary}\label{forward}
+If \(A_n=A_n^*\sim_\lambda f\) and \(\|Y_n\|_1=o(n)\), then
+\(A_n+Y_n\sim_\lambda f\).
+\end{corollary}
+\begin{proof}
+Set \(X_n=A_n+Y_n\). Since
+\(\|\Rea Y_n\|_1,\|\Ima Y_n\|_1\le\|Y_n\|_1\),
+Lemma~\ref{stability} gives \(\Rea X_n\sim_\lambda f\).
+The Schur argument (6)--(8) compares the eigenvalue averages of
+\(X_n\) and \(\Rea X_n\) without assuming that either already has
+a symbol. Their difference tends to zero, proving the claim.
+\end{proof}
+
+This also proves the companion perturbation conjecture in
+\cite{Barbarino,BS}. It is recorded here as a corollary of the same
+argument and receives no separate campaign credit.
+
+\section*{Task 2. Determine the sharp triangular counting constant}
+Find the least dimension-independent \(C\) for which
+\(N_t(\HH(B))\le C\|B\|_1/t\) for all Hermitian \(B\).
+Describe families approaching the optimal constant.
+
+\section*{Task 3. Find optimal rates for spectral convergence}
+Under a uniform density bound for the limiting real eigenvalue law,
+determine the best rate in Kolmogorov or L\'evy distance in terms of
+\(\|\Ima X_n\|_1/n\) and the initial spectral approximation error.
+
+\section*{Task 4. Classify other spectral supports with this stability}
+Characterize closed sets \(E\subset\mathbb C\) for which every normal
+sequence with spectra in \(E\) keeps its spectral law under arbitrary
+trace-norm \(o(n)\) perturbations. Affine real lines satisfy this
+property; the circular counterexample in \cite{Barbarino} shows that
+it fails for some other supports.
+
+\section*{Task 5. Find weaker sufficient hypotheses on imaginary parts}
+Identify natural conditions on the singular-value tails of
+\(\Ima X_n\), weaker than trace-norm \(o(n)\), that still guarantee
+equality of the spectral laws of \(X_n\) and \(\Rea X_n\).
+Require conditions that also control the triangular transform, since
+zero singular-value distribution alone is insufficient.
+
+\begin{thebibliography}{9}
+\bibitem{Barbarino}
+G. Barbarino, \emph{Conjectures on Perturbations of Hermitian Sequences},
+arXiv:1808.05555v1, Conjectures~1--2.
+\url{https://arxiv.org/abs/1808.05555}.
+\bibitem{CPSZ}
+M. Caspers, D. Potapov, F. Sukochev and D. Zanin,
+\emph{Weak type estimates for the absolute value mapping},
+arXiv:1309.3378; Journal of Operator Theory (2015).
+\url{https://arxiv.org/abs/1309.3378}.
+\bibitem{BS}
+G. Barbarino and S. Serra-Capizzano,
+\emph{Non-Hermitian perturbations of Hermitian matrix-sequences and
+applications to the spectral analysis of the numerical approximation
+of partial differential equations}, Numerical Linear Algebra with
+Applications (2020), Conjecture~1.
+\url{https://giovannibarbarino.github.io/doc/articles/NHperturbation.pdf}.
+\end{thebibliography}
+\end{document}

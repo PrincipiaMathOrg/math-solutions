@@ -1,0 +1,282 @@
+\documentclass[11pt]{article}
+\usepackage[margin=0.85in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,hyperref}
+\hypersetup{colorlinks=true,urlcolor=blue,linkcolor=blue}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\title{The optimal logarithmic interpolation bound\\
+\large MathDB 372857: solution of Schmidlin's Conjecture 36}
+\author{Principia Math In Progress}
+\date{12 September 2026}
+\begin{document}
+\maketitle
+
+\section*{Task 1. Prove the conjectured interpolation bound}
+With the source's definitions, \(x\geq0\), \(0\leq\alpha\leq1\), and
+\[
+ I(x,\alpha)=\widehat\iota(x,\alpha)
+ =\log\frac{\Gamma(x+1)(x+1)^\alpha}{\Gamma(x+\alpha+1)}.
+\]
+The identity with the integral formulation is Theorem 6 of
+\cite{Schmidlin}, p.~6. The domain is defined on pp.~3--4 and
+Conjecture 36 is on p.~26.
+
+\begin{theorem}\label{main}
+For every \(x\geq0\) and \(\alpha\in[0,1]\),
+\begin{equation}\label{target}
+ I(x,\alpha)<\frac1{8(x+\alpha)+4}.
+\end{equation}
+Moreover, \(4\) is the largest possible additive constant in a
+bound of the form \(I(x,\alpha)\leq[8(x+\alpha)+C]^{-1}\)
+on the full domain with a positive denominator.
+\end{theorem}
+
+\begin{lemma}\label{center}
+For \(u\geq1\), put
+\[
+ c(u)=\log\Gamma(u)+\tfrac12\log u-\log\Gamma(u+\tfrac12),
+ \qquad s=\frac1{(2u+1)^2}.
+\]
+Then \(c(u)<H(u)\), where
+\begin{equation}\label{H}
+ H(u)=\frac1{8(u+1)}-\frac1{192(u+1)^3}+\frac1{630(u+1)^5}
+      +\frac{s}{2}+\frac{s^2}{4}+\frac{s^3}{6(1-s)}.
+\end{equation}
+Also \(c(u)=1/(8u)-1/(192u^3)+O(u^{-5})\) as \(u\to\infty\).
+\end{lemma}
+\begin{proof}
+For the Stirling remainder
+\[
+ r(z)=\log\Gamma(z)-(z-\tfrac12)\log z+z-\tfrac12\log(2\pi),
+\]
+Binet's integral \cite[Eq.~5.9.10]{DLMF} gives, for every \(z>0\),
+\begin{equation}\label{binet}
+ \frac1{12z}-\frac1{360z^3}<r(z)
+ <\frac1{12z}-\frac1{360z^3}+\frac1{1260z^5}.
+\end{equation}
+Indeed, integrate
+\(t-t^3/3<\arctan t<t-t^3/3+t^5/5\) against the positive
+Binet kernel; these inequalities hold for all \(t>0\) by integrating
+the corresponding finite geometric identities for \(1/(1+t^2)\).
+The moments are
+\(\int_0^\infty t^j/(e^{2\pi t}-1)\,dt=j!\zeta(j+1)/(2\pi)^{j+1}\).
+
+The Gamma duplication formula gives \(c(z)=2r(z)-r(2z)\).
+Applying opposite bounds from \eqref{binet} therefore yields
+\[
+ c(z)<\frac1{8z}-\frac1{192z^3}+\frac1{630z^5},
+\]
+and also gives the stated asymptotic expansion.
+The Gamma recurrence gives
+\[
+ c(u)-c(u+1)=\log\frac{u+1/2}{\sqrt{u(u+1)}}
+            =-\tfrac12\log(1-s).
+\]
+Finally, for \(0<s<1\), the positive logarithmic series implies
+\[
+ -\tfrac12\log(1-s)
+ \leq\frac{s}{2}+\frac{s^2}{4}+\frac{s^3}{6(1-s)}.
+\]
+Using the preceding bound for \(c(u+1)\) proves \eqref{H}.
+\end{proof}
+
+\begin{lemma}\label{psi}
+Let \(\psi=\Gamma'/\Gamma\). For every \(w>0\),
+\begin{align}
+ \frac1{24w^2}-\frac7{960w^4}
+ &\leq\psi(w+\tfrac12)-\log w\leq\frac1{24w^2}, \label{psibound}\\
+ \psi'(w+\tfrac12)&\geq\frac1w-\frac1{12w^3}.   \label{trigamma}
+\end{align}
+\end{lemma}
+\begin{proof}
+We first prove the global elementary bounds
+\begin{equation}\label{sinh}
+ \frac1t-\frac t6\leq\frac1{\sinh t}
+ \leq\frac1t-\frac t6+\frac{7t^3}{360}\qquad(t>0).
+\end{equation}
+For the left bound, expand
+\(t-(1-t^2/6)\sinh t\) in powers of \(t\).
+The coefficient of \(t^{2n+1}\), \(n\geq1\), is
+\[
+ \frac{(2n)(2n+1)/6-1}{(2n+1)!}\geq0.
+\]
+For the right bound, the coefficients of degrees \(1,3,5\) in
+\((1-t^2/6+7t^4/360)\sinh t-t\) vanish, and for \(n\geq3\)
+the coefficient of \(t^{2n+1}\) is
+\[
+ \frac{1+A(7B/360-1/6)}{(2n+1)!}>0,
+ \qquad A=(2n)(2n+1),\quad B=(2n-2)(2n-1)\geq20.
+\]
+Both series converge everywhere, so multiplication by the positive
+\(t\sinh t\) proves \eqref{sinh}.
+
+The digamma integral \cite[Eq.~5.9.13]{DLMF}, combined with
+Frullani's integral for \(\log((w+1/2)/w)\), gives
+\begin{equation}\label{psiint}
+ \psi(w+\tfrac12)-\log w
+ =\int_0^\infty e^{-wt}
+       \left(\frac1t-\frac1{2\sinh(t/2)}\right)\,dt.
+\end{equation}
+For clarity, the Frullani term adds
+\((e^{-wt}-e^{-(w+1/2)t})/t\) to the integrand from
+Eq.~5.9.13, which is exactly \eqref{psiint}.
+By \eqref{sinh}, the parenthesized kernel lies between
+\(t/24-7t^3/5760\) and \(t/24\).
+Integration proves \eqref{psibound}.
+Also, differentiating the standard digamma integral
+\cite[Eq.~5.9.16]{DLMF} gives
+\[
+ \psi'(w+\tfrac12)
+ =\int_0^\infty\frac{t e^{-wt}}{2\sinh(t/2)}\,dt.
+\]
+The lower bound in \eqref{sinh} makes this at least
+\(\int_0^\infty e^{-wt}(1-t^2/24)\,dt\), which is
+\eqref{trigamma}. All integrals converge for \(w>0\), and
+differentiation is dominated on each compact positive \(w\)-interval.
+\end{proof}
+
+\begin{proof}[Proof of Theorem \ref{main}]
+Set \(u=x+1\geq1\), \(\delta=\alpha-\tfrac12\in[-\tfrac12,\tfrac12]\),
+and
+\[
+ F_u(\delta)=\log\Gamma(u)+(\tfrac12+\delta)\log u
+             -\log\Gamma(u+\tfrac12+\delta)-\frac1{8(u+\delta)}.
+\]
+All terms are defined because \(u+\delta\geq1/2\). We have
+\begin{align}
+ F'_u(\delta)&=\log u-\psi(u+\tfrac12+\delta)
+                       +\frac1{8(u+\delta)^2}, \label{F1}\\
+ F''_u(\delta)&=-\psi'(u+\tfrac12+\delta)
+                       -\frac1{4(u+\delta)^3}
+ \leq-\frac1{u+\delta}-\frac1{6(u+\delta)^3}<0. \label{F2}
+\end{align}
+Thus \(F_u\) is strictly concave on the full interval.
+
+By \eqref{psibound}, the slope at zero satisfies
+\begin{equation}\label{slope}
+ 0<\frac1{12u^2}\leq F'_u(0)\leq
+ b(u):=\frac1{12u^2}+\frac7{960u^4}.
+\end{equation}
+Let
+\[
+ h=\frac1{10},\qquad v=u+h,\qquad
+ K(u)=\frac1v+\frac1{6v^3}.
+\]
+For \(0\leq\delta\leq h\), \eqref{F2} gives \(F''_u(\delta)\leq-K(u)\).
+To locate the maximum, observe the exact identity
+\begin{equation}\label{J}
+ \frac{K(u)}{10}-b(u)=\frac{P(u)}{960u^4(10u+1)^3},
+\end{equation}
+where, writing \(u=1+y\),
+\begin{align*}
+ P(1+y)={}&16363+211070y+759380y^2+1274440y^3\\
+           &+1128960y^4+515200y^5+96000y^6>0
+           \qquad(y\geq0).
+\end{align*}
+Therefore \(F'_u(h)\leq b(u)-hK(u)<0\), while \(F'_u(0)>0\).
+Strict concavity places the global maximum on
+\([-\tfrac12,\tfrac12]\) inside \((0,h)\).
+
+On \([0,h]\), integration of the second-derivative bound and
+completion of the square yield
+\[
+ F_u(\delta)
+ \leq F_u(0)+F'_u(0)\delta-\tfrac12K(u)\delta^2
+ \leq F_u(0)+\frac{F'_u(0)^2}{2K(u)}.
+\]
+Lemma \ref{center} gives \(F_u(0)=c(u)-1/(8u)<H(u)-1/(8u)\).
+Using \eqref{slope}, the global maximum is consequently less than
+\(-R(u)\), where
+\begin{equation}\label{R}
+ R(u)=\frac1{8u}-H(u)-\frac{b(u)^2}{2K(u)}.
+\end{equation}
+It remains to check a rational inequality. Direct algebra gives
+\begin{equation}\label{certificate}
+ R(u)=
+ \frac{N(u)}
+ {129024000u^8(u+1)^5(2u+1)^4(300u^2+60u+53)}.
+\end{equation}
+The following table gives every coefficient \(c_j\) in
+\(N(1+y)=\sum_{j=0}^{16}c_jy^j\):
+\[
+\begin{array}{r|r@{\qquad}r|r}
+j&c_j&j&c_j\\ \hline
+0&32048581152&9&124606427560816\\
+1&673338924432&10&65045265578720\\
+2&5218137436272&11&26078831078080\\
+3&22582411828872&12&7883010992000\\
+4&63881423270522&13&1738707609600\\
+5&127854445158661&14&264182784000\\
+6&189369613243226&15&24729600000\\
+7&213134658410116&16&1075200000\\
+8&184998793083656&&
+\end{array}
+\]
+Every coefficient is positive. Hence \(R(u)>0\) for all \(u\geq1\),
+which proves \(F_u(\delta)<0\) on the entire required interval and
+establishes \eqref{target}.
+
+To prove optimality, specialize to \(\alpha=1/2\), so
+\(I(x,1/2)=c(u)\) and \(x+\alpha=u-1/2\).
+For any fixed \(C>4\), Lemma \ref{center} gives
+\[
+ c(u)-\frac1{8u+C-4}
+ =\frac{C-4}{64u^2}+O(u^{-3})>0
+\]
+for all sufficiently large \(u\). Such a constant \(C\) cannot
+give a valid upper bound. The proved inequality with \(C=4\)
+therefore has the largest possible additive constant.
+\end{proof}
+
+\noindent\textbf{Exact verification and scope.}
+The companion \texttt{verify\_polynomials.py} uses only exact
+standard-library integer and rational arithmetic. It constructs the
+rational functions \eqref{J} and \eqref{R} directly from their
+definitions, verifies both displayed polynomial identities by formal
+cross-multiplication, and checks the shifted coefficients by independent
+binomial and Horner substitutions. Both checks concern exact
+polynomials, so they certify the infinite range without a numerical grid.
+The main identity was also derived independently with symbolic
+rational simplification.
+
+The argument includes \(x=0\), \(\alpha=0\), \(\alpha=1\), and
+arbitrarily large \(x\). All denominators are strictly positive.
+The strict midpoint bound and the positive polynomial give strictness
+at every finite point; sharpness of the additive constant arises at
+infinity. No part of the source's conjectured inequality is assumed.
+
+\section*{Tasks 2--5. Further directions after the full solve}
+These are proposed tasks rather than additional solved assertions.
+Check current literature and public claims before attacking each one.
+\begin{description}
+\item[Task 2.] Determine the infimum of the normalized deficit
+\[
+ \bigl(x+\alpha+\tfrac12\bigr)^3
+ \left(\frac1{8(x+\alpha)+4}-I(x,\alpha)\right)
+\]
+on the full domain, and identify its minimizing points or limiting
+sequences.
+\item[Task 3.] For each \(x\geq0\), determine the unique maximizer
+of the difference between \(I(x,\alpha)\) and its upper bound.
+Prove monotonicity properties of this maximizer and obtain a
+uniformly controlled asymptotic expansion.
+\item[Task 4.] Classify the parameter pairs in the larger domain
+\(x>-1,\ 0\leq\alpha\leq1,\ x+\alpha>-1/2\) for which the same
+bound remains valid.
+\item[Task 5.] Find a direct integral or monotonicity proof of the
+sharp additive constant \(4\) that also proves the full bound
+without the degree-six and degree-sixteen polynomial certificates.
+\end{description}
+
+\begin{thebibliography}{9}
+\bibitem{Schmidlin}
+M. Schmidlin, \emph{On Gautschi \& Stirling Identities, Asymptotics
+and Inequalities for the Pi (or Gamma) Function},
+arXiv:2601.21906v1 (2026),
+\url{https://arxiv.org/abs/2601.21906}.
+\bibitem{DLMF}
+NIST Digital Library of Mathematical Functions,
+Eqs.~5.9.10, 5.9.13 and 5.9.16,
+\url{https://dlmf.nist.gov/5.9}.
+\end{thebibliography}
+\end{document}

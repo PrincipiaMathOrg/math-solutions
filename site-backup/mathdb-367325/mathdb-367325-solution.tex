@@ -1,0 +1,266 @@
+\documentclass[10pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,hyperref}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newtheorem{corollary}{Corollary}
+\DeclareMathOperator{\lcm}{lcm}
+\title{MathDB 367325: polynomial blocks for every\ Motzkin convolution power}
+\author{Principia Math In Progress}
+\date{18 September 2026}
+\begin{document}
+\maketitle
+
+\section*{Task 1: Full proof of the determinant block pattern}
+Let $M(z)=\sum_{n\ge0}M_nz^n$ be the Motzkin generating function,
+so $M=1+zM+z^2M^2$. For an integer $r\ge1$, write
+\[
+ M(z)^r=\sum_{n\ge0}a_n^{(r)}z^n,\qquad
+ H_N^{(r)}=\det(a_{i+j}^{(r)})_{0\le i,j<N},\qquad H_0^{(r)}=1.
+\]
+Wang and Zhang's Conjecture 8
+(\href{https://arxiv.org/abs/2502.21050}{arXiv:2502.21050}, p.~4)
+predicts shifted block lengths $r$ when $3\mid r$ and $3r$ otherwise.
+We establish the determinant-level assertion in the precise form
+below: each residue class is a polynomial in the block index, with
+an explicitly determined parity factor. These are the polynomial
+patterns displayed in their Theorems 1, 2, 4--6. The block length
+here is not the number of continued-fraction transformations: for
+example the source uses two transformations for block length three
+and ten for block length twelve. No minimality of a block length
+or periodicity of the numerical values themselves is required.
+
+\begin{theorem}\label{main}
+Set
+\[
+ p=\lcm(r,3)=\begin{cases}r,&3\mid r,\\3r,&3\nmid r,\end{cases}
+ \qquad \epsilon=(-1)^{\binom r2},\qquad
+ \kappa=\begin{cases}r,&3\mid r,\\r-1,&3\nmid r,\end{cases}
+ \qquad D=\binom\kappa2.
+\]
+For each $s\in\{0,\ldots,p-1\}$ there is an integer-valued polynomial
+$B_{r,s}(X)\in\mathbb Q[X]$, of degree at most $D$, such that
+\begin{equation}\label{blocks}
+ H_{pn+s}^{(r)}=\epsilon^n B_{r,s}(n)\qquad(n\ge0).
+\end{equation}
+The proof supplies an exact determinant of order $2r-2$ for every
+$H_N^{(r)}$, as well as a finite formula for every block polynomial.
+The convention is $D=0$ when $r=1$.
+\end{theorem}
+
+Define monic shifted Chebyshev polynomials by
+\[
+ P_{-1}(t)=0,\quad P_0(t)=1,\quad P_1(t)=t-1,\qquad
+ P_{j+1}(t)=(t-1)P_j(t)-P_{j-1}(t).
+\]
+Thus $P_j(1+2\cos\theta)=\sin((j+1)\theta)/\sin\theta$.
+Let $\mu$ be the probability measure
+\[
+ d\mu(t)=\frac{\sqrt{4-(t-1)^2}}{2\pi}\,dt\quad(-1\le t\le3).
+\]
+The substitution $t=1+2\cos\theta$ gives
+\begin{equation}\label{orthogonal}
+ \int P_i(t)P_j(t)\,d\mu(t)
+ =\frac2\pi\int_0^\pi\sin((i+1)\theta)\sin((j+1)\theta)\,d\theta
+ =\delta_{ij}.
+\end{equation}
+Its moments are $M_n$: expansion of $(1+2\cos\theta)^n$ gives
+\[
+ \int t^n\,d\mu(t)
+ =\sum_{k=0}^{\lfloor n/2\rfloor}\binom n{2k}\frac1{k+1}\binom{2k}k=M_n.
+\]
+Here the odd centered moments vanish by symmetry and the even ones
+are the displayed Catalan numbers, by the elementary sine integral.
+
+\begin{lemma}[The weight for a convolution power]\label{weight}
+For $Q_r(t)=t^{r-1}P_{r-1}(t)$ and every $n\ge0$,
+\begin{equation}\label{moments}
+ a_n^{(r)}=\int t^n Q_r(t)\,d\mu(t).
+\end{equation}
+\end{lemma}
+\begin{proof}
+In formal Laurent series at infinity, put
+$G(w)=w^{-1}M(w^{-1})=\sum_{n\ge0}M_nw^{-n-1}$.
+The Motzkin equation gives $G^2=(w-1)G-1$. Induction using the
+recurrence for $P_j$ consequently gives
+\[
+ G(w)^r=P_{r-1}(w)G(w)-P_{r-2}(w).
+\]
+Multiply by $w^{r-1}$. The left side is $w^{-1}M(w^{-1})^r$.
+The second term on the right is a polynomial, and the coefficient
+of $w^{-n-1}$ in the first is
+$\sum_j[t^j]Q_r(t)\,M_{n+j}$, proving \eqref{moments}.
+\end{proof}
+
+We recall and prove the needed form of the classical
+Christoffel determinant identity. It is also Theorem 1 of
+Krattenthaler, \href{https://arxiv.org/abs/2101.04225}{arXiv:2101.04225},
+with confluent evaluation as in its Proposition 5; the identity itself
+is an established tool.
+
+\begin{lemma}[Polynomial modification of moments]\label{christoffel}
+Let $Q(t)=\prod_{i=1}^d(t-\alpha_i)$ be monic and let the monic
+$P_j$ be orthonormal for $\mu$. For distinct roots,
+\begin{equation}\label{distinct}
+ \det\left(\int t^{i+j}Q(t)\,d\mu(t)\right)_{0\le i,j<N}
+ =(-1)^{Nd}\frac{\det(P_{N+j}(\alpha_i))_{1\le i\le d,\,0\le j<d}}
+ {\det(\alpha_i^j)_{1\le i\le d,\,0\le j<d}}.
+\end{equation}
+Repeated roots are handled by replacing the rows at a root of
+multiplicity $m$ by derivative evaluations of orders $0,\ldots,m-1$,
+each divided by the factorial of its order, in both determinants.
+The confluent denominator is nonzero.
+\end{lemma}
+\begin{proof}
+Expansion of two determinants and integration term by term give
+the left side as
+\[
+ \frac1{N!}\int\cdots\int
+ \Delta(x_1,\ldots,x_N)^2\prod_{k=1}^N Q(x_k)\prod_{k=1}^N d\mu(x_k),
+\]
+where $\Delta$ uses increasing powers in its columns. The mixed
+Vandermonde, with the $x$ variables followed by the $\alpha$ variables,
+satisfies
+\[
+ \Delta(x,\alpha)=\Delta(x)\Delta(\alpha)\prod_{k,i}(\alpha_i-x_k).
+\]
+Replace its monomials, and those in the remaining $\Delta(x)$,
+by the monic $P_j$, which does not change either determinant.
+Expand the mixed determinant along its last $d$ rows. By
+orthonormality, integration against the other determinant kills
+every term except that using columns $0,\ldots,N-1$ for the first
+$N$ rows. That term has positive expansion sign and integral $N!$.
+The remaining minor is the numerator in \eqref{distinct}, and
+$\prod Q(x_k)$ contributes $(-1)^{Nd}$.
+
+For colliding roots, divide numerator and denominator by their
+common within-cluster Vandermonde factors and take limits. Taylor
+expansion gives exactly the stated derivative rows. These derivative
+evaluations are linearly independent on polynomials of degree less
+than $d$: a polynomial in their common kernel is divisible by $Q$
+and hence is zero. The confluent denominator is therefore nonzero.
+Both sides depend continuously on the polynomial coefficients, so
+the identity remains valid. The empty-determinant case is included.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{main}]
+For $r=1$, \eqref{orthogonal} gives $H_N^{(1)}=1$, which proves
+the assertion. Suppose $r\ge2$ and put $d=2r-2$.
+The roots of $P_{r-1}$ are simple and are
+\[
+ \rho_j=1+2\cos(j\pi/r),\qquad 1\le j\le r-1.
+\]
+One equals zero exactly when $3\mid r$, in which case its index is
+$j_0=2r/3$, an even integer. Thus $Q_r$ has a root zero of
+multiplicity $\kappa$, together with the nonzero $\rho_j$, all simple.
+
+Let $\mathcal E_N$ be the $d\times d$ matrix whose columns are
+$P_N,P_{N+1},\ldots,P_{N+d-1}$ and whose rows apply the following
+functionals: $f\mapsto f^{(k)}(0)/k!$ for $0\le k<\kappa$, then
+$f\mapsto f(\rho_j)$ for each nonzero $\rho_j$, in any fixed order.
+Let $\mathcal V$ use the same rows and columns $1,t,\ldots,t^{d-1}$.
+Lemmas~\ref{weight} and \ref{christoffel}, and evenness of $d$, give
+\begin{equation}\label{small}
+ H_N^{(r)}=\frac{\det\mathcal E_N}{\det\mathcal V}.
+\end{equation}
+In particular no division by a possibly vanishing $H_N^{(r)}$ occurs.
+
+Set $N=pn+s$. The integer $p/r$ is odd. For a nonzero $\rho_j$,
+the sine formula gives, for every column offset $h$,
+\[
+ P_{pn+s+h}(\rho_j)=(-1)^{nj}P_{s+h}(\rho_j).
+\]
+Factor this sign out of each such row. Their product is
+$(-1)^{n\binom r2}=\epsilon^n$: the only possibly omitted index
+is the even integer $j_0$.
+
+For the zero rows use $t=1+2\cos\theta$ near $\theta_0=2\pi/3$.
+Differentiation in $t$ acts as
+$-(2\sin\theta)^{-1}d/d\theta$. After $k$ differentiations of
+$\sin((L+1)\theta)/\sin\theta$, the value at $\theta_0$ is a
+linear combination of
+\[
+ (L+1)^a\sin((L+1)\theta_0),\qquad
+ (L+1)^a\cos((L+1)\theta_0),\qquad 0\le a\le k,
+\]
+with coefficients independent of $L$. This follows directly by
+induction with the product rule; $\sin\theta_0\ne0$ ensures all
+coefficients are finite. Since $3\mid p$, substituting $L=pn+s+h$
+makes the sine and cosine factors independent of $n$.
+Each entry in the derivative row of order $k$ is therefore a
+polynomial in $n$ of degree at most $k$.
+
+After removing the simple-root signs, the determinant in
+\eqref{small} is a polynomial in $n$ of degree at most
+$0+1+\cdots+(\kappa-1)=D$. Its denominator is a fixed nonzero
+constant, so this proves \eqref{blocks} initially over $\mathbb R$.
+Its values at all nonnegative integers are integers, because both
+$H_N^{(r)}$ and $\epsilon$ are integers. Newton interpolation now
+gives the explicit expression
+\begin{equation}\label{newton}
+ B_{r,s}(X)=\sum_{j=0}^{D}\binom Xj
+ \sum_{h=0}^{j}(-1)^{j-h}\binom jh\epsilon^h H_{ph+s}^{(r)}.
+\end{equation}
+Hence $B_{r,s}\in\mathbb Q[X]$ and is integer-valued (also at
+negative integers).
+
+For completeness, \eqref{small} has a version requiring only
+integer polynomial arithmetic. Reduce $P_{N+j}$ modulo the monic
+polynomial $Q_r$ and write its remainder as $\sum_{i=0}^{d-1}c_{ij}t^i$.
+Every evaluation functional defining $\mathcal E_N$ annihilates
+multiples of $Q_r$, so $\mathcal E_N=\mathcal V(c_{ij})$ and
+\begin{equation}\label{integer}
+ H_N^{(r)}=\det(c_{ij})_{0\le i,j<2r-2}.
+\end{equation}
+This proves the promised finite determinant formula and completes
+the proof for every exponent, residue, and nonnegative block index.
+\end{proof}
+
+\begin{corollary}
+The determinant sequence satisfies
+$(E^p-\epsilon)^{D+1}H^{(r)}=0$, where $(EH)_N=H_{N+1}$.
+In particular $\sum_{N\ge0}H_N^{(r)}z^N$ is rational, with
+denominator dividing $(1-\epsilon z^p)^{D+1}$.
+\end{corollary}
+\begin{proof}
+On each residue class, applying $E^p-\epsilon$ takes a polynomial
+to $\epsilon$ times its forward difference. After $D+1$ applications
+it vanishes. Multiplication of the ordinary generating series by
+the displayed denominator therefore leaves a polynomial.
+\end{proof}
+
+\paragraph{Attribution and scope.}
+The source authors conjectured the block lengths and provided
+explicit cases. Polynomial modifications of orthogonal-polynomial
+moments and their Christoffel determinant formula are classical;
+the latter is proved here for completeness and attributed above.
+The contribution here is the convolution weight $Q_r$, the analysis
+of its roots, and the resulting uniform signed polynomial blocks.
+This addresses Conjecture 8 for the determinants; it does not assert
+the separate numerical formulas of Conjectures 3 and 7 or a specific
+orbit of the continued-fraction transformation. The displayed sign
+is derived independently, rather than imported from those formulas.
+Exactly one MathDB problem is addressed. The following tasks are
+proposed directions, not additional solved problems.
+
+\section*{Task 2: Find sharp degrees and leading coefficients}
+Determine the exact degree of every nonzero $B_{r,s}$, classify the
+identically zero residues, and evaluate the leading coefficients.
+The general bound $\binom\kappa2$ need not be sharp.
+
+\section*{Task 3: Evaluate distinguished residue classes}
+Use the fixed-size determinant to prove explicit formulas for
+$B_{r,0}$, $B_{r,1}$, and the paired residues in the source's
+Conjectures 3 and 7, including their correct sign factors.
+
+\section*{Task 4: Determine the least block length}
+Classify all cancellations that allow a smaller signed polynomial
+block length or a smaller generating-function denominator than
+those supplied by the theorem.
+
+\section*{Task 5: Extend to weighted Motzkin moments}
+Replace the horizontal-step weight one by a real parameter.
+Determine which parameters produce polynomial blocks, and describe
+the exponential-polynomial behavior when the relevant root angles
+are not rational multiples of $\pi$.
+\end{document}

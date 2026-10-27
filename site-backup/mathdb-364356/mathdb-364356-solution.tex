@@ -1,0 +1,192 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,hyperref}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newcommand{\Mat}{\operatorname{Mat}}
+\newcommand{\rank}{\operatorname{rank}}
+\newcommand{\GL}{\operatorname{GL}}
+\title{A uniform point-mass bound for sums of prescribed-rank matrices}
+\author{Principia Math In Progress}
+\date{22 September 2026}
+\begin{document}
+\maketitle
+\begin{abstract}
+Independent uniform matrices of prescribed ranks over a finite field
+have a uniformly bounded density relative to the uniform measure as soon
+as the sum of the ranks is at least twice the matrix dimension.
+An explicit absolute bound proves Conjecture 5.5 of Gill, Lifshitz,
+Pyber and Szab\'o, with $K(\epsilon)=\lceil2/\epsilon\rceil$.
+The proof uses rectangular factorization and a rank-sensitive estimate
+for the probability of full rank.
+\end{abstract}
+
+\section*{Task 1: the complete result}
+Let $q$ be any prime power, $n\ge1$, and let $R_{n,q}(r)$ denote the
+number of rank-$r$ matrices in $\Mat_{n\times n}(\mathbb F_q)$.
+For a fixed matrix $M$ of rank $t$, let
+$N_{n,q}(r_1,\ldots,r_k;t)$ count tuples $(X_1,\ldots,X_k)$ with
+$\rank X_i=r_i$ and $\sum_iX_i=M$.
+This number depends only on $t$, by invertible left and right multiplication.
+
+\begin{theorem}\label{main}
+For every prime power $q$, every $n\ge1$, and every sequence of integers
+$0\le r_i\le n$ such that $\sum_{i=1}^k r_i\ge2n$, one has
+\[
+ N_{n,q}(r_1,\ldots,r_k;t)
+ \le 32768\,q^{-n^2}\prod_{i=1}^k R_{n,q}(r_i)
+ \qquad(0\le t\le n).
+\]
+Consequently Conjecture 5.5, equivalently Question 5.22, of
+\cite{source} holds with $K(\epsilon)=\lceil2/\epsilon\rceil$ and an
+absolute implied constant independent even of $\epsilon$.
+\end{theorem}
+
+The conclusion is the upper bound requested in the source. It does not
+assert a two-sided estimate or convergence to the uniform distribution.
+For example, when $n=1$, $q=2$ and every $r_i=1$, the sum is deterministic.
+This example is entirely consistent with the asserted upper bound.
+
+\section*{Two elementary estimates}
+The full-rank and subspace-count formulas below are standard and are
+also recorded in Fact 5.23 of \cite{source}. We include their estimates
+to make the argument self-contained.
+
+\begin{lemma}\label{conditioning}
+If $U$ is uniform in $\Mat_{n\times r}(\mathbb F_q)$, where $0\le r\le n$,
+then
+\[
+ p_n(r):=\mathbb P(\rank U=r)
+ =\prod_{i=0}^{r-1}(1-q^{i-n})\ge4^{-r/n}.
+\]
+The same probability applies to full row rank in $\Mat_{r\times n}$.
+\end{lemma}
+\begin{proof}
+Choose the columns successively. After $i$ independent columns their
+span has $q^i$ elements, proving the product formula.
+The numbers $\log(1-q^{i-n})$, $0\le i<n$, are decreasing in $i$.
+Their first $r$ terms therefore have average at least their overall average:
+\[
+ \frac{\log p_n(r)}r\ge\frac{\log p_n(n)}n\qquad(r\ge1).
+\]
+Moreover, using $\prod_j(1-a_j)\ge1-\sum_j a_j$ for $0\le a_j\le1$,
+\[
+ p_n(n)=\prod_{j=1}^n(1-q^{-j})
+ \ge\frac12\prod_{j=2}^n(1-2^{-j})\ge\frac14.
+\]
+The empty product covers $n=1$ in the last estimate and $r=0$ in the
+statement. Exponentiating proves the claim; transposition gives its row version.
+\end{proof}
+
+\begin{lemma}\label{product}
+Let $R\ge2n$. If $A\in\Mat_{n\times R}(\mathbb F_q)$ and
+$B\in\Mat_{R\times n}(\mathbb F_q)$ are independent and uniform, then
+\[
+ \mathbb P(AB=M)\le8q^{-n^2}
+ \quad\text{for every }M\in\Mat_{n\times n}(\mathbb F_q).
+\]
+\end{lemma}
+\begin{proof}
+Conditional on $A$ having rank $n-d$, the columns of $AB$ are
+independent uniform elements of $\operatorname{im}A$.
+Thus their probability of equaling the prescribed columns of $M$ is
+either zero or $q^{-n(n-d)}$.
+
+There are at most $4q^{d(n-d)}$ subspaces of dimension $d$ in
+$\mathbb F_q^n$. Indeed, count ordered independent $d$-tuples by at most
+$q^{nd}$, and divide by their number in $\mathbb F_q^d$, which is
+$q^{d^2}p_d(d)\ge q^{d^2}/4$ for $d\ge1$.
+The same upper bound is valid for $d=0$.
+For any fixed such subspace $W$, the probability that $W\subseteq\ker A^{\mathsf T}$
+is $q^{-dR}$: each of the $R$ independent columns must satisfy $d$
+independent linear equations. A union bound therefore gives
+\[
+ \mathbb P(\rank A=n-d)
+ \le4q^{-d(R-n+d)}\qquad(0\le d\le n).
+\]
+It follows that
+\begin{align*}
+ \mathbb P(AB=M)
+ &\le\sum_{d=0}^n4q^{-d(R-n+d)}q^{-n(n-d)}\\
+ &=4q^{-n^2}\sum_{d=0}^n q^{-d(R-2n+d)}\\
+ &\le4q^{-n^2}\sum_{d=0}^{\infty}2^{-d^2}
+ \le8q^{-n^2},
+\end{align*}
+where $R\ge2n$, $q\ge2$ and $d^2\ge d$ were used.
+\end{proof}
+
+\section*{Proof of the uniform prescribed-rank bound}
+\begin{proof}[Proof of Theorem \ref{main}]
+Choose $m$ minimally so that $R=\sum_{i=1}^m r_i\ge2n$.
+Then $2n\le R<3n$, since the preceding sum is less than $2n$ and
+$r_m\le n$.
+Independently choose uniform matrices
+\[
+ U_i\in\Mat_{n\times r_i}(\mathbb F_q),\qquad
+ V_i\in\Mat_{r_i\times n}(\mathbb F_q),\qquad 1\le i\le m,
+\]
+and let $E$ be the event that every $U_i$ has full column rank and
+every $V_i$ has full row rank. Lemma \ref{conditioning} gives
+\[
+ \mathbb P(E)=\prod_{i=1}^m p_n(r_i)^2
+ \ge16^{-R/n}\ge16^{-3}.
+\]
+
+Conditional on $E$, the products $U_iV_i$ are independent uniform
+rank-$r_i$ matrices. To see uniformity, for any fixed rank-$r$ matrix $X$,
+the columns of $U$ must be an ordered basis of $\operatorname{im}X$.
+There are exactly $|\GL(r,q)|$ choices, and each determines a unique
+full-row-rank $V$ with $UV=X$. The rank-zero case has one empty
+factorization. The conditioning event separates across the independent
+blocks, so independence also persists.
+
+Before conditioning, form the matrices
+\[
+ A=[\,U_1\ \cdots\ U_m\,],\qquad
+ B=\begin{bmatrix}V_1\\ \vdots\\ V_m\end{bmatrix}.
+\]
+They are independent uniform matrices of the sizes in Lemma \ref{product},
+and $AB=\sum_{i=1}^m U_iV_i$. Consequently, for independent uniform
+rank-$r_i$ matrices $X_i$,
+\[
+ \mathbb P\left(\sum_{i=1}^mX_i=M\right)
+ =\mathbb P(AB=M\mid E)
+ \le\frac{\mathbb P(AB=M)}{\mathbb P(E)}
+ \le8\cdot16^3q^{-n^2}=32768q^{-n^2}.
+\]
+Adding the remaining independent matrices cannot increase the largest
+point probability: average this bound over their sum. Finally, multiply
+by $\prod_iR_{n,q}(r_i)$ to obtain the stated count.
+
+If $r_i\ge\epsilon n$ and $k\ge\lceil2/\epsilon\rceil$, then
+$\sum_i r_i\ge k\epsilon n\ge2n$. This proves the conjecture for
+$0<\epsilon\le1$; for $\epsilon>1$ its hypotheses are impossible.
+\end{proof}
+
+The rank-sensitive conditioning bound is what keeps the constant absolute.
+Using only $p_n(r)\ge1/4$ separately for each block would introduce an
+unnecessary factor exponential in the number of summands.
+The source's established case of three ranks at least $2n/3$
+is credited to its Theorem 5.3. The present argument proves the full
+many-rank extension and the stronger sum-of-ranks criterion.
+
+\section*{Proposed follow-up Tasks 2--5}
+These are proposed tasks, not additional completed results.
+\begin{enumerate}
+\setcounter{enumi}{1}
+\item Determine the smallest absolute constant valid under the sole
+condition $\sum_i r_i\ge2n$.
+\item Find sharp necessary rank-sum thresholds for uniform point-mass
+bounds, including sequences with $\sum_i r_i<2n$.
+\item Prove the corresponding optimal theorem for rectangular
+$a\times b$ matrices with arbitrary prescribed ranks.
+\item Characterize the rank sequences and fields for which the normalized
+point probabilities converge uniformly to one, and obtain quantitative rates.
+\end{enumerate}
+\begin{thebibliography}{9}
+\bibitem{source} N. Gill, N. Lifshitz, L. Pyber and E. Szab\'o,
+\emph{Initiating the proof of the Liebeck--Nikolov--Shalev conjecture},
+\href{https://arxiv.org/abs/2408.07800v2}{arXiv:2408.07800v2}, 24 September 2024.
+Conjecture 5.5, Question 5.22, Theorem 5.3 and Fact 5.23.
+\end{thebibliography}
+\end{document}

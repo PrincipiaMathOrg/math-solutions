@@ -1,0 +1,200 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools,hyperref}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newcommand{\tr}{\operatorname{tr}}
+\newcommand{\VS}{\operatorname{VS}}
+\title{The Vendi--LCR inequality at every order\\MathDB 371345}
+\author{Principia Math In Progress}
+\date{18 September 2026 (UTC)}
+\begin{document}
+\maketitle
+\noindent\textbf{Scope and prior work.} The current source \cite{N}, version 4,
+already proves the comparison at every nonnegative order, and at negative
+orders for invertible matrices. The remaining case is a singular matrix at
+a negative order. We resolve that case using the orthogonal projection onto
+the range, and give a complete proof for all orders. The positive spectrum
+convention is the one used in the source's Appendix C.3 code (p.~15).
+The audit is by the authoring agent, not an independent peer review.
+
+\section*{Task 1: full comparison, including singular negative orders}
+Let $Z=(z_{ij})_{i,j=1}^n$ be real symmetric positive semidefinite, with
+$z_{ii}=1$ and $0\leq z_{ij}\leq1$. Let $\lambda_1,\ldots,\lambda_r>0$
+be its positive eigenvalues, $r=\operatorname{rank}Z$, and put
+\[
+ r_i=\sum_j z_{ij},\qquad s_i=\sum_jz_{ij}^2,
+ \qquad 1\leq s_i\leq r_i.
+\]
+For finite $q\ne1$, define
+\[
+ \VS_q(Z)=\left(n^{-q}\sum_{\ell=1}^r\lambda_\ell^q\right)^{1/(1-q)},
+ \qquad
+ D_q(Z)=\left(n^{-q}\sum_{i=1}^n r_i^{q-1}\right)^{1/(1-q)}.
+\]
+Thus zero eigenvalues are omitted, including at nonpositive orders.
+At $q=1$ use the continuous limits
+\[
+ \VS_1=\exp\left(\log n-\frac1n\sum_\ell\lambda_\ell\log\lambda_\ell\right),
+ \qquad D_1=\exp\left(\log n-\frac1n\sum_i\log r_i\right).
+\]
+At the two infinite endpoints use the limits in $q$:
+\[
+ \VS_{-\infty}=\frac n{\min_\ell\lambda_\ell},\quad
+ D_{-\infty}=\frac n{\min_i r_i},\qquad
+ \VS_{+\infty}=\frac n{\max_\ell\lambda_\ell},\quad
+ D_{+\infty}=\frac n{\max_i r_i}.
+\]
+
+\begin{theorem}\label{thm:main}
+For every such $Z$ and every $q\in[-\infty,+\infty]$,
+$\VS_q(Z)\geq D_q(Z)$.
+More precisely, if $P$ is the orthogonal projection onto $\operatorname{ran}Z$
+and $h_i=P_{ii}$, then for every finite $q\leq0$,
+\begin{equation}\label{eq:chain}
+ \sum_{\ell=1}^r\lambda_\ell^q
+ \ \geq\ \sum_i h_i^{1-q}
+ \ \geq\ \sum_i s_i^{q-1}
+ \ \geq\ \sum_i r_i^{q-1}.
+\end{equation}
+Equality $\VS_q=D_q$ at any finite $q\leq0$ holds exactly when $Z$ is,
+up to simultaneous row and column permutation, a direct sum of all-ones
+matrices. Such matrices give equality at every order.
+\end{theorem}
+
+\begin{proof}[The new case: every nonpositive order and arbitrary rank]
+Since $Ze_i$ lies in $\operatorname{ran}Z$,
+\[
+ 1=\langle e_i,Ze_i\rangle=\langle Pe_i,Ze_i\rangle,
+ \qquad
+ 1\leq\|Pe_i\|^2\|Ze_i\|^2=h_i s_i.
+\]
+In particular $h_i>0$ and $h_i\geq1/s_i\geq1/r_i$.
+Choose an orthonormal eigenbasis $v_1,\ldots,v_r$ for the range and write
+$w_{i\ell}=|(v_\ell)_i|^2$. Then
+\[
+ \sum_\ell w_{i\ell}=h_i,\qquad
+ \sum_\ell\lambda_\ell w_{i\ell}=z_{ii}=1.
+\]
+For $q<0$, the function $t\mapsto t^q$ is convex on $(0,\infty)$.
+Jensen's inequality with weights $w_{i\ell}/h_i$ gives
+\[
+ \sum_\ell w_{i\ell}\lambda_\ell^q
+ \geq h_i\left(\frac1{h_i}\right)^q=h_i^{1-q}.
+\]
+Summing over $i$ proves the first inequality in \eqref{eq:chain}, since
+$\sum_iw_{i\ell}=1$. For $q=0$ that first inequality is equality:
+$r=\sum_i h_i$. The remaining inequalities follow from $h_i\geq1/s_i$
+and $s_i\leq r_i$, with $1-q>0$ and $q-1<0$.
+Multiplication by $n^{-q}$ and raising to the positive power $1/(1-q)$
+proves the score comparison for all finite $q\leq0$.
+
+For equality, the last inequality in \eqref{eq:chain} must be equality
+term by term. Hence $s_i=r_i$ for every $i$, and
+$\sum_jz_{ij}(1-z_{ij})=0$ forces every entry to be either zero or one.
+Represent $Z$ as a Gram matrix of unit vectors. An inner product of one
+means two vectors are equal; an inner product of zero means they are
+orthogonal. The equal-vector classes therefore give the claimed all-ones
+blocks. Conversely, if the block sizes are $b_1,\ldots,b_r$, the positive
+eigenvalues are $b_1,\ldots,b_r$ and
+\[
+ \sum_\ell\lambda_\ell^q=\sum_\ell b_\ell^q
+ =\sum_i r_i^{q-1}.
+\]
+The equality conclusion follows, including the limits at $1$ and infinity.
+\end{proof}
+
+\paragraph{Completion at positive orders (already established in \cite{N}).}
+For completeness, we give another proof of this known portion.
+Set $R=\operatorname{diag}(r_1,\ldots,r_n)$. For every vector $u$,
+\[
+ u^*(R-Z)u=\frac12\sum_{i,j}z_{ij}|u_i-u_j|^2\geq0,
+ \qquad 0\preceq Z\preceq R.
+\]
+We use the familiar matrix power-order facts
+\[
+ A\preceq B\Longrightarrow A^\alpha\preceq B^\alpha\quad(0<\alpha\leq1),
+ \qquad
+ A^{-p}\succeq B^{-p}\quad(0<p\leq1, A\succ0).
+\]
+They follow from the reversal of order under inversion and the scalar
+integrals, applied by spectral calculus,
+\[
+ x^\alpha=\frac{\sin\pi\alpha}{\pi}
+ \int_0^\infty t^{\alpha-1}\frac{x}{x+t}\,dt,
+ \qquad
+ x^{-p}=\frac{\sin\pi p}{\pi}
+ \int_0^\infty\frac{t^{-p}}{x+t}\,dt
+\]
+for exponents strictly between zero and one; the endpoint cases are direct.
+Inversion reverses order because conjugating $A\preceq B$ by $B^{-1/2}$
+gives a positive definite matrix bounded above by the identity, whose
+inverse is bounded below by the identity.
+
+For $1<q\leq2$, take $\alpha=q-1$. Multiplying the power-order inequality
+by $Z$ inside a trace gives
+\[
+ \tr Z^q\leq\tr(ZR^{q-1})=\sum_i r_i^{q-1}.
+\]
+For $q\geq2$, use a unit eigenvector $v_\ell$ of $Z$ and scalar Jensen:
+\[
+ \langle v_\ell,R^{q-1}v_\ell\rangle
+ \geq\langle v_\ell,Rv_\ell\rangle^{q-1}
+ \geq\lambda_\ell^{q-1}.
+\]
+Multiplying by $\lambda_\ell$ and summing gives the same trace inequality.
+Because $1/(1-q)<0$, it proves $\VS_q\geq D_q$ for $q>1$.
+
+For $0<q<1$, put $p=1-q$. Apply the inverse-power order to
+$Z+\varepsilon I\preceq R+\varepsilon I$, multiply by $Z$ inside the
+trace, and let $\varepsilon\downarrow0$:
+\[
+ \sum_{\ell=1}^r\lambda_\ell^q
+ =\lim_{\varepsilon\downarrow0}\tr\bigl(Z(Z+\varepsilon I)^{-p}\bigr)
+ \geq\tr(ZR^{-p})=\sum_i r_i^{q-1}.
+\]
+The zero-eigenvalue contributions are identically zero before the limit;
+this is a finite-dimensional spectral limit. The positive exponent
+$1/(1-q)$ now gives $\VS_q\geq D_q$. Continuity gives $q=1$.
+Both spectra and the list of row sums are finite and strictly positive
+after removing zero eigenvalues. Taking $q\to-\infty$ and $q\to+\infty$
+therefore gives the two endpoint formulas and the corresponding inequalities.
+This completes the proof of Theorem \ref{thm:main}.
+
+\paragraph{Why the singular case needs its own argument.}
+The full-rank estimate $\VS_q\geq n\geq D_q$ at negative orders does not
+apply when $\operatorname{rank}Z<n$. Nor can zero eigenvalues simply be
+replaced by small positive numbers: negative powers then diverge, whereas
+the intended score sums only over the positive spectrum. Formula
+\eqref{eq:chain} works directly on that spectrum, with no such limiting
+substitution. If instead one adopts the convention that zero eigenvalues
+contribute $+\infty$ at negative order, the comparison is immediate there;
+the theorem above proves the stronger, finite, source-intended version.
+
+\section*{Tasks 2--5: proposed follow-up problems}
+The following are directions, not results proved in this note.
+\begin{description}
+\item[Task 2.] Extend the full comparison to a nonuniform probability vector
+$p$, comparing the spectrum of $\operatorname{diag}(\sqrt p)Z
+\operatorname{diag}(\sqrt p)$ with
+$\bigl(\sum_i p_i(Zp)_i^{q-1}\bigr)^{1/(1-q)}$, with appropriate support
+conventions.
+\item[Task 3.] Classify all equality cases at each finite positive order,
+including the Shannon order $q=1$.
+\item[Task 4.] At a fixed $q<0$, obtain optimal quantitative stability
+bounds relating the trace gap in \eqref{eq:chain} to
+$\sum_{i,j}z_{ij}(1-z_{ij})$ and distance from all-ones block matrices.
+\item[Task 5.] For prescribed $n$, rank, $q<0$, and a lower bound
+$\varepsilon>0$ on the positive eigenvalues, determine the maximum possible
+ratio $\VS_q(Z)/D_q(Z)$ and characterize extremizers.
+\end{description}
+
+\begin{thebibliography}{1}
+\bibitem{N} P.~Nguyen, J.~Couch, R.~Bansal, A.~Morgan, C.~Tam, M.~Li,
+Rima Arnaout, and Ramy Arnaout,
+\emph{Which Similarity-Sensitive Entropy (Sentropy)?},
+arXiv:2511.03849v4, submitted 30 March 2026, PDF dated 1 April 2026.
+Theorem 1 and Section III, pp.~3--6; Appendix C.3, p.~15.
+\url{https://arxiv.org/abs/2511.03849v4}.
+\end{thebibliography}
+\end{document}

@@ -1,0 +1,162 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,hyperref}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newcommand{\PN}{\mathcal P_N}
+\title{Nonexistence of the proposed persistence density}
+\author{Principia Math In Progress}
+\date{28 September 2026}
+\begin{document}
+\maketitle
+\begin{abstract}
+For every fixed integer sample depth $N\ge3$, the persistent integer
+bases defined by Hyman's continued-fraction criterion have no natural
+density. Thus the proposed density $1/12$ does not exist. The proof
+uses two open intervals of fractional logarithms, one entirely
+persistent and one entirely nonpersistent, and their repetition in
+every decimal decade.
+\end{abstract}
+
+\section*{Task 1: the precise density question}
+Fix $N\ge3$ and write $\log$ for the natural logarithm. For an integer
+$b\ge2$ with irrational $\alpha_b=\log_{10}b$, write
+$\alpha_b=[a_0;a_1,a_2,\ldots]$, and let $q_k$ be its convergent
+denominators, with $q_{-1}=0$, $q_0=1$. Following Corollary 3.16
+of \cite{H}, define
+\[
+ \PN=\{b\ge2:\text{ some }k\ge0\text{ has }q_k\le N
+                    \text{ and }a_{k+1}q_k>N\log N\}.
+\]
+The rational-logarithm bases may be included or excluded arbitrarily;
+they have density zero, as shown below. Conjecture 3.17 proposes
+\[
+ \lim_{B\to\infty}\frac{\#(\PN\cap[2,B])}{B-1}=\frac1{12}.
+\]
+The sample depth is retained explicitly here: the source defines
+persistence at depth $N$ and surveys $N=10{,}000$, with an extended
+survey at $N=200{,}000$. Its supplementary Section 9.8 also keeps $N$
+fixed in the continued-fraction cutoff while increasing the base bound.
+
+\begin{theorem}
+For every fixed integer $N\ge3$, the natural density of $\PN$ does not
+exist. In particular, Conjecture 3.17 fails for every such choice of
+the fixed sample depth, including both survey depths.
+\end{theorem}
+
+\section*{Two intervals with opposite classifications}
+Adding an integer to a continued fraction changes only $a_0$.
+The recurrence $q_k=a_kq_{k-1}+q_{k-2}$ therefore shows that the
+persistence criterion depends only on
+$\theta=\{\log_{10}b\}\in(0,1)$.
+
+First choose $A=N^2$. Since $\log N<N$, we have $A>N\log N$.
+For every irrational
+\[
+ \theta\in J_+:=\left(\frac{A}{A+1},1\right),
+\]
+one has $a_1=1$, $q_1=1$, and
+\[
+ a_2=\left\lfloor\frac{\theta}{1-\theta}\right\rfloor
+       \ge A>N\log N.
+\]
+Thus every such $\theta$ meets the persistence criterion already at
+$k=1$. This argument does not require admitting the index $k=0$.
+
+Next consider a continued-fraction prefix consisting entirely of ones.
+Let
+\[
+ p_{-1}=1,\quad p_0=0,\quad q_{-1}=0,\quad q_0=1,
+ \qquad p_j=p_{j-1}+p_{j-2},\quad q_j=q_{j-1}+q_{j-2}.
+\]
+Choose $L$ with $q_L>N$. The values
+\[
+ [0;\underbrace{1,\ldots,1}_{L\text{ entries}},t]
+       =\frac{p_Lt+p_{L-1}}{q_Lt+q_{L-1}},\qquad 1<t<\infty,
+\]
+fill the open interval $J_-$ between
+\[
+ u=\frac{p_L}{q_L},\qquad
+ v=\frac{p_L+p_{L-1}}{q_L+q_{L-1}}.
+\]
+The determinant $p_Lq_{L-1}-p_{L-1}q_L=(-1)^{L-1}$,
+proved immediately by induction, gives
+\[
+ |u-v|=\frac1{q_L(q_L+q_{L-1})}>0.
+\]
+Every irrational number in $J_-$ has $a_1=\cdots=a_L=1$.
+Since its $L$th denominator exceeds $N$, every index with $q_k\le N$
+has $k<L$. Consequently
+\[
+ a_{k+1}q_k=q_k\le N<N\log N,
+\]
+where $\log N>1$ for $N\ge3$. None of these numbers is persistent.
+
+\section*{Decimal intervals contradict a natural density}
+If an integer $b\ge2$ has $\log_{10}b=p/q$ in lowest terms, then
+$b^q=10^p$. Taking the exponent of the prime $2$ gives
+$q\,v_2(b)=p$, so $q=1$. Such bases are exactly the integral powers
+of ten. There are only $O(\log B)$ of them up to $B$.
+
+Put
+\[
+ c_+=10^{A/(A+1)},\quad d_+=10,\qquad
+ c_-=10^{\min(u,v)},\quad d_-=10^{\max(u,v)}.
+\]
+For every nonnegative integer $m$, all integer bases in
+$(c_+10^m,d_+10^m)$ are persistent, while none in
+$(c_-10^m,d_-10^m)$ is persistent. These open intervals lie within
+a single decimal decade, so contain no powers of ten.
+
+Suppose a natural density $\delta$ existed and set
+$C(B)=\#(\PN\cap[2,B])$. Equivalently, $C(B)=\delta B+o(B)$.
+For fixed $1\le c<d\le10$, subtracting this asymptotic at the two
+endpoints gives
+\begin{equation}\label{counts}
+ \#\bigl(\PN\cap(c10^m,d10^m)\bigr)
+    =\delta(d-c)10^m+o(10^m).
+\end{equation}
+The possible integer endpoints change this equation by at most two.
+For $(c,d)=(c_+,d_+)$ the left side is
+$(d_+-c_+)10^m+O(1)$, so \eqref{counts} forces $\delta=1$.
+For $(c,d)=(c_-,d_-)$ it is zero, forcing $\delta=0$.
+This contradiction proves the theorem.
+
+This is a refutation of the ordinary base-counting limit stated in
+the source. A logarithmically weighted density or a joint limit with
+$N=N(B)$ would be a different mathematical question. The proof uses
+the source's exact continued-fraction definition and does not require
+any claimed CMI estimates or survey classifications.
+
+\section*{Reproducible checks}
+The accompanying exact verifier checks the continued-fraction
+recurrences, cylinder endpoint identities, and all relevant
+denominator cutoffs for every integer $3\le N\le10{,}000$, and
+also for $N=200{,}000$ and $N=10^9$. It verifies
+$1<\log3$ by a rational lower Taylor bound and uses
+$\log N\le N-1<N$ analytically. At $N=3$, the inequalities
+$9^{10}>10^9$, $9<10$, $4^5>10^3$, and $4^8<10^5$
+place bases $9$ and $4$ in the two respective cylinders without
+floating-point logarithms. These checks supplement the universal proof.
+
+\section*{Proposed follow-up tasks}
+\begin{description}
+\item[Task 2.] Determine the lower and upper natural densities of
+$\PN$ at the survey depth $N=10{,}000$.
+\item[Task 3.] Determine whether $\PN$ has a logarithmic density and
+express it in terms of continued-fraction cylinders.
+\item[Task 4.] Determine the asymptotic behavior, as $N\to\infty$,
+of the Lebesgue measure of persistent rotation numbers in $(0,1)$.
+\item[Task 5.] Identify growth regimes $N=N(B)$ for which the
+persistence proportion up to base $B$ has a limit, and compute it.
+\end{description}
+
+\begin{thebibliography}{9}
+\bibitem{H} J. M. Hyman (Mac Hyman),
+\emph{Why Eight Percent of Benford Sequences Never Converge},
+\href{https://arxiv.org/abs/2603.18243}{arXiv:2603.18243v1} (2026).
+Definition 3.11, Corollary 3.16 and Conjecture 3.17, pp.~16--18;
+Supplementary Information, Section 9.8, pp.~33--34,
+\href{https://github.com/machyman/hyman2026eight/tree/0ffdd7cf0e6f660c789b5fe95bdcef61fa1d48ca/paper}{author repository}.
+\end{thebibliography}
+\end{document}

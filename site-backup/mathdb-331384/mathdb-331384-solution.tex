@@ -1,0 +1,299 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[colorlinks=true,urlcolor=blue,linkcolor=blue]{hyperref}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newcommand{\G}{\Gamma}
+\newcommand{\dd}{\,d}
+\title{Coefficientwise log-concavity of the normalized\\
+incomplete beta function\\\large MathDB 331384}
+\author{Principia Math In Progress}
+\date{11 September 2026}
+\begin{document}
+\maketitle
+
+\section*{Task 1. Resolve the first-parameter conjecture}
+
+For $a,b>0$, let $I_x(a,b)$ be the regularized incomplete beta function and set
+\[
+ f_b(a;x)=x^{-a}(1-x)^{-b}I_x(a,b)
+ =\frac1{\G(b)}\sum_{n=0}^\infty
+       \frac{\G(a+b+n)}{\G(a+1+n)}x^n,\qquad |x|<1.
+\]
+The series identity follows from Euler's transformation of the standard
+hypergeometric representation of $I_x$; it also identifies the formal
+coefficients under consideration. Write
+\[
+ f_b(a+\alpha;x)f_b(a+\beta;x)
+ -f_b(a;x)f_b(a+\alpha+\beta;x)
+ =\sum_{m=0}^\infty \psi_m x^m .
+\]
+The following proves Conjecture 2 of Karp~\cite{K}, including the
+unrestricted positive shifts in the previously unsettled $b>1$ case.
+
+\begin{theorem}
+For every $a,\alpha,\beta>0$ and every integer $m\geq0$,
+\[
+ \psi_m>0\quad(b>1),\qquad
+ \psi_m<0\quad(0<b<1),\qquad
+ \psi_m=0\quad(b=1).
+\]
+Thus $a\mapsto f_b(a;x)$ is strictly coefficientwise Wright
+log-concave for $b>1$ and strictly coefficientwise Wright log-convex
+for $0<b<1$.
+\end{theorem}
+
+The $0<b<1$ assertion was already proved in the source's Corollary 1.
+We give its short moment proof below to make the result self-contained.
+The main step for $b>1$ is a finite-sum inequality.
+
+\section*{A finite-sum inequality}
+
+Put
+\[
+ g_b(t)=\frac{\G(t+b)}{\G(t+1)},\qquad t>0.
+\]
+
+\begin{lemma}\label{lem:kernel}
+Let $b>1$, $u>v>0$ and $m\geq0$ be an integer. Then
+\begin{equation}
+ \sum_{k=0}^m g_b(u+k)g_b(v+m-k)
+       \bigl(q^{u+k}-q^{v+m-k}\bigr)<0
+       \qquad(0<q<1).
+ \label{eq:kernel}
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+Set $T=u+v+m$, $w(t)=g_b(t)g_b(T-t)$ and
+\[
+ P_u(q)=\sum_{k=0}^m w(u+k)q^{u+k},\qquad
+ P_v(q)=\sum_{k=0}^m w(v+k)q^{v+k},\qquad
+ F=P_u-P_v.
+\]
+Since $w(t)=w(T-t)$, $F$ is the left side of~\eqref{eq:kernel}.
+Let $\theta=q\,d/dq$ and introduce the differential operator
+\[
+ \mathcal L=\theta(T+b-\theta)-q(\theta+b)(T-\theta).
+\]
+The weight recurrence
+\begin{equation}
+ (t+1)(T-t+b-1)w(t+1)=(t+b)(T-t)w(t)
+ \label{eq:weights}
+\end{equation}
+shows that all interior terms in $\mathcal LP_u$ cancel.
+Subtracting the two boundary expressions gives
+\begin{equation}
+ \mathcal LF=R(q):=
+ C\bigl(q^u+q^{T-u+1}\bigr)
+ -D\bigl(q^v+q^{T-v+1}\bigr),
+ \label{eq:forcing}
+\end{equation}
+where
+\[
+ C=u(T+b-u)w(u),\qquad D=v(T+b-v)w(v).
+\]
+
+We first determine the sign changes of $R$. Define
+$r_b(t)=\G(t+b)/\G(t)$. Its logarithm is strictly concave, since
+\[
+ (\log r_b)''(t)=\psi'(t+b)-\psi'(t)<0;
+\]
+the last inequality follows, for example, from
+$\psi'(t)=\sum_{j\geq0}(t+j)^{-2}$.
+Moreover,
+\[
+ C=r_b(u)r_b(T+1-u),\qquad
+ D=r_b(v)r_b(T+1-v).
+\]
+The two arguments in either product have sum $T+1$, and
+\[
+ \left|u-\frac{T+1}{2}\right|
+ <\left|v-\frac{T+1}{2}\right|,
+\]
+because $u>v$ and $u+v=T-m<T+1$.
+Strict log-concavity therefore gives $C>D>0$.
+
+The ratio
+\[
+ \frac{q^u+q^{T-u+1}}{q^v+q^{T-v+1}}
+ =\frac{\cosh(\rho s)}{\cosh(\sigma s)},\qquad
+ s=-\log q,\quad
+ \rho=\left|u-\frac{T+1}{2}\right|,\quad
+ \sigma=\left|v-\frac{T+1}{2}\right|,
+\]
+increases strictly from $0$ to $1$ as $q$ increases from $0$ to $1$.
+Indeed $0\leq\rho<\sigma$, and its logarithmic derivative in $s>0$
+is $\rho\tanh(\rho s)-\sigma\tanh(\sigma s)<0$.
+Thus $R$ has exactly one zero in $(0,1)$, with signs $-,+$.
+
+We next construct a positive solution of the homogeneous equation.
+Let
+\begin{equation}
+ Y(q)=q^{T+b}h(q),\qquad
+ h(q)=\sum_{j=0}^\infty
+ \frac{(b)_j(T+2b)_j}{(T+b+1)_j\,j!}q^j .
+ \label{eq:ground}
+\end{equation}
+The coefficients are positive and the series converges for $0<q<1$.
+Its coefficient recurrence gives $\mathcal LY=0$ directly.
+In particular $Y(q)>0$ and $Y(q)\geq q^{T+b}$.
+
+For use at the endpoints, the beta integral gives
+\begin{equation}
+ h(q)=\frac1{B(b,T+1)}
+ \int_0^1\frac{t^{b-1}(1-t)^T}{(1-qt)^{T+2b}}\dd t .
+ \label{eq:euler}
+\end{equation}
+Near zero, $Y=O(q^{T+b})$ and $Y'=O(q^{T+b-1})$.
+Near one, writing $\varepsilon=1-q$ and using $q\geq1/2$,
+$t^{b-1}\leq1$ and $1-qt\geq(\varepsilon+1-t)/2$, we obtain
+\[
+ h(q)=O(\varepsilon^{1-2b}),\qquad
+ h'(q)=O(\varepsilon^{-2b}).
+\]
+For example, the first estimate follows by bounding the integral by
+a constant times
+$\int_0^1 z^T(\varepsilon+z)^{-T-2b}\dd z$
+and substituting $z=\varepsilon y$; the resulting integral on
+$(0,\infty)$ is finite because $b>1$.
+Differentiating~\eqref{eq:euler} proves the second estimate in the same
+way. Consequently
+\begin{equation}
+ Y=O((1-q)^{1-2b}),\qquad
+ Y'=O((1-q)^{-2b}) \quad(q\uparrow1).
+ \label{eq:endpoint}
+\end{equation}
+
+In ordinary derivatives, equation~\eqref{eq:forcing} is
+\[
+ -q^2(1-q)F''
+ +q\bigl(T+b-1-q(T-b-1)\bigr)F'
+ -qbTF=R.
+\]
+Set
+\[
+ p(q)=q^{1-T-b}(1-q)^{2b},\qquad
+ W(q)=p(q)\bigl(Y(q)F'(q)-Y'(q)F(q)\bigr).
+\]
+The homogeneous equation for $Y$ and the displayed equation for $F$
+give the exact identity
+\begin{equation}
+ W'(q)=-\frac{p(q)Y(q)}{q^2(1-q)}R(q).
+ \label{eq:wronskian}
+\end{equation}
+Both endpoint limits of $W$ are zero. At zero,
+$F=O(q^v)$, $F'=O(q^{v-1})$, so $W=O(q^v)$.
+At one, the finite sums give $F(1)=0$, $F=O(1-q)$ and $F'=O(1)$;
+using~\eqref{eq:endpoint} gives $W=O(1-q)$.
+
+Since $R$ has signs $-,+$ and all other factors in
+\eqref{eq:wronskian} are positive, $W$ first increases from zero
+and then decreases to zero. Hence $W(q)>0$ throughout $(0,1)$.
+It follows that
+\[
+ \left(\frac F Y\right)'=\frac{W}{pY^2}>0.
+\]
+Finally $F/Y\to0$ as $q\uparrow1$, since $F\to0$ and
+$Y\geq q^{T+b}$. Thus $F/Y<0$, and $F<0$, as required.
+\end{proof}
+
+\section*{Proof of coefficientwise log-concavity}
+
+For fixed $m$ define the symmetric function
+\[
+ H_m(u,v)=\sum_{k=0}^m g_b(u+k)g_b(v+m-k).
+\]
+Suppose $b>1$ and hold $u+v$ fixed. Differentiating with respect to $u$
+(so $dv/du=-1$) and using the digamma integral gives
+\begin{align}
+ \frac{d}{du}H_m(u,v)
+ &=\int_0^\infty
+       \frac{e^{-s}-e^{-bs}}{1-e^{-s}}
+       \sum_{k=0}^m g_b(u+k)g_b(v+m-k)
+       \bigl(e^{-(u+k)s}-e^{-(v+m-k)s}\bigr)\dd s .
+ \label{eq:derivative}
+\end{align}
+Indeed
+\[
+ \frac{d}{dt}\log g_b(t)
+ =\psi(t+b)-\psi(t+1)
+ =\int_0^\infty e^{-ts}
+       \frac{e^{-s}-e^{-bs}}{1-e^{-s}}\dd s .
+\]
+There are only finitely many terms, and the displayed integrals converge
+absolutely. For $u>v$, the finite sum in~\eqref{eq:derivative} is
+strictly negative by Lemma~\ref{lem:kernel}, with $q=e^{-s}$.
+The remaining factor is strictly positive. Thus
+$H_m(u,v)$ strictly decreases as $|u-v|$ increases at fixed $u+v$.
+
+The pairs $(a+\alpha,a+\beta)$ and $(a,a+\alpha+\beta)$ have the
+same sum, whereas $|\alpha-\beta|<\alpha+\beta$. Therefore
+\[
+ \psi_m=\frac{H_m(a+\alpha,a+\beta)-H_m(a,a+\alpha+\beta)}
+                {\G(b)^2}>0
+ \qquad(b>1).
+\]
+This applies also to $m=0$ and requires no integrality of either shift.
+
+\section*{The other values of \(b\)}
+
+For $0<b<1$, the beta integral gives a positive measure
+\[
+ \dd\nu_b(s)=
+ \frac{s^{b-1}(1-s)^{-b}}{\G(1-b)}\dd s,\qquad 0<s<1,
+ \qquad g_b(t)=\int_0^1s^t\dd\nu_b(s).
+\]
+Put $K_m(s,t)=\sum_{k=0}^m s^kt^{m-k}$, which is positive and symmetric
+on $(0,1)^2$. Multiplying the moment integrals and symmetrizing yields
+\[
+ \psi_m=-\frac1{2\G(b)^2}
+ \int_0^1\int_0^1
+ (st)^a(s^\alpha-t^\alpha)(s^\beta-t^\beta)
+ K_m(s,t)\dd\nu_b(s)\dd\nu_b(t)<0.
+\]
+The integrand apart from its leading minus sign is positive off the
+diagonal, a set of full product measure. All integrals are finite.
+At $b=1$, $g_1(t)=1$ and $f_1(a;x)=1/(1-x)$ is independent of $a$,
+so all the coefficients vanish. This completes the theorem.
+
+\section*{Verification and source status}
+
+The proof is analytic and does not depend on numerical sign tests.
+The accompanying verifier checks the finite-sum differential identity
+with exact rational arithmetic, the homogeneous-series recurrence,
+and independent numerical instances of the integral identities.
+The live MathDB record, published statement and public claim sources
+were checked on 11 September 2026; no matching full solution claim was
+located. The dated records and search limits are in
+\texttt{literature-audit.md}.
+
+\section*{Tasks 2--5}
+
+\begin{enumerate}
+\setcounter{enumi}{1}
+\item Determine which nonnegative sequences $(c_n)$ preserve the result
+when $g_b(a+n)$ is replaced by $c_n g_b(a+n)$, including the full class
+of log-concave sequences without internal zeros.
+\item For $b>1$, derive explicit positive lower bounds and matching upper
+bounds for each coefficient $\psi_m$, in terms of the parameters and its order.
+\item Prove or refute the analogous unrestricted coefficientwise
+log-concavity conjecture for shifts in the second parameter of $I_x(a,b)$.
+\item Establish a \(q\)-gamma analogue of the finite-sum inequality
+in Lemma~\ref{lem:kernel} and determine the corresponding parameter ranges.
+\end{enumerate}
+
+\begin{thebibliography}{9}
+\bibitem{K}
+D.~B. Karp, \emph{Normalized incomplete beta function:
+log-concavity in parameters and other properties},
+Journal of Mathematical Sciences \textbf{217} (2016), 91--107,
+Conjecture 2, p.~99, and Corollary 1, p.~101.
+\href{https://doi.org/10.1007/s10958-016-2958-z}
+{doi:10.1007/s10958-016-2958-z}.
+\href{https://dmkrp.wordpress.com/wp-content/uploads/2016/07/karp2016.pdf}
+{Published full text};
+\href{https://arxiv.org/abs/1509.05120}{arXiv:1509.05120}.
+\end{thebibliography}
+\end{document}

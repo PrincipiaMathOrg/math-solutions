@@ -1,0 +1,190 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,hyperref}
+\newcommand{\Tr}{\operatorname{Tr}}
+\newcommand{\diag}{\operatorname{diag}}
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\title{The universal positive-block norm inequality forces an essentially Hermitian off-diagonal block}
+\author{Principia Math in Progress}
+\date{12 September 2026}
+\begin{document}
+\maketitle
+
+\section*{Task 1. Resolve the essentially Hermitian conjecture}
+All matrices are complex and all norms below are operator norms. A matrix is
+\emph{essentially Hermitian} if it has the form $\alpha I+\beta T$ with
+$T=T^*$ and $\alpha,\beta\in\mathbb C$. Equivalently, its numerical range is
+a line segment, possibly a point. We prove Conjecture 3.3 of Bourin--Lee
+\cite{BL}, also Conjecture 7.3.3 on page 114 of Bourin's thesis \cite{B}.
+
+\begin{theorem}
+Suppose $X\in M_n(\mathbb C)$ satisfies
+\begin{equation}\label{universal}
+ \norm{\begin{pmatrix}A&X\\X^*&B\end{pmatrix}}
+ \leq \norm{A+B}
+ \quad\text{whenever }\begin{pmatrix}A&X\\X^*&B\end{pmatrix}\geq0.
+\end{equation}
+Then $X$ is essentially Hermitian. No invertibility or multiplicity
+restriction on $X$ is necessary.
+\end{theorem}
+
+\begin{proof}
+We first prove normality. For any $A>0$, the matrix
+\[
+ M_A=\begin{pmatrix}A&X\\X^*&X^*A^{-1}X\end{pmatrix}
+ =\begin{pmatrix}A^{1/2}\\X^*A^{-1/2}\end{pmatrix}
+   \begin{pmatrix}A^{1/2}&A^{-1/2}X\end{pmatrix}
+\]
+is positive semidefinite. Its nonzero eigenvalues are those of
+$A+A^{-1/2}XX^*A^{-1/2}$. Thus \eqref{universal} implies
+\begin{equation}\label{schur}
+ \norm{A+A^{-1/2}XX^*A^{-1/2}}
+ \leq\norm{A+X^*A^{-1}X}.
+\end{equation}
+Fix a unit vector $v$ and $0<\varepsilon<1$, and put
+$P=vv^*$ and $H=P+(1-\varepsilon)(I-P)$. For $n>1$, $H$ has simple
+largest eigenvalue $1$ with eigenvector $v$; for $n=1$ normality is automatic.
+Apply \eqref{schur} with $A=tH$ and divide by $t$. With $u=t^{-2}$,
+\[
+ \lambda_{\max}(H+uH^{-1/2}XX^*H^{-1/2})
+ \leq\lambda_{\max}(H+uX^*H^{-1}X).
+\]
+For a Hermitian $C$, the simple-eigenvalue first variation is
+\begin{equation}\label{variation}
+ \lim_{u\downarrow0}\frac{\lambda_{\max}(H+uC)-1}{u}=v^*Cv.
+\end{equation}
+For completeness, a unit maximizing vector $w_u$ converges to the line
+$\mathbb Cv$ by the spectral gap of $H$. The Rayleigh principle bounds
+the quotient in \eqref{variation} below by $v^*Cv$ and above by
+$w_u^*Cw_u$, proving the formula.
+Consequently
+\[
+ \norm{X^*v}^2\leq v^*X^*H^{-1}Xv.
+\]
+Letting $\varepsilon\downarrow0$ gives
+$v^*XX^*v\leq v^*X^*Xv$ for every unit vector $v$.
+The positive semidefinite matrix $X^*X-XX^*$ has trace zero, so it is zero.
+Hence $X$ is normal.
+
+We next record a necessary symmetry of extreme eigenvalues. For any
+Hermitian $H$, define
+\[
+ K_X(H)=\begin{pmatrix}H&X\\X^*&-H\end{pmatrix},\qquad
+ a=\lambda_{\max}(K_X(H)),\quad b=-\lambda_{\min}(K_X(H)).
+\]
+The trace is zero, so $a,b\geq0$. The matrix $bI_{2n}+K_X(H)$ is positive
+semidefinite and its two diagonal blocks sum to $2bI_n$.
+Condition \eqref{universal} therefore gives $b+a\leq2b$, or $a\leq b$.
+Writing $J=\diag(I_n,-I_n)$, we have
+$K_X(-H)=-J K_X(H)J$. Applying the same argument to $-H$ gives $b\leq a$.
+Thus
+\begin{equation}\label{symmetry}
+ \lambda_{\max}(K_X(H))=-\lambda_{\min}(K_X(H))
+ \qquad(H=H^*).
+\end{equation}
+
+By simultaneous unitary conjugation in \eqref{universal}, we may now
+assume $X$ diagonal. Suppose three of its eigenvalues $z_1,z_2,z_3$
+are noncollinear. Set
+\[
+ \Delta=\Im\bigl(\overline{z_2-z_1}(z_3-z_1)\bigr)\ne0,\qquad
+ D=\diag(z_1,z_2,z_3),\qquad
+ L=\begin{pmatrix}0&i&1\\-i&0&1\\1&1&0\end{pmatrix}.
+\]
+Choose $h>2\norm{X}/\sqrt3$ and take $H=hL\oplus0_{n-3}$.
+Up to a permutation, $K_X(H)$ is the direct sum of
+\[
+ K=\begin{pmatrix}hL&D\\D^*&-hL\end{pmatrix}
+\]
+and matrices with eigenvalues $\pm|z_j|$, $j>3$.
+The eigenvalues of $L$ are $0,\sqrt3,-\sqrt3$.
+The off-diagonal perturbation of $\diag(hL,-hL)$ has norm
+$\norm D\leq\norm X$. The Rayleigh principle therefore gives
+\[
+ \lambda_{\max}(K)\geq\sqrt3h-\norm X>\norm X,\qquad
+ \lambda_{\min}(K)\leq-\sqrt3h+\norm X<-\norm X.
+\]
+Both extreme eigenvalues of the full matrix consequently come from $K$.
+By \eqref{symmetry} they are $R$ and $-R$ for some $R>0$.
+
+We show that $K$ cannot have any pair of opposite nonzero eigenvalues.
+Direct trace identities give
+\begin{equation}\label{traces}
+ \Tr K=\Tr K^3=0,\qquad \Tr K^5=-20h^3\Delta.
+\end{equation}
+Here is an explicit verification of the only nontrivial identity. Write
+$K=S+T$, with $S=\diag(hL,-hL)$ and
+$T=\left(\begin{smallmatrix}0&D\\D^*&0\end{smallmatrix}\right)$.
+Words with an odd number of $T$'s have trace zero. Since $DD^*=D^*D$,
+the remaining contributions to $\Tr K^5$ reduce, by cyclicity, to
+\[
+ 5h^3\Tr\bigl(L^2(D^*LD-DLD^*)\bigr).
+\]
+Indeed the two cyclic classes with two $T$'s each have five words;
+$\Tr(S^3T^2)=0$, and the class $S^2TST$ is the expression displayed.
+The terms with zero or four $T$'s cancel between the diagonal blocks.
+Using
+\[
+ L^2=\begin{pmatrix}2&1&i\\1&2&-i\\-i&i&2\end{pmatrix},
+\]
+the remaining trace equals
+\[
+ 4\Im(z_1\overline z_2-z_1\overline z_3+z_2\overline z_3)
+ =-4\Delta.
+\]
+The cubic trace in \eqref{traces} follows in the same way from
+$\Tr S^3=0$ and $\Tr(ST^2)=0$.
+
+Newton's identities now show that the characteristic polynomial has form
+\[
+ p(\lambda)=\lambda^6+c_2\lambda^4+c_4\lambda^2
+               +4h^3\Delta\lambda+c_6.
+\]
+In detail, the coefficients of $\lambda^5$ and $\lambda^3$ vanish
+because the first and third power traces vanish, and the coefficient of
+$\lambda$ is $-\Tr(K^5)/5=4h^3\Delta$.
+But $p(R)=p(-R)=0$ would give $8h^3\Delta R=0$, a contradiction.
+Thus no three eigenvalues of $X$ are noncollinear. The spectrum lies
+on a line (the assertion is also immediate for at most two distinct
+eigenvalues). Normality then gives $X=\alpha I+\beta T$ with $T=T^*$,
+as required.
+\end{proof}
+
+If ``positive'' is interpreted as positive definite, the same conclusion
+holds: add $\delta I$ to both diagonal blocks of each semidefinite test
+and let $\delta\downarrow0$. The source's known width-zero inequality
+gives the converse for essentially Hermitian $X$ \cite{BL,B}.
+
+\paragraph{Task 2. Quantify stability.}
+For $\norm X\leq1$, relate the distance from $X$ to the essentially
+Hermitian matrices to the largest violation of \eqref{universal} over
+positive test matrices with bounded norm, tracking dependence on $n$.
+
+\paragraph{Task 3. Classify the Schatten exponents.}
+For each $1<p<\infty$, characterize the matrices $X$ for which the
+universal inequality holds with the Schatten $p$-norm; compare the known
+normality characterization at $p=2$ with the operator-norm result here.
+
+\paragraph{Task 4. Minimize the detecting test families.}
+Determine which restrictions on the ranks of the diagonal blocks and
+the full positive test matrix still suffice to detect every matrix that
+is not essentially Hermitian.
+
+\paragraph{Task 5. Examine infinite-dimensional operators.}
+Determine the corresponding universal-inequality class for bounded
+operators on an infinite-dimensional Hilbert space, where the
+finite-dimensional trace argument forcing normality is unavailable.
+
+\begin{thebibliography}{9}
+\bibitem{BL} J.-C. Bourin and E.-Y. Lee,
+\emph{Eigenvalue inequalities for positive block matrices with the
+inradius of the numerical range}, International Journal of Mathematics
+33 (2022), 2250009; \href{https://arxiv.org/abs/2111.15180}{arXiv:2111.15180},
+Conjecture 3.3, p.~6.
+\bibitem{B} J.-C. Bourin, \emph{A Journey into Matrix Analysis},
+\href{https://arxiv.org/abs/2307.03064}{arXiv:2307.03064} (2023),
+Conjecture 7.3.3, p.~114.
+\end{thebibliography}
+\end{document}

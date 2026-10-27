@@ -1,0 +1,224 @@
+\documentclass[10pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,hyperref}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\title{MathDB 367323: all multiples of three,\ with the exact signs}
+\author{Principia Math In Progress}
+\date{18 September 2026}
+\begin{document}
+\maketitle
+
+\section*{Task 1: Complete intended determinant formulas}
+Write $M(z)=1+zM(z)+z^2M(z)^2$ and
+\[
+ H_N^{(r)}=\det\bigl([z^{i+j}]M(z)^r\bigr)_{0\le i,j<N},\qquad H_0^{(r)}=1.
+\]
+Wang and Zhang's Conjecture 3
+(\href{https://arxiv.org/abs/2502.21050}{arXiv:2502.21050}, p.~2)
+has a sign error: $H_9^{(9)}=256$, whereas its printed sign gives
+$-256$. We prove both intended all-parameter formulas, including
+their precise signs. The result is substantially more than this
+isolated correction.
+
+\begin{theorem}\label{target}
+Let $r\ge3$ be divisible by three and put
+$\epsilon_r=(-1)^{\binom r2}$. For every integer $n\ge0$,
+\begin{align}
+ H_{rn}^{(r)}=H_{rn+1}^{(r)}&=\epsilon_r^n(n+1)^{r-1},\label{main1}\\
+ H_{rn-1}^{(r)}+H_{rn+2}^{(r)}
+ &=-\frac{r(r-3)}2\epsilon_r^n(n+1)^{r-1}.\label{main2}
+\end{align}
+For $n=0$ the second identity uses the harmless convention
+$H_{-1}^{(r)}=0$; without it, take $n\ge1$ there.
+\end{theorem}
+Thus the absolute value required of the source's $\alpha$ is
+correct, with $\alpha=-\epsilon_r^n r(r-3)/18$. The sign in
+\eqref{main1} is $(-1)^n$ for $r\equiv3,6\pmod{12}$ and $1$
+for $r\equiv0,9\pmod{12}$.
+
+We prove a stronger polynomial identity. For a real parameter $a$,
+let $M_a(z)=1+azM_a(z)+z^2M_a(z)^2$, and denote the corresponding
+determinants by $H_N^{(r)}(a)$. Define
+\[
+ P_j(t)=U_j\!\left(\frac{t-a}{2}\right),\qquad
+ A(t)=P_{r-1}(t),\qquad
+ B_k(t)=U_k\!\left(T_r\!\left(\frac{t-a}{2}\right)\right),
+\]
+where $T_j(\cos\theta)=\cos(j\theta)$ and
+$U_j(\cos\theta)=\sin((j+1)\theta)/\sin\theta$.
+The polynomials $P_j$ and $B_k$ are monic, of degrees $j$ and $rk$.
+
+\begin{theorem}[Weighted block boundary identities]\label{weighted}
+For every $r\ge2$, $k\ge0$, and real or complex $a$, with $N=rk$,
+\begin{align}
+ H_N^{(r)}(a)=H_{N+1}^{(r)}(a)
+ &=\epsilon_r^k B_k(0)^{r-1},\label{weighted1}\\
+ H_{N-1}^{(r)}(a)+H_{N+2}^{(r)}(a)
+ &=\left(r-\binom r2a^2\right)H_N^{(r)}(a).\label{weighted2}
+\end{align}
+Again $H_{-1}^{(r)}(a)=0$.
+\end{theorem}
+
+\subsection*{The convolution functional and its determinant}
+For real $a$, let $\mu_a$ be the translated semicircle measure
+\[
+ d\mu_a(t)=\frac{\sqrt{4-(t-a)^2}}{2\pi}\,dt\quad(a-2\le t\le a+2).
+\]
+Its moments are $[z^j]M_a(z)$, and its monic orthogonal polynomials
+are $P_j$, with $\int P_iP_j\,d\mu_a=\delta_{ij}$. Both statements
+follow by $t=a+2\cos\theta$: the centered moments are the Catalan
+numbers and the orthogonality integral is the sine integral.
+Set $Q(t)=t^{r-1}A(t)$ and $L(f)=\int f(t)Q(t)\,d\mu_a(t)$.
+Then
+\begin{equation}\label{functional}
+ [z^j]M_a(z)^r=L(t^j).
+\end{equation}
+Indeed $G(w)=w^{-1}M_a(w^{-1})$ satisfies $G^2=(w-a)G-1$,
+so induction gives $G^r=P_{r-1}(w)G-P_{r-2}(w)$. Multiplication
+by $w^{r-1}$ and extraction of $w^{-j-1}$ gives \eqref{functional}.
+The functional $L$ need not be positive.
+
+We use the following classical Christoffel identity in an algebraic
+form. Its evaluation form is Theorem 1 of Krattenthaler,
+\href{https://arxiv.org/abs/2101.04225}{arXiv:2101.04225}, with
+repeated roots covered by Proposition 5. A proof is included to make
+the argument self-contained.
+
+\begin{lemma}\label{remainder}
+If $Q$ is monic of even degree $d$, the determinant of the moments
+of $Q\,d\mu_a$ of order $m$ is the determinant of the $d\times d$
+matrix whose $j$th column is the coefficient vector of
+$P_{m+j}\bmod Q$, for $0\le j<d$.
+\end{lemma}
+\begin{proof}
+First suppose $Q$ has distinct roots $\alpha_1,\ldots,\alpha_d$.
+Expansion of determinants gives the moment determinant as
+\[
+ \frac1{m!}\int\cdots\int\Delta(x)^2\prod_{i=1}^m Q(x_i)
+ \prod_{i=1}^m d\mu_a(x_i).
+\]
+The mixed Vandermonde satisfies
+$\Delta(x,\alpha)=\Delta(x)\Delta(\alpha)\prod_{i,j}(\alpha_j-x_i)$.
+Replace monomials in both Vandermondes by the monic $P_j$.
+Orthogonality leaves only columns $0,\ldots,m-1$ for the $x$ rows,
+with integral $m!$. Hence the determinant is
+\[
+ (-1)^{md}\frac{\det(P_{m+j}(\alpha_i))_{1\le i\le d,\,0\le j<d}}
+ {\det(\alpha_i^j)_{1\le i\le d,\,0\le j<d}}.
+\]
+The sign is one. Evaluation of remainders factors the numerator
+matrix as the denominator matrix times the coefficient matrix.
+The identity extends to repeated roots because both sides are
+polynomials in the coefficients of the monic $Q$; polynomial
+division introduces no denominators. It also includes $m=0$.
+\end{proof}
+
+\subsection*{Exact evaluation at a block boundary}
+Put $N=rk$ and $c=N+r-1$. The sine formula gives
+\begin{equation}\label{composition}
+ P_c=A B_k.
+\end{equation}
+In the remainder determinant of Lemma~\ref{remainder}, retain its
+first $r-1$ columns $P_N,\ldots,P_{N+r-2}$. For each
+$1\le j\le r-2$, add column $P_{c-j}$ to column $P_{c+j}$.
+The last $r-1$ columns then become
+\[
+ A B_k S_0,\ldots,A B_k S_{r-2},\qquad
+ S_0=1,\quad S_j(t)=2T_j((t-a)/2)\ (j\ge1).
+\]
+Here $P_{c+j}+P_{c-j}=S_jP_c$, and each $S_j$ is monic of degree $j$.
+
+Use the following monic basis of $\mathbb C[t]/(t^{r-1}A)$:
+\[
+ P_0,\ldots,P_{r-2},\quad A S_0,\ldots,A S_{r-2}.
+\]
+Its change-of-basis determinant from the monomials is one. Reduction
+modulo $A$ gives an upper block with the first $r-1$ columns and zero
+in the last columns. At the simple roots
+$\rho_j=a+2\cos(j\pi/r)$ of $A$,
+\[
+ P_{N+h}(\rho_j)=(-1)^{kj}P_h(\rho_j)\qquad(0\le h\le r-2).
+\]
+Thus the upper block determinant is
+$\prod_{j=1}^{r-1}(-1)^{kj}=\epsilon_r^k$.
+The lower right block represents multiplication by $B_k$ in
+$\mathbb C[t]/(t^{r-1})$. In its monomial basis this matrix is
+triangular, with diagonal $B_k(0)$, so its determinant is
+$B_k(0)^{r-1}$. This proves the formula for $H_N$ in
+\eqref{weighted1}. No coprimality of $A$ and $t$ was assumed.
+
+\subsection*{The adjacent determinant and the paired sum}
+Temporarily choose a real $a$ for which $B_k(0)\ne0$.
+This excludes only finitely many values. Equation~\eqref{composition}
+gives
+\[
+ L(t^j B_k)=\int t^{j+r-1}P_{N+r-1}(t)\,d\mu_a(t)=0\qquad(0\le j<N).
+\]
+Consequently $q_N=B_k$ is the unique monic polynomial of degree $N$
+orthogonal to lower degrees for $L$, since $H_N\ne0$.
+The elementary identity $U_k(x)^2=\sum_{h=0}^k U_{2h}(x)$ yields
+\begin{equation}\label{squared}
+ A B_k^2=\sum_{h=0}^k P_{(2h+1)r-1}.
+\end{equation}
+For $j=0,1,2$, every $h\ge1$ term is orthogonal to $t^{r-1+j}$,
+because $r\ge2$. Therefore
+\begin{equation}\label{three}
+ L(q_N^2)=1,\qquad L(tq_N^2)=ra,\qquad
+ L(t^2q_N^2)=r+\binom{r+1}{2}a^2.
+\end{equation}
+For completeness, the last two values are the coefficients of
+$P_{r-1}$ in $t^r$ and $t^{r+1}$. The recurrence
+$tP_j=P_{j+1}+aP_j+P_{j-1}$, with $P_{-1}=0$, gives respectively
+$ra$ and $\binom{r+1}{2}a^2+r$: in the latter coefficient there
+are two level steps or one down step among the otherwise up steps.
+
+The Gram determinant identity
+$L(q_N^2)=H_{N+1}/H_N$ now proves $H_{N+1}=H_N$.
+In particular $q_{N+1}$ also exists. Suppose first that $N\ge1$.
+Let $G_N=(L(t^{i+j}))_{0\le i,j<N}$ and write
+\[
+ tq_N=q_{N+1}+ra\,q_N+v,\qquad \deg v<N.
+\]
+For $j<N-1$, $L(t^jv)=0$, whereas $L(t^{N-1}v)=1$.
+Thus the coefficient vector of $v$ is $G_N^{-1}e_{N-1}$, and
+\[
+ L(v^2)=(G_N^{-1})_{N-1,N-1}=\frac{H_{N-1}}{H_N}.
+\]
+The three summands in the displayed decomposition are mutually
+orthogonal. Taking squared norms and using \eqref{three} gives
+\[
+ r+\binom{r+1}{2}a^2
+ =\frac{H_{N+2}}{H_{N+1}}+r^2a^2+\frac{H_{N-1}}{H_N},
+\]
+which is \eqref{weighted2}. This argument never divides by
+$H_{N-1}$ or $H_{N+2}$, which are allowed to vanish.
+For $N=0$, the same identity is directly
+$H_2=L(t^2)-L(t)^2=r-\binom r2a^2$.
+Finally, the asserted identities are polynomial identities in $a$,
+so they extend from the generic real values to every complex value,
+including $B_k(0)=0$. This proves Theorem~\ref{weighted}.
+
+\subsection*{Specialization to the conjecture}
+Set $a=1$, $k=n$, and $3\mid r$. Since
+$T_r(-1/2)=\cos(2\pi r/3)=1$, we have $B_n(0)=U_n(1)=n+1$.
+Theorem~\ref{weighted} now gives \eqref{main1}--\eqref{main2}.
+For the explicit sign discrepancy, $r=9,n=1$ gives
+$\epsilon_9=1$ and $H_9=H_{10}=2^8=256$.
+
+\section*{Task 2: Sharp degrees in the remaining residue classes}
+Determine the degrees and leading coefficients of the polynomial
+blocks $H_{rn+s}^{(r)}$ for $2\le s<r$, including systematic zeros.
+
+\section*{Task 3: Separate the paired determinants}
+Find closed formulas for $H_{rn-1}^{(r)}$ and $H_{rn+2}^{(r)}$
+individually, refining their simple sum.
+
+\section*{Task 4: Other weights with exceptional boundaries}
+Classify the real parameters $a$ for which $B_k(0)$ vanishes for
+infinitely many $k$, and determine the neighboring nonzero determinants.
+
+\section*{Task 5: A path interpretation of the exact magnitudes}
+Seek a cancellation argument on families of weighted Motzkin paths
+that explains the factor $(n+1)^{r-1}$ and the sign $\epsilon_r^n$.
+\end{document}

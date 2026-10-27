@@ -1,0 +1,163 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,listings}
+\usepackage[colorlinks=true,urlcolor=blue,linkcolor=blue]{hyperref}
+\lstset{basicstyle=\ttfamily\small,columns=fullflexible,
+  keepspaces=true,showstringspaces=false,breaklines=true}
+\newtheorem{theorem}{Theorem}
+\title{An exact counterexample to cosine-sum positivity\\
+\large MathDB 369172}
+\author{Principia Math In Progress}
+\date{11 September 2026}
+\begin{document}
+\maketitle
+
+\section*{Task 1. Resolve the positivity conjecture}
+For an integer $d\geq2$, choose the square-root branch equal to $1$ at
+the origin and define
+\[
+ \sqrt{1+z+\cdots+z^d}=\sum_{k\geq0}b_k^{(d)}z^k,\qquad
+ \mathcal T_n^{(d)}(t)=\sum_{k=0}^n b_k^{(d)}\cos(kt).
+\]
+Kovalev's Conjecture 1.3~\cite{K} asserts that these cosine sums are
+positive for every $d\geq2$, $n\geq0$ and real $t$. It is false.
+
+\begin{theorem}
+Let $d=43$, $n=1800$ and $t=\arccos(99/100)$. Then
+\[
+ -\frac{61}{10000}
+ <\mathcal T_{1800}^{(43)}(t)
+ <-\frac{6099}{1000000}<0.
+\]
+\end{theorem}
+
+\begin{proof}
+All parts of the counterexample can be checked with integers.
+Put $q=d+1=44$ and
+\[
+ f(z)=\sqrt{\frac{1-z^q}{1-z}}=\sum_{k\geq0}b_kz^k.
+\]
+Logarithmic differentiation gives
+\[
+ 2(1-z)(1-z^q)f'(z)
+   =\bigl(1-qz^{q-1}+(q-1)z^q\bigr)f(z).
+\]
+Comparing coefficients, with negative-index coefficients set to zero,
+yields
+\[
+ 2k b_k=(2k-1)b_{k-1}
+       +(2k-3q)b_{k-q}+(3q+1-2k)b_{k-q-1}.
+\]
+Consequently the scaled coefficients $B_k=4^k b_k$ satisfy $B_0=1$ and
+\begin{align}
+ 2kB_k={}&4(2k-1)B_{k-1}
+   +4^{44}(2k-132)B_{k-44}\notag\\
+   &+4^{45}(133-2k)B_{k-45}.
+ \label{eq:B}
+\end{align}
+They are integers. For example, this follows independently from the
+binomial expansions:
+\begin{equation}
+ B_k=\binom{2k}{k}
+ -\sum_{j=1}^{\lfloor k/44\rfloor}
+ \frac{\binom{2j}{j}}{2j-1}\,
+ 4^{43j}\binom{2(k-44j)}{k-44j}.
+ \label{eq:independent}
+\end{equation}
+Indeed $\binom{2j}{j}/(2j-1)=2\operatorname{Cat}_{j-1}$ is an integer.
+This identity also fixes the branch and normalization unambiguously.
+
+Define integers $C_0=1$, $C_1=99$ and
+\[
+ C_k=198C_{k-1}-10000C_{k-2}\quad(k\geq2).
+\]
+The cosine addition formula gives $C_k=100^k\cos(kt)$.
+Finally put
+\[
+ A_0=1,\qquad A_k=400A_{k-1}+B_kC_k.
+\]
+Induction shows that
+\[
+ \frac{A_k}{400^k}
+   =\sum_{j=0}^k\frac{B_jC_j}{400^j}
+   =\mathcal T_k^{(43)}(t).
+\]
+The following complete integer calculation proves
+\[
+ 10000A_{1800}+61\cdot400^{1800}>0,\qquad
+ -6099\cdot400^{1800}-1000000A_{1800}>0.
+\]
+It uses only standard Python integer arithmetic. Every division in
+\eqref{eq:B} is checked for zero remainder.
+
+\begin{lstlisting}[language=Python]
+B = [1]
+def at(k):
+    return B[k] if k >= 0 else 0
+for k in range(1, 1801):
+    u = 4*(2*k-1)*at(k-1)
+    u += 4**44*(2*k-132)*at(k-44)
+    u += 4**45*(133-2*k)*at(k-45)
+    v, r = divmod(u, 2*k)
+    if r != 0:
+        raise ArithmeticError(k)
+    B.append(v)
+C = [1, 99]
+for k in range(2, 1801):
+    C.append(198*C[-1] - 10000*C[-2])
+A = 1
+for k in range(1, 1801):
+    A = 400*A + B[k]*C[k]
+D = 400**1800
+if not (10000*A + 61*D > 0
+        and -6099*D - 1000000*A > 0):
+    raise ArithmeticError("certificate failed")
+print("Both strict bounds verified.")
+\end{lstlisting}
+Dividing by the positive denominator proves the theorem.
+\end{proof}
+
+\paragraph{Independent checks.}
+The accompanying \texttt{verify\_counterexample.py} additionally checks
+all 1801 coefficients against~\eqref{eq:independent}, all cosine values
+against the real parts of $(99+i\sqrt{199})^k$, and the final sum in the
+reverse order. These checks use integers throughout. The scaled numerator
+has 15552 bits in absolute value; the denominator has 15559 bits.
+The saved certificate records both strict bounds and the exact numerator
+in hexadecimal.
+
+\paragraph{Scope.}
+This refutes Conjecture 1.3 and MathDB 369172. A negative real part at
+one boundary point does not exhibit a zero of the Taylor polynomial.
+The distinct zero-free Conjecture 1.2, recorded as MathDB 369171,
+therefore remains unresolved here. No minimality of $d$ or $n$ is claimed.
+
+\section*{Task 2. Determine the parameter range for positivity}
+Classify the integers $d\geq2$ for which
+$\mathcal T_n^{(d)}(t)>0$ holds for every $n$ and real $t$.
+In particular, settle the source's $d=2$ positivity question.
+
+\section*{Task 3. Determine the first failures}
+For each $d$ admitting a negative cosine sum, determine the least
+truncation degree at which positivity fails and certify the relevant
+angles or intervals of angles.
+
+\section*{Task 4. Prove a boundary scaling law}
+At each nontrivial $(d+1)$st root of unity, derive a uniform local
+asymptotic formula for the Taylor sections at angular distance of
+order $1/n$. Use it to identify parameter ranges with infinitely many
+negative cosine sums.
+
+\section*{Task 5. Resolve the separate zero-free conjecture}
+Determine whether every Taylor section of
+$\sqrt{1+z+\cdots+z^d}$, $d>2$, is zero-free in the closed unit disk.
+An affirmative proof must accommodate the negative real parts proved here.
+
+\begin{thebibliography}{9}
+\bibitem{K}
+L. V. Kovalev,
+\emph{Sharp bounds for some segments of bounded power series},
+arXiv:2507.04544v1 (2025), Conjectures 1.2 and 1.3, p.~2.
+\url{https://arxiv.org/abs/2507.04544}.
+\end{thebibliography}
+\end{document}

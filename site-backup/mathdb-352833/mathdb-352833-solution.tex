@@ -1,0 +1,163 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,hyperref,enumitem}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\title{The reciprocal areas of the lateral harmonic polygons}
+\author{Principia Math In Progress}
+\date{21 September 2026}
+\begin{document}
+\maketitle
+\noindent\textbf{MathDB 352833.} We prove Conjecture 1 of Garcia, Reznik,
+and Roitman \cite[p.~228]{GRR} for every odd number of sides. The source
+uses unit circles for polarity; a common radius $\rho>0$ is included below.
+The proof has been reviewed by the authoring agent only.
+
+\section*{Task 1: the complete area invariant}
+Let the inner ellipse have semiaxes $a\ge b>0$, and put
+\[
+ c=\sqrt{a^2-b^2},\quad d=\frac{c}{a+b}\in[0,1),\quad
+ R=\frac{\rho^2 a}{b^2},\quad \vartheta=\frac{2\pi}{N}.
+\]
+Consider the convex Poncelet family between this ellipse and its concentric
+homothetic outer ellipse, of semiaxes $a/\cos(\pi/N)$ and
+$b/\cos(\pi/N)$. The polar polygons are obtained by taking the poles of
+the original sides in the two circles of radius $\rho$, centered at
+$F_\pm=(\pm c,0)$. Let their ordinary positive areas be $A_\pm$.
+
+\begin{theorem}\label{main}
+For every odd integer $N\ge3$, throughout the family,
+\begin{equation}\label{invariant}
+ \frac1{A_+}+\frac1{A_-}
+ =\frac{4(1-2d^2\cos\vartheta+d^4)}{NR^2(1-d^2)^2\sin\vartheta}
+   \frac{1+d^{2N}}{1-d^{2N}}.
+\end{equation}
+In particular this quantity is independent of the polygon's phase.
+\end{theorem}
+
+The affine map $(x,y)\mapsto(x/a,y/b)$ takes the two ellipses to
+concentric circles. A convex polygon tangent to the inner unit circle and
+inscribed in the outer one is regular: each consecutive central angle is
+$2\pi/N$. Thus the side lines in the original plane have the form
+\begin{equation}\label{sides}
+ \frac{x\cos u_j}{a}+\frac{y\sin u_j}{b}=1,\qquad
+ u_j=t+j\vartheta,\quad 0\le j<N.
+\end{equation}
+This also parametrizes the entire family.
+
+For a line $n\cdot X=1$ and a circle $(F,\rho)$, its pole is
+$F+\rho^2n/(1-n\cdot F)$: indeed its polar equation is
+$(X-F)\cdot(P-F)=\rho^2$. Applying this to \eqref{sides} gives
+\[
+ P_{+,j}=F_++\rho^2
+ \left(\frac{\cos u_j}{a-c\cos u_j},
+       \frac{a\sin u_j}{b(a-c\cos u_j)}\right).
+\]
+Since $a>c$, all denominators are positive. With
+$O_+=(c+\rho^2c/b^2,0)$, direct simplification yields
+\begin{equation}\label{mobius}
+ \frac{P_{+,j}-O_+}{R}
+ =\left(\frac{a\cos u_j-c}{a-c\cos u_j},
+         \frac{b\sin u_j}{a-c\cos u_j}\right)
+ =\frac{z_j-d}{1-dz_j},\qquad z_j=e^{iu_j},
+\end{equation}
+where the plane on the right is identified with $\mathbb C$.
+Here $c/a=2d/(1+d^2)$ and $b/a=(1-d^2)/(1+d^2)$.
+For the other focus, $O_-=(-c-\rho^2c/b^2,0)$ and exactly the same
+formula holds with $d$ replaced by $-d$. Crucially, the scale $R$ and
+the phase $t$ are the same in both formulas.
+
+\begin{lemma}\label{area}
+For $N\ge3$, $-1<q<1$, and $z_j=e^{i(t+j\vartheta)}$, the polygon with
+vertices $w_j=(z_j-q)/(1-qz_j)$ has area
+\begin{equation}\label{areaformula}
+ B_N(q,t)=\frac{N}{2}\frac{(1-q^2)^2\sin\vartheta}
+ {1-2q^2\cos\vartheta+q^4}
+ \frac{1-q^{2N}}{1-2q^N\cos(Nt)+q^{2N}}.
+\end{equation}
+\end{lemma}
+\begin{proof}
+The map $z\mapsto(z-q)/(1-qz)$ preserves the unit circle and its cyclic
+orientation; its angular derivative is $(1-q^2)/|1-qz|^2>0$.
+The resulting polygon is convex and positively oriented. Hence the
+shoelace formula gives $B_N=\frac12\operatorname{Im}\sum_j\overline{w_j}w_{j+1}$.
+Write $\omega=e^{i\vartheta}$ and
+\[
+ C=\frac{(1-q^2)(\omega-1)}{1-q^2\omega}.
+\]
+On the unit circle, $\overline{w_j}=1/w_j$. The following is a rational
+identity in $z$:
+\begin{equation}\label{partial}
+ \frac{(\omega z-q)(1-qz)}{(1-q\omega z)(z-q)}
+ =1+C\left(\frac1{1-q\omega z}+\frac{q}{z-q}\right).
+\end{equation}
+To sum it, use the geometric series and
+$\sum_{j=0}^{N-1}z_j^m=0$ unless $N\mid m$. Absolute convergence is
+valid because $|q|<1$. Since multiplication by $\omega$ permutes the $z_j$,
+\[
+ \sum_j\frac1{1-q\omega z_j}=\frac{N}{1-q^Ne^{iNt}},\qquad
+ \sum_j\frac{q}{z_j-q}=\frac{Nq^Ne^{-iNt}}{1-q^Ne^{-iNt}}.
+\]
+Adding these two expressions gives
+\[
+ \sum_j\overline{w_j}w_{j+1}
+ =N\left(1+C\frac{1-q^{2N}}{1-2q^N\cos(Nt)+q^{2N}}\right).
+\]
+Finally,
+\[
+ \operatorname{Im}C=
+ \frac{(1-q^2)^2\sin\vartheta}{1-2q^2\cos\vartheta+q^4}.
+\]
+Taking imaginary parts proves \eqref{areaformula}, including $q=0$.
+All its denominators are positive.
+\end{proof}
+
+\begin{proof}[Proof of Theorem \ref{main}]
+Equation \eqref{mobius} gives $A_\pm=R^2B_N(\pm d,t)$, since translation
+does not change area. Set
+\[
+ K=\frac{NR^2}{2}\frac{(1-d^2)^2\sin\vartheta}
+ {1-2d^2\cos\vartheta+d^4}(1-d^{2N})>0.
+\]
+For odd $N$, Lemma \ref{area} gives
+\[
+ A_+=\frac{K}{1-2d^N\cos(Nt)+d^{2N}},\qquad
+ A_-=\frac{K}{1+2d^N\cos(Nt)+d^{2N}}.
+\]
+The sum of their reciprocals is $2(1+d^{2N})/K$, which is
+\eqref{invariant}. If $a=b$, then $d=0$ and the same formula gives the
+regular-polygon value; no limiting argument or distinct-focus assumption
+is needed. This proves the full conjecture.
+\end{proof}
+
+\noindent\textbf{Scope and verification.}
+The source already proves the cases $N=3,5$; only the complete odd-$N$
+assertion is claimed here. The two polar circles have the same radius,
+as in the source's unit-circle convention. The formula also explains the
+source's even-$N$ observation: $A_+=A_-$ and, for $d>0$, they vary with
+$t$. Symbolic identities, exact algebraic shoelace checks, and supplemental
+high-precision geometric checks are in \texttt{verify.py}. The proof above,
+rather than finite verification, establishes all parameters.
+
+\section*{Tasks 2--5: proposed follow-ups}
+These are proposed mathematical tasks, not additional completed solves.
+\begin{enumerate}[label=\textbf{Task \arabic*.},start=2,leftmargin=*]
+\item Classify pairs of centers inside the inner ellipse for which a
+positive weighted sum of reciprocal polar areas is phase independent.
+\item Extend the area formula and the invariant to Poncelet star polygons,
+specifying winding numbers and signed versus geometric areas.
+\item Compute the area moments $\frac1{2\pi}\int_0^{2\pi}A_+(t)^k\,dt$
+for every integer $k$ and describe their eccentricity asymptotics.
+\item Determine which reciprocal-area invariants survive when the outer
+ellipse is concentric but not homothetic to the inner ellipse.
+\end{enumerate}
+
+\begin{thebibliography}{9}
+\bibitem{GRR} R. Alves Garcia, D. Reznik, and P. Roitman,
+\emph{New Properties of Harmonic Polygons}, Journal for Geometry and
+Graphics \textbf{26}(2) (2022), 217--236.
+\href{https://www.heldermann-verlag.de/jgg/jgg26/j26h2alve.pdf}{Publisher PDF}.
+Current preprint: \href{https://arxiv.org/abs/2112.02545}{arXiv:2112.02545v3}.
+Both complete versions were read; the final's Conjecture 1 is on p.~228.
+\end{thebibliography}
+\end{document}

@@ -1,0 +1,196 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,hyperref}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newcommand{\e}{\mathrm e}
+\newcommand{\rp}{r_p}
+\title{The density of Garcia's quadratic-residue jumps}
+\author{Principia Math In Progress}
+\date{29 September 2026}
+\begin{document}
+\maketitle
+
+\paragraph{Task 1 (original problem).}
+For a positive integer \(p\), let \(r_p(t)\) denote the least
+nonnegative residue of the integer \(t\) modulo \(p\).
+Garcia \cite[pp.~5, 22]{Garcia} defines, for \(p=4n-1\),
+\[
+ \Gamma_n(k)=r_p((k-1)^2)+r_p(k+1-3n),\qquad
+ J_n=\#\{k\in\mathbb Z:2\le k\le n+2,\ \Gamma_n(k)\ge p\}.
+\]
+MathDB \href{https://mathdb.com/p/357172}{357172}, recording
+\cite[Conjecture 6.5, p.~29]{Garcia}, asks whether
+\(J_n/n\to3/8\) as \(n\to\infty\) through integers for which \(4n-1\)
+is prime.
+
+\begin{theorem}
+With these definitions, \(J_n/n\to3/8\) as \(n\to\infty\) through
+\emph{all} integers. In particular the prime-subsequence conjecture holds.
+\end{theorem}
+
+We give all approximation details needed for the proof.
+Write \(\e(t)=\exp(2\pi i t)\).
+
+\begin{lemma}\label{distribution}
+For integers \(q\to\infty\), the points
+\[
+ z_{q,j}=\left(\frac jq,\frac{r_q(j^2)}q\right),
+ \qquad 0\le j<q,
+\]
+are uniformly distributed in the unit square: the proportion in any
+fixed polygon tends to its area. Including or excluding boundary
+segments does not affect this limit.
+\end{lemma}
+\begin{proof}
+For fixed integers \(a,b\), set
+\[
+ S_q(a,b)=\sum_{j=0}^{q-1}\e\left(\frac{bj^2+aj}{q}\right).
+\]
+If \(b=0\) and \(a\ne0\), the geometric sum is zero once \(q>|a|\).
+If \(b\ne0\), putting \(u=j-k\) modulo \(q\) gives
+\begin{align*}
+ |S_q(a,b)|^2
+ &=\sum_{u\bmod q}\e\left(\frac{bu^2+au}{q}\right)
+                    \sum_{k\bmod q}\e\left(\frac{2buk}{q}\right)\\
+ &=q\sum_{\substack{u\bmod q\\q\mid2bu}}
+                 \e\left(\frac{bu^2+au}{q}\right).
+\end{align*}
+There are \(\gcd(2b,q)\) terms in the last sum, so
+\begin{equation}\label{gauss}
+ \frac{|S_q(a,b)|}{q}
+ \le\sqrt{\frac{\gcd(2b,q)}q}
+ \le\sqrt{\frac{2|b|}{q}}\longrightarrow0.
+\end{equation}
+Here the gcd uses the absolute value of its first argument.
+Thus the average over these points of every nonconstant Fourier
+monomial \(\e(ax+by)\) tends to zero, and the constant average is one.
+
+We justify passage from monomials to polygons.
+On the circle \(\mathbb R/\mathbb Z\), the Fej\'er kernel
+\[
+ K_H(t)=\frac1H\left|\sum_{\ell=0}^{H-1}\e(\ell t)\right|^2
+\]
+is a nonnegative trigonometric polynomial of integral one.
+For circle distance \(\|t\|\ge\delta>0\), with \(\delta<1/2\),
+\[
+ K_H(t)\le\frac1{H\sin^2(\pi\delta)}.
+\]
+This follows by summing the geometric progression.
+If \(f\) is continuous and periodic on the square, its convolution
+with \(K_H(x)K_H(y)\) converges uniformly to \(f\).
+Indeed uniform continuity controls the integral on
+\(\|x\|,\|y\|<\delta\), and the displayed bound makes the remaining
+integral tend to zero; the product kernel has integral one.
+The convolutions are trigonometric polynomials. The Fourier conclusion
+therefore implies
+\begin{equation}\label{continuous}
+ \frac1q\sum_{j=0}^{q-1}f(z_{q,j})
+ \longrightarrow\int_{[0,1]^2}f(x,y)\,dx\,dy.
+\end{equation}
+
+A polygon, viewed on the torus, has boundary contained in finitely many
+line segments, including any segments on the sides of the square.
+The area of an \(\varepsilon\)-neighborhood of this boundary tends
+to zero. Continuous lower and upper approximations to its indicator
+can be formed by linear ramps in the distance to the polygon and its
+complement. They agree with the indicator outside that neighborhood,
+take values in \([0,1]\), and have integrals converging to the area.
+For a closed polygon \(E\), explicit choices are
+\[
+ f^-_\varepsilon(z)=\min\{1,d(z,E^c)/\varepsilon\},\qquad
+ f^+_\varepsilon(z)=\max\{0,1-d(z,E)/\varepsilon\},
+\]
+where distance is on the torus. They satisfy
+\(f^-_\varepsilon\le\mathbf1_E\le f^+_\varepsilon\).
+Apply \eqref{continuous}, then let \(\varepsilon\downarrow0\).
+The same boundary-neighborhood bound handles any choice of boundary
+inclusion. This proves the lemma.
+\end{proof}
+
+\begin{proof}[Proof of the theorem]
+Take \(n\ge2\) and set \(j=k-1\). For \(1\le j\le n+1\),
+\[
+ -p<j+2-3n<0,\qquad
+ r_p(j+2-3n)=j+n+1.
+\]
+Consequently the exact defining inequality for a jump is
+\begin{equation}\label{jump}
+ r_p(j^2)+j\ge3n-2,\qquad 1\le j\le n+1.
+\end{equation}
+In the unit square define
+\[
+ a_p=\frac{n+1}{p}=\frac14+\frac5{4p},\qquad
+ b_p=\frac{3n-2}{p}=\frac34-\frac5{4p},
+\]
+and
+\[
+ E_p=\{(x,y)\in[0,1]^2:0\le x\le a_p,\ x+y\ge b_p\}.
+\]
+The point \(z_{p,0}=(0,0)\) is outside \(E_p\), and
+\eqref{jump} proves the exact identity
+\[
+ J_n=\#\{0\le j<p:z_{p,j}\in E_p\}.
+\]
+This expression includes all endpoints with the same inequality as
+the original definition.
+
+To handle the moving region, fix \(0<\varepsilon<1/8\) and put
+\begin{align*}
+ E&=\{(x,y)\in[0,1]^2:0\le x\le1/4,\ x+y\ge3/4\},\\
+ E^\varepsilon
+ &=\{(x,y)\in[0,1]^2:0\le x\le1/4+\varepsilon,\
+                                  x+y\ge3/4-\varepsilon\}.
+\end{align*}
+For \(5/(4p)\le\varepsilon\) we have
+\(E\subseteq E_p\subseteq E^\varepsilon\).
+Both bounding regions are fixed polygons, so Lemma~\ref{distribution}
+gives
+\[
+ \operatorname{area}(E)\le
+ \liminf_{n\to\infty}\frac{J_n}{p}
+ \le\limsup_{n\to\infty}\frac{J_n}{p}
+ \le\operatorname{area}(E^\varepsilon).
+\]
+Their areas are
+\[
+ \operatorname{area}(E)=\int_0^{1/4}\left(\frac14+x\right)\,dx
+                      =\frac3{32},\qquad
+ \operatorname{area}(E^\varepsilon)=\frac32(1/4+\varepsilon)^2.
+\]
+Letting \(\varepsilon\downarrow0\) proves \(J_n/p\to3/32\).
+Since \(p/n=4-1/n\to4\), it follows that \(J_n/n\to3/8\).
+\end{proof}
+
+\paragraph{Scope and verification.}
+The theorem uses the original definition of jumps and proves the full
+conjecture. No unproved source identity, primality, or assumption of
+independence between the two coordinates is used. The joint distribution
+is proved by the mixed Fourier sums above. Exact finite checks compare
+the original count with the transformed inequality and polygon count;
+they do not replace the analytic convergence argument.
+
+\paragraph{Task 2 (proposed follow-up).}
+Find an explicit power-saving error bound for \(J_n-3n/8\), uniformly
+over all integers \(n\).
+
+\paragraph{Task 3 (proposed follow-up).}
+Determine how prime powers and square divisors of \(4n-1\) affect the
+largest fluctuations of \(J_n-3n/8\).
+
+\paragraph{Task 4 (proposed follow-up).}
+Determine limiting jump densities when the interval endpoint and the
+linear residue term are replaced by general fixed proportions of \(p\).
+
+\paragraph{Task 5 (proposed follow-up).}
+Investigate corresponding joint-distribution and jump-count results
+for higher-degree polynomial residues, including which composite
+modulus sequences permit such limits.
+
+\begin{thebibliography}{1}
+\bibitem{Garcia}
+J. Garcia, \emph{Class Number of the Imaginary Quadratic Field and
+Quadratic Residues Identities}, arXiv:2301.02951v1 (2023), 31 pages,
+\url{https://arxiv.org/abs/2301.02951}.
+\end{thebibliography}
+\end{document}

@@ -1,0 +1,182 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,hyperref}
+\hypersetup{colorlinks=true,urlcolor=blue,linkcolor=blue}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newtheorem{corollary}{Corollary}
+\newcommand{\N}{\mathbb N}
+\title{Odd moduli refute eventual coefficient monotonicity\\
+\large MathDB 344349}
+\author{Principia Math In Progress}
+\date{18 September 2026}
+\begin{document}
+\maketitle
+
+\section*{Task 1: full resolution of the stated conjecture}
+Put
+\[
+ F_m(q)=\frac1{(q,-q^{m-1};q^m)_\infty}
+       =\sum_{n\ge0}a_m(n)q^n,
+ \qquad (u;v)_\infty=\prod_{j\ge0}(1-uv^j),
+\]
+and put $a_m(n)=0$ for $n<0$.
+Seo and Yee conjectured that for every $m\ge4$ there is an $N(m)$
+such that $a_m(n)\ge a_m(n-m)$ for every $n\ge N(m)$
+\cite[Conjecture 22]{SY}. This is Conjecture 5 in their arXiv version.
+We disprove it within its stated range.
+
+\begin{theorem}\label{thm:main}
+For every odd integer $m\ge5$, there are infinitely many odd integers
+$n$ such that
+\[
+                     a_m(n)<a_m(n-m).
+\]
+Consequently no threshold $N(m)$ exists for any such $m$.
+\end{theorem}
+
+All products and power series below converge absolutely on compact
+subsets of $|q|<1$. No sign assumption on the coefficients is made.
+For positive functions, $U(t)=\Theta_m(V(t))$ means that their ratio
+is bounded above and below by positive constants depending on $m$,
+for all sufficiently small positive $t$.
+
+\begin{lemma}\label{lem:ratio}
+For every fixed odd integer $m\ge3$ and $r=e^{-t}$ with $t\downarrow0$,
+\[
+                   \frac{F_m(-r)}{F_m(r)}
+                         =\Theta_m(t^{1-1/m}).
+\]
+\end{lemma}
+\begin{proof}
+Split the product indices into even and odd indices and set $Q=r^{2m}$.
+Since $m$ is odd, this gives
+\begin{align*}
+ F_m(r)&=\frac1{(r,r^{m+1},-r^{m-1},-r^{2m-1};Q)_\infty},\\
+ F_m(-r)&=\frac1{(-r,r^{m+1},-r^{m-1},r^{2m-1};Q)_\infty}.
+\end{align*}
+Their ratio $R_m(r)$ is positive and equals
+\begin{equation}\label{eq:product}
+ R_m(r)=\prod_{j\ge0}
+ \frac{1-r^{2mj+1}}{1+r^{2mj+1}}
+ \frac{1+r^{2mj+2m-1}}{1-r^{2mj+2m-1}}.
+\end{equation}
+The absolutely convergent expansion
+$\log(1-u)-\log(1+u)=-2\sum_{k\ge1,\ k\text{ odd}}u^k/k$
+therefore yields
+\begin{equation}\label{eq:log}
+ \log R_m(e^{-t})
+ =-2\sum_{\substack{k\ge1\\k\text{ odd}}}\frac{f_m(kt)}{k},
+ \qquad
+ f_m(x)=\frac{e^{-x}-e^{-(2m-1)x}}{1-e^{-2mx}}
+       =\frac{\sinh((m-1)x)}{\sinh(mx)}.
+\end{equation}
+Let $c=(m-1)/m$. Taylor expansion at zero and the exponential
+expression above give constants $C_m$ such that
+\[
+ |f_m(x)-c|\le C_m x^2\quad(0<x\le1),\qquad
+ 0<f_m(x)\le C_m e^{-x}\quad(x\ge1).
+\]
+It follows that
+\[
+ \sum_{\substack{k\le1/t\\k\text{ odd}}}
+       \frac{f_m(kt)-c}{k}=O_m(1),
+ \qquad
+ \sum_{\substack{k>1/t\\k\text{ odd}}}
+       \frac{f_m(kt)}{k}=O_m(1).
+\]
+Indeed the absolute values are bounded respectively by
+$C_m t^2\sum_{k\le1/t}k$ and
+$C_m t\sum_{k>1/t}e^{-kt}$, both bounded as $t\downarrow0$.
+The elementary odd harmonic sum satisfies
+\[
+ \sum_{\substack{k\le X\\k\text{ odd}}}\frac1k
+                 =\frac12\log X+O(1).
+\]
+Substitution into \eqref{eq:log} now gives
+$\log R_m(e^{-t})=c\log t+O_m(1)$.
+Exponentiation proves the lemma, including both positive bounds.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:main}]
+Write
+\[
+ D_m(q)=(1-q^m)F_m(q)=\sum_{n\ge0}d_m(n)q^n,
+ \qquad d_m(n)=a_m(n)-a_m(n-m).
+\]
+For $0<r<1$, both $D_m(r)$ and $D_m(-r)$ are positive, and the lemma gives
+\begin{equation}\label{eq:dominance}
+ \frac{D_m(-r)}{D_m(r)}
+ =\frac{1+r^m}{1-r^m}R_m(r)
+ =\Theta_m(t^{-1/m})\longrightarrow+\infty,
+ \qquad r=e^{-t}.
+\end{equation}
+We also need $D_m(r)\to+\infty$. For every $j\ge0$,
+$r^{mj+m-1}\le r^{mj+1}$, so
+\[
+ (1-r^{mj+1})(1+r^{mj+m-1})\le1-r^{2mj+2}.
+\]
+Each reciprocal factor is at least one. Keeping the first two
+factors therefore proves
+\[
+ D_m(r)\ge
+ \frac{1-r^m}{(1-r^2)(1-r^{2m+2})}
+ \sim \frac{m}{4(m+1)(1-r)}\longrightarrow+\infty.
+\]
+Together with \eqref{eq:dominance}, this shows that
+$D_m(-r)-D_m(r)\to+\infty$. But absolute convergence gives
+\[
+ D_m(-r)-D_m(r)
+                =-2\sum_{\substack{n\ge0\\n\text{ odd}}}d_m(n)r^n.
+\]
+If only finitely many odd $n$ had $d_m(n)<0$, the expression on the
+right would be bounded above, uniformly in $0<r<1$, by twice the
+sum of the absolute values of those finitely many negative coefficients.
+This contradiction proves the theorem.
+\end{proof}
+
+\begin{corollary}
+For every odd $m\ge3$ and every positive odd step $h$, infinitely
+many odd $n$ satisfy $a_m(n)<a_m(n-h)$.
+\end{corollary}
+\begin{proof}
+Use $(1-q^h)F_m(q)$ in place of $D_m(q)$. The factor in
+\eqref{eq:dominance} becomes $(1+r^h)/(1-r^h)\sim2/(ht)$.
+The same two-factor lower bound, with numerator $1-r^h$, still
+diverges. The odd-coefficient argument is unchanged.
+\end{proof}
+
+\paragraph{Verification and scope.}
+The accompanying exact verifier independently generates coefficients
+by product division and by a logarithmic-derivative recurrence,
+checks the product identity \eqref{eq:product} as a formal series,
+and checks its logarithmic identity. These are finite consistency
+checks; the infinite conclusion follows from the displayed estimates
+and the boundedness contradiction. This proof does not assert eventual
+negativity at every odd index, or decide even moduli or even steps.
+The separate coefficient-nonnegativity conjecture is also not decided.
+
+\section*{Four proposed follow-up tasks}
+\begin{description}
+\item[Task 2.] Determine whether $a_m(n)\ge a_m(n-m)$ holds for all
+sufficiently large $n$ for every even $m\ge4$.
+\item[Task 3.] For each odd $m\ge5$, determine whether
+$a_m(n)<a_m(n-m)$ holds at every sufficiently large odd $n$;
+obtain an effective threshold if it does.
+\item[Task 4.] Prove or refute eventual monotonicity with step $2m$
+for every odd $m\ge5$.
+\item[Task 5.] For coprime integers $1\le a<m/2$, classify the positive
+steps $h$ for which the coefficients of
+$(q^a,-q^{m-a};q^m)_\infty^{-1}$ are eventually nondecreasing
+under a shift by $h$.
+\end{description}
+These are proposed research tasks and earn no additional solution credit.
+
+\begin{thebibliography}{9}
+\bibitem{SY} S. Seo and A. J. Yee,
+\emph{Index of seaweed algebras and integer partitions},
+Electronic Journal of Combinatorics \textbf{27}(1) (2020), P1.47,
+\href{https://doi.org/10.37236/9054}{doi:10.37236/9054}.
+Preprint: \href{https://arxiv.org/abs/1910.14369}{arXiv:1910.14369}.
+\end{thebibliography}
+\end{document}

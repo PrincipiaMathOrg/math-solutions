@@ -1,0 +1,182 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,hyperref}
+\newtheorem{theorem}{Theorem}
+\newcommand{\G}[1]{G^{(#1;m)}}
+\title{Rational differences of periodic Dyck-path generating functions}
+\author{Principia Math In Progress}
+\date{18 September 2026}
+\begin{document}
+\maketitle
+
+\section*{Task 1: Complete solution of MathDB 320607}
+Eu and Fu's Conjecture 5.2~\cite{EF} gives two identities relating
+generating functions for up-step heights modulo $m$. We prove both as
+special cases of a single identity. Here $m$ is a height modulus for
+ordinary Dyck paths, as defined in the source, not the arity of a path.
+The symbol $t$ in the source's factors $1-t$ denotes the marking variable
+$y$ used everywhere else in those formulas. We prove the intended
+identities with $1-y$; no credit is claimed for a notational correction.
+
+An up step ending at height $h$ has height $h$. For a Dyck path $\pi$ of
+semilength $n$, let $a_c(\pi)$ count its up steps with $h\equiv c\pmod m$.
+Define
+\[
+ \G c=\G c(x,y)=\sum_{n\geq0}\sum_{\pi\in\mathcal D_n}x^n y^{a_c(\pi)}.
+\]
+All identities below are in the formal series ring $\mathbb Q[y][[x]]$.
+Let the continuant polynomials be
+\[
+ D_{-1}=0,\qquad D_0=D_1=1,\qquad
+ D_n=D_{n-1}-xD_{n-2}\quad(n\geq2).
+\]
+The recurrence also holds at $n=1$ with these conventions.
+
+\begin{theorem}\label{main}
+For integers $i\geq1$ and $m\geq2i+2$,
+\begin{equation}\label{general}
+ \G{m-i-1}-\G i
+ =\frac{(1-y)x^iD_{m-2i-2}}
+ {D_{m-1}+x(1-y)D_{i-1}D_{m-i-2}}.
+\end{equation}
+In particular, writing $u=1/(2\sqrt x)$, the following two identities hold:
+\begin{align}
+ \G{m-2}-\G1
+ &=\frac{(1-y)U_{m-4}(u)}
+ {U_{m-2}(u)-y\sqrt x\,U_{m-3}(u)},&&m\geq4,\label{first}\\
+ \G{m-3}-\G2
+ &=\frac{(1-y)U_{m-6}(u)}
+ {U_{m-2}(u)-yU_{m-4}(u)+\sqrt x\,U_{m-5}(u)},&&m\geq6.\label{second}
+\end{align}
+These are both parts of Conjecture 5.2.
+\end{theorem}
+
+\subsection*{Periodic continued fractions}
+Give an up step at height $h$ weight $xy$ when $h\equiv c\pmod m$,
+and weight $x$ otherwise. A first-return decomposition $U\mu D\nu$
+gives the continued fraction with successive numerators equal to those
+weights. Equivalently, for $1\leq c\leq m-2$, put
+\[
+ M=\begin{pmatrix}0&1\\-x&1\end{pmatrix},\qquad
+ M_y=\begin{pmatrix}0&1\\-xy&1\end{pmatrix},\qquad
+ P_c=M^{c-1}M_yM^{m-c}
+     =\begin{pmatrix}A_c&B_c\\C_c&E_c\end{pmatrix}.
+\]
+A matrix acts by $z\mapsto(az+b)/(cz+d)$, so $M$ and $M_y$ act by
+$1/(1-xz)$ and $1/(1-xyz)$, respectively. One full period starts at
+height one, with the marked position at $c$. Thus the source's established
+continued fraction, Theorem 3.1, gives
+\begin{equation}\label{fixed}
+ C_c(\G c)^2+(E_c-A_c)\G c-B_c=0.
+\end{equation}
+This also follows directly from the first-return decomposition just given.
+The combinatorial series has constant coefficient one.
+
+\subsection*{Cancellation of the common quadratic term}
+Cyclic invariance of trace and multiplicativity of determinant imply
+\[
+ \operatorname{tr}P_c=\operatorname{tr}(M_yM^{m-1})=:T,
+ \qquad \det P_c=x^m y,
+\]
+independently of $c$. From~\eqref{fixed}, the series
+\[
+ S_c=2C_c\G c+E_c-A_c
+\]
+satisfies $S_c^2=T^2-4x^m y$. At $x=0$, all matrices $P_c$ equal
+$\left(\begin{smallmatrix}0&1\\0&1\end{smallmatrix}\right)$, hence
+$S_c(0,y)=1$. For any $c,d$, the identity
+$(S_c-S_d)(S_c+S_d)=0$, and the invertibility of $S_c+S_d$, show that
+\begin{equation}\label{sameS}
+ S_c=S_d.
+\end{equation}
+This argument fixes the formal square-root branch without an analytic choice.
+
+Induction on $n$ gives, for $n\geq1$,
+\[
+ M^n=\begin{pmatrix}-xD_{n-2}&D_{n-1}\\-xD_{n-1}&D_n\end{pmatrix}.
+\]
+Since $M_y-M=x(1-y)\left(\begin{smallmatrix}0&0\\1&0\end{smallmatrix}\right)$,
+matrix multiplication yields
+\begin{align}
+ A_c&=-xD_{m-2}-x^2(1-y)D_{c-2}D_{m-c-2},\label{Ac}\\
+ C_c&=-x\bigl(D_{m-1}+x(1-y)D_{c-1}D_{m-c-2}\bigr).\label{Cc}
+\end{align}
+For $c=1$, the left factor is the identity matrix; the same formulas
+hold because $D_{-1}=0$ and $D_0=1$.
+
+Now set $c=i$ and $d=m-i-1$. Formula~\eqref{Cc} gives $C_c=C_d=:C$.
+Since the traces are equal, $E_c=T-A_c$ and $E_d=T-A_d$.
+Subtracting~\eqref{sameS} therefore gives
+\begin{equation}\label{difference}
+ C(\G d-\G c)=A_d-A_c.
+\end{equation}
+The elementary continuant identity
+\begin{equation}\label{continuant}
+ D_aD_b-D_{a-1}D_{b+1}=x^aD_{b-a}\qquad(0\leq a\leq b)
+\end{equation}
+follows by reducing $a$ by one using the recurrence; the case $a=0$
+is immediate. Applying it with $a=i-1$ and $b=m-i-3$ in~\eqref{Ac} gives
+\[
+ A_d-A_c=-x^{i+1}(1-y)D_{m-2i-2}.
+\]
+Substitution in~\eqref{difference} and cancellation of $-x$ prove
+\eqref{general}. Its denominator has constant coefficient one, so the
+division is valid in the stated formal series ring.
+
+\subsection*{The two conjectured formulas}
+The Chebyshev recurrence gives
+\[
+ D_n=x^{n/2}U_n(1/(2\sqrt x))\quad(n\geq0).
+\]
+This expression is a polynomial despite its notation. At $i=1$, the
+denominator of~\eqref{general} reduces to
+\[
+ D_{m-1}+x(1-y)D_{m-3}=D_{m-2}-xyD_{m-3}.
+\]
+At $i=2$, it reduces to
+\[
+ D_{m-1}+x(1-y)D_{m-4}
+ =D_{m-2}-xyD_{m-4}+x^2D_{m-5}.
+\]
+Substituting the Chebyshev expression and canceling the common powers
+of $x$ gives~\eqref{first} and~\eqref{second}, respectively. All endpoint
+indices are nonnegative, including $m=4$ and $m=6$. This proves the theorem.
+
+The verifier uses exact arithmetic to compare the formula with direct
+Dyck-path enumeration, longer first-return recurrences, matrix invariants,
+and the Chebyshev specializations. The finite checks support the proof;
+they do not supply its all-index conclusion. Review is by the authoring
+agent only, with no independent peer review or proof-assistant certification.
+
+\section*{Task 2: A bijective explanation}
+Find a path involution or cancellation explaining~\eqref{general}, with
+an explicit description of the paths left over. The source's involution
+for residues $0$ and $m-1$ suggests looking for a wider family of strip
+reflections, but the present proof is algebraic.
+
+\section*{Task 3: Several marked residues}
+Replace the single marked residue by a subset of residues, possibly with
+separate variables. Classify pairs of cyclic shifts for which the relevant
+transfer matrices have equal lower-left entries, and determine which
+resulting rational differences have combinatorial interpretations.
+
+\section*{Task 4: Coefficient asymptotics}
+For fixed $m,i$ and positive $y$, analyze the poles of the rational
+difference in~\eqref{general}. Determine how quickly the corresponding
+weighted counting sequences approach each other relative to their common
+dominant growth.
+
+\section*{Task 5: Grand down steps}
+For genuine $s$-ary paths with down steps $(1,-s)$ and $s>1$, determine
+which height-residue statistics admit analogous rational differences.
+This is a separate extension; the theorem above concerns ordinary Dyck paths.
+Tasks 2--5 are questions, not additional solved MathDB problems.
+
+\begin{thebibliography}{9}
+\bibitem{EF} S.-P. Eu and T.-S. Fu,
+\emph{Exterior Pairs and Up Step Statistics on Dyck Paths},
+Electronic Journal of Combinatorics \textbf{18}(1) (2011), P92, 15 pp.,
+\href{https://www.combinatorics.org/ojs/index.php/eljc/article/download/v18i1p92/pdf/}{published article};
+\href{https://arxiv.org/abs/1010.5673}{arXiv:1010.5673v1}.
+\end{thebibliography}
+\end{document}

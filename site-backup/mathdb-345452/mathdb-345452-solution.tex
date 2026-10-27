@@ -1,0 +1,178 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,enumitem,hyperref}
+\hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue,citecolor=blue}
+\newtheorem{theorem}{Theorem}
+\newcommand{\Res}{\operatorname{Res}}
+\title{The asymptotic Genius Conjecture\\\large MathDB 345452}
+\author{Principia Math In Progress}
+\date{September 18, 2026}
+\begin{document}
+\maketitle
+\begin{abstract}
+For every fixed index $i$, we express $F_i-u_i$ as a finite sum of
+monomials with rational coefficients in $p$, each of order $O(p^{-1})$.
+This proves Federbush's second Genius Conjecture. We also determine the
+first correction explicitly.
+\end{abstract}
+
+\section*{Task 1. Full solution}
+\subsection*{Statement and coefficient formula}
+Use the setting of Sections 1--2 of \cite{fed}:
+\[
+ U(x)=\sum_{k=1}^p u_kx^k,\quad u_1=1,\qquad
+ D(x)=\sum_{k=1}^p d_kx^k,\qquad
+ A(x)=e^{D(x)}=\sum_{k\ge0}a_kx^k,\quad a_p=0.
+\]
+The functions $F_1=1,F_2,\ldots,F_p$ are uniquely specified by
+\begin{equation}\label{eq:target}
+ [x^p]A(x)e^{yU(x)}
+       =[t^p]\exp\left(y\sum_{k=1}^pF_kt^k\right).
+\end{equation}
+Conjecture 2 asks for a finite monomial expansion of $F_i-u_i$ whose
+coefficients are rational functions of $p$ tending to zero.
+As usual for these indexed rational functions, the limit keeps $i$
+fixed and takes integers $p\ge i$ to infinity.
+
+\begin{theorem}\label{thm:main}
+For every fixed $i\ge2$ and all integers $p\ge i$,
+\begin{align}
+ F_i-u_i
+ &=\sum_{k=1}^{i-1}\sum_{m=1}^{i-k}
+   \sum_{\substack{\ell_1+\cdots+\ell_m=i-k\\\ell_\nu\ge1}}
+   \frac{k\prod_{j=1}^{m-1}(i-jp)}
+        {m!\prod_{\nu=1}^m(p-\ell_\nu)}
+       u_k\prod_{\nu=1}^m a_{\ell_\nu}.\label{eq:finite}
+ \intertext{Every rational coefficient in this expression is $O(p^{-1})$.
+After expanding the $a_\ell$ into monomials in the $d_k$, this proves
+Conjecture 2. More precisely, coefficientwise in the variables,}
+ F_i&=u_i+\frac1p\sum_{k=1}^{i-1}k u_kd_{i-k}
+                   +O(p^{-2}).\label{eq:first}
+\end{align}
+\end{theorem}
+
+\subsection*{A formal coordinate formula}
+For a self-contained proof, we recall the coordinate construction
+used for the companion linearity result \cite{companion}. Put
+\[
+ W_p(x)=\sum_{k=0}^{p-1}\frac{p}{p-k}a_kx^k,\qquad
+ \phi(x)=xW_p(x)^{-1/p},\qquad \psi=\phi^{-1}.
+\]
+Fractional powers have constant term $1$, and $\phi=x+O(x^2)$
+has a unique formal compositional inverse. Differentiation gives
+\[
+ \frac{\phi'}{\phi^{p+1}}
+   =x^{-p-1}\left(W_p-\frac{x}{p}W_p'\right)
+   =x^{-p-1}\sum_{k=0}^{p-1}a_kx^k.
+\]
+Since $a_p=0$, formal residue substitution yields, for every
+power series $H$,
+\[
+ [x^p]A(x)H(x)
+   =\Res_x\frac{H(x)\phi'(x)}{\phi(x)^{p+1}}
+   =[t^p]H(\psi(t)).
+\]
+Apply this to $H=e^{yU}$. It follows that $F_i=[t^i]U(\psi(t))$.
+Uniqueness can also be seen directly: the coefficient of
+$y^{p-i+1}$ in \eqref{eq:target} determines $F_i$ with multiplier
+$1/(p-i)!$ once the lower $F_k$ have been determined.
+Formal integration by parts now gives
+\begin{equation}\label{eq:lagrange}
+ F_i=\Res_x\frac{U(x)\phi'(x)}{\phi(x)^{i+1}}
+   =\frac1i[x^{i-1}]U'(x)W_p(x)^{i/p}
+   =\sum_{k=1}^i\frac{k}{i}u_k[x^{i-k}]W_p(x)^{i/p}.
+\end{equation}
+These are standard formal residue and Lagrange--B\"urmann operations;
+no analytic limit or convergence assumption is involved.
+
+\subsection*{Finite rational coefficients and their limits}
+In \eqref{eq:lagrange}, the term $k=i$ is exactly $u_i$.
+For $k<i$, expand the binomial series
+\[
+ W_p^{i/p}=\sum_{m\ge0}\binom{i/p}{m}
+       \left(\sum_{\ell=1}^{p-1}\frac{p}{p-\ell}a_\ell x^\ell\right)^m.
+\]
+Only $1\le m\le i-k$ and positive compositions
+$\ell_1+\cdots+\ell_m=i-k$ contribute. Their scalar coefficient is
+\[
+ \frac{k}{i}\binom{i/p}{m}
+        \prod_{\nu=1}^m\frac{p}{p-\ell_\nu}
+ =\frac{k\prod_{j=1}^{m-1}(i-jp)}
+        {m!\prod_{\nu=1}^m(p-\ell_\nu)},
+\]
+proving \eqref{eq:finite}. Its numerator has degree at most $m-1$
+in $p$ and its denominator has degree $m$. Also
+$\ell_\nu\le i-1<p$, so no denominator vanishes in the allowed range.
+Thus every displayed coefficient is a rational function that is
+$O(p^{-1})$.
+
+For each $\ell\le i-1$, the coefficient $a_\ell$ is the finite
+polynomial
+\begin{equation}\label{eq:monomials}
+ a_\ell=\sum_{\substack{b_1,\ldots,b_\ell\ge0\\
+                         b_1+2b_2+\cdots+\ell b_\ell=\ell}}
+           \prod_{s=1}^\ell\frac{d_s^{b_s}}{b_s!}.
+\end{equation}
+Substituting these polynomials into \eqref{eq:finite} gives a finite
+list of monomials $u_k\prod d_s^{b_s}$. The list depends on $i$,
+but not on $p\ge i$. Each coefficient is a rational constant times
+one of the rational functions above, or a finite sum of them, so
+each tends to zero. This is precisely the asserted monomial
+decomposition. Notice that $d_p$ does not occur: the constraint
+$a_p=0$ therefore imposes no extra restriction on the lower variables
+used in this formula.
+
+\subsection*{The first correction}
+For a fixed composition in \eqref{eq:finite}, its scalar coefficient
+has expansion
+\[
+ \frac{k\prod_{j=1}^{m-1}(i-jp)}
+        {m!\prod_{\nu=1}^m(p-\ell_\nu)}
+       =\frac{(-1)^{m-1}k}{mp}+O(p^{-2}).
+\]
+For $s=i-k\ge1$, the finite sum of the leading terms in the
+$a_\ell$ is
+\[
+ \sum_{m=1}^s\frac{(-1)^{m-1}}m
+  \sum_{\substack{\ell_1+\cdots+\ell_m=s\\\ell_\nu\ge1}}
+     \prod_{\nu=1}^m a_{\ell_\nu}
+   =[x^s]\log A(x)=d_s.
+\]
+This proves \eqref{eq:first} and completes the theorem.\hfill$\square$
+
+\subsection*{Verification and scope}
+Four exact verification groups check the original identity, finite
+rational formula, formal expansion through second order, and explicit
+$F_2,F_3$ formulas. Their 255 cases use exact fractions and supplement
+the proof for arbitrary fixed $i$.
+
+All six pages of the primary were read. Conjecture 2 is distinct from
+the linearity statement in Conjecture 1, treated in \cite{companion}.
+The setting is Federbush's; the Bell formulation is credited there to
+David Williams. Bounded checks found no journal final or prior external
+full target claim as of September 18, 2026. Review is by the authoring
+agent only, without independent peer review or proof-assistant
+certification. The limit is coefficientwise at fixed $i$.
+
+\section*{Tasks 2--5. Proposed follow-up directions}
+\begin{enumerate}[label=\textbf{Task \arabic*.},start=2,leftmargin=*,itemsep=2pt,topsep=4pt]
+\item Derive a general closed recurrence for all coefficients of the
+fixed-index expansion of $F_i$ in inverse powers of $p$.
+\item Establish useful estimates when $i$ also grows with $p$, including
+the regime $i/p\to\alpha\in(0,1)$.
+\item Classify cancellations among the rational coefficients in
+\eqref{eq:finite}, and determine minimal common denominators.
+\item Apply the exact transformation to the auxiliary coefficient
+corrections in the graph-positivity setting, with explicit dependence
+on the degree and perturbation parameters.
+\end{enumerate}
+\begin{thebibliography}{9}
+\bibitem{fed} P. Federbush, \emph{The Genius Conjectures (via Bell
+Polynomials)}, \href{https://arxiv.org/abs/2002.03814v1}{arXiv:2002.03814v1},
+2020. Conjecture 2, page 2.
+\bibitem{companion} Principia Math In Progress,
+\emph{Linearity in Federbush's Genius Conjecture},
+\href{https://github.com/antoshashakov/Principia-Math-In-Progress/tree/mathdb-results/mathdb-open-problems/problems/345451}{MathDB 345451 solution package},
+September 18, 2026. The coordinate argument is reproduced above.
+\end{thebibliography}
+\end{document}

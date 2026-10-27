@@ -1,0 +1,252 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[colorlinks=true,urlcolor=blue,linkcolor=blue]{hyperref}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newcommand{\D}{\mathbb D}
+\newcommand{\Rea}{\operatorname{Re}}
+\title{Zero-free sections of square roots of geometric sums\\
+\large A solution of MathDB 369171}
+\author{Principia Math In Progress}
+\date{11 September 2026}
+\begin{document}
+\maketitle
+
+\section*{Task 1. Prove the zero-free conjecture}
+
+For an integer $q\geq1$, use the branch equal to $1$ at the origin and set
+\[
+ f_q(z)=\sqrt{\frac{1-z^q}{1-z}}
+       =\sum_{k\geq0}b_kz^k,\qquad
+ S_n(z)=\sum_{k=0}^n b_kz^k.
+\]
+Kovalev's Conjecture 1.2~\cite{K} is the assertion below for $q=d+1\geq4$.
+We prove a stronger assertion, including strict control on the boundary.
+
+\begin{theorem}\label{thm:main}
+For every integer $q\geq1$ and $n\geq0$,
+\[
+ \Rea\bigl(\sqrt{1-z}\,S_n(z)\bigr)>0
+ \quad (|z|\leq1,\ z\ne1),
+ \qquad S_n(1)>0.
+\]
+Consequently $S_n$ has no zero in the closed unit disk.
+\end{theorem}
+
+All square roots below are principal ones. In particular they are
+unambiguous for $1-z$ and $1-tz$, $|z|\leq1$, $0\leq t<1$.
+The proof uses a remainder represented by a signed beta density whose
+negative and positive parts have ordered supports.
+
+\subsection*{Coefficients and a normalized remainder}
+
+Put
+\[
+ c_k=\frac{\binom{2k}{k}}{4^k},\qquad
+ a_j=\frac{c_j}{2j-1}\quad(j\geq1),\qquad
+ A_m=(2m+1)c_m,\qquad C_m(z)=\sum_{k=0}^m c_kz^k.
+\]
+The binomial expansion and telescoping give
+\begin{align}
+ \sqrt{1-w}&=1-\sum_{j\geq1}a_jw^j, \notag\\
+ \sum_{k=0}^m c_k&=A_m,\qquad
+ \sum_{j=1}^M a_j=1-c_M,\qquad
+ \sum_{j=1}^M ja_j=M c_M. \label{eq:sums}
+\end{align}
+For the last identity, $ja_j=c_{j-1}/2$ and
+$A_{M-1}=2Mc_M$ when $M\geq1$.
+Also $A_{m+1}/A_m=(m+3/2)/(m+1)>1$.
+
+Let $M=\lfloor n/q\rfloor$. Coefficient convolution yields
+\begin{equation}
+ S_n(z)=C_n(z)-\sum_{j=1}^M a_j z^{qj} C_{n-qj}(z).
+ \label{eq:section}
+\end{equation}
+At $z=1$ this already proves
+\begin{equation}
+ S_n(1)=A_n-\sum_{j=1}^M a_j A_{n-qj}
+       \geq A_n c_M>0. \label{eq:one}
+\end{equation}
+
+Define $I_m(z)=1-\sqrt{1-z}\,C_m(z)$. Differentiating, and using
+$(k+1)c_{k+1}=(k+1/2)c_k$, gives
+\[
+ I_m'(z)=\frac{A_m}{2}\frac{z^m}{\sqrt{1-z}},\qquad I_m(0)=0.
+\]
+It follows that
+\begin{equation}
+ I_m(z)=z^{m+1}\int_0^1 p_m(t)u_z(t)\,dt,\qquad
+ p_m(t)=\frac{A_m}{2}\frac{t^m}{\sqrt{1-t}},\qquad
+ u_z(t)=\sqrt{\frac{1-t}{1-tz}}.
+ \label{eq:beta}
+\end{equation}
+Each $p_m$ is a probability density on $(0,1)$: integration of
+$I_m'$ from $0$ to $1$ gives $\int_0^1p_m=I_m(1)=1$.
+The integral identity extends continuously to $|z|\leq1$.
+At $z=1$, set $u_1(t)=1$ for $t<1$; its value at the endpoint is immaterial.
+
+\subsection*{An ordered-kernel inequality}
+
+\begin{lemma}\label{lem:kernel}
+For $|z|\leq1$ and $0\leq s\leq t<1$,
+\[
+ |u_z(t)|\leq1,\qquad |2u_z(t)-u_z(s)|\leq |u_z(s)|\leq1.
+\]
+If $z\ne1$ and $t>0$, then $|u_z(t)|<1$.
+\end{lemma}
+\begin{proof}
+Put $w=1-z$, $a=s/(1-s)$ and $b=t/(1-t)$.
+Then $\Rea w\geq0$, $0\leq a\leq b$, and
+\[
+ u_z(s)=(1+aw)^{-1/2},\qquad
+ u_z(t)=(1+bw)^{-1/2}.
+\]
+The modulus bounds follow from $|1+aw|\geq1$.
+For the remaining inequality set $r=(1+aw)/(1+bw)$. Direct calculation gives
+\[
+ \Rea r-|r|^2
+ =\frac{(b-a)(\Rea w+a|w|^2)}{|1+bw|^2}\geq0.
+\]
+In particular $|r|\leq1$. For $v=\sqrt r=u_z(t)/u_z(s)$, the branch
+is the principal one, since both denominator arguments lie in
+$[-\pi/2,\pi/2]$ and their difference lies in that interval. Thus
+\[
+ (\Rea v)^2=\frac{|r|+\Rea r}{2}
+       \geq\frac{|r|+|r|^2}{2}\geq |r|^2.
+\]
+So $\Rea v\geq |r|=|v|^2$, whence $|2v-1|\leq1$.
+Multiplication by $|u_z(s)|$ proves the claim.
+For $|z|\leq1$, $z\ne1$, one has $\Rea w>0$, making
+$|1+bw|>1$ when $t>0$.
+\end{proof}
+
+\subsection*{The signed density has small negative mass}
+
+For $M\geq1$, define
+\[
+ h(t)=p_n(t)-\sum_{j=1}^M a_j p_{n-qj}(t),
+ \qquad c=c_M.
+\]
+Its integral is $c$. Write $\lambda_j=A_{n-qj}/A_n$.
+The ratio
+\begin{equation}
+ \frac{h(t)}{p_n(t)}
+     =1-\sum_{j=1}^M a_j\lambda_j t^{-qj}
+ \label{eq:cross}
+\end{equation}
+is strictly increasing on $(0,1)$, tends to $-\infty$ at $0$,
+and has positive limit $S_n(1)/A_n$ at $1$, by~\eqref{eq:one}.
+It therefore has a unique zero $t_0\in(0,1)$.
+The density $h$ is negative below $t_0$ and positive above it.
+
+Let $N=\int_0^{t_0}(-h(t))\,dt$ be its negative mass. We claim
+\begin{equation}
+ 0<N<c. \label{eq:mass}
+\end{equation}
+Indeed, $p_{n-qj}(t)\geq\lambda_j p_n(t)$ for $0<t<1$.
+Consequently
+\[
+ h=\left(1-\sum_j a_j\lambda_j\right)p_n
+          -\sum_j a_j\bigl(p_{n-qj}-\lambda_jp_n\bigr),
+\]
+where the coefficient of $p_n$ and all densities in parentheses are
+nonnegative. The negative part of $h$ is therefore bounded by the last sum,
+so
+\[
+ N\leq \sum_{j=1}^M a_j(1-\lambda_j).
+\]
+For $0\leq m<n$,
+\[
+ \frac{A_m}{A_n}
+ =\prod_{k=m+1}^n\frac{k}{k+1/2}
+ >\prod_{k=m+1}^n\frac{k-1}{k}=\frac mn.
+\]
+Taking $m=n-qj$ and using $n\geq qM$ gives
+$\lambda_j>1-qj/n\geq1-j/M$. Therefore~\eqref{eq:sums} implies
+\[
+ N<\frac1M\sum_{j=1}^M ja_j=c_M=c,
+\]
+as claimed.
+
+\subsection*{Remainder bound and completion of the proof}
+
+Write
+\[
+ G_M(z)=1-\sum_{j=1}^M a_jz^{qj},\qquad
+ D_n(z)=I_n(z)-\sum_{j=1}^M a_jz^{qj}I_{n-qj}(z).
+\]
+Equations~\eqref{eq:section} and~\eqref{eq:beta} give
+\begin{equation}
+ \sqrt{1-z}\,S_n(z)=G_M(z)-D_n(z),\qquad
+ D_n(z)=z^{n+1}\int_0^1 h(t)u_z(t)\,dt. \label{eq:remainder}
+\end{equation}
+We show that
+\begin{equation}
+ |D_n(z)|<c_M\qquad (|z|\leq1,\ z\ne1). \label{eq:strict}
+\end{equation}
+When $M=0$, take $h=p_n$, $c_M=1$. Then~\eqref{eq:strict} follows
+directly from~\eqref{eq:beta} and $|u_z(t)|<1$ for $0<t<1$.
+
+For $M\geq1$, normalize the positive and negative parts of $h$ to
+probability measures $P$ and $Q$, respectively. Their supports are contained
+in $(t_0,1)$ and $(0,t_0)$, and their masses before normalization are
+$c+N$ and $N$. Set $B=N/c$, so $0<B<1$ by~\eqref{eq:mass}.
+Using independent variables $t$ with law $P$ and $s$ with law $Q$,
+\begin{align*}
+ \frac1c\int h(t)u_z(t)\,dt
+  &=(1+B)\,\mathbb E_Pu_z(t)-B\,\mathbb E_Qu_z(s)\\
+  &=(1-B)\,\mathbb E_Pu_z(t)
+       +B\,\mathbb E_{P\otimes Q}\bigl(2u_z(t)-u_z(s)\bigr).
+\end{align*}
+Here $s<t$ almost surely. Lemma~\ref{lem:kernel} shows that the second
+expectation has modulus at most $1$. The first has modulus strictly
+less than $1$ when $z\ne1$, since $t>t_0>0$.
+As $1-B>0$, the displayed expression has modulus strictly less than $1$.
+Multiplying by $c|z|^{n+1}\leq c$ proves~\eqref{eq:strict}.
+
+Finally, \eqref{eq:sums} implies
+\[
+ \Rea G_M(z)\geq1-\sum_{j=1}^M a_j|z|^{qj}\geq c_M
+ \qquad (|z|\leq1).
+\]
+Combining this with~\eqref{eq:remainder} and~\eqref{eq:strict} proves
+$\Rea(\sqrt{1-z}S_n(z))>0$ for $z\ne1$. At $z=1$,
+\eqref{eq:one} applies. Since $\sqrt{1-z}\ne0$ away from $z=1$,
+the asserted zero-freeness follows. This proves Theorem~\ref{thm:main}.
+\qed
+
+\paragraph{Scope.}
+This is an all-parameter analytic proof; finite computations are supplementary.
+The distinct assertion $\Rea S_n(e^{it})>0$ is not needed here.
+That assertion is Conjecture 1.3 of~\cite{K} (MathDB 369172), for which a
+separate exact counterexample has been saved.
+
+\section*{Task 2. Determine sharp segment bounds}
+Use the established zero-freeness in the Landau--Sz\'asz method to determine
+the sharp norm of each coefficient segment of fixed length, and classify
+the extremal bounded analytic functions.
+
+\section*{Task 3. Quantify the distance of zeros from the disk}
+Turn the strict remainder estimate into explicit lower bounds for
+$|S_n(z)|$ on the unit circle and explicit lower bounds for the modulus
+of its nearest zero, with dependence on both $q$ and $n$.
+
+\section*{Task 4. Classify fractional powers}
+Determine the exponents $\alpha>0$ for which every Taylor section of
+$((1-z^q)/(1-z))^\alpha$ is zero-free in the closed unit disk for every $q$.
+Identify the range in which an ordered signed-density argument still works.
+
+\section*{Task 5. Describe the nearest-zero asymptotics}
+Derive uniform asymptotic expansions for zeros approaching the nontrivial
+$q$th roots of unity as $n$ grows, and determine how the expansions change
+when $q$ grows with $n$.
+
+\begin{thebibliography}{9}
+\bibitem{K}
+L. V. Kovalev,
+\emph{Sharp bounds for some segments of bounded power series},
+arXiv:2507.04544v1 (2025), Conjecture 1.2, p.~2.
+\url{https://arxiv.org/abs/2507.04544}.
+\end{thebibliography}
+\end{document}

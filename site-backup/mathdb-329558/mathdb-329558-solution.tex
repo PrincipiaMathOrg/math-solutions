@@ -1,0 +1,229 @@
+\documentclass[10pt]{article}
+\usepackage[margin=0.85in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,hyperref}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newcommand{\ff}[2]{#1^{\underline{#2}}}
+\title{The Gon--Oda determinant conjecture}
+\author{Principia Math in Progress}
+\date{13 September 2026}
+\begin{document}
+\maketitle
+
+\paragraph{Task 1. Prove the determinant formulas for \(X_d\).}
+Let \(X_d\) be the \((d+1)\)-by-\((d+1)\) coefficient matrix of
+Gon and Oda \cite[(7.1)]{GO}, normalized by \(x_{00}=1\).
+Put \(t=|m_0|\), \(\varepsilon=\operatorname{sgn}(m_0)i\), and
+\(Z_d=(z^{(d)}_{jk})=(\varepsilon^{-j}x_{jk})\).
+The source assumes \(t\ge d\) and \(t\equiv d\pmod2\).
+We prove its Conjecture 7.3 in this full range.
+
+Here is an explicit characterization of the source matrix that fixes
+all its entries without requiring the long sum in (7.1). Set
+\[
+ P_n(k)=\prod_{\ell=1}^k\frac{2\ell-1}{t-n+2\ell-1}.
+\]
+Its first two rows, from \cite[(6.19)--(6.20)]{GO}, are
+\begin{equation}\label{initial}
+ z^{(n)}_{0k}=(-1)^k\binom n{2k}P_n(k),\qquad
+ z^{(n)}_{1k}=(-1)^{k+1}\frac tn\binom n{2k-1}P_n(k).
+\end{equation}
+The remaining rows are uniquely determined by
+\begin{equation}\label{rec}
+ (j-2k-1)z^{(n)}_{j-1,k}+(t+n-2k+1)z^{(n)}_{j-1,k-1}
+ -tz^{(n)}_{jk}+(n-j)z^{(n)}_{j+1,k}=0
+\end{equation}
+for \(1\le j\le n-1\) and \(0\le k\le n\).
+This is exactly \cite[(6.13)]{GO} after dividing by
+\(\varepsilon^{j-1}\); \(\varepsilon^2=-1\) fixes the signs.
+Indices outside the array are interpreted as zero, and binomial
+coefficients outside their usual range are zero. The source also gives
+\begin{equation}\label{edges}
+ z^{(n)}_{j0}=0\ (j>0),\qquad z^{(n)}_{jn}=0\ (j<n),\qquad
+ z^{(n)}_{00}=1.
+\end{equation}
+In particular, these are the original coefficient matrices, not newly
+chosen arrays with the same conjectured determinants.
+
+\begin{theorem}\label{main}
+For every natural number \(q\),
+\begin{align*}
+ \det X_{2q-1}
+ &=\varepsilon^{q(2q-1)}
+ \frac{\prod_{\ell=1}^{q-1}(t^2-(2\ell-1)^2)^{q-\ell}}
+      {\prod_{\ell=1}^{q-1}(t-2\ell)^{2\ell}},\\
+ \det X_{2q}
+ &=\varepsilon^{q(2q+1)}
+ \frac{t^q\prod_{\ell=1}^{q-1}(t^2-(2\ell)^2)^{q-\ell}}
+      {\prod_{\ell=1}^{q}(t-2\ell+1)^{2\ell-1}}.
+\end{align*}
+Consequently \(X_d\) is invertible for every admissible parameter.
+\end{theorem}
+
+The proof rests on a reduction of the entire interior matrix.
+Let \(K_m\) be the matrix indexed by \(0,\ldots,m\) with
+\[
+ (K_m)_{r,r-1}=r,\qquad (K_m)_{r,r+1}=m-r,
+\]
+all other entries being zero. Write \(Z_0=(1)\).
+
+\begin{lemma}\label{reduction}
+For every \(d\ge2\),
+\begin{equation}\label{dimension}
+ (t-d+1)\bigl(z^{(d)}_{jk}\bigr)_{1\le j,k\le d-1}
+       =(tI-K_{d-2})Z_{d-2}.
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+The cases \(d=2,3\) follow directly from \eqref{initial}--\eqref{rec}:
+their interior matrices are respectively
+\(t/(t-1)\) and
+\((t-2)^{-1}\left(\begin{smallmatrix}t&-1\\-1&t\end{smallmatrix}\right)\).
+Now let \(d\ge4\), put \(m=d-2\), \(h=t-d+1\), and set
+\(u_{rc}=z^{(m)}_{rc}\). Define
+\begin{equation}\label{vdef}
+ v_{r+1,c+1}=h^{-1}\{tu_{rc}-ru_{r-1,c}-(m-r)u_{r+1,c}\},
+ \qquad 0\le r,c\le m,
+\end{equation}
+and set \(v_{j0}=0\). We show that \(v\) equals the interior of \(Z_d\).
+
+First the initial two interior rows agree. The formula for the third
+row obtained from \eqref{initial} and \eqref{rec} is
+\begin{equation}\label{third}
+ z^{(n)}_{2k}=(-1)^k\binom n{2k-2}P_n(k)
+ \left(1+\frac{(2k-2)(t^2-n^2)}{(2k-1)n(n-1)}\right),\quad n\ge2.
+\end{equation}
+We give the algebra for the row comparisons, including vanishing
+binomial coefficients. For \(c\ge1\), write
+\[
+ Q_m(c)=\prod_{\ell=1}^c(t-m+2\ell-1),\qquad
+ F_c=\frac{(-1)^c}{2^c c!Q_m(c)},
+\]
+and use falling factorials, with \(\ff a0=1\). Formula \eqref{initial}
+gives
+\[
+ u_{0c}=F_c\ff m{2c},\qquad
+ u_{1c}=-F_c\,2ct\,\ff{(m-1)}{2c-2}.
+\]
+Hence
+\begin{align*}
+ tu_{0c}-mu_{1c}
+ &=tF_c\{\ff m{2c}+2c\ff m{2c-1}\}\\
+ &=tF_c\ff{(m+1)}{2c}
+ =h z^{(d)}_{1,c+1}.
+\end{align*}
+For the next row, \eqref{rec} for \(u\) at \(j=1\) gives
+\begin{align*}
+ tu_{1c}-u_{0c}-(m-1)u_{2c}
+ &=-(2c+1)u_{0c}+(t+m-2c+1)u_{0,c-1}\\
+ &=-F_c\ff m{2c-2}\{(m+2)(m-2c+1)+2ct^2\}\\
+ &=h z^{(d)}_{2,c+1},
+\end{align*}
+where the last equality is \eqref{third}. To see the middle
+simplification, put \(a=m-2c+1\) and use
+\((2c+1)a(a+1)+2c(t^2-a^2)=(m+2)a+2ct^2\).
+These are falling-factorial identities, so they remain valid when
+some binomial coefficients vanish. At \(c=0\) the same two
+equalities read \(t=t\) and \(-1=-1\), by \eqref{edges}.
+
+It remains to propagate these two rows. For any array \(u\), let
+\[
+ R_m(u;r,c)=(r-2c-1)u_{r-1,c}+(t+m-2c+1)u_{r-1,c-1}
+             -tu_{rc}+(m-r)u_{r+1,c}.
+\]
+Substitution of \eqref{vdef} and collection of coefficients gives the
+following identity for arbitrary entries of \(u\):
+\begin{align}\label{intertwine}
+ hR_{m+2}(v;r+1,c+1)
+ ={}&-(r-1)R_m(u;r-1,c)+tR_m(u;r,c)\notag\\
+    &-(m-r+1)R_m(u;r+1,c).
+\end{align}
+For \(1\le r\le m-1\), its right side vanishes by \eqref{rec};
+at \(r=1\), the possibly out-of-range equation at index zero has
+coefficient zero and is not used. Thus \(v\) satisfies exactly the
+row recurrence of \(Z_d\) for \(j=2,\ldots,d-2\) and
+\(k=1,\ldots,d-1\). The values at column zero are zero for both
+arrays. Since \(d-j\ne0\), equality of the first two interior rows
+propagates to every interior row. This proves \eqref{dimension}.
+\end{proof}
+
+\begin{proof}[Proof of Theorem \ref{main}]
+We first justify the other corner normalization, \(z^{(d)}_{dd}=1\).
+It holds directly for \(d=1,2\). For \(d\ge3\), equation \eqref{rec}
+at \(j=d-1,k=d\), together with \eqref{edges}, gives
+\[
+ z^{(d)}_{dd}=-(t-d+1)z^{(d)}_{d-2,d-1}.
+\]
+The last-column entry of \eqref{dimension} in row \(r=d-3\)
+equals \(-z^{(d-2)}_{d-2,d-2}\): the other terms vanish by
+\eqref{edges}. Therefore
+\(z^{(d)}_{dd}=z^{(d-2)}_{d-2,d-2}=1\), by induction.
+
+Set \(D_d=\det Z_d\). Expansion along the first and last columns,
+whose only nonzero entries are the two corner ones, and then
+\eqref{dimension}, give
+\begin{equation}\label{detrec}
+ D_d=\frac{\det(tI-K_{d-2})}{(t-d+1)^{d-1}}D_{d-2},
+ \qquad D_0=D_1=1.
+\end{equation}
+For completeness, the spectrum of \(K_m\) is elementary. Identify
+a vector \((a_0,\ldots,a_m)\) with
+\(\sum_{r=0}^m\binom mr a_r x^{m-r}y^r\). Then \(K_m\) represents
+the operator \(x\partial_y+y\partial_x\). Its eigenbasis
+\((x+y)^{m-s}(x-y)^s\), \(0\le s\le m\), has eigenvalues
+\(m-2s\). Hence
+\[
+ \det(tI-K_m)=\prod_{s=0}^m(t-m+2s).
+\]
+Iterating \eqref{detrec} separately for odd and even \(d\) now gives
+\[
+ D_{2q-1}=\frac{\prod_{\ell=1}^{q-1}(t^2-(2\ell-1)^2)^{q-\ell}}
+                    {\prod_{\ell=1}^{q-1}(t-2\ell)^{2\ell}},\qquad
+ D_{2q}=\frac{t^q\prod_{\ell=1}^{q-1}(t^2-(2\ell)^2)^{q-\ell}}
+                    {\prod_{\ell=1}^q(t-2\ell+1)^{2\ell-1}}.
+\]
+Finally, multiplying row \(j\) by \(\varepsilon^j\) gives
+\(\det X_d=\varepsilon^{d(d+1)/2}D_d\), with the exponents stated
+in the theorem. All numerator factors are positive for \(t\ge d\),
+and all denominators are nonzero, proving invertibility.
+\end{proof}
+
+\paragraph{Scope.}
+The proof covers every dimension, not only the examples \(d\le7\)
+computed in the source. It also proves the displayed formulas as
+rational identities in \(t\): each dimension has infinitely many
+admissible integer values. The symbolic checks supplied with this
+manuscript independently compare the reduction with the original
+finite-sum entries; they supplement the general proof above.
+
+\paragraph{Task 2. Compute inverse entries.}
+Use the interior reduction to construct an explicit entry formula
+for \(Z_d^{-1}\), and determine whether it simplifies in terms of
+classical orthogonal polynomials.
+
+\paragraph{Task 3. Resolve the singular parameters.}
+For each zero of the rational determinant away from its poles,
+determine the rank and a basis of the kernel of \(Z_d\). Relate the
+nullities to the multiplicities in the determinant product.
+
+\paragraph{Task 4. Bound the conditioning.}
+Obtain upper and lower singular-value bounds for \(Z_d(t)\) when
+\(t\ge d\), including the regimes \(t=d\) and \(t/d\) fixed as
+\(d\) grows.
+
+\paragraph{Task 5. Extend the dimension reduction.}
+Investigate corresponding coefficient arrays for principal-series
+Siegel--Whittaker functions on \(\mathrm{Sp}(2,\mathbb R)\) and
+for the \(\mathrm{SU}(2,2)\) models discussed in the source.
+Determine which admit an identity analogous to \eqref{dimension}.
+
+\begin{thebibliography}{1}
+\bibitem{GO} Y.~Gon and T.~Oda,
+\emph{An explicit integral representation of Siegel--Whittaker
+functions on Sp(2,R) for the large discrete series representations},
+\href{https://arxiv.org/abs/1412.8330}{arXiv:1412.8330},
+Proposition 6.2, equations (6.13), (6.19)--(6.20), and Conjecture 7.3.
+The actual 20-page PDF was inspected, especially pp.~13--14 and 18--19.
+\end{thebibliography}
+\end{document}

@@ -1,0 +1,233 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,booktabs,hyperref}
+\hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue}
+\newtheorem{theorem}{Theorem}
+\newcommand{\E}{\mathcal E}
+\title{The maximum-run enumeration of flat Fubini rankings}
+\author{Principia Math in Progress}
+\date{12 September 2026}
+\begin{document}
+\maketitle
+
+\paragraph{Task 1: Resolve MathDB 367940.}
+Let \(s(n,r)\) count Fubini rankings of length \(n\) whose maximal
+strictly increasing runs have strictly increasing first entries,
+with exactly \(r\) runs. We prove the maximum-run enumeration
+proposed in Section 4.1 of Barrese, Elder, Harris, and Simpson~\cite{source}.
+Their displayed equation has indexing errors, which we make explicit
+before proving the intended enumeration for every size.
+
+Use the second-order Eulerian convention of the cited OEIS entry
+A340556~\cite{eulerian}:
+\begin{equation}\label{erec}
+ E_2(0,0)=1,\qquad
+ E_2(j,k)=kE_2(j-1,k)+(2j-k)E_2(j-1,k-1),
+\end{equation}
+with entries outside \(0\le k\le j\) equal to zero.
+Write \(\E_j(z)=\sum_{k=0}^jE_2(j,k)z^k\).
+For \(j\ge1\), this counts descents of Stirling permutations
+\emph{including the final descent to an appended zero}.
+
+\begin{theorem}\label{main}
+The largest possible number of runs in a flattened Fubini ranking
+of length \(2j+1\) is \(j+1\). For every \(j\ge0\),
+\begin{equation}\label{answer}
+ \boxed{\quad s(2j+1,j+1)=\E_j(2)
+             =\sum_{k=0}^j E_2(j,k)2^k.\quad}
+\end{equation}
+More precisely, the number of these rankings with exactly \(k+1\)
+distinct ranks is
+\begin{equation}\label{refinement}
+ N_j(k)=\sum_{m=0}^k(-1)^{k-m}\binom{k}{m}e_j(1,2,\ldots,m),
+ \qquad 0\le k\le2j,
+\end{equation}
+where \(e_j\) is the elementary symmetric polynomial, with
+\(e_0=1\) and \(e_j(1,\ldots,m)=0\) for \(j>m\).
+\end{theorem}
+
+\paragraph{The indexing issue.}
+The source's Conjecture 4.4, equation (4.1) in the publisher's current
+accepted manuscript, prints
+\[
+ s(2j+1,j-1)=\sum_{i=0}^{j-1}E_2(2j+1,i)2^i.
+\]
+With its cited A340556 convention this literal formula is false:
+at \(j=2\) its left side is \(s(5,1)=1\), whereas its right side
+is \(2\). The surrounding text instead specifies odd length and
+the \emph{largest possible} number of runs, and its Table 2 gives
+\[
+ s(3,2)=2,\quad s(5,3)=10,\quad s(7,4)=82,\quad s(9,5)=938.
+\]
+It identifies this diagonal with A112487, whose defining formula is
+\(\E_j(2)\)~\cite{sequence}. Thus~\eqref{answer} is precisely the
+enumeration specified by that text, table, and sequence. The proof
+below resolves that enumeration; noticing the printed mismatch
+alone is not the result.
+
+\paragraph{1. Replace ranks by their order.}
+A \emph{packed word} uses exactly an alphabet \([q]=\{1,\ldots,q\}\).
+There is a bijection from Fubini rankings to packed words: replace
+the smallest occurring rank by \(1\), the next by \(2\), and so on.
+Conversely, if letter \(i\) has multiplicity \(c_i\), replace every
+\(i\) by
+\[
+ 1+c_1+\cdots+c_{i-1}.
+\]
+These are exactly the valid competition ranks with ties.
+Both maps preserve strict comparisons and equalities, hence
+preserve all the run conditions.
+
+No run except the last can have length one: its single entry
+would be smaller than the next run's first entry, so the two
+would belong to the same increasing run. Consequently a word
+with \(r\) runs has length at least \(2r-1\).
+At length \(2j+1\), equality with \(r=j+1\) forces the run lengths
+to be \(2,2,\ldots,2,1\). Such a packed word has the form
+\begin{equation}\label{word}
+ a_0\,b_1\mid a_1\,b_2\mid\cdots\mid a_{j-1}\,b_j\mid a_j,
+ \qquad
+ a_0<a_1<\cdots<a_j,\quad b_i\ge a_i.
+\end{equation}
+Conversely these inequalities make the displayed bars exactly
+the run boundaries. They also force \(a_0\) to be the unique
+smallest letter.
+
+Remove \(a_0\) and decrease all remaining packed labels by one.
+The resulting objects are precisely the surjective assignments
+to \(2j\) named positions satisfying
+\begin{equation}\label{poset}
+ 1\le a_1<\cdots<a_j\le k,\qquad a_i\le b_i\le k.
+\end{equation}
+Any such assignment extends uniquely back to~\eqref{word} by
+increasing all labels and adjoining the new minimum.
+For example, choosing \(a_i=b_i=i\) gives a valid object for
+every \(j\), so the run bound is attained.
+The case \(j=0\) is the unique one-letter ranking.
+
+\paragraph{2. Count assignments before requiring surjectivity.}
+Let \(T_j(m)\) count assignments satisfying~\eqref{poset} into
+\([m]\), now allowing unused labels. After choosing the increasing
+sequence of \(a_i\), each \(b_i\) has \(m-a_i+1\) choices. Therefore
+\begin{equation}\label{elementary}
+ T_j(m)=\sum_{1\le a_1<\cdots<a_j\le m}
+                 \prod_{i=1}^j(m-a_i+1)
+        =e_j(1,2,\ldots,m).
+\end{equation}
+Choosing the used \(k\)-element subalphabet and packing it gives
+\begin{equation}\label{binomial}
+ T_j(m)=\sum_{k=0}^{2j}\binom{m}{k}N_j(k).
+\end{equation}
+Binomial inversion proves~\eqref{refinement}.
+Moreover, the identity
+\[
+ \sum_{m=k}^{\infty}\frac{\binom{m}{k}}{2^{m+1}}=1
+\]
+gives the useful averaging formula
+\begin{equation}\label{average}
+ s(2j+1,j+1)=\sum_{k=0}^{2j}N_j(k)
+            =\frac12\sum_{m=0}^{\infty}
+                    e_j(1,2,\ldots,m)\,2^{-m}.
+\end{equation}
+There is no convergence issue: for fixed \(j\) the symmetric
+polynomial is bounded by a constant times \(m^{2j}\).
+
+\paragraph{3. Evaluate the average.}
+We give the generating-function calculation explicitly.
+Put
+\[
+ H_j(t)=\sum_{m\ge0}e_j(1,2,\ldots,m)t^m,\qquad |t|<1.
+\]
+Adjoining the largest argument \(m\) in an elementary symmetric
+polynomial gives
+\[
+ e_j(1,\ldots,m)=e_j(1,\ldots,m-1)
+                       +m e_{j-1}(1,\ldots,m-1).
+\]
+Thus \(H_0(t)=(1-t)^{-1}\) and, for \(j\ge1\),
+\begin{equation}\label{hrec}
+ H_j(t)=\frac{t}{1-t}\frac{d}{dt}\bigl(tH_{j-1}(t)\bigr).
+\end{equation}
+If \(H_j(t)=t^jQ_j(t)/(1-t)^{2j+1}\), this recurrence becomes
+\begin{equation}\label{qrec}
+ Q_0(t)=1,\qquad
+ Q_j(t)=\bigl(j+(j-1)t\bigr)Q_{j-1}(t)
+                      +t(1-t)Q_{j-1}'(t).
+\end{equation}
+
+For completeness, the Eulerian recurrence~\eqref{erec} follows by
+inserting the adjacent largest pair \(jj\) in a Stirling permutation
+of order \(j-1\). There are \(2j-1\) insertion gaps. If the old
+permutation has \(h\) descents, including the terminal descent,
+exactly \(h\) gaps preserve the count, and the other gaps increase
+it by one. This also covers \(j=1\), starting from the empty word.
+In polynomial form the recurrence is
+\[
+ \E_j(z)=(2j-1)z\E_{j-1}(z)
+                         +z(1-z)\E_{j-1}'(z).
+\]
+Substitution shows that \(t^j\E_j(1/t)\) satisfies~\eqref{qrec}
+with the same initial value. Hence
+\[
+ Q_j(t)=t^j\E_j(1/t),\qquad
+ H_j(t)=\frac{t^{2j}\E_j(1/t)}{(1-t)^{2j+1}}.
+\]
+Finally~\eqref{average} gives
+\[
+ s(2j+1,j+1)=\frac12H_j(1/2)=\E_j(2),
+\]
+as asserted. This proves the formula and the refinement for
+every \(j\ge0\).
+\hfill\(\square\)
+
+\paragraph{Verification and scope.}
+The exact verifier passes 120 checks, including independent enumeration
+of all packed words through length \(7\), the conversion back to valid
+Fubini rankings, the refined counts, and rational generating-function
+identities. The first diagonal values are
+\[
+ 1,\ 2,\ 10,\ 82,\ 938,\ 13778,\ 247210,\ 5240338,\ 128149802.
+\]
+The proof, rather than these finite checks, establishes the infinite
+identity. The general two-variable enumeration and the source's
+separate total-count conjecture are not asserted here.
+The dated status audit located no matching full public claim and
+confirmed that the current MathDB record remains open.
+
+\paragraph{Task 2: Construct a direct bijection to decorated Stirling permutations.}
+Replace the averaging argument by a bijection between maximum-run
+rankings and Stirling permutations in which each descent, including
+the terminal descent, receives one of two colors.
+
+\paragraph{Task 3: Enumerate the maximum-run rankings of even length.}
+Determine \(s(2j,j)\), keeping track of the possible run-length
+profiles and the number of distinct ranks.
+
+\paragraph{Task 4: Enumerate all run counts.}
+Extend the packed-word description to derive a recurrence or generating
+function for \(s(n,r)\) for arbitrary \(n,r\), and compare its total
+count with the source's separate generating-function conjecture.
+
+\paragraph{Task 5: Determine the distribution of distinct ranks.}
+Choose uniformly from the maximum-run rankings of length \(2j+1\).
+Use~\eqref{refinement} to find the asymptotic mean, variance, and
+limiting distribution for the number of distinct ranks.
+
+\begin{thebibliography}{9}
+\bibitem{source}
+K. Barrese, J. Elder, P. E. Harris, and A. Simpson,
+\emph{Enumerating flat Fubini rankings},
+The Art of Discrete and Applied Mathematics, accepted manuscript
+published 25 May 2026, DOI 10.26493/2590-9770.1883.9e1.
+Conjecture 4.4 and Table 2, page 19.
+\url{https://adam-journal.eu/index.php/ADAM/article/view/1883}.
+Author preprint: \url{https://arxiv.org/abs/2504.06466}.
+\bibitem{eulerian}
+The OEIS Foundation, A340556, second-order Eulerian numbers,
+including the terminal descent.
+\url{https://oeis.org/A340556}.
+\bibitem{sequence}
+The OEIS Foundation, A112487, values \(\E_j(2)\).
+\url{https://oeis.org/A112487}.
+\end{thebibliography}
+\end{document}

@@ -1,0 +1,175 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,hyperref}
+\newtheorem{theorem}{Theorem}
+\newcommand{\ess}{\mathrm{ess}}
+\newcommand{\sigp}{\sigma_{\mathrm p}}
+\title{The weighted Dirichlet operator has infinitely many eigenvalues\\
+\large MathDB 366735}
+\author{Principia Math in Progress}
+\date{12 September 2026}
+\begin{document}
+\maketitle
+
+\paragraph{Task 1.}
+Resolve Conjecture 6.1 of Monsalve-L\'opez and Seco \cite{MS}.
+For every $\alpha>0$ and nonzero $a\in\mathbb C$, it asserts that the operator
+\[
+ V_a=M_{a-z}^*M_{a-z}
+\]
+has empty point spectrum on the space with norm
+\[
+ \left\|\sum_{n\geq0}f_nz^n\right\|_\omega^2
+ =\sum_{n\geq0}|f_n|^2\omega_n,\qquad
+ \omega_n=\binom{n+\alpha}{n}.
+\]
+The conjecture is false. A one-vector counterexample suffices, and a
+localized variational argument proves the opposite behavior throughout
+the stated parameter range.
+
+\begin{theorem}\label{thm:infinite}
+For every $\alpha>0$ and $a\ne0$, the operator $V_a$ has infinitely many
+isolated eigenvalues of finite multiplicity strictly above $(1+|a|)^2$,
+accumulating at $(1+|a|)^2$. Its essential spectrum is
+\begin{equation}\label{eq:ess}
+ \sigma_{\ess}(V_a)=[(1-|a|)^2,(1+|a|)^2].
+\end{equation}
+In particular, for $\alpha=1$ and $a=1/4$ there is an eigenvalue
+$\lambda\geq33/16>25/16$.
+\end{theorem}
+
+\paragraph{Weighted-shift representation.}
+The monomials $e_n=z^n/\sqrt{\omega_n}$ form an orthonormal basis.
+Writing $S=M_z$, we have
+\begin{equation}\label{eq:shift}
+ Se_n=q_ne_{n+1},\qquad
+ q_n^2=\frac{\omega_{n+1}}{\omega_n}
+      =1+\frac{\alpha}{n+1}.
+\end{equation}
+Hence $S$ is bounded, $q_n>1$, and $q_n\to1$. Moreover,
+\begin{equation}\label{eq:operator}
+ V_a=|a|^2I-\overline aS-aS^*+S^*S
+\end{equation}
+is bounded, positive, and self-adjoint.
+If $Ue_n=e_{n+1}$, then $S-U$ is compact, since truncating its weight
+sequence gives finite-rank operators converging in operator norm.
+Likewise $S^*S-I$ is a compact diagonal operator. Thus $V_a$ is a compact
+perturbation of
+\[
+ W_a=(|a|^2+1)I-\overline aU-aU^*.
+\]
+The free half-line Jacobi operator $U+U^*$ has spectrum and essential
+spectrum $[-2,2]$. A diagonal unitary removes the argument of $a$.
+Weyl invariance of the essential spectrum proves \eqref{eq:ess},
+also given by Theorem 1.2 of \cite{MS}.
+Every spectral point outside this interval is an isolated eigenvalue
+of finite multiplicity.
+
+\paragraph{An exact counterexample.}
+Since $e_0=1$ has norm one and $1,z$ are orthogonal,
+\begin{equation}\label{eq:onevector}
+ \langle V_a e_0,e_0\rangle
+ =\|a-z\|_\omega^2=|a|^2+1+\alpha.
+\end{equation}
+Its excess over the upper essential edge is $\alpha-2|a|$.
+Whenever $\alpha>2|a|$, the supremum of the spectrum therefore lies
+strictly above that edge and is an eigenvalue.
+For $\alpha=1$, $a=1/4$, the expectation is $33/16$ and the edge is
+$25/16$, with exact gap $1/2$. This already refutes the full universal
+conjecture.
+
+\paragraph{Infinitely many eigenvalues for all parameters.}
+Put $\rho=|a|>0$ and $E=(1+\rho)^2$.
+In a suitable diagonal unitary basis, the matrix of $V_a$ has diagonal
+$1+\rho^2+\alpha/(n+1)$ and positive off-diagonal entries $\rho q_n$.
+For a real nonnegative finitely supported vector $u=(u_n)$ its quadratic
+form, denoted $Q(u)$, consequently satisfies
+\begin{align}
+ Q(u)-E\|u\|_2^2
+ &\geq \sum_{n\geq0}\frac{\alpha u_n^2}{n+1}
+       -2\rho\sum_{n\geq0}u_n^2
+       +2\rho\sum_{n\geq0}u_nu_{n+1}\notag\\
+ &=\sum_{n\geq0}\frac{\alpha u_n^2}{n+1}
+       -\rho\sum_{n=-1}^{\infty}(u_{n+1}-u_n)^2,
+       \qquad u_{-1}=0.                         \label{eq:form}
+\end{align}
+Here $q_n\geq1$ and nonnegativity of the coordinates justify the first
+inequality; zero coordinates are used outside the support.
+
+For an integer $L\geq1$, place a tent vector on $[L,3L-2]$:
+\[
+ u^{(L)}_{L+j-1}=\min(j,2L-j)\quad(1\leq j\leq2L-1),
+ \qquad u^{(L)}_n=0\text{ elsewhere}.
+\]
+Direct summation gives
+\begin{equation}\label{eq:tent}
+ N_L:=\|u^{(L)}\|_2^2
+ =L^2+2\sum_{j=1}^{L-1}j^2=\frac{2L^3+L}{3},
+ \qquad
+ \sum_{n=-1}^{\infty}(u^{(L)}_{n+1}-u^{(L)}_n)^2=2L.
+\end{equation}
+On its support, $n+1\leq3L$. Therefore \eqref{eq:form} yields
+\begin{equation}\label{eq:positive}
+ \frac{Q(u^{(L)})}{N_L}-E
+ \geq\frac{\alpha}{3L}-\frac{6\rho}{2L^2+1}
+ >\frac{\alpha}{3L}-\frac{3\rho}{L^2}>0
+ \quad\text{if }L>\frac{9\rho}{\alpha}.
+\end{equation}
+
+Choose such an $L_0$ and put $L_j=4^jL_0$.
+The supports of the corresponding tent vectors are separated by at
+least one zero coordinate. The vectors are orthogonal, and the Jacobi
+matrix has no quadratic-form cross terms between them.
+Thus, for every $k$, the span of the first $k$ vectors is a $k$-dimensional
+subspace on which $Q(u)>E\|u\|_2^2$ for all nonzero $u$.
+
+To see the spectral implication directly, if the spectral projection of
+$V_a$ onto $(E,\infty)$ had rank less than $k$, that subspace would contain
+a nonzero vector orthogonal to its range. The spectral theorem would
+give $Q(u)\leq E\|u\|_2^2$, a contradiction.
+The projection therefore has infinite rank. Since $(E,\infty)$ is
+outside the essential spectrum, it consists of isolated eigenvalues
+of finite multiplicity. There must be infinitely many of them.
+Boundedness and the absence of accumulation outside the essential
+spectrum force their only accumulation point to be $E$.
+This proves Theorem \ref{thm:infinite}.
+\hfill$\square$
+
+\paragraph{Scope and verification.}
+The norm is exactly the one in the published conjecture. The paper's
+Theorem 1.5 treats a different, equivalent norm for $0<\alpha<1$;
+it does not assert this result for the displayed binomial weights.
+The general argument above is independent of finite matrix truncations.
+Exact checks verify the weight and coefficient normalization, the
+one-vector certificate, and the tent identities. Supplementary interval
+checks evaluate the actual Jacobi forms of selected tents.
+
+\paragraph{Task 2.}
+Determine the leading asymptotic decay of the eigenvalues above
+$(1+|a|)^2$, including its dependence on $\alpha$ and $|a|$, and obtain
+an effective error bound.
+
+\paragraph{Task 3.}
+Classify the eigenvalues below $(1-|a|)^2$ and determine how their
+existence and accumulation change as $|a|$ crosses one.
+
+\paragraph{Task 4.}
+Find sharp tail conditions on positive weights $\omega_n$ that ensure
+infinitely many eigenvalues above the free upper edge. Analyze the
+critical case $\omega_{n+1}/\omega_n-1$ of order $n^{-2}$.
+
+\paragraph{Task 5.}
+Determine whether embedded or edge eigenvalues occur for the binomial
+weights, and describe the absolutely continuous and singular continuous
+parts of the spectral measure.
+
+\begin{thebibliography}{9}
+\bibitem{MS}
+M. Monsalve-L\'opez and D. Seco,
+\emph{Towards spectral descriptions of cyclic functions},
+Annals of Functional Analysis \textbf{16} (2025), article 52.
+Theorem 1.2, Section 2, and Conjecture 6.1.
+\href{https://doi.org/10.1007/s43034-025-00446-0}
+{doi:10.1007/s43034-025-00446-0}.
+\end{thebibliography}
+\end{document}

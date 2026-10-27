@@ -1,0 +1,194 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,hyperref}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\title{Strict log-concavity of the gaps between squared Bessel zeros\\
+\large A solution to MathDB 326635}
+\author{Principia Math in Progress}
+\date{12 September 2026}
+\begin{document}
+\maketitle
+\begin{abstract}
+The ratios of consecutive gaps between the squared positive zeros of $J_1$,
+with the additional zero $j_{1,0}=0$, are strictly decreasing. This proves
+Conjecture 3 of Brix, Canuto, and Dahmen. The proof uses an affine comparison
+for the equation $u''+u/(4z)=0$ and includes the singular endpoint at zero.
+\end{abstract}
+
+\section*{Task 1: solve the original problem}
+Let $j_{1,k}$ be the $k$th positive zero of $J_1$, set $j_{1,0}=0$, and put
+\[
+ \lambda_k=j_{1,k}^2,\qquad
+ d_k=\lambda_k-\lambda_{k-1},\qquad
+ q_k=\frac{d_{k+1}}{d_k}\quad(k\geq1).
+\]
+Brix--Canuto--Dahmen \cite{BCD}, Conjecture 3, ask whether $q_k$ decreases.
+The same question is explicitly retained as Conjecture 3.36, equation
+(3.51), in Brix's later thesis \cite{Brix}, page 38.
+
+\begin{theorem}\label{main}
+For every $k\geq1$,
+\[
+ d_{k+1}>d_k>0,\qquad
+ d_{k+1}^2>d_kd_{k+2}.
+\]
+Equivalently,
+\[
+ q_1>q_2>q_3>\cdots>1.
+\]
+Moreover, $q_k\to1$, and the sharp upper bound on the sequence is
+$q_1=j_{1,2}^2/j_{1,1}^2-1$.
+\end{theorem}
+
+\subsection*{The equation for the squared zeros}
+The entire function
+\[
+ u(z)=2\sqrt z\,J_1(\sqrt z)
+ =z\sum_{n=0}^{\infty}\frac{(-z/4)^n}{n!(n+1)!}
+\]
+is real on the real axis and satisfies
+\begin{equation}\label{ode}
+ u''(z)+\frac{u(z)}{4z}=0\qquad(z>0).
+\end{equation}
+This follows directly from its power series or the Bessel equation.
+Its nonnegative zeros are exactly $\lambda_0,\lambda_1,\ldots$,
+all simple; in particular
+\[
+ u(z)=z+O(z^2),\qquad u'(0)=1.
+\]
+Simplicity at a positive zero also follows from uniqueness for \eqref{ode}.
+
+\subsection*{Comparing two successive intervals}
+Fix $k\geq1$, and write
+\[
+ a=\lambda_{k-1},\quad b=\lambda_k,\quad c=\lambda_{k+1},
+ \quad d=\lambda_{k+2},\qquad
+ r=\frac{c-b}{b-a},\quad s=b-ra.
+\]
+Thus $r>0$, and the affine function $T(z)=rz+s$ sends $a$ to $b$
+and $b$ to $c$. Multiply $u$ by a sign, if necessary, so that it is
+positive on $(a,b)$. Since its signs alternate at consecutive zeros,
+\[
+ v(z)=-u(T(z))
+\]
+is also positive on $(a,b)$, and both $u$ and $v$ vanish at its endpoints.
+The function $v$ solves
+\[
+ v''(z)+\frac{r^2}{4(rz+s)}v(z)=0.
+\]
+Set
+\begin{equation}\label{D}
+ D(z)=\frac{r^2}{4(rz+s)}-\frac1{4z}
+ =\frac{r(r-1)z-s}{4z(rz+s)}.
+\end{equation}
+For $z>a$ the denominator is positive. With
+$W(z)=u'(z)v(z)-u(z)v'(z)$, differentiation gives
+\begin{equation}\label{wronskian}
+ W'(z)=D(z)u(z)v(z).
+\end{equation}
+Both endpoint Wronskians vanish, hence
+\begin{equation}\label{balance}
+ \int_a^b D(z)u(z)v(z)\,dz=0.
+\end{equation}
+When $a=0$, this is an improper integral justified without any regular
+endpoint assumption: $u(z)=O(z)$, $v(z)=O(z)$, their derivatives are
+bounded, and $D(z)=O(1/z)$. Thus the integrand is $O(z)$ and
+$W(z)\to0$ as $z\downarrow0$.
+
+If $r\leq1$, then $s=b-ra\geq b-a>0$, so the numerator in \eqref{D}
+is strictly negative throughout $(a,b)$. This contradicts \eqref{balance},
+because $uv>0$ there. Therefore $r>1$.
+The numerator of \eqref{D} is now a strictly increasing affine function.
+Its integral against the positive weight $uv/[4z(rz+s)]$ is zero, so
+it must change sign at a point strictly between $a$ and $b$.
+In particular,
+\begin{equation}\label{positive}
+ D(z)>0\qquad(z\geq b).
+\end{equation}
+
+The next zero of $v$ after $b$ is $e=T^{-1}(d)$.
+We claim $e<c$. Otherwise $u$ and $v$ are both negative on $(b,c)$.
+Equations \eqref{wronskian} and \eqref{positive} give $W(c)>W(b)=0$.
+But $u(c)=0$, $u'(c)>0$, and $v(c)\leq0$, so
+\[
+ W(c)=u'(c)v(c)\leq0,
+\]
+a contradiction. Hence $e<c$, or $d<T(c)$. Since $T(b)=c$, this is
+\[
+ d-c<r(c-b).
+\]
+It follows that
+\[
+ 1<r=\frac{c-b}{b-a},\qquad
+ \frac{d-c}{c-b}<\frac{c-b}{b-a},
+\]
+which proves both strict inequalities in Theorem \ref{main}, for every $k$.
+
+\subsection*{The limit and the sharp bound}
+The decreasing sequence $q_k>1$ has a limit $L\geq1$.
+If $L>1$, then $d_{k+1}\geq Ld_k$, so the gaps, and consequently
+$\lambda_k$, grow at least geometrically.
+This contradicts the classical Bessel zero asymptotic
+$j_{1,k}/k\to\pi$ \cite{DLMF}. Thus $L=1$.
+The strict decrease makes the first term the attained maximum,
+proving the sharp upper bound as well.
+
+\section*{Follow-up tasks after the full solution}
+\noindent\textbf{Task 2.}
+Obtain explicit bounds for $q_k-1$ with optimal leading constants and
+rigorous remainders uniform in $k$.
+
+\medskip
+\noindent\textbf{Task 3.}
+Determine which exponents $p$ make the ratios of consecutive zero
+spacings of $y''+\kappa z^{-p}y=0$ decrease, remain constant, or increase,
+including the relevant singular endpoint conditions.
+
+\medskip
+\noindent\textbf{Task 4.}
+Classify the real orders $\nu$ for which the positive gaps
+$j_{\nu,k}^2-j_{\nu,k-1}^2$ are log-concave, specifying separately any
+adjoined zero at $k=0$.
+
+\medskip
+\noindent\textbf{Task 5.}
+Use the integral balance \eqref{balance} to test whether the analogous
+affine comparison closes the LGL interval-ratio conjecture in the same
+source, including the dependence on polynomial degree.
+
+\section*{Verification and status}
+The accompanying verifier checks the differential equation, affine
+transformation, potential difference, Wronskian identity, and gap-ratio
+algebra symbolically. Supplementary zero calculations test the strict
+inequalities and the location of the potential crossing; they are not
+the proof of the infinite assertions.
+
+MathDB was checked live before the attempt and again before registration:
+the record was open and its claim fields were empty. The original source,
+the author's 2018 thesis explicitly retaining the exact conjecture, both
+indexed citing works, and public claim catalogues were checked.
+The literature audit records the sources, dates, and access limits.
+
+\begin{thebibliography}{9}
+\bibitem{BCD}
+K. Brix, C. Canuto, and W. Dahmen,
+\emph{Nested dyadic grids associated with Legendre--Gauss--Lobatto grids},
+Numerische Mathematik \textbf{131} (2015), 205--239,
+doi:10.1007/s00211-014-0691-4.
+Author preprint: \emph{Legendre-Gauss-Lobatto grids and associated nested
+dyadic grids}, arXiv:1311.0028v1 (2013).
+
+\bibitem{Brix}
+K. Brix, \emph{Robust Preconditioners for hp-Discontinuous Galerkin
+Discretizations for Elliptic Problems}, doctoral thesis, RWTH Aachen,
+2018; repository publication 2019, doi:10.18154/RWTH-2019-10662.
+Conjecture 3.36, p.~38; its reference [34] is the final journal paper above.
+\url{https://publications.rwth-aachen.de/record/772363}.
+
+\bibitem{DLMF}
+NIST Digital Library of Mathematical Functions,
+\S10.21(vi), equation (10.21.19),
+\url{https://dlmf.nist.gov/10.21#vi}.
+\end{thebibliography}
+\end{document}

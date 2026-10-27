@@ -1,0 +1,206 @@
+\documentclass[10pt]{article}
+\usepackage[margin=0.9in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[hidelinks]{hyperref}
+\newtheorem{theorem}{Theorem}
+\title{Moving counting jumps disprove a\\periodic-oscillation conjecture}
+\author{Principia Math In Progress}
+\date{18 September 2026}
+\begin{document}
+\maketitle
+\begin{abstract}
+Give each nonempty binary word of length \(n\) the size
+\(n+\sqrt2\,2^{-n}\). Its generating functions satisfy the analytic
+hypotheses of Bevan and Cond\'e's Conjecture 6, including a full
+lattice of simple dominant poles. Nevertheless its cumulative count
+has no asymptotic of the asserted periodic form. This is a
+counterexample to MathDB 366299 and to the conjecture in the
+published article.
+\end{abstract}
+
+\section*{Task 1: a counterexample to the original conjecture}
+Conjecture 6 of \cite{BC}, represented by MathDB 366299, predicts
+\[
+ |\mathcal C_{\le x}|\sim c(x)\rho^{-x}x^{\alpha-1}
+ \qquad (x\longrightarrow\infty)
+\]
+with bounded \(\omega\)-periodic \(c\), under two conditions:
+the irrational generating function has the decomposition
+\[
+ f(z)=g(z)+\frac{h(z)}{(1-z/\rho)^\alpha},
+ \quad 0<\rho<1,\quad \alpha\notin-\mathbb N,
+\]
+where \(g,h\) are analytic on the closed cut disk
+\(\overline D(0,\rho)\setminus\mathbb R_{\le0}\); and the only
+singularities of the Dirichlet generating function on its convergence
+line are \(\log(1/\rho)+2\pi i\mathbb Z/\omega\).
+The counting variable \(x\) is real, as in the source's definition.
+
+\begin{theorem}
+Let \(\mathcal C\) consist of the nonempty binary words, with each
+word of length \(n\ge1\) assigned size
+\[
+ \lambda_n=n+a2^{-n},\qquad a=\sqrt2.
+\]
+This is an irrational combinatorial class satisfying all these
+hypotheses with \(\rho=1/2\), \(\alpha=1\), \(h=1\), and
+\(\omega=1\). There is no bounded \(1\)-periodic function \(c\)
+such that \( |\mathcal C_{\le x}|\sim c(x)2^x\).
+\end{theorem}
+
+\begin{proof}
+\emph{The class.}
+There are \(2^n\) words of size \(\lambda_n\). Since
+\(0<a2^{-n}<1\), we have \(n<\lambda_n<n+1\), so the sizes
+increase strictly, have no finite accumulation point, and have
+finite multiplicities. This is precisely the required notion of a
+combinatorial class. It is irrational even in the source's stronger
+sense of not having all sizes in any \(\eta\mathbb N\), \(\eta>0\).
+Indeed, if \(\lambda_1/\lambda_2=r\in\mathbb Q\), then
+\(1+a/2=r(2+a/4)\); comparing the rational and irrational parts
+would give both \(r=1/2\) and \(r=2\).
+
+\emph{The irrational generating function.}
+Use the principal logarithm on \(\mathbb C\setminus\mathbb R_{\le0}\).
+Then
+\[
+ f(z)=\sum_{n\ge1}2^n z^{n+a2^{-n}}.
+\]
+For fixed \(z\ne0\), the absolute value of its \(n\)th summand is
+\((2|z|)^n |z|^{a2^{-n}}\), with the last factor tending to \(1\).
+Thus the series converges for \(|z|<1/2\), and its terms fail to
+tend to zero for \(|z|\ge1/2\). Its radius is exactly \(1/2\).
+
+On \(|z|<1/2\) off the cut, subtracting a geometric series gives
+\begin{align*}
+ f(z)&=\frac{1}{1-2z}+g(z),\\
+ g(z)&=-1+\sum_{n\ge1}2^n z^n
+              \bigl(\exp(a2^{-n}\operatorname{Log}z)-1\bigr).
+\end{align*}
+We show that \(g\) is analytic on the larger open set
+\(U=\{z:|z|<1\}\setminus\mathbb R_{\le0}\).
+On any compact subset of \(U\), take \(|z|\le r<1\) and
+\(|\operatorname{Log}z|\le L\). The elementary estimate
+\(|e^w-1|\le |w|e^{|w|}\) bounds the \(n\)th summand by
+\[
+ 2^n r^n a2^{-n}L e^{a2^{-n}L}
+ \le aL e^{aL/2}r^n.
+\]
+The series therefore converges uniformly on compact subsets of
+\(U\). Each summand is analytic there, hence so is \(g\).
+In particular \(g\) is analytic on a neighborhood of every point
+of the required closed cut disk. The choice \(h=1\), \(\alpha=1\)
+meets the stated hypothesis, with \(h(1/2)=1\ne0\).
+
+\emph{The entire line of dominant poles.}
+For \(\operatorname{Re}s>\log2\), the Dirichlet series satisfies
+\begin{align*}
+ F(s)&=\sum_{n\ge1}2^n e^{-s(n+a2^{-n})}
+      =\frac{2e^{-s}}{1-2e^{-s}}+H(s),\\
+ H(s)&=\sum_{n\ge1}2^n e^{-ns}
+                  \bigl(e^{-as2^{-n}}-1\bigr).
+\end{align*}
+Its abscissa is \(\log2\), by the same absolute-value test.
+On a compact subset of \(\operatorname{Re}s>0\), take
+\(\operatorname{Re}s\ge\sigma>0\) and \(|s|\le M\). Now the
+\(n\)th summand of \(H\) has absolute value at most
+\[
+ aM e^{aM/2}e^{-n\sigma}.
+\]
+Consequently \(H\) is analytic throughout this larger half-plane.
+The displayed expression continues \(F\) meromorphically across
+its entire convergence line. Its singularities there are exactly
+\[
+ s_k=\log2+2\pi i k,\qquad k\in\mathbb Z.
+\]
+At each \(s_k\), the numerator \(2e^{-s}\) and the derivative of
+the denominator \(1-2e^{-s}\) both equal \(1\). Every pole is
+simple, has residue \(1\), and cannot be canceled by the analytic
+function \(H\). This verifies the full pole condition with
+\(\omega=1\), without substituting across a logarithmic branch.
+
+\emph{The asserted periodic asymptotic is impossible.}
+Write \(A(x)=|\mathcal C_{\le x}|\), and suppose that
+\(A(x)/(c(x)2^x)\to1\) for a \(1\)-periodic \(c\).
+Fix any \(r\in(0,1)\). For every sufficiently large integer \(N\),
+\(a2^{-N}<r\), so
+\[
+ A(N+r)=\sum_{n=1}^N2^n=2^{N+1}-2.
+\]
+Since \(c(N+r)=c(r)\), the assumed asymptotic forces
+\[
+ c(r)=2^{1-r}\quad\hbox{for every }r\in(0,1).
+\]
+At integers it similarly forces \(c(0)=1\), because
+\(A(N)=2^N-2\). These conclusions require no regularity of \(c\).
+
+Set \(\delta_N=a2^{-N-1}\) and \(x_N=N+\delta_N\).
+Here \(N<x_N<\lambda_N\), so \(A(x_N)=2^N-2\), whereas
+periodicity and the already forced values on \((0,1)\) imply
+\(c(x_N)=2^{1-\delta_N}\). Thus
+\[
+ \frac{A(x_N)}{c(x_N)2^{x_N}}
+ =\frac{2^N-2}{2^{N+1}}
+ =\frac12-2^{-N}\longrightarrow\frac12,
+\]
+contradicting the required limit \(1\).
+\end{proof}
+
+\subsection*{Scope and verification}
+The failure comes from counting jumps whose phases move toward zero.
+The limit along each fixed fractional part exists, but those limits
+do not produce an asymptotic valid for all real \(x\to\infty\).
+The example uses positive integral multiplicities, genuinely
+irrational sizes, a nonvanishing singular coefficient, and identical
+simple principal parts at every boundary pole. The source permits
+general locally finite size sets; it does not require the size of a
+word to be the sum of fixed letter weights.
+
+The proof is self-contained. The accompanying verifier independently
+counts with exact arithmetic in \(\mathbb Q(\sqrt2)\), checks the
+local residue symbolically, and compares two convergent representations
+of the generating functions numerically. The numerical checks are
+supplemental; analyticity and the limiting contradiction follow from
+the displayed estimates and identities for all \(n\).
+The complete current preprint (29 pages) and journal article
+(31 pages) were read. Conjecture 6 remains unchanged in the final.
+The separate source and literature audits record the bounded
+eligibility checks. Review was by the authoring agent; no independent
+peer review or proof-assistant certification is claimed.
+
+\section*{Task 2: fixed lattice phases}
+Establish a corrected theorem for size sets contained in a fixed
+finite union of translates of \(\omega\mathbb N\). Specify the
+coefficient asymptotics needed to make the resulting periodic
+approximation valid at every real counting threshold.
+
+\section*{Task 3: smoothed counting functions}
+Determine which averaging kernels convert the boundary pole data into
+a periodic leading term. Quantify how the answer depends on the
+averaging width, including widths that tend to zero.
+
+\section*{Task 4: stability under perturbing sizes}
+For multiplicities \(b^n\) at sizes \(n+\varepsilon_n\), classify
+the perturbations that preserve a periodic cumulative asymptotic.
+Describe the exceptional intervals near jumps when such an asymptotic
+holds away from those intervals, and estimate their total length.
+
+\section*{Task 5: additional analytic conditions}
+Identify boundary growth or uniform Tauberian hypotheses that rule
+out moving jumps. Pole positions and even their full principal parts
+alone are insufficient, as this example shows.
+Tasks 2--5 are proposed research directions and carry no extra credit.
+
+\begin{thebibliography}{9}
+\bibitem{BC}
+D. Bevan and J. Cond\'e,
+\emph{Introducing irrational enumeration: analytic combinatorics for
+objects of irrational size},
+Electronic Journal of Combinatorics \textbf{33}(3) (2026), P3.15,
+Conjecture 6, p.~15.
+\url{https://doi.org/10.37236/14759}.
+Current preprint: arXiv:2412.14682v3 (22 December 2025),
+Conjecture 6, p.~14.
+\url{https://arxiv.org/abs/2412.14682v3}.
+\end{thebibliography}
+\end{document}

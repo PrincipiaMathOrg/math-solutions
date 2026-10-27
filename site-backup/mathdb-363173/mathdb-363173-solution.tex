@@ -1,0 +1,253 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[hidelinks]{hyperref}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newcommand{\R}{\mathcal R}
+\title{The strict resultant comparison for the \(L_\alpha\) means}
+\author{Principia Math In Progress}
+\date{18 September 2026}
+\begin{document}
+\maketitle
+\begin{abstract}
+We prove the full nondegenerate range of the \(L_\alpha\)
+resultant-mean sign conjecture for both power-mean branches.
+The proof reduces a mixed derivative to strict concavity of
+\(\sqrt u\coth(t\sqrt u)\) in \(u\). The zero-parameter case is
+the already known logarithmic-mean equality, which we state explicitly.
+\end{abstract}
+
+\section*{Task 1: the original problem}
+For positive \(a\ne b\), the source defines
+\[
+ L_\alpha(a,b)=\frac{2\alpha a^\alpha b^\alpha(b-a)}
+                         {b^{2\alpha}-a^{2\alpha}},
+ \qquad
+ L_0(a,b)=\frac{b-a}{\log b-\log a};
+ \qquad L_\alpha(a,a)=a.
+\]
+These means are symmetric, homogeneous, and satisfy
+\(L_{-\alpha}=L_\alpha\).
+Let \(B_r(a,b)=((a^r+b^r)/2)^{1/r}\) for \(r\ne0\),
+and \(B_0(a,b)=\sqrt{ab}\). Write
+\[
+ \R(B_p,L_\alpha,B_q)(a,b)
+ =B_p\bigl(L_\alpha(a,B_q(a,b)),L_\alpha(B_q(a,b),b)\bigr).
+\]
+Conjecture~4.2 of the preprint \cite{MR}, retained as Conjecture~32
+on p.~20 of the complete published article, asks for the negative
+sign of \(L_\alpha-\R\) at the following parameters.
+
+\begin{theorem}\label{main}
+Suppose \(0<|\alpha|<1/2\), and put
+\[
+ r=\sqrt{1+16\alpha^2-16\alpha^4},\qquad
+ p=r\ \text{or}\ p=-r,\qquad
+ q=\frac{1-p}{2}-2\alpha^2.
+\]
+Then, for every distinct positive pair \(a,b\),
+\[
+ L_\alpha(a,b)<\R(B_p,L_\alpha,B_q)(a,b).
+\]
+At \(\alpha=0\), the same parameters give equality for all positive
+inputs. Equality also holds at \(|\alpha|=1/2\) with the limiting
+parameter pairs, and on the diagonal \(a=b\).
+\end{theorem}
+
+The source explicitly records the logarithmic-mean equality at
+\(\alpha=0\) in the example preceding its conjecture.
+Thus the printed strict inequality's inclusion of zero is an
+already known degenerate exception. Our contribution is the proof
+of the entire nonzero range, not that exception.
+
+\section*{A strict-concavity lemma}
+\begin{lemma}\label{concavity}
+For fixed \(t>0\), the function
+\[
+ \Phi_t(u)=\sqrt u\,\coth(t\sqrt u),\quad u>0,\qquad
+ \Phi_t(0)=1/t
+\]
+is strictly increasing and strictly concave on \([0,\infty)\).
+\end{lemma}
+\begin{proof}
+The classical partial-fraction expansion for \(\coth\),
+\cite[Eq.~4.36.3]{DLMF}, gives
+\[
+ \Phi_t(u)=\frac1t+
+       2t\sum_{n=1}^{\infty}\frac{u}{\pi^2n^2+t^2u}.
+\]
+Each summand is increasing and strictly concave. More explicitly,
+\[
+ \Phi_t'(u)=2t\sum_{n=1}^{\infty}
+       \frac{\pi^2n^2}{(\pi^2n^2+t^2u)^2}>0,\qquad
+ \Phi_t''(u)=-4t^3\sum_{n=1}^{\infty}
+       \frac{\pi^2n^2}{(\pi^2n^2+t^2u)^3}<0.
+\]
+The differentiated series converge uniformly on compact nonnegative
+intervals, being bounded by constant multiples of \(n^{-2}\) and
+\(n^{-4}\), respectively. This proves the lemma, including zero by
+continuity.
+\end{proof}
+
+\section*{The parameter identity}
+By symmetry in \(\alpha\), assume \(0<\alpha<1/2\). Put
+\[
+ A=\frac12,\quad B=\alpha,\quad
+ \kappa=1-4\alpha^2,\quad C=\frac{|q|}{2}.
+\]
+Here \(0<\kappa<1\), \(1<r<2\), and
+\begin{equation}\label{circle}
+ r^2+\kappa^2+2\kappa=4,\qquad q=(\kappa-p)/2.
+\end{equation}
+In particular \(pq<0\).
+For each \(t>0\), abbreviate
+\(f_c=c\coth(ct)=\Phi_t(c^2)\).
+
+If \(p=r\), then \(C=(r-\kappa)/4>0\), and \eqref{circle} gives
+\[
+ 2C^2=(r+1)B^2-(r-1)A^2.
+\]
+Thus \(B^2\) is a strict convex combination of \(C^2\) and \(A^2\):
+\[
+ B^2=\frac2{r+1}C^2+\frac{r-1}{r+1}A^2.
+\]
+The points are distinct because \(B<A\). Strict concavity gives
+\begin{equation}\label{pos}
+ 2f_C<(r+1)f_B-(r-1)f_A.
+\end{equation}
+
+If \(p=-r\), then \(C=(r+\kappa)/4\), and instead
+\[
+ 2C^2=(r+1)A^2-(r-1)B^2.
+\]
+Applying the same strict concavity with \(A^2\) as the intermediate
+point gives
+\begin{equation}\label{neg}
+ 2f_C<(r+1)f_A-(r-1)f_B.
+\end{equation}
+Equivalently, both cases establish the single strict inequality
+\begin{equation}\label{W}
+ W(t):=(p-1)f_A-(p+1)f_B+2f_C<0.
+\end{equation}
+
+\section*{From concavity to the resultant mean}
+Let
+\[
+ v(t)=\log\frac{2\alpha\sinh(t/2)}{\sinh(\alpha t)}.
+\]
+Then
+\[
+ v'=f_A-f_B>0
+\]
+by the increasing part of Lemma~\ref{concavity}.
+Since \(f_c'=c^2-f_c^2\), we also have
+\[
+ v''=\frac\kappa4-(f_A+f_B)v'.
+\]
+Consequently
+\begin{align}
+ T(t)&:=v''+p(v')^2+q\coth(qt/2)v'-\frac\kappa4
+       \nonumber\\
+ &=v'\bigl((p-1)f_A-(p+1)f_B+2f_C\bigr)<0.
+ \label{T}
+\end{align}
+Here \(q\coth(qt/2)=2C\coth(Ct)=2f_C\), for either sign of \(q\).
+
+For \(a<b\), define
+\[
+ H(a,b)=(b^q-a^q)L_\alpha(a,b)^p,\qquad H(a,a)=0.
+\]
+Writing \(s=p+q\), \(t=\log(b/a)\), we obtain
+\[
+ H(a,b)=a^s h(t),\qquad
+ h(t)=e^{st/2}\,2\sinh(qt/2)e^{pv(t)}.
+\]
+Differentiation, using \(p+2q=\kappa\), gives
+\[
+ h''-s h'=p hT,\qquad
+ H_{ab}(a,b)=-\frac{a^s}{ab}\,p h(t)T(t)<0.
+\]
+Indeed \(h\) has the sign of \(q\), \(pq<0\), and \(T<0\).
+It follows, for every \(a<c<b\), that
+\begin{equation}\label{rectangle}
+ H(a,c)+H(c,b)-H(a,b)
+   =\int_a^c\int_c^b H_{ab}(u,v)\,dv\,du<0.
+\end{equation}
+Take \(c=B_q(a,b)\), so
+\(c^q-a^q=b^q-c^q=(b^q-a^q)/2\).
+If \(q>0\), \eqref{rectangle} gives
+\[
+ L_\alpha(a,b)^p>
+     \frac{L_\alpha(a,c)^p+L_\alpha(c,b)^p}{2}.
+\]
+Now \(p<0\), so taking the \(p\)-th root proves \(L_\alpha<\R\).
+If \(q<0\), division by \(b^q-a^q\) reverses the displayed
+inequality, and \(p>0\); again \(L_\alpha<\R\).
+Symmetry covers \(a>b\).
+
+\paragraph{The equality cases.}
+At \(\alpha=0\), the parameter pairs are \((p,q)=(1,0)\) and
+\((-1,1)\). Splitting the logarithmic mean at \(c=\sqrt{ab}\) gives
+\[
+ \frac{L_0(a,c)+L_0(c,b)}2=L_0(a,b).
+\]
+Splitting at \(c=(a+b)/2\) gives
+\[
+ \frac{L_0(a,c)^{-1}+L_0(c,b)^{-1}}2=L_0(a,b)^{-1}.
+\]
+These are the already known equalities cited by the source.
+At \(|\alpha|=1/2\), \(L_\alpha=\sqrt{ab}\) and the parameter pairs
+are \((2,-1)\) and \((-2,1)\). Direct substitution, using
+\(B_1(a,b)B_{-1}(a,b)=ab\), gives equality.
+The diagonal equality is immediate from the definitions.
+This completes Theorem~\ref{main}. \(\square\)
+
+\paragraph{Verification and scope.}
+The proof above is entirely analytic. The accompanying verifier checks
+six exact algebraic identities, and supplements them with 126 strict
+comparisons and 36 endpoint equalities at 100 decimal digits.
+Those finite checks audit the formulas and signs; they are not the
+universal proof. The authoring agent conducted the audit; independent
+peer review is not claimed.
+
+\section*{Proposed follow-up questions}
+The following four tasks are unproved directions, not additional solves.
+\paragraph{Task 2.}
+For each fixed \(0<\alpha<1/2\), determine the full region of
+parameter pairs \((p,q)\) for which \(L_\alpha<\R(B_p,L_\alpha,B_q)\)
+holds for every distinct positive input pair.
+\paragraph{Task 3.}
+For each of the two parameter branches, determine the sharp
+constant \(K_\alpha>0\), if it exists, in
+\[
+ \frac{\R(B_p,L_\alpha,B_q)-L_\alpha}{L_\alpha}
+ \ge K_\alpha
+ \left(\frac{|\log(b/a)|}{1+|\log(b/a)|}\right)^6.
+\]
+\paragraph{Task 4.}
+For \(1/2<|\alpha|<1\), determine the number and location of sign changes
+of the same resultant difference as \(|\log(b/a)|\) varies.
+\paragraph{Task 5.}
+Characterize which homogeneous means with a hyperbolic-product formula
+for their associated one-variable function admit a resultant comparison
+deduced from concavity in squared frequencies.
+
+\begin{thebibliography}{9}
+\raggedright
+\bibitem{MR}
+L.~Mihokovi\'c and M.~Ra\"issouli,
+\emph{Results on comparison and sub/super-stabilizability of some new means},
+\href{https://arxiv.org/abs/2405.13618}{arXiv:2405.13618v2} (2024),
+Conjecture~4.2; Applicable Analysis and Discrete Mathematics
+\textbf{20} (2026), 1--23,
+\href{https://doi.org/10.2298/AADM240618001M}{doi:10.2298/AADM240618001M},
+Conjecture~32.
+Complete published text:
+\href{http://pefmath.etf.rs/vol20num1/AADM-Vol20-No1-1-23.pdf}{journal PDF}.
+\bibitem{DLMF}
+NIST Digital Library of Mathematical Functions,
+\href{https://dlmf.nist.gov/4.36.E3}{Eq.~4.36.3},
+the classical partial-fraction expansion of the hyperbolic cotangent.
+\end{thebibliography}
+\end{document}
