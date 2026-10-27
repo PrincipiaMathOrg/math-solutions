@@ -1,0 +1,69 @@
+# Schema: https://github.com/mathlib-initiative/formalization.yaml
+version: "v0.3"
+
+project:
+  name: "MathDB 343324: the parity conjecture for the Navarrete-Orellana greedy sequences, in Lean 4"
+  authors:
+    - "Principia Math harness (autonomous multi-model research harness)"
+  license: "Apache-2.0"
+
+sources:
+  - title: "Odd fixed points of the Navarrete-Orellana greedy sequences"
+    authors:
+      - "Principia Math harness"
+    id: "mathdb/343324/solution.tex"
+    type: "manuscript"
+    license: "all rights reserved by the authors"
+    note: >-
+      The problem statement of record is https://mathdb.com/p/343324 (MathDB Conjecture 3.1 of
+      the source paper). MathDB publishes no FORMAL statement for this problem -- its
+      repository contains two Lean files in total, both for Collatz -- so the Lean statement
+      constants in `Principia/MathDB/Statements/P343324.lean` were written by this project from
+      the informal text. Whether they render the conjecture faithfully is a human judgement
+      that no check in this repository makes.
+
+status:
+  scope: >-
+    Two statement constants, both proved unconditionally with axiom footprint
+    [propext, Classical.choice, Quot.sound]:
+    `Principia.MathDB.P343324.ArithmeticCore` (oddness of `m` alone forces any `n` dividing
+    `q_m(n)` to be odd) and `Principia.MathDB.P343324.Conjecture31` (every fixed point of the
+    greedy sequence is odd). Both are Comparator targets; see `comparator/343324.json`.
+
+    The Lean proves something STRICTLY STRONGER than the conjecture as posed: the only
+    property of the greedy rule it uses is `a k | q_p k`, and `p` is required only to be odd,
+    not prime. Primality and the greedy selection do not appear.
+
+    Everything is over the naturals and truncating division is avoided entirely -- `2 * q` is
+    compared with `m * n * (n - 1)` through `Finset.sum_range_id_mul_two` -- so no `Nat`
+    subtraction or division silently degenerates.
+
+alignment:
+  - informal: "MathDB 343324, Conjecture 3.1: a_p(n) = n can occur only at odd n."
+    formal: "MathDB343324.conjecture_3_1"
+    statement_constant: "Principia.MathDB.P343324.Conjecture31"
+    comparator_config: "comparator/343324.json"
+    status: "proved"
+  - informal: >-
+      The arithmetic core: if m is odd, 0 < n, and n divides q_m(n), then n is odd.
+      (Not a numbered result in the source; it is the obstruction the conjecture rests on.)
+    formal: "MathDB343324.arithmetic_core"
+    statement_constant: "Principia.MathDB.P343324.ArithmeticCore"
+    comparator_config: "comparator/343324.json"
+    status: "proved"
+
+environment:
+  toolchain: "leanprover/lean4:v4.31.0"
+  manifest: "mathdb/lake-manifest.json"
+  permitted_axioms:
+    - "propext"
+    - "Quot.sound"
+    - "Classical.choice"
+
+verification:
+  comparator_workflow: ".github/workflows/mathdb-comparator.yml"
+  note: >-
+    A Comparator pass certifies that `Solution343324` proves exactly the statements of
+    `Challenge343324`, within the permitted axioms, without having been compiled beforehand
+    (the workflow fails if either module's olean exists before Comparator runs). It does not
+    certify that the statements render the MathDB problem. See `mathdb/VERIFICATION.md`.
