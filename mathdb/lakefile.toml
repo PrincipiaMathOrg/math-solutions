@@ -18,15 +18,23 @@ rev = "v4.31.0"
 name = "Principia"
 roots = ["Principia"]
 
-# The Comparator contracts. Each problem contributes two top-level modules under `challenge/`:
+# The Comparator contracts. Each problem contributes two modules at this directory's root:
 # `Challenge<num>`, which imports only `Principia.MathDB.Statements.P<num>` (definitions and
 # statement constants, no proofs), and `Solution<num>`, which imports the development and
 # discharges the same constants by term assignment.
 #
-# These are DELIBERATELY a separate library from `Principia`, and the comparator workflow
-# deliberately does not pre-build them: Comparator assumes the solution has not been compiled
-# before it runs, and building either one here would void that assumption.
+# EACH GETS ITS OWN `lean_lib`, and the names match the modules exactly. Comparator requires
+# the challenge and the solution to be separate libraries, and the site's preflight checks for
+# `lean_lib "Challenge<num>"` / `lean_lib "Solution<num>"` by name -- a single combined library
+# is reported as two blockers. The files must also sit at this directory's root, where the
+# preflight looks for them.
+#
+# The comparator workflow deliberately does not pre-build either one: Comparator assumes the
+# solution has not been compiled before it runs, and building it here would void that.
 [[lean_lib]]
-name = "MathDBChallenge"
-srcDir = "challenge"
-roots = ["Challenge343324", "Solution343324"]
+name = "Challenge343324"
+roots = ["Challenge343324"]
+
+[[lean_lib]]
+name = "Solution343324"
+roots = ["Solution343324"]

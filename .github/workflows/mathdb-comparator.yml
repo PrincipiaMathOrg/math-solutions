@@ -27,8 +27,10 @@ on:
     branches: [main]
     paths:
       - 'mathdb/Principia/MathDB/Statements/**'
-      - 'mathdb/challenge/**'
+      - 'mathdb/Challenge*.lean'
+      - 'mathdb/Solution*.lean'
       - 'mathdb/comparator/**'
+      - 'mathdb/formalization/**'
       - 'mathdb/lakefile.toml'
       - 'mathdb/lean-toolchain'
       - 'mathdb/lake-manifest.json'
@@ -36,7 +38,8 @@ on:
   pull_request:
     paths:
       - 'mathdb/Principia/MathDB/Statements/**'
-      - 'mathdb/challenge/**'
+      - 'mathdb/Challenge*.lean'
+      - 'mathdb/Solution*.lean'
       - 'mathdb/comparator/**'
       - '.github/workflows/mathdb-comparator.yml'
   workflow_dispatch:

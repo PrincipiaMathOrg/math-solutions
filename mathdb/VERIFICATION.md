@@ -20,10 +20,11 @@ and a partial gate that dies is indistinguishable from a clean one in its log.
 
 - **Comparator has run on no problem yet, and a contract exists for only one.** #343324 has
   `Principia/MathDB/Statements/P343324.lean` (definitions and statement constants, no proof),
-  `challenge/Challenge343324.lean` (which imports that module and nothing else) and
-  `challenge/Solution343324.lean` (which imports the development and discharges the same
-  constants by term assignment), with `comparator/343324.json` and the
-  `mathdb-comparator` workflow. The other 142 problems have no contract. Until a run
+  `Challenge343324.lean` (which imports that module and nothing else) and
+  `Solution343324.lean` (which imports the development and discharges the same constants by
+  term assignment), each its own `lean_lib`, with `comparator/343324.json`,
+  `formalization/343324/formalization.yaml` and the `mathdb-comparator` workflow. The other
+  142 problems have no contract. Until a run
   finishes, the formalization stage link on a Principia project is a pointer to the source,
   not a verdict.
 - **A Comparator pass here would not certify faithfulness to MathDB.** MathDB publishes no
