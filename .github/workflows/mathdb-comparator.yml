@@ -146,16 +146,27 @@ jobs:
           echo "config: $CFG"
           lake build "Principia.MathDB.Problem${CFG}"
 
+      # The olean layout is version-dependent -- on v4.31.0 modules land under
+      # .lake/build/lib/lean/, not .lake/build/lib/ -- so this searches for the file by name
+      # instead of asserting a path. The earlier version of this step tested
+      # `.lake/build/lib/${m}.olean`, a path this toolchain never writes, so it could only ever
+      # pass: it certified nothing on the #343324 run of 2026-10-26. A guard that tests the
+      # wrong path is worse than no guard, because it reads as evidence.
       - name: Refuse to run if the challenge or solution was pre-built
         run: |
           CFG="${{ github.event.inputs.config || '343324' }}"
           for m in "Challenge${CFG}" "Solution${CFG}"; do
-            if [ -f ".lake/build/lib/${m}.olean" ]; then
+            hits="$(find .lake/build -name "${m}.olean" -print 2>/dev/null)"
+            if [ -n "$hits" ]; then
               echo "::error::${m}.olean exists before Comparator ran; its threat model is void"
+              echo "$hits"
               exit 1
             fi
           done
           echo "neither challenge nor solution is pre-built"
+          # Prove the search itself is not vacuous: a module we DID build must be found.
+          test -n "$(find .lake/build -name "Problem${CFG}.olean" -print 2>/dev/null)"
+          echo "the olean search is live (Problem${CFG}.olean found)"
 
       # NOTE: `--pipe --wait --collect`, NOT the `--pty` in Comparator's README: `--pty` waits
       # on a terminal that never resolves on a CI runner. `--wait` propagates the exit status.
