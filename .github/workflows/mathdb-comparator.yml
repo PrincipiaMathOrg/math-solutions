@@ -1,0 +1,180 @@
+name: mathdb-comparator
+
+# Runs Comparator (https://github.com/leanprover/comparator) over the MathDB formalizations:
+# it checks mechanically that `Solution<num>` proves exactly the statements of
+# `Challenge<num>`, using no axioms beyond propext, Quot.sound and Classical.choice.
+#
+# WHY THE CONTRACT IS SHAPED THIS WAY. Each problem's definitions and its statements live in
+# `mathdb/Principia/MathDB/Statements/P<num>.lean`, which contains NO PROOF. `Challenge<num>`
+# imports that module and nothing else; `Solution<num>` imports the development
+# (`Principia.MathDB.Problem<num>`) and discharges the same statement constants by term
+# assignment. So the two sides name one shared constant rather than two look-alike statements,
+# and the challenge's import closure never contains a proof -- which is exactly what
+# Comparator's threat model requires, and why neither module is pre-built below.
+#
+# WHAT A PASS HERE DOES AND DOES NOT MEAN. It means the solution proves the challenge's
+# statements with a clean axiom footprint, having not been compiled beforehand. It does NOT
+# mean the challenge faithfully renders the MathDB problem: MathDB publishes no formal
+# statement for any of these problems, so the statement constants were written by this project
+# from the informal text. See mathdb/VERIFICATION.md.
+#
+# SCOPE: this run covers the configs listed in the matrix below, currently the #343324 pilot.
+# Each problem's build cost is the import closure of its own Solution module, not the whole
+# library, so adding configs is additive rather than multiplicative.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'mathdb/Principia/MathDB/Statements/**'
+      - 'mathdb/challenge/**'
+      - 'mathdb/comparator/**'
+      - 'mathdb/lakefile.toml'
+      - 'mathdb/lean-toolchain'
+      - 'mathdb/lake-manifest.json'
+      - '.github/workflows/mathdb-comparator.yml'
+  pull_request:
+    paths:
+      - 'mathdb/Principia/MathDB/Statements/**'
+      - 'mathdb/challenge/**'
+      - 'mathdb/comparator/**'
+      - '.github/workflows/mathdb-comparator.yml'
+  workflow_dispatch:
+    inputs:
+      config:
+        description: 'comparator config under mathdb/comparator/ (without .json)'
+        required: false
+        default: '343324'
+
+defaults:
+  run:
+    working-directory: mathdb
+
+env:
+  # The ep1054 comparator job OOM-killed a 16 GB runner at default parallelism. One Lean worker.
+  LEAN_NUM_THREADS: "1"
+  # Same pins as the erdos1054-ep1054 comparator job, which is known-good on this repository.
+  COMPARATOR_SHA: c3903e1ed0148a32cd39510707c632dc4d265514
+  # lean4export must match the PROJECT's Lean version; mathdb/ is on v4.31.0, as ep1054 is.
+  LEAN4EXPORT_SHA: 8554815c2dc6b7abe99ec1f08849c9759ba77947
+  LANDRUN_SHA: 5ed4a3db3a4ad930d577215c6b9abaa19df7f99f
+
+jobs:
+  comparator:
+    runs-on: ubuntu-latest
+    timeout-minutes: 350
+    steps:
+      - uses: actions/checkout@v4
+
+      # The runner image's free space varies between runs and unpacking the Mathlib olean
+      # cache needs several GB; an ep1054 run died mid-unpack with "No space left on device".
+      - name: Free disk space
+        working-directory: .
+        run: |
+          echo "before:"; df -h / | tail -1
+          sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc \
+                      /usr/local/.ghcup /opt/hostedtoolcache/CodeQL \
+                      /usr/local/share/boost "$AGENT_TOOLSDIRECTORY" || true
+          sudo docker image prune --all --force >/dev/null 2>&1 || true
+          echo "after:"; df -h / | tail -1
+
+      - name: Add swap
+        working-directory: .
+        run: |
+          sudo fallocate -l 20G /swapfile2 && sudo chmod 600 /swapfile2
+          sudo mkswap /swapfile2 && sudo swapon /swapfile2
+          free -h
+
+      - name: Install elan
+        run: |
+          curl -sSfL https://github.com/leanprover/elan/releases/download/v3.1.1/elan-x86_64-unknown-linux-gnu.tar.gz | tar xz
+          ./elan-init -y --default-toolchain none
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+
+      - uses: actions/setup-go@v5
+        with:
+          go-version: '1.23'
+
+      - name: Build landrun
+        run: |
+          git clone https://github.com/Zouuup/landrun.git /tmp/landrun
+          cd /tmp/landrun && git checkout "$LANDRUN_SHA"
+          go build -o /usr/local/bin/landrun ./cmd/landrun
+          landrun --help >/dev/null
+
+      - name: Probe that landrun actually denies out-of-policy writes
+        run: |
+          # If the sandbox silently no-ops, a Comparator pass means nothing.
+          set +e
+          landrun --rox / -- /bin/sh -c 'echo x > /tmp/_landrun_probe' 2>/dev/null
+          rc=$?
+          set -e
+          if [ -f /tmp/_landrun_probe ]; then
+            echo "::error::landrun did NOT deny an out-of-policy write; refusing to trust Comparator"
+            exit 1
+          fi
+          echo "landrun denies out-of-policy writes (rc=$rc)"
+
+      - name: Build lean4export
+        run: |
+          git clone https://github.com/leanprover/lean4export.git /tmp/lean4export
+          cd /tmp/lean4export && git checkout "$LEAN4EXPORT_SHA"
+          lake build
+          echo "COMPARATOR_LEAN4EXPORT=/tmp/lean4export/.lake/build/bin/lean4export" >> "$GITHUB_ENV"
+          # Comparator invokes lean4export by name inside the landrun sandbox, so it must be on
+          # PATH (COMPARATOR_LEAN4EXPORT alone is not sufficient at this revision).
+          echo "/tmp/lean4export/.lake/build/bin" >> "$GITHUB_PATH"
+
+      - name: Build comparator
+        run: |
+          git clone https://github.com/leanprover/comparator.git /tmp/comparator
+          cd /tmp/comparator && git checkout "$COMPARATOR_SHA"
+          lake build
+
+      - name: Fetch Mathlib oleans
+        run: lake exe cache get
+
+      # Build ONLY the development module the solution imports -- never Challenge or Solution,
+      # whose uncompiled state is the premise of the whole check. Lake builds the import
+      # closure of the named module, which for a self-contained problem is one of our modules.
+      - name: Build the development the solution draws on
+        run: |
+          CFG="${{ github.event.inputs.config || '343324' }}"
+          echo "config: $CFG"
+          lake build "Principia.MathDB.Problem${CFG}"
+
+      - name: Refuse to run if the challenge or solution was pre-built
+        run: |
+          CFG="${{ github.event.inputs.config || '343324' }}"
+          for m in "Challenge${CFG}" "Solution${CFG}"; do
+            if [ -f ".lake/build/lib/${m}.olean" ]; then
+              echo "::error::${m}.olean exists before Comparator ran; its threat model is void"
+              exit 1
+            fi
+          done
+          echo "neither challenge nor solution is pre-built"
+
+      # NOTE: `--pipe --wait --collect`, NOT the `--pty` in Comparator's README: `--pty` waits
+      # on a terminal that never resolves on a CI runner. `--wait` propagates the exit status.
+      # `RestrictAddressFamilies` is kept verbatim; it guards a landrun vulnerability fixed
+      # only in Linux 7.1.
+      - name: Run comparator
+        timeout-minutes: 300
+        run: |
+          set -o pipefail
+          CFG="${{ github.event.inputs.config || '343324' }}"
+          systemd-run --property=RestrictAddressFamilies=~AF_UNIX --user --pipe --wait --collect \
+            -E PATH="$PATH" -E LEAN_NUM_THREADS="$LEAN_NUM_THREADS" \
+            --working-directory "$(pwd)" -- \
+            bash -c "lake env /tmp/comparator/.lake/build/bin/comparator comparator/${CFG}.json" 2>&1 | tee comparator.log
+
+      - name: Require the success string
+        run: |
+          grep -q "Your solution is okay!" comparator.log
+          echo "comparator accepted the solution"
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: mathdb-comparator-log
+          path: mathdb/comparator.log

@@ -17,3 +17,16 @@ rev = "v4.31.0"
 [[lean_lib]]
 name = "Principia"
 roots = ["Principia"]
+
+# The Comparator contracts. Each problem contributes two top-level modules under `challenge/`:
+# `Challenge<num>`, which imports only `Principia.MathDB.Statements.P<num>` (definitions and
+# statement constants, no proofs), and `Solution<num>`, which imports the development and
+# discharges the same constants by term assignment.
+#
+# These are DELIBERATELY a separate library from `Principia`, and the comparator workflow
+# deliberately does not pre-build them: Comparator assumes the solution has not been compiled
+# before it runs, and building either one here would void that assumption.
+[[lean_lib]]
+name = "MathDBChallenge"
+srcDir = "challenge"
+roots = ["Challenge343324", "Solution343324"]

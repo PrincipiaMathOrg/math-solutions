@@ -1,4 +1,4 @@
-import Mathlib
+import Principia.MathDB.Statements.P343324
 
 /-!
 # MathDB #343324 — the parity conjecture for the Navarrete–Orellana sequences
@@ -36,8 +36,9 @@ sequence's fixed points up to 60 are `1, 5, 7, 11, 13, 19, 23, 29, 31, 37, 41, 4
 
 namespace Principia.MathDB.P343324
 
-/-- `q_m(n) = ∑_{j<n} j·m`, the source's quantity. -/
-def qm (m n : ℕ) : ℕ := ∑ j ∈ Finset.range n, j * m
+-- `qm`, and the two statement constants `ArithmeticCore` and `Conjecture31`, now live in
+-- `Principia.MathDB.Statements.P343324`, which carries no proof. That is what lets
+-- `Challenge343324` state this problem without importing any of the proofs below.
 
 /-- `2·q_m(n) = m·n·(n−1)`, with no division anywhere. -/
 theorem two_mul_qm (m n : ℕ) : 2 * qm m n = m * (n * (n - 1)) := by

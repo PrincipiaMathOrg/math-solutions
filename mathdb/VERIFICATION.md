@@ -18,10 +18,20 @@ and a partial gate that dies is indistinguishable from a clean one in its log.
 
 ## What was NOT run, and must not be inferred
 
-- **The Principia site Comparator has not run on any of these modules.** There is no
-  `Challenge.lean` / `Solution.lean` contract and no `comparator.json` here yet, so there is
-  nothing for it to check. The formalization stage links on the corresponding Principia
-  projects point at these files; that is a pointer to the source, not a verdict.
+- **Comparator has run on no problem yet, and a contract exists for only one.** #343324 has
+  `Principia/MathDB/Statements/P343324.lean` (definitions and statement constants, no proof),
+  `challenge/Challenge343324.lean` (which imports that module and nothing else) and
+  `challenge/Solution343324.lean` (which imports the development and discharges the same
+  constants by term assignment), with `comparator/343324.json` and the
+  `mathdb-comparator` workflow. The other 142 problems have no contract. Until a run
+  finishes, the formalization stage link on a Principia project is a pointer to the source,
+  not a verdict.
+- **A Comparator pass here would not certify faithfulness to MathDB.** MathDB publishes no
+  formal statement for any of these problems -- its repository carries two `.lean` files in
+  total, both for Collatz -- so every statement constant was written by this project from the
+  informal text. Comparator checks that the solution proves the challenge's statements, with a
+  clean footprint, without having been compiled first. Whether the challenge says what MathDB
+  meant is a separate question that no mechanical check here answers.
 - **No continuous-integration run certifies them.** They were gated locally. The project's own
   CI has been unavailable (billing) for the whole period in which this work was done, so every
   verdict recorded here is a local one.

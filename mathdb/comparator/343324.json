@@ -1,0 +1,14 @@
+{
+    "challenge_module": "Challenge343324",
+    "solution_module": "Solution343324",
+    "theorem_names": [
+        "MathDB343324.arithmetic_core",
+        "MathDB343324.conjecture_3_1"
+    ],
+    "permitted_axioms": [
+        "propext",
+        "Quot.sound",
+        "Classical.choice"
+    ],
+    "enable_nanoda": false
+}
