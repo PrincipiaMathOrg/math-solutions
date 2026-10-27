@@ -1,0 +1,14 @@
+Command: py verify_reed_muller.py
+Command: py -OO verify_reed_muller.py
+Verifier SHA-256: 493A0AB10A0A02A6449A9916358BC75D1EF8061C74EF0C2170E51388959F8C1B
+
+r=3 length=8 dim=7 dual_dim=1 dmin=2 dual_dmin=8 projections=162
+r=4 length=16 dim=11 dual_dim=5 dmin=4 dual_dmin=8 projections=2516
+r=5 length=32 dim=16 dual_dim=16 dmin=8 dual_dmin=8 projections=41448
+exhausted_codewords=133282
+checked_coordinate_projections=44126
+checked_exact_complex_moments=6
+minimum_squared_separation=1
+PASS
+
+Normal and optimized runs produced identical output.

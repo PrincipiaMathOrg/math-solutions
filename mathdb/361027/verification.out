@@ -1,0 +1,12 @@
+Command: python -I problems/361027/verify_coloring.py
+
+MathDB #361027 construction verified
+Walecki decompositions: all orders 2..80 and 3..79
+Exhaustive full-graph signatures through n=4: 8330
+Deterministic/random signatures for n=5..40: 504
+Command: python -I -O problems/361027/verify_coloring.py
+
+MathDB #361027 construction verified
+Walecki decompositions: all orders 2..80 and 3..79
+Exhaustive full-graph signatures through n=4: 8330
+Deterministic/random signatures for n=5..40: 504

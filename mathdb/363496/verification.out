@@ -1,0 +1,23 @@
+MathDB #363496 exact verification
+Audit date: 2026-08-18 America/Toronto
+
+$ python -B verify_counterexample.py
+PASS
+generated semigroup: e u v z
+preservers inside [A]: e v
+right ideals contained in A: 0
+all nonempty right ideals: 4
+exit_code=0
+
+verify_counterexample.py_sha256=ff483bf48d9497f3f439b46d38cb2823b669553d34346e46b81d7086fc8f357c
+peak observed host RAM after verification=62.7%
+
+$ python -I -O verify_counterexample.py
+PASS (same output)
+exit_code=0
+
+The verifier checks associativity, the identity and zero rules, generation
+of the four-element semigroup, the exact preservers inside [A], every
+nonempty candidate right ideal contained in A, and every nonempty right
+ideal under the literal reading. All checks use explicit exceptions and
+remain active under python -O.

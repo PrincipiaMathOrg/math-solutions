@@ -1,0 +1,4 @@
+PASS: source layers, odd tail, both Vandermonde reductions,
+      and exact cone deficit verified for k=2..249.
+      k=2: n=15, deficit=210
+      k=249: n=1003, deficit has 299 decimal digits

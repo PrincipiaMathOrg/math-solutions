@@ -1,0 +1,7 @@
+exact part-size pairs through n=2000: 999998
+theta regimes: zero=3005, Y=991016, Z=3980, star=1997
+connected labeled bipartite graphs through n=6: 3249
+labeled balanced-complete equality graphs: 27
+labeled strict nonextremal graphs: 3222
+smallest strict spectral gap x 1e6: 928203
+all exact algebra and exhaustive spectral checks passed

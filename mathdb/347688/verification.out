@@ -1,0 +1,4 @@
+PASS: exact R^5 nerve certificate for MathDB #347688
+certificate sha256: db557b4c51e033d699eece7478bcc155dad7f36165163c9e8f0b218366e64981
+12 lines; 54 caps; 512 subsets; 864 incident evaluations
+incident-evaluation range: 50..1834

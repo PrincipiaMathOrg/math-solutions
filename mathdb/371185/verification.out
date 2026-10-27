@@ -1,0 +1,8 @@
+source table: S=(3,5), h=14, FF=(8,6), AA=(8,5)
+sharpness: S=(3,5,8), h=23, FF=(13,10), AF=(13,8)
+exhaustive rulesets on moves 1..9: 511
+exhaustive heaps per ruleset: 2000
+profile/player comparisons: 12264000
+long-horizon rulesets through heap 100000: 5
+largest discrepancy observed: 5
+all exact recurrence checks passed

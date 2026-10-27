@@ -1,0 +1,43 @@
+Exact and Arb-certified verification of MathDB #364074 (2026-08-18)
+
+Environment:
+  python-flint 0.9.0
+  Arb precision 220 bits
+  one thread, no array package
+  verifier SHA256: cf20d5f69b8db8896d36be5d13d2626a54bbd457aad50f9ea16709de9e679241
+
+Finite recurrence:
+  PASS
+  E_n >= 0 for every 8 <= n <= 10000
+  only zero in that range: n = 11
+
+Euler--Boole certificate:
+  remainder_x  = 4.356481229163611e-8
+  remainder_y  = 1.759194607194878e-11
+  remainder_xy = 9.582699683415698e-10
+  H remainder  = 1.781626968241985e-7
+  polynomial tail = 2.339042968319334e-6
+  leading term = 6.168528452882736e-5
+  relative error = 0.040807231163329 < 0.041
+
+Major/minor certificate:
+  normalized major integral = 0.225794460491788 > 0.22
+  minor product-loss constant = 0.490415257130377 > 0.49
+  global H coefficient = 5.173977524403691 < 5.174
+  minor/major ratio = 6.576515129000163e-6 < 7e-6
+  eta residual exponent = 1539.056589816322 > 1539
+  combined major relative error = 0.040807231163329 < 0.041
+  eta minor factor minus 1 < 4.673e-1337
+
+Result:
+  PASS -- E_n > 0 for n >= 10000, and E_n >= 0 for n >= 8.
+
+Runtime: 20.26 seconds
+Traced Python allocation peak: 26.3 MiB
+
+Independent hostile rerun:
+  same verifier SHA256, all assertions PASS
+  20.25 seconds; traced peak 26.3 MiB; host RAM 57.6 percent
+
+Invocation note:
+  run with ordinary Python, not python -O; certified comparisons are asserts

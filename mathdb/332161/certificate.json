@@ -1,0 +1,44 @@
+{
+  "format": "mathdb-332161-f2-counterexample-v1",
+  "problem": 332161,
+  "semiring": {
+    "elements": [0, 1],
+    "zero": 0,
+    "one": 1,
+    "addition": [
+      [0, 1],
+      [1, 0]
+    ],
+    "multiplication": [
+      [0, 0],
+      [0, 1]
+    ]
+  },
+  "semimodule": {
+    "elements": [0, 1],
+    "zero": 0,
+    "addition": [
+      [0, 1],
+      [1, 0]
+    ],
+    "scalar_action": [
+      [0, 0],
+      [0, 1]
+    ]
+  },
+  "partition": [
+    [0],
+    [1]
+  ],
+  "finite_subset_F": [0, 1],
+  "expected_cell_failures": [
+    {
+      "cell_index": 0,
+      "reason": "no_nonzero_b"
+    },
+    {
+      "cell_index": 1,
+      "reason": "no_a_b_pair"
+    }
+  ]
+}

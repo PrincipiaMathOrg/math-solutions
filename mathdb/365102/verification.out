@@ -1,0 +1,37 @@
+MathDB #365102 exact structural verification
+Audit date: 2026-08-19 America/Toronto
+Interpreter: Python 3.13.14
+
+$ python verify_counterexample.py
+PASS: structural counterexample checks for MathDB #365102
+reflection_rational_checks=4001
+growth_rational_checks=30894
+escape_rectangle_checks=40662
+derivative_identity_checks=9985
+divergence_sequence_checks=1000
+exp4_degree4_partial=103/3
+all checks are exact and remain active under -OO
+exit_code=0
+runtime_ms=1049
+
+$ python -OO verify_counterexample.py
+PASS (byte-for-byte identical output)
+exit_code=0
+runtime_ms=1071
+
+Second-pass hostile dependency audit:
+- Re-read condition (14), Definition 1, and Conjecture 1 in current
+  arXiv:2410.02715v2; the logarithmic-growth quantifier is literal.
+- Re-derived both tails of the confinement estimate and the reflection
+  invariance/uniqueness barycenter calculation.
+- Re-derived the translating-measure functional with both signs of lambda and
+  checked that the uniform reference measure has finite logarithmic energy.
+- Checked the extended-value edge case: a centered measure has a finite first
+  absolute moment, so its functional value cannot attain the infinite
+  supremum.
+- Separated the literal refutation from the unrebutted superlinear repair.
+
+live_statement_sha256=5722e18b51fe734e24794e05d6a92951cfb156adfecfc4f1f5a16f9635097423
+solution.md_sha256=24edefca1a0065b6cd56e102528b61f7524572610ceace7273f01d1c50f75e60
+verify_counterexample.py_sha256=31880776e636201b7b93a052831ea8180cb6e80ace993c062be9bd5336eab5c1
+peak observed host RAM after verification=60.5%

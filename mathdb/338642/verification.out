@@ -1,0 +1,9 @@
+Command: python -I problems\338642\verify_asymptotic_identity.py
+Also checked: python -I -O problems\338642\verify_asymptotic_identity.py
+Dependencies: Python 3.9+ standard library only
+Verifier SHA-256: 3868b751185b9bae5a409fa6fb190194582a8242b40da0af4a0a272d1905d404
+
+PASS: exact source count, odd-tail identity, Vandermonde reduction,
+      and closed excess verified for k=2..249.
+      k=2: n=15, excess=154
+      k=249: n=1003, excess has 299 decimal digits

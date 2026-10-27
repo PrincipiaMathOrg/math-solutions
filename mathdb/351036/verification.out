@@ -1,0 +1,12 @@
+Exact verification of verify_integrality.py (2026-08-18):
+
+literal counterexample: n=2, a=2, d=1, k=3 -> zeta_3
+corrected exact integrality cases: 131680
+nonunit decomposition checks: 131680
+coprime prime-transfer checks: 11830
+h-even function checks: 597510
+Ramanujan-divisor formula checks: 131680
+
+The computation used exact integer polynomial reduction modulo cyclotomic
+polynomials; it did not use floating-point root-of-unity approximations.
+Host RAM was 54.7 percent both before and after the run.

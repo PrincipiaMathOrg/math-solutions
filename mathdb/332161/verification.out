@@ -1,0 +1,26 @@
+MathDB #332161 exact verification
+Audit date: 2026-08-18 America/Toronto
+Interpreter: Python 3.13.14
+
+$ python verify_counterexample.py
+PASS: exact F_2 counterexample to MathDB #332161
+certificate_sha256=22ac2cae24fb3bff91d041fac457ffb97685ec1319f33da969b837efd6a25577
+semiring_order=2 semimodule_order=2 cells=2 F_size=2
+candidate_(a,b)_pairs_checked=2
+cell_witness_counts=0,0
+all source semiring/semimodule axioms and the quantifier failure verified
+exit_code=0
+runtime_ms=87
+
+$ python -O verify_counterexample.py
+PASS (same output and certificate hash; all checks remain active under -O)
+exit_code=0
+
+Independent hostile-audit run:
+$ python -I -O verify_counterexample.py
+PASS (same output and certificate hash)
+The independent audit confirmed exact source-hypothesis coverage and exhaustive
+failure of both color cells.
+
+verify_counterexample.py_sha256=5df95e11a29338188ccb9a95baa01858116f4f45325dc712a33037038c2f6059
+peak observed host RAM after verification=62.1%

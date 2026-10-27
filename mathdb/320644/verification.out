@@ -1,0 +1,17 @@
+Command:
+  python -B problems\320644\verify_supercongruence.py
+
+Output:
+  block identity checks: 4301
+  3-adic table/cancellation checks: 108
+  bounded premise instances: 93
+  bounded prime-target checks: 37
+  PASS
+
+Runtime: 2.85 seconds
+Host RAM after completion: 57.8 percent
+Verifier SHA-256:
+  895013caaea93e8ab0feff742da38f3759d586486abbbdaf7191430ef7b554d4
+
+The computation is an exact-integer regression check, not a dependency of
+the proof.
